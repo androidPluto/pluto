@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/pluto___fragment_default_transition_duration"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:shareInterpolator="true">
+    <alpha
+        android:fromAlpha="1"
+        android:toAlpha=".2" />
+    <!--    <scale-->
+    <!--        android:fromXScale="1"-->
+    <!--        android:fromYScale="1"-->
+    <!--        android:pivotX="50%"-->
+    <!--        android:pivotY="20%"-->
+    <!--        android:toXScale=".8"-->
+    <!--        android:toYScale=".8" />-->
+</set>

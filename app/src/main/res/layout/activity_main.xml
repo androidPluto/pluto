@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp"
+    tools:context="com.sampleapp.MainActivity">
+
+    <TextView
+        android:id="@+id/apiLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage API Calls"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/postCall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="POST Call"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/getCall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apiLabel" />
+
+    <Button
+        android:id="@+id/getCall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="GET Call"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/postCall"
+        app:layout_constraintTop_toTopOf="@+id/postCall" />
+
+    <Button
+        android:id="@+id/xmlCall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Make Call with XML Response"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postCall" />
+
+    <Button
+        android:id="@+id/formEncodedCall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Make FormURLEncoded Call"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlCall" />
+
+    <TextView
+        android:id="@+id/exceptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Detect Exceptions"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/formEncodedCall" />
+
+    <Button
+        android:id="@+id/exceptionCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Throw Exception"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exceptionLabel" />
+
+    <Button
+        android:id="@+id/deadlockCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Deadlock"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/infiniteLoopCta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exceptionCta" />
+
+    <Button
+        android:id="@+id/infiniteLoopCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Infinite Loop"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/sleepCta"
+        app:layout_constraintStart_toEndOf="@+id/deadlockCta"
+        app:layout_constraintTop_toTopOf="@+id/deadlockCta" />
+
+    <Button
+        android:id="@+id/sleepCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thread Sleep"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/infiniteLoopCta"
+        app:layout_constraintTop_toTopOf="@+id/infiniteLoopCta" />
+
+    <TextView
+        android:id="@+id/sharedPrefLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Modify Shared Preferences"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deadlockCta" />
+
+    <Button
+        android:id="@+id/sharedPrefCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Reset Shared Preferences"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sharedPrefLabel" />
+
+
+    <TextView
+        android:id="@+id/appPropertiesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Manage App Properties"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sharedPrefCta" />
+
+    <Button
+        android:id="@+id/appPropertiesCta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Update App Properties"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appPropertiesLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

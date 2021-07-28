@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pluto___app_bg"
+    tools:context=".ui.BaseFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___app_bg"
+        android:theme="@style/PlutoTheme.AppBarOverlay">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/pluto___margin_medium"
+                android:src="@drawable/pluto___ic_close"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/pluto___exit_pluto"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingTop="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_medium"
+                android:text="@string/pluto___library_name"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="@color/pluto___text_dark"
+                app:layout_constraintStart_toEndOf="@+id/close"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/appState"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingStart="@dimen/pluto___margin_medium"
+                android:paddingEnd="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto___ic_user_properties"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toStartOf="@+id/settings"
+                android:contentDescription="@string/pluto___open_app_properties"
+                android:paddingLeft="@dimen/pluto___margin_medium"
+                android:paddingRight="@dimen/pluto___margin_small"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/pluto___margin_small"
+                android:paddingEnd="@dimen/pluto___margin_medium"
+                android:src="@drawable/pluto___ic_settings"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/pluto___open_settings"
+                android:paddingLeft="@dimen/pluto___margin_small"
+                android:paddingRight="@dimen/pluto___margin_medium"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            style="@style/PlutoTabLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hapticFeedbackEnabled="true">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pluto___margin_small"
+        android:elevation="@dimen/pluto___popup_bubble_elevation"
+        app:cardCornerRadius="@dimen/pluto___popup_bubble_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/pluto___popup_bubble_width"
+            android:layout_height="@dimen/pluto___popup_bubble_height"
+            android:paddingHorizontal="@dimen/pluto___margin_small"
+            android:paddingVertical="@dimen/pluto___margin_small">
+
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/pluto___easy_access_handler_content_description"
+                android:paddingEnd="@dimen/pluto___margin_micro"
+                android:src="@drawable/pluto___ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/separator"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingRight="@dimen/pluto___margin_micro"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/pluto___easy_access_handler_content_description"
+                android:paddingStart="@dimen/pluto___margin_micro"
+                android:src="@drawable/pluto___ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/separator"
+                android:paddingLeft="@dimen/pluto___margin_micro"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

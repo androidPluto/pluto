@@ -1,0 +1,30 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/pluto___margin_small"
+    app:cardElevation="0dp">
+
+    <TextView
+        android:id="@+id/copyCurl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___app_bg"
+        android:drawableStart="@drawable/pluto___ic_copy"
+        android:drawableLeft="@drawable/pluto___ic_copy"
+        android:drawablePadding="@dimen/pluto___margin_xsmall"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli_semibold"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="@dimen/pluto___margin_medium"
+        android:text="@string/pluto___copy_curl_code"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.cardview.widget.CardView>

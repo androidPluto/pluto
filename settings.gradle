@@ -1,0 +1,4 @@
+rootProject.name='pluto-sample'
+include ':app'
+include ':pluto'
+include ':pluto-no-op'

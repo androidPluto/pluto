@@ -1,0 +1,63 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+
+buildscript {
+    ext.kotlin_version = '1.5.20'
+    ext.detekt_version = '1.13.1'
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
+
+        // maven central dependencies
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.30'
+
+        // ktlint & detekt dependencies
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.4.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+subprojects {
+    if (project.name != "pluto-no-op") {
+        pluginManager.withPlugin('kotlin-android') {
+            apply from: "$rootDir/static-analysis/code-analysis.gradle"
+        }
+    }
+}
+
+ext {
+    minSdkVersion = 16
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+    buildToolsVersion = '29.0.3'
+
+    androidXCoreVersion = '1.6.0'
+    okhttpVersion = '3.14.4'
+    roomsVersion = '2.3.0'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
+    exclude(".*/resources/.*,.*/build/.*")
+}
+
+apply from: "${rootDir}/scripts/publish-root.gradle"

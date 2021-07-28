@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pluto___white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/pluto___margin_medium"
+        android:paddingTop="@dimen/pluto___margin_small"
+        android:paddingEnd="@dimen/pluto___margin_medium"
+        android:paddingBottom="@dimen/pluto___margin_large"
+        tools:context=".modules.network.ui.details.NetworkDetailsRequestFragment">
+
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:background="@drawable/pluto___bg_section_header"
+            android:fontFamily="@font/muli_bold"
+            android:lineSpacingExtra="6sp"
+            android:paddingStart="@dimen/pluto___margin_medium"
+            android:paddingTop="@dimen/pluto___margin_medium"
+            android:paddingEnd="@dimen/pluto___margin_medium"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            android:text="@string/pluto___headers_title"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintTop_toBottomOf="@id/headerTitle" />
+
+        <HorizontalScrollView
+            android:id="@+id/headersScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pluto___bg_section_body"
+            android:paddingTop="@dimen/pluto___margin_small"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <TextView
+                android:id="@+id/headers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli"
+                android:hint="@string/pluto___no_headers"
+                android:lineSpacingExtra="6sp"
+                android:textIsSelectable="true"
+                android:paddingStart="@dimen/pluto___margin_medium"
+                android:paddingEnd="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textColorHint="@color/pluto___text_dark_40" />
+
+        </HorizontalScrollView>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/headerGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="headerTitle,divider,headersScroll" />
+
+
+        <TextView
+            android:id="@+id/queryParamsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:background="@drawable/pluto___bg_section_header"
+            android:fontFamily="@font/muli_bold"
+            android:lineSpacingExtra="6sp"
+            android:paddingStart="@dimen/pluto___margin_medium"
+            android:paddingTop="@dimen/pluto___margin_medium"
+            android:paddingEnd="@dimen/pluto___margin_medium"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            android:text="@string/pluto___query_params_title"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintTop_toBottomOf="@+id/headersScroll" />
+
+        <View
+            android:id="@+id/divider0"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintTop_toBottomOf="@id/queryParamsTitle" />
+
+        <HorizontalScrollView
+            android:id="@+id/queryParamsScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pluto___bg_section_body"
+            android:paddingTop="@dimen/pluto___margin_small"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            app:layout_constraintTop_toBottomOf="@id/divider0">
+
+            <TextView
+                android:id="@+id/queryParams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli"
+                android:hint="@string/pluto___no_headers"
+                android:textIsSelectable="true"
+                android:lineSpacingExtra="6sp"
+                android:paddingStart="@dimen/pluto___margin_medium"
+                android:paddingEnd="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textColorHint="@color/pluto___text_dark_40" />
+
+        </HorizontalScrollView>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/queryParamsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="queryParamsTitle,divider0,queryParamsScroll" />
+
+        <TextView
+            android:id="@+id/bodyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:background="@drawable/pluto___bg_section_header"
+            android:fontFamily="@font/muli_bold"
+            android:lineSpacingExtra="6sp"
+            android:paddingStart="@dimen/pluto___margin_medium"
+            android:paddingTop="@dimen/pluto___margin_medium"
+            android:paddingEnd="@dimen/pluto___margin_medium"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            android:text="@string/pluto___body_title"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintTop_toBottomOf="@+id/queryParamsScroll" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintTop_toBottomOf="@id/bodyTitle" />
+
+        <HorizontalScrollView
+            android:id="@+id/bodyScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pluto___bg_section_body"
+            android:paddingTop="@dimen/pluto___margin_small"
+            android:paddingBottom="@dimen/pluto___margin_small"
+            app:layout_constraintTop_toBottomOf="@id/divider1">
+
+            <TextView
+                android:id="@+id/body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:fontFamily="@font/muli"
+                android:lineSpacingExtra="3sp"
+                android:paddingStart="@dimen/pluto___margin_medium"
+                android:paddingEnd="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_80" />
+
+        </HorizontalScrollView>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/bodyGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="bodyTitle,divider1,bodyScroll"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

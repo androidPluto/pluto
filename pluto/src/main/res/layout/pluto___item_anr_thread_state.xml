@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/stackTrace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/pluto___margin_small"
+        android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+        android:paddingEnd="@dimen/pluto___margin_large"
+        android:fontFamily="@font/muli"
+        android:lineSpacingExtra="5sp"
+        android:paddingBottom="@dimen/pluto___margin_mini"
+        android:paddingRight="@dimen/pluto___margin_large"
+        android:textColor="@color/pluto___text_dark_60" />
+
+</HorizontalScrollView>
