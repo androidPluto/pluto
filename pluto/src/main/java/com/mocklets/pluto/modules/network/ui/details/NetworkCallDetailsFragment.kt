@@ -5,6 +5,8 @@ import android.os.Parcelable
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,9 +18,13 @@ import com.google.gson.Gson
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.asFormattedDate
 import com.mocklets.pluto.core.extensions.color
+import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
 import com.mocklets.pluto.core.extensions.share
+import com.mocklets.pluto.core.extensions.showKeyboard
 import com.mocklets.pluto.core.ui.routing.BackKeyHandler
+import com.mocklets.pluto.core.ui.setDebounceClickListener
+import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoLayoutNetworkCallDetailsBinding
 import com.mocklets.pluto.modules.network.ApiCallData

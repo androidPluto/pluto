@@ -12,6 +12,7 @@ import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentSharedPrefFilterBinding
 import com.mocklets.pluto.modules.preferences.SharedPrefRepo

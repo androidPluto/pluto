@@ -2,6 +2,7 @@ package com.mocklets.pluto.modules.exceptions.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.hideKeyboard
+import com.mocklets.pluto.core.extensions.linearLayoutManager
 import com.mocklets.pluto.core.extensions.showMoreOptions
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.core.ui.list.BaseAdapter
@@ -18,6 +20,7 @@ import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentCrashesBinding
 import com.mocklets.pluto.modules.exceptions.dao.ExceptionEntity

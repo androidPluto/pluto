@@ -22,6 +22,8 @@ import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
+import com.mocklets.pluto.core.ui.setDebounceClickListener
+import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentSettingsBinding
 import com.mocklets.pluto.modules.exceptions.ui.CrashesViewModel

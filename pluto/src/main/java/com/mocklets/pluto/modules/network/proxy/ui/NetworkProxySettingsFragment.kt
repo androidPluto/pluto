@@ -16,11 +16,14 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.customTab
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
+import com.mocklets.pluto.core.extensions.fadeInAndOut
 import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
+import com.mocklets.pluto.core.ui.setDebounceClickListener
+import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentNetworkProxySettingsBinding
 import com.mocklets.pluto.modules.network.proxy.NetworkProxyViewModel
