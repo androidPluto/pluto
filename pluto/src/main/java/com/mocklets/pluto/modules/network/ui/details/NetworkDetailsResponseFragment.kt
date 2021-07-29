@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.ui.spannable.createSpan
 import com.mocklets.pluto.core.ui.spannable.setSpan
-import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentNetworkDetailsResponseBinding
 import com.mocklets.pluto.modules.exceptions.ExceptionData
 import com.mocklets.pluto.modules.exceptions.ui.holder.CrashItemDetailsHeaderHolder

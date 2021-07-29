@@ -3,7 +3,7 @@
  */
 
 // https://github.com/Zhuinden/fragmentviewbindingdelegate-kt
-package com.mocklets.pluto.core
+package com.mocklets.pluto.core.binding
 
 import android.view.View
 import androidx.fragment.app.Fragment

@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.customTab
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
@@ -24,7 +25,6 @@ import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
-import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentNetworkProxySettingsBinding
 import com.mocklets.pluto.modules.network.proxy.NetworkProxyViewModel
 import com.mocklets.pluto.modules.network.proxy.dao.NetworkProxyEntity

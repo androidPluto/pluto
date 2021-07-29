@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.asFormattedDate
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.hideKeyboard
@@ -25,7 +26,6 @@ import com.mocklets.pluto.core.extensions.showKeyboard
 import com.mocklets.pluto.core.ui.routing.BackKeyHandler
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
-import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoLayoutNetworkCallDetailsBinding
 import com.mocklets.pluto.modules.network.ApiCallData
 import com.mocklets.pluto.modules.network.flatten

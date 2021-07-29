@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mocklets.pluto.BuildConfig
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.dp
 import com.mocklets.pluto.core.extensions.openOverlaySettings
@@ -24,7 +25,6 @@ import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
-import com.mocklets.pluto.core.viewBinding
 import com.mocklets.pluto.databinding.PlutoFragmentSettingsBinding
 import com.mocklets.pluto.modules.exceptions.ui.CrashesViewModel
 
