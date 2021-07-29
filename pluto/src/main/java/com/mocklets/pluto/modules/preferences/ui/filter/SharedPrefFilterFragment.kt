@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.dp
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.core.ui.list.BaseAdapter
@@ -12,7 +13,7 @@ import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
-import com.mocklets.pluto.core.viewBinding
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoFragmentSharedPrefFilterBinding
 import com.mocklets.pluto.modules.preferences.SharedPrefRepo
 import com.mocklets.pluto.modules.preferences.getSharePreferencesFiles

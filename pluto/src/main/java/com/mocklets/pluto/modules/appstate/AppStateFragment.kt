@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.mocklets.pluto.Pluto.appProperties
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.copyToClipboard
 import com.mocklets.pluto.core.extensions.dp
+import com.mocklets.pluto.core.extensions.hideKeyboard
+import com.mocklets.pluto.core.extensions.showKeyboard
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.CustomItemDecorator
@@ -21,7 +26,7 @@ import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
 import com.mocklets.pluto.core.ui.routing.BackKeyHandler
-import com.mocklets.pluto.core.viewBinding
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoFragmentAppStateBinding
 
 internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state), BackKeyHandler {

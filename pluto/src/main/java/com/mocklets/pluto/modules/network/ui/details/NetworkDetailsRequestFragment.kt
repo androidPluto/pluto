@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.color
-import com.mocklets.pluto.core.viewBinding
+import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.databinding.PlutoFragmentNetworkDetailsRequestBinding
 import com.mocklets.pluto.modules.network.RequestData
 import com.mocklets.pluto.modules.network.beautifyHeaders
