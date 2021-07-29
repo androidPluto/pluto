@@ -2,20 +2,23 @@ package com.mocklets.pluto.modules.logging.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.hideKeyboard
+import com.mocklets.pluto.core.extensions.linearLayoutManager
 import com.mocklets.pluto.core.extensions.showMoreOptions
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
-import com.mocklets.pluto.core.viewBinding
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoFragmentLogsBinding
 import com.mocklets.pluto.modules.logging.LogData
 import com.mocklets.pluto.modules.logging.LogsRepo

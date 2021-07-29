@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DebugLog
+import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.capitalizeText
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
@@ -24,7 +25,7 @@ import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
-import com.mocklets.pluto.core.viewBinding
+import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoFragmentCrashDetailsBinding
 import com.mocklets.pluto.modules.exceptions.ExceptionAllData
 import com.mocklets.pluto.modules.exceptions.ExceptionRepo
