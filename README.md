@@ -20,7 +20,7 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through jCenter. To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto is distributed through mavenCentral. To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
 
 > Note: add both the pluto and the pluto-no-op variant to isolate Pluto from release builds.
 ```groovy
