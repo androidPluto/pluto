@@ -23,7 +23,7 @@ import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
 import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.showKeyboard
-import com.mocklets.pluto.core.ui.routing.BackKeyHandler
+import com.mocklets.pluto.core.ui.routing.OnBackKeyHandler
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.databinding.PlutoLayoutNetworkCallDetailsBinding
@@ -34,7 +34,7 @@ import com.mocklets.pluto.modules.network.ui.NetworkViewModel
 import java.util.Locale
 import kotlinx.android.parcel.Parcelize
 
-internal class NetworkCallDetailsFragment : Fragment(R.layout.pluto___layout_network_call_details), BackKeyHandler {
+internal class NetworkCallDetailsFragment : Fragment(R.layout.pluto___layout_network_call_details), OnBackKeyHandler {
 
     private val binding by viewBinding(PlutoLayoutNetworkCallDetailsBinding::bind)
     private val arguments by lazyParcelExtra<Data>()
