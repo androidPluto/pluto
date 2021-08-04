@@ -49,9 +49,6 @@ internal class RouteManager(private val activity: FragmentActivity, private val 
     private fun executeAction(action: Action) {
         when (action) {
             is Action.Switch -> {
-//                action.resultRequestCode?.let {
-//                    action.fragment.setTargetFragment(currentFragment, it)
-//                }
                 fragmentManager?.beginTransaction()?.apply {
                     animate()
                     if (action.replace) {
@@ -65,9 +62,6 @@ internal class RouteManager(private val activity: FragmentActivity, private val 
             }
 
             is Action.ShowDialog -> {
-//                action.resultRequestCode?.let {
-//                    action.fragment.setTargetFragment(currentFragment, it)
-//                }
                 fragmentManager?.beginTransaction()?.apply {
                     if (action.addToBackStack) {
                         addToBackStack(action.fragmentTag)
@@ -112,8 +106,8 @@ internal class RouteManager(private val activity: FragmentActivity, private val 
 
     fun onBackPressed(): Boolean {
         var handled =
-            if (currentFragment is BackKeyHandler) {
-                (currentFragment as BackKeyHandler).onBackPressed()
+            if (currentFragment is OnBackKeyHandler) {
+                (currentFragment as OnBackKeyHandler).onBackPressed()
             } else {
                 false
             }

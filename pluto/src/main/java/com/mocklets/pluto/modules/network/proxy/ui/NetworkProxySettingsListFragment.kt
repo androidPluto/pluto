@@ -20,7 +20,7 @@ import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
-import com.mocklets.pluto.core.ui.routing.BackKeyHandler
+import com.mocklets.pluto.core.ui.routing.OnBackKeyHandler
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
 import com.mocklets.pluto.core.ui.setDebounceClickListener
@@ -30,7 +30,7 @@ import com.mocklets.pluto.modules.network.proxy.dao.NetworkProxyEntity
 
 internal class NetworkProxySettingsListFragment :
     Fragment(R.layout.pluto___fragment_network_proxy_settings_list),
-    BackKeyHandler {
+    OnBackKeyHandler {
 
     private val binding by viewBinding(PlutoFragmentNetworkProxySettingsListBinding::bind)
     private val networkProxyAdapter: BaseAdapter by lazy { NetworkProxyItemAdapter(onActionListener) }

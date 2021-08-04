@@ -25,11 +25,11 @@ import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
 import com.mocklets.pluto.core.ui.list.ListItem
-import com.mocklets.pluto.core.ui.routing.BackKeyHandler
+import com.mocklets.pluto.core.ui.routing.OnBackKeyHandler
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoFragmentAppStateBinding
 
-internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state), BackKeyHandler {
+internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state), OnBackKeyHandler {
 
     private val binding by viewBinding(PlutoFragmentAppStateBinding::bind)
     private val appStateAdapter: BaseAdapter by lazy { AppStateItemAdapter(onActionListener) }

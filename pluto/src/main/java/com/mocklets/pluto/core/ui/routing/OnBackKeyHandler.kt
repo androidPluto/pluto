@@ -1,5 +1,5 @@
 package com.mocklets.pluto.core.ui.routing
 
-interface BackKeyHandler {
+interface OnBackKeyHandler {
     fun onBackPressed(): Boolean
 }
