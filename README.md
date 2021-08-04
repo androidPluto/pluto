@@ -8,7 +8,7 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 
 <p align="center">
-  <img src="https://firebasestorage.googleapis.com/v0/b/pluto-web/o/pluto_summary_gif.gif?alt=media" alt="chucker http sample" width="35%"/>
+  <img src="https://firebasestorage.googleapis.com/v0/b/pluto-web/o/pluto_summary_gif.gif?alt=media" alt="pluto demo" width="35%"/>
 </p>
 
 ***
@@ -20,7 +20,9 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through mavenCentral. To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.mocklets/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+
+
 
 > Note: add both the pluto and the pluto-no-op variant to isolate Pluto from release builds.
 ```groovy
@@ -29,7 +31,6 @@ dependencies {
   releaseImplementation'com.mocklets:pluto-no-op:LATEST_VERSION'
 }
 ```
-
 
 
 ### Intialize Pluto
@@ -46,7 +47,6 @@ Pluto.initialize(context)
 To debug HTTP requests/responses, plug the PlutoInterceptor in your OkHttp Client Builder
 ```kotlin
 val client = OkHttpClient.Builder()
-    .addInterceptor(...)
     .addInterceptor(PlutoInterceptor())
     .build()
 ```
@@ -60,7 +60,7 @@ Pluto can capture and store potential ANRs occurring in the app. You can also li
 Pluto.setANRListener(object: ANRListener {
     override fun onAppNotResponding(exception: ANRException) {
         exception.printStackTrace()
-        PlutoLog.e(“ANR”, exception.threadStateMap)
+        PlutoLog.e("ANR", exception.threadStateMap)
     }
 })
 ```
@@ -96,6 +96,30 @@ Pluto.setAppProperties(hashMapOf(
     "User email" to "john.smith@gmail.com"
 ))
 ```
+
+🎉 You are all done!
+
+Now re-build and run your app, you will receive a notification from Pluto, use it to access Pluto UI.
+
+***
+
+
+## Contribution
+
+Our contribution policy is currently WIP. We will start accepting contributions from the community soon.
+
+Please stay tuned ⏳.
+
+***
+
+
+## Acknowledgments
+
+Big thanks 🙏 to [ChuckerTeam/chucker](https://github.com/ChuckerTeam/chucker) for inspiration behind network interceptor code.
+
+
+***
+
 
 ## License
 
