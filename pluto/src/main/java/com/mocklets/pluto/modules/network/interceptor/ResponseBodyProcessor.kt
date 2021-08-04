@@ -50,7 +50,7 @@ internal class ResponseBodyProcessor(context: Context) {
             IOException("Failed to obtain a valid cache directory for Pluto transaction file").printStackTrace()
             null
         } else {
-            CacheFactory.create(cache)
+            FileFactory.create(cache)
         }
     }
 

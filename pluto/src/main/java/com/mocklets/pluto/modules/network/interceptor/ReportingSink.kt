@@ -1,5 +1,6 @@
 /**
- * Source: chucker - https://github.com/ChuckerTeam/chucker.git
+ * Source: chucker - https://github.com/ChuckerTeam/chucker/blob/develop/library/src/main/java/com/chuckerteam/chucker/internal/support/ReportingSink.kt
+ * License: https://github.com/ChuckerTeam/chucker/blob/develop/LICENSE.txt
  */
 package com.mocklets.pluto.modules.network.interceptor
 
