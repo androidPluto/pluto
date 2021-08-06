@@ -61,13 +61,11 @@ internal class RouteManager(private val activity: FragmentActivity, private val 
                 activity.hideKeyboard()
             }
 
-            is Action.ShowDialog -> {
-                fragmentManager?.beginTransaction()?.apply {
-                    if (action.addToBackStack) {
-                        addToBackStack(action.fragmentTag)
-                    }
-                }?.let { action.fragment.show(it, action.fragmentTag) }
-            }
+            is Action.ShowDialog -> fragmentManager?.beginTransaction()?.apply {
+                if (action.addToBackStack) {
+                    addToBackStack(action.fragmentTag)
+                }
+            }?.let { action.fragment.show(it, action.fragmentTag) }
 
             is Action.PopStack -> fragmentManager?.popBackStack(
                 action.tag,
