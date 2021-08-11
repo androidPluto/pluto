@@ -20,3 +20,5 @@
 /.idea/runConfigurations.xml
 /.idea/vcs.xml
 /.idea/jarRepositories.xml
+/.idea/.gitignore
+/.idea/compiler.xml
