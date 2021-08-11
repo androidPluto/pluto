@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <declare-styleable name="pluto___RoundedFrameLayout">
-        <attr name="corner_radius" format="dimension" tools:ignore="ResourceName" />
-        <attr name="corner_radius_left_top" format="dimension" tools:ignore="ResourceName" />
-        <attr name="corner_radius_right_top" format="dimension" tools:ignore="ResourceName" />
-        <attr name="corner_radius_right_bottom" format="dimension" tools:ignore="ResourceName" />
-        <attr name="corner_radius_left_bottom" format="dimension" tools:ignore="ResourceName" />
-    </declare-styleable>
-
 </resources>
