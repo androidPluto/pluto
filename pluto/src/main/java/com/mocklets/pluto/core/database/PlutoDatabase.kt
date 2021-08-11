@@ -11,7 +11,8 @@ import com.mocklets.pluto.modules.network.proxy.dao.NetworkProxyEntity
         ExceptionEntity::class,
         NetworkProxyEntity::class
     ],
-    version = 2
+    version = 2,
+    exportSchema = false
 )
 internal abstract class PlutoDatabase : RoomDatabase() {
     abstract fun exceptionDao(): ExceptionDao
