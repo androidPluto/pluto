@@ -42,12 +42,12 @@ afterEvaluate {
                     artifact("$buildDir/libs/${project.getName()}-${version}.jar")
                 }
 
-//                artifact androidSourcesJar
-//                artifact javadocJar
+                artifact androidSourcesJar
+                artifact javadocJar
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
-                    description = 'Pluto is a on-device debugger for Android applications, which helps in inspection of HTTP requests/responses, capture Crashes and ANRs and manipulating application data on-the-go.'
+                    description = 'Pluto is a on-device debugger for Android applications, which helps in inspection of HTTP requests/responses, capture Crashes and ANRs and manipulating application data on-the-go.'
                     url = 'https://pluto.mocklets.com'
                     licenses {
                         license {
@@ -59,7 +59,7 @@ afterEvaluate {
                         developer {
                             id = 'srtvprateek'
                             name = 'Prateek Srivastava'
-                            email = 'prateek@mocklets.com'
+                            email = 'srtv.prateek@gmail.com'
                         }
                     }
                     scm {
