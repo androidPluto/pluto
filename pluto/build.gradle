@@ -25,6 +25,10 @@ android {
         viewBinding true
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
@@ -105,7 +109,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomsVersion"
 }
 
-task buildAndUpload {
-    dependsOn 'assemble'
-    dependsOn 'bintrayUpload'
+task validateChanges {
+    dependsOn 'ktlintFormat'
+    dependsOn 'detekt'
 }
