@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: ./gradlew --no-daemon --max-workers 8 --build-cache assembleDebug
+
+  ktlint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Validating Ktlint
+      run: ./gradlew --no-daemon --max-workers 8 --build-cache ktlintDebugCheck
+
+  detekt:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Verifying detekt
+      run: ./gradlew --no-daemon --max-workers 8 --build-cache detekt
