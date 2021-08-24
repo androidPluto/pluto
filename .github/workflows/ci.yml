@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: ./gradlew --no-daemon --max-workers 8 --build-cache build
+      run: ./gradlew --no-daemon --max-workers 8 --build-cache assembleDebug
 
   ktlint:
     runs-on: ubuntu-latest
