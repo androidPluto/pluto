@@ -60,4 +60,9 @@ tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
     exclude(".*/resources/.*,.*/build/.*")
 }
 
+task prCheck {
+    dependsOn ':sample:assembleDebug'
+    dependsOn ':pluto:validateChanges'
+}
+
 apply from: "${rootDir}/scripts/publish-root.gradle"
