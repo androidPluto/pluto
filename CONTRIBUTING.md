@@ -7,5 +7,4 @@ When submitting code, please make every effort to follow existing conventions an
 
 Before your code can be accepted into the project you must also sign the [Individual Contributor License Agreement (CLA)][1].
 
-
 [1]: https://cla-assistant.io/mocklets/pluto
