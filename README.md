@@ -110,8 +110,8 @@ Now re-build and run your app, you will receive a notification from Pluto, use i
 **We're looking for contributors, help us improve Pluto.** 😁 
 
 Hers's how you can help
-- Look for issues marked as [`help wanted`](https://github.com/mocklets/pluto/labels/help%20wanted)
-- While submitting a new PR, make sure tests are all successful. If you think we need any new test, feel free to add new tests.
+  - Look for issues marked as [`help wanted`](https://github.com/mocklets/pluto/labels/help%20wanted)
+  - While submitting a new PR, make sure tests are all successful. If you think we need any new test, feel free to add new tests.
 
 ### Prerequisite
 
