@@ -7,65 +7,74 @@ import com.mocklets.pluto.modules.logging.LogsRepo
 
 @Suppress("StringLiteralDuplication")
 @Keep
-object PlutoLog {
+class PlutoLog private constructor() {
 
-    fun v(tag: String, message: String?, tr: Throwable? = null) {
-        preProcessLog(Level.Verbose, tag, message, tr) { trace ->
-            Log.v("$trace | $tag", "$message", tr)
+    companion object {
+
+        @JvmStatic
+        fun v(tag: String, message: String?, tr: Throwable? = null) {
+            preProcessLog(Level.Verbose, tag, message, tr) { trace ->
+                Log.v("$trace | $tag", "$message", tr)
+            }
         }
-    }
 
-    fun d(tag: String, message: String?, tr: Throwable? = null) {
-        preProcessLog(Level.Debug, tag, message, tr) { trace ->
-            Log.d("$trace | $tag", "$message", tr)
+        @JvmStatic
+        fun d(tag: String, message: String?, tr: Throwable? = null) {
+            preProcessLog(Level.Debug, tag, message, tr) { trace ->
+                Log.d("$trace | $tag", "$message", tr)
+            }
         }
-    }
 
-    fun i(tag: String, message: String?, tr: Throwable? = null) {
-        preProcessLog(Level.Info, tag, message, tr) { trace ->
-            Log.i("$trace | $tag", "$message", tr)
+        @JvmStatic
+        fun i(tag: String, message: String?, tr: Throwable? = null) {
+            preProcessLog(Level.Info, tag, message, tr) { trace ->
+                Log.i("$trace | $tag", "$message", tr)
+            }
         }
-    }
 
-    fun w(tag: String, message: String?, tr: Throwable? = null) {
-        preProcessLog(Level.Warning, tag, message, tr) { trace ->
-            Log.w("$trace | $tag", "$message", tr)
+        @JvmStatic
+        fun w(tag: String, message: String?, tr: Throwable? = null) {
+            preProcessLog(Level.Warning, tag, message, tr) { trace ->
+                Log.w("$trace | $tag", "$message", tr)
+            }
         }
-    }
 
-    fun e(tag: String, message: String?, tr: Throwable? = null) {
-        preProcessLog(Level.Error, tag, message, tr) { trace ->
-            Log.e("$trace | $tag", "$message", tr)
+        @JvmStatic
+        fun e(tag: String, message: String?, tr: Throwable? = null) {
+            preProcessLog(Level.Error, tag, message, tr) { trace ->
+                Log.e("$trace | $tag", "$message", tr)
+            }
         }
-    }
 
-    fun event(tag: String, event: String, attributes: HashMap<String, Any?>?) {
-        if (!isValidInitialisation()) return
-        val stackTrace = Thread.currentThread().stackTraceElement()
-        LogsRepo.saveEvent(Level.Event, tag, event, attributes, stackTrace)
-        Log.d("${stackTrace.formattedStack()} | $tag", "$event => $attributes")
-    }
-
-    private fun preProcessLog(
-        level: Level,
-        tag: String,
-        message: String?,
-        tr: Throwable? = null,
-        next: ((String) -> Unit)
-    ) {
-        if (isValidInitialisation()) {
+        @JvmStatic
+        fun event(tag: String, event: String, attributes: HashMap<String, Any?>?) {
+            if (!isValidInitialisation()) return
             val stackTrace = Thread.currentThread().stackTraceElement()
-            LogsRepo.save(level, tag, message, tr, stackTrace)
-            next.invoke(stackTrace.formattedStack())
+            LogsRepo.saveEvent(Level.Event, tag, event, attributes, stackTrace)
+            Log.d("${stackTrace.formattedStack()} | $tag", "$event => $attributes")
         }
-    }
 
-    private fun isValidInitialisation(): Boolean {
-        Pluto.appContext?.let {
-            return true
+        private fun preProcessLog(
+            level: Level,
+            tag: String,
+            message: String?,
+            tr: Throwable? = null,
+            next: ((String) -> Unit)
+        ) {
+            if (isValidInitialisation()) {
+                val stackTrace = Thread.currentThread().stackTraceElement()
+                LogsRepo.save(level, tag, message, tr, stackTrace)
+                next.invoke(stackTrace.formattedStack())
+            }
         }
-        Log.e("pluto", "PlutoLog not printing as Pluto is not initialised.")
-        return false
+
+        private fun isValidInitialisation(): Boolean {
+            Pluto.appContext?.let {
+                return true
+            }
+            Log.e("pluto", "PlutoLog not printing as Pluto is not initialised.")
+            return false
+        }
     }
 }
 
