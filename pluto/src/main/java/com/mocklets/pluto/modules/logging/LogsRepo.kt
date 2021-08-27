@@ -9,11 +9,13 @@ internal object LogsRepo {
     private const val MAX_LIMIT = 256
 
     fun save(level: Level, tag: String, message: String?, tr: Throwable?, ele: StackTraceElement) {
-        logsList.add(0, LogData(level, tag, message ?: "", tr, ele))
-        val temp = logsList.take(MAX_LIMIT)
-        logsList.clear()
-        logsList.addAll(temp)
-        logs.postValue(logsList)
+        synchronized(logsList) {
+            logsList.add(0, LogData(level, tag, message ?: "", tr, ele))
+            val temp = logsList.take(MAX_LIMIT)
+            logsList.clear()
+            logsList.addAll(temp)
+            logs.postValue(logsList)
+        }
     }
 
     fun saveEvent(
