@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         PlutoLog.v(TAG_ACTION, "MainActivity onCreate")
+        Test().javaTest()
 
         handleAPIManageCTAs()
         handleExceptionCTAs()
