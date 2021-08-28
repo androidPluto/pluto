@@ -138,7 +138,5 @@ private fun LogData.toShareText(context: Context): String {
             text.append("\n\t ${it.key} : ${it.value}")
         }
     }
-
-    text.append("\n\n-----\nreport powered by Pluto https://pluto.mocklets.com")
     return text.toString()
 }

@@ -168,8 +168,5 @@ private fun ExceptionAllData.toShareText(): String {
         "Screen : { height : ${this.device.screen.height}, width : ${this.device.screen.height}, " +
             "density :  ${this.device.screen.density}, size :  ${this.device.screen.size} }"
     )
-
-    text.append("\n\n-----\nreport powered by Pluto https://pluto.mocklets.com")
-
     return text.toString()
 }
