@@ -30,7 +30,7 @@ import com.mocklets.pluto.modules.network.proxy.NetworkProxyViewModel
 import com.mocklets.pluto.modules.network.proxy.dao.NetworkProxyEntity
 import com.mocklets.pluto.modules.network.proxy.dao.ProxyData
 import com.mocklets.pluto.modules.network.pruneQueryParams
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 internal class NetworkProxySettingsFragment : Fragment(R.layout.pluto___fragment_network_proxy_settings) {
 
