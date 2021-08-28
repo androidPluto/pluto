@@ -134,4 +134,8 @@
     <string name="pluto___https">https://</string>
     <string name="pluto___copied_from_mocklets">URL auto filled by Mocklets selection</string>
     <string name="pluto___search_network_proxy">Search proxy settings</string>
+    <string name="pluto___share_as_text">Share as Text</string>
+    <string name="pluto___share_as_file">Share as File</string>
+    <string name="pluto___share_as_copy">Copy to Clipboard</string>
+    <string name="pluto___share_as_file_hint">Prefer this option while sharing on Slack.</string>
 </resources>

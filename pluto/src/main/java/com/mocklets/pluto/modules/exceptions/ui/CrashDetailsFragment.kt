@@ -19,8 +19,9 @@ import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.capitalizeText
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
-import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
@@ -42,6 +43,7 @@ internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_d
     private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
     private val arguments by lazyParcelExtra<Data>()
     private val exceptionCipher by lazy { getCipheredException() }
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,11 +67,7 @@ internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_d
 
         binding.share.setDebounceClickListener {
             viewModel.currentException.value?.let {
-                context?.share(
-                    message = it.data.toShareText(),
-                    title = "Share Crash Report",
-                    subject = "Crash Report from Pluto"
-                )
+                contentSharer.share(Shareable(title = "Share Crash Report", content = it.data.toShareText(), fileName = "Crash Report from Pluto"))
             }
         }
 
@@ -170,8 +168,5 @@ private fun ExceptionAllData.toShareText(): String {
         "Screen : { height : ${this.device.screen.height}, width : ${this.device.screen.height}, " +
             "density :  ${this.device.screen.density}, size :  ${this.device.screen.size} }"
     )
-
-    text.append("\n\n-----\nreport powered by Pluto https://pluto.mocklets.com")
-
     return text.toString()
 }

@@ -21,8 +21,9 @@ import com.mocklets.pluto.core.extensions.asFormattedDate
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
-import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.showKeyboard
+import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.routing.OnBackKeyHandler
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
@@ -39,6 +40,7 @@ internal class NetworkCallDetailsFragment : Fragment(R.layout.pluto___layout_net
     private val binding by viewBinding(PlutoLayoutNetworkCallDetailsBinding::bind)
     private val arguments by lazyParcelExtra<Data>()
     private val viewModel: NetworkViewModel by activityViewModels()
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,10 +55,12 @@ internal class NetworkCallDetailsFragment : Fragment(R.layout.pluto___layout_net
         }
         binding.share.setDebounceClickListener {
             viewModel.detailContentLiveData.value?.let {
-                context?.share(
-                    message = it.api.toShareText(),
-                    title = "Network call",
-                    subject = "Network Call"
+                contentSharer.share(
+                    Shareable(
+                        title = "Share Network Call details",
+                        content = it.api.toShareText(),
+                        fileName = "Network Call details from Pluto"
+                    )
                 )
             }
         }
@@ -179,7 +183,5 @@ private fun ApiCallData.toShareText(): String {
             text.append("\t + ${exception.stackTrace.size - STACK_TRACE_LENGTH} more lines")
         }
     }
-
-    text.append("\n\npowered by Pluto https://pluto.mocklets.com")
     return text.toString()
 }

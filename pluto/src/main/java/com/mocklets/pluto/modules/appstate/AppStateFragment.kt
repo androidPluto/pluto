@@ -15,11 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import com.mocklets.pluto.Pluto.appProperties
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.binding.viewBinding
-import com.mocklets.pluto.core.extensions.copyToClipboard
 import com.mocklets.pluto.core.extensions.dp
 import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.showKeyboard
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.sharing.copyToClipboard
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
@@ -94,7 +94,7 @@ internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state),
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             when (data) {
                 is AppStateItem -> {
-                    context?.copyToClipboard("app_state", "${data.key} : ${data.value}")
+                    context?.copyToClipboard("${data.key} : ${data.value}", "app_state")
                     context?.toast("${data.key} copied!")
                 }
             }

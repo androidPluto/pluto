@@ -16,8 +16,9 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.inflate
-import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.showKeyboard
+import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoLayoutSharedPrefEditBinding
 import java.util.Locale
@@ -30,6 +31,7 @@ internal class SharedPrefEditDialog(
     private val sheetView: View = context.inflate(R.layout.pluto___layout_shared_pref_edit)
     private val binding = PlutoLayoutSharedPrefEditBinding.bind(sheetView)
     private val deviceInfo = DeviceInfo(context)
+    private val contentSharer by fragment.lazyContentSharer()
 
     init {
         setContentView(sheetView)
@@ -96,10 +98,12 @@ internal class SharedPrefEditDialog(
             onSave.invoke(pref, binding.value.text.toString().convert(pref.value))
         }
         binding.cta.setDebounceClickListener {
-            context.share(
-                message = "${pref.key} : ${pref.value}",
-                title = "Share Shared Preference",
-                subject = "Shared from Pluto"
+            contentSharer.share(
+                Shareable(
+                    content = "${pref.key} : ${pref.value}",
+                    title = "Share Shared Preference",
+                    fileName = "Preference data from Pluto"
+                )
             )
         }
         show()

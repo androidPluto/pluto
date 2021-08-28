@@ -17,6 +17,7 @@
     <dimen name="pluto___margin_xxlarge">28dp</dimen>
     <dimen name="pluto___margin_vlarge">32dp</dimen>
     <dimen name="pluto___margin_vvlarge">36dp</dimen>
+    <dimen name="pluto___margin_vxlarge">40dp</dimen>
     <dimen name="pluto___margin_huge">72dp</dimen>
 
     <dimen name="pluto___text_micro">10sp</dimen>

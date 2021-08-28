@@ -6,13 +6,15 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.FrameLayout
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.inflate
-import com.mocklets.pluto.core.extensions.share
+import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.createSpan
 import com.mocklets.pluto.core.ui.spannable.setSpan
@@ -21,12 +23,13 @@ import com.mocklets.pluto.modules.exceptions.asExceptionData
 import com.mocklets.pluto.modules.logging.LogData
 import com.mocklets.pluto.modules.logging.ui.LogDetailsDialog.Companion.MAX_STACK_TRACE_LINES
 
-internal class LogDetailsDialog(context: Context, data: LogData) :
+internal class LogDetailsDialog(context: FragmentActivity, data: LogData) :
     BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
 
     private val sheetView: View = context.inflate(R.layout.pluto___layout_log_details)
     private val binding = PlutoLayoutLogDetailsBinding.bind(sheetView)
     private val deviceInfo = DeviceInfo(context)
+    private val contentSharer by context.lazyContentSharer()
 
     init {
         setContentView(sheetView)
@@ -50,11 +53,7 @@ internal class LogDetailsDialog(context: Context, data: LogData) :
             }
 
             binding.cta.setDebounceClickListener {
-                context.share(
-                    message = data.toShareText(context),
-                    title = "Share Crash Report",
-                    subject = "Crash Report from Pluto"
-                )
+                contentSharer.share(Shareable(title = "Share Log details", content = data.toShareText(context)))
             }
 
             binding.tag.text = data.tag
@@ -139,7 +138,5 @@ private fun LogData.toShareText(context: Context): String {
             text.append("\n\t ${it.key} : ${it.value}")
         }
     }
-
-    text.append("\n\n-----\nreport powered by Pluto https://pluto.mocklets.com")
     return text.toString()
 }
