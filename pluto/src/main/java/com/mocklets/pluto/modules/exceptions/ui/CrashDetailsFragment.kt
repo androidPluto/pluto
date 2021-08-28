@@ -34,7 +34,7 @@ import com.mocklets.pluto.modules.exceptions.ReportData
 import com.mocklets.pluto.modules.exceptions.dao.ExceptionEntity
 import java.net.URLEncoder
 import java.util.Locale
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_details) {
 

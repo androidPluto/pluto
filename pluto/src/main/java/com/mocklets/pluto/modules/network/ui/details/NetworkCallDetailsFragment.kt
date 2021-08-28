@@ -33,7 +33,7 @@ import com.mocklets.pluto.modules.network.flatten
 import com.mocklets.pluto.modules.network.ui.DetailContentData
 import com.mocklets.pluto.modules.network.ui.NetworkViewModel
 import java.util.Locale
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 internal class NetworkCallDetailsFragment : Fragment(R.layout.pluto___layout_network_call_details), OnBackKeyHandler {
 
