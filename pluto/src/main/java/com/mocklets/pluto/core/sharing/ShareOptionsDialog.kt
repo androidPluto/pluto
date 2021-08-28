@@ -10,11 +10,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.inflate
-import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoLayoutContentShareOptionsBinding
 
-internal class ShareOptionsDialog(context: Context) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
+internal class ShareOptionsDialog(
+    context: Context,
+    private val onAction: (ShareAction) -> Unit
+) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
 
     private val sheetView: View = context.inflate(R.layout.pluto___layout_content_share_options)
     private val binding = PlutoLayoutContentShareOptionsBinding.bind(sheetView)
@@ -42,16 +44,15 @@ internal class ShareOptionsDialog(context: Context) : BottomSheetDialog(context,
     fun show(shareable: Shareable) {
         binding.title.text = shareable.title
         binding.shareText.setDebounceClickListener {
-            context.share(shareable.content, shareable.title)
+            onAction.invoke(ShareAction.ShareAsText(shareable))
             dismiss()
         }
         binding.shareFile.setDebounceClickListener {
-            context.shareFile(shareable.content, shareable.title, shareable.fileName)
+            onAction.invoke(ShareAction.ShareAsFile(shareable))
             dismiss()
         }
         binding.shareCopy.setDebounceClickListener {
-            context.copyToClipboard(shareable.content, shareable.title)
-            context.toast("Content copied to Clipboard")
+            onAction.invoke(ShareAction.ShareAsCopy(shareable))
             dismiss()
         }
         show()
