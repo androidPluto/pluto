@@ -16,8 +16,8 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.inflate
-import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.showKeyboard
+import com.mocklets.pluto.core.sharing.share
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoLayoutSharedPrefEditBinding
 import java.util.Locale

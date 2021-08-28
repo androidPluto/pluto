@@ -12,7 +12,8 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.inflate
-import com.mocklets.pluto.core.extensions.share
+import com.mocklets.pluto.core.sharing.ContentShare
+import com.mocklets.pluto.core.sharing.Shareable
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.createSpan
 import com.mocklets.pluto.core.ui.spannable.setSpan
@@ -50,11 +51,7 @@ internal class LogDetailsDialog(context: Context, data: LogData) :
             }
 
             binding.cta.setDebounceClickListener {
-                context.share(
-                    message = data.toShareText(context),
-                    title = "Share Crash Report",
-                    subject = "Crash Report from Pluto"
-                )
+                ContentShare(context).share(Shareable(title = "Share Log details", content = data.toShareText(context)))
             }
 
             binding.tag.text = data.tag

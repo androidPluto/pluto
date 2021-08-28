@@ -11,6 +11,17 @@
             android:label="@string/pluto___library_name"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.NoActionBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="pluto___${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/pluto___file_provider_paths" />
+        </provider>
+
     </application>
 
 </manifest>

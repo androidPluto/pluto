@@ -12,8 +12,8 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.asFormattedDate
 import com.mocklets.pluto.core.extensions.color
-import com.mocklets.pluto.core.extensions.copyToClipboard
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.sharing.copyToClipboard
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
 import com.mocklets.pluto.core.ui.setDebounceClickListener
@@ -92,7 +92,7 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto___fragme
         }
         binding.proxyStub.copyCurl.setDebounceClickListener {
             context?.let {
-                it.copyToClipboard("curl_code", data.curl)
+                it.copyToClipboard(data.curl, "curl_code")
                 it.toast(it.getString(R.string.pluto___curl_copied))
             }
         }

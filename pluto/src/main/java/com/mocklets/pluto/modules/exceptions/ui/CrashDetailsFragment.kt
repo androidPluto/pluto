@@ -19,8 +19,9 @@ import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.capitalizeText
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
-import com.mocklets.pluto.core.extensions.share
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.sharing.ContentShare
+import com.mocklets.pluto.core.sharing.Shareable
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
@@ -65,11 +66,7 @@ internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_d
 
         binding.share.setDebounceClickListener {
             viewModel.currentException.value?.let {
-                context?.share(
-                    message = it.data.toShareText(),
-                    title = "Share Crash Report",
-                    subject = "Crash Report from Pluto"
-                )
+                ContentShare(requireContext()).share(Shareable("Share Crash Report", it.data.toShareText(), "Crash Report from Pluto"))
             }
         }
 
