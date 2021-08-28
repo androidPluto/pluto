@@ -39,7 +39,7 @@ internal class ShareOptionsDialog(context: Context) : BottomSheetDialog(context,
         }
     }
 
-    fun show(context: Context, shareable: Shareable) {
+    fun show(shareable: Shareable) {
         binding.title.text = shareable.title
         binding.shareText.setDebounceClickListener {
             context.share(shareable.content, shareable.title)

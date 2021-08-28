@@ -20,8 +20,8 @@ import com.mocklets.pluto.core.extensions.capitalizeText
 import com.mocklets.pluto.core.extensions.delayedLaunchWhenResumed
 import com.mocklets.pluto.core.extensions.lazyParcelExtra
 import com.mocklets.pluto.core.extensions.toast
-import com.mocklets.pluto.core.sharing.ContentShare
 import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
 import com.mocklets.pluto.core.ui.list.DiffAwareHolder
@@ -43,6 +43,7 @@ internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_d
     private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
     private val arguments by lazyParcelExtra<Data>()
     private val exceptionCipher by lazy { getCipheredException() }
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +67,7 @@ internal class CrashDetailsFragment : Fragment(R.layout.pluto___fragment_crash_d
 
         binding.share.setDebounceClickListener {
             viewModel.currentException.value?.let {
-                ContentShare(requireContext()).share(Shareable("Share Crash Report", it.data.toShareText(), "Crash Report from Pluto"))
+                contentSharer.share(Shareable(title = "Share Crash Report", content = it.data.toShareText(), fileName = "Crash Report from Pluto"))
             }
         }
 
