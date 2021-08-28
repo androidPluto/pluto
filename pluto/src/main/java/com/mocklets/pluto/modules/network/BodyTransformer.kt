@@ -6,6 +6,9 @@ import com.mocklets.pluto.core.DebugLog
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.ui.spannable.createSpan
 import com.mocklets.pluto.modules.network.interceptor.doUnZipToString
+import com.mocklets.pluto.modules.network.transformers.FormEncodedTransformer
+import com.mocklets.pluto.modules.network.transformers.JsonBaseTransformer
+import com.mocklets.pluto.modules.network.transformers.XmlBaseTransformer
 import java.nio.charset.Charset
 import okhttp3.HttpUrl
 import okhttp3.RequestBody
@@ -20,18 +23,23 @@ internal fun RequestBody.convertPretty(gzipped: Boolean): ProcessedBody {
             val plainBody = convert(gzipped)
             ProcessedBody(
                 isValid = true,
-                body = it.beautify(plainBody)
+                body = it.beautify(plainBody),
+                mediaType = it.type(),
+                mediaSubtype = it.subtype()
             )
         } else {
             ProcessedBody(
                 isValid = true,
                 body = BINARY_BODY,
-                isBinary = true
+                mediaType = BINARY_MEDIA_TYPE,
+                mediaSubtype = BINARY_MEDIA_TYPE
             )
         }
     }
     return ProcessedBody(
-        isValid = false
+        isValid = false,
+        mediaType = null,
+        mediaSubtype = null
     )
 }
 
@@ -43,19 +51,24 @@ internal fun ResponseBody?.convertPretty(buffer: Buffer): ProcessedBody? {
                 val body = buffer.readString(contentType.charset(UTF8) ?: UTF8)
                 ProcessedBody(
                     isValid = true,
-                    body = contentType.beautify(body)
+                    body = contentType.beautify(body),
+                    mediaType = contentType.type(),
+                    mediaSubtype = contentType.subtype()
                 )
             } else {
                 // todo process image response
                 ProcessedBody(
                     isValid = true,
                     body = BINARY_BODY,
-                    isBinary = true
+                    mediaType = BINARY_MEDIA_TYPE,
+                    mediaSubtype = BINARY_MEDIA_TYPE
                 )
             }
         }
         return ProcessedBody(
-            isValid = false
+            isValid = false,
+            mediaType = null,
+            mediaSubtype = null
         )
     }
     return null
@@ -105,16 +118,15 @@ internal fun Context?.beautifyQueryParams(url: HttpUrl): CharSequence? {
     }?.trim()
 }
 
-internal fun ProcessedBody?.flatten(): String? {
-    this?.let {
-        it.body?.toString()?.let { body ->
-            return if (it.isBinary) {
-                body
-            } else {
-                body.replace("\n", "").replace("\\s+".toRegex(), "")
-            }
+internal fun ProcessedBody.flatten(): String? {
+    body?.toString()?.let { body ->
+        return when {
+            mediaType == "binary" -> body
+            mediaSubtype == "json" -> JsonBaseTransformer().flatten(body)
+            mediaSubtype == "xml" || mediaSubtype == "html" -> XmlBaseTransformer().flatten(body)
+            mediaSubtype == "x-www-form-urlencoded" -> FormEncodedTransformer().flatten(body)
+            else -> body
         }
-        return null
     }
     return null
 }
@@ -136,6 +148,7 @@ internal fun HttpUrl.hostUrl(): String {
 internal const val LOGTAG = "pluto_sdk"
 internal const val BODY_INDENTATION = 4
 private const val BINARY_BODY = "~ Binary Data"
+internal const val BINARY_MEDIA_TYPE = "binary"
 internal val UTF8 = Charset.forName("UTF-8")
 private const val HTTP_PORT = 80
 private const val HTTPS_PORT = 443

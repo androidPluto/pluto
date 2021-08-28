@@ -55,5 +55,8 @@ internal class ApiCallData(
 internal data class ProcessedBody(
     val isValid: Boolean,
     val body: CharSequence? = null,
-    val isBinary: Boolean = false
-)
+    val mediaType: String?,
+    val mediaSubtype: String?
+) {
+    val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
+}

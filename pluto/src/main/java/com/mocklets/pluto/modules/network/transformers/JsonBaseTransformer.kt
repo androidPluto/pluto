@@ -27,7 +27,7 @@ internal class JsonBaseTransformer : BaseTransformer {
         }
     }
 
-    override fun flatten(plain: CharSequence): String? {
-        return plain.toString()
+    override fun flatten(plain: CharSequence): String {
+        return plain.toString().replace("\n", "").replace("\\s+".toRegex(), "")
     }
 }

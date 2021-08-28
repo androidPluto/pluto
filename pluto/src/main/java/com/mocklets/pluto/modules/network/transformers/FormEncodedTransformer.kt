@@ -4,6 +4,7 @@ import com.mocklets.pluto.core.DebugLog
 import com.mocklets.pluto.modules.network.LOGTAG
 import com.mocklets.pluto.modules.network.UTF8
 import java.net.URLDecoder
+import java.net.URLEncoder
 
 internal class FormEncodedTransformer : BaseTransformer {
 
@@ -26,7 +27,22 @@ internal class FormEncodedTransformer : BaseTransformer {
         }
     }
 
-    override fun flatten(plain: CharSequence): String? {
-        return plain.toString()
+    @Suppress("TooGenericExceptionCaught")
+    override fun flatten(plain: CharSequence): String {
+        return try {
+            val items = plain.split("\t\t&\n")
+            val stringBuilder = StringBuilder()
+            items.forEachIndexed { index, data ->
+                val pair = data.split(" = ")
+                stringBuilder.append("${pair[0]}=${URLEncoder.encode(pair[1], UTF8.toString())}")
+                if (index < items.size - 1) {
+                    stringBuilder.append("&")
+                }
+            }
+            stringBuilder.toString()
+        } catch (e: Exception) {
+            DebugLog.e(LOGTAG, "error while beautifying form url encoded body", e)
+            plain.toString()
+        }
     }
 }

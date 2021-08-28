@@ -29,7 +29,6 @@ import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.core.ui.spannable.setSpan
 import com.mocklets.pluto.databinding.PlutoLayoutNetworkCallDetailsBinding
 import com.mocklets.pluto.modules.network.ApiCallData
-import com.mocklets.pluto.modules.network.flatten
 import com.mocklets.pluto.modules.network.ui.DetailContentData
 import com.mocklets.pluto.modules.network.ui.NetworkViewModel
 import java.util.Locale
@@ -164,13 +163,13 @@ private fun ApiCallData.toShareText(): String {
     text.append("\n\n==================\n\n")
     text.append("REQUEST")
     text.append("\n\nHeaders : \n${Gson().toJson(request.headers)}")
-    text.append("\n\nBody :\n${request.body.flatten()}")
+    text.append("\n\nBody :\n${request.body?.body}")
 
     response?.let { response ->
         text.append("\n\n==================\n\n")
         text.append("RESPONSE")
         text.append("\n\nHeaders : \n${Gson().toJson(response.headers)}")
-        text.append("\n\nBody : \n${response.body.flatten()}")
+        text.append("\n\nBody : \n${response.body?.body}")
     }
     exception?.let { exception ->
         text.append("\n\n==================\n\n")
