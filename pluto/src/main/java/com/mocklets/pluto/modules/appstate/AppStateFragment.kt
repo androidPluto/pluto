@@ -19,7 +19,9 @@ import com.mocklets.pluto.core.extensions.dp
 import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.showKeyboard
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.sharing.Shareable
 import com.mocklets.pluto.core.sharing.copyToClipboard
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.list.BaseAdapter
 import com.mocklets.pluto.core.ui.list.CustomItemDecorator
 import com.mocklets.pluto.core.ui.list.DiffAwareAdapter
@@ -34,6 +36,7 @@ internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state),
     private val binding by viewBinding(PlutoFragmentAppStateBinding::bind)
     private val appStateAdapter: BaseAdapter by lazy { AppStateItemAdapter(onActionListener) }
     private val viewModel: AppStateViewModel by activityViewModels()
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +50,18 @@ internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state),
         } else {
             binding.noAppPropertiesGroup.visibility = VISIBLE
             binding.note.visibility = GONE
+        }
+
+        binding.share.setDebounceClickListener {
+            viewModel.properties.value?.let {
+                contentSharer.share(
+                    Shareable(
+                        title = "Share App Properties",
+                        content = it.toShareText(),
+                        fileName = "App Properties from Pluto"
+                    )
+                )
+            }
         }
 
         binding.close.setDebounceClickListener {
@@ -87,6 +102,10 @@ internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state),
     }
 
     private val appPropertiesObserver = Observer<List<AppStateItem>> {
+        if (it.isNotEmpty()) {
+            binding.share.visibility = VISIBLE
+            binding.divider.visibility = VISIBLE
+        }
         appStateAdapter.list = it
     }
 
@@ -118,6 +137,15 @@ internal class AppStateFragment : Fragment(R.layout.pluto___fragment_app_state),
     private companion object {
         val DECORATOR_DIVIDER_PADDING = 16f.dp.toInt()
     }
+}
+
+private fun List<AppStateItem>.toShareText(): String {
+    val text = StringBuilder()
+    text.append("App Properties : \n\n")
+    this.forEach {
+        text.append("${it.key} : ${it.value}\n")
+    }
+    return text.toString()
 }
 
 data class AppStateItem(
