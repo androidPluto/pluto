@@ -63,6 +63,7 @@
     <string name="pluto___settings_clear_crashes_title">Clear all crash logs</string>
     <string name="pluto___update">Update</string>
     <string name="pluto___settings_shared_pref_title">Show Shared Preference for</string>
+    <string name="pluto___settings_shared_pref_description">Configure which Shared Preference files are displayed in the Shared Preferences tab.</string>
     <string name="pluto___settings_link_mocklets_title">Link Mocklets Account</string>
     <string name="pluto___link">Link</string>
     <string name="pluto___settings_link_mocklets_description">Connect you Mocklets account to manage your network proxy setting efficiently</string>
