@@ -12,8 +12,8 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.binding.viewBinding
 import com.mocklets.pluto.core.extensions.asFormattedDate
 import com.mocklets.pluto.core.extensions.color
-import com.mocklets.pluto.core.extensions.toast
-import com.mocklets.pluto.core.sharing.copyToClipboard
+import com.mocklets.pluto.core.sharing.Shareable
+import com.mocklets.pluto.core.sharing.lazyContentSharer
 import com.mocklets.pluto.core.ui.routing.Screens
 import com.mocklets.pluto.core.ui.routing.lazyRouter
 import com.mocklets.pluto.core.ui.setDebounceClickListener
@@ -35,6 +35,7 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto___fragme
     private val viewModel: NetworkViewModel by activityViewModels()
     private val proxyViewModel: NetworkProxyViewModel by viewModels()
     private val router by lazyRouter()
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,10 +92,7 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto___fragme
             )
         }
         binding.proxyStub.copyCurl.setDebounceClickListener {
-            context?.let {
-                it.copyToClipboard(data.curl, "curl_code")
-                it.toast(it.getString(R.string.pluto___curl_copied))
-            }
+            contentSharer.share(Shareable(title = "Share Request cURL", content = data.curl, fileName = "cURL Request from Pluto"))
         }
 
         data.exception?.let {

@@ -119,7 +119,7 @@
     <string name="pluto___reset_all_success_message">Library data reset successful</string>
     <string name="pluto___crash_notification_title">Pluto detected a crash in %s</string>
     <string name="pluto___crash_notification_subtitle">Tap here to see crash details.</string>
-    <string name="pluto___copy_curl_code">Copy Request cURL</string>
+    <string name="pluto___copy_curl_code">Share Request cURL</string>
     <string name="pluto___curl_copied">cURL code copied!</string>
     <string name="pluto___clear">Clear</string>
     <string name="pluto___preferences_cleared">Preference selection cleared!</string>
