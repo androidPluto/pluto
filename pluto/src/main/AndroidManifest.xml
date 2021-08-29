@@ -13,7 +13,7 @@
             android:theme="@style/PlutoTheme.NoActionBar" />
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".core.PlutoFileProvider"
             android:authorities="pluto___${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
