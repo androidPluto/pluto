@@ -39,11 +39,11 @@ internal data class Status(
 internal class ApiCallData(
     val id: String,
     val request: RequestData,
-    val curl: String,
     var response: ResponseData? = null,
     var exception: ExceptionData? = null,
     var proxy: ProxyConfig? = null
 ) : ListItem() {
+    val curl: String = request.getCurl()
     override fun isEqual(other: Any): Boolean {
         if (other is ApiCallData) {
             id == other.id && response == other.response && exception == other.exception
@@ -55,5 +55,8 @@ internal class ApiCallData(
 internal data class ProcessedBody(
     val isValid: Boolean,
     val body: CharSequence? = null,
-    val isBinary: Boolean = false
-)
+    val mediaType: String?,
+    val mediaSubtype: String?
+) {
+    val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
+}

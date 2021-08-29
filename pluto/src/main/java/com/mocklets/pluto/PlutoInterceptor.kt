@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import com.mocklets.pluto.core.DebugLog
 import com.mocklets.pluto.modules.exceptions.asExceptionData
 import com.mocklets.pluto.modules.network.ApiCallData
-import com.mocklets.pluto.modules.network.CurlBuilder
 import com.mocklets.pluto.modules.network.NetworkCallsRepo
 import com.mocklets.pluto.modules.network.ProxyConfig
 import com.mocklets.pluto.modules.network.interceptor.ResponseBodyProcessor
@@ -20,7 +19,6 @@ import okhttp3.Response
 
 @Keep
 class PlutoInterceptor : Interceptor {
-    private val cURLBuilder = CurlBuilder()
     private var setupNotification: SetupNotification? = null
 
     init {
@@ -38,8 +36,7 @@ class PlutoInterceptor : Interceptor {
             val id = UUID.nameUUIDFromBytes("${System.currentTimeMillis()}::${request.url()}".toByteArray()).toString()
             DebugLog.d("interceptor : ot", "$id ${request.url()}")
             val requestData = request.convert()
-            val cURLCommand = cURLBuilder.get(requestData)
-            val apiCallData = ApiCallData(id = id, request = requestData, curl = cURLCommand)
+            val apiCallData = ApiCallData(id = id, request = requestData)
             NetworkCallsRepo.set(apiCallData)
 
             var proxyRequest: Request? = null
