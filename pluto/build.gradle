@@ -93,7 +93,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
