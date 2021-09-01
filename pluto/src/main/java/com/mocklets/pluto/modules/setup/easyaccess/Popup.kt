@@ -21,7 +21,7 @@ internal class Popup(context: Context) {
         }
 
         override fun onLayoutParamsUpdated(params: WindowManager.LayoutParams) {
-            popupViewManager.view.parent?.let {
+            popupViewManager.view?.parent?.let {
                 windowManager.updateViewLayout(popupViewManager.view, params)
             }
         }
@@ -32,9 +32,7 @@ internal class Popup(context: Context) {
 
     internal fun add(context: Context) {
         if (context.canDrawOverlays()) {
-            if (popupViewManager.view.parent == null) {
-                windowManager.addView(popupViewManager.view, popupViewManager.layoutParams)
-            }
+            popupViewManager.addView(context, windowManager)
         } else {
             if (!isIntroToastAlreadyShown) {
                 context.toast(context.getString(R.string.pluto___welcome_toast))
@@ -44,6 +42,6 @@ internal class Popup(context: Context) {
     }
 
     internal fun remove() {
-        popupViewManager.view.parent?.let { windowManager.removeView(popupViewManager.view) }
+        popupViewManager.removeView(windowManager)
     }
 }

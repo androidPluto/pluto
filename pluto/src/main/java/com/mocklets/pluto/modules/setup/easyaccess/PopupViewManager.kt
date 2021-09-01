@@ -25,10 +25,10 @@ internal class PopupViewManager(
     private val dragUpLimit = deviceInfo.height * DRAG_UP_THRESHOLD
     private val dragDownLimit = deviceInfo.height * DRAG_DOWN_THRESHOLD
 
-    val view: View = context.inflate(R.layout.pluto___layout_popup)
+    var view: View? = null
     val layoutParams = getInitialLayoutParams(context)
 
-    init {
+    private fun initView(context: Context, view: View) {
         view.setOnTouchListener(object : View.OnTouchListener {
             private var lastAction = 0
             private var initialX = 0
@@ -131,6 +131,23 @@ internal class PopupViewManager(
         params.y = (deviceInfo.height * INIT_THRESHOLD_Y).toInt()
 
         return params
+    }
+
+    fun addView(context: Context, windowManager: WindowManager) {
+        view = context.inflate(R.layout.pluto___layout_popup)
+        view?.let {
+            initView(context, it)
+            if (it.parent == null) {
+                windowManager.addView(it, layoutParams)
+            }
+        }
+    }
+
+    fun removeView(windowManager: WindowManager) {
+        view?.parent?.let {
+            windowManager.removeView(view)
+            view = null
+        }
     }
 
     companion object {
