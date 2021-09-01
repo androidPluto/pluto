@@ -9,7 +9,7 @@ import com.mocklets.pluto.core.extensions.canDrawOverlays
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.ui.PlutoActivity
 
-internal class Popup(private val context: Context) {
+internal class Popup(context: Context) {
 
     private var isIntroToastAlreadyShown = false
 
@@ -21,21 +21,18 @@ internal class Popup(private val context: Context) {
         }
 
         override fun onLayoutParamsUpdated(params: WindowManager.LayoutParams) {
-            popupViewManager.view.parent?.let {
+            popupViewManager.view?.parent?.let {
                 windowManager.updateViewLayout(popupViewManager.view, params)
             }
         }
     }
 
     private val popupViewManager: PopupViewManager = PopupViewManager(context, interactionListener)
-    private val windowManager: WindowManager =
-        context.getSystemService(Service.WINDOW_SERVICE) as WindowManager
+    private val windowManager: WindowManager = context.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
-    internal fun add() {
+    internal fun add(context: Context) {
         if (context.canDrawOverlays()) {
-            if (popupViewManager.view.parent == null) {
-                windowManager.addView(popupViewManager.view, popupViewManager.layoutParams)
-            }
+            popupViewManager.addView(context, windowManager)
         } else {
             if (!isIntroToastAlreadyShown) {
                 context.toast(context.getString(R.string.pluto___welcome_toast))
@@ -45,6 +42,6 @@ internal class Popup(private val context: Context) {
     }
 
     internal fun remove() {
-        popupViewManager.view.parent?.let { windowManager.removeView(popupViewManager.view) }
+        popupViewManager.removeView(windowManager)
     }
 }
