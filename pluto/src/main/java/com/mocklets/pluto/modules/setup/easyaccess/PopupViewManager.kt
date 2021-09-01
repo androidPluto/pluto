@@ -18,7 +18,7 @@ import com.mocklets.pluto.databinding.PlutoLayoutPopupBinding
 import kotlin.math.abs
 
 internal class PopupViewManager(
-    private val context: Context,
+    context: Context,
     private val listener: OnPopupInteractionListener
 ) {
     private val deviceInfo = DeviceInfo(context)
@@ -26,7 +26,7 @@ internal class PopupViewManager(
     private val dragDownLimit = deviceInfo.height * DRAG_DOWN_THRESHOLD
 
     val view: View = context.inflate(R.layout.pluto___layout_popup)
-    val layoutParams = getInitialLayoutParams()
+    val layoutParams = getInitialLayoutParams(context)
 
     init {
         view.setOnTouchListener(object : View.OnTouchListener {
@@ -99,7 +99,7 @@ internal class PopupViewManager(
         })
     }
 
-    private fun getInitialLayoutParams(): WindowManager.LayoutParams {
+    private fun getInitialLayoutParams(context: Context): WindowManager.LayoutParams {
         val params: WindowManager.LayoutParams
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             params = WindowManager.LayoutParams(

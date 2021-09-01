@@ -15,7 +15,7 @@ import com.mocklets.pluto.modules.setup.SetupNotification
 import com.mocklets.pluto.modules.setup.easyaccess.Popup
 import com.mocklets.pluto.ui.PlutoActivity
 
-internal class ActivityTracker(private val application: Application) {
+internal class ActivityTracker(application: Application) {
 
     private var isCustomTabOpened: Boolean = false
     private var activityCount = 0
@@ -84,7 +84,7 @@ internal class ActivityTracker(private val application: Application) {
             if (activity is PlutoActivity) {
                 popup.remove()
             } else {
-                popup.add()
+                popup.add(activity)
             }
         }
 
@@ -130,10 +130,10 @@ internal class ActivityTracker(private val application: Application) {
     }
 
     init {
-        registerActivityLifecycle()
+        registerActivityLifecycle(application)
     }
 
-    private fun registerActivityLifecycle() {
+    private fun registerActivityLifecycle(application: Application) {
         application.registerActivityLifecycleCallbacks(lifecycleCallbacks)
     }
 
