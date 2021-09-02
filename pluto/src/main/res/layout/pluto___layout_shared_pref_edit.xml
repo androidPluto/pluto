@@ -3,42 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/pluto___bg_bottom_sheet">
 
     <TextView
         android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/pluto___margin_large"
-        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/pluto___margin_large"
         android:fontFamily="@font/muli_semibold"
         android:paddingVertical="@dimen/pluto___margin_small"
         android:text="@string/pluto___edit_preference"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/pluto___text_dark_80"
-        android:layout_marginLeft="@dimen/pluto___margin_large"
-        android:textSize="@dimen/pluto___text_small" />
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/pluto___margin_large"
+        android:layout_marginRight="@dimen/pluto___margin_large"
         android:fontFamily="@font/muli_bold"
         android:paddingVertical="@dimen/pluto___margin_small"
         android:text="@string/pluto___share"
-        app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/pluto___text_dark"
         android:textSize="@dimen/pluto___text_small"
-        android:layout_marginRight="@dimen/pluto___margin_large"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/pluto___bg_bottom_sheet_content"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,15 +52,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
                 android:layout_marginTop="@dimen/pluto___margin_large"
                 android:layout_marginEnd="@dimen/pluto___margin_small"
+                android:layout_marginRight="@dimen/pluto___margin_small"
                 android:fontFamily="@font/muli_light"
                 android:text="@string/pluto___shared_pref_edit_file_label"
                 android:textColor="@color/pluto___text_dark_40"
                 android:textSize="@dimen/pluto___text_xsmall"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
-                android:layout_marginRight="@dimen/pluto___margin_small"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -65,15 +68,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
                 android:layout_marginEnd="@dimen/pluto___margin_small"
+                android:layout_marginRight="@dimen/pluto___margin_small"
                 android:fontFamily="@font/muli_semibold"
                 android:paddingVertical="@dimen/pluto___margin_micro"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_medium"
+                android:maxLines="2"
+                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fileLabel"
-                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
-                android:layout_marginRight="@dimen/pluto___margin_small"
                 tools:text="shared pref" />
 
             <TextView
@@ -81,9 +86,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
                 android:layout_marginTop="@dimen/pluto___margin_large"
                 android:layout_marginEnd="@dimen/pluto___margin_vlarge"
+                android:layout_marginRight="@dimen/pluto___margin_vlarge"
                 android:drawableStart="@drawable/pluto___ic_key"
+                android:drawableLeft="@drawable/pluto___ic_key"
                 android:drawablePadding="@dimen/pluto___margin_xsmall"
                 android:ellipsize="end"
                 android:fontFamily="@font/muli"
@@ -97,9 +105,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/file"
-                android:layout_marginLeft="@dimen/pluto___margin_xlarge"
-                android:layout_marginRight="@dimen/pluto___margin_vlarge"
-                android:drawableLeft="@drawable/pluto___ic_key"
                 tools:text="shared pref Key" />
 
             <EditText
@@ -108,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pluto___margin_micro"
                 android:layout_marginEnd="@dimen/pluto___margin_vlarge"
+                android:layout_marginRight="@dimen/pluto___margin_vlarge"
                 android:background="@null"
                 android:fontFamily="@font/muli_bold"
                 android:inputType="numberDecimal"
@@ -115,7 +121,6 @@
                 android:textSize="@dimen/pluto___text_xxlarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/key"
-                android:layout_marginRight="@dimen/pluto___margin_vlarge"
                 app:layout_constraintTop_toBottomOf="@+id/key" />
 
             <TextView
