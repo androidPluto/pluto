@@ -3,7 +3,7 @@ package com.mocklets.pluto.core.preferences
 import android.annotation.SuppressLint
 import android.content.Context
 
-internal class Preferences(private val context: Context) {
+internal class Preferences(context: Context) {
 
     private val statePrefs by lazy { context.preferences("states") }
 
