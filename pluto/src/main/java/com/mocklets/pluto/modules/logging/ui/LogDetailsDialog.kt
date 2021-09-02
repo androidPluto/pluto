@@ -71,7 +71,7 @@ internal class LogDetailsDialog(context: FragmentActivity, data: LogData) :
             data.tr?.asExceptionData()?.let {
                 binding.stackTraceContainer.visibility = VISIBLE
                 binding.stackTrace.setSpan {
-                    append("${it.name}: ${it.message}")
+                    append(fontColor("${it.name}: ${it.message}", context.color(R.color.pluto___text_dark_80)))
                     it.stackTrace.take(MAX_STACK_TRACE_LINES).forEach {
                         append("\n\t\t\t")
                         append(fontColor(" at  ", context.color(R.color.pluto___text_dark_40)))
