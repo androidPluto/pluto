@@ -21,6 +21,7 @@ object Pluto {
     private lateinit var anrSupervisor: AnrSupervisor
     internal lateinit var session: Session
     internal var appProperties: HashMap<String, String?> = hashMapOf()
+    private var crashHandler: CrashHandler? = null
 
     fun initialize(context: Context) {
         if (appContext != null) {
@@ -30,7 +31,8 @@ object Pluto {
         appContext = context.applicationContext
         preferences = Preferences(context)
         NetworkProxyRepo.init(context)
-        Thread.setDefaultUncaughtExceptionHandler(CrashHandler(context))
+        crashHandler = CrashHandler(context)
+        Thread.setDefaultUncaughtExceptionHandler(crashHandler)
         exceptionRepo = ExceptionRepo(context)
         activity = ActivityTracker(context.applicationContext as Application)
         anrSupervisor = AnrSupervisor()
@@ -40,6 +42,14 @@ object Pluto {
 
     fun setAppProperties(properties: HashMap<String, String?>) {
         this.appProperties.putAll(properties)
+    }
+
+    fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
+        this.appContext?.let {
+            crashHandler?.setExceptionHandler(uncaughtExceptionHandler)
+            return
+        }
+        throw IllegalStateException("UncaughtExceptionHandler cannot be set as Pluto is not initialised.")
     }
 
     fun setANRListener(listener: ANRListener) {

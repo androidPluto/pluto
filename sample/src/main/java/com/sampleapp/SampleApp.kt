@@ -1,6 +1,7 @@
 package com.sampleapp
 
 import android.app.Application
+import android.util.Log
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.PlutoLog
 import com.mocklets.pluto.modules.exceptions.ANRException
@@ -17,5 +18,8 @@ class SampleApp : Application() {
                 PlutoLog.e("anr-exception", exception.threadStateMap)
             }
         })
+        Pluto.setExceptionHandler { thread, tr ->
+            Log.d("prateek", "uncaught exception : "+ thread.name, tr)
+        }
     }
 }

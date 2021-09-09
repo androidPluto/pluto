@@ -9,11 +9,12 @@ import com.mocklets.pluto.modules.exceptions.asExceptionData
 import com.mocklets.pluto.modules.exceptions.asThreadData
 import com.mocklets.pluto.modules.exceptions.dao.ExceptionEntity
 
-internal class CrashHandler(private val context: Context) : Thread.UncaughtExceptionHandler {
+internal class CrashHandler(context: Context) : Thread.UncaughtExceptionHandler {
 
-    private val defaultUEH = Thread.getDefaultUncaughtExceptionHandler()
+    private var handler: Thread.UncaughtExceptionHandler? = Thread.getDefaultUncaughtExceptionHandler()
     private val deviceFingerPrint = DeviceFingerPrint(context)
     private val preferences by lazy { Pluto.preferences }
+    private val crashNotification: CrashNotification = CrashNotification(context)
 
     override fun uncaughtException(t: Thread, e: Throwable) {
         val exceptionData = ExceptionEntity(
@@ -25,7 +26,11 @@ internal class CrashHandler(private val context: Context) : Thread.UncaughtExcep
             )
         )
         preferences.lastSessionCrash = Gson().toJson(exceptionData)
-        CrashNotification(context).add()
-        defaultUEH?.uncaughtException(t, e)
+        crashNotification.add()
+        handler?.uncaughtException(t, e)
+    }
+
+    internal fun setExceptionHandler(handler: Thread.UncaughtExceptionHandler) {
+        this.handler = handler
     }
 }
