@@ -11,5 +11,7 @@ object Pluto {
 
     fun setAppProperties(properties: HashMap<String, String?>) {}
 
+    fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {}
+
     fun setANRListener(listener: ANRListener) {}
 }

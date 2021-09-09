@@ -52,6 +52,14 @@ val client = OkHttpClient.Builder()
     .build()
 ```
 
+###  Set Global Exception Handler
+
+To intercept uncaught exceptions in your app, attach `UncaughtExceptionHandler` to Pluto
+```kotlin
+Pluto.setExceptionHandler { thread, throwable ->
+    Log.d("Exception", "uncaught exception handled on thread: " + thread.name, throwable)
+}
+```
 
 
 ### Listen to ANRs
