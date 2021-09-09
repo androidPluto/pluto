@@ -19,7 +19,7 @@ class SampleApp : Application() {
             }
         })
         Pluto.setExceptionHandler { thread, tr ->
-            Log.d("prateek", "uncaught exception : "+ thread.name, tr)
+            Log.d("prateek", "uncaught exception : " + thread.name, tr)
         }
     }
 }

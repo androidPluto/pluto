@@ -45,8 +45,8 @@ object Pluto {
     }
 
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
-        this.appContext?.let {
-            crashHandler?.setExceptionHandler(uncaughtExceptionHandler)
+        this.crashHandler?.let {
+            it.setExceptionHandler(uncaughtExceptionHandler)
             return
         }
         throw IllegalStateException("UncaughtExceptionHandler cannot be set as Pluto is not initialised.")
