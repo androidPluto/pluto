@@ -2,8 +2,6 @@ package com.mocklets.pluto.core
 
 internal class Session {
 
-    var isEasyAccessSetupDialogShown: Boolean = false
-
     var networkSearchText: String = ""
 
     var loggerSearchText: String = ""

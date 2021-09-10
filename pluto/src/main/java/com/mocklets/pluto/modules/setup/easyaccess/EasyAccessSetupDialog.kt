@@ -6,11 +6,11 @@ import android.view.View
 import android.widget.FrameLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.DeviceInfo
 import com.mocklets.pluto.core.extensions.color
 import com.mocklets.pluto.core.extensions.inflate
+import com.mocklets.pluto.core.preferences.Preferences
 import com.mocklets.pluto.core.ui.setDebounceClickListener
 import com.mocklets.pluto.databinding.PlutoLayoutEasyAccessSetupBinding
 
@@ -20,6 +20,7 @@ internal class EasyAccessSetupDialog(context: Context, onEnabled: () -> Unit) :
     private val sheetView: View = context.inflate(R.layout.pluto___layout_easy_access_setup)
     private val binding = PlutoLayoutEasyAccessSetupBinding.bind(sheetView)
     private val deviceInfo = DeviceInfo(context)
+    private val preferences = Preferences(context)
 
     init {
         setContentView(sheetView)
@@ -51,7 +52,7 @@ internal class EasyAccessSetupDialog(context: Context, onEnabled: () -> Unit) :
         }
 
         setOnShowListener {
-            Pluto.session.isEasyAccessSetupDialogShown = true
+            preferences.isEasyAccessSetupDialogShown = true
         }
     }
 }

@@ -29,6 +29,10 @@ internal class Preferences(context: Context) {
         get() = settingsPrefs.getBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, true)
         set(value) = settingsPrefs.edit().putBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, value).apply()
 
+    internal var isEasyAccessSetupDialogShown: Boolean
+        get() = settingsPrefs.getBoolean(IS_EASY_ACCESS_SETUP_DIALOG_SHOWN, false)
+        set(value) = settingsPrefs.edit().putBoolean(IS_EASY_ACCESS_SETUP_DIALOG_SHOWN, value).apply()
+
     internal companion object {
         fun isPlutoPref(it: String): Boolean {
             return it.startsWith("_pluto_pref", true)
@@ -40,6 +44,7 @@ internal class Preferences(context: Context) {
         const val SELECTED_PREF_FILE = "selected_pref_file"
         const val IS_DARK_ACCESS_POPUP = "is_dark_access_popup"
         const val IS_RIGHT_HANDED_ACCESS_POPUP = "is_right_handed_access_popup"
+        const val IS_EASY_ACCESS_SETUP_DIALOG_SHOWN = "is_easy_access_setup_dialog_shown"
     }
 }
 
