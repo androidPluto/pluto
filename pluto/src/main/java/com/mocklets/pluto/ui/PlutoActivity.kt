@@ -9,6 +9,7 @@ import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.canDrawOverlays
 import com.mocklets.pluto.core.extensions.openOverlaySettings
+import com.mocklets.pluto.core.preferences.Preferences
 import com.mocklets.pluto.core.sharing.ContentShare
 import com.mocklets.pluto.core.ui.routing.RouteManager
 import com.mocklets.pluto.modules.network.proxy.NetworkProxyViewModel
@@ -20,18 +21,19 @@ internal class PlutoActivity : FragmentActivity(R.layout.pluto___activity_pluto)
 
     private lateinit var routeManager: RouteManager
     private lateinit var contentShareHelper: ContentShare
-    private val session = Pluto.session
     private val networkProxyViewModel: NetworkProxyViewModel by viewModels()
+    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         routeManager = RouteManager(this, R.id.container)
         contentShareHelper = ContentShare(this)
+        preferences = Preferences(this)
     }
 
     override fun onResume() {
         super.onResume()
-        if (!canDrawOverlays() && !session.isEasyAccessSetupDialogShown) {
+        if (!canDrawOverlays() && !preferences.isEasyAccessSetupDialogShown) {
             showEasyAccessSetup()
         }
     }
