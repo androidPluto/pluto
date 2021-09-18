@@ -136,11 +136,11 @@ internal class PopupViewManager(
     fun addView(context: Context, windowManager: WindowManager) {
         if (view == null) {
             view = context.inflate(R.layout.pluto___layout_popup)
-        }
-        view?.let {
-            initView(context, it)
-            if (it.parent == null) {
-                windowManager.addView(it, layoutParams)
+            view?.let {
+                initView(context, it)
+                if (it.parent == null) {
+                    windowManager.addView(it, layoutParams)
+                }
             }
         }
     }
