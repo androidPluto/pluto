@@ -1,5 +1,6 @@
 package com.sampleapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleAppPropertiesCTAs() {
         binding.appPropertiesCta.setOnClickListener {
             saveAppProperties()
+            startActivity(Intent(this, SecondActivity::class.java))
         }
     }
 
