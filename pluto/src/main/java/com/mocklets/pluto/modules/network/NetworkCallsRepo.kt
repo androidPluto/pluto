@@ -24,7 +24,8 @@ internal object NetworkCallsRepo {
 //    }
 
     private fun MutableMap<String, ApiCallData>.updateLiveData() {
-        val list = ArrayList(values)
+        val list = arrayListOf<ApiCallData>()
+        list.addAll(values)
         list.reverse()
         _apiCalls.postValue(list)
     }
