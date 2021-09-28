@@ -12,44 +12,29 @@ internal object NetworkCallsRepo {
     private val apiCallMap = Collections.synchronizedMap(LinkedHashMap<String, ApiCallData>())
 
     fun set(request: ApiCallData) {
-        apiCallMap[request.id] = request
-        apiCallMap.updateLiveData()
+        synchronized(apiCallMap) {
+            apiCallMap[request.id] = request
+            apiCallMap.updateLiveData()
+        }
     }
 
-//    fun saveProxyRequest(id: String, proxy: ProxyConfig) {
-//        apiCallMap[id]?.let {
-//            apiCallMap[id] = ApiCallData(it.id, it.request, it.response, it.exception, proxy)
-//            apiCallMap.updateLiveData()
-//        }
-//    }
+    fun get(id: String): ApiCallData? {
+        return synchronized(apiCallMap) {
+            apiCallMap.getOrElse(id) { null }
+        }
+    }
+
+    fun deleteAll() {
+        synchronized(apiCallMap) {
+            apiCallMap.clear()
+            apiCallMap.updateLiveData()
+        }
+    }
 
     private fun MutableMap<String, ApiCallData>.updateLiveData() {
         val list = arrayListOf<ApiCallData>()
         list.addAll(values)
         list.reverse()
         _apiCalls.postValue(list)
-    }
-
-//    fun saveResponse(id: String, response: ResponseData) {
-//        apiCallMap[id]?.let {
-//            apiCallMap[id] = ApiCallData(it.id, it.request, response, it.exception, it.proxy)
-//            apiCallMap.updateLiveData()
-//        }
-//    }
-
-    fun get(id: String): ApiCallData? {
-        return apiCallMap.getOrElse(id) { null }
-    }
-
-//    fun saveException(id: String, exception: ExceptionData) {
-//        apiCallMap[id]?.let {
-//            apiCallMap[id] = ApiCallData(it.id, it.request, it.response, exception, it.proxy)
-//            apiCallMap.updateLiveData()
-//        }
-//    }
-
-    fun deleteAll() {
-        apiCallMap.clear()
-        apiCallMap.updateLiveData()
     }
 }
