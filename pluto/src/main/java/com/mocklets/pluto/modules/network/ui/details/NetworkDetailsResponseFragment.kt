@@ -38,7 +38,7 @@ internal class NetworkDetailsResponseFragment : Fragment(R.layout.pluto___fragme
 
     private val apiCallObserver = Observer<DetailContentData> {
         when {
-            it.api.response != null -> updateResponse(it.api.response!!, it.search)
+            it.api.response != null -> updateResponse(it.api.response!!, it.search, it.api.hasResponseBody)
             it.api.exception != null -> updateException(it.api.exception!!, it.search)
             else -> updateWaiting()
         }
@@ -59,7 +59,7 @@ internal class NetworkDetailsResponseFragment : Fragment(R.layout.pluto___fragme
         binding.bodyGroup.visibility = GONE
     }
 
-    private fun updateResponse(data: ResponseData, search: String?) {
+    private fun updateResponse(data: ResponseData, search: String?, hasBody: Boolean) {
         binding.waiting.visibility = GONE
         binding.headerGroup.visibility = VISIBLE
         binding.bodyGroup.visibility = GONE
@@ -71,19 +71,38 @@ internal class NetworkDetailsResponseFragment : Fragment(R.layout.pluto___fragme
             }
             context?.beautifyHeaders(data.headers)?.let { binding.headers.setSpan { append(highlight(it, search)) } }
         }
-        setBody(data, search)
+        setBody(data, search, hasBody)
     }
 
-    private fun setBody(data: ResponseData, search: String?) {
-        data.body?.let {
-            if (it.isValid) {
-                binding.bodyGroup.visibility = VISIBLE
-                binding.body.setSpan {
-                    if (it.isBinary) {
-                        append(fontColor(italic("${it.body}"), context.color(R.color.pluto___text_dark_60)))
-                    } else {
-                        append(highlight("${it.body}", search))
+    private fun setBody(data: ResponseData, search: String?, hasBody: Boolean) {
+        if (hasBody) {
+            binding.bodyGroup.visibility = VISIBLE
+            binding.body.setSpan {
+                append(fontColor(italic(context.getString(R.string.pluto___processing_body)), context.color(R.color.pluto___text_dark_40)))
+            }
+            data.body?.let {
+                if (it.isValid) {
+                    binding.bodyGroup.visibility = VISIBLE
+                    binding.body.setSpan {
+                        if (it.isBinary) {
+                            append(fontColor(italic("${it.body}"), context.color(R.color.pluto___text_dark_60)))
+                        } else {
+                            if (it.body?.length ?: 0 > MAX_BLOB_LENGTH) {
+                                append(highlight("${it.body?.subSequence(0, MAX_BLOB_LENGTH)}", search))
+                                append("\n\n\t")
+                                append(
+                                    fontColor(
+                                        italic(bold(context.getString(R.string.pluto___content_truncated))),
+                                        context.color(R.color.pluto___text_dark_40)
+                                    )
+                                )
+                            } else {
+                                append(highlight("${it.body}", search))
+                            }
+                        }
                     }
+                } else {
+                    binding.bodyGroup.visibility = GONE
                 }
             }
         }
@@ -120,5 +139,9 @@ internal class NetworkDetailsResponseFragment : Fragment(R.layout.pluto___fragme
                 )
             }
         }
+    }
+
+    private companion object {
+        const val MAX_BLOB_LENGTH = 25_000
     }
 }
