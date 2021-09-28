@@ -31,6 +31,9 @@ internal class ResponseBodyProcessor(context: Context) {
         val contentType = responseBody.contentType()
         val contentLength = responseBody.contentLength()
 
+        apiCallData.hasResponseBody = true
+        NetworkCallsRepo.set(apiCallData)
+
         val sideStream = ReportingSink(
             createTempTransactionFile(),
             ApiCallReportingSinkCallback(response, apiCallData),
@@ -88,7 +91,7 @@ internal class ResponseBodyProcessor(context: Context) {
     }
 
     companion object {
-        private const val MAX_CONTENT_LENGTH = 250_000L
+        private const val MAX_CONTENT_LENGTH = 300_000L
 //        private const val MAX_BLOB_SIZE = 1_000_000L
     }
 }

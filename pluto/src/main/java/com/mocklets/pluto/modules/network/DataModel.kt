@@ -39,6 +39,7 @@ internal data class Status(
 internal class ApiCallData(
     val id: String,
     val request: RequestData,
+    var hasResponseBody: Boolean = false,
     var response: ResponseData? = null,
     var exception: ExceptionData? = null,
     var proxy: ProxyConfig? = null
