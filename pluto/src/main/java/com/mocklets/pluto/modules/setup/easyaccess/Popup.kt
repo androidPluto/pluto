@@ -7,11 +7,16 @@ import android.view.WindowManager
 import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.canDrawOverlays
 import com.mocklets.pluto.core.extensions.toast
+import com.mocklets.pluto.core.preferences.Preferences
 import com.mocklets.pluto.ui.PlutoActivity
 
 internal class Popup(context: Context) {
 
     private var isIntroToastAlreadyShown = false
+
+    init {
+        isIntroToastAlreadyShown = !Preferences(context).isShowIntroToast
+    }
 
     private val interactionListener = object : OnPopupInteractionListener {
         override fun onClick() {

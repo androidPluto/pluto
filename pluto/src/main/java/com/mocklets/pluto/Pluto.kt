@@ -23,13 +23,15 @@ object Pluto {
     internal var appProperties: HashMap<String, String?> = hashMapOf()
     private var crashHandler: CrashHandler? = null
 
-    fun initialize(context: Context) {
+    fun initialize(context: Context, isShowIntroToast: Boolean = true) {
         if (appContext != null) {
             return
         }
+        preferences = Preferences(context)
+        preferences.isShowIntroToast = isShowIntroToast
+
         session = Session()
         appContext = context.applicationContext
-        preferences = Preferences(context)
         NetworkProxyRepo.init(context)
         crashHandler = CrashHandler(context)
         Thread.setDefaultUncaughtExceptionHandler(crashHandler)
