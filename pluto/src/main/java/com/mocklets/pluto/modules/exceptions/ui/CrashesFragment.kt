@@ -32,11 +32,6 @@ internal class CrashesFragment : Fragment(R.layout.pluto___fragment_crashes) {
     private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
     private val router by lazyRouter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.fetchAll()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.logList.apply {
