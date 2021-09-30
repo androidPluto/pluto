@@ -67,11 +67,28 @@
                 android:paddingEnd="@dimen/pluto___margin_medium"
                 android:src="@drawable/pluto___ic_settings"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toStartOf="@+id/more_action"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/pluto___open_settings"
                 android:paddingLeft="@dimen/pluto___margin_small"
                 android:paddingRight="@dimen/pluto___margin_medium"
                 app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/more_action"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/pluto___margin_xsmall"
+                android:paddingLeft="@dimen/pluto___margin_xsmall"
+                android:paddingEnd="@dimen/pluto___margin_small"
+                android:paddingRight="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto___ic_more_vertical"
+                android:tint="@color/pluto___dark"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

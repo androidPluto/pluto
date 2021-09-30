@@ -2,8 +2,10 @@ package com.sampleapp
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.PlutoLog
+import com.mocklets.pluto.modules.customactions.CustomAction
 import com.mocklets.pluto.modules.exceptions.ANRException
 import com.mocklets.pluto.modules.exceptions.ANRListener
 
@@ -21,5 +23,22 @@ class SampleApp : Application() {
         Pluto.setExceptionHandler { thread, tr ->
             Log.d("exception", "uncaught exception handled on thread: " + thread.name, tr)
         }
+
+        Pluto.setCustomActions(
+            listOf(
+                CustomAction(
+                    title = "Show toast 1"
+                ) {
+                    Toast.makeText(applicationContext, "Custom action 1", Toast.LENGTH_SHORT)
+                        .show()
+                },
+                CustomAction(
+                    title = "Show toast 2"
+                ) {
+                    Toast.makeText(applicationContext, "Custom action 2", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            )
+        )
     }
 }

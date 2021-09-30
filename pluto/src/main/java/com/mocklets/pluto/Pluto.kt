@@ -6,6 +6,7 @@ import androidx.annotation.Keep
 import com.mocklets.pluto.core.Session
 import com.mocklets.pluto.core.preferences.Preferences
 import com.mocklets.pluto.modules.activities.ActivityTracker
+import com.mocklets.pluto.modules.customactions.CustomAction
 import com.mocklets.pluto.modules.exceptions.ANRListener
 import com.mocklets.pluto.modules.exceptions.ExceptionRepo
 import com.mocklets.pluto.modules.exceptions.anrs.AnrSupervisor
@@ -22,6 +23,7 @@ object Pluto {
     internal lateinit var session: Session
     internal var appProperties: HashMap<String, String?> = hashMapOf()
     private var crashHandler: CrashHandler? = null
+    internal var customActions: List<CustomAction> = listOf()
 
     @JvmOverloads
     fun initialize(context: Context, shouldShowIntroToast: Boolean = true) {
@@ -56,5 +58,9 @@ object Pluto {
 
     fun setANRListener(listener: ANRListener) {
         anrSupervisor.setListener(listener)
+    }
+
+    fun setCustomActions(items: List<CustomAction>) {
+        this.customActions = items
     }
 }
