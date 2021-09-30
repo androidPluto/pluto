@@ -23,10 +23,12 @@ object Pluto {
     internal var appProperties: HashMap<String, String?> = hashMapOf()
     private var crashHandler: CrashHandler? = null
 
-    fun initialize(context: Context) {
+    @JvmOverloads
+    fun initialize(context: Context, shouldShowIntroToast: Boolean = true) {
         if (appContext != null) {
             return
         }
+
         session = Session()
         appContext = context.applicationContext
         preferences = Preferences(context)
@@ -34,7 +36,7 @@ object Pluto {
         crashHandler = CrashHandler(context)
         Thread.setDefaultUncaughtExceptionHandler(crashHandler)
         exceptionRepo = ExceptionRepo(context)
-        activity = ActivityTracker(context.applicationContext as Application)
+        activity = ActivityTracker(context.applicationContext as Application, shouldShowIntroToast)
         anrSupervisor = AnrSupervisor()
 
         anrSupervisor.start()

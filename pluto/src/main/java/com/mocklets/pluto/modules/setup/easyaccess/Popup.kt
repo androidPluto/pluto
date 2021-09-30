@@ -9,9 +9,13 @@ import com.mocklets.pluto.core.extensions.canDrawOverlays
 import com.mocklets.pluto.core.extensions.toast
 import com.mocklets.pluto.ui.PlutoActivity
 
-internal class Popup(context: Context) {
+internal class Popup(context: Context, shouldShowIntroToast: Boolean) {
 
     private var isIntroToastAlreadyShown = false
+
+    init {
+        isIntroToastAlreadyShown = !shouldShowIntroToast
+    }
 
     private val interactionListener = object : OnPopupInteractionListener {
         override fun onClick() {

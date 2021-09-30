@@ -15,11 +15,14 @@ import com.mocklets.pluto.modules.setup.SetupNotification
 import com.mocklets.pluto.modules.setup.easyaccess.Popup
 import com.mocklets.pluto.ui.PlutoActivity
 
-internal class ActivityTracker(application: Application) {
+internal class ActivityTracker @JvmOverloads constructor(
+    application: Application,
+    shouldShowIntroToast: Boolean = true
+) {
 
     private var isCustomTabOpened: Boolean = false
     private var activityCount = 0
-    private val popup: Popup = Popup(application.applicationContext)
+    private val popup: Popup = Popup(application.applicationContext, shouldShowIntroToast)
     private val setupNotification = SetupNotification(application.applicationContext)
 
     private val fragmentLifecycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
