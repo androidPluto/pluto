@@ -7,7 +7,8 @@ import com.mocklets.pluto.modules.exceptions.ANRListener
 @Keep
 object Pluto {
 
-    fun initialize(context: Context, isShowIntroToast: Boolean = true) {}
+    @JvmOverloads
+    fun initialize(context: Context, shouldShowIntroToast: Boolean = true) {}
 
     fun setAppProperties(properties: HashMap<String, String?>) {}
 

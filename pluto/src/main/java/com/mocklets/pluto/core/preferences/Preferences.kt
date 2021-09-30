@@ -33,10 +33,6 @@ internal class Preferences(context: Context) {
         get() = settingsPrefs.getBoolean(IS_EASY_ACCESS_SETUP_DIALOG_SHOWN, false)
         set(value) = settingsPrefs.edit().putBoolean(IS_EASY_ACCESS_SETUP_DIALOG_SHOWN, value).apply()
 
-    internal var isShowIntroToast: Boolean
-        get() = settingsPrefs.getBoolean(IS_SHOW_INTRO_TOAST, true)
-        set(value) = settingsPrefs.edit().putBoolean(IS_SHOW_INTRO_TOAST, value).apply()
-
     internal companion object {
         fun isPlutoPref(it: String): Boolean {
             return it.startsWith("_pluto_pref", true)
@@ -49,7 +45,6 @@ internal class Preferences(context: Context) {
         const val IS_DARK_ACCESS_POPUP = "is_dark_access_popup"
         const val IS_RIGHT_HANDED_ACCESS_POPUP = "is_right_handed_access_popup"
         const val IS_EASY_ACCESS_SETUP_DIALOG_SHOWN = "is_easy_access_setup_dialog_shown"
-        const val IS_SHOW_INTRO_TOAST = "is_show_intro_toast"
     }
 }
 
