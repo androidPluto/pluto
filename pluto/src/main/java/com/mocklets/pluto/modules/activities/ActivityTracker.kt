@@ -108,10 +108,6 @@ internal class ActivityTracker @JvmOverloads constructor(
 
         override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
         override fun onActivityDestroyed(activity: Activity) {
-            DebugLog.d(LOG_TAG, "destroy ${activity.javaClass.simpleName}")
-        }
-
-        override fun onActivityPostDestroyed(activity: Activity) {
             if (activity is AppCompatActivity) {
                 activity.unregisterFragmentLifecycle(fragmentLifecycleCallbacks)
             }
@@ -119,9 +115,20 @@ internal class ActivityTracker @JvmOverloads constructor(
                 popup.remove()
 //                setupNotification.remove()
             }
-            DebugLog.d(LOG_TAG, "post destroy ${activity.javaClass.simpleName}")
-            super.onActivityPostDestroyed(activity)
+            DebugLog.d(LOG_TAG, "destroy ${activity.javaClass.simpleName}")
         }
+
+//        override fun onActivityPostDestroyed(activity: Activity) {
+//            if (activity is AppCompatActivity) {
+//                activity.unregisterFragmentLifecycle(fragmentLifecycleCallbacks)
+//            }
+//            if (activity !is PlutoActivity && activityCount == 0) {
+//                popup.remove()
+// //                setupNotification.remove()
+//            }
+//            DebugLog.d(LOG_TAG, "post destroy ${activity.javaClass.simpleName}")
+//            super.onActivityPostDestroyed(activity)
+//        }
     }
 
     private fun onAppBackground() {
