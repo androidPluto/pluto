@@ -22,19 +22,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/pluto___exit_pluto"
                 android:padding="@dimen/pluto___margin_medium"
                 android:src="@drawable/pluto___ic_close"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/pluto___exit_pluto"
                 app:layout_constraintTop_toTopOf="@+id/title" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:fontFamily="@font/muli_semibold"
+                android:gravity="center"
                 android:paddingTop="@dimen/pluto___margin_medium"
                 android:paddingBottom="@dimen/pluto___margin_medium"
                 android:text="@string/pluto___library_name"
@@ -48,14 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/pluto___open_app_properties"
                 android:paddingStart="@dimen/pluto___margin_medium"
+                android:paddingLeft="@dimen/pluto___margin_medium"
                 android:paddingEnd="@dimen/pluto___margin_small"
+                android:paddingRight="@dimen/pluto___margin_small"
                 android:src="@drawable/pluto___ic_user_properties"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toStartOf="@+id/settings"
-                android:contentDescription="@string/pluto___open_app_properties"
-                android:paddingLeft="@dimen/pluto___margin_medium"
-                android:paddingRight="@dimen/pluto___margin_small"
                 app:layout_constraintTop_toTopOf="@+id/title" />
 
             <ImageView
@@ -63,15 +63,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/pluto___open_settings"
                 android:paddingStart="@dimen/pluto___margin_small"
+                android:paddingLeft="@dimen/pluto___margin_small"
                 android:paddingEnd="@dimen/pluto___margin_medium"
+                android:paddingRight="@dimen/pluto___margin_medium"
                 android:src="@drawable/pluto___ic_settings"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
-                app:layout_constraintEnd_toStartOf="@+id/more_action"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/pluto___open_settings"
-                android:paddingLeft="@dimen/pluto___margin_small"
-                android:paddingRight="@dimen/pluto___margin_medium"
+                app:layout_constraintEnd_toStartOf="@+id/more_action"
                 app:layout_constraintTop_toTopOf="@+id/title" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -83,12 +83,12 @@
                 android:paddingLeft="@dimen/pluto___margin_xsmall"
                 android:paddingEnd="@dimen/pluto___margin_small"
                 android:paddingRight="@dimen/pluto___margin_small"
-                android:src="@drawable/pluto___ic_more_vertical"
-                android:tint="@color/pluto___dark"
-                android:visibility="visible"
+                android:src="@drawable/pluto___ic_play_for_work"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

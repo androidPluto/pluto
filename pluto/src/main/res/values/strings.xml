@@ -141,4 +141,5 @@
     <string name="pluto___share_as_file_hint">Prefer this option while sharing on Slack.</string>
     <string name="pluto___processing_body">~ Laaarge response body,\nworking hard to process it…</string>
     <string name="pluto___content_truncated">~~ CONTENT TRUNCATED ~~</string>
+    <string name="pluto___custom_actions">Custom actions</string>
 </resources>

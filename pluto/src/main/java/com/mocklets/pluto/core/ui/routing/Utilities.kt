@@ -23,6 +23,7 @@ internal sealed class Screens : RouterAction() {
     class CrashDetails(val data: CrashDetailsFragment.Data) : Screens()
     object SharedPrefFilter : Screens()
     object AppState : Screens()
+    object CustomActions : Screens()
 }
 
 internal sealed class Action {

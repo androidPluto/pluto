@@ -23,7 +23,7 @@ object Pluto {
     internal lateinit var session: Session
     internal var appProperties: HashMap<String, String?> = hashMapOf()
     private var crashHandler: CrashHandler? = null
-    internal var customActions: List<CustomAction> = listOf()
+    internal var customActions: MutableList<CustomAction> = mutableListOf()
 
     @JvmOverloads
     fun initialize(context: Context, shouldShowIntroToast: Boolean = true) {
@@ -61,6 +61,6 @@ object Pluto {
     }
 
     fun setCustomActions(items: List<CustomAction>) {
-        this.customActions = items
+        this.customActions.addAll(items)
     }
 }

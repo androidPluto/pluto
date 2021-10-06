@@ -7,6 +7,7 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.core.extensions.hideKeyboard
 import com.mocklets.pluto.core.extensions.setParcelExtra
 import com.mocklets.pluto.modules.appstate.AppStateFragment
+import com.mocklets.pluto.modules.customactions.ui.CustomActionsFragment
 import com.mocklets.pluto.modules.exceptions.ui.CrashDetailsFragment
 import com.mocklets.pluto.modules.network.proxy.ui.NetworkProxySettingsFragment
 import com.mocklets.pluto.modules.network.proxy.ui.NetworkProxySettingsListFragment
@@ -99,6 +100,7 @@ internal class RouteManager(private val activity: FragmentActivity, private val 
                 }
             )
             is Screens.SharedPrefFilter -> Action.Switch(screen.tag, SharedPrefFilterFragment())
+            is Screens.CustomActions -> Action.Switch(screen.tag, CustomActionsFragment())
         }
     }
 

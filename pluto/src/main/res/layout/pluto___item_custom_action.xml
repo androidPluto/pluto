@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_root"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/pluto___item_image_dimen"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/pluto___margin_medium"
+        android:layout_marginEnd="@dimen/pluto___margin_medium"
+        android:fontFamily="@font/muli_semibold"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_medium"
+        tools:text="Actions" />
+
+</FrameLayout>

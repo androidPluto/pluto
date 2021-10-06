@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.PlutoLog
 import com.mocklets.pluto.modules.customactions.CustomAction
+import com.mocklets.pluto.modules.customactions.OnCustomActionListener
 import com.mocklets.pluto.modules.exceptions.ANRException
 import com.mocklets.pluto.modules.exceptions.ANRListener
 
@@ -27,17 +28,25 @@ class SampleApp : Application() {
         Pluto.setCustomActions(
             listOf(
                 CustomAction(
-                    title = "Show toast 1"
-                ) {
-                    Toast.makeText(applicationContext, "Custom action 1", Toast.LENGTH_SHORT)
-                        .show()
-                },
+                    title = "Show toast 1",
+                    shouldClosePluto = false,
+                    object : OnCustomActionListener {
+                        override fun onClick() {
+                            Toast.makeText(applicationContext, "Custom action 1", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                ),
                 CustomAction(
-                    title = "Show toast 2"
-                ) {
-                    Toast.makeText(applicationContext, "Custom action 2", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                    title = "Show toast 2 and close Pluto",
+                    shouldClosePluto = true,
+                    object : OnCustomActionListener {
+                        override fun onClick() {
+                            Toast.makeText(applicationContext, "Custom action 2", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                )
             )
         )
     }
