@@ -1,7 +1,9 @@
 package com.mocklets.pluto.plugin
 
 import android.content.Context
+import androidx.annotation.Keep
 
+@Keep
 abstract class Plugin {
 
     val context: Context
@@ -15,7 +17,7 @@ abstract class Plugin {
     private var _context: Context? = null
     private fun returnContext(): Context {
         _context?.let {
-            return@let it
+            return it
         }
         throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
     }

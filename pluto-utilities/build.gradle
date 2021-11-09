@@ -12,7 +12,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.mocklets.pluto"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'plugin'
+    PUBLISH_ARTIFACT_ID = 'utlities'
 }
 
 android {
@@ -55,11 +55,16 @@ android {
 dependencies {
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
 
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
