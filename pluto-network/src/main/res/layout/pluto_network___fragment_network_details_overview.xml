@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pluto___white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/pluto___margin_large"
+        android:paddingBottom="@dimen/pluto___margin_large"
+        tools:context=".modules.network.ui.details.NetworkDetailsOverviewFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statusContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_mini"
+            app:cardCornerRadius="@dimen/pluto___margin_medium"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/statusView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/pluto___margin_small"
+                android:paddingLeft="@dimen/pluto___margin_small"
+                android:paddingTop="@dimen/pluto___margin_mini"
+                android:paddingEnd="@dimen/pluto___margin_medium"
+                android:paddingRight="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_mini"
+                tools:background="@color/pluto___dark_05">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="@dimen/pluto___margin_xlarge"
+                    android:layout_height="@dimen/pluto___margin_xlarge"
+                    android:layout_marginEnd="@dimen/pluto___margin_mini"
+                    android:layout_marginRight="@dimen/pluto___margin_mini"
+                    android:backgroundTint="@color/pluto___dark_40"
+                    android:padding="@dimen/pluto___margin_micro"
+                    app:layout_constraintBottom_toBottomOf="@+id/status"
+                    app:layout_constraintEnd_toStartOf="@+id/status"
+                    app:layout_constraintTop_toTopOf="@+id/status" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/pluto___ic_error"
+                    android:drawableLeft="@drawable/pluto___ic_error"
+                    android:drawablePadding="@dimen/pluto___margin_mini"
+                    android:fontFamily="@font/muli"
+                    android:gravity="center_vertical"
+                    android:text="@string/pluto_network___network_state_in_progress"
+                    android:textSize="@dimen/pluto___text_xsmall"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <TextView
+            android:id="@+id/url_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_xlarge"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___url_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintTop_toBottomOf="@+id/statusContainer" />
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_semibold"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintTop_toBottomOf="@+id/url_label"
+            tools:text="https://url" />
+
+        <include
+            android:id="@+id/proxyStub"
+            layout="@layout/pluto_network___stub_network_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_small"
+            app:layout_constraintTop_toBottomOf="@+id/url" />
+
+        <TextView
+            android:id="@+id/method_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:layout_marginEnd="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___method_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proxyStub" />
+
+        <TextView
+            android:id="@+id/method"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_semibold"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/method_label"
+            app:layout_constraintStart_toStartOf="@+id/method_label"
+            app:layout_constraintTop_toBottomOf="@+id/method_label"
+            tools:text="post" />
+
+        <TextView
+            android:id="@+id/ssl_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_large"
+            android:layout_marginEnd="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___ssl_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline"
+            app:layout_constraintTop_toTopOf="@+id/method_label" />
+
+        <TextView
+            android:id="@+id/ssl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_semibold"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/ssl_label"
+            app:layout_constraintStart_toStartOf="@+id/ssl_label"
+            app:layout_constraintTop_toBottomOf="@+id/ssl_label"
+            tools:text="true" />
+
+        <TextView
+            android:id="@+id/protocol_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___protocol_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/method" />
+
+        <TextView
+            android:id="@+id/protocol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_light"
+            android:text="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_40"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/protocol_label"
+            app:layout_constraintStart_toStartOf="@+id/protocol_label"
+            app:layout_constraintTop_toBottomOf="@+id/protocol_label" />
+
+        <TextView
+            android:id="@+id/request_time_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___request_time_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/protocol" />
+
+        <TextView
+            android:id="@+id/requestTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_light"
+            android:text="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_40"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/request_time_label"
+            app:layout_constraintStart_toStartOf="@+id/request_time_label"
+            app:layout_constraintTop_toBottomOf="@+id/request_time_label" />
+
+        <TextView
+            android:id="@+id/response_time_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___response_time_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/requestTime" />
+
+        <TextView
+            android:id="@+id/responseTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_light"
+            android:text="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_40"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/response_time_label"
+            app:layout_constraintStart_toStartOf="@+id/response_time_label"
+            app:layout_constraintTop_toBottomOf="@+id/response_time_label" />
+
+        <TextView
+            android:id="@+id/delay_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___delay_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/responseTime" />
+
+        <TextView
+            android:id="@+id/delay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_light"
+            android:text="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_40"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/delay_label"
+            app:layout_constraintStart_toStartOf="@+id/delay_label"
+            app:layout_constraintTop_toBottomOf="@+id/delay_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

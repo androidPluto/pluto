@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-internal abstract class BaseAdapter : DiffAwareAdapter<DiffAwareHolder>() {
+abstract class BaseAdapter : DiffAwareAdapter<DiffAwareHolder>() {
     abstract fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder?
     abstract fun getItemViewType(item: ListItem): Int?
 
@@ -24,7 +24,7 @@ internal abstract class BaseAdapter : DiffAwareAdapter<DiffAwareHolder>() {
     }
 }
 
-internal abstract class DiffAwareHolder(
+abstract class DiffAwareHolder(
     view: View,
     private val listener: DiffAwareAdapter.OnActionListener?
 ) : RecyclerView.ViewHolder(view) {

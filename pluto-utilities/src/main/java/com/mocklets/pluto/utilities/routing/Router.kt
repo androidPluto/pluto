@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.AndroidViewModel
 import com.mocklets.pluto.utilities.SingleLiveEvent
 
-internal class Router(application: Application) : AndroidViewModel(application) {
+class Router(application: Application) : AndroidViewModel(application) {
 
     private val routeLiveData = SingleLiveEvent<RouterAction>()
     val routerData: SingleLiveEvent<RouterAction>
@@ -23,6 +23,6 @@ internal class Router(application: Application) : AndroidViewModel(application) 
     }
 }
 
-internal fun Fragment.lazyRouter(): Lazy<Router> = activityViewModels()
+fun Fragment.lazyRouter(): Lazy<Router> = activityViewModels()
 
-internal fun ComponentActivity.lazyRouter(): Lazy<Router> = viewModels()
+fun ComponentActivity.lazyRouter(): Lazy<Router> = viewModels()

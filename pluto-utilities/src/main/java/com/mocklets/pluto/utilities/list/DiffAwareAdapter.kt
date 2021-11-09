@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-internal abstract class DiffAwareAdapter<VH : DiffAwareHolder> : RecyclerView.Adapter<DiffAwareHolder>() {
+abstract class DiffAwareAdapter<VH : DiffAwareHolder> : RecyclerView.Adapter<DiffAwareHolder>() {
 
     private val asyncListDiffer by lazy {
         AsyncListDiffer(
