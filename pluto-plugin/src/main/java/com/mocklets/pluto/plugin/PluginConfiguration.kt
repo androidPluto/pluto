@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 
 data class PluginConfiguration(
     val name: String,
-    @DrawableRes val icon: Int = R.drawable.pluto_plugin___ic_plugin_placeholder_icon,
+    @DrawableRes val icon: Int = R.drawable.pluto___ic_plugin_placeholder_icon
 ) {
     val identifier = name.lowercase().replace(" ", "_", true)
 
