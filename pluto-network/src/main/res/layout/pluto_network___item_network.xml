@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:background="@color/pluto___app_bg">
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:fontFamily="@font/muli_bold"
+        android:text="@string/pluto_network___placeholder_status_code"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_large"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/pluto___margin_small"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/pluto___dark_40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintStart_toStartOf="@+id/status"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/pluto___dark_40"
+        android:src="@drawable/pluto___ic_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintStart_toStartOf="@+id/status"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/url"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:layout_marginTop="@dimen/pluto___margin_medium"
+        android:layout_marginLeft="@dimen/pluto___margin_small"
+        android:fontFamily="@font/muli_semibold"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_small"
+        android:layout_marginEnd="@dimen/pluto___margin_mini"
+        app:layout_constraintStart_toEndOf="@+id/status"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="@dimen/pluto___margin_mini"
+        app:layout_constraintEnd_toStartOf="@+id/proxyIndicator"
+        tools:text="api endpoint" />
+
+    <ImageView
+        android:id="@+id/proxyIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/pluto___margin_small"
+        android:layout_marginRight="@dimen/pluto___margin_small"
+        android:src="@drawable/pluto___ic_proxy_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/url" />
+
+    <TextView
+        android:id="@+id/host"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_micro"
+        android:layout_marginEnd="@dimen/pluto___margin_small"
+        android:layout_marginBottom="@dimen/pluto___margin_medium"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timeElapsed"
+        app:layout_constraintStart_toStartOf="@+id/url"
+        app:layout_constraintTop_toBottomOf="@+id/url"
+        android:layout_marginRight="@dimen/pluto___margin_small"
+        tools:text="https host" />
+
+    <TextView
+        android:id="@+id/timeElapsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_micro"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:layout_marginEnd="@dimen/pluto___margin_small"
+        android:textColor="@color/pluto___text_dark_40"
+        android:textSize="@dimen/pluto___text_xxsmall"
+        android:textStyle="italic"
+        android:layout_marginRight="@dimen/pluto___margin_small"
+        app:layout_constraintTop_toTopOf="@+id/host"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="10 mins ago" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

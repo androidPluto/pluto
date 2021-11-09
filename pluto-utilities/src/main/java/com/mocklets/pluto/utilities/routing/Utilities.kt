@@ -16,7 +16,7 @@ open class Screens : RouterAction() {
     object About : Screens()
 }
 
-internal sealed class Action {
+sealed class Action {
     class Switch(
         val fragmentTag: String,
         val fragment: Fragment,

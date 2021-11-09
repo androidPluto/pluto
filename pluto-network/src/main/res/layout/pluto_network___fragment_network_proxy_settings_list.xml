@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pluto___app_bg"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___app_bg"
+        android:theme="@style/PlutoTheme.AppBarOverlay">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___exit_network_proxy_list"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/pluto___margin_medium"
+                    android:src="@drawable/pluto___ic_arrow_back"
+                    app:layout_constraintBottom_toBottomOf="@+id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/title" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_bold"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/pluto___margin_medium"
+                    android:paddingBottom="@dimen/pluto___margin_medium"
+                    android:text="@string/pluto_network___network_proxy_settings"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                    android:textColor="@color/pluto___text_dark"
+                    android:textSize="@dimen/pluto___text_xmedium"
+                    app:layout_constraintEnd_toStartOf="@+id/search"
+                    app:layout_constraintStart_toEndOf="@+id/close"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:fontFamily="@font/muli_bold"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/pluto___margin_small"
+                    android:paddingLeft="@dimen/pluto___margin_small"
+                    android:paddingTop="@dimen/pluto___margin_medium"
+                    android:paddingEnd="@dimen/pluto___margin_medium"
+                    android:paddingRight="@dimen/pluto___margin_large"
+                    android:paddingBottom="@dimen/pluto___margin_medium"
+                    android:visibility="gone"
+                    android:text="@string/pluto_network___create_new_proxy_settings"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                    android:textColor="@color/pluto___text_dark_80"
+                    android:textSize="@dimen/pluto___text_small"
+                    app:layout_constraintEnd_toStartOf="@+id/divider"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="@dimen/pluto___dp_1"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="18dp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="18dp"
+                    android:background="@color/pluto___dark_20"
+                    android:elevation="@dimen/pluto___margin_mini"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/search"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___search_network_proxy"
+                    android:fontFamily="@font/muli_bold"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/pluto___margin_small"
+                    android:paddingLeft="@dimen/pluto___margin_small"
+                    android:paddingEnd="@dimen/pluto___margin_medium"
+                    android:paddingRight="@dimen/pluto___margin_medium"
+                    android:src="@drawable/pluto___ic_search"
+                    android:text="@string/pluto_network___delete"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                    android:textColor="@color/pluto___text_dark_80"
+                    android:textSize="@dimen/pluto___text_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/pluto___margin_xsmall"
+                android:layout_marginVertical="@dimen/pluto___margin_mini"
+                android:elevation="@dimen/pluto___margin_medium"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar"
+                app:layout_constraintStart_toStartOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/closeSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/pluto_network___exit_network_call_details"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                        android:src="@drawable/pluto___ic_arrow_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/editSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/pluto___margin_xsmall"
+                        android:layout_marginLeft="@dimen/pluto___margin_xsmall"
+                        android:autofillHints="@string/pluto___library_name"
+                        android:background="@null"
+                        android:fontFamily="@font/muli_semibold"
+                        android:hint="@string/pluto_network___search_network_proxy"
+                        android:inputType="text"
+                        android:textColor="@color/pluto___text_dark"
+                        android:textColorHint="@color/pluto___text_dark_40"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/clearSearch"
+                        app:layout_constraintStart_toEndOf="@+id/closeSearch"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/clearSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/pluto_network___exit_network_call_details"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                        android:src="@drawable/pluto___ic_close_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/noNetworkProxy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:gravity="center"
+            android:text="@string/pluto_network___no_network_proxy"
+            android:textColor="@color/pluto___text_dark_40"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

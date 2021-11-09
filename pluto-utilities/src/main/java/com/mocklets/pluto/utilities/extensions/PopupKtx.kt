@@ -14,7 +14,7 @@ import com.mocklets.pluto.utilities.R
 import com.mocklets.pluto.utilities.spannable.createSpan
 
 @SuppressLint("RestrictedApi")
-internal fun Context.showMoreOptions(view: View, @MenuRes menu: Int, listener: (MenuItem) -> Unit) {
+fun Context.showMoreOptions(view: View, @MenuRes menu: Int, listener: (MenuItem) -> Unit) {
     val popup = PopupMenu(this, view, Gravity.END).apply {
         menuInflater.inflate(menu, this.menu)
         applyFontToMenu(this.menu)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.mocklets.pluto.utilities.R
 import com.mocklets.pluto.utilities.extensions.drawable
 
-internal class CustomItemDecorator(context: Context, private val edge: Int = 0) : ItemDecoration() {
+class CustomItemDecorator(context: Context, private val edge: Int = 0) : ItemDecoration() {
 
     private val divider = context.drawable(R.drawable.pluto___line_divider)
 

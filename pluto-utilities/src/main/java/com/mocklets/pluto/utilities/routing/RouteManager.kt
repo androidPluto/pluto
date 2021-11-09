@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.mocklets.pluto.utilities.R
 import com.mocklets.pluto.utilities.extensions.hideKeyboard
 
-internal class RouteManager(private val activity: FragmentActivity, private val containerId: Int, private val actionHandler: (RouterAction) -> Action) {
+class RouteManager(private val activity: FragmentActivity, private val containerId: Int, private val actionHandler: (RouterAction) -> Action) {
 
     private val router by activity.lazyRouter()
     private val fragmentManager
