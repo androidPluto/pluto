@@ -10,9 +10,9 @@ def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 ext {
-    PUBLISH_GROUP_ID = "com.mocklets"
+    PUBLISH_GROUP_ID = "com.mocklets.pluto"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'pluto-no-op'
+    PUBLISH_ARTIFACT_ID = 'core-no-op'
 }
 
 android {
