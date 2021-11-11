@@ -23,7 +23,7 @@ import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
 import com.mocklets.pluto.utilities.routing.OnBackKeyHandler
-import com.mocklets.pluto.utilities.routing.lazyRouter
+// import com.mocklets.pluto.utilities.routing.lazyRouter
 import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.viewBinding
 
@@ -34,7 +34,7 @@ internal class NetworkProxySettingsListFragment :
     private val binding by viewBinding(PlutoNetworkFragmentNetworkProxySettingsListBinding::bind)
     private val networkProxyAdapter: BaseAdapter by lazy { NetworkProxyItemAdapter(onActionListener) }
     private val viewModel: NetworkProxyViewModel by activityViewModels()
-    private val router by lazyRouter()
+//    private val router by lazyRouter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,7 +70,7 @@ internal class NetworkProxySettingsListFragment :
             }
         }
         binding.create.setDebounceClickListener {
-            router.navigate(Screens.NetworkProxySettings())
+//            router.navigate(Screens.NetworkProxySettings())
         }
 
         viewModel.proxyList.removeObserver(networkProxyObserver)
@@ -99,16 +99,16 @@ internal class NetworkProxySettingsListFragment :
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            when (data) {
-                is NetworkProxyEntity -> router.navigate(
-                    Screens.NetworkProxySettings(
-                        NetworkProxySettingsFragment.Data(
-                            data.requestUrl,
-                            data.requestMethod
-                        )
-                    )
-                )
-            }
+//            when (data) {
+//                is NetworkProxyEntity -> router.navigate(
+//                    Screens.NetworkProxySettings(
+//                        NetworkProxySettingsFragment.Data(
+//                            data.requestUrl,
+//                            data.requestMethod
+//                        )
+//                    )
+//                )
+//            }
         }
     }
 

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.Keep
+import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
@@ -29,6 +31,10 @@ internal class PlutoActivity : FragmentActivity(R.layout.pluto___activity_pluto)
         routeManager = RouteManager(this, R.id.container)
         contentShareHelper = ContentShare(this)
         preferences = Preferences(this)
+
+        findViewById<DrawerLayout>(R.id.drawer_layout).setStatusBarBackgroundColor(
+            ContextCompat.getColor(this, R.color.pluto___transparent)
+        )
     }
 
     override fun onResume() {
