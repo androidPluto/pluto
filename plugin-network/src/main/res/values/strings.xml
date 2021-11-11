@@ -29,6 +29,8 @@
     <string name="pluto_network___settings_link_mocklets_description">Connect you Mocklets account to manage your network proxy setting efficiently</string>
     <string name="pluto_network___all_settings">See All</string>
     <string name="pluto_network___network_proxy_settings">Network Proxy Settings</string>
+    <string name="pluto_network___delete">Delete</string>
+    <string name="pluto_network___share">Share</string>
     <string name="pluto_network___delete_all_apis">Delete All Calls</string>
     <string name="pluto_network___network_proxy_settings_request_label">Request URL</string>
     <string name="pluto_network___network_proxy_settings_proxy_label">Redirect call to</string>
@@ -36,6 +38,7 @@
     <string name="pluto_network___choose_from_mocklets">Choose API from Mocklets</string>
     <string name="pluto_network___request_url_label">Enter the https request URL</string>
     <string name="pluto_network___enter_mock_manually">You can either enter the mock API url manually\nor</string>
+    <string name="pluto_network___exit_network_proxy_list">Exit Network Proxy List</string>
     <string name="pluto_network___setup_api_proxy">Setup API Proxy for future calls</string>
     <string name="pluto_network___update_api_proxy">Update Settings</string>
     <string name="pluto_network___exit_network_call_details">exit network call details</string>

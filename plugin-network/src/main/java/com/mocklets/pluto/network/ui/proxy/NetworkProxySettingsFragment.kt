@@ -2,7 +2,7 @@ package com.mocklets.pluto.network.ui.proxy
 
 import android.content.ClipboardManager
 import android.content.Context
-import android.net.Uri
+// import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -24,7 +24,7 @@ import com.mocklets.pluto.utilities.extensions.fadeInAndOut
 import com.mocklets.pluto.utilities.extensions.hideKeyboard
 import com.mocklets.pluto.utilities.extensions.lazyParcelExtra
 import com.mocklets.pluto.utilities.extensions.toast
-import com.mocklets.pluto.utilities.routing.lazyRouter
+// import com.mocklets.pluto.utilities.routing.lazyRouter
 import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.spannable.setSpan
 import com.mocklets.pluto.utilities.viewBinding
@@ -35,7 +35,7 @@ internal class NetworkProxySettingsFragment : Fragment(R.layout.pluto_network___
     private val binding by viewBinding(PlutoNetworkFragmentNetworkProxySettingsBinding::bind)
     private val arguments by lazyParcelExtra<Data>()
     private val viewModel: NetworkProxyViewModel by activityViewModels()
-    private val router by lazyRouter()
+//    private val router by lazyRouter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +60,7 @@ internal class NetworkProxySettingsFragment : Fragment(R.layout.pluto_network___
         binding.seeAll.setDebounceClickListener {
             requireActivity().hideKeyboard()
             activity?.onBackPressed()
-            router.navigate(Screens.NetworkProxySettingsList)
+//            router.navigate(Screens.NetworkProxySettingsList)
         }
         binding.close.setDebounceClickListener {
             requireActivity().hideKeyboard()
@@ -80,13 +80,13 @@ internal class NetworkProxySettingsFragment : Fragment(R.layout.pluto_network___
             requireActivity().hideKeyboard()
             viewModel.delete(binding.endPoint.text.toString())
         }
-        binding.accessMocklets.setDebounceClickListener {
-            val uri = Uri.parse(MOCKLETS_URL)
-                .buildUpon()
-                .appendQueryParameter(METHOD_PARAM, arguments?.method?.lowercase() ?: "any")
-                .build()
-            requireActivity().customTab(uri)
-        }
+//        binding.accessMocklets.setDebounceClickListener {
+//            val uri = Uri.parse(MOCKLETS_URL)
+//                .buildUpon()
+//                .appendQueryParameter(METHOD_PARAM, arguments?.method?.lowercase() ?: "any")
+//                .build()
+// //            requireActivity().customTab(uri)
+//        }
 
         viewModel.event.removeObservers(viewLifecycleOwner)
         viewModel.event.observe(viewLifecycleOwner, eventsObserver)

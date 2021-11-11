@@ -19,8 +19,8 @@ import com.mocklets.pluto.network.ui.DetailContentData
 import com.mocklets.pluto.network.ui.NetworkViewModel
 import com.mocklets.pluto.utilities.extensions.asFormattedDate
 import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.routing.Screens
-import com.mocklets.pluto.utilities.routing.lazyRouter
+// import com.mocklets.pluto.utilities.routing.Screens
+// import com.mocklets.pluto.utilities.routing.lazyRouter
 import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.sharing.Shareable
 import com.mocklets.pluto.utilities.sharing.lazyContentSharer
@@ -33,7 +33,7 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto_network_
     private val binding by viewBinding(PlutoNetworkFragmentNetworkDetailsOverviewBinding::bind)
     private val viewModel: NetworkViewModel by activityViewModels()
     private val proxyViewModel: NetworkProxyViewModel by viewModels()
-    private val router by lazyRouter()
+//    private val router by lazyRouter()
     private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,15 +46,15 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto_network_
 
         binding.proxyStub.setupProxy.setDebounceClickListener {
             viewModel.detailContentLiveData.value?.api?.request?.let { request ->
-                router.navigate(
-                    Screens.NetworkProxySettings(
-                        NetworkProxySettingsFragment.Data(
-                            request.url.toString(),
-                            request.method,
-                            true
-                        )
-                    )
-                )
+//                router.navigate(
+//                    Screens.NetworkProxySettings(
+//                        NetworkProxySettingsFragment.Data(
+//                            request.url.toString(),
+//                            request.method,
+//                            true
+//                        )
+//                    )
+//                )
             }
         }
     }
@@ -199,7 +199,7 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto_network_
 
         data.exception?.let {
             binding.progress.visibility = GONE
-            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto___ic_error, 0, 0, 0)
+//            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto___ic_error, 0, 0, 0)
             binding.status.setSpan {
                 append(
                     fontColor(
@@ -213,9 +213,9 @@ internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto_network_
 
         data.response?.let {
             binding.progress.visibility = GONE
-            binding.status.setCompoundDrawablesWithIntrinsicBounds(
-                if (it.isSuccessful) R.drawable.pluto___ic_success else R.drawable.pluto___ic_error, 0, 0, 0
-            )
+//            binding.status.setCompoundDrawablesWithIntrinsicBounds(
+//                if (it.isSuccessful) R.drawable.pluto___ic_success else R.drawable.pluto___ic_error, 0, 0, 0
+//            )
             binding.status.setSpan {
                 append(
                     fontColor(
