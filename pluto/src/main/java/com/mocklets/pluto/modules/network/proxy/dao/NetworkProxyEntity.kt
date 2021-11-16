@@ -27,10 +27,6 @@ internal data class NetworkProxyEntity(
     override fun isSame(other: Any): Boolean {
         return other is NetworkProxyEntity && other.requestUrl == requestUrl
     }
-
-    override fun equals(other: Any?): Boolean {
-        return other is NetworkProxyEntity && other.requestUrl == requestUrl
-    }
 }
 
 @Keep

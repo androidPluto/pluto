@@ -8,7 +8,7 @@ data class SharedPrefFile(
     val label: String,
     val isDefault: Boolean
 ) : ListItem() {
-    override fun equals(other: Any?): Boolean {
+    override fun isSame(other: Any): Boolean {
         return other is SharedPrefFile && other.label == this.label
     }
 }
