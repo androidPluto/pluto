@@ -24,6 +24,8 @@ abstract class Plugin {
 
     abstract fun getConfig(): PluginConfiguration
 
+    abstract fun getDeveloperDeveloperDetails(): DeveloperDetails
+
     abstract fun onPluginInstalled()
 
     open fun shouldInstallPlugin(): Boolean = true
