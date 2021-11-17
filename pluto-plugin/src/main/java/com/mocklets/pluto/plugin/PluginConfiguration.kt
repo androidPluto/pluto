@@ -1,13 +1,12 @@
 package com.mocklets.pluto.plugin
 
 import androidx.annotation.DrawableRes
-import androidx.fragment.app.Fragment
+import com.mocklets.pluto.utilities.list.ListItem
 
 data class PluginConfiguration(
     val name: String,
-    @DrawableRes val icon: Int = R.drawable.pluto___ic_plugin_placeholder_icon,
-    val fragment: Fragment
-) {
+    @DrawableRes val icon: Int = R.drawable.pluto___ic_plugin_placeholder_icon
+) : ListItem() {
     val identifier = name.lowercase().replace(" ", "_", true)
 
     override fun equals(other: Any?): Boolean {

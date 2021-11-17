@@ -2,6 +2,7 @@ package com.mocklets.pluto.plugin
 
 import android.content.Context
 import androidx.annotation.Keep
+import androidx.fragment.app.Fragment
 
 @Keep
 abstract class Plugin {
@@ -24,9 +25,11 @@ abstract class Plugin {
 
     abstract fun getConfig(): PluginConfiguration
 
-    abstract fun getDeveloperDeveloperDetails(): DeveloperDetails
+    abstract fun getDeveloperDeveloperDetails(): DeveloperDetails?
 
     abstract fun onPluginInstalled()
+
+    abstract fun onPluginSelected(): Fragment
 
     open fun shouldInstallPlugin(): Boolean = true
 

@@ -2,7 +2,6 @@ package com.sampleapp
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.mocklets.pluto.Pluto
 
 @Suppress("MagicNumber")
 fun resetSharedPreferences(context: Context) {
@@ -23,13 +22,13 @@ fun resetSharedPreferences(context: Context) {
 }
 
 fun saveAppProperties() {
-    Pluto.setAppProperties(
-        hashMapOf(
-            "user_name" to "John Smith",
-            "user_id" to "8060823b-ab8f-4f9b-bc4d-ec1acd290f23",
-            "user_location" to "Bangalore, India",
-            "user_email" to "john.smith@gmail.com",
-            "device_imei" to "49015420323751"
-        )
-    )
+//    Pluto.setAppProperties(
+//        hashMapOf(
+//            "user_name" to "John Smith",
+//            "user_id" to "8060823b-ab8f-4f9b-bc4d-ec1acd290f23",
+//            "user_location" to "Bangalore, India",
+//            "user_email" to "john.smith@gmail.com",
+//            "device_imei" to "49015420323751"
+//        )
+//    )
 }

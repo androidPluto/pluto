@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:background="@color/pluto___app_bg">
+
+    <TextView
+        android:id="@+id/logtag"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli_light"
+        android:paddingHorizontal="@dimen/pluto___margin_small"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

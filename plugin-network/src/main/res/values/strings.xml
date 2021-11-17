@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pluto___library_name">Pluto Network</string>
     <string name="pluto_network___tab_network">Network</string>
     <string name="pluto_network___search_api">Search API Call</string>
     <string name="pluto_network___tab_overview">Overview</string>

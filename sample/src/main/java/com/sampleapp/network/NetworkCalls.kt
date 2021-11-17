@@ -1,7 +1,7 @@
 package com.sampleapp.network
 
 import com.google.gson.Gson
-import com.mocklets.pluto.PlutoLog
+import com.mocklets.pluto.utilities.DebugLog
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ suspend fun <T> enqueue(
         try {
             ResponseWrapper.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
-            PlutoLog.e(tag = "network_error", message = "network failure", tr = throwable)
+            DebugLog.e(tag = "network_error", message = "network failure", tr = throwable)
             when (throwable) {
                 is IOException -> ResponseWrapper.Failure(
                     ErrorResponse(
@@ -45,7 +45,7 @@ private fun convertErrorBody(throwable: HttpException): ErrorResponse {
                 error
             }
         } catch (exception: Exception) {
-            PlutoLog.e(
+            DebugLog.e(
                 tag = "network_error",
                 message = exception.message.toString(),
                 tr = exception
