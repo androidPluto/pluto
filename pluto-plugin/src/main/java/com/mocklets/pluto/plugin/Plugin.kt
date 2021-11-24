@@ -3,9 +3,10 @@ package com.mocklets.pluto.plugin
 import android.content.Context
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
+import com.mocklets.pluto.utilities.list.ListItem
 
 @Keep
-abstract class Plugin {
+abstract class Plugin: ListItem() {
 
     val context: Context
         get() = returnContext()

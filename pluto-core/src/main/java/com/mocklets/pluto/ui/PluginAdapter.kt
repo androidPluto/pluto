@@ -1,7 +1,7 @@
 package com.mocklets.pluto.ui
 
 import android.view.ViewGroup
-import com.mocklets.pluto.plugin.PluginConfiguration
+import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
@@ -9,7 +9,7 @@ import com.mocklets.pluto.utilities.list.ListItem
 internal class PluginAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is PluginConfiguration -> ITEM_TYPE_PLUGIN
+            is Plugin -> ITEM_TYPE_PLUGIN
             else -> null
         }
     }

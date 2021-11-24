@@ -6,12 +6,13 @@ internal class PluginManager {
 
     private var plugins: LinkedHashSet<Plugin> = linkedSetOf()
     private var context: Context? = null
-    internal val installedPlugins: LinkedHashSet<Plugin>
+    internal val installedPlugins: List<Plugin>
         get() {
+            val list = arrayListOf<Plugin>()
             context?.let {
-                return plugins
+                list.addAll(plugins)
             }
-            return linkedSetOf()
+            return list
         }
 
     fun install(context: Context, plugins: LinkedHashSet<Plugin>) {

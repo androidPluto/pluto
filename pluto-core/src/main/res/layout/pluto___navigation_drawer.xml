@@ -23,10 +23,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pluginList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/pluto___blue_40"
+        app:layout_constraintBottom_toTopOf="@+id/sectionDivider"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <View
+        android:id="@+id/sectionDivider"
         android:layout_width="0dp"
         android:layout_height="@dimen/pluto___dp_1"
         android:background="@color/pluto___dark_05"
