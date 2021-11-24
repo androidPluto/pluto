@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.mocklets.pluto.utilities.list.ListItem
 
 @Keep
-abstract class Plugin: ListItem() {
+abstract class Plugin : ListItem() {
 
     val context: Context
         get() = returnContext()

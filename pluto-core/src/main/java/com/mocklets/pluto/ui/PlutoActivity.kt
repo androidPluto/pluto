@@ -10,7 +10,6 @@ class PlutoActivity : AppCompatActivity() {
         val binding = PlutoActivityPlutoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val drawerManager = NavigationDrawerManager(this, binding) {
-
         }
         drawerManager.init()
     }
