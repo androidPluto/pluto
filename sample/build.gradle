@@ -43,6 +43,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':pluto-core')
     implementation project(path: ':plugin-network')
+    implementation project(path: ':plugin-logger')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.3.0'

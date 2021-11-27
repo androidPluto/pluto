@@ -2,6 +2,7 @@ package com.sampleapp
 
 import android.app.Application
 import com.mocklets.pluto.Pluto
+import com.mocklets.pluto.logger.PlutoLoggerPlugin
 import com.mocklets.pluto.network.PlutoNetworkPlugin
 
 class SampleApp : Application() {
@@ -26,6 +27,7 @@ class SampleApp : Application() {
 //        }
         Pluto.Installer(this)
             .addPlugin(PlutoNetworkPlugin())
+            .addPlugin(PlutoLoggerPlugin())
             .install()
 //        Pluto.initialize(this)
 //        Pluto.setANRListener(object : ANRListener {
