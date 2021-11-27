@@ -21,9 +21,8 @@ class NavigationDrawerManager(context: Context, private val binding: PlutoActivi
         }
     }
 
-    private val pluginAdapter: BaseAdapter = PluginAdapter(onActionListener)
-
     fun init() {
+        val pluginAdapter: BaseAdapter = PluginAdapter(onActionListener)
         binding.nvView.pluginList.adapter = pluginAdapter
         pluginAdapter.list = Pluto.pluginManager.installedPlugins
     }
