@@ -13,7 +13,7 @@ abstract class Plugin : ListItem() {
 
     fun install(context: Context) {
         this._context = context
-        onPluginInstalled()
+        onPluginInstalled(context)
     }
 
     private var _context: Context? = null
@@ -26,9 +26,9 @@ abstract class Plugin : ListItem() {
 
     abstract fun getConfig(): PluginConfiguration
 
-    abstract fun getDeveloperDeveloperDetails(): DeveloperDetails?
+    open fun getDeveloperDeveloperDetails(): DeveloperDetails? = null
 
-    abstract fun onPluginInstalled()
+    abstract fun onPluginInstalled(context: Context)
 
     abstract fun onPluginSelected(): Fragment
 
