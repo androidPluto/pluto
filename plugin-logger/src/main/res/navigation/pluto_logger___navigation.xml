@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pluto_logger___navigation"
+    app:startDestination="@id/listView">
+
+    <fragment
+        android:id="@+id/listView"
+        android:name="com.mocklets.pluto.logger.ui.ListFragment"
+        android:label="list"
+        tools:layout="@layout/pluto_logger___fragment_list">
+        <action
+            android:id="@+id/openDetails"
+            app:destination="@id/detailsView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsView"
+        android:name="com.mocklets.pluto.logger.ui.DetailsFragment"
+        android:label="details"
+        tools:layout="@layout/pluto_logger___fragment_details" />
+</navigation>
