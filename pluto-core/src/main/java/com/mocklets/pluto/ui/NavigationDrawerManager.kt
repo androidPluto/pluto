@@ -8,8 +8,9 @@ import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.utilities.setDebounceClickListener
 
-class NavigationDrawerManager(context: Context, private val binding: PlutoActivityPlutoBinding, onSelection: (Plugin) -> Unit) {
+class NavigationDrawerManager(private val context: Context, private val binding: PlutoActivityPlutoBinding, private val onSelection: (Plugin) -> Unit) {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
@@ -25,5 +26,19 @@ class NavigationDrawerManager(context: Context, private val binding: PlutoActivi
         val pluginAdapter: BaseAdapter = PluginAdapter(onActionListener)
         binding.nvView.pluginList.adapter = pluginAdapter
         pluginAdapter.list = Pluto.pluginManager.installedPlugins
+
+
+        //todo testing code START
+        binding.nvView.settings.text = Pluto.pluginManager.installedPlugins[0].getConfig().name
+        binding.nvView.about.text = Pluto.pluginManager.installedPlugins[1].getConfig().name
+
+        binding.nvView.settings.setDebounceClickListener {
+            onSelection.invoke(Pluto.pluginManager.installedPlugins[0])
+        }
+
+        binding.nvView.about.setDebounceClickListener {
+            onSelection.invoke(Pluto.pluginManager.installedPlugins[1])
+        }
+        //todo testing code END
     }
 }
