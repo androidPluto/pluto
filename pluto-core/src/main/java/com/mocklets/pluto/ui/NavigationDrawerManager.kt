@@ -27,8 +27,7 @@ class NavigationDrawerManager(private val context: Context, private val binding:
         binding.nvView.pluginList.adapter = pluginAdapter
         pluginAdapter.list = Pluto.pluginManager.installedPlugins
 
-
-        //todo testing code START
+        // todo testing code START
         binding.nvView.settings.text = Pluto.pluginManager.installedPlugins[0].getConfig().name
         binding.nvView.about.text = Pluto.pluginManager.installedPlugins[1].getConfig().name
 
@@ -39,6 +38,6 @@ class NavigationDrawerManager(private val context: Context, private val binding:
         binding.nvView.about.setDebounceClickListener {
             onSelection.invoke(Pluto.pluginManager.installedPlugins[1])
         }
-        //todo testing code END
+        // todo testing code END
     }
 }
