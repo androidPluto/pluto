@@ -1,6 +1,7 @@
 package com.mocklets.pluto.plugin
 
 import android.content.Context
+import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import com.mocklets.pluto.utilities.list.ListItem
@@ -10,12 +11,6 @@ abstract class Plugin : ListItem() {
 
     val context: Context
         get() = returnContext()
-
-    fun install(context: Context) {
-        this._context = context
-        onPluginInstalled(context)
-    }
-
     private var _context: Context? = null
     private fun returnContext(): Context {
         _context?.let {
@@ -24,21 +19,31 @@ abstract class Plugin : ListItem() {
         throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
     }
 
+    var savedInstance: Bundle = Bundle()
+        private set
+
+    fun install(context: Context) {
+        this._context = context
+        onPluginInstalled(context)
+    }
+
     abstract fun getConfig(): PluginConfiguration
-
-    open fun getDeveloperDeveloperDetails(): DeveloperDetails? = null
-
-    abstract fun onPluginInstalled(context: Context)
-
-    abstract fun onPluginSelected(): Fragment
-
+    abstract fun getView(): Fragment
+    open fun getDeveloperDetails(): DeveloperDetails? = null
     open fun shouldInstallPlugin(): Boolean = true
-
-    override fun equals(other: Any?): Boolean {
-        return other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
+    open fun saveInstanceState(state: Bundle) {
+        savedInstance = state
     }
 
-    override fun hashCode(): Int {
-        return getConfig().hashCode()
-    }
+    /**
+     * plugin lifecycle methods
+     */
+    abstract fun onPluginInstalled(context: Context)
+    open fun onPluginViewCreated(savedInstanceState: Bundle?) {}
+    open fun onPluginViewRemoved() {}
+    open fun onPluginSearchInitiated(search: String) {}
+    open fun onPluginOptionsSelected(option: String) {}
+
+    override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
+    override fun hashCode(): Int = getConfig().hashCode()
 }

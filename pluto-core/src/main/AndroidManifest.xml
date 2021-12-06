@@ -4,8 +4,13 @@
 
     <application>
         <activity
+            android:name=".ui.PlutoBaseActivity"
+            android:exported="false"
+            android:theme="@style/PlutoTheme.NoActionBar" />
+        <activity
             android:name=".ui.PlutoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/PlutoTheme.NoActionBar" />
     </application>
 
 </manifest>

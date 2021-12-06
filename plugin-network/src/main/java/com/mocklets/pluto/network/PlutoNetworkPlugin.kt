@@ -11,31 +11,23 @@ import com.mocklets.pluto.plugin.PluginConfiguration
 
 class PlutoNetworkPlugin : Plugin() {
 
-//    init {
-//        PlutoNetwork.appContext = context.applicationContext
-//    }
-
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = "Network Calls"
     )
 
-    override fun getDeveloperDeveloperDetails(): DeveloperDetails {
-        return DeveloperDetails(
-            website = "https://pluto.mocklets.com",
-            vcsLink = "https://github.com/mocklets/pluto",
-            developer = Developer(
-                github = "srtvprateek",
-                twitter = "srtv_prateek"
-            )
+    override fun getView(): Fragment = NetworkFragment()
+
+    override fun getDeveloperDetails(): DeveloperDetails = DeveloperDetails(
+        website = "https://pluto.mocklets.com",
+        vcsLink = "https://github.com/mocklets/pluto",
+        developer = Developer(
+            github = "srtvprateek",
+            twitter = "srtv_prateek"
         )
-    }
+    )
 
     override fun onPluginInstalled(context: Context) {
         Log.e("prateek", "network installed ${getConfig().identifier}")
         PlutoNetwork.appContext = context
-    }
-
-    override fun onPluginSelected(): Fragment {
-        return NetworkFragment()
     }
 }

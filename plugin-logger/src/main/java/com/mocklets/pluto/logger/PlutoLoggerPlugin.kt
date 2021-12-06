@@ -14,7 +14,9 @@ class PlutoLoggerPlugin : Plugin() {
         name = "Logger"
     )
 
-    override fun getDeveloperDeveloperDetails(): DeveloperDetails {
+    override fun getView(): Fragment = LogsFragment()
+
+    override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
             website = "https://pluto.mocklets.com",
             vcsLink = "https://github.com/mocklets/pluto",
@@ -26,9 +28,5 @@ class PlutoLoggerPlugin : Plugin() {
     }
 
     override fun onPluginInstalled(context: Context) {
-    }
-
-    override fun onPluginSelected(): Fragment {
-        return LogsFragment()
     }
 }

@@ -14,8 +14,11 @@ class PlutoActivity : AppCompatActivity() {
         val binding = PlutoActivityPlutoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         drawerManager = NavigationDrawerManager(this, binding) {
-            val fragment = it.onPluginSelected()
-            supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+            val fragment = it.getView()
+            supportFragmentManager.beginTransaction().apply {
+                this.runOnCommit { it.onPluginViewCreated(it.savedInstance) }
+                this.replace(R.id.container, fragment).commit()
+            }
             binding.drawerLayout.closeDrawer(Gravity.START, true)
         }
     }

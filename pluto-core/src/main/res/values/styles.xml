@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PlutoTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/pluto___colorPrimary</item>
+        <item name="colorPrimaryDark">@color/pluto___colorPrimaryDark</item>
+        <item name="colorAccent">@color/pluto___colorAccent</item>
+    </style>
+
+    <style name="PlutoTheme.NoActionBar" parent="PlutoTheme">
+        <item name="colorPrimary">@color/pluto___dark</item>
+        <item name="colorPrimaryDark">@color/pluto___dark</item>
+        <item name="colorAccent">@color/pluto___dark</item>
+        <!--        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
+</resources>
