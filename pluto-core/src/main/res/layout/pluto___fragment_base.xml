@@ -18,11 +18,15 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/muli_semibold"
+        android:marqueeRepeatLimit="1"
+        android:maxLines="1"
         android:padding="@dimen/pluto___margin_small"
-        android:text="Network"
+        android:singleLine="true"
+        android:text="Rooms Database"
         android:textColor="@color/pluto___white"
         android:textSize="@dimen/pluto___text_medium"
         app:layout_constraintEnd_toStartOf="@+id/options"
