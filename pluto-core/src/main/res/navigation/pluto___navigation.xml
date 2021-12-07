@@ -12,7 +12,15 @@
         tools:layout="@layout/pluto___fragment_base">
         <action
             android:id="@+id/openSettings"
-            app:destination="@id/settingsView" />
+            app:destination="@+id/settingsView" />
+
+        <action
+            android:id="@+id/openPluginSelector"
+            app:destination="@+id/pluginSelectorView"/>
+
+        <action
+            android:id="@+id/openPluginMoreOptions"
+            app:destination="@+id/pluginMoreOptionsView"/>
     </fragment>
 
     <fragment
@@ -20,4 +28,13 @@
         android:name="com.mocklets.pluto.ui.SettingsFragment"
         android:label="details"
         tools:layout="@layout/pluto___fragment_settings" />
+
+    <dialog
+        android:id="@+id/pluginSelectorView"
+        android:name="com.mocklets.pluto.ui.PluginSelectorDialogFragment"/>
+
+    <dialog
+        android:id="@+id/pluginMoreOptionsView"
+        android:name="com.mocklets.pluto.ui.PluginMoreOptionsDialogFragment"/>
+
 </navigation>

@@ -18,5 +18,12 @@ class BaseFragment : Fragment(R.layout.pluto___fragment_base) {
         binding.settings.setDebounceClickListener {
             findNavController().navigate(R.id.openSettings)
         }
+        binding.grid.setDebounceClickListener {
+            findNavController().navigate(R.id.openPluginSelector)
+        }
+
+        binding.options.setDebounceClickListener {
+            findNavController().navigate(R.id.openPluginMoreOptions)
+        }
     }
 }
