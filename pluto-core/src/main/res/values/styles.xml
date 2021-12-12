@@ -27,7 +27,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.9</item>
+        <item name="android:backgroundDimAmount">0.85</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="bottomSheetStyle">@style/PlutoBottomSheet</item>
