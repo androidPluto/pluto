@@ -1,7 +1,10 @@
 package com.sampleapp
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mocklets.pluto.Pluto
@@ -27,8 +30,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleAppPropertiesCTAs() {
         binding.appPropertiesCta.setOnClickListener {
-            saveAppProperties()
-            startActivity(Intent(this, SecondActivity::class.java))
+//            saveAppProperties()
+//            startActivity(Intent(this, SecondActivity::class.java))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivity(intent)
+            }
         }
     }
 
@@ -41,11 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleExceptionCTAs() {
         binding.exceptionCta.setOnClickListener {
-            throw NullPointerException("Custom Exception")
+            Pluto.hideControls()
+//            throw NullPointerException("Custom Exception")
         }
 
         binding.deadlockCta.setOnClickListener {
-            TestingThreadANR.testDeadLock()
+            Pluto.showControls(true)
+//            TestingThreadANR.testDeadLock()
         }
 
         binding.sleepCta.setOnClickListener {
