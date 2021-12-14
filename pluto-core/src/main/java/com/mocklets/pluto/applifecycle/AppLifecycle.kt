@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import java.lang.ref.WeakReference
 
 internal class AppLifecycle : ActivityLifecycleCallbacks {
 
@@ -14,7 +15,7 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
     private val _state = MutableLiveData<AppState>()
 
     private var activityCount = 0
-    internal var currentActivity: AppCompatActivity? = null
+    internal var currentActivity: WeakReference<AppCompatActivity>? = null
 
     override fun onActivityStarted(activity: Activity) {
         activityCount++
@@ -33,7 +34,7 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
     override fun onActivityResumed(activity: Activity) {
         if (activity is AppCompatActivity) {
-            currentActivity = activity
+            currentActivity = WeakReference(activity)
         }
     }
 

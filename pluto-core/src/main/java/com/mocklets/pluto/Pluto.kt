@@ -28,7 +28,7 @@ object Pluto {
     }
 
     fun open() {
-        appLifecycle.currentActivity?.let {
+        appLifecycle.currentActivity?.get()?.let {
             PluginSelector().show(it, notch)
         }
     }
