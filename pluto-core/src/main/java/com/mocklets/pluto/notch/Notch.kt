@@ -1,19 +1,31 @@
 package com.mocklets.pluto.notch
 
+import android.app.Application
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.view.WindowManager
+import com.mocklets.pluto.Pluto
+import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.settings.canDrawOverlays
 import com.mocklets.pluto.ui.PlutoActivity
 
-internal class Notch(context: Context) {
+internal class Notch(private val application: Application) {
+
+    init {
+        Pluto.appState.observeForever {
+            if (enabled && it is AppState.Foreground) {
+                add()
+            } else {
+                remove()
+            }
+        }
+    }
 
     private val interactionListener = object : OnNotchInteractionListener {
         override fun onClick() {
-            val intent = Intent(context, PlutoActivity::class.java)
+            val intent = Intent(application.applicationContext, PlutoActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+            application.applicationContext.startActivity(intent)
         }
 
         override fun onLayoutParamsUpdated(params: WindowManager.LayoutParams) {
@@ -23,16 +35,29 @@ internal class Notch(context: Context) {
         }
     }
 
-    private val notchViewManager: NotchViewManager = NotchViewManager(context, interactionListener)
-    private val windowManager: WindowManager = context.getSystemService(Service.WINDOW_SERVICE) as WindowManager
+    private var enabled = false
+    private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
+    private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
-    internal fun add(context: Context) {
+    private fun add() {
+        val context = application.applicationContext
         if (context.canDrawOverlays()) {
             notchViewManager.addView(context, windowManager)
+        } else {
+            // todo show instruction dialog
         }
     }
 
-    internal fun remove() {
+    private fun remove() {
         notchViewManager.removeView(windowManager)
+    }
+
+    internal fun enable(state: Boolean) {
+        enabled = state
+        if (enabled && Pluto.appState.value is AppState.Foreground) {
+            add()
+        } else {
+            remove()
+        }
     }
 }

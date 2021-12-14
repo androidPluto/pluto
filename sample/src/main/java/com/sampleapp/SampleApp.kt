@@ -29,7 +29,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoNetworkPlugin())
             .addPlugin(PlutoLoggerPlugin())
             .install()
-        Pluto.showControls(true)
+        Pluto.showNotch()
 //        Pluto.initialize(this)
 //        Pluto.setANRListener(object : ANRListener {
 //            override fun onAppNotResponding(exception: ANRException) {

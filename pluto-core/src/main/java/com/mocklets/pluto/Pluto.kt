@@ -3,6 +3,10 @@ package com.mocklets.pluto
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.LiveData
+import com.mocklets.pluto.applifecycle.AppLifecycle
+import com.mocklets.pluto.applifecycle.AppState
+import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginManager
 import com.mocklets.pluto.settings.SettingsPreferences
@@ -12,12 +16,17 @@ import java.util.LinkedHashSet
 object Pluto {
 
     internal val pluginManager = PluginManager()
-    internal lateinit var appLifecycleTracker: AppLifecycleTracker
+    private lateinit var appLifecycle: AppLifecycle
+    private var notch: Notch? = null
+    internal val appState: LiveData<AppState>
+        get() = appLifecycle.state
 
-    private fun init(context: Context, plugins: LinkedHashSet<Plugin>) {
-        pluginManager.install(context, plugins)
-        SettingsPreferences.init(context)
-        appLifecycleTracker = AppLifecycleTracker(context.applicationContext as Application)
+    private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
+        appLifecycle = AppLifecycle()
+        application.registerActivityLifecycleCallbacks(appLifecycle)
+        pluginManager.install(application.applicationContext, plugins)
+        SettingsPreferences.init(application.applicationContext)
+        notch = Notch(application)
     }
 
     fun open(context: Context) {
@@ -26,16 +35,15 @@ object Pluto {
         context.startActivity(intent)
     }
 
-    @JvmOverloads
-    fun showControls(enableNotch: Boolean = true) {
-        appLifecycleTracker.start(enableNotch)
+    fun showNotch() {
+        notch?.enable(true)
     }
 
-    fun hideControls() {
-        appLifecycleTracker.stop()
+    fun hideNotch() {
+        notch?.enable(false)
     }
 
-    class Installer(private val context: Context) {
+    class Installer(private val application: Application) {
 
         private val plugins = linkedSetOf<Plugin>()
 
@@ -45,7 +53,7 @@ object Pluto {
         }
 
         fun install() {
-            init(context.applicationContext, plugins)
+            init(application, plugins)
         }
     }
 }
