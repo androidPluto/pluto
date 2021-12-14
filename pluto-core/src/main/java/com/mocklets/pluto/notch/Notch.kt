@@ -2,12 +2,10 @@ package com.mocklets.pluto.notch
 
 import android.app.Application
 import android.app.Service
-import android.content.Intent
 import android.view.WindowManager
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.settings.canDrawOverlays
-import com.mocklets.pluto.ui.PlutoActivity
 
 internal class Notch(private val application: Application) {
 
@@ -23,9 +21,7 @@ internal class Notch(private val application: Application) {
 
     private val interactionListener = object : OnNotchInteractionListener {
         override fun onClick() {
-            val intent = Intent(application.applicationContext, PlutoActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            application.applicationContext.startActivity(intent)
+            Pluto.open()
         }
 
         override fun onLayoutParamsUpdated(params: WindowManager.LayoutParams) {
@@ -39,16 +35,18 @@ internal class Notch(private val application: Application) {
     private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
     private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
-    private fun add() {
-        val context = application.applicationContext
-        if (context.canDrawOverlays()) {
-            notchViewManager.addView(context, windowManager)
-        } else {
-            // todo show instruction dialog
+    internal fun add() {
+        if (enabled) {
+            val context = application.applicationContext
+            if (context.canDrawOverlays()) {
+                notchViewManager.addView(context, windowManager)
+            } else {
+                // todo show instruction dialog
+            }
         }
     }
 
-    private fun remove() {
+    internal fun remove() {
         notchViewManager.removeView(windowManager)
     }
 

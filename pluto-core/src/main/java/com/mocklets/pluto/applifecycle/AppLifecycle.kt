@@ -3,6 +3,7 @@ package com.mocklets.pluto.applifecycle
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -13,6 +14,7 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
     private val _state = MutableLiveData<AppState>()
 
     private var activityCount = 0
+    internal var currentActivity: AppCompatActivity? = null
 
     override fun onActivityStarted(activity: Activity) {
         activityCount++
@@ -29,7 +31,12 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
-    override fun onActivityResumed(activity: Activity) {}
+    override fun onActivityResumed(activity: Activity) {
+        if (activity is AppCompatActivity) {
+            currentActivity = activity
+        }
+    }
+
     override fun onActivityPaused(activity: Activity) {}
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
     override fun onActivityDestroyed(activity: Activity) {}

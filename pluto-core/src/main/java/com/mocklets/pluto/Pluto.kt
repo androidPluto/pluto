@@ -1,16 +1,14 @@
 package com.mocklets.pluto
 
 import android.app.Application
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import com.mocklets.pluto.applifecycle.AppLifecycle
 import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginManager
+import com.mocklets.pluto.plugin.PluginSelector
 import com.mocklets.pluto.settings.SettingsPreferences
-import com.mocklets.pluto.ui.PlutoBaseActivity
 import java.util.LinkedHashSet
 
 object Pluto {
@@ -29,10 +27,10 @@ object Pluto {
         notch = Notch(application)
     }
 
-    fun open(context: Context) {
-        val intent = Intent(context, PlutoBaseActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
+    fun open() {
+        appLifecycle.currentActivity?.let {
+            PluginSelector().show(it, notch)
+        }
     }
 
     fun showNotch() {

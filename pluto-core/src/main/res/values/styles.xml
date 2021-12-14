@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="PlutoTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/pluto___colorPrimary</item>
         <item name="colorPrimaryDark">@color/pluto___colorPrimaryDark</item>
@@ -11,11 +10,8 @@
         <item name="colorPrimary">@color/pluto___dark</item>
         <item name="colorPrimaryDark">@color/pluto___dark</item>
         <item name="colorAccent">@color/pluto___dark</item>
-        <!--        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
     <style name="PlutoBottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
@@ -27,7 +23,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.85</item>
+        <item name="android:backgroundDimAmount">0.9</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="bottomSheetStyle">@style/PlutoBottomSheet</item>
@@ -36,7 +32,14 @@
 
     <style name="PlutoBottomSheetDialogTheme" parent="PlutoBaseBottomSheetDialog">
         <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsFloating">true</item>
         <item name="android:statusBarColor">@color/pluto___transparent</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="PlutoPluginSelectorAnimation" >
+        <item name="android:windowEnterAnimation">@anim/pluto___fade_in_dialog</item>
+        <item name="android:windowExitAnimation">@anim/pluto___fade_out_dialog</item>
     </style>
 </resources>

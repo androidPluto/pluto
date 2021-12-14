@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleSharedPrefCTAs() {
         binding.sharedPrefCta.setOnClickListener {
             resetSharedPreferences(this)
-            Pluto.open(this)
+            Pluto.open()
         }
     }
 
