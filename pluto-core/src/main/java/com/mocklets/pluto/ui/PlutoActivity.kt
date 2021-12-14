@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mocklets.pluto.R
 import com.mocklets.pluto.databinding.PlutoActivityPlutoBinding
 
+// todo delete this file
 class PlutoActivity : AppCompatActivity() {
     private lateinit var drawerManager: NavigationDrawerManager
 

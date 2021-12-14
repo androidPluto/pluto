@@ -15,7 +15,7 @@ import com.mocklets.pluto.R
 import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.databinding.PlutoLayoutPluginSelectorBinding
 import com.mocklets.pluto.notch.Notch
-import com.mocklets.pluto.ui.PluginAdapter
+import com.mocklets.pluto.plugin.list.PluginAdapter
 import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder

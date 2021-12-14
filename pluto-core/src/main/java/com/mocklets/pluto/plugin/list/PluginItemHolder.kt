@@ -1,4 +1,4 @@
-package com.mocklets.pluto.ui
+package com.mocklets.pluto.plugin.list
 
 import android.view.ViewGroup
 import com.mocklets.pluto.R
