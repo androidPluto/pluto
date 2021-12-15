@@ -10,16 +10,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import com.mocklets.pluto.BuildConfig
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.databinding.PlutoLayoutPluginSelectorBinding
 import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.list.PluginAdapter
+import com.mocklets.pluto.utilities.extensions.color
 import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.utilities.spannable.setSpan
 import com.mocklets.pluto.utilities.viewBinding
 
 internal class PluginSelector : DialogFragment() {
@@ -39,6 +43,12 @@ internal class PluginSelector : DialogFragment() {
 
         binding.list.apply {
             adapter = pluginAdapter
+            layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
+        }
+
+        binding.version.setSpan {
+            append(fontColor(light("v"), context.color(R.color.pluto___white_40)))
+            append(regular(BuildConfig.VERSION_NAME))
         }
 
         Pluto.appState.removeObserver(appStateListener)
@@ -87,5 +97,6 @@ internal class PluginSelector : DialogFragment() {
 
     private companion object {
         const val FRAGMENT_TAG = "plugin_selector"
+        const val GRID_SPAN_COUNT = 4
     }
 }

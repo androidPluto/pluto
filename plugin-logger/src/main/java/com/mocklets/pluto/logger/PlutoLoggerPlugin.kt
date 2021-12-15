@@ -11,7 +11,8 @@ import com.mocklets.pluto.plugin.PluginConfiguration
 class PlutoLoggerPlugin : Plugin() {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
-        name = "Logger"
+        name = "Logger",
+        icon = R.drawable.pluto_logger___ic_logger_icon
     )
 
     override fun getView(): Fragment = LogsFragment()

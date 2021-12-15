@@ -18,6 +18,9 @@
     <color name="pluto___text_dark_60">#99231f40</color>
     <color name="pluto___text_dark_80">#cc231f40</color>
     <color name="pluto___popup_background">@color/pluto___dark</color>
+    <color name="pluto___white_05">#0Dffffff</color>
+    <color name="pluto___white_40">#66ffffff</color>
+    <color name="pluto___white_60">#99ffffff</color>
     <color name="pluto___white_80">#ccffffff</color>
     <color name="pluto___red_dark">#e50914</color>
     <color name="pluto___red">#ff5733</color>

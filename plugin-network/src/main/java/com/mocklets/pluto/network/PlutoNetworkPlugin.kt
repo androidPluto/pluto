@@ -12,7 +12,8 @@ import com.mocklets.pluto.plugin.PluginConfiguration
 class PlutoNetworkPlugin : Plugin() {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
-        name = "Network Calls"
+        name = "Network Calls",
+        icon = R.drawable.pluto___ic_network_plugin_logo
     )
 
     override fun getView(): Fragment = NetworkFragment()
