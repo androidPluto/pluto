@@ -2,6 +2,7 @@ package com.mocklets.pluto.plugin
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +19,13 @@ import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.databinding.PlutoLayoutPluginSelectorBinding
 import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.list.PluginAdapter
+import com.mocklets.pluto.ui.PlutoBaseActivity
 import com.mocklets.pluto.utilities.extensions.color
 import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.spannable.setSpan
 import com.mocklets.pluto.utilities.viewBinding
 
@@ -51,6 +54,9 @@ internal class PluginSelector : DialogFragment() {
             append(regular(BuildConfig.VERSION_NAME))
         }
 
+        binding.settings.setDebounceClickListener {
+        }
+
         Pluto.appState.removeObserver(appStateListener)
         Pluto.appState.observe(viewLifecycleOwner, appStateListener)
 
@@ -75,9 +81,11 @@ internal class PluginSelector : DialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-//            if (data is Plugin) {
-//
-//            }
+            if (data is Plugin) {
+                Pluto.currentPlugin.postValue(data)
+                context?.startActivity(Intent(context, PlutoBaseActivity::class.java))
+                dismiss()
+            }
         }
     }
 

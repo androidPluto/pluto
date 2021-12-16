@@ -9,6 +9,7 @@ import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginManager
 import com.mocklets.pluto.plugin.PluginSelector
 import com.mocklets.pluto.settings.SettingsPreferences
+import com.mocklets.pluto.utilities.SingleLiveEvent
 import java.util.LinkedHashSet
 
 object Pluto {
@@ -18,6 +19,8 @@ object Pluto {
     private var notch: Notch? = null
     internal val appState: LiveData<AppState>
         get() = appLifecycle.state
+
+    internal val currentPlugin = SingleLiveEvent<Plugin>()
 
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
         appLifecycle = AppLifecycle()

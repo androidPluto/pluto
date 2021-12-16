@@ -2,6 +2,7 @@ package com.mocklets.pluto.logger.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mocklets.pluto.logger.R
@@ -15,6 +16,15 @@ class DetailsFragment : Fragment(R.layout.pluto_logger___fragment_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+                }
+            }
+        )
+
         binding.text.setDebounceClickListener {
             findNavController().popBackStack()
         }
