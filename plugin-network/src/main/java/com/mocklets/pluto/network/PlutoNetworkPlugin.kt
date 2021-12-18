@@ -1,6 +1,5 @@
 package com.mocklets.pluto.network
 
-import android.content.Context
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.mocklets.pluto.network.ui.NetworkFragment
@@ -27,7 +26,7 @@ class PlutoNetworkPlugin : Plugin() {
         )
     )
 
-    override fun onPluginInstalled(context: Context) {
+    override fun onPluginInstalled() {
         Log.e("prateek", "network installed ${getConfig().identifier}")
         PlutoNetwork.appContext = context
     }

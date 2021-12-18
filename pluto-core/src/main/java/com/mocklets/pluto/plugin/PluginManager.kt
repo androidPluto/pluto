@@ -1,6 +1,6 @@
 package com.mocklets.pluto.plugin
 
-import android.content.Context
+import android.app.Application
 import com.mocklets.pluto.utilities.DebugLog
 
 internal class PluginManager {
@@ -13,10 +13,10 @@ internal class PluginManager {
             return list
         }
 
-    fun install(context: Context, plugins: LinkedHashSet<Plugin>) {
+    fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
-                it.install(context)
+                it.install(application)
                 this.plugins.add(it)
             } else {
                 DebugLog.e("pluto_plugin", "${it.getConfig().name} not installed (reason: condition mismatch).")

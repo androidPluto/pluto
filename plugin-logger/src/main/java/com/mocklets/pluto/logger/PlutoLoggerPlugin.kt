@@ -1,6 +1,5 @@
 package com.mocklets.pluto.logger
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import com.mocklets.pluto.plugin.Developer
 import com.mocklets.pluto.plugin.DeveloperDetails
@@ -27,6 +26,6 @@ class PlutoLoggerPlugin : Plugin() {
         )
     }
 
-    override fun onPluginInstalled(context: Context) {
+    override fun onPluginInstalled() {
     }
 }

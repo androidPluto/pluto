@@ -25,7 +25,7 @@ object Pluto {
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
-        pluginManager.install(application.applicationContext, plugins)
+        pluginManager.install(application, plugins)
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application)
     }

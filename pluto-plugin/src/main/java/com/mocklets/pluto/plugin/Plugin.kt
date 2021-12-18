@@ -1,5 +1,6 @@
 package com.mocklets.pluto.plugin
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Keep
@@ -11,10 +12,10 @@ abstract class Plugin : ListItem() {
 
     val context: Context
         get() = returnContext()
-    private var _context: Context? = null
+    private var _application: Application? = null
     private fun returnContext(): Context {
-        _context?.let {
-            return it
+        _application?.let {
+            return it.applicationContext
         }
         throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
     }
@@ -22,9 +23,9 @@ abstract class Plugin : ListItem() {
     var savedInstance: Bundle = Bundle()
         private set
 
-    fun install(context: Context) {
-        this._context = context
-        onPluginInstalled(context)
+    fun install(application: Application) {
+        this._application = application
+        onPluginInstalled()
     }
 
     abstract fun getConfig(): PluginConfiguration
@@ -38,10 +39,9 @@ abstract class Plugin : ListItem() {
     /**
      * plugin lifecycle methods
      */
-    abstract fun onPluginInstalled(context: Context)
+    abstract fun onPluginInstalled()
     open fun onPluginViewCreated(savedInstanceState: Bundle?) {}
     open fun onPluginViewRemoved() {}
-    open fun onPluginSearchInitiated(search: String) {}
     open fun onPluginOptionsSelected(option: String) {}
 
     override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
