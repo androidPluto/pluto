@@ -2,7 +2,6 @@ package com.mocklets.pluto.logger
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.mocklets.pluto.logger.ui.LogsFragment
 import com.mocklets.pluto.plugin.Developer
 import com.mocklets.pluto.plugin.DeveloperDetails
 import com.mocklets.pluto.plugin.Plugin
