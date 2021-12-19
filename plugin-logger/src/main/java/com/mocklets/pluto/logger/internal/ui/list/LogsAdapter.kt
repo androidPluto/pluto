@@ -1,7 +1,7 @@
-package com.mocklets.pluto.logger.ui.list
+package com.mocklets.pluto.logger.internal.ui.list
 
 import android.view.ViewGroup
-import com.mocklets.pluto.logger.LogData
+import com.mocklets.pluto.logger.internal.LogData
 import com.mocklets.pluto.utilities.list.BaseAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem

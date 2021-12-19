@@ -1,4 +1,4 @@
-package com.mocklets.pluto.logger.ui
+package com.mocklets.pluto.logger.internal.ui
 
 import android.os.Bundle
 import android.view.View
@@ -8,12 +8,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mocklets.pluto.logger.LogData
-import com.mocklets.pluto.logger.LogsViewModel
 import com.mocklets.pluto.logger.R
-import com.mocklets.pluto.logger.Session
 import com.mocklets.pluto.logger.databinding.PlutoLoggerFragmentListBinding
-import com.mocklets.pluto.logger.ui.list.LogsAdapter
+import com.mocklets.pluto.logger.internal.LogData
+import com.mocklets.pluto.logger.internal.LogsViewModel
+import com.mocklets.pluto.logger.internal.Session
+import com.mocklets.pluto.logger.internal.ui.list.LogsAdapter
 import com.mocklets.pluto.plugin.PluginHelper
 import com.mocklets.pluto.utilities.extensions.hideKeyboard
 import com.mocklets.pluto.utilities.extensions.linearLayoutManager

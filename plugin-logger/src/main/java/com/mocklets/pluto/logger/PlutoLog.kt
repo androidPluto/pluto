@@ -2,6 +2,8 @@ package com.mocklets.pluto.logger
 
 import android.util.Log
 import androidx.annotation.Keep
+import com.mocklets.pluto.logger.internal.Level
+import com.mocklets.pluto.logger.internal.LogsRepo
 
 @Suppress("StringLiteralDuplication")
 @Keep

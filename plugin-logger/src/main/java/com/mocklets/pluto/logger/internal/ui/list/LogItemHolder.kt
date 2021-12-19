@@ -1,9 +1,9 @@
-package com.mocklets.pluto.logger.ui.list
+package com.mocklets.pluto.logger.internal.ui.list
 
 import android.view.ViewGroup
-import com.mocklets.pluto.logger.LogData
 import com.mocklets.pluto.logger.R
 import com.mocklets.pluto.logger.databinding.PlutoLoggerListItemBinding
+import com.mocklets.pluto.logger.internal.LogData
 import com.mocklets.pluto.utilities.extensions.asTimeElapsed
 import com.mocklets.pluto.utilities.extensions.color
 import com.mocklets.pluto.utilities.extensions.dp

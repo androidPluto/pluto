@@ -1,4 +1,4 @@
-package com.mocklets.pluto.logger
+package com.mocklets.pluto.logger.internal
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

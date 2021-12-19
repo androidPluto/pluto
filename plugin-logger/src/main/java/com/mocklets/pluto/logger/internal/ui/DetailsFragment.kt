@@ -1,4 +1,4 @@
-package com.mocklets.pluto.logger.ui
+package com.mocklets.pluto.logger.internal.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mocklets.pluto.logger.LogData
-import com.mocklets.pluto.logger.LogsViewModel
 import com.mocklets.pluto.logger.R
 import com.mocklets.pluto.logger.databinding.PlutoLoggerFragmentDetailsBinding
+import com.mocklets.pluto.logger.internal.LogData
+import com.mocklets.pluto.logger.internal.LogsViewModel
 import com.mocklets.pluto.utilities.extensions.toast
 import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.viewBinding
