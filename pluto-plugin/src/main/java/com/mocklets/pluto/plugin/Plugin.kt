@@ -23,8 +23,9 @@ abstract class Plugin : ListItem() {
     var savedInstance: Bundle = Bundle()
         private set
 
-    fun install(application: Application) {
+    fun install(application: Application, stateUpdater: PlutoStateUpdater) {
         this._application = application
+        PluginHelper.stateUpdater = stateUpdater
         onPluginInstalled()
     }
 

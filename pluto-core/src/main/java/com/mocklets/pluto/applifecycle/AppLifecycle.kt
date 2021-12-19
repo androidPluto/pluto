@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.lang.ref.WeakReference
 
-internal class AppLifecycle : ActivityLifecycleCallbacks {
+class AppLifecycle : ActivityLifecycleCallbacks {
 
     internal val state: LiveData<AppState>
         get() = _state

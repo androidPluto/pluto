@@ -2,7 +2,7 @@ package com.mocklets.pluto.logger.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,6 +14,7 @@ import com.mocklets.pluto.logger.R
 import com.mocklets.pluto.logger.Session
 import com.mocklets.pluto.logger.databinding.PlutoLoggerFragmentListBinding
 import com.mocklets.pluto.logger.ui.list.LogsAdapter
+import com.mocklets.pluto.plugin.PluginHelper
 import com.mocklets.pluto.utilities.extensions.hideKeyboard
 import com.mocklets.pluto.utilities.extensions.linearLayoutManager
 import com.mocklets.pluto.utilities.list.BaseAdapter
@@ -37,11 +38,11 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
         binding.close.setDebounceClickListener {
-            activity?.finish()
+            PluginHelper.closeScreen()
         }
-        binding.search.addTextChangedListener { editable ->
+        binding.search.doOnTextChanged { text, _, _, _ ->
             lifecycleScope.launchWhenResumed {
-                editable?.toString()?.let {
+                text?.toString()?.let {
                     Session.loggerSearchText = it
                     logsAdapter.list = filteredLogs(it)
                     if (it.isEmpty()) {

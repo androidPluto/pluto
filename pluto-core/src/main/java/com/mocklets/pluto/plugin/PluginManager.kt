@@ -3,7 +3,7 @@ package com.mocklets.pluto.plugin
 import android.app.Application
 import com.mocklets.pluto.utilities.DebugLog
 
-internal class PluginManager {
+internal class PluginManager(private val stateUpdater: PlutoStateUpdater) {
 
     private var plugins: LinkedHashSet<Plugin> = linkedSetOf()
     internal val installedPlugins: List<Plugin>
@@ -16,7 +16,7 @@ internal class PluginManager {
     fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
-                it.install(application)
+                it.install(application, stateUpdater)
                 this.plugins.add(it)
             } else {
                 DebugLog.e("pluto_plugin", "${it.getConfig().name} not installed (reason: condition mismatch).")
