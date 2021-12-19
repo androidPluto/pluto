@@ -15,9 +15,7 @@
             app:destination="@id/detailsView" />
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/detailsView"
-        android:name="com.mocklets.pluto.logger.ui.DetailsFragment"
-        android:label="details"
-        tools:layout="@layout/pluto_logger___fragment_details" />
+        android:name="com.mocklets.pluto.logger.ui.DetailsFragment"/>
 </navigation>
