@@ -45,7 +45,7 @@ data class Shareable(
     }.toString()
 }
 
-internal sealed class ShareAction {
+sealed class ShareAction {
     data class ShareAsText(val shareable: Shareable) : ShareAction()
     data class ShareAsFile(val shareable: Shareable) : ShareAction()
     data class ShareAsCopy(val shareable: Shareable) : ShareAction()

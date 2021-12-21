@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleAPIManageCTAs() {
         binding.postCall.setOnClickListener {
-            PlutoLog.d(TAG_CLICK, "post_call_cta")
+            PlutoLog.e(TAG_CLICK, "post_call_cta", NullPointerException("Custom Exception"))
             PlutoLog.event(TAG_CLICK, "post_call_cta", getAttrMap())
             networkViewModel.post()
         }

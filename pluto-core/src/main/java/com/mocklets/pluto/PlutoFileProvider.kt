@@ -1,4 +1,4 @@
-package com.mocklets.pluto.core
+package com.mocklets.pluto
 
 import androidx.core.content.FileProvider
 

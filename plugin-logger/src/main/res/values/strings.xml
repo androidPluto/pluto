@@ -7,4 +7,8 @@
     <string name="pluto_logger___library_name">Logger</string>
     <string name="pluto_logger___more_options">Show more options</string>
     <string name="pluto_logger___no_search_result">No search result found.</string>
+    <string name="pluto_logger___log_details">Log Details</string>
+    <string name="pluto_logger___share">Share</string>
+    <string name="pluto_logger___exception_title">Exception</string>
+    <string name="pluto_logger___event_attributes">Event Attributes</string>
 </resources>

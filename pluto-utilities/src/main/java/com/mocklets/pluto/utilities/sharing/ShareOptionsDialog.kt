@@ -13,7 +13,7 @@ import com.mocklets.pluto.utilities.databinding.PlutoLayoutContentShareOptionsBi
 import com.mocklets.pluto.utilities.extensions.inflate
 import com.mocklets.pluto.utilities.setDebounceClickListener
 
-internal class ShareOptionsDialog(
+class ShareOptionsDialog(
     context: Context,
     private val onAction: (ShareAction) -> Unit
 ) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
