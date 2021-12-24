@@ -6,6 +6,7 @@ import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.R
 import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.databinding.PlutoActivityPlutoBaseBinding
+import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.sharing.ContentShare
 
 class PlutoBaseActivity : AppCompatActivity() {
@@ -19,10 +20,15 @@ class PlutoBaseActivity : AppCompatActivity() {
 
         contentShareHelper = ContentShare(this)
 
+        binding.close.setDebounceClickListener {
+            finish()
+        }
+
         Pluto.currentPlugin.removeObservers(this)
         Pluto.currentPlugin.observe(
             this,
             {
+                binding.title.text = it.getConfig().name
                 val fragment = it.getView()
                 supportFragmentManager.beginTransaction().apply {
                     this.runOnCommit { it.onPluginViewCreated(it.savedInstance) }

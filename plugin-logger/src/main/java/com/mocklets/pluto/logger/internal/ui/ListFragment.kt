@@ -14,7 +14,6 @@ import com.mocklets.pluto.logger.internal.LogData
 import com.mocklets.pluto.logger.internal.LogsViewModel
 import com.mocklets.pluto.logger.internal.Session
 import com.mocklets.pluto.logger.internal.ui.list.LogsAdapter
-import com.mocklets.pluto.plugin.PluginHelper
 import com.mocklets.pluto.utilities.extensions.hideKeyboard
 import com.mocklets.pluto.utilities.extensions.linearLayoutManager
 import com.mocklets.pluto.utilities.list.BaseAdapter
@@ -22,7 +21,6 @@ import com.mocklets.pluto.utilities.list.CustomItemDecorator
 import com.mocklets.pluto.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
 import com.mocklets.pluto.utilities.viewBinding
 
 internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
@@ -37,9 +35,6 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             adapter = logsAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
-        binding.close.setDebounceClickListener {
-            PluginHelper.closeScreen()
-        }
         binding.search.doOnTextChanged { text, _, _, _ ->
             lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
@@ -50,13 +45,6 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
                     }
                 }
             }
-        }
-        binding.options.setDebounceClickListener {
-//            requireContext().showMoreOptions(it, R.menu.pluto___popup_menu_logger) { item ->
-//                when (item.itemId) {
-//                    R.id.clear -> LogsRepo.deleteAll()
-//                }
-//            }
         }
         binding.search.setText(Session.loggerSearchText)
         viewModel.logs.removeObserver(logsObserver)

@@ -7,4 +7,5 @@
 
     <string name="pluto___notification_title">Pluto is debugging %s</string>
     <string name="pluto___notification_subtitle">Tap here to view complete debug report</string>
+    <string name="pluto___close">Close Pluto</string>
 </resources>
