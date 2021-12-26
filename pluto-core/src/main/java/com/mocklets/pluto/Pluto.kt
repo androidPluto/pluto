@@ -8,9 +8,7 @@ import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginManager
 import com.mocklets.pluto.plugin.PluginSelector
-import com.mocklets.pluto.plugin.PlutoStateUpdater
 import com.mocklets.pluto.settings.SettingsPreferences
-import com.mocklets.pluto.ui.PlutoBaseActivity
 import com.mocklets.pluto.utilities.SingleLiveEvent
 import java.util.LinkedHashSet
 
@@ -22,12 +20,7 @@ object Pluto {
         get() = appLifecycle.state
 
     internal val currentPlugin = SingleLiveEvent<Plugin>()
-    private val stateUpdater = object : PlutoStateUpdater {
-        override fun onCloseRequested() {
-            close()
-        }
-    }
-    internal val pluginManager = PluginManager(stateUpdater)
+    internal val pluginManager = PluginManager()
 
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
         appLifecycle = AppLifecycle()
@@ -40,14 +33,6 @@ object Pluto {
     fun open() {
         appLifecycle.currentActivity?.get()?.let {
             PluginSelector().show(it, notch)
-        }
-    }
-
-    private fun close() {
-        appLifecycle.currentActivity?.get()?.let {
-            if (it is PlutoBaseActivity) {
-                it.finish()
-            }
         }
     }
 
