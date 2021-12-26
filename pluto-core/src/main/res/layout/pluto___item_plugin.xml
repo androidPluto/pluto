@@ -38,6 +38,7 @@
         android:textColor="@color/pluto___white_80"
         android:textSize="@dimen/pluto___text_xxsmall"
         android:gravity="center"
+        android:breakStrategy="simple"
         android:maxLines="2"
         android:ellipsize="middle"
         app:layout_constraintStart_toStartOf="parent"

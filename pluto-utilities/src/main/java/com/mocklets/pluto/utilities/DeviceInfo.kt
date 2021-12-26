@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
 
-internal class DeviceInfo(context: Context) {
+class DeviceInfo(context: Context) {
 
     private val screenDimension: ScreenDimension by lazy {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager

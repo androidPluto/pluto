@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pluto_pref___preferences_cleared">Preferences Cleared</string>
+    <string name="pluto_pref___no_preference_present">No Shared Preferences present</string>
+    <string name="pluto_pref___search_preference">Search Preferences</string>
+    <string name="pluto_pref___shared_pref_filter">Filter Settings</string>
+    <string name="pluto_pref___clear">Clear</string>
+    <string name="pluto_pref___preference_filter_note">Seelct Preferences to see the date from it.</string>
+    <string name="pluto_pref___edit_preference">Edit Preference</string>
+    <string name="pluto_pref___share">Share</string>
+    <string name="pluto_pref___shared_pref_edit_file_label">showing preference from</string>
+    <string name="pluto_pref___save_preference">Update Value</string>
+    <string name="pluto_pref___unsupported_preference">updating StringSet preferences is not supported.</string>
+</resources>
