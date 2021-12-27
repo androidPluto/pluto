@@ -11,12 +11,12 @@ fun View.setDebounceClickListener(
     haptic: Boolean = false,
     action: ((View) -> Unit)?
 ) {
-    action?.let { action ->
+    action?.let {
         setOnClickListener { view ->
             view.onDebounce(delay) {
                 view.hapticFeedback(haptic)
                 view.soundFeedback()
-                action.invoke(view)
+                it.invoke(view)
             }
         }
         return
