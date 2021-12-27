@@ -5,7 +5,7 @@ import com.mocklets.pluto.network.internal.RequestData
 import com.mocklets.pluto.network.internal.ResponseData
 import com.mocklets.pluto.network.internal.Status
 import com.mocklets.pluto.network.internal.convertPretty
-import com.mocklets.pluto.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.DebugLog
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream

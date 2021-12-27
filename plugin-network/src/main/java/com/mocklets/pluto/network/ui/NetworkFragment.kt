@@ -14,18 +14,18 @@ import com.mocklets.pluto.network.databinding.PlutoNetworkFragmentNetworkBinding
 import com.mocklets.pluto.network.internal.ApiCallData
 import com.mocklets.pluto.network.internal.NetworkCallsRepo
 // import com.mocklets.pluto.network.ui.details.NetworkCallDetailsFragment
-import com.mocklets.pluto.utilities.extensions.hideKeyboard
-import com.mocklets.pluto.utilities.extensions.linearLayoutManager
-import com.mocklets.pluto.utilities.extensions.showMoreOptions
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.CustomItemDecorator
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.linearLayoutManager
+import com.mocklets.pluto.plugin.utilities.extensions.showMoreOptions
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.CustomItemDecorator
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 // import com.mocklets.pluto.utilities.routing.Screens
 // import com.mocklets.pluto.utilities.routing.lazyRouter
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class NetworkFragment : Fragment(R.layout.pluto_network___fragment_network) {
 

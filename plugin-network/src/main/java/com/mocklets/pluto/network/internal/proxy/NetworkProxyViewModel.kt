@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.mocklets.pluto.network.internal.proxy.dao.NetworkProxyEntity
 import com.mocklets.pluto.network.internal.proxy.dao.ProxyData
 import com.mocklets.pluto.network.internal.pruneQueryParams
-import com.mocklets.pluto.utilities.SingleLiveEvent
+import com.mocklets.pluto.plugin.utilities.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

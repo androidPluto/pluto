@@ -1,7 +1,7 @@
 package com.sampleapp.network
 
 import com.google.gson.Gson
-import com.mocklets.pluto.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.DebugLog
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

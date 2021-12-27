@@ -14,14 +14,14 @@ import com.mocklets.pluto.logger.internal.LogData
 import com.mocklets.pluto.logger.internal.LogsViewModel
 import com.mocklets.pluto.logger.internal.Session
 import com.mocklets.pluto.logger.internal.ui.list.LogsAdapter
-import com.mocklets.pluto.utilities.extensions.hideKeyboard
-import com.mocklets.pluto.utilities.extensions.linearLayoutManager
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.CustomItemDecorator
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.linearLayoutManager
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.CustomItemDecorator
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
 

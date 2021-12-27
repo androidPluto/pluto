@@ -55,7 +55,6 @@
                     android:id="@+id/search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:autofillHints="@string/pluto___library_name"
                     android:background="@null"
                     android:drawableStart="@drawable/pluto___ic_search"
                     android:drawableLeft="@drawable/pluto___ic_search"

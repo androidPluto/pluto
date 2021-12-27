@@ -17,12 +17,12 @@ import com.mocklets.pluto.logger.internal.LogsViewModel
 import com.mocklets.pluto.logger.internal.asExceptionData
 import com.mocklets.pluto.logger.internal.beautifyAttributes
 import com.mocklets.pluto.logger.internal.ui.DetailsFragment.Companion.MAX_STACK_TRACE_LINES
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.sharing.Shareable
-import com.mocklets.pluto.utilities.sharing.lazyContentSharer
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.sharing.Shareable
+import com.mocklets.pluto.plugin.utilities.sharing.lazyContentSharer
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class DetailsFragment : BottomSheetDialogFragment() {
 

@@ -5,10 +5,10 @@ import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.databinding.PlutoActivityPlutoBinding
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.list.PluginAdapter
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 
 class NavigationDrawerManager(private val context: Context, private val binding: PlutoActivityPlutoBinding, private val onSelection: (Plugin) -> Unit) {
 

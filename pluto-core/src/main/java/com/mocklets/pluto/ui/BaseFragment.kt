@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mocklets.pluto.R
 import com.mocklets.pluto.databinding.PlutoFragmentBaseBinding
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 class BaseFragment : Fragment(R.layout.pluto___fragment_base) {
 

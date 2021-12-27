@@ -14,10 +14,10 @@ import com.mocklets.pluto.network.internal.ResponseData
 import com.mocklets.pluto.network.internal.beautifyHeaders
 import com.mocklets.pluto.network.ui.DetailContentData
 import com.mocklets.pluto.network.ui.NetworkViewModel
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.spannable.createSpan
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.spannable.createSpan
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class NetworkDetailsResponseFragment : Fragment(R.layout.pluto_network___fragment_network_details_response) {
 

@@ -3,7 +3,6 @@ package com.sampleapp
 import android.app.Application
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.logger.PlutoLoggerPlugin
-import com.mocklets.pluto.network.PlutoNetworkPlugin
 import com.pluto.preferences.PlutoSharePreferencesPlugin
 
 class SampleApp : Application() {
@@ -27,7 +26,7 @@ class SampleApp : Application() {
 //            }
 //        }
         Pluto.Installer(this)
-            .addPlugin(PlutoNetworkPlugin())
+//            .addPlugin(PlutoNetworkPlugin())
             .addPlugin(PlutoLoggerPlugin())
             .addPlugin(PlutoSharePreferencesPlugin())
             .install()

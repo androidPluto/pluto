@@ -10,11 +10,11 @@ import android.view.WindowManager
 import com.mocklets.pluto.DeviceInfo
 import com.mocklets.pluto.R
 import com.mocklets.pluto.databinding.PlutoLayoutNotchBinding
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.inflate
+import com.mocklets.pluto.plugin.utilities.hapticFeedback
+import com.mocklets.pluto.plugin.utilities.soundFeedback
 import com.mocklets.pluto.settings.SettingsPreferences
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.extensions.inflate
-import com.mocklets.pluto.utilities.hapticFeedback
-import com.mocklets.pluto.utilities.soundFeedback
 import kotlin.math.abs
 
 internal class NotchViewManager(

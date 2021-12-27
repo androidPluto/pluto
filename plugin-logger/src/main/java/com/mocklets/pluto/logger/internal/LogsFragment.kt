@@ -7,7 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.mocklets.pluto.logger.R
 import com.mocklets.pluto.plugin.PluginOptionsViewModel
-import com.mocklets.pluto.utilities.extensions.toast
+import com.mocklets.pluto.plugin.utilities.extensions.toast
 
 internal class LogsFragment : Fragment(R.layout.pluto_logger___fragment_logs) {
 

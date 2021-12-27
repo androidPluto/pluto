@@ -19,15 +19,15 @@ import com.mocklets.pluto.applifecycle.AppState
 import com.mocklets.pluto.databinding.PlutoLayoutPluginSelectorBinding
 import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.list.PluginAdapter
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 import com.mocklets.pluto.ui.PlutoBaseActivity
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
 
 internal class PluginSelector : DialogFragment() {
 

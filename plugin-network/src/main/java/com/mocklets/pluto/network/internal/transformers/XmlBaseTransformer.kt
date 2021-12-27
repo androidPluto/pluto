@@ -1,7 +1,7 @@
 package com.mocklets.pluto.network.internal.transformers
 
 import com.mocklets.pluto.network.internal.LOGTAG
-import com.mocklets.pluto.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.DebugLog
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import javax.xml.transform.OutputKeys

@@ -4,15 +4,15 @@ import android.view.ViewGroup
 import com.mocklets.pluto.logger.R
 import com.mocklets.pluto.logger.databinding.PlutoLoggerListItemBinding
 import com.mocklets.pluto.logger.internal.LogData
-import com.mocklets.pluto.utilities.extensions.asTimeElapsed
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.extensions.dp
-import com.mocklets.pluto.utilities.extensions.inflate
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.extensions.asTimeElapsed
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.dp
+import com.mocklets.pluto.plugin.utilities.extensions.inflate
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
 
 internal class LogItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto_logger___list_item), actionListener) {

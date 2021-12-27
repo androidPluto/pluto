@@ -18,16 +18,16 @@ import com.mocklets.pluto.network.internal.proxy.NetworkProxyViewModel
 import com.mocklets.pluto.network.internal.proxy.dao.NetworkProxyEntity
 import com.mocklets.pluto.network.internal.proxy.dao.ProxyData
 import com.mocklets.pluto.network.internal.pruneQueryParams
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.extensions.delayedLaunchWhenResumed
-import com.mocklets.pluto.utilities.extensions.fadeInAndOut
-import com.mocklets.pluto.utilities.extensions.hideKeyboard
-import com.mocklets.pluto.utilities.extensions.lazyParcelExtra
-import com.mocklets.pluto.utilities.extensions.toast
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
+import com.mocklets.pluto.plugin.utilities.extensions.fadeInAndOut
+import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.lazyParcelExtra
+import com.mocklets.pluto.plugin.utilities.extensions.toast
 // import com.mocklets.pluto.utilities.routing.lazyRouter
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 import kotlinx.parcelize.Parcelize
 
 internal class NetworkProxySettingsFragment : Fragment(R.layout.pluto_network___fragment_network_proxy_settings) {

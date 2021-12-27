@@ -4,11 +4,11 @@ import android.view.ViewGroup
 import com.mocklets.pluto.network.R
 import com.mocklets.pluto.network.databinding.PlutoNetworkItemNetworkProxySettingsBinding
 import com.mocklets.pluto.network.internal.proxy.dao.NetworkProxyEntity
-import com.mocklets.pluto.utilities.extensions.inflate
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.extensions.inflate
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
 
 internal class NetworkProxyItemHolder(
     parent: ViewGroup,

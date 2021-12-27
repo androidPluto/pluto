@@ -20,17 +20,17 @@ import com.mocklets.pluto.network.databinding.PlutoNetworkLayoutNetworkCallDetai
 import com.mocklets.pluto.network.internal.ApiCallData
 import com.mocklets.pluto.network.ui.DetailContentData
 import com.mocklets.pluto.network.ui.NetworkViewModel
-import com.mocklets.pluto.utilities.extensions.asFormattedDate
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.extensions.hideKeyboard
-import com.mocklets.pluto.utilities.extensions.lazyParcelExtra
-import com.mocklets.pluto.utilities.extensions.showKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.asFormattedDate
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.lazyParcelExtra
+import com.mocklets.pluto.plugin.utilities.extensions.showKeyboard
 import com.mocklets.pluto.utilities.routing.OnBackKeyHandler
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.sharing.Shareable
-import com.mocklets.pluto.utilities.sharing.lazyContentSharer
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.sharing.Shareable
+import com.mocklets.pluto.plugin.utilities.sharing.lazyContentSharer
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 import java.util.Locale
 import kotlinx.parcelize.Parcelize
 

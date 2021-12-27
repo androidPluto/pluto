@@ -3,9 +3,9 @@ package com.mocklets.pluto.logger.internal
 import android.content.Context
 import androidx.annotation.Keep
 import com.mocklets.pluto.logger.R
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.spannable.createSpan
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.spannable.createSpan
 
 internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
     return ExceptionData(

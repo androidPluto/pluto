@@ -1,7 +1,7 @@
 package com.mocklets.pluto.network.internal
 
 import androidx.annotation.Keep
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 import okhttp3.HttpUrl
 import okhttp3.Protocol
 

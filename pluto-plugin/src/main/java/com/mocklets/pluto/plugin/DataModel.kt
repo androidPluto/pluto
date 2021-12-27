@@ -1,7 +1,7 @@
 package com.mocklets.pluto.plugin
 
 import androidx.annotation.DrawableRes
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 
 data class DeveloperDetails(
     val vcsLink: String? = null,

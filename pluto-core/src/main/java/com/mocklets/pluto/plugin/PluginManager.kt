@@ -1,7 +1,7 @@
 package com.mocklets.pluto.plugin
 
 import android.app.Application
-import com.mocklets.pluto.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.DebugLog
 
 internal class PluginManager {
 

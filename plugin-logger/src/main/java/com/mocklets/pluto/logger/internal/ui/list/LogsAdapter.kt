@@ -2,9 +2,9 @@ package com.mocklets.pluto.logger.internal.ui.list
 
 import android.view.ViewGroup
 import com.mocklets.pluto.logger.internal.LogData
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 
 internal class LogsAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

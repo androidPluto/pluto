@@ -16,16 +16,16 @@ import com.mocklets.pluto.databinding.PlutoLayoutPluginOptionsDialogBinding
 import com.mocklets.pluto.plugin.DeveloperDetails
 import com.mocklets.pluto.plugin.PluginOption
 import com.mocklets.pluto.plugin.options.PluginOptionAdapter
-import com.mocklets.pluto.utilities.DeviceInfo
-import com.mocklets.pluto.utilities.extensions.dp
-import com.mocklets.pluto.utilities.extensions.inflate
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.CustomItemDecorator
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.spannable.createSpan
+import com.mocklets.pluto.plugin.utilities.DeviceInfo
+import com.mocklets.pluto.plugin.utilities.extensions.dp
+import com.mocklets.pluto.plugin.utilities.extensions.inflate
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.CustomItemDecorator
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.spannable.createSpan
 
 class PluginOptionsDialog(context: Context, onOptionSelected: (String) -> Unit) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
 

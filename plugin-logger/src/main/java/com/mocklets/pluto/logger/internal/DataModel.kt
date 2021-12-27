@@ -3,7 +3,7 @@ package com.mocklets.pluto.logger.internal
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import com.mocklets.pluto.logger.R
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 
 internal sealed class Level(
     val label: String,

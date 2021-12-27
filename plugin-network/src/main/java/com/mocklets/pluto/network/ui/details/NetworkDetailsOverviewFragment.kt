@@ -17,16 +17,16 @@ import com.mocklets.pluto.network.internal.proxy.NetworkProxyViewModel
 import com.mocklets.pluto.network.internal.proxy.dao.NetworkProxyEntity
 import com.mocklets.pluto.network.ui.DetailContentData
 import com.mocklets.pluto.network.ui.NetworkViewModel
-import com.mocklets.pluto.utilities.extensions.asFormattedDate
-import com.mocklets.pluto.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.asFormattedDate
+import com.mocklets.pluto.plugin.utilities.extensions.color
 // import com.mocklets.pluto.utilities.routing.Screens
 // import com.mocklets.pluto.utilities.routing.lazyRouter
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.sharing.Shareable
-import com.mocklets.pluto.utilities.sharing.lazyContentSharer
-import com.mocklets.pluto.utilities.spannable.createSpan
-import com.mocklets.pluto.utilities.spannable.setSpan
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.sharing.Shareable
+import com.mocklets.pluto.plugin.utilities.sharing.lazyContentSharer
+import com.mocklets.pluto.plugin.utilities.spannable.createSpan
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class NetworkDetailsOverviewFragment : Fragment(R.layout.pluto_network___fragment_network_details_overview) {
 

@@ -8,8 +8,8 @@ import com.mocklets.pluto.notch.Notch
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginManager
 import com.mocklets.pluto.plugin.PluginSelector
+import com.mocklets.pluto.plugin.utilities.SingleLiveEvent
 import com.mocklets.pluto.settings.SettingsPreferences
-import com.mocklets.pluto.utilities.SingleLiveEvent
 import java.util.LinkedHashSet
 
 object Pluto {

@@ -9,14 +9,14 @@ import com.mocklets.pluto.network.databinding.PlutoNetworkItemNetworkBinding
 import com.mocklets.pluto.network.internal.ApiCallData
 import com.mocklets.pluto.network.internal.ResponseData
 import com.mocklets.pluto.network.internal.hostUrl
-import com.mocklets.pluto.utilities.extensions.asTimeElapsed
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.extensions.inflate
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.spannable.setSpan
+import com.mocklets.pluto.plugin.utilities.extensions.asTimeElapsed
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.extensions.inflate
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.spannable.setSpan
 
 internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto_network___item_network), actionListener) {

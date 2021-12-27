@@ -3,7 +3,7 @@ package com.mocklets.pluto.plugin
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.mocklets.pluto.utilities.SingleLiveEvent
+import com.mocklets.pluto.plugin.utilities.SingleLiveEvent
 
 class PluginOptionsViewModel(application: Application) : AndroidViewModel(application) {
 

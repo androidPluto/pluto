@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 
 @Keep
 abstract class Plugin : ListItem() {

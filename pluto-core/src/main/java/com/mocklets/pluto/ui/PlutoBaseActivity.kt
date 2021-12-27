@@ -10,8 +10,8 @@ import com.mocklets.pluto.databinding.PlutoActivityPlutoBaseBinding
 import com.mocklets.pluto.plugin.DeveloperDetails
 import com.mocklets.pluto.plugin.PluginOption
 import com.mocklets.pluto.plugin.PluginOptionsViewModel
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.sharing.ContentShare
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.sharing.ContentShare
 
 class PlutoBaseActivity : AppCompatActivity() {
 

@@ -4,7 +4,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import com.mocklets.pluto.network.internal.LOGTAG
-import com.mocklets.pluto.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.DebugLog
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

@@ -6,9 +6,9 @@ import com.mocklets.pluto.network.internal.interceptor.doUnZipToString
 import com.mocklets.pluto.network.internal.transformers.FormEncodedTransformer
 import com.mocklets.pluto.network.internal.transformers.JsonBaseTransformer
 import com.mocklets.pluto.network.internal.transformers.XmlBaseTransformer
-import com.mocklets.pluto.utilities.DebugLog
-import com.mocklets.pluto.utilities.extensions.color
-import com.mocklets.pluto.utilities.spannable.createSpan
+import com.mocklets.pluto.plugin.utilities.DebugLog
+import com.mocklets.pluto.plugin.utilities.extensions.color
+import com.mocklets.pluto.plugin.utilities.spannable.createSpan
 import java.nio.charset.Charset
 import okhttp3.HttpUrl
 import okhttp3.RequestBody

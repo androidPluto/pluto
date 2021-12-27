@@ -14,18 +14,18 @@ import com.mocklets.pluto.network.R
 import com.mocklets.pluto.network.databinding.PlutoNetworkFragmentNetworkProxySettingsListBinding
 import com.mocklets.pluto.network.internal.proxy.NetworkProxyViewModel
 import com.mocklets.pluto.network.internal.proxy.dao.NetworkProxyEntity
-import com.mocklets.pluto.utilities.extensions.dp
-import com.mocklets.pluto.utilities.extensions.hideKeyboard
-import com.mocklets.pluto.utilities.extensions.showKeyboard
-import com.mocklets.pluto.utilities.list.BaseAdapter
-import com.mocklets.pluto.utilities.list.CustomItemDecorator
-import com.mocklets.pluto.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.utilities.list.ListItem
+import com.mocklets.pluto.plugin.utilities.extensions.dp
+import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
+import com.mocklets.pluto.plugin.utilities.extensions.showKeyboard
+import com.mocklets.pluto.plugin.utilities.list.BaseAdapter
+import com.mocklets.pluto.plugin.utilities.list.CustomItemDecorator
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
+import com.mocklets.pluto.plugin.utilities.list.ListItem
 import com.mocklets.pluto.utilities.routing.OnBackKeyHandler
 // import com.mocklets.pluto.utilities.routing.lazyRouter
-import com.mocklets.pluto.utilities.setDebounceClickListener
-import com.mocklets.pluto.utilities.viewBinding
+import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
+import com.mocklets.pluto.plugin.utilities.viewBinding
 
 internal class NetworkProxySettingsListFragment :
     Fragment(R.layout.pluto_network___fragment_network_proxy_settings_list),
