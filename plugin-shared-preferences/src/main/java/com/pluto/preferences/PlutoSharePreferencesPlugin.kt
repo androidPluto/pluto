@@ -1,11 +1,11 @@
 package com.pluto.preferences
 
 import androidx.fragment.app.Fragment
-import com.mocklets.pluto.plugin.Developer
-import com.mocklets.pluto.plugin.DeveloperDetails
-import com.mocklets.pluto.plugin.Plugin
-import com.mocklets.pluto.plugin.PluginConfiguration
-import com.mocklets.pluto.plugin.PluginOption
+import com.pluto.plugin.Developer
+import com.pluto.plugin.DeveloperDetails
+import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginConfiguration
+import com.pluto.plugin.PluginOption
 import com.pluto.preferences.ui.SharedPrefFragment
 
 class PlutoSharePreferencesPlugin : Plugin() {
@@ -23,7 +23,7 @@ class PlutoSharePreferencesPlugin : Plugin() {
 
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
-            website = "https://pluto.mocklets.com",
+            website = "https://plutolib.com",
             vcsLink = "https://github.com/mocklets/pluto",
             developer = Developer(
                 github = "srtvprateek",

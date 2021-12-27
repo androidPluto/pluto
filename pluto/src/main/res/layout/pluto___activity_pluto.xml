@@ -14,7 +14,7 @@
 
         <fragment
             android:id="@+id/baseFragment"
-            android:name="com.mocklets.pluto.ui.BaseFragment"
+            android:name="com.pluto.ui.BaseFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

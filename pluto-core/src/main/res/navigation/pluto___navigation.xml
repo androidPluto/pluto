@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/baseView"
-        android:name="com.mocklets.pluto.ui.BaseFragment"
+        android:name="com.pluto.ui.BaseFragment"
         android:label="list"
         tools:layout="@layout/pluto___fragment_base">
         <action
@@ -25,16 +25,16 @@
 
     <fragment
         android:id="@+id/settingsView"
-        android:name="com.mocklets.pluto.ui.SettingsFragment"
+        android:name="com.pluto.ui.SettingsFragment"
         android:label="details"
         tools:layout="@layout/pluto___fragment_settings" />
 
     <dialog
         android:id="@+id/pluginSelectorView"
-        android:name="com.mocklets.pluto.ui.PluginSelectorDialogFragment"/>
+        android:name="com.pluto.ui.PluginSelectorDialogFragment"/>
 
     <dialog
         android:id="@+id/pluginMoreOptionsView"
-        android:name="com.mocklets.pluto.ui.PluginMoreOptionsDialogFragment"/>
+        android:name="com.pluto.ui.PluginMoreOptionsDialogFragment"/>
 
 </navigation>

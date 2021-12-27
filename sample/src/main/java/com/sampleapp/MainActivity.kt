@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.mocklets.pluto.Pluto
-import com.mocklets.pluto.logger.PlutoLog
+import com.pluto.Pluto
+import com.pluto.logger.PlutoLog
 import com.sampleapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

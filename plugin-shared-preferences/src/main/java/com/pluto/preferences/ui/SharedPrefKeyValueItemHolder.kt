@@ -3,13 +3,13 @@ package com.pluto.preferences.ui
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import com.mocklets.pluto.plugin.utilities.extensions.color
-import com.mocklets.pluto.plugin.utilities.extensions.inflate
-import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
-import com.mocklets.pluto.plugin.utilities.list.ListItem
-import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
-import com.mocklets.pluto.plugin.utilities.spannable.createSpan
+import com.pluto.plugin.utilities.extensions.color
+import com.pluto.plugin.utilities.extensions.inflate
+import com.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.pluto.plugin.utilities.list.DiffAwareHolder
+import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.preferences.R
 import com.pluto.preferences.databinding.PlutoPrefItemSharedPrefKeyValueBinding
 

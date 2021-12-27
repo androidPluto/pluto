@@ -1,8 +1,8 @@
 package com.sampleapp
 
 import android.app.Application
-import com.mocklets.pluto.Pluto
-import com.mocklets.pluto.logger.PlutoLoggerPlugin
+import com.pluto.Pluto
+import com.pluto.logger.PlutoLoggerPlugin
 import com.pluto.preferences.PlutoSharePreferencesPlugin
 
 class SampleApp : Application() {

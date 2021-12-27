@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listView"
-        android:name="com.mocklets.pluto.logger.internal.ui.ListFragment"
+        android:name="com.pluto.logger.internal.ui.ListFragment"
         android:label="list"
         tools:layout="@layout/pluto_logger___fragment_list">
         <action
@@ -17,5 +17,5 @@
 
     <dialog
         android:id="@+id/detailsView"
-        android:name="com.mocklets.pluto.logger.internal.ui.DetailsFragment"/>
+        android:name="com.pluto.logger.internal.ui.DetailsFragment"/>
 </navigation>

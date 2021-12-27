@@ -13,7 +13,7 @@ import com.mocklets.pluto.network.R
 import com.mocklets.pluto.network.databinding.PlutoNetworkFragmentNetworkBinding
 import com.mocklets.pluto.network.internal.ApiCallData
 import com.mocklets.pluto.network.internal.NetworkCallsRepo
-// import com.mocklets.pluto.network.ui.details.NetworkCallDetailsFragment
+// import com.pluto.network.ui.details.NetworkCallDetailsFragment
 import com.mocklets.pluto.plugin.utilities.extensions.hideKeyboard
 import com.mocklets.pluto.plugin.utilities.extensions.linearLayoutManager
 import com.mocklets.pluto.plugin.utilities.extensions.showMoreOptions
@@ -22,8 +22,8 @@ import com.mocklets.pluto.plugin.utilities.list.CustomItemDecorator
 import com.mocklets.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.mocklets.pluto.plugin.utilities.list.DiffAwareHolder
 import com.mocklets.pluto.plugin.utilities.list.ListItem
-// import com.mocklets.pluto.utilities.routing.Screens
-// import com.mocklets.pluto.utilities.routing.lazyRouter
+// import com.pluto.utilities.routing.Screens
+// import com.pluto.utilities.routing.lazyRouter
 import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
 import com.mocklets.pluto.plugin.utilities.viewBinding
 

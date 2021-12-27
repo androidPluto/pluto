@@ -19,8 +19,8 @@ import com.mocklets.pluto.network.ui.DetailContentData
 import com.mocklets.pluto.network.ui.NetworkViewModel
 import com.mocklets.pluto.plugin.utilities.extensions.asFormattedDate
 import com.mocklets.pluto.plugin.utilities.extensions.color
-// import com.mocklets.pluto.utilities.routing.Screens
-// import com.mocklets.pluto.utilities.routing.lazyRouter
+// import com.pluto.utilities.routing.Screens
+// import com.pluto.utilities.routing.lazyRouter
 import com.mocklets.pluto.plugin.utilities.setDebounceClickListener
 import com.mocklets.pluto.plugin.utilities.sharing.Shareable
 import com.mocklets.pluto.plugin.utilities.sharing.lazyContentSharer

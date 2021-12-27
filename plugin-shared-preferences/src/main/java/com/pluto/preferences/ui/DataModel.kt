@@ -1,7 +1,7 @@
 package com.pluto.preferences.ui
 
 import androidx.annotation.Keep
-import com.mocklets.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.list.ListItem
 
 @Keep
 data class SharedPrefFile(

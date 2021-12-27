@@ -58,7 +58,7 @@
 <!--        android:gravity="center"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <com.mocklets.pluto.ui.RoundedFrameLayout
+    <com.pluto.ui.RoundedFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:corner_radius_left_top="@dimen/pluto___margin_medium"
@@ -72,6 +72,6 @@
             android:layout_height="match_parent"
             android:background="@color/pluto___app_bg" />
 
-    </com.mocklets.pluto.ui.RoundedFrameLayout>
+    </com.pluto.ui.RoundedFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

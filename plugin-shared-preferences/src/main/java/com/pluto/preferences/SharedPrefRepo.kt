@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.mocklets.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.DebugLog
 import com.pluto.preferences.ui.SharedPrefFile
 import com.pluto.preferences.ui.SharedPrefKeyValuePair
 import java.io.File
