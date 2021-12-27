@@ -30,6 +30,7 @@ abstract class Plugin : ListItem() {
 
     abstract fun getConfig(): PluginConfiguration
     abstract fun getView(): Fragment
+    abstract fun getOptions(): List<PluginOption>
     open fun getDeveloperDetails(): DeveloperDetails? = null
     open fun shouldInstallPlugin(): Boolean = true
     open fun saveInstanceState(state: Bundle) {

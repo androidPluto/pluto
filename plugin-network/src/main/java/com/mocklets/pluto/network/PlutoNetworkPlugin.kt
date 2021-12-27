@@ -7,6 +7,7 @@ import com.mocklets.pluto.plugin.Developer
 import com.mocklets.pluto.plugin.DeveloperDetails
 import com.mocklets.pluto.plugin.Plugin
 import com.mocklets.pluto.plugin.PluginConfiguration
+import com.mocklets.pluto.plugin.PluginOption
 
 class PlutoNetworkPlugin : Plugin() {
 
@@ -16,6 +17,10 @@ class PlutoNetworkPlugin : Plugin() {
     )
 
     override fun getView(): Fragment = NetworkFragment()
+
+    override fun getOptions(): List<PluginOption> {
+        return emptyList()
+    }
 
     override fun getDeveloperDetails(): DeveloperDetails = DeveloperDetails(
         website = "https://pluto.mocklets.com",

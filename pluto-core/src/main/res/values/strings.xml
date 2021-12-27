@@ -8,4 +8,8 @@
     <string name="pluto___notification_title">Pluto is debugging %s</string>
     <string name="pluto___notification_subtitle">Tap here to view complete debug report</string>
     <string name="pluto___close">Close Pluto</string>
+    <string name="pluto___no_options">no options available</string>
+    <string name="pluto___plugin_details">Plugin Details</string>
+    <string name="pluto___website_url_hint">your website url goes here</string>
+    <string name="pluto___vcs_url_hint">your vcs url goes here</string>
 </resources>
