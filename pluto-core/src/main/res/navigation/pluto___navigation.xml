@@ -25,13 +25,9 @@
 
     <fragment
         android:id="@+id/settingsView"
-        android:name="com.pluto.ui.SettingsFragment"
+        android:name="com.pluto.settings.SettingsFragment"
         android:label="details"
         tools:layout="@layout/pluto___fragment_settings" />
-
-    <dialog
-        android:id="@+id/pluginSelectorView"
-        android:name="com.pluto.ui.PluginSelectorDialogFragment"/>
 
     <dialog
         android:id="@+id/pluginMoreOptionsView"

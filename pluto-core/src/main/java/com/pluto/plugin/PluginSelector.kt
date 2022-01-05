@@ -26,6 +26,7 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
+import com.pluto.settings.SettingsFragment
 import com.pluto.ui.PlutoBaseActivity
 
 internal class PluginSelector : DialogFragment() {
@@ -54,6 +55,7 @@ internal class PluginSelector : DialogFragment() {
         }
 
         binding.settings.setDebounceClickListener {
+            SettingsFragment().show(childFragmentManager, "settings")
         }
 
         Pluto.appState.removeObserver(appStateListener)

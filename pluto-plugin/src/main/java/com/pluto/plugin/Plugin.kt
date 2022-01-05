@@ -42,8 +42,7 @@ abstract class Plugin : ListItem() {
      */
     abstract fun onPluginInstalled()
     open fun onPluginViewCreated(savedInstanceState: Bundle?) {}
-    open fun onPluginViewRemoved() {}
-    open fun onPluginOptionsSelected(option: String) {}
+    abstract fun onPluginDataCleared()
 
     override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
     override fun hashCode(): Int = getConfig().hashCode()

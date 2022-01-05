@@ -2,6 +2,7 @@ package com.pluto.logger
 
 import androidx.fragment.app.Fragment
 import com.pluto.logger.internal.LogsFragment
+import com.pluto.logger.internal.LogsRepo
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
@@ -31,5 +32,9 @@ class PlutoLoggerPlugin : Plugin() {
     }
 
     override fun onPluginInstalled() {
+    }
+
+    override fun onPluginDataCleared() {
+        LogsRepo.deleteAll()
     }
 }

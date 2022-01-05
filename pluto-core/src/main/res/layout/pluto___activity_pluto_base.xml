@@ -30,6 +30,9 @@
         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textColor="@color/pluto___white"
         android:textSize="@dimen/pluto___text_medium"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/options"
         app:layout_constraintStart_toEndOf="@+id/close"
         app:layout_constraintTop_toTopOf="parent" />

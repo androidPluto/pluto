@@ -12,6 +12,7 @@ import com.pluto.plugin.PluginOption
 import com.pluto.plugin.PluginOptionsViewModel
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShare
+import com.pluto.settings.SettingsViewModel
 
 class PlutoBaseActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class PlutoBaseActivity : AppCompatActivity() {
     private var pluginOptions: List<PluginOption> = emptyList()
     private var developerDetails: DeveloperDetails? = null
     private val pluginOptionsViewModel by viewModels<PluginOptionsViewModel>()
+    private val settingsViewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,15 @@ class PlutoBaseActivity : AppCompatActivity() {
             {
                 if (it is AppState.Background) {
                     finish()
+                }
+            }
+        )
+
+        settingsViewModel.resetAll.observe(
+            this,
+            {
+                Pluto.pluginManager.installedPlugins.forEach {
+                    it.onPluginDataCleared()
                 }
             }
         )
