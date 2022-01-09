@@ -12,6 +12,14 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
   <img src="https://firebasestorage.googleapis.com/v0/b/pluto-web/o/pluto_summary_gif.gif?alt=media" alt="pluto demo" width="35%"/>
 </p>
 
+-----
+
+### Pluto Dependency graph
+
+<p align="center">
+  <img src="gradle/dependency-graph/project.dot.png" height = "360" width="360">
+</p>
+
 ***
 
 
