@@ -11,10 +11,6 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.NoActionBar" />
-<!--        <activity-->
-<!--            android:name=".ui.PlutoActivity"-->
-<!--            android:exported="false"-->
-<!--            android:theme="@style/PlutoTheme.NoActionBar" />-->
 
         <provider
             android:name=".PlutoFileProvider"

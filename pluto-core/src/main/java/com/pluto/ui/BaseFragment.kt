@@ -9,7 +9,7 @@ import com.pluto.databinding.PlutoFragmentBaseBinding
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 
-class BaseFragment : Fragment(R.layout.pluto___fragment_base) {
+internal class BaseFragment : Fragment(R.layout.pluto___fragment_base) {
 
     private val binding by viewBinding(PlutoFragmentBaseBinding::bind)
 

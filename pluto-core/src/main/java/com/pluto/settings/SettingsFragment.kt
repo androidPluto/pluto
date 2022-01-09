@@ -19,7 +19,7 @@ import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.viewBinding
 
-class SettingsFragment : BottomSheetDialogFragment() {
+internal class SettingsFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentSettingsBinding::bind)
     private val settingsAdapter: BaseAdapter by lazy { SettingsAdapter(onActionListener) }

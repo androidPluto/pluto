@@ -1,5 +1,6 @@
 package com.pluto.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -73,5 +74,10 @@ class PlutoBaseActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        pluginOptionsDialog.dismiss()
     }
 }

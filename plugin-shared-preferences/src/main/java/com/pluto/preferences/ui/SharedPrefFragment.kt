@@ -90,4 +90,9 @@ internal class SharedPrefFragment : Fragment(R.layout.pluto_pref___fragment_shar
     private companion object {
         const val DIALOG_DISMISS_DELAY = 200L
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        editDialog.dismiss()
+    }
 }
