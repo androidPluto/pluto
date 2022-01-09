@@ -7,7 +7,7 @@
 
     <application>
         <activity
-            android:name=".ui.PlutoBaseActivity"
+            android:name=".ui.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.NoActionBar" />

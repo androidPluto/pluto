@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pluto___dark"
-    tools:context=".ui.PlutoBaseActivity">
+    tools:context=".ui.PlutoActivity">
 
     <ImageView
         android:id="@+id/close"

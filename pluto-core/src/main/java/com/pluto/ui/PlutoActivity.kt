@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.applifecycle.AppState
-import com.pluto.databinding.PlutoActivityPlutoBaseBinding
+import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.PluginOption
 import com.pluto.plugin.PluginOptionsViewModel
@@ -15,7 +15,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.SettingsViewModel
 
-class PlutoBaseActivity : AppCompatActivity() {
+class PlutoActivity : AppCompatActivity() {
 
     private lateinit var pluginOptionsDialog: PluginOptionsDialog
     private lateinit var contentShareHelper: ContentShare
@@ -26,7 +26,7 @@ class PlutoBaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = PlutoActivityPlutoBaseBinding.inflate(layoutInflater)
+        val binding = PlutoActivityPlutoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         contentShareHelper = ContentShare(this)

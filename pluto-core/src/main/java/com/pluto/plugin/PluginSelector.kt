@@ -27,7 +27,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.settings.SettingsFragment
-import com.pluto.ui.PlutoBaseActivity
+import com.pluto.ui.PlutoActivity
 
 internal class PluginSelector : DialogFragment() {
 
@@ -84,7 +84,7 @@ internal class PluginSelector : DialogFragment() {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is Plugin) {
                 Pluto.currentPlugin.postValue(data)
-                val intent = Intent(context, PlutoBaseActivity::class.java)
+                val intent = Intent(context, PlutoActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context?.startActivity(intent)
