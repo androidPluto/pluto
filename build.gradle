@@ -73,3 +73,4 @@ task prCheck {
 }
 
 apply from: "${rootDir}/scripts/publish-root.gradle"
+apply from: "${rootDir}/scripts/project-dependancy-graph.gradle"
