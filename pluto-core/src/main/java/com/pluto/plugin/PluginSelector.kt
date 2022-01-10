@@ -29,6 +29,7 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.settings.SettingsFragment
 import com.pluto.ui.PlutoActivity
 
+// TODO delete this
 internal class PluginSelector : DialogFragment() {
 
     private var notch: Notch? = null
