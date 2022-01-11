@@ -40,8 +40,6 @@ internal class Notch(private val application: Application) {
             val context = application.applicationContext
             if (context.canDrawOverlays()) {
                 notchViewManager.addView(context, windowManager)
-            } else {
-                // todo show instruction dialog
             }
         }
     }
