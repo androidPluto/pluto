@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.applifecycle.AppState
@@ -11,9 +12,12 @@ import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.PluginOption
 import com.pluto.plugin.PluginOptionsViewModel
+import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShare
+import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.SettingsViewModel
+import com.pluto.settings.canDrawOverlays
 
 class PlutoActivity : AppCompatActivity() {
 
@@ -76,8 +80,22 @@ class PlutoActivity : AppCompatActivity() {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (Pluto.notch?.enabled == true && !canDrawOverlays()) {
+            lifecycleScope.delayedLaunchWhenResumed(CONSENT_SHOW_DELAY) {
+                OverConsentFragment().show(supportFragmentManager, CONSENT_SHOW_TAG)
+            }
+        }
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         pluginOptionsDialog.dismiss()
+    }
+
+    private companion object {
+        const val CONSENT_SHOW_DELAY = 400L
+        const val CONSENT_SHOW_TAG = "overlay_consent"
     }
 }

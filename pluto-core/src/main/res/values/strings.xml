@@ -21,4 +21,8 @@
     <string name="pluto___settings_reset_all_description">This is clear all the data and app state. Choose this if the library is stuck in an unexpected error.</string>
     <string name="pluto___reset">Reset</string>
     <string name="pluto___notch_settings_updated">Notch settings updated</string>
+    <string name="pluto___overlay_consent_header">Enable Notch</string>
+    <string name="pluto___overlay_consent_description">Enable Draw over other Apps settings to show the notch for easy access to library.</string>
+    <string name="pluto___never_ask_again">Never ask again</string>
+    <string name="pluto___enable_now">Enable Now</string>
 </resources>

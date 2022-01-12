@@ -17,7 +17,11 @@ internal class SettingsViewModel(application: Application) : AndroidViewModel(ap
 
     val resetAll = SingleLiveEvent<Boolean>()
 
-    fun generate(context: Context?) {
+    init {
+        generate(getApplication())
+    }
+
+    private fun generate(context: Context?) {
         context?.apply {
             val list = arrayListOf<ListItem>()
 

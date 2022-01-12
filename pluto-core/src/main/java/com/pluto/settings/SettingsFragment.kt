@@ -32,7 +32,6 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.generate(context)
         binding.list.apply {
             adapter = settingsAdapter
             addItemDecoration(CustomItemDecorator(context, DECORATOR_DIVIDER_PADDING))

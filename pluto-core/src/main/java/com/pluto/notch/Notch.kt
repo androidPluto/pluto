@@ -31,7 +31,8 @@ internal class Notch(private val application: Application) {
         }
     }
 
-    private var enabled = false
+    internal var enabled = false
+        private set
     private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
     private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
