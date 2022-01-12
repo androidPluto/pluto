@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
+import com.pluto.Session
 import com.pluto.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
@@ -82,7 +83,7 @@ class PlutoActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Pluto.notch?.enabled == true && !canDrawOverlays()) {
+        if (!Session.isConsentAlreadyShown && Pluto.notch?.enabled == true && !canDrawOverlays()) {
             lifecycleScope.delayedLaunchWhenResumed(CONSENT_SHOW_DELAY) {
                 OverConsentFragment().show(supportFragmentManager, CONSENT_SHOW_TAG)
             }
