@@ -34,6 +34,10 @@ class PluginSelectorActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
         }
 
+        binding.root.setDebounceClickListener {
+            finish()
+        }
+
         binding.version.setSpan {
             append(fontColor(light("v"), context.color(R.color.pluto___white_40)))
             append(regular(com.pluto.BuildConfig.VERSION_NAME))
