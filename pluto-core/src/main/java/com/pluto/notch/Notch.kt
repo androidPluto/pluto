@@ -3,15 +3,16 @@ package com.pluto.notch
 import android.app.Application
 import android.app.Service
 import android.view.WindowManager
+import androidx.lifecycle.LiveData
 import com.pluto.Pluto
 import com.pluto.applifecycle.AppState
 import com.pluto.settings.canDrawOverlays
 
-internal class Notch(private val application: Application) {
+internal class Notch(private val application: Application, shouldShowNotch: LiveData<Boolean>) {
 
     init {
-        Pluto.appState.observeForever {
-            if (enabled && it is AppState.Foreground) {
+        shouldShowNotch.observeForever {
+            if (it) {
                 add()
             } else {
                 remove()
@@ -31,7 +32,7 @@ internal class Notch(private val application: Application) {
         }
     }
 
-    internal var enabled = false
+    internal var enabled = true
         private set
     private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
     private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager

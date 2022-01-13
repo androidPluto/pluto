@@ -73,16 +73,6 @@ class PluginSelectorActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Pluto.notch?.remove()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Pluto.notch?.add()
-    }
-
     private companion object {
         const val GRID_SPAN_COUNT = 4
     }

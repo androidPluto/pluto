@@ -43,7 +43,7 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/pluto___margin_large"
+                android:layout_marginVertical="@dimen/pluto___margin_vlarge"
                 android:minHeight="200dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/bottomDivider" />

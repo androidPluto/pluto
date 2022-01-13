@@ -52,12 +52,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleExceptionCTAs() {
         binding.exceptionCta.setOnClickListener {
-            Pluto.hideNotch()
+            Pluto.showNotch(false)
 //            throw NullPointerException("Custom Exception")
         }
 
         binding.deadlockCta.setOnClickListener {
-            Pluto.showNotch()
+            Pluto.showNotch(true)
 //            TestingThreadANR.testDeadLock()
         }
 

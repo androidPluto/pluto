@@ -31,7 +31,7 @@ object Pluto {
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
         SettingsPreferences.init(application.applicationContext)
-        notch = Notch(application)
+        notch = Notch(application, appLifecycle.shouldShowNotch)
     }
 
     fun open(identifier: String? = null) {
@@ -51,12 +51,8 @@ object Pluto {
         }
     }
 
-    fun showNotch() {
-        notch?.enable(true)
-    }
-
-    fun hideNotch() {
-        notch?.enable(false)
+    fun showNotch(state: Boolean) {
+        notch?.enable(state)
     }
 
     class Installer(private val application: Application) {

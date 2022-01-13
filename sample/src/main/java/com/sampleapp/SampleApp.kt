@@ -30,7 +30,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoLoggerPlugin())
             .addPlugin(PlutoSharePreferencesPlugin())
             .install()
-        Pluto.showNotch()
+        Pluto.showNotch(true)
 //        Pluto.initialize(this)
 //        Pluto.setANRListener(object : ANRListener {
 //            override fun onAppNotResponding(exception: ANRException) {
