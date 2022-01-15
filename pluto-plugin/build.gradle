@@ -3,8 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
-apply from: "$project.rootDir/build-utils.gradle"
-apply from: "${rootDir}/scripts/publish-module.gradle"
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
 
 def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()

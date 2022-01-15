@@ -36,7 +36,7 @@ allprojects {
 subprojects {
     if (project.name != "pluto-no-op") {
         pluginManager.withPlugin('kotlin-android') {
-            apply from: "$rootDir/static-analysis/code-analysis.gradle"
+            apply from: "$rootDir/scripts/static-analysis/code-analysis.gradle"
         }
     }
 }
@@ -71,5 +71,5 @@ task prCheck {
     dependsOn ':pluto:validateChanges'
 }
 
-apply from: "${rootDir}/scripts/publish-root.gradle"
-apply from: "${rootDir}/scripts/project-dependancy-graph.gradle"
+apply from: "$rootDir/scripts/publish/root.gradle"
+apply from: "$rootDir/scripts/project-dependancy-graph.gradle"

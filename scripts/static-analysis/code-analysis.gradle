@@ -4,7 +4,7 @@ apply plugin: "org.jlleitschuh.gradle.ktlint"
 afterEvaluate {
     detekt {
         input = files("src/main/java")
-        config = files("$rootDir/static-analysis/detekt-config.yml")
+        config = files("$rootDir/scripts/static-analysis/detekt-config.yml")
         reports {
             xml {
                 enabled = true
@@ -24,7 +24,7 @@ afterEvaluate {
         outputColorName.set("RED")
         outputToConsole.set(true)
         ignoreFailures.set(false)
-        additionalEditorconfigFile.set(file("$rootDir/static-analysis/.editorconfig"))
+        additionalEditorconfigFile.set(file("$rootDir/scripts/static-analysis/.editorconfig"))
 
         reporters {
             reporter("html")
