@@ -43,13 +43,12 @@ subprojects {
 
 ext {
     minSdkVersion = 19
-    targetSdkVersion = 29
-    compileSdkVersion = 29
-    buildToolsVersion = '29.0.3'
+    targetSdkVersion = 32
+    compileSdkVersion = 32
+    buildToolsVersion = '32.0.0'
 
-    androidXCoreVersion = '1.5.0'
-    okhttpVersion = '3.14.4'
-    roomsVersion = '2.3.0'
+    androidXCoreVersion = '1.7.0'
+    okhttpVersion = '4.9.1'
 }
 
 task installGitHook(type: Copy) {

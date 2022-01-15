@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
+    //todo remove
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 }
 
