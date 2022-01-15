@@ -34,11 +34,11 @@ allprojects {
 }
 
 subprojects {
-    if (project.name != "pluto-no-op") {
+//    if (project.name != "pluto-no-op") {
         pluginManager.withPlugin('kotlin-android') {
             apply from: "$rootDir/scripts/static-analysis/code-analysis.gradle"
         }
-    }
+//    }
 }
 
 ext {
@@ -48,7 +48,6 @@ ext {
     buildToolsVersion = '32.0.0'
 
     androidXCoreVersion = '1.7.0'
-    okhttpVersion = '4.9.1'
 }
 
 task installGitHook(type: Copy) {
