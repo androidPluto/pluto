@@ -45,7 +45,6 @@ ext {
     minSdkVersion = 19
     targetSdkVersion = 29
     compileSdkVersion = 29
-    buildToolsVersion = '29.0.3'
 
     androidXCoreVersion = '1.5.0'
     okhttpVersion = '3.14.4'
