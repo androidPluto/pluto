@@ -19,7 +19,6 @@ ext {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
 
     buildFeatures {
         viewBinding true
@@ -36,7 +35,7 @@ android {
         versionName verName
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
-        buildConfigField ("long", "VERSION_CODE", "${verCode}")
+        buildConfigField("long", "VERSION_CODE", "${verCode}")
         buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -48,23 +47,11 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-//            minifyEnabled true
-//            shrinkResources false
-//            zipAlignEnabled true
-//            multiDexEnabled false
-//            debuggable true
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             debuggable true
             minifyEnabled false
             shrinkResources false
-//            minifyEnabled true
-//            shrinkResources false
-//            zipAlignEnabled true
-//            multiDexEnabled false
-//            debuggable false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 

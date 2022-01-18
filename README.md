@@ -33,11 +33,10 @@ Pluto is distributed through [***mavenCentral***](https://search.maven.org/artif
 
 
 
-> Note: add both the pluto and the pluto-no-op variant to isolate Pluto from release builds.
+> Note: Pluto have separate the code based on build variant, `debug` and `release`. All the features are included automatically when you're using `debug` build variant, and this library will do nothing when you're using `release` build variant.
 ```groovy
 dependencies {
   debugImplementation 'com.mocklets:pluto:LATEST_VERSION'
-  releaseImplementation'com.mocklets:pluto-no-op:LATEST_VERSION'
 }
 ```
 
