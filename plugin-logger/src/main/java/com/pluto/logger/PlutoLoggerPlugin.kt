@@ -11,7 +11,7 @@ import com.pluto.plugin.PluginOption
 class PlutoLoggerPlugin : Plugin() {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
-        name = "Logger",
+        name = "Pluto Logger",
         icon = R.drawable.pluto_logger___ic_logger_icon
     )
 
