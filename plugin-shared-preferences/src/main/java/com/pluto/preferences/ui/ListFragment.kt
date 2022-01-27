@@ -19,6 +19,7 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
+import com.pluto.preferences.Session
 import com.pluto.preferences.SharedPrefRepo
 import com.pluto.preferences.databinding.PlutoPrefFragmentListBinding
 
@@ -38,16 +39,15 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
         }
         editDialog = EditDialog(this) { pair, value ->
             SharedPrefRepo.set(requireContext(), pair, value)
-            lifecycleScope.delayedLaunchWhenResumed(DIALOG_DISMISS_DELAY) {
+            viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(DIALOG_DISMISS_DELAY) {
                 viewModel.refresh()
                 editDialog.dismiss()
             }
         }
-//        filterDialog = SharedPrefFilterDilog(this)
         binding.search.doOnTextChanged { text, _, _, _ ->
-            lifecycleScope.launchWhenResumed {
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
-//                    Pluto.session.preferencesSearchText = it
+                    Session.searchText = it
                     prefAdapter.list = filteredPrefs(it)
                     if (it.isEmpty()) {
                         binding.list.linearLayoutManager()?.scrollToPositionWithOffset(0, 0)
@@ -62,14 +62,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
                 }
             }
         }
-//        binding.more.setDebounceClickListener {
-//            requireContext().showMoreOptions(it, R.menu.pluto___popup_menu_shared_pref) { item ->
-//                when (item.itemId) {
-//                    R.id.filter -> router.navigate(Screens.SharedPrefFilter)
-//                }
-//            }
-//        }
-//        binding.search.setText(Pluto.session.preferencesSearchText)
+        binding.search.setText(Session.searchText)
         viewModel.preferences.removeObserver(sharedPrefObserver)
         viewModel.preferences.observe(viewLifecycleOwner, sharedPrefObserver)
 
