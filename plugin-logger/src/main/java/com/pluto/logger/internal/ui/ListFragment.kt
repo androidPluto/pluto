@@ -39,7 +39,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
         binding.search.doOnTextChanged { text, _, _, _ ->
-            lifecycleScope.launchWhenResumed {
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
                     Session.loggerSearchText = it
                     logsAdapter.list = filteredLogs(it)
