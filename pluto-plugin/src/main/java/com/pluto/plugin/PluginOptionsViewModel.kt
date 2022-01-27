@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.pluto.plugin.utilities.SingleLiveEvent
 
+@Deprecated("global level plugin options are no longer supported")
 class PluginOptionsViewModel(application: Application) : AndroidViewModel(application) {
 
     val currentOption: LiveData<String>
