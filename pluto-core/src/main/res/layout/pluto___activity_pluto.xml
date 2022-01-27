@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pluto___dark"
     tools:context=".ui.PlutoActivity">
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/pluto___app_bg" />
+        android:background="@color/pluto___white_80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pluto___app_bg">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -50,6 +49,7 @@
                 android:id="@+id/options"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/pluto___margin_mini"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/pluto___more_options"
                 android:paddingHorizontal="@dimen/pluto___margin_small"
@@ -107,13 +107,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/search"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:drawableStart="@drawable/pluto___ic_search"
@@ -125,13 +122,8 @@
                         android:padding="@dimen/pluto___margin_small"
                         android:textColor="@color/pluto___text_dark"
                         android:textColorHint="@color/pluto___text_dark_40"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="@dimen/pluto___text_xmedium" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
