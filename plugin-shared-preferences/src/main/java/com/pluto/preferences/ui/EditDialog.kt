@@ -45,7 +45,7 @@ internal class EditDialog(
                 behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                            fragment.lifecycleScope.launchWhenResumed {
+                            fragment.viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                                 binding.value.requestFocus()
                             }
                         }
