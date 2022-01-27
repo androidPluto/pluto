@@ -11,9 +11,8 @@
         android:id="@+id/key"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:layout_marginHorizontal="@dimen/pluto___margin_small"
         android:layout_marginTop="@dimen/pluto___margin_medium"
-        android:layout_marginEnd="@dimen/pluto___margin_small"
         android:ellipsize="end"
         android:fontFamily="@font/muli_light"
         android:maxLines="2"
@@ -33,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/pluto___margin_small"
+        android:layout_marginRight="@dimen/pluto___margin_small"
         android:background="@drawable/pluto_pref___bg_shared_pref_file_badge"
         android:ellipsize="end"
         android:fontFamily="@font/muli_bold"
@@ -45,7 +45,6 @@
         android:textSize="@dimen/pluto___text_micro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/key"
-        android:layout_marginRight="@dimen/pluto___margin_small"
         tools:text="shared pref" />
 
     <TextView

@@ -1,5 +1,5 @@
 <resources>
-
+    <string name="pluto_logger___plugin_name">Pluto Logger</string>
     <string name="pluto_logger___no_logs_text">No Logs printed.</string>
     <string name="pluto_logger___search_logs">Search logs</string>
     <string name="pluto_logger___open_logs_menu">open logs menu</string>

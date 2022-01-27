@@ -12,7 +12,6 @@ import com.pluto.plugin.PluginSelectorActivity
 import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
-import java.util.LinkedHashSet
 
 object Pluto {
 
@@ -25,7 +24,7 @@ object Pluto {
     internal val pluginManager = PluginManager()
     private lateinit var application: Application
 
-    private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
+    private fun init(application: Application, plugins: ArrayList<Plugin>) {
         this.application = application
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
@@ -57,7 +56,7 @@ object Pluto {
 
     class Installer(private val application: Application) {
 
-        private val plugins = linkedSetOf<Plugin>()
+        private val plugins = arrayListOf<Plugin>()
 
         fun addPlugin(plugin: Plugin): Installer {
             plugins.add(plugin)

@@ -1,80 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pluto___dark"
     tools:context=".ui.PlutoActivity">
 
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/pluto___close"
-        android:paddingHorizontal="@dimen/pluto___margin_small"
-        android:src="@drawable/pluto___ic_close"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/muli_bold"
-        android:gravity="center"
-        android:paddingVertical="@dimen/pluto___margin_small"
-        tools:text="plugin name"
-        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-        android:textColor="@color/pluto___white"
-        android:textSize="@dimen/pluto___text_xmedium"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/options"
-        app:layout_constraintStart_toEndOf="@+id/close"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/options"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/pluto___more_options"
-        android:paddingHorizontal="@dimen/pluto___margin_small"
-        android:src="@drawable/pluto___ic_more"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/text"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="@dimen/pluto___margin_small"-->
-<!--        android:text="@string/pluto___settings"-->
-<!--        android:fontFamily="@font/muli_semibold"-->
-<!--        android:textSize="@dimen/pluto___text_xmedium"-->
-<!--        android:textColor="@color/pluto___white_80"-->
-<!--        android:gravity="center"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <com.pluto.ui.RoundedFrameLayout
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:corner_radius_left_top="@dimen/pluto___margin_medium"
-        app:corner_radius_right_top="@dimen/pluto___margin_medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
-
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/pluto___app_bg" />
-
-    </com.pluto.ui.RoundedFrameLayout>
+        android:layout_height="match_parent"
+        android:background="@color/pluto___app_bg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

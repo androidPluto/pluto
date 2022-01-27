@@ -14,7 +14,6 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.PluginOption
 import com.pluto.plugin.PluginOptionsViewModel
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
-import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.SettingsViewModel
@@ -39,24 +38,17 @@ class PlutoActivity : AppCompatActivity() {
             pluginOptionsViewModel.select(option)
         }
 
-        binding.close.setDebounceClickListener {
-            finish()
-        }
-
-        binding.options.setDebounceClickListener {
-            pluginOptionsDialog.show(pluginOptions, developerDetails)
-        }
-
         Pluto.currentPlugin.removeObservers(this)
         Pluto.currentPlugin.observe(
             this,
             {
-                binding.title.text = it.getConfig().name
                 val fragment = it.getView()
                 pluginOptions = it.getOptions()
                 developerDetails = it.getDeveloperDetails()
                 supportFragmentManager.beginTransaction().apply {
-                    this.runOnCommit { it.onPluginViewCreated(it.savedInstance) }
+                    this.runOnCommit {
+                        it.onPluginViewCreated(it.savedInstance)
+                    }
                     this.replace(R.id.container, fragment).commit()
                 }
             }

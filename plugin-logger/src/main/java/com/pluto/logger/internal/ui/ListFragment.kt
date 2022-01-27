@@ -21,6 +21,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 
 internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
@@ -49,6 +50,10 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         binding.search.setText(Session.loggerSearchText)
         viewModel.logs.removeObserver(logsObserver)
         viewModel.logs.observe(viewLifecycleOwner, logsObserver)
+
+        binding.close.setDebounceClickListener {
+            activity?.finish()
+        }
     }
 
     private fun filteredLogs(search: String): List<LogData> {

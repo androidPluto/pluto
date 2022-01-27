@@ -5,7 +5,7 @@ import com.pluto.plugin.utilities.DebugLog
 
 internal class PluginManager {
 
-    private var plugins: LinkedHashSet<Plugin> = linkedSetOf()
+    private var plugins = arrayListOf<Plugin>()
     internal val installedPlugins: List<Plugin>
         get() {
             val list = arrayListOf<Plugin>()
@@ -13,7 +13,7 @@ internal class PluginManager {
             return list
         }
 
-    fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
+    fun install(application: Application, plugins: ArrayList<Plugin>) {
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
                 it.install(application)

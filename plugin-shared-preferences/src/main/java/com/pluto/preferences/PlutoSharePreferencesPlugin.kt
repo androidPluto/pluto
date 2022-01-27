@@ -11,7 +11,7 @@ import com.pluto.preferences.ui.SharedPrefFragment
 class PlutoSharePreferencesPlugin : Plugin() {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
-        name = "Shared Preferences",
+        name = context.getString(R.string.pluto_pref___plugin_name),
         icon = R.drawable.pluto_pref___ic_pref_icon
     )
 

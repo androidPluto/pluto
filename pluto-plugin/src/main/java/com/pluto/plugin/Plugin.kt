@@ -5,6 +5,8 @@ import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
+import com.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.ListItem
 
 @Keep
@@ -41,8 +43,12 @@ abstract class Plugin : ListItem() {
      * plugin lifecycle methods
      */
     abstract fun onPluginInstalled()
-    open fun onPluginViewCreated(savedInstanceState: Bundle?) {}
     abstract fun onPluginDataCleared()
+
+    fun onPluginViewCreated(savedInstanceState: Bundle?) {
+        DebugLog.d("pluto_plugin", "view switched :: ${getConfig().name} : $savedInstanceState")
+        context.toast("View switched to ${getConfig().name}")
+    }
 
     override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
     override fun hashCode(): Int = getConfig().hashCode()

@@ -14,6 +14,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
 import com.pluto.preferences.SharedPrefRepo
@@ -62,6 +63,10 @@ internal class SharedPrefFragment : Fragment(R.layout.pluto_pref___fragment_shar
 //        binding.search.setText(Pluto.session.preferencesSearchText)
         viewModel.preferences.removeObserver(sharedPrefObserver)
         viewModel.preferences.observe(viewLifecycleOwner, sharedPrefObserver)
+
+        binding.close.setDebounceClickListener {
+            activity?.finish()
+        }
     }
 
     private fun filteredPrefs(search: String): List<SharedPrefKeyValuePair> {
