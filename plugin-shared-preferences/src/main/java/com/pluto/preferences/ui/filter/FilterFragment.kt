@@ -2,8 +2,10 @@ package com.pluto.preferences.ui.filter
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -15,27 +17,35 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
 import com.pluto.preferences.SharedPrefRepo
-import com.pluto.preferences.databinding.PlutoPrefFragmentSharedPrefFilterBinding
+import com.pluto.preferences.databinding.PlutoPrefFragmentFilterBinding
 import com.pluto.preferences.getSharePreferencesFiles
 import com.pluto.preferences.ui.SharedPrefAdapter
 import com.pluto.preferences.ui.SharedPrefFile
 import com.pluto.preferences.ui.SharedPrefViewModel
 
-internal class SharedPrefFilterFragment : Fragment(R.layout.pluto_pref___fragment_shared_pref_filter) {
+internal class FilterFragment : Fragment(R.layout.pluto_pref___fragment_filter) {
 
-    private val binding by viewBinding(PlutoPrefFragmentSharedPrefFilterBinding::bind)
+    private val binding by viewBinding(PlutoPrefFragmentFilterBinding::bind)
     private val viewModel: SharedPrefViewModel by activityViewModels()
 
     private val prefAdapter: BaseAdapter by lazy { SharedPrefAdapter(onActionListener) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigateUp()
+                }
+            }
+        )
         binding.list.apply {
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext(), DECORATOR_DIVIDER_PADDING))
         }
-        binding.close.setDebounceClickListener {
-            activity?.onBackPressed()
+        binding.back.setDebounceClickListener {
+            findNavController().navigateUp()
         }
 
         binding.clear.setDebounceClickListener {

@@ -5,7 +5,6 @@ import com.pluto.plugin.Developer
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
-import com.pluto.preferences.ui.SharedPrefFragment
 
 class PlutoSharePreferencesPlugin : Plugin() {
 

@@ -10,15 +10,15 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.preferences.R
 import com.pluto.preferences.SharedPrefRepo
-import com.pluto.preferences.databinding.PlutoPrefItemSharedPrefFilterBinding
+import com.pluto.preferences.databinding.PlutoPrefItemFilterBinding
 import com.pluto.preferences.ui.SharedPrefFile
 
-internal class SharedPrefFilterItemHolder(
+internal class FilterItemHolder(
     parent: ViewGroup,
     listener: DiffAwareAdapter.OnActionListener
-) : DiffAwareHolder(parent.inflate(R.layout.pluto_pref___item_shared_pref_filter), listener) {
+) : DiffAwareHolder(parent.inflate(R.layout.pluto_pref___item_filter), listener) {
 
-    private val binding = PlutoPrefItemSharedPrefFilterBinding.bind(itemView)
+    private val binding = PlutoPrefItemFilterBinding.bind(itemView)
     private val title = binding.title
     private val checkbox = binding.checkbox
 

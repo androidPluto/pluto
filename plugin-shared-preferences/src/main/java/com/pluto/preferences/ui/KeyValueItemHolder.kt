@@ -13,7 +13,7 @@ import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.preferences.R
 import com.pluto.preferences.databinding.PlutoPrefItemSharedPrefKeyValueBinding
 
-internal class SharedPrefKeyValueItemHolder(
+internal class KeyValueItemHolder(
     parent: ViewGroup,
     actionListener: DiffAwareAdapter.OnActionListener
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_pref___item_shared_pref_key_value), actionListener) {

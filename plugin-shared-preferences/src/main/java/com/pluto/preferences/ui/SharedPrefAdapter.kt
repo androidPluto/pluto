@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.preferences.ui.filter.SharedPrefFilterItemHolder
+import com.pluto.preferences.ui.filter.FilterItemHolder
 
 internal class SharedPrefAdapter(private val listener: OnActionListener) : BaseAdapter() {
 
@@ -18,8 +18,8 @@ internal class SharedPrefAdapter(private val listener: OnActionListener) : BaseA
 
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
-            ITEM_TYPE_PAIR -> SharedPrefKeyValueItemHolder(parent, listener)
-            ITEM_TYPE_FILTER -> SharedPrefFilterItemHolder(parent, listener)
+            ITEM_TYPE_PAIR -> KeyValueItemHolder(parent, listener)
+            ITEM_TYPE_FILTER -> FilterItemHolder(parent, listener)
             else -> null
         }
     }

@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pluto___app_bg"
+        android:background="@color/pluto___dark"
         android:theme="@style/PlutoTheme.AppBarOverlay">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,11 +17,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/close"
+                android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:padding="@dimen/pluto___margin_medium"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
                 android:src="@drawable/pluto_pref___ic_arrow_back"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,29 +31,26 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
+                android:fontFamily="@font/muli"
                 android:gravity="center"
-                android:paddingTop="@dimen/pluto___margin_medium"
-                android:paddingBottom="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_medium"
                 android:text="@string/pluto_pref___shared_pref_filter"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:textColor="@color/pluto___text_dark"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintStart_toEndOf="@+id/close"
+                android:textColor="@color/pluto___white"
+                android:textSize="@dimen/pluto___text_medium"
+                app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_semibold"
+                android:fontFamily="@font/muli"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/pluto___margin_medium"
-                android:paddingTop="@dimen/pluto___margin_medium"
-                android:paddingBottom="@dimen/pluto___margin_medium"
+                android:padding="@dimen/pluto___margin_medium"
                 android:text="@string/pluto_pref___clear"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:textColor="@color/pluto___text_dark_80"
+                android:textColor="@color/pluto___white_80"
                 android:textSize="@dimen/pluto___text_xmedium"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +73,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/note"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/pluto_pref___item_shared_pref_filter" />
+            tools:listitem="@layout/pluto_pref___item_filter" />
 
         <TextView
             android:id="@+id/note"

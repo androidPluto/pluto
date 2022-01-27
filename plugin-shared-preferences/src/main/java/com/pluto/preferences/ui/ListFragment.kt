@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
+import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
@@ -18,12 +20,12 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
 import com.pluto.preferences.SharedPrefRepo
-import com.pluto.preferences.databinding.PlutoPrefFragmentSharedPrefBinding
+import com.pluto.preferences.databinding.PlutoPrefFragmentListBinding
 
-internal class SharedPrefFragment : Fragment(R.layout.pluto_pref___fragment_shared_pref) {
-    private val binding by viewBinding(PlutoPrefFragmentSharedPrefBinding::bind)
+internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
+    private val binding by viewBinding(PlutoPrefFragmentListBinding::bind)
     private val viewModel: SharedPrefViewModel by activityViewModels()
-    private lateinit var editDialog: SharedPrefEditDialog
+    private lateinit var editDialog: EditDialog
 
     private val prefAdapter: BaseAdapter by lazy { SharedPrefAdapter(onActionListener) }
 
@@ -34,7 +36,7 @@ internal class SharedPrefFragment : Fragment(R.layout.pluto_pref___fragment_shar
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
-        editDialog = SharedPrefEditDialog(this) { pair, value ->
+        editDialog = EditDialog(this) { pair, value ->
             SharedPrefRepo.set(requireContext(), pair, value)
             lifecycleScope.delayedLaunchWhenResumed(DIALOG_DISMISS_DELAY) {
                 viewModel.refresh()
@@ -50,6 +52,13 @@ internal class SharedPrefFragment : Fragment(R.layout.pluto_pref___fragment_shar
                     if (it.isEmpty()) {
                         binding.list.linearLayoutManager()?.scrollToPositionWithOffset(0, 0)
                     }
+                }
+            }
+        }
+        binding.options.setDebounceClickListener {
+            context?.showMoreOptions(it, R.menu.pluto_pref___menu_more_options) { item ->
+                when (item.itemId) {
+                    R.id.filter -> findNavController().navigate(R.id.openFilterSettings)
                 }
             }
         }
