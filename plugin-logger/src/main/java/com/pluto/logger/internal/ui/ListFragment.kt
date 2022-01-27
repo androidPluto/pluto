@@ -93,7 +93,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is LogData) {
                 activity?.let {
-                    it.hideKeyboard(lifecycleScope) {
+                    it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
                         viewModel.updateCurrentLog(data)
                         findNavController().navigate(R.id.openDetails)
                     }
