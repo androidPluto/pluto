@@ -5,7 +5,6 @@ import com.pluto.plugin.Developer
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
-import com.pluto.plugin.PluginOption
 import com.pluto.preferences.ui.SharedPrefFragment
 
 class PlutoSharePreferencesPlugin : Plugin() {
@@ -16,10 +15,6 @@ class PlutoSharePreferencesPlugin : Plugin() {
     )
 
     override fun getView(): Fragment = SharedPrefFragment()
-
-    override fun getOptions(): List<PluginOption> {
-        return emptyList()
-    }
 
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(

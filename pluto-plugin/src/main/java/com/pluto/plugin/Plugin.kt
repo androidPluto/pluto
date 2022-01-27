@@ -32,7 +32,6 @@ abstract class Plugin : ListItem() {
 
     abstract fun getConfig(): PluginConfiguration
     abstract fun getView(): Fragment
-    abstract fun getOptions(): List<PluginOption>
     open fun getDeveloperDetails(): DeveloperDetails? = null
     open fun shouldInstallPlugin(): Boolean = true
     open fun saveInstanceState(state: Bundle) {
@@ -49,6 +48,9 @@ abstract class Plugin : ListItem() {
         DebugLog.d("pluto_plugin", "view switched :: ${getConfig().name} : $savedInstanceState")
         context.toast("View switched to ${getConfig().name}")
     }
+
+    @Deprecated("global level plugin options are no longer supported")
+    fun getOptions(): List<PluginOption> = emptyList()
 
     override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
     override fun hashCode(): Int = getConfig().hashCode()

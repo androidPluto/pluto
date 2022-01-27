@@ -11,7 +11,6 @@ import com.pluto.Session
 import com.pluto.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
-import com.pluto.plugin.PluginOption
 import com.pluto.plugin.PluginOptionsViewModel
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.sharing.ContentShare
@@ -23,7 +22,7 @@ class PlutoActivity : AppCompatActivity() {
 
     private lateinit var pluginOptionsDialog: PluginOptionsDialog
     private lateinit var contentShareHelper: ContentShare
-    private var pluginOptions: List<PluginOption> = emptyList()
+//    private var pluginOptions: List<PluginOption> = emptyList()
     private var developerDetails: DeveloperDetails? = null
     private val pluginOptionsViewModel by viewModels<PluginOptionsViewModel>()
     private val settingsViewModel by viewModels<SettingsViewModel>()
@@ -43,7 +42,7 @@ class PlutoActivity : AppCompatActivity() {
             this,
             {
                 val fragment = it.getView()
-                pluginOptions = it.getOptions()
+//                pluginOptions = it.getOptions()
                 developerDetails = it.getDeveloperDetails()
                 supportFragmentManager.beginTransaction().apply {
                     this.runOnCommit {

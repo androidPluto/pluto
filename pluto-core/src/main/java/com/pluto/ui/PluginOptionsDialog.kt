@@ -27,6 +27,7 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
 
+@Deprecated("global level plugin options are no longer supported")
 internal class PluginOptionsDialog(context: Context, onOptionSelected: (String) -> Unit) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {
 
     private val sheetView: View = context.inflate(R.layout.pluto___layout_plugin_options_dialog)
