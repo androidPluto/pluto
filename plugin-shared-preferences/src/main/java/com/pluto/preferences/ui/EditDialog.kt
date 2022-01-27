@@ -24,7 +24,7 @@ import com.pluto.preferences.databinding.PlutoPrefLayoutSharedPrefEditBinding
 import java.util.Locale
 
 internal class EditDialog(
-    private val fragment: Fragment,
+    fragment: Fragment,
     private val onSave: (SharedPrefKeyValuePair, Any) -> Unit
 ) : BottomSheetDialog(fragment.requireContext(), R.style.PlutoBottomSheetDialogTheme) {
 
