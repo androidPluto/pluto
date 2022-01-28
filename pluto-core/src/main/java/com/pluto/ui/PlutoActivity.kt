@@ -8,10 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.Session
-import com.pluto.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
-import com.pluto.plugin.PluginOptionsViewModel
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
@@ -22,9 +20,10 @@ class PlutoActivity : AppCompatActivity() {
 
     private lateinit var pluginOptionsDialog: PluginOptionsDialog
     private lateinit var contentShareHelper: ContentShare
-//    private var pluginOptions: List<PluginOption> = emptyList()
+
+    //    private var pluginOptions: List<PluginOption> = emptyList()
     private var developerDetails: DeveloperDetails? = null
-    private val pluginOptionsViewModel by viewModels<PluginOptionsViewModel>()
+//    private val pluginOptionsViewModel by viewModels<PluginOptionsViewModel>()
     private val settingsViewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,43 +32,34 @@ class PlutoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         contentShareHelper = ContentShare(this)
-        pluginOptionsDialog = PluginOptionsDialog(this) { option ->
-            pluginOptionsViewModel.select(option)
-        }
+//        pluginOptionsDialog = PluginOptionsDialog(this) { option ->
+//            pluginOptionsViewModel.select(option)
+//        }
 
         Pluto.currentPlugin.removeObservers(this)
-        Pluto.currentPlugin.observe(
-            this,
-            {
-                val fragment = it.getView()
+        Pluto.currentPlugin.observe(this) {
+            val fragment = it.getView()
 //                pluginOptions = it.getOptions()
-                developerDetails = it.getDeveloperDetails()
-                supportFragmentManager.beginTransaction().apply {
-                    this.runOnCommit {
-                        it.onPluginViewCreated(it.savedInstance)
-                    }
-                    this.replace(R.id.container, fragment).commit()
+            developerDetails = it.getDeveloperDetails()
+            supportFragmentManager.beginTransaction().apply {
+                this.runOnCommit {
+                    it.onPluginViewCreated(it.savedInstance)
                 }
+                this.replace(R.id.container, fragment).commit()
             }
-        )
+        }
 
-        Pluto.appState.observe(
-            this,
-            {
-                if (it is AppState.Background) {
-                    finish()
-                }
-            }
-        )
+//        Pluto.appState.observe(this) {
+//            if (it is AppState.Background) {
+//                finish()
+//            }
+//        }
 
-        settingsViewModel.resetAll.observe(
-            this,
-            {
-                Pluto.pluginManager.installedPlugins.forEach {
-                    it.onPluginDataCleared()
-                }
+        settingsViewModel.resetAll.observe(this) {
+            Pluto.pluginManager.installedPlugins.forEach {
+                it.onPluginDataCleared()
             }
-        )
+        }
     }
 
     override fun onResume() {
