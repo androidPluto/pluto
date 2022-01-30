@@ -27,8 +27,8 @@ class SampleApp : Application() {
 //        }
         Pluto.Installer(this)
 //            .addPlugin(PlutoNetworkPlugin())
-            .addPlugin(PlutoLoggerPlugin())
-            .addPlugin(PlutoSharePreferencesPlugin())
+            .addPlugin(PlutoLoggerPlugin("logger"))
+            .addPlugin(PlutoSharePreferencesPlugin("sharedPref"))
             .install()
         Pluto.showNotch(true)
 //        Pluto.initialize(this)

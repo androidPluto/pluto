@@ -6,7 +6,7 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 
-class PlutoSharePreferencesPlugin : Plugin() {
+class PlutoSharePreferencesPlugin(identifier: String) : Plugin(identifier) {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_pref___plugin_name),

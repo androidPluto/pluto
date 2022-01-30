@@ -6,7 +6,7 @@ import com.pluto.ui.PlutoActivity
 
 internal class PluginManager {
 
-    private var plugins = arrayListOf<Plugin>()
+    private var plugins: LinkedHashSet<Plugin> = linkedSetOf()
     internal val installedPlugins: List<Plugin>
         get() {
             val list = arrayListOf<Plugin>()
@@ -14,11 +14,7 @@ internal class PluginManager {
             return list
         }
 
-    fun install(application: Application, plugins: ArrayList<Plugin>) {
-        val uiBridgeComponents = UiBridgeComponents(
-            selectorActivity = PluginSelectorActivity::class.java,
-            containerActivity = PlutoActivity::class.java
-        )
+    fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
                 it.install(application, uiBridgeComponents)
@@ -31,7 +27,7 @@ internal class PluginManager {
 
     fun get(identifier: String): Plugin? {
         return plugins.firstOrNull {
-            it.getConfig().identifier == identifier
+            it.identifier == identifier
         }
     }
 }

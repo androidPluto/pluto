@@ -10,6 +10,7 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.PluginSelectorActivity
 import com.pluto.plugin.utilities.SingleLiveEvent
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
 
@@ -24,7 +25,7 @@ object Pluto {
     internal val pluginManager = PluginManager()
     private lateinit var application: Application
 
-    private fun init(application: Application, plugins: ArrayList<Plugin>) {
+    private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
         this.application = application
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
@@ -42,7 +43,9 @@ object Pluto {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 application.applicationContext.startActivity(intent)
+                return
             }
+            application.applicationContext.toast("Plugin [$identifier] not installed")
         } else {
             intent = Intent(application.applicationContext, PluginSelectorActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -56,7 +59,7 @@ object Pluto {
 
     class Installer(private val application: Application) {
 
-        private val plugins = arrayListOf<Plugin>()
+        private val plugins = linkedSetOf<Plugin>()
 
         fun addPlugin(plugin: Plugin): Installer {
             plugins.add(plugin)
