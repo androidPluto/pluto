@@ -9,9 +9,9 @@ import com.pluto.R
 import com.pluto.Session
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
-import com.pluto.plugin.PluginUiBridge
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.plugin.utilities.notification.PlutoNotification.Companion.ID_LABEL
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.canDrawOverlays
@@ -57,7 +57,7 @@ class PlutoActivity : AppCompatActivity() {
     }
 
     private fun handleIntent(intent: Intent?) {
-        intent?.getStringExtra(PluginUiBridge.get.bridgeComponents.idLabel)?.let { id ->
+        intent?.getStringExtra(ID_LABEL)?.let { id ->
             Pluto.pluginManager.get(id)?.let {
                 val fragment = it.getView()
                 developerDetails = it.getDeveloperDetails()

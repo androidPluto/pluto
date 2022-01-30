@@ -11,12 +11,17 @@ class PlutoNotification(private val identifier: String) {
 
     fun generatePendingIntent(context: Context, bundle: Bundle? = null): PendingIntent {
         val notificationIntent = Intent(context, PluginUiBridge.get.bridgeComponents.activityClass)
-            .putExtra(PluginUiBridge.get.bridgeComponents.idLabel, identifier)
-        bundle?.let { notificationIntent.putExtra(PluginUiBridge.get.bridgeComponents.bundleLabel, it) }
+            .putExtra(ID_LABEL, identifier)
+        bundle?.let { notificationIntent.putExtra(BUNDLE_LABEL, it) }
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
         } else {
             PendingIntent.getActivity(context, 0, notificationIntent, 0)
         }
+    }
+
+    companion object {
+        const val ID_LABEL = "pluginIdentifier"
+        const val BUNDLE_LABEL = "pluginBundle"
     }
 }

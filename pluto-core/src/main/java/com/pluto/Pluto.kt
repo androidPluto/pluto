@@ -10,8 +10,9 @@ import com.pluto.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.PluginSelectorActivity
-import com.pluto.plugin.PluginUiBridge
 import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.plugin.utilities.notification.PlutoNotification.Companion.BUNDLE_LABEL
+import com.pluto.plugin.utilities.notification.PlutoNotification.Companion.ID_LABEL
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
 
@@ -41,8 +42,8 @@ object Pluto {
                 intent = Intent(application.applicationContext, PlutoActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.putExtra(PluginUiBridge.get.bridgeComponents.idLabel, identifier)
-                intent.putExtra(PluginUiBridge.get.bridgeComponents.bundleLabel, bundle)
+                intent.putExtra(ID_LABEL, identifier)
+                intent.putExtra(BUNDLE_LABEL, bundle)
                 application.applicationContext.startActivity(intent)
                 return
             }
