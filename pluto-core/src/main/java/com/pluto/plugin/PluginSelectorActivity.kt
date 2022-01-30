@@ -18,11 +18,13 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.settings.SettingsFragment
+import com.pluto.settings.SettingsViewModel
 
 class PluginSelectorActivity : AppCompatActivity() {
 
     private val pluginsViewModel by viewModels<PluginsViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
+    private val settingsViewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,12 @@ class PluginSelectorActivity : AppCompatActivity() {
 
         pluginsViewModel.plugins.removeObserver(pluginListObserver)
         pluginsViewModel.plugins.observe(this, pluginListObserver)
+
+        settingsViewModel.resetAll.observe(this) {
+            Pluto.pluginManager.installedPlugins.forEach {
+                it.onPluginDataCleared()
+            }
+        }
     }
 
     private val pluginListObserver = Observer<List<Plugin>> {

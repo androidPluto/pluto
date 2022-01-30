@@ -2,7 +2,6 @@ package com.pluto.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
@@ -15,7 +14,6 @@ import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
-import com.pluto.settings.SettingsViewModel
 import com.pluto.settings.canDrawOverlays
 
 class PlutoActivity : AppCompatActivity() {
@@ -26,7 +24,6 @@ class PlutoActivity : AppCompatActivity() {
     //    private var pluginOptions: List<PluginOption> = emptyList()
     private var developerDetails: DeveloperDetails? = null
 //    private val pluginOptionsViewModel by viewModels<PluginOptionsViewModel>()
-    private val settingsViewModel by viewModels<SettingsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
