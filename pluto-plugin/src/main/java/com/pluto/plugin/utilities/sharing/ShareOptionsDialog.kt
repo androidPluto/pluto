@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pluto.plugin.R
 import com.pluto.plugin.databinding.PlutoLayoutContentShareOptionsBinding
-import com.pluto.plugin.utilities.DeviceInfo
+import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.setDebounceClickListener
 
@@ -20,7 +20,7 @@ class ShareOptionsDialog(
 
     private val sheetView: View = context.inflate(R.layout.pluto___layout_content_share_options)
     private val binding = PlutoLayoutContentShareOptionsBinding.bind(sheetView)
-    private val deviceInfo = DeviceInfo(context)
+    private val device = Device(context)
 
     init {
         setContentView(sheetView)
@@ -35,7 +35,7 @@ class ShareOptionsDialog(
                     state = BottomSheetBehavior.STATE_EXPANDED
                     isHideable = false
                     skipCollapsed = true
-                    peekHeight = deviceInfo.height
+                    peekHeight = device.screen.heightPx
                 }
             }
         }

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.pluto.plugin.utilities.DeviceInfo
+import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.extensions.showKeyboard
@@ -23,6 +23,7 @@ import com.pluto.preferences.R
 import com.pluto.preferences.databinding.PlutoPrefLayoutSharedPrefEditBinding
 import java.util.Locale
 
+// todo move to fragment
 internal class EditDialog(
     fragment: Fragment,
     private val onSave: (SharedPrefKeyValuePair, Any) -> Unit
@@ -30,7 +31,7 @@ internal class EditDialog(
 
     private val sheetView: View = context.inflate(R.layout.pluto_pref___layout_shared_pref_edit)
     private val binding = PlutoPrefLayoutSharedPrefEditBinding.bind(sheetView)
-    private val deviceInfo = DeviceInfo(context)
+    private val device = Device(context)
     private val contentSharer by fragment.lazyContentSharer()
 
     init {
@@ -58,7 +59,7 @@ internal class EditDialog(
                     state = BottomSheetBehavior.STATE_EXPANDED
                     isHideable = false
                     skipCollapsed = true
-                    peekHeight = deviceInfo.height
+                    peekHeight = device.screen.heightPx
                 }
             }
         }

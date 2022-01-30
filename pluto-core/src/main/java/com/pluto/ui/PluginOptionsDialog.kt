@@ -16,7 +16,7 @@ import com.pluto.databinding.PlutoLayoutPluginOptionsDialogBinding
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.PluginOption
 import com.pluto.plugin.options.PluginOptionAdapter
-import com.pluto.plugin.utilities.DeviceInfo
+import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -32,7 +32,7 @@ internal class PluginOptionsDialog(context: Context, onOptionSelected: (String) 
 
     private val sheetView: View = context.inflate(R.layout.pluto___layout_plugin_options_dialog)
     private val binding = PlutoLayoutPluginOptionsDialogBinding.bind(sheetView)
-    private val deviceInfo = DeviceInfo(context)
+    private val device = Device(context)
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is PluginOption) {
@@ -69,7 +69,7 @@ internal class PluginOptionsDialog(context: Context, onOptionSelected: (String) 
                     state = BottomSheetBehavior.STATE_EXPANDED
                     isHideable = false
                     skipCollapsed = true
-                    peekHeight = deviceInfo.height
+                    peekHeight = device.screen.heightPx
                 }
             }
         }
