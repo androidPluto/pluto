@@ -25,8 +25,9 @@ abstract class Plugin : ListItem() {
     var savedInstance: Bundle = Bundle()
         private set
 
-    fun install(application: Application) {
+    fun install(application: Application, bridgeComponents: UiBridgeComponents) {
         this._application = application
+        PluginUiBridge.initialize(bridgeComponents)
         onPluginInstalled()
     }
 

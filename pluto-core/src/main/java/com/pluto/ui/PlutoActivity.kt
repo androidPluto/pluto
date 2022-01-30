@@ -18,7 +18,7 @@ import com.pluto.settings.canDrawOverlays
 
 class PlutoActivity : AppCompatActivity() {
 
-    private lateinit var pluginOptionsDialog: PluginOptionsDialog
+//    private lateinit var pluginOptionsDialog: PluginOptionsDialog
     private lateinit var contentShareHelper: ContentShare
 
     //    private var pluginOptions: List<PluginOption> = emptyList()
@@ -73,7 +73,7 @@ class PlutoActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        pluginOptionsDialog.dismiss()
+//        pluginOptionsDialog.dismiss()
     }
 
     private companion object {
