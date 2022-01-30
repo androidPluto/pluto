@@ -11,7 +11,6 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.PluginSelectorActivity
 import com.pluto.plugin.PluginUiBridge
-import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
@@ -23,7 +22,6 @@ object Pluto {
     internal val appState: LiveData<AppState>
         get() = appLifecycle.state
 
-    internal val currentPlugin = SingleLiveEvent<Plugin>()
     internal val pluginManager = PluginManager()
     private lateinit var application: Application
 

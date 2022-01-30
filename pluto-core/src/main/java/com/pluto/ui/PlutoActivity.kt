@@ -54,12 +54,6 @@ class PlutoActivity : AppCompatActivity() {
 //            }
 //        }
         handleIntent(intent)
-
-        settingsViewModel.resetAll.observe(this) {
-            Pluto.pluginManager.installedPlugins.forEach {
-                it.onPluginDataCleared()
-            }
-        }
     }
 
     private fun handleIntent(intent: Intent?) {
