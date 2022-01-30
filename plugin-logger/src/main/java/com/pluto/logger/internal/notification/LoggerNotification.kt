@@ -47,7 +47,7 @@ internal class LoggerNotification(private val context: Context) {
             .setContentTitle("dummy notification")
             .setContentText("dummy notification text")
             .setSmallIcon(R.drawable.pluto_logger___ic_logger_icon)
-            .setContentIntent(PlutoNotification("pluto_logger").generatePendingIntent(context))
+            .setContentIntent(PlutoNotification("logger").generatePendingIntent(context))
             .setOngoing(false)
             .setOnlyAlertOnce(true)
             .setAutoCancel(false)

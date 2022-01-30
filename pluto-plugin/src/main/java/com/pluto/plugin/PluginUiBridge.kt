@@ -1,10 +1,28 @@
 package com.pluto.plugin
 
-object PluginUiBridge {
+import java.lang.IllegalStateException
 
-    var bridgeComponents: UiBridgeComponents? = null
+class PluginUiBridge private constructor(val bridgeComponents: UiBridgeComponents) {
+    companion object {
+        val get: PluginUiBridge
+            get() {
+                if (instance != null) {
+                    return instance!!
+                }
+                throw IllegalStateException("PluginUiBridge not initialised yet")
+            }
 
-    internal fun initialize(bridgeComponents: UiBridgeComponents) {
-        this.bridgeComponents = bridgeComponents
+        private var instance: PluginUiBridge? = null
+
+        fun create(bridgeComponents: UiBridgeComponents): PluginUiBridge? {
+            if (instance == null) {
+                synchronized(PluginUiBridge::class.java) {
+                    if (instance == null) {
+                        instance = PluginUiBridge(bridgeComponents)
+                    }
+                }
+            }
+            return instance
+        }
     }
 }

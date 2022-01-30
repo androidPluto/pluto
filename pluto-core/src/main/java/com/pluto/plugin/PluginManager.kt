@@ -16,12 +16,12 @@ internal class PluginManager {
 
     fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
         val uiBridgeComponents = UiBridgeComponents(
-            selectorActivity = PluginSelectorActivity::class.java,
-            containerActivity = PlutoActivity::class.java
+            activityClass = PlutoActivity::class.java
         )
+        PluginUiBridge.create(uiBridgeComponents)
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
-                it.install(application, uiBridgeComponents)
+                it.install(application)
                 this.plugins.add(it)
             } else {
                 DebugLog.e("pluto_plugin", "${it.getConfig().name} not installed (reason: condition mismatch).")
