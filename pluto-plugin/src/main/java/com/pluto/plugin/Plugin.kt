@@ -10,7 +10,7 @@ import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.ListItem
 
 @Keep
-abstract class Plugin : ListItem() {
+abstract class Plugin(val identifier: String) : ListItem() {
 
     val context: Context
         get() = returnContext()
@@ -52,6 +52,6 @@ abstract class Plugin : ListItem() {
     @Deprecated("global level plugin options are no longer supported")
     fun getOptions(): List<PluginOption> = emptyList()
 
-    override fun equals(other: Any?): Boolean = other is Plugin && getConfig().hashCode() == other.getConfig().hashCode()
-    override fun hashCode(): Int = getConfig().hashCode()
+    override fun equals(other: Any?): Boolean = other is Plugin && identifier == other.identifier
+    override fun hashCode(): Int = identifier.hashCode()
 }

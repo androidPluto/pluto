@@ -7,7 +7,7 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 
-class PlutoLoggerPlugin : Plugin() {
+class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_logger___plugin_name),
