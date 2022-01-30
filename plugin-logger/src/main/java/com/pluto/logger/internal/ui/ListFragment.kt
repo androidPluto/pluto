@@ -14,6 +14,7 @@ import com.pluto.logger.internal.LogData
 import com.pluto.logger.internal.LogsRepo
 import com.pluto.logger.internal.LogsViewModel
 import com.pluto.logger.internal.Session
+import com.pluto.logger.internal.notification.LoggerNotification
 import com.pluto.logger.internal.ui.list.LogsAdapter
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
@@ -95,6 +96,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
                         viewModel.updateCurrentLog(data)
+                        LoggerNotification(requireContext()).add()
                         findNavController().navigate(R.id.openDetails)
                     }
                 }

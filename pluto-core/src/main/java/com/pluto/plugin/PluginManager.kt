@@ -2,6 +2,7 @@ package com.pluto.plugin
 
 import android.app.Application
 import com.pluto.plugin.utilities.DebugLog
+import com.pluto.ui.PlutoActivity
 
 internal class PluginManager {
 
@@ -14,6 +15,11 @@ internal class PluginManager {
         }
 
     fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
+        PluginUiBridge.create(
+            UiBridgeComponents(
+                activityClass = PlutoActivity::class.java
+            )
+        )
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
                 it.install(application)
