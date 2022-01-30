@@ -3,18 +3,16 @@ package com.pluto
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import com.pluto.notification.NotificationUtil
 import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.plugin.utilities.device.Device
 
 internal class DebugNotification(private val context: Context) {
 
     private val notificationUtil = NotificationUtil(context)
 
-    private val clientAppName: String = context.packageManager.getApplicationLabel(
-        context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
-    ) as String
+    private val device = Device(context)
 
     fun add() {
         val notificationIntent = Intent(context, PluginSelectorActivity::class.java)
@@ -25,7 +23,7 @@ internal class DebugNotification(private val context: Context) {
         }
 
         notificationUtil.notify(
-            title = context.getString(R.string.pluto___notification_title, clientAppName),
+            title = context.getString(R.string.pluto___notification_title, device.app.name),
             text = context.getString(R.string.pluto___notification_subtitle),
             intent = pendingIntent,
             isOngoing = false,

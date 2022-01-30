@@ -7,9 +7,9 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import com.pluto.DeviceInfo
 import com.pluto.R
 import com.pluto.databinding.PlutoLayoutNotchBinding
+import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.hapticFeedback
@@ -21,9 +21,9 @@ internal class NotchViewManager(
     context: Context,
     private val listener: OnNotchInteractionListener
 ) {
-    private val deviceInfo = DeviceInfo(context)
-    private val dragUpLimit = deviceInfo.height * DRAG_UP_THRESHOLD
-    private val dragDownLimit = deviceInfo.height * DRAG_DOWN_THRESHOLD
+    private val device = Device(context)
+    private val dragUpLimit = device.screen.heightPx * DRAG_UP_THRESHOLD
+    private val dragDownLimit = device.screen.heightPx * DRAG_DOWN_THRESHOLD
 
     var view: View? = null
     val layoutParams = getInitialLayoutParams(context)
@@ -128,7 +128,7 @@ internal class NotchViewManager(
         val gravityHorizontal = if (SettingsPreferences.isRightHandedAccessPopup) Gravity.END else Gravity.START
         params.gravity = gravityHorizontal or Gravity.TOP
         params.x = (context.resources.getDimension(R.dimen.pluto___popup_bubble_width) * INIT_THRESHOLD_X).toInt()
-        params.y = (deviceInfo.height * INIT_THRESHOLD_Y).toInt()
+        params.y = (device.screen.heightPx * INIT_THRESHOLD_Y).toInt()
 
         return params
     }
