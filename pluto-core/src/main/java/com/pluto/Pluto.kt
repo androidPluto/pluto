@@ -2,6 +2,7 @@ package com.pluto
 
 import android.app.Application
 import android.content.Intent
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import com.pluto.applifecycle.AppLifecycle
 import com.pluto.applifecycle.AppState
@@ -9,6 +10,7 @@ import com.pluto.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.plugin.PluginUiBridge
 import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
@@ -34,14 +36,15 @@ object Pluto {
         notch = Notch(application, appLifecycle.shouldShowNotch)
     }
 
-    fun open(identifier: String? = null) {
+    fun open(identifier: String? = null, bundle: Bundle? = null) {
         val intent: Intent?
         if (identifier != null) {
             pluginManager.get(identifier)?.let {
-                currentPlugin.postValue(pluginManager.get(identifier))
                 intent = Intent(application.applicationContext, PlutoActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.putExtra(PluginUiBridge.get.bridgeComponents.idLabel, identifier)
+                intent.putExtra(PluginUiBridge.get.bridgeComponents.bundleLabel, bundle)
                 application.applicationContext.startActivity(intent)
                 return
             }

@@ -10,7 +10,9 @@ import com.pluto.R
 import com.pluto.Session
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
+import com.pluto.plugin.PluginUiBridge
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.SettingsViewModel
@@ -36,29 +38,48 @@ class PlutoActivity : AppCompatActivity() {
 //            pluginOptionsViewModel.select(option)
 //        }
 
-        Pluto.currentPlugin.removeObservers(this)
-        Pluto.currentPlugin.observe(this) {
-            val fragment = it.getView()
-//                pluginOptions = it.getOptions()
-            developerDetails = it.getDeveloperDetails()
-            supportFragmentManager.beginTransaction().apply {
-                this.runOnCommit {
-                    it.onPluginViewCreated(it.savedInstance)
-                }
-                this.replace(R.id.container, fragment).commit()
-            }
-        }
+//        Pluto.currentPlugin.removeObservers(this)
+//        Pluto.currentPlugin.observe(this) {
+//            val fragment = it.getView()
+// //                pluginOptions = it.getOptions()
+//            developerDetails = it.getDeveloperDetails()
+//            supportFragmentManager.beginTransaction().apply {
+//                this.runOnCommit {
+//                    it.onPluginViewCreated(it.savedInstance)
+//                }
+//                this.replace(R.id.container, fragment).commit()
+//            }
+//        }
 
 //        Pluto.appState.observe(this) {
 //            if (it is AppState.Background) {
 //                finish()
 //            }
 //        }
+        handleIntent(intent)
 
         settingsViewModel.resetAll.observe(this) {
             Pluto.pluginManager.installedPlugins.forEach {
                 it.onPluginDataCleared()
             }
+        }
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent?.getStringExtra(PluginUiBridge.get.bridgeComponents.idLabel)?.let { id ->
+            Pluto.pluginManager.get(id)?.let {
+                val fragment = it.getView()
+                developerDetails = it.getDeveloperDetails()
+                supportFragmentManager.beginTransaction().apply {
+                    this.runOnCommit {
+                        it.onPluginViewCreated(it.savedInstance)
+                    }
+                    this.replace(R.id.container, fragment).commit()
+                }
+                return
+            }
+            applicationContext.toast("Plugin [$id] not installed")
+            finish()
         }
     }
 
@@ -73,6 +94,7 @@ class PlutoActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        handleIntent(intent)
 //        pluginOptionsDialog.dismiss()
     }
 
