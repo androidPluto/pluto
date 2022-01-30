@@ -15,6 +15,10 @@ internal class PluginManager {
         }
 
     fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
+        val uiBridgeComponents = UiBridgeComponents(
+            selectorActivity = PluginSelectorActivity::class.java,
+            containerActivity = PlutoActivity::class.java
+        )
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
                 it.install(application, uiBridgeComponents)
