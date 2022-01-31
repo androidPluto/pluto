@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -20,13 +20,11 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
 import com.pluto.preferences.Session
-import com.pluto.preferences.SharedPrefRepo
 import com.pluto.preferences.databinding.PlutoPrefFragmentListBinding
 
 internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
     private val binding by viewBinding(PlutoPrefFragmentListBinding::bind)
     private val viewModel: SharedPrefViewModel by activityViewModels()
-    private lateinit var editDialog: EditDialog
 
     private val prefAdapter: BaseAdapter by lazy { SharedPrefAdapter(onActionListener) }
 
@@ -37,13 +35,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
-        editDialog = EditDialog(this) { pair, value ->
-            SharedPrefRepo.set(requireContext(), pair, value)
-            viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(DIALOG_DISMISS_DELAY) {
-                viewModel.refresh()
-                editDialog.dismiss()
-            }
-        }
+
         binding.search.doOnTextChanged { text, _, _, _ ->
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
@@ -89,17 +81,13 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is SharedPrefKeyValuePair) {
-                editDialog.show(data)
+                activity?.let {
+                    it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
+                        viewModel.updateCurrentPref(data)
+                        findNavController().navigate(R.id.openEditView)
+                    }
+                }
             }
         }
-    }
-
-    private companion object {
-        const val DIALOG_DISMISS_DELAY = 200L
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        editDialog.dismiss()
     }
 }

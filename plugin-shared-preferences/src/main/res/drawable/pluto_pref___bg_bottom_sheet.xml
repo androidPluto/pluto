@@ -10,8 +10,8 @@
     <item>
         <shape android:shape="rectangle">
             <corners
-                android:topLeftRadius="@dimen/pluto___margin_medium"
-                android:topRightRadius="@dimen/pluto___margin_medium" />
+                android:topLeftRadius="@dimen/pluto___margin_small"
+                android:topRightRadius="@dimen/pluto___margin_small" />
             <stroke
                 android:width="0.5dp"
                 android:color="@color/pluto___bottomsheet_bg_color" />

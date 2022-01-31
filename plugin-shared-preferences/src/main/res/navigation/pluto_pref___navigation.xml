@@ -11,6 +11,9 @@
         android:label="list"
         tools:layout="@layout/pluto_pref___fragment_list">
         <action
+            android:id="@+id/openEditView"
+            app:destination="@id/editView" />
+        <action
             android:id="@+id/openFilterSettings"
             app:destination="@id/filterView" />
     </fragment>
@@ -18,4 +21,8 @@
     <fragment
         android:id="@+id/filterView"
         android:name="com.pluto.preferences.ui.filter.FilterFragment" />
+
+    <dialog
+        android:id="@+id/editView"
+        android:name="com.pluto.preferences.ui.EditFragment"/>
 </navigation>

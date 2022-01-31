@@ -12,6 +12,14 @@ internal class SharedPrefViewModel(application: Application) : AndroidViewModel(
         get() = _preferences
     private val _preferences = MutableLiveData<List<SharedPrefKeyValuePair>>()
 
+    val current: LiveData<SharedPrefKeyValuePair>
+        get() = _current
+    private val _current = MutableLiveData<SharedPrefKeyValuePair>()
+
+    internal fun updateCurrentPref(data: SharedPrefKeyValuePair) {
+        _current.postValue(data)
+    }
+
     fun refresh() {
         _preferences.postValue(SharedPrefRepo.get(getApplication()))
     }

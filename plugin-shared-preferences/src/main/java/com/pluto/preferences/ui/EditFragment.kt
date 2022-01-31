@@ -1,52 +1,53 @@
 package com.pluto.preferences.ui
 
-import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.widget.FrameLayout
-import androidx.core.content.ContextCompat
+import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.inflate
+import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
+import com.pluto.plugin.utilities.viewBinding
 import com.pluto.preferences.R
-import com.pluto.preferences.databinding.PlutoPrefLayoutSharedPrefEditBinding
-import java.util.Locale
+import com.pluto.preferences.SharedPrefRepo
+import com.pluto.preferences.databinding.PlutoPrefFragmentEditBinding
 
-// todo move to fragment
-internal class EditDialog(
-    fragment: Fragment,
-    private val onSave: (SharedPrefKeyValuePair, Any) -> Unit
-) : BottomSheetDialog(fragment.requireContext(), R.style.PlutoBottomSheetDialogTheme) {
+class EditFragment : BottomSheetDialogFragment() {
 
-    private val sheetView: View = context.inflate(R.layout.pluto_pref___layout_shared_pref_edit)
-    private val binding = PlutoPrefLayoutSharedPrefEditBinding.bind(sheetView)
-    private val device = Device(context)
-    private val contentSharer by fragment.lazyContentSharer()
+    private val binding by viewBinding(PlutoPrefFragmentEditBinding::bind)
+    private val viewModel: SharedPrefViewModel by activityViewModels()
+    private val contentSharer by lazyContentSharer()
 
-    init {
-        setContentView(sheetView)
-        (sheetView.parent as View).background =
-            ColorDrawable(ContextCompat.getColor(context, R.color.pluto___transparent))
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.pluto_pref___fragment_edit, container, false)
 
-        setOnShowListener { dialog ->
-            if (dialog is BottomSheetDialog) {
-                val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-                val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+    override fun getTheme(): Int = R.style.PlutoPrefBottomSheetDialog
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dialog?.setOnShowListener {
+            val dialog = it as BottomSheetDialog
+            val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)
+            bottomSheet?.let {
+                dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
+                dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+                dialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                            fragment.viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                            viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(KEYBOARD_DELAY) {
                                 binding.value.requestFocus()
                             }
                         }
@@ -55,12 +56,6 @@ internal class EditDialog(
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     }
                 })
-                behavior.apply {
-                    state = BottomSheetBehavior.STATE_EXPANDED
-                    isHideable = false
-                    skipCollapsed = true
-                    peekHeight = device.screen.heightPx
-                }
             }
         }
 
@@ -69,36 +64,44 @@ internal class EditDialog(
                 v.showKeyboard()
             }
         }
+        viewModel.current.removeObserver(detailsObserver)
+        viewModel.current.observe(viewLifecycleOwner, detailsObserver)
     }
 
-    fun show(pref: SharedPrefKeyValuePair) {
+    private val detailsObserver = Observer<SharedPrefKeyValuePair> {
+        updateUi(it)
+    }
+
+    private fun updateUi(pref: SharedPrefKeyValuePair) {
         if (isPrefTypeSupported(pref.value)) {
             binding.value.isFocusableInTouchMode = true
             binding.value.isFocusable = true
-            binding.save.visibility = VISIBLE
+            binding.save.visibility = View.VISIBLE
 
             binding.value.doOnTextChanged { text, _, _, _ ->
                 val isValid = text.toString().isValid(pref.value)
                 binding.save.isEnabled = isValid
-                binding.save.setBackgroundColor(context.color(if (isValid) R.color.pluto___dark else R.color.pluto___dark_40))
+                binding.save.setBackgroundColor(requireContext().color(if (isValid) R.color.pluto___dark else R.color.pluto___dark_40))
             }
 
             binding.value.inputType = handleKeypad(pref.value)
             binding.value.hint = setHint(pref.value)
-            binding.save.visibility = VISIBLE
-            binding.disabled.visibility = GONE
+            binding.save.visibility = View.VISIBLE
+            binding.disabled.visibility = View.GONE
         } else {
             binding.value.isFocusableInTouchMode = false
             binding.value.isFocusable = false
-            binding.save.visibility = GONE
-            binding.disabled.visibility = VISIBLE
+            binding.save.visibility = View.GONE
+            binding.disabled.visibility = View.VISIBLE
         }
         binding.file.text = pref.prefLabel
         binding.key.text = pref.key
         binding.value.setText(pref.value.toString())
         binding.value.setSelection(pref.value.toString().length)
         binding.save.setDebounceClickListener {
-            onSave.invoke(pref, binding.value.text.toString().convert(pref.value))
+            SharedPrefRepo.set(requireContext(), pref, binding.value.text.toString().convert(pref.value))
+            viewModel.refresh()
+            dismiss()
         }
         binding.cta.setDebounceClickListener {
             contentSharer.share(
@@ -109,7 +112,6 @@ internal class EditDialog(
                 )
             )
         }
-        show()
     }
 
     private fun setHint(value: Any?): CharSequence = when (value) {
@@ -128,6 +130,10 @@ internal class EditDialog(
         is Float -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL
         else -> InputType.TYPE_CLASS_TEXT
     }
+
+    companion object {
+        const val KEYBOARD_DELAY = 200L
+    }
 }
 
 private fun String.convert(value: Any?): Any = when (value) {
@@ -139,7 +145,7 @@ private fun String.convert(value: Any?): Any = when (value) {
 }
 
 private fun String.isValid(value: Any?): Boolean = when (value) {
-    is Boolean -> this.lowercase(Locale.getDefault()) == "true" || this.lowercase(Locale.getDefault()) == "false"
+    is Boolean -> this.lowercase() == "true" || this.lowercase() == "false"
     is Int,
     is Float,
     is Long -> this.isNotEmpty()
