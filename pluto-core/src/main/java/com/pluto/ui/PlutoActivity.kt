@@ -9,9 +9,9 @@ import com.pluto.R
 import com.pluto.Session
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.DeveloperDetails
+import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.notification.PlutoNotification.Companion.ID_LABEL
 import com.pluto.plugin.utilities.sharing.ContentShare
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.canDrawOverlays
