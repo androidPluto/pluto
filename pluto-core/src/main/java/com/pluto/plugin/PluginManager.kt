@@ -32,7 +32,7 @@ internal class PluginManager {
 
     fun get(identifier: String): Plugin? {
         return plugins.firstOrNull {
-            it.identifier == identifier
+            it.devIdentifier == identifier
         }
     }
 }

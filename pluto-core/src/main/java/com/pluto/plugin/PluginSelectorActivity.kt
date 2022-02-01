@@ -75,7 +75,7 @@ class PluginSelectorActivity : AppCompatActivity() {
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is Plugin) {
-                Pluto.open(data.identifier)
+                Pluto.open(data.devIdentifier)
                 finish()
             }
         }
