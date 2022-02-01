@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.pluto.Pluto
 import com.pluto.R
-import com.pluto.Session
 import com.pluto.databinding.PlutoFragmentOverlayConsentBinding
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
@@ -22,7 +22,7 @@ internal class OverConsentFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Session.isConsentAlreadyShown = true
+        Pluto.session.isConsentAlreadyShown = true
         binding.cta.setDebounceClickListener {
             context?.openOverlaySettings()
         }

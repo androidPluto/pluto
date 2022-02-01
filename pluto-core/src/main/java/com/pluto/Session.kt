@@ -1,6 +1,5 @@
 package com.pluto
 
-internal object Session {
-
+internal class Session {
     var isConsentAlreadyShown = false
 }

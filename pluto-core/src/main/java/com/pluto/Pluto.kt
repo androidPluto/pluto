@@ -25,6 +25,7 @@ object Pluto {
 
     internal val pluginManager = PluginManager()
     private lateinit var application: Application
+    internal val session = Session()
 
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
         this.application = application
