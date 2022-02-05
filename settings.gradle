@@ -1,6 +1,6 @@
 rootProject.name='pluto-sample'
 include ':sample'
-include ':pluto-core'
+include ':pluto'
 include ':pluto-plugin'
 include ':plugin-logger'
 include ':plugin-shared-preferences'
