@@ -1,7 +1,6 @@
 package com.pluto.preferences
 
 import androidx.fragment.app.Fragment
-import com.pluto.plugin.Developer
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
@@ -18,11 +17,7 @@ class PlutoSharePreferencesPlugin(identifier: String) : Plugin(identifier) {
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
             website = "https://plutolib.com",
-            vcsLink = "https://github.com/mocklets/pluto",
-            developer = Developer(
-                github = "srtvprateek",
-                twitter = "srtv_prateek"
-            )
+            vcsLink = "https://github.com/plutolib/plugin-shared-preferences"
         )
     }
 
