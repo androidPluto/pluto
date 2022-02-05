@@ -37,7 +37,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
     private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
     private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
-    internal fun add() {
+    private fun add() {
         if (enabled) {
             val context = application.applicationContext
             if (context.canDrawOverlays()) {
@@ -46,7 +46,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
         }
     }
 
-    internal fun remove() {
+    private fun remove() {
         notchViewManager.removeView(windowManager)
     }
 

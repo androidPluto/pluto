@@ -6,6 +6,7 @@ import com.pluto.logger.internal.LogsRepo
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
+import com.pluto.plugin.utilities.DebugLog
 
 class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
 
@@ -24,6 +25,7 @@ class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
     }
 
     override fun onPluginInstalled() {
+        DebugLog.e("prateek", "logger installed")
     }
 
     override fun onPluginDataCleared() {
