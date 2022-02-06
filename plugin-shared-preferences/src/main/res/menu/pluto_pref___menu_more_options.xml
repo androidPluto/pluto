@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/filter"
-        android:icon="@drawable/pluto_pref___ic_filter"
-        android:title="@string/pluto_pref___shared_pref_filter" />
-</menu>
