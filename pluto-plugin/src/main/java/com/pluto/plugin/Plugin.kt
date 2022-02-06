@@ -34,9 +34,6 @@ abstract class Plugin(val devIdentifier: String) : ListItem() {
     abstract fun getView(): Fragment
     open fun getDeveloperDetails(): DeveloperDetails? = null
     open fun shouldInstallPlugin(): Boolean = true
-    open fun saveInstanceState(state: Bundle) {
-        savedInstance = state
-    }
 
     /**
      * plugin lifecycle methods
