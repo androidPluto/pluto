@@ -12,6 +12,6 @@ class SampleApp : Application() {
             .addPlugin(PlutoLoggerPlugin("logger"))
 //            .addPlugin(PlutoSharePreferencesPlugin("sharedPref"))
             .install()
-        Pluto.showNotch(false)
+        Pluto.showNotch(true)
     }
 }

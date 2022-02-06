@@ -83,10 +83,20 @@ internal class NotchViewManager(
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {
                 v?.let {
-                    val binding = PlutoLayoutNotchBinding.bind(it)
-                    binding.card.setCardBackgroundColor(
-                        context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___dark else R.color.pluto___app_bg)
-                    )
+                    PlutoLayoutNotchBinding.bind(it).apply {
+                        card.setCardBackgroundColor(
+                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
+                        )
+                        left.setTextColor(
+                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                        )
+                        right.setTextColor(
+                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                        )
+                        bottom.setBackgroundColor(
+                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
+                        )
+                    }
                 }
                 val gravityHorizontal =
                     if (SettingsPreferences.isRightHandedAccessPopup) Gravity.END else Gravity.START
@@ -155,7 +165,7 @@ internal class NotchViewManager(
     companion object {
         const val DRAG_UP_THRESHOLD = 0.03
         const val DRAG_DOWN_THRESHOLD = 0.9
-        const val INIT_THRESHOLD_X = -0.75
+        const val INIT_THRESHOLD_X = -0.55
         const val INIT_THRESHOLD_Y = 0.65
     }
 }

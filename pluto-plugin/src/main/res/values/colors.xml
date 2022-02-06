@@ -44,4 +44,10 @@
     <color name="pluto___blue_40">#66366BD1</color>
 
     <color name="pluto___text_highlight">#aaff9100</color>
+
+    <color name="pluto___notch_bg_light">#eeecec</color>
+    <color name="pluto___notch_accent_light">#ff5733</color>
+
+    <color name="pluto___notch_bg_dark">#11141c</color>
+    <color name="pluto___notch_accent_dark">#ff9100</color>
 </resources>

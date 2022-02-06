@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pluto___popup_bubble_height">50dp</dimen>
-    <dimen name="pluto___popup_bubble_radius">25dp</dimen>
-    <dimen name="pluto___popup_bubble_width">140dp</dimen>
+    <dimen name="pluto___popup_bubble_height">70dp</dimen>
+    <dimen name="pluto___popup_bubble_radius">8dp</dimen>
+    <dimen name="pluto___popup_bubble_width">60dp</dimen>
     <dimen name="pluto___popup_bubble_elevation">44dp</dimen>
 
     <dimen name="pluto___dp_1">1dp</dimen>
