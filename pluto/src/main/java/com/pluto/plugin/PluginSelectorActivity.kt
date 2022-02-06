@@ -30,6 +30,7 @@ class PluginSelectorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = PlutoActivityPluginSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        overridePendingTransition(R.anim.pluto___slide_in_bottom, R.anim.pluto___slide_out_bottom)
 
         binding.list.apply {
             adapter = pluginAdapter

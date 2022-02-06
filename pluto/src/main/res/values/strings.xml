@@ -2,7 +2,7 @@
     <string name="pluto___your_plugins">Plugins</string>
     <string name="pluto___settings">Settings</string>
     <string name="pluto___about">About</string>
-    <string name="pluto___choose_plugin">Choose Plugin</string>
+    <string name="pluto___choose_plugin">Choose Pluto Plugin</string>
     <string name="pluto___more_options">More Options</string>
 
     <string name="pluto___notification_title">Pluto is debugging %s</string>
