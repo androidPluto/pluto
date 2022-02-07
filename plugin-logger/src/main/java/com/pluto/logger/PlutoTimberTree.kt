@@ -6,6 +6,7 @@ import com.pluto.logger.internal.LogsProcessor.Companion.stackTraceElement
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import java.math.BigDecimal
 import timber.log.Timber
 
 class PlutoTimberTree : Timber.Tree() {
@@ -19,6 +20,7 @@ class PlutoTimberTree : Timber.Tree() {
         }
     }
 
+    @SuppressWarnings("NestedBlockDepth")
     private fun eventExtractor(message: String): Pair<String, HashMap<String, Any?>?> {
         val length = message.length
         var newline = message.indexOf('\t', 0)
@@ -30,17 +32,22 @@ class PlutoTimberTree : Timber.Tree() {
             val moshi = Moshi.Builder().build()
             val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
             val map = moshiAdapter.fromJson(message.substring(end + 1, length))
-            if (map != null) {
-                mutableMapOf<String, Any?>().apply {
-                    putAll(map)
+            val hashMap = HashMap<String, Any?>()
+            if (!map.isNullOrEmpty()) {
+                map.entries.forEach {
+                    hashMap[it.key] = when (it.value) {
+                        is Double -> BigDecimal(it.value.toString()).longValueExact()
+                        else -> it.value
+                    }
                 }
+                hashMap
             } else {
                 null
             }
         } else {
             null
         }
-        return Pair(event, attrString as HashMap<String, Any?>?)
+        return Pair(event, attrString)
     }
 
     private fun messageExtractor(message: String): String {
