@@ -3,6 +3,9 @@ package com.pluto.logger.internal
 import android.util.Log
 import androidx.annotation.Keep
 import com.pluto.logger.BuildConfig
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 
 internal class LogsProcessor private constructor() {
 
@@ -14,8 +17,10 @@ internal class LogsProcessor private constructor() {
         }
 
         fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTrace: StackTraceElement) {
+            val moshi = Moshi.Builder().build()
+            val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
             LogsRepo.saveEvent(Level.Event, tag, event, attr, stackTrace)
-            consolePrint(Level.Event, tag, "$event => $attr", null, stackTrace)
+            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
         }
 
         @SuppressWarnings("ComplexCondition")
@@ -40,6 +45,7 @@ internal class LogsProcessor private constructor() {
                 Log.VERBOSE -> Level.Verbose
                 Log.WARN -> Level.Warning
                 Log.ASSERT -> Level.WTF
+                LOG_EVENT_PRIORITY -> Level.Event
                 else -> Level.Debug
             }
         }
@@ -59,5 +65,7 @@ internal class LogsProcessor private constructor() {
 
         @Keep
         fun StackTraceElement.formattedStack(): String = "$methodName($fileName:$lineNumber)"
+
+        const val LOG_EVENT_PRIORITY = 101
     }
 }

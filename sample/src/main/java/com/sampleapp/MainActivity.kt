@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.pluto.Pluto
 import com.pluto.logger.PlutoLog
+import com.pluto.logger.event
 import com.sampleapp.databinding.ActivityMainBinding
 import timber.log.Timber
 
@@ -74,8 +75,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleAPIManageCTAs() {
         binding.postCall.setOnClickListener {
-            Timber.e(NullPointerException("Custom Exception"), "post_call_cta")
+//            Timber.e(NullPointerException("Custom Exception"), "post_call_cta")
 //            PlutoLog.e(TAG_CLICK, "post_call_cta", NullPointerException("Custom Exception"))
+            Timber.tag("analytics").event("post_call_cta_1", getAttrMap())
             PlutoLog.event(TAG_CLICK, "post_call_cta", getAttrMap())
 //            networkViewModel.post()
         }
