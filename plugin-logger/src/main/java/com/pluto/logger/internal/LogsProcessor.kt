@@ -44,16 +44,16 @@ internal class LogsProcessor private constructor() {
             }
         }
 
-        @SuppressWarnings("StringLiteralDuplication")
         private fun consolePrint(level: Level, tag: String, message: String, tr: Throwable?, trace: StackTraceElement) {
+            val logTag = "${trace.formattedStack()} | $tag"
             when (level) {
-                is Level.Debug -> Log.v("${trace.formattedStack()} | $tag", message, tr)
-                is Level.Error -> Log.e("${trace.formattedStack()} | $tag", message, tr)
-                is Level.Info -> Log.i("${trace.formattedStack()} | $tag", message, tr)
-                is Level.Warning -> Log.w("${trace.formattedStack()} | $tag", message, tr)
-                is Level.Verbose -> Log.v("${trace.formattedStack()} | $tag", message, tr)
-                is Level.WTF -> Log.wtf("${trace.formattedStack()} | $tag", message, tr)
-                is Level.Event -> Log.d("${trace.formattedStack()} | $tag", message)
+                is Level.Debug -> Log.v(logTag, message, tr)
+                is Level.Error -> Log.e(logTag, message, tr)
+                is Level.Info -> Log.i(logTag, message, tr)
+                is Level.Warning -> Log.w(logTag, message, tr)
+                is Level.Verbose -> Log.v(logTag, message, tr)
+                is Level.WTF -> Log.wtf(logTag, message, tr)
+                is Level.Event -> Log.d(logTag, message)
             }
         }
 
