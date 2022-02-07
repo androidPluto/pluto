@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.pluto.Pluto
 import com.pluto.logger.PlutoLog
 import com.sampleapp.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        PlutoLog.v(TAG_ACTION, "MainActivity onCreate")
+        Timber.v("MainActivity onCreate")
+//        PlutoLog.v(TAG_ACTION, "MainActivity onCreate")
         Test().javaTest()
 
         handleAPIManageCTAs()
@@ -72,14 +74,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleAPIManageCTAs() {
         binding.postCall.setOnClickListener {
-            PlutoLog.e(TAG_CLICK, "post_call_cta", NullPointerException("Custom Exception"))
+            Timber.e(NullPointerException("Custom Exception"), "post_call_cta")
+//            PlutoLog.e(TAG_CLICK, "post_call_cta", NullPointerException("Custom Exception"))
             PlutoLog.event(TAG_CLICK, "post_call_cta", getAttrMap())
-            networkViewModel.post()
+//            networkViewModel.post()
         }
 
         binding.getCall.setOnClickListener {
             PlutoLog.event(TAG_CLICK, "get_call_cta", getAttrMap())
-            networkViewModel.get()
+//            networkViewModel.get()
         }
 
         binding.xmlCall.setOnClickListener {
@@ -95,12 +98,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        PlutoLog.v(TAG_ACTION, "MainActivity onStart")
+        Timber.e(NullPointerException("Custom Exception"), "MainActivity onStart")
+//        PlutoLog.v(TAG_ACTION, "MainActivity onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        PlutoLog.v(TAG_ACTION, "MainActivity onResume")
+        Timber.tag(TAG_ACTION).d("MainActivity onResume")
+//        PlutoLog.v(TAG_ACTION, "MainActivity onResume")
     }
 
     private fun getAttrMap(): HashMap<String, Any?> = hashMapOf(

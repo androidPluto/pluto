@@ -15,6 +15,7 @@ internal sealed class Level(
     object Debug : Level("debug")
     object Info : Level("info")
     object Warning : Level("warning")
+    object WTF : Level("wtf")
     object Error : Level("error", R.color.pluto___red_05, R.color.pluto___red_80)
     object Event : Level(label = "event", iconRes = R.drawable.pluto_logger___ic_analytics, textColor = R.color.pluto___blue)
 }

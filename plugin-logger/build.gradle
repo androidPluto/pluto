@@ -58,6 +58,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':pluto-plugin')
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
+    api 'com.jakewharton.timber:timber:5.0.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 task validateChanges {
