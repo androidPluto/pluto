@@ -3,9 +3,9 @@ package com.pluto.logger
 import android.util.Log
 import androidx.annotation.Keep
 import com.pluto.logger.internal.LogsProcessor.Companion.process
+import com.pluto.logger.internal.LogsProcessor.Companion.processEvent
 import com.pluto.logger.internal.LogsProcessor.Companion.stackTraceElement
 
-@Suppress("StringLiteralDuplication")
 @Keep
 class PlutoLog private constructor() {
 
@@ -43,7 +43,7 @@ class PlutoLog private constructor() {
 
         @JvmStatic
         fun event(tag: String, event: String, attributes: HashMap<String, Any?>?) {
-            process(Log.DEBUG, tag, "$event => $attributes", null, Thread.currentThread().getStackTraceElement())
+            processEvent(tag, event, attributes, Thread.currentThread().getStackTraceElement())
         }
 
         private fun Thread.getStackTraceElement(): StackTraceElement {

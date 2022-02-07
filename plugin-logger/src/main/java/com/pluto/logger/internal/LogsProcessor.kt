@@ -13,6 +13,11 @@ internal class LogsProcessor private constructor() {
             consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
         }
 
+        fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTrace: StackTraceElement) {
+            LogsRepo.saveEvent(Level.Event, tag, event, attr, stackTrace)
+            consolePrint(Level.Event, tag, "$event => $attr", null, stackTrace)
+        }
+
         @SuppressWarnings("ComplexCondition")
         fun Thread.stackTraceElement(index: Int): StackTraceElement {
             stackTrace.forEach {
