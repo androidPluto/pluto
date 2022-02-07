@@ -2,6 +2,7 @@ package com.mocklets.pluto
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import androidx.annotation.Keep
 import com.mocklets.pluto.core.Session
 import com.mocklets.pluto.core.preferences.Preferences
@@ -11,6 +12,7 @@ import com.mocklets.pluto.modules.exceptions.ExceptionRepo
 import com.mocklets.pluto.modules.exceptions.anrs.AnrSupervisor
 import com.mocklets.pluto.modules.exceptions.crashes.CrashHandler
 import com.mocklets.pluto.modules.network.proxy.NetworkProxyRepo
+import com.mocklets.pluto.ui.PlutoActivity
 
 @Keep
 object Pluto {
@@ -56,5 +58,15 @@ object Pluto {
 
     fun setANRListener(listener: ANRListener) {
         anrSupervisor.setListener(listener)
+    }
+
+    fun showUi() {
+        val context =
+            appContext ?: throw IllegalStateException("cannot open Ui as Pluto is not initialised.")
+        val intent = Intent(context, PlutoActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        context.startActivity(intent)
     }
 }

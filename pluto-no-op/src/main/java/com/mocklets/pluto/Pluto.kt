@@ -15,4 +15,6 @@ object Pluto {
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {}
 
     fun setANRListener(listener: ANRListener) {}
+
+    fun showUi() {}
 }
