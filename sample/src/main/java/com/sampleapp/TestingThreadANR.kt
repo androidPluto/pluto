@@ -2,7 +2,6 @@ package com.sampleapp
 
 import android.os.Handler
 import android.util.Log
-import com.mocklets.pluto.PlutoLog
 
 class TestingThreadANR : Thread() {
 
@@ -37,7 +36,7 @@ class TestingThreadANR : Thread() {
             Handler().postDelayed(
                 {
                     synchronized(mutex) {
-                        PlutoLog.e("ANR-Failed", "There should be a dead lock before this message")
+                        Log.e("ANR-Failed", "There should be a dead lock before this message")
                     }
                 },
                 DEADLOCK_DURATION

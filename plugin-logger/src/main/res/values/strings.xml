@@ -1,0 +1,15 @@
+<resources>
+    <string name="pluto_logger___plugin_name">Pluto Logger</string>
+    <string name="pluto_logger___no_logs_text">No Logs printed.</string>
+    <string name="pluto_logger___search_logs">Search logs</string>
+    <string name="pluto_logger___open_logs_menu">open logs menu</string>
+    <string name="pluto_logger___exit_logger">Exit logs debugger</string>
+    <string name="pluto_logger___library_name">Logger</string>
+    <string name="pluto_logger___more_options">Show more options</string>
+    <string name="pluto_logger___no_search_result">No search result found.</string>
+    <string name="pluto_logger___log_details">Log Details</string>
+    <string name="pluto_logger___share">Share</string>
+    <string name="pluto_logger___exception_title">Exception</string>
+    <string name="pluto_logger___event_attributes">Event Attributes</string>
+    <string name="pluto_logger___delete_console_logs">Clear All logs</string>
+</resources>

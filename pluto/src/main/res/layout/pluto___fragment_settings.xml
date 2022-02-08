@@ -1,109 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:background="@color/pluto___app_bg"
-    android:focusable="true"
-    tools:context=".ui.BaseFragment">
+    android:background="@color/pluto___transparent"
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/pluto___app_bg"
-        android:theme="@style/PlutoTheme.AppBarOverlay">
+        android:layout_margin="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___white"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:padding="@dimen/pluto___margin_medium"
-                android:src="@drawable/pluto___ic_arrow_back"
-                app:layout_constraintBottom_toBottomOf="@+id/title"
-                app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/pluto___exit_settings"
-                app:layout_constraintTop_toTopOf="@+id/title" />
-
             <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center"
-                android:paddingTop="@dimen/pluto___margin_medium"
-                android:paddingBottom="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___section_color"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
                 android:text="@string/pluto___settings"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:textColor="@color/pluto___text_dark"
+                android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintStart_toEndOf="@+id/close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/bottom"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/pluto___dark_05"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/version"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/pluto___margin_large"
-                android:paddingVertical="@dimen/pluto___margin_medium"
-                android:textColor="@color/pluto___text_dark_60"
-                android:textSize="@dimen/pluto___text_xxsmall"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1"
-                tools:text="v0.0.8-alpha" />
-
-            <TextView
-                android:id="@+id/about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/pluto___margin_large"
-                android:paddingVertical="@dimen/pluto___margin_medium"
-                android:text="@string/pluto___about"
-                android:textColor="@color/pluto___blue"
-                android:textSize="@dimen/pluto___text_xxsmall"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:listitem="@layout/pluto___item_plugin_option" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

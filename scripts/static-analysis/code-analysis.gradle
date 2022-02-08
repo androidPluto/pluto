@@ -1,0 +1,44 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+afterEvaluate {
+    detekt {
+        input = files("src/main/java")
+        config = files("$rootDir/scripts/static-analysis/detekt-config.yml")
+        reports {
+            xml {
+                enabled = true
+            }
+            html {
+                enabled = true
+            }
+        }
+        //Optional baseline, uncomment & run gradle command detektBaseline to exclude existing issues
+        parallel = true
+//            baseline = file("$projectDir/detekt-baseline.xml")
+    }
+
+    ktlint {
+        version.set("0.39.0")
+        android.set(true)
+        outputColorName.set("RED")
+        outputToConsole.set(true)
+        ignoreFailures.set(false)
+        additionalEditorconfigFile.set(file("$rootDir/scripts/static-analysis/.editorconfig"))
+
+        reporters {
+            reporter("html")
+        }
+
+        filter {
+            exclude("**/generated/**")
+            exclude("**/test/**")
+            exclude("**/androidTest/**")
+        }
+    }
+
+}
+
+tasks.detekt.jvmTarget = "1.8"
+
+

@@ -1,25 +1,21 @@
 package com.sampleapp
 
 import android.app.Application
-import android.util.Log
-import com.mocklets.pluto.Pluto
-import com.mocklets.pluto.PlutoLog
-import com.mocklets.pluto.modules.exceptions.ANRException
-import com.mocklets.pluto.modules.exceptions.ANRListener
+import com.pluto.Pluto
+import com.pluto.logger.PlutoLoggerPlugin
+import com.pluto.logger.PlutoTimberTree
+import timber.log.Timber
 
 class SampleApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Pluto.initialize(this)
-        Pluto.setANRListener(object : ANRListener {
-            override fun onAppNotResponding(exception: ANRException) {
-                exception.printStackTrace()
-                PlutoLog.e("anr-exception", exception.threadStateMap)
-            }
-        })
-        Pluto.setExceptionHandler { thread, tr ->
-            Log.d("exception", "uncaught exception handled on thread: " + thread.name, tr)
-        }
+        Pluto.Installer(this)
+            .addPlugin(PlutoLoggerPlugin("logger"))
+//            .addPlugin(PlutoSharePreferencesPlugin("sharedPref"))
+            .install()
+        Pluto.showNotch(true)
+
+        Timber.plant(PlutoTimberTree())
     }
 }

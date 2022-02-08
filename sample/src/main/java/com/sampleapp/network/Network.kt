@@ -1,7 +1,6 @@
 package com.sampleapp.network
 
 import com.google.gson.GsonBuilder
-import com.mocklets.pluto.PlutoInterceptor
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,6 +38,6 @@ object Network {
 private fun OkHttpClient.Builder.addInterceptors(): OkHttpClient.Builder {
 //    addInterceptor(GzipRequestInterceptor())
     addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-    addInterceptor(PlutoInterceptor())
+//    addInterceptor(PlutoInterceptor())
     return this
 }

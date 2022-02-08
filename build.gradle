@@ -12,8 +12,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
 
         // maven central dependencies
@@ -21,7 +21,7 @@ buildscript {
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.30'
 
         // ktlint & detekt dependencies
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.4.0"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.2.0"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
     }
 }
@@ -34,22 +34,21 @@ allprojects {
 }
 
 subprojects {
-    if (project.name != "pluto-no-op") {
+//    if (project.name != "pluto-no-op") {
         pluginManager.withPlugin('kotlin-android') {
-            apply from: "$rootDir/static-analysis/code-analysis.gradle"
+            apply from: "$rootDir/scripts/static-analysis/code-analysis.gradle"
         }
-    }
+//    }
 }
 
 ext {
-    minSdkVersion = 19
-    targetSdkVersion = 29
-    compileSdkVersion = 29
-    buildToolsVersion = '29.0.3'
+    minSdkVersion = 21
+    targetSdkVersion = 32
+    compileSdkVersion = 32
+    buildToolsVersion = '32.0.0'
 
-    androidXCoreVersion = '1.5.0'
-    okhttpVersion = '3.14.4'
-    roomsVersion = '2.3.0'
+    androidXCoreVersion = '1.7.0'
+    moshiVersion = '1.13.0'
 }
 
 task installGitHook(type: Copy) {
@@ -72,5 +71,5 @@ task prCheck {
     dependsOn ':pluto:validateChanges'
 }
 
-apply from: "${rootDir}/scripts/publish-root.gradle"
-apply from: "${rootDir}/scripts/project-dependancy-graph.gradle"
+apply from: "$rootDir/scripts/publish/root.gradle"
+apply from: "$rootDir/scripts/project-dependancy-graph.gradle"
