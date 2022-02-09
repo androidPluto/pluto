@@ -1,0 +1,7 @@
+<resources>
+    <string name="demo___plugin_name">Demo Plugin</string>
+    <string name="demo___menu_label_1">Demo Action 1</string>
+    <string name="demo___menu_label_2">Demo Action 2</string>
+    <string name="demo___send_notification">Send Demo Notification</string>
+    <string name="demo___share">Share</string>
+</resources>
