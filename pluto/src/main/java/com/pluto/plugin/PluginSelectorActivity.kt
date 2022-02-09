@@ -1,6 +1,8 @@
 package com.pluto.plugin
 
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -25,10 +27,11 @@ class PluginSelectorActivity : AppCompatActivity() {
     private val pluginsViewModel by viewModels<PluginsViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
     private val settingsViewModel by viewModels<SettingsViewModel>()
+    private lateinit var binding: PlutoActivityPluginSelectorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = PlutoActivityPluginSelectorBinding.inflate(layoutInflater)
+        binding = PlutoActivityPluginSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         overridePendingTransition(R.anim.pluto___slide_in_bottom, R.anim.pluto___slide_out_bottom)
 
@@ -65,6 +68,9 @@ class PluginSelectorActivity : AppCompatActivity() {
 
     private val pluginListObserver = Observer<List<Plugin>> {
         pluginAdapter.list = it
+        if (it.isNullOrEmpty()) {
+            binding.noPluginView.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
+        }
     }
 
     private val appStateListener = Observer<AppState> {
