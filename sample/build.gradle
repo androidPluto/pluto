@@ -43,7 +43,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':pluto')
     //    implementation project(path: ':plugin-network')
-    implementation project(path: ':plugin-logger')
+//    implementation project(path: ':plugin-logger')
 //    implementation project(path: ':plugin-shared-preferences')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
