@@ -60,6 +60,8 @@
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                 android:textColor="@color/pluto___white_40"
                 android:textSize="@dimen/pluto___text_small"
+                android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/list"
                 app:layout_constraintEnd_toEndOf="@+id/list"
                 app:layout_constraintStart_toStartOf="@+id/list"
