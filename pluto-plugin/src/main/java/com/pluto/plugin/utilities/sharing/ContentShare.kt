@@ -21,12 +21,9 @@ class ContentShare(activity: FragmentActivity) {
     }
 
     init {
-        sharer.data.observe(
-            activity,
-            {
-                dialog.show(it)
-            }
-        )
+        sharer.data.observe(activity) {
+            dialog.show(it)
+        }
     }
 }
 
