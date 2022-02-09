@@ -48,7 +48,6 @@ ext {
     buildToolsVersion = '32.0.0'
 
     androidXCoreVersion = '1.7.0'
-    moshiVersion = '1.13.0'
 }
 
 task installGitHook(type: Copy) {

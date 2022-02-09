@@ -40,9 +40,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':pluto')
-    //    implementation project(path: ':plugin-network')
+        implementation project(path: ':demo-plugin')
 //    implementation project(path: ':plugin-logger')
 //    implementation project(path: ':plugin-shared-preferences')
 
