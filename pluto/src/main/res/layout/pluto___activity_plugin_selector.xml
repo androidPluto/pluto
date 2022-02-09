@@ -48,6 +48,24 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/bottomDivider" />
 
+            <TextView
+                android:id="@+id/noPluginView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/pluto___margin_mini"
+                android:fontFamily="@font/muli_light"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                android:textColor="@color/pluto___white_40"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintBottom_toBottomOf="@+id/list"
+                app:layout_constraintEnd_toEndOf="@+id/list"
+                app:layout_constraintStart_toStartOf="@+id/list"
+                app:layout_constraintTop_toTopOf="@+id/list"
+                android:text="@string/pluto___no_plugins" />
+
             <View
                 android:id="@+id/bottomDivider"
                 android:layout_width="match_parent"

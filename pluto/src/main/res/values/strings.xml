@@ -26,5 +26,6 @@
     <string name="pluto___never_ask_again">Never ask again</string>
     <string name="pluto___enable_now">Enable Now</string>
     <string name="pluto___open_pluto">Open Pluto</string>
-    <string name="pluto___notch_label">Pluto</string>
+    <string name="pluto___notch_label">Pluto.</string>
+    <string name="pluto___no_plugins">No Plugins installed yet.</string>
 </resources>
