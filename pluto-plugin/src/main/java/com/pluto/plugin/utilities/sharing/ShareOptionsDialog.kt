@@ -13,6 +13,7 @@ import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.setDebounceClickListener
 
+// todo move to dialog fragment
 class ShareOptionsDialog(
     context: Context,
     private val onAction: (ShareAction) -> Unit
