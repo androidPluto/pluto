@@ -3,29 +3,7 @@ package com.pluto.plugin.utilities.sharing
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import com.pluto.plugin.utilities.extensions.toast
-
-class ContentShare(activity: FragmentActivity) {
-    private val sharer: ContentShareViewModel by activity.lazyContentSharer()
-    private val dialog = ShareOptionsDialog(activity) {
-        when (it) {
-            is ShareAction.ShareAsText -> activity.share(it.shareable.processedContent, it.shareable.title)
-            is ShareAction.ShareAsFile -> activity.shareFile(it.shareable.processedContent, it.shareable.title, it.shareable.fileName)
-            is ShareAction.ShareAsCopy -> activity.let { context ->
-                context.copyToClipboard(it.shareable.content, it.shareable.title)
-                context.toast("Content copied to Clipboard")
-            }
-        }
-    }
-
-    init {
-        sharer.data.observe(activity) {
-            dialog.show(it)
-        }
-    }
-}
 
 fun Fragment.lazyContentSharer(): Lazy<ContentShareViewModel> = activityViewModels()
 

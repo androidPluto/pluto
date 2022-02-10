@@ -28,4 +28,5 @@
     <string name="pluto___open_pluto">Open Pluto</string>
     <string name="pluto___notch_label">Pluto.</string>
     <string name="pluto___no_plugins">No Plugins installed yet.</string>
+    <string name="pluto___share_as">Share As</string>
 </resources>
