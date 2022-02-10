@@ -40,6 +40,11 @@ internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdap
                 }
                 it.startAnimation(scale)
             }
+
+            binding.root.setOnLongClickListener {
+                onAction("long_click")
+                return@setOnLongClickListener true
+            }
         }
     }
 

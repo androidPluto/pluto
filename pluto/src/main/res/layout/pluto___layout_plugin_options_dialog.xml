@@ -28,7 +28,7 @@
                 android:fontFamily="@font/muli_semibold"
                 android:paddingHorizontal="@dimen/pluto___margin_medium"
                 android:paddingVertical="@dimen/pluto___margin_small"
-                android:text="@string/pluto___more_options"
+                android:text="@string/pluto___dev_details"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_xmedium"
                 app:layout_constraintEnd_toEndOf="parent"

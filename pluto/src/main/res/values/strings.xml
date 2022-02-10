@@ -3,7 +3,7 @@
     <string name="pluto___settings">Settings</string>
     <string name="pluto___about">About</string>
     <string name="pluto___choose_plugin">Choose Pluto Plugin</string>
-    <string name="pluto___more_options">More Options</string>
+    <string name="pluto___dev_details">Developer Details</string>
 
     <string name="pluto___notification_title">Pluto is debugging %s</string>
     <string name="pluto___notification_subtitle">Tap here to view complete debug report</string>
@@ -29,4 +29,9 @@
     <string name="pluto___notch_label">Pluto.</string>
     <string name="pluto___no_plugins">No Plugins installed yet.</string>
     <string name="pluto___share_as">Share As</string>
+    <string name="pluto___plugin_details_name_hint">Plugin Name goes here</string>
+    <string name="pluto___plugin_details_version_hint">plugin version goes here</string>
+    <string name="pluto___plugin_details_website_hint">plugin website goes here</string>
+    <string name="pluto___plugin_details_vcs_hint">plugin vcs link goes here</string>
+    <string name="pluto___plugin_details_twitter_hint">plugin twitter link goes here</string>
 </resources>
