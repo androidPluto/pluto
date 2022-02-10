@@ -1,5 +1,5 @@
 # Pluto
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mocklets/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.mocklets/pluto)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mocklets/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
 [![CLA assistant](https://cla-assistant.io/readme/badge/mocklets/pluto)](https://cla-assistant.io/mocklets/pluto)
 [![Daily Builds](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml)
 
@@ -14,30 +14,20 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 -----
 
-### Pluto Dependency graph
-
-<p align="center">
-  <img src="gradle/dependency-graph/project.dot.png" height = "360" width="360">
-</p>
-
-***
-
-
 ## Integrate Pluto in your application
 
 
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.mocklets/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
 
 
 
 > Note: add both the pluto and the pluto-no-op variant to isolate Pluto from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.mocklets:pluto:LATEST_VERSION'
-  releaseImplementation'com.mocklets:pluto-no-op:LATEST_VERSION'
+  debugImplementation 'com.mocklets:pluto:1.2.0'
 }
 ```
 
@@ -46,42 +36,10 @@ dependencies {
 
 Now to start using Pluto, intialize Pluto SDK from you application class by passing context to it.
 ```kotlin
-Pluto.initialize(context)
+Pluto.Installer(this)
+  .addPlugin(DemoPlugin("demo_id"))
+  .install()
 ```
-
-
-
-###  Add Pluto interceptor
-
-To debug HTTP requests/responses, plug the PlutoInterceptor in your OkHttp Client Builder
-```kotlin
-val client = OkHttpClient.Builder()
-    .addInterceptor(PlutoInterceptor())
-    .build()
-```
-
-###  Set Global Exception Handler
-
-To intercept uncaught exceptions in your app, attach `UncaughtExceptionHandler` to Pluto
-```kotlin
-Pluto.setExceptionHandler { thread, throwable ->
-    Log.d("Exception", "uncaught exception handled on thread: " + thread.name, throwable)
-}
-```
-
-
-### Listen to ANRs
-
-Pluto can capture and store potential ANRs occurring in the app. You can also listen to these ANRs and report these to any Crash reporting tools like Firebase Crashlytics, Bugsnag, etc.
-```kotlin
-Pluto.setANRListener(object: ANRListener {
-    override fun onAppNotResponding(exception: ANRException) {
-        exception.printStackTrace()
-        PlutoLog.e("ANR", exception.threadStateMap)
-    }
-})
-```
-
 
 
 ### Add Pluto Logs
@@ -101,19 +59,6 @@ D/onClick(MainActivity.kt:40) | debug_log: button clicked
 E/onFailure(NetworkManager.kt:17) | error_log: api call falied with http_status 400
 ```
 
-
-### Set App Properties
-
-Pluto allows storing information like App status(like app configurations), User properties(like email, profile) and Device fingerprint(like IMEI).
-
-This data can later be accessed via Pluto debug UI. This method can be called multiple times and it will keep on appending the data.
-```kotlin
-Pluto.setAppProperties(hashMapOf(
-    "User id" to "2whdue-dn4f-3hr-dfhrhs",
-    "User email" to "john.smith@gmail.com"
-))
-```
-
 🎉 You are all done!
 
 Now re-build and run your app, you will receive a notification from Pluto, use it to access Pluto UI.
@@ -125,35 +70,7 @@ Now re-build and run your app, you will receive a notification from Pluto, use i
 
 **We're looking for contributors, help us improve Pluto.** 😁 
 
-Hers's how you can help
-  - Look for issues marked as [`help wanted`](https://github.com/mocklets/pluto/labels/help%20wanted)
-  - While submitting a new PR, make sure tests are all successful. If you think we need any new test, feel free to add new tests.
-
-### Prerequisite
-
-In order to start working on Pluto, you need to fork the project and open it in Android Studio/IntelliJ IDEA.
-
-Before committing we suggest you install the pre-commit hooks with the following command:
-```
-./gradlew installGitHook
-```
-
-This will make sure your code is validated against `ktLint` and `detekt` before every commit.
-The command will run automatically before the `clean` task, so you should have the pre-commit hook installed by then.
-
-Before submitting a PR please run:
-```
-./gradlew build
-```
-This will build the library and make sure your CI checks will pass.
-
-***
-
-
-## Acknowledgments
-
-Big thanks 🙏 to [ChuckerTeam/chucker](https://github.com/ChuckerTeam/chucker) for inspiration behind network interceptor code.
-
+Please refer to your [`Contribution guidelines`](/CONTRIBUTING.md) to get started.
 
 ***
 
@@ -161,7 +78,7 @@ Big thanks 🙏 to [ChuckerTeam/chucker](https://github.com/ChuckerTeam/chucker)
 ## License
 
 ```
-Copyright 2021 Graylattice Communications Private Limited.
+Copyright 2021 Plutolib.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
