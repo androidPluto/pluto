@@ -36,6 +36,7 @@ object Pluto {
         notch = Notch(application, appLifecycle.shouldShowNotch)
     }
 
+    @JvmOverloads
     fun open(identifier: String? = null, bundle: Bundle? = null) {
         val intent: Intent?
         if (identifier != null) {
