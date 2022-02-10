@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pluto.Pluto
@@ -22,7 +22,7 @@ import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
 
-class PluginSelectorActivity : AppCompatActivity() {
+class PluginSelectorActivity : FragmentActivity() {
 
     private val pluginsViewModel by viewModels<PluginsViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
@@ -82,8 +82,24 @@ class PluginSelectorActivity : AppCompatActivity() {
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is Plugin) {
-                Pluto.open(data.devIdentifier)
-                finish()
+                when (action) {
+                    "click" -> {
+                        Pluto.open(data.devIdentifier)
+                        finish()
+                    }
+                    "long_click" -> {
+                        val devDetailsFragment = DevDetailsFragment()
+                        devDetailsFragment.arguments = Bundle().apply {
+                            putString("name", data.getConfig().name)
+                            putInt("icon", data.getConfig().icon)
+                            putString("version", data.getConfig().version)
+                            putString("website", data.getDeveloperDetails()?.website)
+                            putString("vcs", data.getDeveloperDetails()?.vcsLink)
+                            putString("twitter", data.getDeveloperDetails()?.twitter)
+                        }
+                        devDetailsFragment.show(supportFragmentManager, "devDetails")
+                    }
+                }
             }
         }
     }
