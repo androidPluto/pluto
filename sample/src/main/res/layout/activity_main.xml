@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp"
+    android:padding="40dp"
     tools:context="com.sampleapp.MainActivity">
 
     <TextView
-        android:id="@+id/apiLabel"
+        android:id="@+id/notchLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Manage API Calls"
+        android:text="Handle Notch"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,140 +19,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/postCall"
-        android:layout_width="0dp"
+        android:id="@+id/showNotch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="POST Call"
+        android:layout_marginTop="10dp"
+        android:text="Show Notch"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/getCall"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apiLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/notchLabel" />
 
     <Button
-        android:id="@+id/getCall"
+        android:id="@+id/hideNotch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="GET Call"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/postCall"
-        app:layout_constraintTop_toTopOf="@+id/postCall" />
-
-    <Button
-        android:id="@+id/xmlCall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Make Call with XML Response"
+        android:text="Hide Notch"
+        android:layout_marginTop="5dp"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postCall" />
+        app:layout_constraintTop_toBottomOf="@+id/showNotch" />
 
-    <Button
-        android:id="@+id/formEncodedCall"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Make FormURLEncoded Call"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/xmlCall" />
 
     <TextView
-        android:id="@+id/exceptionLabel"
+        android:id="@+id/openLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Detect Exceptions"
+        android:text="Open Pluto UI"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/formEncodedCall" />
+        app:layout_constraintTop_toBottomOf="@+id/hideNotch" />
 
     <Button
-        android:id="@+id/exceptionCta"
+        android:id="@+id/openSelector"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Throw Exception"
+        android:text="Open Plugin Selector"
+        android:layout_marginTop="10dp"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exceptionLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/openLabel" />
 
     <Button
-        android:id="@+id/deadlockCta"
+        android:id="@+id/openDemoPlugin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Deadlock"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/infiniteLoopCta"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exceptionCta" />
-
-    <Button
-        android:id="@+id/infiniteLoopCta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Infinite Loop"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/sleepCta"
-        app:layout_constraintStart_toEndOf="@+id/deadlockCta"
-        app:layout_constraintTop_toTopOf="@+id/deadlockCta" />
-
-    <Button
-        android:id="@+id/sleepCta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Thread Sleep"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/infiniteLoopCta"
-        app:layout_constraintTop_toTopOf="@+id/infiniteLoopCta" />
-
-    <TextView
-        android:id="@+id/sharedPrefLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Modify Shared Preferences"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deadlockCta" />
-
-    <Button
-        android:id="@+id/sharedPrefCta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Reset Shared Preferences"
+        android:text="Open Demo Plugin Directly"
+        android:layout_marginTop="5dp"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sharedPrefLabel" />
-
-
-    <TextView
-        android:id="@+id/appPropertiesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Manage App Properties"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sharedPrefCta" />
-
-    <Button
-        android:id="@+id/appPropertiesCta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Update App Properties"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appPropertiesLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/openSelector" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
