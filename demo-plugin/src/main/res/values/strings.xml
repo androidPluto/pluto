@@ -4,4 +4,6 @@
     <string name="demo___menu_label_2">Demo Action 2</string>
     <string name="demo___send_notification">Send Demo Notification</string>
     <string name="demo___share">Share</string>
+    <string name="demo___notification_title">This is demo notification from %s</string>
+    <string name="demo___notification_subtitle">Tap here to open plugin view.</string>
 </resources>

@@ -39,6 +39,7 @@ class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
             )
         }
         binding.notification.setDebounceClickListener {
+            DemoNotification(requireContext()).add()
         }
     }
 }
