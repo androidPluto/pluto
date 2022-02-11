@@ -42,22 +42,7 @@ Pluto.Installer(this)
 ```
 
 
-### Add Pluto Logs
 
-Pluto allows you to log and persist the user journey through the app, and help debug them without any need to connect to Logcat.
-```kotlin
-PlutoLog.event("analytics", eventName, HashMap(attributes))
-PlutoLog.d("debug_log", "button clicked")
-PlutoLog.e("error_log", "api call falied with http_status 400")
-PlutoLog.w("warning_log", "warning log")
-PlutoLog.i("info_log", "api call completed")
-```
-
-But if you are connected to Logcat, PlutoLogs behave similar to Log class, with an improvement to tag the method and file name also. In Logcat, PlutoLogs will look like the following.
-```
-D/onClick(MainActivity.kt:40) | debug_log: button clicked
-E/onFailure(NetworkManager.kt:17) | error_log: api call falied with http_status 400
-```
 
 🎉 You are all done!
 
