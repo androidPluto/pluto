@@ -1,5 +1,5 @@
 # Pluto
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mocklets/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
 [![Daily Builds](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml)
 
 Pluto is a on-device debugger for Android applications, which helps in inspection of HTTP requests/responses, capture Crashes and ANRs and manipulating application data on-the-go.
