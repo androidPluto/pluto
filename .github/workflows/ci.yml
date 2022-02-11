@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Validating Ktlint
-      run: ./gradlew --no-daemon --max-workers 8 --build-cache ktlintDebugCheck
+      run: ./gradlew --no-daemon --max-workers 8 --build-cache ktlintCheck
 
   detekt:
     runs-on: ubuntu-latest
