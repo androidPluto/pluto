@@ -22,14 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/pluto___dark_60"
-            android:padding="@dimen/pluto___margin_medium">
+            android:paddingVertical="@dimen/pluto___margin_medium">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
-                android:layout_marginBottom="@dimen/pluto___margin_large"
+                android:layout_marginHorizontal="@dimen/pluto___margin_vlarge"
+                android:layout_marginBottom="@dimen/pluto___margin_small"
                 android:fontFamily="@font/muli_bold"
                 android:gravity="center_vertical"
                 android:text="@string/pluto___choose_plugin"
@@ -37,13 +37,24 @@
                 android:textSize="@dimen/pluto___text_xmedium"
                 app:layout_constraintBottom_toTopOf="@+id/list"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/topDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pluto___dp_1"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___white_05"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/list" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/pluto___margin_vlarge"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:minHeight="200dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/bottomDivider" />
@@ -53,33 +64,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/pluto___margin_mini"
+                android:ellipsize="end"
                 android:fontFamily="@font/muli_light"
                 android:gravity="center"
                 android:maxLines="2"
-                android:ellipsize="end"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                android:text="@string/pluto___no_plugins"
                 android:textColor="@color/pluto___white_40"
                 android:textSize="@dimen/pluto___text_small"
                 android:visibility="gone"
-                tools:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/list"
                 app:layout_constraintEnd_toEndOf="@+id/list"
                 app:layout_constraintStart_toStartOf="@+id/list"
                 app:layout_constraintTop_toTopOf="@+id/list"
-                android:text="@string/pluto___no_plugins" />
+                tools:visibility="visible" />
 
             <View
                 android:id="@+id/bottomDivider"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/pluto___dp_1"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_marginBottom="@dimen/pluto___margin_medium"
                 android:background="@color/pluto___white_05"
-                app:layout_constraintBottom_toTopOf="@+id/version" />
+                app:layout_constraintBottom_toTopOf="@+id/version"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/pluto___margin_xlarge"
                 android:drawablePadding="@dimen/pluto___margin_mini"
                 android:fontFamily="@font/muli_light"
                 android:gravity="center"
@@ -94,6 +109,7 @@
                 android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/pluto___margin_xlarge"
                 android:drawableStart="@drawable/pluto___ic_settings"
                 android:drawableLeft="@drawable/pluto___ic_settings"
                 android:drawablePadding="@dimen/pluto___margin_mini"
