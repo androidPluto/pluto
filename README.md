@@ -45,7 +45,7 @@ Here is the list of some plugin provided by us
 - **[Logger Plugin](https://github.com/plutolib/plugin-logger)**
 - **[Shared Preferences Plugin](https://github.com/plutolib/plugin-shared-preferences)**
 
-We will be adding more to the list. So please stay tuned.
+We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.
 
 Please refer to their respective README for integration steps.
 
