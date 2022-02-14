@@ -2,29 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="@dimen/pluto___margin_medium"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iconCard"
         android:layout_width="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         android:layout_height="wrap_content"
-        tools:layout_height="60dp"
+        android:background="@color/pluto___white_60"
+        android:backgroundTint="@color/pluto___white_60"
         android:clipToPadding="true"
-        android:backgroundTint="@color/pluto___white_80"
-        android:background="@color/pluto___white_80"
+        app:cardCornerRadius="@dimen/pluto___margin_small"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="@dimen/pluto___margin_small"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_height="60dp">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_gravity="center"
-            android:layout_margin="6dp"
             android:layout_width="@dimen/pluto___plugin_icon_dimen"
-            android:layout_height="@dimen/pluto___plugin_icon_dimen" />
+            android:layout_height="@dimen/pluto___plugin_icon_dimen"
+            android:layout_gravity="center"
+            android:layout_margin="6dp" />
 
     </androidx.cardview.widget.CardView>
 
@@ -32,17 +34,18 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:breakStrategy="simple"
+        android:ellipsize="middle"
         android:fontFamily="@font/muli_semibold"
+        android:gravity="center"
+        android:maxLines="2"
         android:paddingHorizontal="@dimen/pluto___margin_small"
         android:paddingVertical="@dimen/pluto___margin_mini"
-        android:textColor="@color/pluto___white_80"
+        android:textColor="@color/pluto___white_60"
         android:textSize="@dimen/pluto___text_xxsmall"
-        android:gravity="center"
-        android:breakStrategy="simple"
-        android:maxLines="2"
-        android:ellipsize="middle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconCard"
         tools:text="log tag" />
 
