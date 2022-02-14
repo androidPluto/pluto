@@ -36,7 +36,7 @@ Pluto.Installer(this)
 
 ### Install plugins
 
-Unlike version 1.x.x, Pluto now allows developers to add debuggers as plugin based on their need.
+Unlike [version 1.x.x](https://github.com/mocklets/pluto/wiki/Integrating-Pluto-1.x.x), Pluto now allows developers to add debuggers as plugin based on their need.
 
 Here is the list of some plugin provided by us
 
