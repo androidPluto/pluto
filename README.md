@@ -3,7 +3,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/plutolib/pluto)](https://cla-assistant.io/plutolib/pluto)
 [![Daily Builds](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml)
 
-Pluto is a on-device debugging framework for Android applications, which helps in inspection of HTTP requests/responses, capture Crashes and ANRs and manipulating application data on-the-go.
+Pluto is an on-device debugging framework for Android applications, which helps in the inspection of HTTP requests/responses, captures Crashes, and ANRs, and manipulates application data on the go.
 
 It comes with a UI to monitor and share the information, as well as APIs to access and use that information in your application.
 
@@ -15,7 +15,7 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your android app module.
 
 
 ```groovy
@@ -37,9 +37,9 @@ Pluto.Installer(this)
 
 ### Install plugins
 
-Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-1.x.x), Pluto now allows developers to add debuggers as plugin based on their need.
+Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-1.x.x), Pluto now allows developers to add debuggers as plugins based on their need.
 
-Here is the list of some plugin provided by us
+Here is the list of some plugins provided by us
 
 - **[Network Plugin](https://github.com/plutolib/plugin-network)**
 - **[Exceptions & Crashes Plugin](https://github.com/plutolib/plugin-exceptions)**
