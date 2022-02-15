@@ -1,15 +1,15 @@
 # Pluto
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
 [![CLA assistant](https://cla-assistant.io/readme/badge/plutolib/pluto)](https://cla-assistant.io/plutolib/pluto)
-[![Daily Builds](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml)
+[![Daily Builds](https://github.com/mocklets/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/plutolib/pluto/actions/workflows/daily_builds.yml)
 
 Pluto is an on-device debugging framework for Android applications, which helps in the inspection of HTTP requests/responses, captures Crashes, and ANRs, and manipulates application data on the go.
 
 It comes with a UI to monitor and share the information, as well as APIs to access and use that information in your application.
 
------
+<br><br>
 
-## Integrate Pluto in your application
+## 🖇 Integrate Pluto in your application
 
 
 
@@ -46,29 +46,30 @@ Here is the list of some plugins provided by us
 - **[Logger Plugin](https://github.com/plutolib/plugin-logger)**
 - **[Shared Preferences Plugin](https://github.com/plutolib/plugin-shared-preferences)**
 
-We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.
-
+We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
+<br><br>
+> You can also help us expand the Pluto ecosystem now. <br>Pluto now allows to develop custom debuggers as plugin. Read [Develop Custom Plugins](https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)).
 
-
+<br>
 
 🎉 You are all set!
 
 Now re-build and run your app, you will receive a notification from Pluto, use it to access Pluto UI.
 
-***
+<br>
 
 
-## Contribution
+## 📝 Contribution
 
 **We're looking for contributors, help us improve Pluto.** 😁 
 
 Please refer to your [`Contribution guidelines`](/CONTRIBUTING.md) to get started.
 
-***
+<br>
 
 
-## License
+## 📃 License
 
 ```
 Copyright 2021 Plutolib.
