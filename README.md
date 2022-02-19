@@ -17,10 +17,11 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your android app module.
 
-
+> Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
 dependencies {
   debugImplementation 'com.plutolib:pluto:2.0.0'
+  releaseImplementation 'com.plutolib:pluto-no-op:2.0.0'
 }
 ```
 
