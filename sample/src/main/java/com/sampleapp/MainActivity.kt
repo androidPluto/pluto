@@ -1,10 +1,17 @@
 package com.sampleapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
+import com.pluto.plugin.datastore.pref.PlutoDataStoreWatcher
 import com.sampleapp.SampleApp.Companion.DEMO_PLUGIN_ID
 import com.sampleapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,9 +52,36 @@ class MainActivity : AppCompatActivity() {
                 Pluto.open(DEMO_PLUGIN_ID)
             }
         }
+
+        initDataForDataStoreSample()
+    }
+
+    private fun initDataForDataStoreSample() {
+        PlutoDataStoreWatcher.watch("prefrence name", dataStore)
+        PlutoDataStoreWatcher.watch("user_info", dataStore2)
+        lifecycleScope.launch {
+            dataStore2.edit {
+                it[booleanPreferencesKey("isLoggedIn")] = true
+                it[stringPreferencesKey("auth")] = "asl;jknv;a38uv972gv"
+            }
+            dataStore.edit {
+                it[booleanPreferencesKey("random_boolean")] = false
+                it[stringPreferencesKey("random_string")] = "random string value"
+                it[longPreferencesKey("random_long")] = 13101993
+                it[floatPreferencesKey("random_float")] = 3.141592653589793238462643383279502884197f
+            }
+        }
     }
 
     companion object {
         const val IS_TESTING_JAVA = true
     }
 }
+
+
+private val Context.dataStore by preferencesDataStore(
+    name = "prefrence name"
+)
+private val Context.dataStore2 by preferencesDataStore(
+    name = "user_info"
+)

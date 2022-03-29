@@ -3,6 +3,7 @@ package com.sampleapp
 import android.app.Application
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
+import com.pluto.plugin.datastore.pref.DataStorePrefPlugin
 
 class SampleApp : Application() {
 
@@ -10,6 +11,7 @@ class SampleApp : Application() {
         super.onCreate()
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO_PLUGIN_ID))
+            .addPlugin(DataStorePrefPlugin())
 //            .addPlugin(PlutoLoggerPlugin("logger"))
 //            .addPlugin(PlutoSharePreferencesPlugin("sharedPref"))
             .install()
