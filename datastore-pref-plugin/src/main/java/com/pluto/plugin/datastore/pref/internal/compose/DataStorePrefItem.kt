@@ -1,5 +1,6 @@
 package com.pluto.plugin.datastore.pref.internal.compose
 
+import androidx.compose.animation.*
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import com.pluto.plugin.datastore.pref.R
 import com.pluto.plugin.datastore.pref.internal.PrefElement
@@ -31,7 +34,7 @@ import com.pluto.plugin.datastore.pref.internal.Type
 private fun DataStorePrefItemPreview() {
     LazyColumn(
         modifier = Modifier
-//            .animateItemPlacement()       todo enable when updating compose to latest
+//            .animateItemPlacement()       enable when updating compose to latest
             .wrapContentHeight(Alignment.Top)
             .background(Color(0xFFFFFFFF))
     ) {
@@ -77,11 +80,12 @@ fun LazyListScope.dataStorePrefItems(
                     modifier = Modifier.padding(
                         vertical = 8.dp
                     ),
+                    letterSpacing = 1.2.sp,
                     fontSize = 16.sp
                 )
 
                 LaunchedEffect(data.isExpanded.value) {
-                    degrees.animateTo(if (data.isExpanded.value) 0f else 180f)
+                    degrees.animateTo(if (data.isExpanded.value) 180f else 0f)
                 }
 
                 Image(
@@ -94,9 +98,13 @@ fun LazyListScope.dataStorePrefItems(
             Divider(Modifier.padding(top = 4.dp), color = Color(0xFFF3F3F3))
         }
     }
-    if (data.isExpanded.value) {
-        data.data.forEach { element ->
-            item(element.key) {
+    data.data.forEach { element ->
+        item(element.key) {
+            AnimatedVisibility(
+                visible = data.isExpanded.value,
+                enter = expandVertically(expandFrom = Alignment.CenterVertically),
+                exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically) // change with animateItemPlacement() when updating compose to latest
+            ) {
                 PrefListItem(element = element)
             }
         }

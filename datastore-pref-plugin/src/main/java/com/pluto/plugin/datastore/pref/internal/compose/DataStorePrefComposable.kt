@@ -1,6 +1,5 @@
 package com.pluto.plugin.datastore.pref.internal.compose
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

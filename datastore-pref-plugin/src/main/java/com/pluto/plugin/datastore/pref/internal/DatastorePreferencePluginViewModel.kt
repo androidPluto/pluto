@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.*
 @OptIn(FlowPreview::class)
 class DatastorePreferencePluginViewModel : ViewModel() {
 
-    val output: Flow<List<PrefUiModel>>
+    internal val output: Flow<List<PrefUiModel>>
+    private val expandedMap = mutableMapOf<String, MutableState<Boolean>>()
 
     init {
         output = PlutoDataStoreWatcher.sources.map { list ->
@@ -31,6 +32,9 @@ class DatastorePreferencePluginViewModel : ViewModel() {
                                 value = entry.value.toString(),
                                 type = Type.type(entry.value)
                             )
+                        },
+                        isExpanded = expandedMap.getOrPut(namePrefPair.second) {
+                            mutableStateOf(false)
                         }
                     )
                 }
@@ -44,6 +48,7 @@ class PrefUiModel(
     val data: List<PrefElement>,
     val isExpanded: MutableState<Boolean> = mutableStateOf(true)
 )
+
 class PrefElement(val key: String, val value: String, val type: Type)
 
 sealed class Type(val displayText: String) {

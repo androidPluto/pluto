@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             dataStore2.edit {
                 it[booleanPreferencesKey("isLoggedIn")] = true
-                it[stringPreferencesKey("auth")] = "asl;jknv;a38uv972gv"
+                it[stringPreferencesKey("auth_token")] = "asljknva38uv972gv"
+                it[stringPreferencesKey("refresh_token")] = "iuch21d2c1acbkufh2918hcb1837bc1a"
             }
             dataStore.edit {
                 it[booleanPreferencesKey("random_boolean")] = false
