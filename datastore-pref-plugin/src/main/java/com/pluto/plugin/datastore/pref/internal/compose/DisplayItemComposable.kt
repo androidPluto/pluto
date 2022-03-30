@@ -5,7 +5,13 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
@@ -23,10 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.pluto.plugin.datastore.pref.R
 import com.pluto.plugin.datastore.pref.internal.PrefElement
 import com.pluto.plugin.datastore.pref.internal.Type
-import com.pluto.plugin.datastore.pref.R
-
 
 @Composable
 @Preview("normal item")
@@ -79,13 +84,15 @@ fun PrefListItem(
     }
     val preferenceKey = PreferenceKey(element.prefName, element.key)
 
-    Column(modifier = modifier
-        .animateContentSize()
-        .clickable(enabled = !isEditing) {
-            editableItem.value = preferenceKey
-            newValue.value = element.value
-        }
-        .padding(top = 8.dp)) {
+    Column(
+        modifier = modifier
+            .animateContentSize()
+            .clickable(enabled = !isEditing) {
+                editableItem.value = preferenceKey
+                newValue.value = element.value
+            }
+            .padding(top = 8.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -162,7 +169,8 @@ fun PrefListItem(
                 }
             } else {
                 Text(
-                    text = element.value, modifier = Modifier
+                    text = element.value,
+                    modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 24.dp)
                 )

@@ -3,14 +3,17 @@ package com.sampleapp
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.plugin.datastore.pref.PlutoDataStoreWatcher
 import com.sampleapp.SampleApp.Companion.DEMO_PLUGIN_ID
 import com.sampleapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -78,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         const val IS_TESTING_JAVA = true
     }
 }
-
 
 private val Context.dataStore by preferencesDataStore(
     name = "prefrence name"

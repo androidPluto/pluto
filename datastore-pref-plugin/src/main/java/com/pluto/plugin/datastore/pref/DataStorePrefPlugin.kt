@@ -7,7 +7,6 @@ import com.pluto.plugin.datastore.pref.internal.DatastorePreferencePluginFragmen
 
 class DataStorePrefPlugin : Plugin("Bisht") {
 
-
     override fun getConfig() = PluginConfiguration(
         name = "DataStore - preference",
         version = "0.1-beta"
