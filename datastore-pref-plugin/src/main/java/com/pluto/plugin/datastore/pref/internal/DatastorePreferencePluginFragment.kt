@@ -30,7 +30,8 @@ class DatastorePreferencePluginFragment : Fragment() {
                     modifier = Modifier.background(Color(0xFFFFFFFF)),
                     onExit = {
                         activity?.finish()
-                    }
+                    },
+                    updateValue = viewModel.updateValue
                 )
             }
         }

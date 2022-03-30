@@ -2,11 +2,14 @@ package com.pluto.plugin.datastore.pref.internal
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.datastore.preferences.core.*
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.pluto.plugin.datastore.pref.PlutoDataStoreWatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import java.security.Key
 
 @OptIn(FlowPreview::class)
 class DatastorePreferencePluginViewModel : ViewModel() {
@@ -30,7 +33,8 @@ class DatastorePreferencePluginViewModel : ViewModel() {
                             PrefElement(
                                 key = entry.key.toString(),
                                 value = entry.value.toString(),
-                                type = Type.type(entry.value)
+                                type = Type.type(entry.value),
+                                prefName = namePrefPair.second
                             )
                         },
                         isExpanded = expandedMap.getOrPut(namePrefPair.second) {
@@ -41,6 +45,37 @@ class DatastorePreferencePluginViewModel : ViewModel() {
             })
         }.flattenMerge()
     }
+
+    val updateValue: (PrefElement, String) -> Unit = { preferenceElement, value ->
+        viewModelScope.launch {
+            val preferences = PlutoDataStoreWatcher.sources.value.find {
+                it.name == preferenceElement.prefName
+            }?.preferences
+            preferences?.edit { preference ->
+                when {
+                    preferenceElement.type == Type.TYPE_BOOLEAN && value.toBooleanStrictOrNull() != null -> {
+                        preference[booleanPreferencesKey(preferenceElement.key)] = value.toBoolean()
+                    }
+                    preferenceElement.type == Type.TYPE_DOUBLE && value.toDoubleOrNull() != null -> {
+                        preference[doublePreferencesKey(preferenceElement.key)] = value.toDouble()
+                    }
+                    preferenceElement.type == Type.TYPE_FLOAT && value.toFloatOrNull() != null -> {
+                        preference[floatPreferencesKey(preferenceElement.key)] = value.toFloat()
+                    }
+                    preferenceElement.type == Type.TYPE_LONG && value.toLongOrNull() != null -> {
+                        preference[longPreferencesKey(preferenceElement.key)] = value.toLong()
+                    }
+                    preferenceElement.type == Type.TYPE_STRING -> {
+                        preference[stringPreferencesKey(preferenceElement.key)] = value
+                    }
+                    else -> {
+                        // show some error
+                        // add validation before sending data here
+                    }
+                }
+            }
+        }
+    }
 }
 
 class PrefUiModel(
@@ -49,7 +84,12 @@ class PrefUiModel(
     val isExpanded: MutableState<Boolean> = mutableStateOf(true)
 )
 
-class PrefElement(val key: String, val value: String, val type: Type)
+class PrefElement(
+    val prefName: String,
+    val key: String,
+    val value: String,
+    val type: Type
+)
 
 sealed class Type(val displayText: String) {
 

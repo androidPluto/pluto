@@ -10,9 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -21,8 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import com.pluto.plugin.datastore.pref.R
 import com.pluto.plugin.datastore.pref.internal.PrefElement
@@ -41,26 +37,28 @@ private fun DataStorePrefItemPreview() {
         dataStorePrefItems(
             PrefUiModel(
                 "Preferences", listOf(
-                    PrefElement("key", "value", Type.TYPE_STRING),
-                    PrefElement("key1", "value1", Type.TYPE_STRING),
-                    PrefElement("key2", "value2", Type.TYPE_STRING),
-                    PrefElement("key3", "value3", Type.TYPE_STRING),
+                    PrefElement("Preferences", "key", "value", Type.TYPE_STRING),
+                    PrefElement("Preferences", "key1", "value1", Type.TYPE_STRING),
+                    PrefElement("Preferences", "key2", "value2", Type.TYPE_STRING),
+                    PrefElement("Preferences", "key3", "value3", Type.TYPE_STRING),
                     PrefElement(
+                        "Preferences",
                         "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
                         "VERY VERY VERY VERY VERY very very very very Loooong value",
                         Type.TYPE_STRING
                     ),
-                    PrefElement("key5", "value5", Type.TYPE_STRING),
+                    PrefElement("Preferences", "key5", "value5", Type.TYPE_STRING),
                 )
-            )
+            ),
         )
     }
 }
 
 fun LazyListScope.dataStorePrefItems(
     data: PrefUiModel,
+    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
+    updateValue: (PrefElement, String) -> Unit = { _, _ -> }
 ) {
-
     item(data.name + "title") {
         Column(modifier = Modifier.clickable {
             data.isExpanded.value = !data.isExpanded.value
@@ -105,7 +103,11 @@ fun LazyListScope.dataStorePrefItems(
                 enter = expandVertically(expandFrom = Alignment.CenterVertically),
                 exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically) // change with animateItemPlacement() when updating compose to latest
             ) {
-                PrefListItem(element = element)
+                PrefListItem(
+                    element = element,
+                    editableItem = editableItem,
+                    updateValue = updateValue
+                )
             }
         }
     }
