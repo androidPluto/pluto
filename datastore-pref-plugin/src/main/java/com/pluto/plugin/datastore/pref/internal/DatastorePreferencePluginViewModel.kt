@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
-class DatastorePreferencePluginViewModel : ViewModel() {
+internal class DatastorePreferencePluginViewModel : ViewModel() {
 
     internal val output: Flow<List<PrefUiModel>>
     private val expandedMap = mutableMapOf<String, MutableState<Boolean>>()

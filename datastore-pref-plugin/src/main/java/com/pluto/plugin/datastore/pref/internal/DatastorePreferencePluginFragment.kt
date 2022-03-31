@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import com.pluto.plugin.datastore.pref.internal.compose.CommonColors
 import com.pluto.plugin.datastore.pref.internal.compose.DataStorePrefComposable
 
-class DatastorePreferencePluginFragment : Fragment() {
+internal class DatastorePreferencePluginFragment : Fragment() {
 
     private val viewModel by viewModels<DatastorePreferencePluginViewModel>()
 

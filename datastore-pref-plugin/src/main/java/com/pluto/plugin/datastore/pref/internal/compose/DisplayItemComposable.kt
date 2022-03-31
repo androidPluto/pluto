@@ -44,7 +44,7 @@ import com.pluto.plugin.datastore.pref.internal.Type
 
 @Composable
 @Preview("normal item")
-fun PreviewListItem() {
+private fun PreviewListItem() {
     LazyColumn {
         item {
             PrefListItem(
@@ -62,7 +62,7 @@ fun PreviewListItem() {
 
 @Composable
 @Preview("very long item")
-fun PreviewLongContentListItem() {
+private fun PreviewLongContentListItem() {
     LazyColumn {
         item {
             PrefListItem(
@@ -79,7 +79,7 @@ fun PreviewLongContentListItem() {
 }
 
 @Composable
-fun PrefListItem(
+internal fun PrefListItem(
     element: PrefElement,
     modifier: Modifier = Modifier,
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),

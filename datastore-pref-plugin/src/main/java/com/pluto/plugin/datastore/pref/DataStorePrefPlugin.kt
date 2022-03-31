@@ -13,7 +13,6 @@ class DataStorePrefPlugin : Plugin("Bisht") {
     )
 
     override fun getView(): Fragment {
-
         return DatastorePreferencePluginFragment()
     }
 

@@ -18,7 +18,7 @@ import com.pluto.plugin.datastore.pref.internal.PrefElement
 import com.pluto.plugin.datastore.pref.internal.PrefUiModel
 
 @Composable
-fun DataStorePrefComposable(
+internal fun DataStorePrefComposable(
     data: List<PrefUiModel>,
     modifier: Modifier = Modifier,
     onExit: () -> Unit,
@@ -46,7 +46,7 @@ fun DataStorePrefComposable(
     }
 }
 
-data class PreferenceKey(
+internal data class PreferenceKey(
     val name: String,
     val key: String,
 )

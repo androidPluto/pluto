@@ -66,7 +66,7 @@ private fun DataStorePrefItemPreview() {
     }
 }
 
-fun LazyListScope.dataStorePrefItems(
+internal fun LazyListScope.dataStorePrefItems(
     data: PrefUiModel,
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
     updateValue: (PrefElement, String) -> Unit = { _, _ -> }
