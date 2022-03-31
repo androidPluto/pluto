@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,27 +38,28 @@ import com.pluto.plugin.datastore.pref.internal.Type
 @Preview
 @Composable
 private fun DataStorePrefItemPreview() {
+    val prefName = "Preferences"
     LazyColumn(
         modifier = Modifier
 //            .animateItemPlacement()       enable when updating compose to latest
             .wrapContentHeight(Alignment.Top)
-            .background(Color(0xFFFFFFFF))
+            .background(CommonColors.background)
     ) {
         dataStorePrefItems(
             PrefUiModel(
-                "Preferences",
+                prefName,
                 listOf(
-                    PrefElement("Preferences", "key", "value", Type.TYPE_STRING),
-                    PrefElement("Preferences", "key1", "value1", Type.TYPE_STRING),
-                    PrefElement("Preferences", "key2", "value2", Type.TYPE_STRING),
-                    PrefElement("Preferences", "key3", "value3", Type.TYPE_STRING),
+                    PrefElement(prefName, "key", "value", Type.TypeString),
+                    PrefElement(prefName, "key1", "value1", Type.TypeString),
+                    PrefElement(prefName, "key2", "value2", Type.TypeString),
+                    PrefElement(prefName, "key3", "value3", Type.TypeString),
                     PrefElement(
-                        "Preferences",
+                        prefName,
                         "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
                         "VERY VERY VERY VERY VERY very very very very Loooong value",
-                        Type.TYPE_STRING
+                        Type.TypeString
                     ),
-                    PrefElement("Preferences", "key5", "value5", Type.TYPE_STRING),
+                    PrefElement(prefName, "key5", "value5", Type.TypeString),
                 )
             ),
         )
@@ -97,7 +97,7 @@ fun LazyListScope.dataStorePrefItems(
                 )
 
                 LaunchedEffect(data.isExpanded.value) {
-                    degrees.animateTo(if (data.isExpanded.value) 180f else 0f)
+                    degrees.animateTo(if (data.isExpanded.value) FlipDegree else 0f)
                 }
 
                 Image(
@@ -107,7 +107,7 @@ fun LazyListScope.dataStorePrefItems(
                         .rotate(degrees.value)
                 )
             }
-            Divider(Modifier.padding(top = 4.dp), color = Color(0xFFF3F3F3))
+            Divider(Modifier.padding(top = 4.dp), color = CommonColors.dividerColor)
         }
     }
     data.data.forEach { element ->
@@ -126,3 +126,4 @@ fun LazyListScope.dataStorePrefItems(
         }
     }
 }
+private const val FlipDegree = 180f

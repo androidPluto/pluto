@@ -22,12 +22,11 @@ object PlutoDataStoreWatcher {
         sources.update { oldSet ->
             mutableSetOf<PreferenceHolder>().apply {
                 oldSet.forEach {
-                    if (it.name != name)
-                        add(it)
+                    if (it.name != name) add(it)
                 }
             }
         }
     }
 }
 
-data class PreferenceHolder(val name: String, val preferences: DataStore<Preferences>)
+internal data class PreferenceHolder(val name: String, val preferences: DataStore<Preferences>)

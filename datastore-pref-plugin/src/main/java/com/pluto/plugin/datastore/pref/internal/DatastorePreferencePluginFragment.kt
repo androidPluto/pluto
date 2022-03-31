@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.pluto.plugin.datastore.pref.internal.compose.CommonColors
 import com.pluto.plugin.datastore.pref.internal.compose.DataStorePrefComposable
 
 class DatastorePreferencePluginFragment : Fragment() {
@@ -28,7 +28,7 @@ class DatastorePreferencePluginFragment : Fragment() {
             state.value?.let {
                 DataStorePrefComposable(
                     it,
-                    modifier = Modifier.background(Color(0xFFFFFFFF)),
+                    modifier = Modifier.background(CommonColors.background),
                     onExit = {
                         activity?.finish()
                     },

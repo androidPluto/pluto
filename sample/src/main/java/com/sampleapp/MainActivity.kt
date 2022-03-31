@@ -71,13 +71,15 @@ class MainActivity : AppCompatActivity() {
             dataStore.edit {
                 it[booleanPreferencesKey("random_boolean")] = false
                 it[stringPreferencesKey("random_string")] = "random string value"
-                it[longPreferencesKey("random_long")] = 13101993
-                it[floatPreferencesKey("random_float")] = 3.141592653589793238462643383279502884197f
+                it[longPreferencesKey("random_long")] = RANDOM_LONG
+                it[floatPreferencesKey("random_float")] = PI_VALUE
             }
         }
     }
 
     companion object {
+        const val RANDOM_LONG = 13_101_993L
+        const val PI_VALUE = 3.141592653589793238462643383279502884197f
         const val IS_TESTING_JAVA = true
     }
 }

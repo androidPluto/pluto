@@ -63,21 +63,16 @@ class DatastorePreferencePluginViewModel : ViewModel() {
             }?.preferences
             preferences?.edit { preference ->
                 when {
-                    preferenceElement.type == Type.TYPE_BOOLEAN && value.toBooleanStrictOrNull() != null -> {
+                    preferenceElement.type == Type.TypeBoolean && value.toBooleanStrictOrNull() != null ->
                         preference[booleanPreferencesKey(preferenceElement.key)] = value.toBoolean()
-                    }
-                    preferenceElement.type == Type.TYPE_DOUBLE && value.toDoubleOrNull() != null -> {
+                    preferenceElement.type == Type.TypeDouble && value.toDoubleOrNull() != null ->
                         preference[doublePreferencesKey(preferenceElement.key)] = value.toDouble()
-                    }
-                    preferenceElement.type == Type.TYPE_FLOAT && value.toFloatOrNull() != null -> {
+                    preferenceElement.type == Type.TypeFloat && value.toFloatOrNull() != null ->
                         preference[floatPreferencesKey(preferenceElement.key)] = value.toFloat()
-                    }
-                    preferenceElement.type == Type.TYPE_LONG && value.toLongOrNull() != null -> {
+                    preferenceElement.type == Type.TypeLong && value.toLongOrNull() != null ->
                         preference[longPreferencesKey(preferenceElement.key)] = value.toLong()
-                    }
-                    preferenceElement.type == Type.TYPE_STRING -> {
+                    preferenceElement.type == Type.TypeString ->
                         preference[stringPreferencesKey(preferenceElement.key)] = value
-                    }
                     else -> {
                         // show some error
                         // add validation before sending data here
@@ -88,13 +83,13 @@ class DatastorePreferencePluginViewModel : ViewModel() {
     }
 }
 
-class PrefUiModel(
+data class PrefUiModel(
     val name: String,
     val data: List<PrefElement>,
     val isExpanded: MutableState<Boolean> = mutableStateOf(true)
 )
 
-class PrefElement(
+data class PrefElement(
     val prefName: String,
     val key: String,
     val value: String,
@@ -103,21 +98,21 @@ class PrefElement(
 
 sealed class Type(val displayText: String) {
 
-    object TYPE_STRING : Type("string")
-    object TYPE_BOOLEAN : Type("boolean")
-    object TYPE_DOUBLE : Type("double")
-    object TYPE_FLOAT : Type("float")
-    object TYPE_LONG : Type("long")
-    object TYPE_UNKNOWN : Type("unknown")
+    object TypeString : Type("string")
+    object TypeBoolean : Type("boolean")
+    object TypeDouble : Type("double")
+    object TypeFloat : Type("float")
+    object TypeLong : Type("long")
+    object TypeUnknown : Type("unknown")
 
     companion object {
         fun <K> type(obj: K) = when (obj) {
-            is String -> TYPE_STRING
-            is Boolean -> TYPE_BOOLEAN
-            is Double -> TYPE_DOUBLE
-            is Long -> TYPE_LONG
-            is Float -> TYPE_FLOAT
-            else -> TYPE_UNKNOWN
+            is String -> TypeString
+            is Boolean -> TypeBoolean
+            is Double -> TypeDouble
+            is Long -> TypeLong
+            is Float -> TypeFloat
+            else -> TypeUnknown
         }
     }
 }

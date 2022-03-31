@@ -60,10 +60,8 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
                             SettingsPreferences.isRightHandedAccessPopup = !current
                             context?.toast(context!!.getString(R.string.pluto___notch_settings_updated))
                         }
-                        else -> {
-                            check(!BuildConfig.DEBUG) {
-                                "unsupported appearance type"
-                            }
+                        else -> check(!BuildConfig.DEBUG) {
+                            "unsupported appearance type"
                         }
                     }
                     settingsAdapter.notifyItemChanged(holder?.adapterPosition ?: 0)

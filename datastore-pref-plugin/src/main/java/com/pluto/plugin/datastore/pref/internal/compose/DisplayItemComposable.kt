@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -53,9 +52,9 @@ fun PreviewListItem() {
                     "Preferences",
                     "key param",
                     "value of the key",
-                    Type.TYPE_STRING
+                    Type.TypeString
                 ),
-                modifier = Modifier.background(Color(0xFFFFFFFF)),
+                modifier = Modifier.background(CommonColors.background),
             )
         }
     }
@@ -71,9 +70,9 @@ fun PreviewLongContentListItem() {
                     "Preferences",
                     "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
                     "VERY VERY VERY VERY VERY very very very very Loooong value",
-                    Type.TYPE_BOOLEAN
+                    Type.TypeBoolean
                 ),
-                modifier = Modifier.background(Color(0xFFFFFFFF))
+                modifier = Modifier.background(CommonColors.background)
             )
         }
     }
@@ -90,22 +89,15 @@ fun PrefListItem(
         editableItem.value?.name == element.prefName && editableItem.value?.key == element.key
 
     val newValue = remember {
-        mutableStateOf(
-            TextFieldValue(
-                element.value,
-                TextRange(element.value.length)
-            )
-        )
+        mutableStateOf(TextFieldValue(element.value, TextRange(element.value.length)))
     }
-    val preferenceKey = PreferenceKey(element.prefName, element.key)
-    val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
 
     Column(
         modifier = modifier
             .animateContentSize()
             .clickable(enabled = !isEditing) {
-                editableItem.value = preferenceKey
+                editableItem.value = PreferenceKey(element.prefName, element.key)
                 newValue.value = TextFieldValue(
                     element.value,
                     TextRange(element.value.length)
@@ -124,98 +116,129 @@ fun PrefListItem(
                     .padding(horizontal = 16.dp)
                     .weight(1f),
                 fontSize = 12.sp,
-                color = Color(0xFF78768B)
+                color = CommonColors.elementTextColor
             )
             Text(
                 text = element.type.displayText,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .background(
-                        color = Color(0xFFF1F7EF),
+                        color = CommonColors.tagBGColor,
                         shape = RoundedCornerShape(10.dp)
                     )
                     .padding(bottom = 2.dp, start = 8.dp, end = 8.dp),
-                color = Color(0xFF71B36B),
+                color = CommonColors.tagTextColor,
                 fontSize = 8.sp,
             )
         }
-        if (isEditing) {
-            Row(
+        Element(
+            element = element,
+            updateValue = updateValue,
+            isEditing = isEditing,
+            newValue = newValue,
+            focusRequester = focusRequester,
+            editableItem = editableItem
+        )
+        Divider(Modifier.padding(top = 8.dp), color = CommonColors.dividerColor)
+    }
+}
+
+@Composable
+private fun Element(
+    element: PrefElement,
+    updateValue: (PrefElement, String) -> Unit,
+    isEditing: Boolean = false,
+    newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
+    focusRequester: FocusRequester = FocusRequester(),
+    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
+) {
+    val focusManager = LocalFocusManager.current
+    if (isEditing) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 24.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = newValue.value,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 24.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                OutlinedTextField(
-                    value = newValue.value,
-                    modifier = Modifier
-                        .focusTarget()
-                        .focusRequester(focusRequester)
-                        .weight(1f),
-                    onValueChange = { input ->
-                        newValue.value = input
-                    },
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        autoCorrect = false,
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
-                            updateValue(element, newValue.value.text)
-                            editableItem.value = null
-                        }
-                    )
+                    .focusTarget()
+                    .focusRequester(focusRequester)
+                    .weight(1f),
+                onValueChange = { input ->
+                    newValue.value = input
+                },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    autoCorrect = false,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                        updateValue(element, newValue.value.text)
+                        editableItem.value = null
+                    }
                 )
-                Column(
-                    verticalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxHeight()
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .clickable {
-                                editableItem.value = null
-                                newValue.value = TextFieldValue(
-                                    element.value,
-                                    TextRange(element.value.length)
-                                )
-                            }
-                            .size(width = 48.dp, height = 38.dp)
-                            .padding(horizontal = 12.dp)
-                            .padding(top = 10.dp, bottom = 4.dp),
-                        painter = painterResource(id = R.drawable.ic_baseline_clear_24),
-                        contentDescription = "cancel"
-                    )
-                    Image(
-                        modifier = Modifier
-                            .clickable {
-                                updateValue(element, newValue.value.text)
-                                editableItem.value = null
-                            }
-                            .size(width = 48.dp, height = 38.dp)
-                            .padding(horizontal = 12.dp)
-                            .padding(top = 4.dp, bottom = 10.dp),
-                        painter = painterResource(id = R.drawable.ic_baseline_check_24),
-                        contentDescription = "save",
-                        colorFilter = ColorFilter.tint(color = Color(0xFF71B36B))
+            )
+            EditableElementCta(element, newValue, editableItem, updateValue)
+        }
+    } else {
+        Text(
+            text = element.value,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 24.dp)
+        )
+    }
+
+    LaunchedEffect(isEditing) {
+        if (isEditing) {
+            focusRequester.requestFocus()
+        }
+    }
+}
+
+@Composable
+private fun EditableElementCta(
+    element: PrefElement,
+    newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
+    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
+    updateValue: (PrefElement, String) -> Unit
+) {
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxHeight()
+    ) {
+        Image(
+            modifier = Modifier
+                .clickable {
+                    editableItem.value = null
+                    newValue.value = TextFieldValue(
+                        element.value,
+                        TextRange(element.value.length)
                     )
                 }
-            }
-        } else {
-            Text(
-                text = element.value,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 24.dp)
-            )
-        }
-        LaunchedEffect(isEditing) {
-            if (isEditing) {
-                focusRequester.requestFocus()
-            }
-        }
-        Divider(Modifier.padding(top = 8.dp), color = Color(0xFFF3F3F2))
+                .size(width = 48.dp, height = 38.dp)
+                .padding(horizontal = 12.dp)
+                .padding(top = 10.dp, bottom = 4.dp),
+            painter = painterResource(id = R.drawable.ic_baseline_clear_24),
+            contentDescription = "cancel"
+        )
+        Image(
+            modifier = Modifier
+                .clickable {
+                    updateValue(element, newValue.value.text)
+                    editableItem.value = null
+                }
+                .size(width = 48.dp, height = 38.dp)
+                .padding(horizontal = 12.dp)
+                .padding(top = 4.dp, bottom = 10.dp),
+            painter = painterResource(id = R.drawable.ic_baseline_check_24),
+            contentDescription = "save",
+            colorFilter = ColorFilter.tint(color = CommonColors.saveIconColor)
+        )
     }
 }
