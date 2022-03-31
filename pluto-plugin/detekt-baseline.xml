@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ForbiddenPublicDataClass:ContentShare.kt$ShareAction.ShareAsCopy$ShareAsCopy</ID>
+    <ID>ForbiddenPublicDataClass:ContentShare.kt$ShareAction.ShareAsFile$ShareAsFile</ID>
+    <ID>ForbiddenPublicDataClass:ContentShare.kt$ShareAction.ShareAsText$ShareAsText</ID>
+    <ID>ForbiddenPublicDataClass:ContentShare.kt$Shareable$Shareable</ID>
+    <ID>ForbiddenPublicDataClass:DataModel.kt$DeveloperDetails$DeveloperDetails</ID>
+    <ID>ForbiddenPublicDataClass:DataModel.kt$PluginConfiguration$PluginConfiguration</ID>
+    <ID>ForbiddenPublicDataClass:DataModel.kt$PluginOption$PluginOption</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$AppData$AppData</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$BuildData$BuildData</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$Device$Device</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$ScreenData$ScreenData</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$SoftwareData$SoftwareData</ID>
+    <ID>ForbiddenPublicDataClass:Device.kt$VersionData$VersionData</ID>
+    <ID>ForbiddenPublicDataClass:UiBridgeComponents.kt$UiBridgeComponents$UiBridgeComponents</ID>
+    <ID>TopLevelPropertyNaming:DateKtx.kt$private const val HR_COUNT = 24</ID>
+    <ID>TopLevelPropertyNaming:DateKtx.kt$private const val MIN_COUNT = 60</ID>
+    <ID>TopLevelPropertyNaming:DateKtx.kt$private const val SEC_COUNT = 60</ID>
+    <ID>TopLevelPropertyNaming:Device.kt$private const val DENSITY_MULTIPLIER = 160f</ID>
+    <ID>TopLevelPropertyNaming:KeyboardKtx.kt$private const val SMOOTH_TRANSITION_DELAY = 200L</ID>
+    <ID>TopLevelPropertyNaming:LayoutKtx.kt$private const val FADE_IN_OUT_ANIMATION_DURATION = 3000L</ID>
+    <ID>TopLevelPropertyNaming:LayoutKtx.kt$private const val SMOOTH_TRANSITION_DELAY = 200L</ID>
+    <ID>TopLevelPropertyNaming:PopupKtx.kt$private const val MENU_FONT_SIZE = 15</ID>
+  </CurrentIssues>
+</SmellBaseline>
