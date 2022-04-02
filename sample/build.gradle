@@ -44,6 +44,7 @@ dependencies {
 //    implementation project(path: ':pluto-no-op')
     implementation project(path: ':plugins:demo:lib')
     implementation project(path: ':plugins:exceptions:lib')
+    implementation project(path: ':plugins:logger:lib')
     implementation project(path: ':plugins:network:lib')
     implementation project(path: ':plugins:shared-preferences:lib')
 

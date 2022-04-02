@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pluto_logger___bg_bottom_sheet">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_large"
+        android:layout_marginLeft="@dimen/pluto___margin_large"
+        android:fontFamily="@font/muli_semibold"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_logger___log_details"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toStartOf="@+id/cta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli_bold"
+        android:paddingHorizontal="@dimen/pluto___margin_large"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_logger___share"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pluto_logger___bg_bottom_sheet_content"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/pluto___margin_large">
+
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_large"
+                android:drawableStart="@drawable/pluto_logger___ic_label"
+                android:drawableLeft="@drawable/pluto_logger___ic_label"
+                android:drawablePadding="@dimen/pluto___margin_micro"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.04"
+                android:lineSpacingExtra="6sp"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="logtag" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pluto___margin_micro"
+                android:fontFamily="@font/muli_semibold"
+                android:letterSpacing="0.04"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_medium"
+                app:layout_constraintEnd_toEndOf="@+id/tag"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/tag"
+                app:layout_constraintTop_toBottomOf="@+id/tag"
+                tools:text="log message" />
+
+            <TextView
+                android:id="@+id/filename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_large"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.04"
+                android:lineSpacingExtra="2sp"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintTop_toBottomOf="@+id/message"
+                tools:text="logtag" />
+
+            <View
+                android:id="@+id/divider0"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pluto___dp_1"
+                android:layout_marginStart="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_large"
+                android:background="@color/pluto___dark_05"
+                app:layout_constraintTop_toBottomOf="@id/filename" />
+
+            <TextView
+                android:id="@+id/stackTraceTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:fontFamily="@font/muli_bold"
+                android:lineSpacingExtra="6sp"
+                android:paddingTop="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_xsmall"
+                android:text="@string/pluto_logger___exception_title"
+                android:textAllCaps="true"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_xsmall"
+                app:layout_constraintTop_toBottomOf="@+id/divider0" />
+
+            <HorizontalScrollView
+                android:id="@+id/stackTraceScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/pluto___margin_micro"
+                app:layout_constraintTop_toBottomOf="@id/stackTraceTitle">
+
+                <TextView
+                    android:id="@+id/stackTrace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli"
+                    android:lineSpacingExtra="6sp"
+                    android:paddingHorizontal="@dimen/pluto___margin_medium"
+                    android:paddingBottom="@dimen/pluto___margin_small"
+                    android:textColor="@color/pluto___text_dark_60"
+                    android:textColorHint="@color/pluto___text_dark_40"
+                    android:textIsSelectable="true" />
+
+            </HorizontalScrollView>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/stackTraceContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="stackTraceTitle,divider0,stackTraceScroll" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
