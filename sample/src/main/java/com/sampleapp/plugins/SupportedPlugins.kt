@@ -1,4 +1,4 @@
-package com.sampleapp
+package com.sampleapp.plugins
 
 import android.content.Context
 import android.content.Intent
@@ -36,9 +36,10 @@ class SupportedPlugins private constructor() {
             }
         }
 
-        private const val NETWORK: String = "network"
-        private const val EXCEPTIONS: String = "exceptions"
-        private const val PREFERENCES: String = "preferences"
-        private const val LOGGER: String = "LOGGER"
+        const val DEMO: String = "demo"
+        const val NETWORK: String = "network"
+        const val EXCEPTIONS: String = "exceptions"
+        const val PREFERENCES: String = "preferences"
+        const val LOGGER: String = "LOGGER"
     }
 }
