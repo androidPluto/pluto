@@ -1,0 +1,7 @@
+ext {
+    plutoVersion = '2.0.0'
+    networkVersion = '2.0.0'
+    loggerVersion = '2.0.0'
+    exceptionsVersion = '2.0.0'
+    preferencesVersion = '2.0.0'
+}
