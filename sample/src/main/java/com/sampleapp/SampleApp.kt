@@ -10,6 +10,11 @@ import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
+import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
+import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
+import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
+import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
+import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -18,11 +23,11 @@ class SampleApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Pluto.Installer(this)
-            .addPlugin(DemoPlugin(DEMO_PLUGIN_ID))
-            .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS_PLUGIN_ID))
-            .addPlugin(PlutoNetworkPlugin(NETWORK_PLUGIN_ID))
-            .addPlugin(PlutoLoggerPlugin(LOGGER_PLUGIN_ID))
-            .addPlugin(PlutoSharePreferencesPlugin(PREF_PLUGIN_ID))
+            .addPlugin(DemoPlugin(DEMO))
+            .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
+            .addPlugin(PlutoNetworkPlugin(NETWORK))
+            .addPlugin(PlutoLoggerPlugin(LOGGER))
+            .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
             .install()
         Pluto.showNotch(true)
 
@@ -45,13 +50,5 @@ class SampleApp : Application() {
             Log.d("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
             exitProcess(0)
         }
-    }
-
-    companion object {
-        const val DEMO_PLUGIN_ID = "demo"
-        const val EXCEPTIONS_PLUGIN_ID = "exceptions"
-        const val NETWORK_PLUGIN_ID = "network"
-        const val LOGGER_PLUGIN_ID = "logger"
-        const val PREF_PLUGIN_ID = "sharedPref"
     }
 }
