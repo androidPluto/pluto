@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:background="@color/pluto___app_bg">
+
+    <TextView
+        android:id="@+id/logtag"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/pluto___margin_small"
+        android:layout_marginTop="@dimen/pluto___margin_medium"
+        android:fontFamily="@font/muli_light"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintEnd_toStartOf="@+id/timestamp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/pluto___margin_small"
+        android:fontFamily="@font/muli"
+        android:textColor="@color/pluto___text_dark_40"
+        android:textSize="@dimen/pluto___text_xxsmall"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logtag"
+        tools:text="12:45:34" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_medium"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli_light"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_xmedium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/timestamp"
+        app:layout_constraintStart_toStartOf="@+id/logtag"
+        app:layout_constraintTop_toBottomOf="@+id/logtag"
+        tools:text="log tag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

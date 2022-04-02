@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/pluto_logger___ic_clear_all"
+        android:title="@string/pluto_logger___delete_console_logs" />
+</menu>

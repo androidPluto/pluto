@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+ext {
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
+    PUBLISH_VERSION = verPublish
+    PUBLISH_ARTIFACT_ID = 'logger-no-op'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode verCode
+        versionName verName
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:$androidXCoreVersion"
+    api 'com.jakewharton.timber:timber:5.0.1'
+}
