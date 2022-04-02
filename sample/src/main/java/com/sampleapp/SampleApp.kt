@@ -1,12 +1,17 @@
 package com.sampleapp
 
 import android.app.Application
+import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
+import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
+import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
+import kotlin.system.exitProcess
+import timber.log.Timber
 
 class SampleApp : Application() {
 
@@ -20,6 +25,26 @@ class SampleApp : Application() {
             .addPlugin(PlutoSharePreferencesPlugin(PREF_PLUGIN_ID))
             .install()
         Pluto.showNotch(true)
+
+        plantPlutoTimber()
+        setExceptionListener()
+    }
+
+    /**
+     * Logger Timber handler
+     */
+    private fun plantPlutoTimber() {
+        Timber.plant(PlutoTimberTree())
+    }
+
+    /**
+     * Exception handler
+     */
+    private fun setExceptionListener() {
+        PlutoExceptions.setExceptionHandler { thread, throwable ->
+            Log.d("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
+            exitProcess(0)
+        }
     }
 
     companion object {
