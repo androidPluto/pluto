@@ -40,9 +40,9 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':pluto')
+    implementation project(path: ':pluto:lib')
 //    implementation project(path: ':pluto-no-op')
-    implementation project(path: ':demo-plugin')
+    implementation project(path: ':plugins:demo:lib')
 //    implementation project(path: ':plugin-logger')
 //    implementation project(path: ':plugin-shared-preferences')
 
