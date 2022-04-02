@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/pluto___margin_xsmall"
+    android:paddingBottom="@dimen/pluto___margin_xlarge"
+    tools:background="@color/pluto___white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/software"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pluto_excep___bg_section_light"
+        android:padding="@dimen/pluto___margin_medium"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_bold"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___app_state_label"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/app_version_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___app_version_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label" />
+
+        <TextView
+            android:id="@+id/appVersion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            tools:text="~~"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/app_version_label"
+            app:layout_constraintTop_toTopOf="@+id/app_version_label" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:background="@color/pluto___dark_05"
+            android:elevation="@dimen/pluto___margin_mini"
+            app:layout_constraintTop_toBottomOf="@id/app_version_label" />
+
+        <TextView
+            android:id="@+id/android_os_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___android_os_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <TextView
+            android:id="@+id/androidOS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="@+id/center_guideline"
+            app:layout_constraintStart_toEndOf="@+id/android_os_label"
+            app:layout_constraintTop_toTopOf="@+id/android_os_label"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/android_api_level_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___android_api_level_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline"
+            android:layout_marginLeft="@dimen/pluto___margin_xsmall"
+            app:layout_constraintTop_toTopOf="@+id/android_os_label" />
+
+        <TextView
+            android:id="@+id/androidAPILevel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/android_api_level_label"
+            app:layout_constraintTop_toTopOf="@+id/android_api_level_label"
+            tools:text="34" />
+
+        <TextView
+            android:id="@+id/orientation_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_small"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___orientation_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/android_os_label" />
+
+        <TextView
+            android:id="@+id/orientation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="@+id/center_guideline"
+            app:layout_constraintStart_toEndOf="@+id/orientation_label"
+            app:layout_constraintTop_toTopOf="@+id/orientation_label"
+            tools:text="portrait" />
+
+        <TextView
+            android:id="@+id/rooted_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___rooted_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline"
+            android:layout_marginLeft="@dimen/pluto___margin_xsmall"
+            app:layout_constraintTop_toTopOf="@+id/orientation_label" />
+
+        <TextView
+            android:id="@+id/rooted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rooted_label"
+            app:layout_constraintTop_toTopOf="@+id/rooted_label"
+            tools:text="false" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_medium"
+        android:background="@drawable/pluto_excep___bg_section_light"
+        android:padding="@dimen/pluto___margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/software">
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_bold"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___device_label"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/build"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            tools:text="Samsung"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_xsmall"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label1" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:background="@color/pluto___dark_05"
+            android:elevation="@dimen/pluto___margin_mini"
+            app:layout_constraintTop_toBottomOf="@id/build" />
+
+        <TextView
+            android:id="@+id/height_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___height_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+        <TextView
+            android:id="@+id/deviceHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="@+id/center_guideline1"
+            app:layout_constraintStart_toEndOf="@+id/height_label"
+            app:layout_constraintTop_toTopOf="@+id/height_label"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/width_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___width_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline1"
+            android:layout_marginLeft="@dimen/pluto___margin_xsmall"
+            app:layout_constraintTop_toTopOf="@+id/height_label" />
+
+        <TextView
+            android:id="@+id/deviceWidth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/width_label"
+            app:layout_constraintTop_toTopOf="@+id/width_label"
+            tools:text="34" />
+
+        <TextView
+            android:id="@+id/density_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_small"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___density_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/height_label" />
+
+        <TextView
+            android:id="@+id/density"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="@+id/center_guideline1"
+            app:layout_constraintStart_toEndOf="@+id/density_label"
+            app:layout_constraintTop_toTopOf="@+id/density_label"
+            tools:text="portrait" />
+
+        <TextView
+            android:id="@+id/size_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_light"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/pluto_excep___size_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline1"
+            android:layout_marginLeft="@dimen/pluto___margin_xsmall"
+            app:layout_constraintTop_toTopOf="@+id/density_label" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_xsmall"
+            android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+            android:fontFamily="@font/muli_semibold"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/pluto___text_dark"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/size_label"
+            app:layout_constraintTop_toTopOf="@+id/size_label"
+            tools:text="false" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
