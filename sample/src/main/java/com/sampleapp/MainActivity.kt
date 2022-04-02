@@ -2,9 +2,11 @@ package com.sampleapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.pluto.Pluto
 import com.sampleapp.databinding.ActivityMainBinding
 import com.sampleapp.list.PluginListAdapter
 import com.sampleapp.list.PluginListItem
+import com.sampleapp.plugins.SupportedPlugins
 import com.sampleapp.utils.DiffAdapter
 import com.sampleapp.utils.DiffAwareHolder
 import com.sampleapp.utils.ListAdapter
@@ -17,14 +19,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-//        val javaTest = JavaTest()
+        val javaTest = JavaTest()
         setContentView(binding.root)
 
         binding.crashList.apply {
             adapter = pluginAdapter
         }
         pluginAdapter.list = SupportedPlugins.get()
-        BuildConfig.VERSION_CODE
+        binding.version.text = "ver ${BuildConfig.VERSION_NAME}"
 
 //        binding.showNotch.setOnClickListener {
 //            if (IS_TESTING_JAVA) {
@@ -42,13 +44,13 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //
-//        binding.openSelector.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.open()
-//            } else {
-//                Pluto.open()
-//            }
-//        }
+        binding.open.setOnClickListener {
+            if (IS_TESTING_JAVA) {
+                javaTest.open()
+            } else {
+                Pluto.open()
+            }
+        }
 //
 //        binding.openDemoPlugin.setOnClickListener {
 //            if (IS_TESTING_JAVA) {
