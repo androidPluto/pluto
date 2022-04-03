@@ -35,4 +35,4 @@ PlutoExceptions.setExceptionHandler { thread, throwable ->
 
 🎉 &nbsp;You are all done!
 
-Now re-build and run your app and open Pluto, you will see the Pluto Exceptions plugin installed.
+Now re-build and run your app and open Pluto, you will see the Exceptions plugin installed.
