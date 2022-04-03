@@ -9,7 +9,7 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 <br><br>
 
-## 🖇 Integrate Pluto in your application
+## 🖇 &nbsp;Integrate Pluto in your application
 
 
 
@@ -20,15 +20,15 @@ Pluto is distributed through [***mavenCentral***](https://search.maven.org/artif
 > Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib:pluto:2.0.0'
-  releaseImplementation 'com.plutolib:pluto-no-op:2.0.0'
+  debugImplementation 'com.plutolib:pluto:2.0.1-beta'
+  releaseImplementation 'com.plutolib:pluto-no-op:2.0.1-beta'
 }
 ```
 
 
-### Intialize Pluto
+### Initialize Pluto
 
-Now to start using Pluto, intialize Pluto SDK from you application class by passing context to it.
+Now to start using Pluto, initialize Pluto SDK from you application class by passing context to it.
 ```kotlin
 Pluto.Installer(this)
   .addPlugin(DemoPlugin("demo_id"))
@@ -42,10 +42,10 @@ Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-
 
 Here is the list of some plugins provided by us
 
-- **[Network Plugin](https://github.com/plutolib/plugin-network)**
-- **[Exceptions & Crashes Plugin](https://github.com/plutolib/plugin-exceptions)**
-- **[Logger Plugin](https://github.com/plutolib/plugin-logger)**
-- **[Shared Preferences Plugin](https://github.com/plutolib/plugin-shared-preferences)**
+- **[Network Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/network/INTEGRATION.md)**
+- **[Exceptions & Crashes Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/exceptions/INTEGRATION.md)**
+- **[Logger Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/logger/INTEGRATION.md)**
+- **[Shared Preferences Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/shared-preferences/INTEGRATION.md)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
@@ -54,14 +54,14 @@ Please refer to their respective README for integration steps.
 
 <br>
 
-🎉 You are all set!
+🎉 &nbsp;You are all set!
 
 Now re-build and run your app, you will receive a notification from Pluto, use it to access Pluto UI.
 
 <br>
 
 
-## 📝 Contribution
+## 📝 &nbsp;Contribution
 
 **We're looking for contributors, help us improve Pluto.** 😁 
 
@@ -70,7 +70,7 @@ Please refer to your [`Contribution guidelines`](/CONTRIBUTING.md) to get starte
 <br>
 
 
-## 📃 License
+## 📃 &nbsp;License
 
 ```
 Copyright 2021 Plutolib.
