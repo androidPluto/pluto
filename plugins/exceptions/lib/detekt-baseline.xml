@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>TopLevelPropertyNaming:DetailsFragment.kt$private const val SHARE_SECTION_DIVIDER = "\n\n==================\n\n"</ID>
+    <ID>TopLevelPropertyNaming:DetailsFragment.kt$private const val STACK_TRACE_LENGTH = 25</ID>
+  </CurrentIssues>
+</SmellBaseline>

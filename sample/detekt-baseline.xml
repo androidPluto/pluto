@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ForbiddenPublicDataClass:PluginListAdapter.kt$PluginListItem$PluginListItem</ID>
+    <ID>TopLevelPropertyNaming:NetworkCalls.kt$private const val CONVERSION_FAILURE = "response_conversion_failure"</ID>
+    <ID>TopLevelPropertyNaming:NetworkCalls.kt$private const val DEFAULT_ERROR_MESSAGE = "Something went wrong!"</ID>
+    <ID>TopLevelPropertyNaming:NetworkCalls.kt$private const val EMPTY_ERROR_MESSAGE = "empty error response"</ID>
+    <ID>TopLevelPropertyNaming:NetworkCalls.kt$private const val UPSTREAM_FAILURE = "upstream_failure"</ID>
+  </CurrentIssues>
+</SmellBaseline>
