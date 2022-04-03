@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import com.pluto.plugin.utilities.list.ListItem
 
 @Keep
-data class SharedPrefFile(
+internal data class SharedPrefFile(
     val label: String,
     val isDefault: Boolean
 ) : ListItem() {
@@ -13,7 +13,7 @@ data class SharedPrefFile(
     }
 }
 
-data class SharedPrefKeyValuePair(
+internal data class SharedPrefKeyValuePair(
     val key: String,
     val value: Any?,
     val prefLabel: String?,
