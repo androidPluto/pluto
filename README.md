@@ -42,10 +42,10 @@ Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-
 
 Here is the list of some plugins provided by us
 
-- **[Network Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/network/INTEGRATION.md)**
-- **[Exceptions & Crashes Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/exceptions/INTEGRATION.md)**
-- **[Logger Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/logger/INTEGRATION.md)**
-- **[Shared Preferences Plugin](https://github.com/plutolib/pluto/blob/plugin_documentation/plugins/shared-preferences/INTEGRATION.md)**
+- **[Network Plugin](plugins/network/INTEGRATION.md)**
+- **[Exceptions & Crashes Plugin](plugins/exceptions/INTEGRATION.md)**
+- **[Logger Plugin](plugins/logger/INTEGRATION.md)**
+- **[Shared Preferences Plugin](plugins/shared-preferences/INTEGRATION.md)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
