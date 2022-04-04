@@ -52,7 +52,7 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
             requireActivity().finish()
         }
         binding.options.setDebounceClickListener {
-            context?.showMoreOptions(it, R.menu.pluto_logger___menu_more_options) { item ->
+            context?.showMoreOptions(it, R.menu.pluto_excep___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.clear -> viewModel.deleteAll()
                 }
