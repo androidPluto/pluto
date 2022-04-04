@@ -17,6 +17,8 @@ import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.logger.R
 import com.pluto.plugins.logger.databinding.PlutoLoggerFragmentListBinding
@@ -31,6 +33,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
     private val binding by viewBinding(PlutoLoggerFragmentListBinding::bind)
     private val viewModel: LogsViewModel by activityViewModels()
     private val logsAdapter: BaseAdapter by lazy { LogsAdapter(onActionListener) }
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +56,9 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         viewModel.logs.removeObserver(logsObserver)
         viewModel.logs.observe(viewLifecycleOwner, logsObserver)
 
+        viewModel.serializedLogs.removeObserver(serializedLogsObserver)
+        viewModel.serializedLogs.observe(viewLifecycleOwner, serializedLogsObserver)
+
         binding.close.setDebounceClickListener {
             activity?.finish()
         }
@@ -60,6 +66,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             context?.showMoreOptions(it, R.menu.pluto_logger___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.clear -> LogsRepo.deleteAll()
+                    R.id.shareAll -> viewModel.serializeLogs()
                 }
             }
         }
@@ -87,6 +94,10 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
 
     private val logsObserver = Observer<List<LogData>> {
         logsAdapter.list = filteredLogs(binding.search.text.toString())
+    }
+
+    private val serializedLogsObserver = Observer<String> {
+        contentSharer.share(Shareable(title = "Share all logs", content = it))
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
