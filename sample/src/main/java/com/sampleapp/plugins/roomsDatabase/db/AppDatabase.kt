@@ -10,7 +10,7 @@ import com.sampleapp.plugins.roomsDatabase.db.entity.User
 @Database(entities = [User::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun personDAO(): UserDAO
+    internal abstract fun personDAO(): UserDAO
 
     companion object {
         const val DB_NAME = "sample_database"
