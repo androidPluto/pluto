@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
 import com.pluto.plugin.utilities.extensions.showMoreOptions
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
@@ -66,7 +67,12 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             context?.showMoreOptions(it, R.menu.pluto_logger___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.clear -> LogsRepo.deleteAll()
-                    R.id.shareAll -> viewModel.serializeLogs()
+                    R.id.shareAll ->
+                        if (viewModel.logs.value?.size ?: 0 > 0) {
+                            viewModel.serializeLogs()
+                        } else {
+                            context?.toast("No logs to share")
+                        }
                 }
             }
         }
@@ -97,7 +103,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
     }
 
     private val serializedLogsObserver = Observer<String> {
-        contentSharer.share(Shareable(title = "Share all logs", content = it))
+        contentSharer.share(Shareable(title = "Share all logs", content = it, fileName = "Log Trace from Pluto"))
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
