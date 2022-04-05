@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.sampleapp.plugins.roomsDatabase.db.entity.User
 
 @Dao
-interface UserDAO {
+internal interface UserDAO {
 
     @Insert
     fun insert(user: User)
