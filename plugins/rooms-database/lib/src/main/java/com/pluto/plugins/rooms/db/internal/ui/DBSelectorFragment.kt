@@ -2,11 +2,13 @@ package com.pluto.plugins.rooms.db.internal.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -77,7 +79,8 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
 //                        viewModel.updateCurrentPref(data)
-//                        findNavController().navigate(R.id.openEditView)
+                        val bundle = bundleOf("dbClass" to data.dbClass, "dbName" to data.dbName)
+                        findNavController().navigate(R.id.openDetails, bundle)
                     }
                 }
             }

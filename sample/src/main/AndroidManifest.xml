@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".plugins.roomsDatabase.RoomsDBActivity"
+            android:exported="false" />
+        <activity
             android:name=".plugins.logger.LoggerActivity"
             android:exported="false" />
         <activity
@@ -23,7 +26,8 @@
         <activity
             android:name=".plugins.exceptions.ExceptionActivity"
             android:exported="false" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
