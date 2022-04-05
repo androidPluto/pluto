@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/openDBSelector"
-        android:name="com.pluto.plugins.rooms.db.DBSelectorFragment"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.DBSelectorFragment"
         android:label="selector" />
 </navigation>
