@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pluto_rooms___navigation.xml"
-    app:startDestination="@id/openDBSelector">
+    app:startDestination="@id/selectorView">
 
     <fragment
-        android:id="@+id/openDBSelector"
+        android:id="@+id/selectorView"
         android:name="com.pluto.plugins.rooms.db.internal.ui.DBSelectorFragment"
-        android:label="selector" />
+        android:label="selector"
+        tools:layout="@layout/pluto_rooms___fragment_db_selector">
+        <action
+            android:id="@+id/openDetails"
+            app:destination="@id/detailsView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment"
+        android:label="detail"
+        tools:layout="@layout/pluto_rooms___fragment_db_details" />
 </navigation>

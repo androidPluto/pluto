@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 apply from: "$rootDir/scripts/build/utils.gradle"
 
@@ -99,4 +100,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+
+    implementation "androidx.room:room-ktx:$roomsVersion"
+    kapt "androidx.room:room-compiler:$roomsVersion"
 }
