@@ -41,5 +41,6 @@ class SupportedPlugins private constructor() {
         const val EXCEPTIONS: String = "exceptions"
         const val PREFERENCES: String = "preferences"
         const val LOGGER: String = "LOGGER"
+        const val DATABASE: String = "rooms-database"
     }
 }

@@ -11,6 +11,8 @@ import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
+import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
+import com.sampleapp.plugins.SupportedPlugins.Companion.DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
@@ -30,6 +32,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
+            .addPlugin(PlutoRoomsDatabasePlugin(DATABASE))
             .install()
         Pluto.showNotch(true)
 

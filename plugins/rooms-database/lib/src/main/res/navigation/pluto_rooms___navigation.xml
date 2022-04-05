@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pluto_rooms___navigation.xml"
+    app:startDestination="@id/openDBSelector">
+
+    <fragment
+        android:id="@+id/openDBSelector"
+        android:name="com.pluto.plugins.rooms.db.DBSelectorFragment"
+        android:label="selector" />
+</navigation>
