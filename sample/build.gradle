@@ -51,6 +51,7 @@ dependencies {
     implementation project(path: ':plugins:logger:lib')
     implementation project(path: ':plugins:network:lib')
     implementation project(path: ':plugins:shared-preferences:lib')
+    implementation project(path: ':plugins:rooms-database:lib')
 
     /**
      * no-op dependencies
