@@ -9,7 +9,7 @@ class DataStorePrefPlugin : Plugin("Bisht") {
 
     override fun getConfig() = PluginConfiguration(
         name = "DataStore - pref",
-        version = "0.1-beta",
+        version = BuildConfig.VERSION_NAME,
         icon = R.drawable.ic_baseline_datastore_24
     )
 

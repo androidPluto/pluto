@@ -3,6 +3,18 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+ext {
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
+    PUBLISH_VERSION = verPublish
+    PUBLISH_ARTIFACT_ID = 'logger'
+}
+
 android {
     compileSdk 32
 
@@ -12,6 +24,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
     buildTypes {
