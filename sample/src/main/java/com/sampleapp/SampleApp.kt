@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
+import com.pluto.plugins.datastore.pref.DataStorePrefPlugin
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
@@ -25,6 +26,7 @@ class SampleApp : Application() {
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO))
             .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
+            .addPlugin(DataStorePrefPlugin())
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
