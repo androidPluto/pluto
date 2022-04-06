@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/pluto___margin_xsmall"
+    android:paddingBottom="@dimen/pluto___margin_medium"
+    tools:background="@color/pluto___white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_small"
+        android:fontFamily="@font/muli_semibold"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_mini"
+        android:fontFamily="@font/muli_light"
+        android:textSize="@dimen/pluto___text_xxsmall"
+        android:textColor="@color/pluto___text_dark_60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:text="log tag" />
+
+    <include
+        android:id="@+id/reportCrash"
+        layout="@layout/pluto_excep___stub_crash_report"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/pluto___margin_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timestamp" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_medium"
+        android:background="@drawable/pluto_excep___bg_section_header"
+        android:fontFamily="@font/muli_semibold"
+        android:lineSpacingExtra="6sp"
+        android:paddingStart="@dimen/pluto___margin_medium"
+        android:paddingTop="@dimen/pluto___margin_medium"
+        android:paddingEnd="@dimen/pluto___margin_medium"
+        android:paddingBottom="@dimen/pluto___margin_small"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintTop_toBottomOf="@+id/reportCrash" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pluto___dp_1"
+        android:background="@color/pluto___dark_05"
+        app:layout_constraintTop_toBottomOf="@id/message" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pluto_excep___bg_section_body"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <TextView
+            android:id="@+id/stackTrace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:lineSpacingExtra="5sp"
+            android:paddingStart="@dimen/pluto___margin_medium"
+            android:paddingEnd="@dimen/pluto___margin_medium"
+            android:paddingBottom="@dimen/pluto___margin_xlarge"
+            android:paddingTop="@dimen/pluto___margin_small"
+            android:textColor="@color/pluto___text_dark_60" />
+
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

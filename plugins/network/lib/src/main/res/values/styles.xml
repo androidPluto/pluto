@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PlutoNetworkBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.9</item>
+        <item name="android:windowFrame">@null</item>
+<!--        <item name="android:windowIsFloating">true</item>-->
+        <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal</item>
+        <item name="dialogTheme">@style/PlutoNetworkSheetDialogTheme</item>
+    </style>
+
+    <style name="PlutoNetworkSheetDialogTheme" parent="PlutoNetworkBottomSheetDialog">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+<!--        <item name="android:windowIsFloating">true</item>-->
+        <item name="android:statusBarColor">@color/pluto___transparent</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="PlutoNetworkTabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextColor">@color/pluto___white_40</item>
+        <item name="tabSelectedTextColor">@color/pluto___white</item>
+        <item name="tabTextAppearance">@style/PlutoNetworkTabStyle</item>
+        <item name="tabPaddingStart">@dimen/pluto___margin_medium</item>
+        <item name="tabPaddingEnd">@dimen/pluto___margin_medium</item>
+    </style>
+
+    <style name="PlutoNetworkTabStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/pluto___text_mini</item>
+        <item name="android:fontFamily">@font/muli_bold</item>
+    </style>
+
+</resources>

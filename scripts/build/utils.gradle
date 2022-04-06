@@ -1,6 +1,6 @@
 ext.genVersion = {
     Properties versionProps = new Properties()
-    versionProps.load(new FileInputStream(file("$project.rootDir/pluto-version.properties")))
+    versionProps.load(new FileInputStream(file("$project.rootDir/version.properties")))
 
     def versionMajor = versionProps['major'].toInteger()
     def versionMinor = versionProps['minor'].toInteger()
@@ -9,7 +9,7 @@ ext.genVersion = {
     def versionChannel = versionProps['channel']
 
     def verCode = (versionMajor * 1000000) + (versionMinor * 10000) + (versionPatch * 100) + versionBuild
-    def verName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
+    def verName = "${versionMajor}.${versionMinor}.${versionPatch}-rc${versionBuild}"
     def verNameShort = "${versionMajor}.${versionMinor}.${versionPatch}"
     def verPublish = "${versionMajor}.${versionMinor}.${versionPatch}"
     if (versionChannel != "release") {

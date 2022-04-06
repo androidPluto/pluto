@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>TopLevelPropertyNaming:BodyTransformer.kt$internal const val BINARY_MEDIA_TYPE = "binary"</ID>
+    <ID>TopLevelPropertyNaming:BodyTransformer.kt$internal const val BODY_INDENTATION = 2</ID>
+    <ID>TopLevelPropertyNaming:BodyTransformer.kt$private const val BINARY_BODY = "~ Binary Data"</ID>
+    <ID>TopLevelPropertyNaming:BodyTransformer.kt$private const val HTTPS_PORT = 443</ID>
+    <ID>TopLevelPropertyNaming:BodyTransformer.kt$private const val HTTP_PORT = 80</ID>
+    <ID>TopLevelPropertyNaming:CustomTabKtx.kt$internal const val CHROME_PACKAGE_NAME = "com.android.chrome"</ID>
+    <ID>TopLevelPropertyNaming:DataConvertor.kt$private const val BUFFER_SIZE = 1024</ID>
+    <ID>TopLevelPropertyNaming:OkHttpKtx.kt$private const val HTTP_CONTINUE = 100</ID>
+    <ID>TopLevelPropertyNaming:ShareHelper.kt$private const val STACK_TRACE_LENGTH = 10</ID>
+  </CurrentIssues>
+</SmellBaseline>

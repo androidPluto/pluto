@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+ext {
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
+    PUBLISH_VERSION = verPublish
+    PUBLISH_ARTIFACT_ID = 'exceptions'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode verCode
+        versionName verName
+
+        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
+        buildConfigField ("long", "VERSION_CODE", "${verCode}")
+        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    resourcePrefix 'pluto_excep___'
+}
+
+dependencies {
+//    implementation 'com.plutolib:plugin:2.0.0'
+    implementation project(path: ':pluto-plugin')
+    implementation "androidx.core:core-ktx:$androidXCoreVersion"
+
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    implementation "androidx.room:room-ktx:$roomsVersion"
+    kapt "androidx.room:room-compiler:$roomsVersion"
+}

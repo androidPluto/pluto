@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:paddingHorizontal="12dp"
+                android:src="@drawable/ic_close"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingVertical="16dp"
+                android:singleLine="true"
+                android:text="Logger"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/close"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <TextView
+            android:id="@+id/logTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pluto Logs"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logDebug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlutoLog Debug"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/logTitle" />
+
+        <Button
+            android:id="@+id/logError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlutoLog Error"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/logDebug" />
+
+        <Button
+            android:id="@+id/logVerbose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlutoLog Verbose"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/logError" />
+
+        <Button
+            android:id="@+id/logInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlutoLog Info"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/logVerbose" />
+
+        <Button
+            android:id="@+id/logEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PlutoLog *EVENT*"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/logInfo" />
+
+        <TextView
+            android:id="@+id/timberTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Timber Logs"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logEvent" />
+
+        <Button
+            android:id="@+id/timberDebug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timber Debug"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/timberTitle" />
+
+        <Button
+            android:id="@+id/timberError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timber Error"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/timberDebug" />
+
+        <Button
+            android:id="@+id/timberVerbose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timber Verbose"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/timberError" />
+
+        <Button
+            android:id="@+id/timberInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timber Info"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/timberVerbose" />
+
+        <Button
+            android:id="@+id/timberEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Timber *EVENT*"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/timberInfo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

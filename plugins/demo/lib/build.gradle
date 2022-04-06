@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: "$rootDir/scripts/build/utils.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode verCode
+        versionName verName
+
+        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    resourcePrefix 'demo___'
+}
+
+dependencies {
+    implementation project(path: ':pluto-plugin')
+    implementation project(path: ':datastore-pref-plugin')
+    implementation ("androidx.datastore:datastore-preferences-core:1.0.0")
+}
