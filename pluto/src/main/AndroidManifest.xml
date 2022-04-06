@@ -7,7 +7,7 @@
 
     <application>
         <activity
-            android:name=".plugins.PluginSelectorActivity"
+            android:name=".plugin.PluginSelectorActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.Selector" />

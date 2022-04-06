@@ -10,14 +10,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.BuildConfig
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
-import com.pluto.plugins.utilities.extensions.dp
-import com.pluto.plugins.utilities.extensions.toast
-import com.pluto.plugins.utilities.list.BaseAdapter
-import com.pluto.plugins.utilities.list.CustomItemDecorator
-import com.pluto.plugins.utilities.list.DiffAwareAdapter
-import com.pluto.plugins.utilities.list.DiffAwareHolder
-import com.pluto.plugins.utilities.list.ListItem
-import com.pluto.plugins.utilities.viewBinding
+import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.plugin.utilities.list.BaseAdapter
+import com.pluto.plugin.utilities.list.CustomItemDecorator
+import com.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.pluto.plugin.utilities.list.DiffAwareHolder
+import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.viewBinding
 
 internal class SettingsFragment : BottomSheetDialogFragment() {
 

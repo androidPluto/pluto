@@ -13,19 +13,19 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pluto.R
 import com.pluto.databinding.PlutoLayoutPluginOptionsDialogBinding
-import com.pluto.plugins.DeveloperDetails
-import com.pluto.plugins.PluginOption
-import com.pluto.plugins.options.PluginOptionAdapter
-import com.pluto.plugins.utilities.device.Device
-import com.pluto.plugins.utilities.extensions.dp
-import com.pluto.plugins.utilities.extensions.inflate
-import com.pluto.plugins.utilities.list.BaseAdapter
-import com.pluto.plugins.utilities.list.CustomItemDecorator
-import com.pluto.plugins.utilities.list.DiffAwareAdapter
-import com.pluto.plugins.utilities.list.DiffAwareHolder
-import com.pluto.plugins.utilities.list.ListItem
-import com.pluto.plugins.utilities.setDebounceClickListener
-import com.pluto.plugins.utilities.spannable.createSpan
+import com.pluto.plugin.DeveloperDetails
+import com.pluto.plugin.PluginOption
+import com.pluto.plugin.options.PluginOptionAdapter
+import com.pluto.plugin.utilities.device.Device
+import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.inflate
+import com.pluto.plugin.utilities.list.BaseAdapter
+import com.pluto.plugin.utilities.list.CustomItemDecorator
+import com.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.pluto.plugin.utilities.list.DiffAwareHolder
+import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.spannable.createSpan
 
 @Deprecated("global level plugin options are no longer supported")
 internal class PluginOptionsDialog(context: Context, onOptionSelected: (String) -> Unit) : BottomSheetDialog(context, R.style.PlutoBottomSheetDialogTheme) {

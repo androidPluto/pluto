@@ -7,12 +7,12 @@ import androidx.lifecycle.LiveData
 import com.pluto.applifecycle.AppLifecycle
 import com.pluto.applifecycle.AppState
 import com.pluto.notch.Notch
-import com.pluto.plugins.Plugin
-import com.pluto.plugins.PluginHelper.Companion.BUNDLE_LABEL
-import com.pluto.plugins.PluginHelper.Companion.ID_LABEL
-import com.pluto.plugins.PluginManager
-import com.pluto.plugins.PluginSelectorActivity
-import com.pluto.plugins.utilities.extensions.toast
+import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
+import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
+import com.pluto.plugin.PluginManager
+import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
 

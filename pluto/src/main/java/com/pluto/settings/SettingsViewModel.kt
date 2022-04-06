@@ -6,8 +6,8 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.pluto.plugins.utilities.SingleLiveEvent
-import com.pluto.plugins.utilities.list.ListItem
+import com.pluto.plugin.utilities.SingleLiveEvent
+import com.pluto.plugin.utilities.list.ListItem
 
 internal class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 

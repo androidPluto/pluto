@@ -5,11 +5,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pluto.R
 import com.pluto.databinding.PlutoItemSettingsEasyAccessAppearanceBinding
-import com.pluto.plugins.utilities.extensions.inflate
-import com.pluto.plugins.utilities.list.DiffAwareAdapter
-import com.pluto.plugins.utilities.list.DiffAwareHolder
-import com.pluto.plugins.utilities.list.ListItem
-import com.pluto.plugins.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.extensions.inflate
+import com.pluto.plugin.utilities.list.DiffAwareAdapter
+import com.pluto.plugin.utilities.list.DiffAwareHolder
+import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.settings.SettingsEasyAccessPopupAppearanceEntity
 import com.pluto.settings.SettingsPreferences
 import com.pluto.settings.canDrawOverlays
