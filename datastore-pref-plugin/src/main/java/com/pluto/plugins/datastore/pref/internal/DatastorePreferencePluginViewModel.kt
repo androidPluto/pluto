@@ -1,4 +1,4 @@
-package com.pluto.plugin.datastore.pref.internal
+package com.pluto.plugins.datastore.pref.internal
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -10,7 +10,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugin.datastore.pref.PlutoDataStoreWatcher
+import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

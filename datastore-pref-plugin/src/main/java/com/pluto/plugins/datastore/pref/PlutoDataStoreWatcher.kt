@@ -1,4 +1,4 @@
-package com.pluto.plugin.datastore.pref
+package com.pluto.plugins.datastore.pref
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

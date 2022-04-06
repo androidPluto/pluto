@@ -1,4 +1,4 @@
-package com.pluto.plugin.datastore.pref.internal.compose
+package com.pluto.plugins.datastore.pref.internal.compose
 
 import androidx.compose.ui.graphics.Color
 

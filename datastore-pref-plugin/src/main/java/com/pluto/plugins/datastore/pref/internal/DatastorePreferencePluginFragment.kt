@@ -1,4 +1,4 @@
-package com.pluto.plugin.datastore.pref.internal
+package com.pluto.plugins.datastore.pref.internal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pluto.plugin.datastore.pref.internal.compose.CommonColors
-import com.pluto.plugin.datastore.pref.internal.compose.DataStorePrefComposable
+import com.pluto.plugins.datastore.pref.internal.compose.CommonColors
+import com.pluto.plugins.datastore.pref.internal.compose.DataStorePrefComposable
 
 internal class DatastorePreferencePluginFragment : Fragment() {
 
