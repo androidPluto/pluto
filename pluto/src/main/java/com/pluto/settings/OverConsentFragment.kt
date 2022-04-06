@@ -8,8 +8,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentOverlayConsentBinding
-import com.pluto.plugin.utilities.setDebounceClickListener
-import com.pluto.plugin.utilities.viewBinding
+import com.pluto.plugins.utilities.setDebounceClickListener
+import com.pluto.plugins.utilities.viewBinding
 
 internal class OverConsentFragment : BottomSheetDialogFragment() {
 

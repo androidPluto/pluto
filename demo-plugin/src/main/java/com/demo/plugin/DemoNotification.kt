@@ -6,8 +6,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.pluto.plugin.PluginHelper
-import com.pluto.plugin.utilities.device.Device
+import com.pluto.plugins.PluginHelper
+import com.pluto.plugins.utilities.device.Device
 
 internal class DemoNotification(private val context: Context) {
 

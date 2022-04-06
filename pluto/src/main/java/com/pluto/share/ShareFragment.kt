@@ -8,11 +8,11 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentShareBinding
-import com.pluto.plugin.utilities.setDebounceClickListener
-import com.pluto.plugin.utilities.sharing.ContentShareViewModel
-import com.pluto.plugin.utilities.sharing.ShareAction
-import com.pluto.plugin.utilities.sharing.Shareable
-import com.pluto.plugin.utilities.viewBinding
+import com.pluto.plugins.utilities.setDebounceClickListener
+import com.pluto.plugins.utilities.sharing.ContentShareViewModel
+import com.pluto.plugins.utilities.sharing.ShareAction
+import com.pluto.plugins.utilities.sharing.Shareable
+import com.pluto.plugins.utilities.viewBinding
 
 internal class ShareFragment : BottomSheetDialogFragment() {
 

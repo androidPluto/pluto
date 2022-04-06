@@ -3,7 +3,7 @@ package com.sampleapp
 import android.app.Application
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
-import com.pluto.plugin.datastore.pref.DataStorePrefPlugin
+import com.pluto.plugins.datastore.pref.DataStorePrefPlugin
 
 class SampleApp : Application() {
 

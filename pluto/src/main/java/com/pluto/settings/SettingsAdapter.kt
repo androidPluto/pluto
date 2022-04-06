@@ -1,9 +1,9 @@
 package com.pluto.settings
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugins.utilities.list.BaseAdapter
+import com.pluto.plugins.utilities.list.DiffAwareHolder
+import com.pluto.plugins.utilities.list.ListItem
 import com.pluto.settings.holders.SettingsEasyAccessHolder
 import com.pluto.settings.holders.SettingsEasyAccessPopupAppearanceHolder
 import com.pluto.settings.holders.SettingsResetAllHolder

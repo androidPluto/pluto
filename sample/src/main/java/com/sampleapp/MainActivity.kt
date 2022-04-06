@@ -11,7 +11,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
-import com.pluto.plugin.datastore.pref.PlutoDataStoreWatcher
+import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import com.sampleapp.SampleApp.Companion.DEMO_PLUGIN_ID
 import com.sampleapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
