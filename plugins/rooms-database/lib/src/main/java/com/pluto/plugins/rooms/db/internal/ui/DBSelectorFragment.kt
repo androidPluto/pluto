@@ -23,6 +23,8 @@ import com.pluto.plugins.rooms.db.Session
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbSelectorBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBViewModel
+import com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment.Companion.DB_CLASS
+import com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment.Companion.DB_NAME
 
 class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
@@ -78,8 +80,7 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
             if (data is DatabaseModel) {
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
-//                        viewModel.updateCurrentPref(data)
-                        val bundle = bundleOf("dbClass" to data.dbClass, "dbName" to data.dbName)
+                        val bundle = bundleOf(DB_CLASS to data.dbClass, DB_NAME to data.dbName)
                         findNavController().navigate(R.id.openDetails, bundle)
                     }
                 }
