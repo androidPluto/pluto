@@ -2,7 +2,6 @@ package com.sampleapp.plugins.roomsDatabase
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.pluto.plugins.rooms.db.PlutoRoomsDB
 import com.sampleapp.databinding.ActivityRoomsDbBinding
 import com.sampleapp.plugins.roomsDatabase.db.AppDatabase
 import com.sampleapp.plugins.roomsDatabase.db.entity.User
@@ -21,8 +20,6 @@ class RoomsDBActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityRoomsDbBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        PlutoRoomsDB.watch(AppDatabase::class.java, AppDatabase.DB_NAME)
 
         binding.insert.setOnClickListener {
             val name = "User${Random().nextInt(range)}"

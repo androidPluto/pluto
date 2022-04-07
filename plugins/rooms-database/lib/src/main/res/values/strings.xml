@@ -2,4 +2,6 @@
     <string name="pluto_rooms___plugin_name">Rooms Database</string>
     <string name="pluto_rooms___no_db_watched">No Rooms Databases\nbeing watched.</string>
     <string name="pluto_rooms___search_database">Search Database</string>
+    <string name="pluto_rooms___no_data_filter_applied">No filter applied.</string>
+    <string name="pluto_rooms___apply_filter">Apply Filter</string>
 </resources>

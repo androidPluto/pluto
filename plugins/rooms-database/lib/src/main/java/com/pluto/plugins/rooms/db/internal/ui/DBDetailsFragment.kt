@@ -19,7 +19,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             val dbClass = it.get(DB_CLASS)
             val dbName = it.getString(DB_NAME)
             if (dbClass != null && dbName != null) {
-                return DatabaseModel(dbClass as Class<*>, dbName)
+                return DatabaseModel(dbName, dbClass as Class<*>)
             }
             return null
         }
