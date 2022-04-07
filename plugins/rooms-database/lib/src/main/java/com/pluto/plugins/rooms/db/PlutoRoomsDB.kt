@@ -22,7 +22,7 @@ object PlutoRoomsDB {
         watchList.update { oldSet ->
             mutableSetOf<DatabaseModel>().apply {
                 oldSet.forEach {
-                    if (it.dbName != name) add(it)
+                    if (it.name != name) add(it)
                 }
             }
         }

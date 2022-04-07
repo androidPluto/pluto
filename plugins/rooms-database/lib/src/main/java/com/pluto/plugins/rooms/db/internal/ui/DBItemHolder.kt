@@ -20,7 +20,7 @@ internal class DBItemHolder(
 
     override fun onBind(item: ListItem) {
         if (item is DatabaseModel) {
-            value.text = item.dbName
+            value.text = item.name
             binding.root.setDebounceClickListener {
                 onAction("click")
             }

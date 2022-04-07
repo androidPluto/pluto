@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal
+package com.pluto.plugins.rooms.db.internal.core
 
 import android.content.Context
 import android.graphics.Color
@@ -14,7 +14,7 @@ import com.pluto.plugins.rooms.db.R
  * A custom [TableLayout] class having functionality for creating table by using given rows and columns.
  *
  */
-class TableView(context: Context) : TableLayout(context) {
+class DBRowView(context: Context) : TableLayout(context) {
 
     private val tableRowMinHeight by lazy {
         context.resources.getDimension(R.dimen.pluto___margin_vxlarge).toInt()
@@ -80,24 +80,19 @@ class TableView(context: Context) : TableLayout(context) {
     /**
      * Creates a table with provided values.
      *
-     * @param columnNames list of column names
+     * @param column list of column names
      * @param rows list of rows, each row contains list of fields
-     * @param onClickAction function to get called on clicking the row
-     * @param onLongClickAction function to get called on long clicking the row
+     * @param onClick function to get called on clicking the row
+     * @param onLongClick function to get called on long clicking the row
      * @return [TableLayout] containing rows and columns filled with the provided values
      */
-    fun create(
-        columnNames: List<String>,
-        rows: List<List<String>>,
-        onClickAction: (pos: Int) -> Unit,
-        onLongClickAction: (pos: Int) -> Unit
-    ): TableView {
-        addView(tableRow(columnNames, true))
+    fun create(column: List<String>, rows: List<List<String>>, onClick: (Int) -> Unit, onLongClick: (Int) -> Unit): DBRowView {
+        addView(tableRow(column, true))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list, false).apply {
-                setOnClickListener { onClickAction(index) }
+                setOnClickListener { onClick(index) }
                 setOnLongClickListener {
-                    onLongClickAction(index)
+                    onLongClick(index)
                     true
                 }
                 if (index % 2 != 0) {
