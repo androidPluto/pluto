@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.query
+package com.pluto.plugins.rooms.db.internal.core.query
 
 import android.content.Context
 import androidx.room.Room
@@ -22,11 +22,7 @@ object QueryExecutor {
      * @param databaseClass a subclass of [RoomDatabase] registered in [Room] with @Database annotation
      * @param databaseName name of [RoomDatabase] class
      */
-    fun init(
-        context: Context,
-        databaseClass: Class<out RoomDatabase>,
-        databaseName: String
-    ) {
+    fun init(context: Context, databaseName: String, databaseClass: Class<out RoomDatabase>) {
         val roomDatabase = Room.databaseBuilder(context, databaseClass, databaseName).build()
         database = roomDatabase.openHelper.writableDatabase
     }
@@ -38,12 +34,8 @@ object QueryExecutor {
      * @param onSuccess action to be executed if [query] returns result
      * @param onError action to be executed if [query] execution failed
      */
-    @SuppressWarnings("TooGenericExceptionCaught", "SwallowedException", "PrintStackTrace", "NestedBlockDepth")
-    internal fun query(
-        query: String,
-        onSuccess: (RowsAndColumns) -> Unit,
-        onError: (e: Exception) -> Unit
-    ) = try {
+    @SuppressWarnings("TooGenericExceptionCaught", "NestedBlockDepth")
+    internal fun query(query: String, onSuccess: (RowsAndColumns) -> Unit, onError: (Exception) -> Unit) = try {
         val c = database.query(query, null)
         if (null == c) {
             onError(java.lang.Exception())
@@ -59,7 +51,7 @@ object QueryExecutor {
                         val value = c.getString(i)
                         rowValues.add(value)
                     } catch (e: Exception) {
-                        e.printStackTrace()
+                        onError(e)
                     }
                 }
                 if (rowValues.isNotEmpty()) {
@@ -75,7 +67,7 @@ object QueryExecutor {
             )
         }
     } catch (ex: Exception) {
-        onError(ex).also { ex.printStackTrace() }
+        onError(ex)
     }
 
     /**
@@ -85,14 +77,10 @@ object QueryExecutor {
      * @param onSuccess action to be executed if [query] executed successfully
      * @param onError action to be executed if [query] execution failed
      */
-    @SuppressWarnings("TooGenericExceptionCaught", "PrintStackTrace")
-    internal fun execute(
-        query: String,
-        onSuccess: () -> Unit,
-        onError: (e: Exception) -> Unit
-    ) = try {
+    @SuppressWarnings("TooGenericExceptionCaught")
+    internal fun execute(query: String, onSuccess: () -> Unit, onError: (Exception) -> Unit) = try {
         database.execSQL(query).also { onSuccess() }
     } catch (ex: Exception) {
-        onError(ex).also { ex.printStackTrace() }
+        onError(ex)
     }
 }

@@ -3,15 +3,47 @@ package com.pluto.plugins.rooms.db.internal.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.room.RoomDatabase
+import com.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.spannable.setSpan
+import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
+import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
+import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
+import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
+import java.lang.Exception
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
-    private var requestConfig: DatabaseModel? = null
+    private val binding by viewBinding(PlutoRoomsFragmentDbDetailsBinding::bind)
+    private val viewModel: RoomsDBDetailsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requestConfig = convertArguments(arguments)
+        convertArguments(arguments)?.let { dbConfig ->
+            QueryExecutor.init(requireContext(), dbConfig.name, dbConfig.dbClass)
+            binding.dbName.setSpan {
+                append(getString(R.string.pluto_rooms___db_title))
+                append(bold(" ${dbConfig.name}".uppercase()))
+            }
+            viewModel.fetchTables()
+
+            viewModel.tables.removeObserver(tableListObserver)
+            viewModel.tables.observe(viewLifecycleOwner, tableListObserver)
+        } ?: requireActivity().onBackPressed()
+    }
+
+    private val tableListObserver = Observer<Pair<List<String>, Exception?>> {
+        it.second?.let { } ?: processTableList(it.first)
+    }
+
+    private fun processTableList(list: List<String>) {
+        list.forEach {
+            DebugLog.d("prateek", "$it, ${isSystemTable(it)}")
+        }
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {
@@ -19,7 +51,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             val dbClass = it.get(DB_CLASS)
             val dbName = it.getString(DB_NAME)
             if (dbClass != null && dbName != null) {
-                return DatabaseModel(dbName, dbClass as Class<*>)
+                return DatabaseModel(dbName, dbClass as Class<out RoomDatabase>)
             }
             return null
         }

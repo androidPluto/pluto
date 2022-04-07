@@ -52,8 +52,8 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
             }
         }
         binding.search.setText(Session.searchText)
-        viewModel.dbs.removeObserver(sharedPrefObserver)
-        viewModel.dbs.observe(viewLifecycleOwner, sharedPrefObserver)
+        viewModel.dbs.removeObserver(dbListObserver)
+        viewModel.dbs.observe(viewLifecycleOwner, dbListObserver)
 
         binding.close.setDebounceClickListener {
             activity?.finish()
@@ -64,14 +64,14 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
         var list = emptyList<DatabaseModel>()
         viewModel.dbs.value?.let {
             list = it.filter { pref ->
-                pref.dbName.contains(search, true)
+                pref.name.contains(search, true)
             }
         }
         binding.noItemText.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         return list
     }
 
-    private val sharedPrefObserver = Observer<List<DatabaseModel>> {
+    private val dbListObserver = Observer<List<DatabaseModel>> {
         prefAdapter.list = filteredDBs(binding.search.text.toString())
     }
 
@@ -80,7 +80,7 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
             if (data is DatabaseModel) {
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
-                        val bundle = bundleOf(DB_CLASS to data.dbClass, DB_NAME to data.dbName)
+                        val bundle = bundleOf(DB_CLASS to data.dbClass, DB_NAME to data.name)
                         findNavController().navigate(R.id.openDetails, bundle)
                     }
                 }
