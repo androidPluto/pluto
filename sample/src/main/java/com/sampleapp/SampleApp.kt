@@ -11,6 +11,7 @@ import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
+import com.pluto.plugins.rooms.db.PlutoRoomsDB
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
@@ -18,6 +19,7 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
+import com.sampleapp.plugins.roomsDatabase.db.AppDatabase
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -38,6 +40,14 @@ class SampleApp : Application() {
 
         plantPlutoTimber()
         setExceptionListener()
+        watchRoomsDatabase()
+    }
+
+    /**
+     * Rooms database handler
+     */
+    private fun watchRoomsDatabase() {
+        PlutoRoomsDB.watch(AppDatabase.DB_NAME, AppDatabase::class.java)
     }
 
     /**

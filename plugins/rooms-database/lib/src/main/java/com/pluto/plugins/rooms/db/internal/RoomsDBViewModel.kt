@@ -13,6 +13,6 @@ internal class RoomsDBViewModel(application: Application) : AndroidViewModel(app
     private val _dbs = MutableLiveData<List<DatabaseModel>>()
 
     fun fetch() {
-        _dbs.postValue(PlutoRoomsDB.watchList)
+        _dbs.postValue(PlutoRoomsDB.watchList.value.toList())
     }
 }
