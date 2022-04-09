@@ -2,7 +2,10 @@ package com.pluto.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
@@ -28,7 +31,13 @@ class PlutoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = PlutoActivityPlutoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+        )
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.pluto___dark_20)
         sharer.data.observe(this) {
             val shareFragment = ShareFragment()
             shareFragment.arguments = Bundle().apply {

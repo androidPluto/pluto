@@ -1,6 +1,7 @@
 package com.pluto.plugins.datastore.pref.internal.compose
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,22 +13,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Divider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.sp
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.internal.PrefElement
 import com.pluto.plugins.datastore.pref.internal.Type
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 @Preview("normal item")
@@ -83,16 +85,14 @@ internal fun PrefListItem(
     element: PrefElement,
     modifier: Modifier = Modifier,
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
-    updateValue: (PrefElement, String) -> Unit = { _, _ -> }
+    updateValue: (PrefElement, String) -> Unit = { _, _ -> },
+    onFocus: () -> Unit = {},
 ) {
     val isEditing =
         editableItem.value?.name == element.prefName && editableItem.value?.key == element.key
-
     val newValue = remember {
         mutableStateOf(TextFieldValue(element.value, TextRange(element.value.length)))
     }
-    val focusRequester = remember { FocusRequester() }
-
     Column(
         modifier = modifier
             .animateContentSize()
@@ -136,8 +136,8 @@ internal fun PrefListItem(
             updateValue = updateValue,
             isEditing = isEditing,
             newValue = newValue,
-            focusRequester = focusRequester,
-            editableItem = editableItem
+            editableItem = editableItem,
+            onFocus = onFocus
         )
         Divider(Modifier.padding(top = 8.dp), color = CommonColors.dividerColor)
     }
@@ -149,9 +149,10 @@ private fun Element(
     updateValue: (PrefElement, String) -> Unit,
     isEditing: Boolean = false,
     newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
-    focusRequester: FocusRequester = FocusRequester(),
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
+    onFocus: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     if (isEditing) {
         Row(
@@ -166,13 +167,22 @@ private fun Element(
                 modifier = Modifier
                     .focusTarget()
                     .focusRequester(focusRequester)
+                    .onFocusEvent {
+                        if (it.isFocused) {
+                            onFocus()
+                        }
+                    }
                     .weight(1f),
                 onValueChange = { input ->
                     newValue.value = input
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     autoCorrect = false,
-                    keyboardType = KeyboardType.Text,
+                    keyboardType = when(element.type){
+                        Type.TypeString, Type.TypeBoolean -> KeyboardType.Text
+                        Type.TypeLong, Type.TypeFloat -> KeyboardType.Number
+                        else -> KeyboardType.Text
+                    } ,
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(
@@ -183,7 +193,19 @@ private fun Element(
                     }
                 )
             )
-            EditableElementCta(element, newValue, editableItem, updateValue)
+            EditableElementCta(
+                onSave = {
+                    updateValue(element, newValue.value.text)
+                    editableItem.value = null
+                },
+                onCancel = {
+                    editableItem.value = null
+                    newValue.value = TextFieldValue(
+                        element.value,
+                        TextRange(element.value.length)
+                    )
+                }
+            )
         }
     } else {
         Text(
@@ -203,10 +225,8 @@ private fun Element(
 
 @Composable
 private fun EditableElementCta(
-    element: PrefElement,
-    newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
-    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
-    updateValue: (PrefElement, String) -> Unit
+    onSave: () -> Unit,
+    onCancel: () -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -214,13 +234,7 @@ private fun EditableElementCta(
     ) {
         Image(
             modifier = Modifier
-                .clickable {
-                    editableItem.value = null
-                    newValue.value = TextFieldValue(
-                        element.value,
-                        TextRange(element.value.length)
-                    )
-                }
+                .clickable(onClick = onCancel)
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 10.dp, bottom = 4.dp),
@@ -229,10 +243,7 @@ private fun EditableElementCta(
         )
         Image(
             modifier = Modifier
-                .clickable {
-                    updateValue(element, newValue.value.text)
-                    editableItem.value = null
-                }
+                .clickable(onClick = onSave)
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 4.dp, bottom = 10.dp),

@@ -15,7 +15,8 @@
             android:name=".ui.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/PlutoTheme.NoActionBar" />
+            android:theme="@style/PlutoTheme.NoActionBar"
+            android:windowSoftInputMode="stateUnspecified|adjustResize" />
 
         <provider
             android:name=".PlutoFileProvider"
