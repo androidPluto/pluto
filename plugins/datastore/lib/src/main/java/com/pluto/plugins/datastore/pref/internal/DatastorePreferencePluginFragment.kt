@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -41,15 +40,19 @@ internal class DatastorePreferencePluginFragment : Fragment() {
                     it,
                     modifier = Modifier
                         .background(CommonColors.background)
-                        .padding(top = with(LocalDensity.current) {
-                            insets.value.top.toDp()
-                        }),
+                        .padding(
+                            top = with(LocalDensity.current) {
+                                insets.value.top.toDp()
+                            }
+                        ),
                     onExit = {
                         activity?.finish()
                     },
-                    listContentPadding = PaddingValues(bottom = with(LocalDensity.current) {
-                        insets.value.bottom.toDp()
-                    }),
+                    listContentPadding = PaddingValues(
+                        bottom = with(LocalDensity.current) {
+                            insets.value.bottom.toDp()
+                        }
+                    ),
                     updateValue = viewModel.updateValue
                 )
             }
@@ -71,4 +74,3 @@ internal class DatastorePreferencePluginFragment : Fragment() {
         }
     }
 }
-
