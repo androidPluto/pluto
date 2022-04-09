@@ -4,23 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pluto.plugins.datastore.pref.internal.compose.CommonColors
 import com.pluto.plugins.datastore.pref.internal.compose.DataStorePrefComposable
+import com.pluto.plugins.datastore.pref.internal.compose.FilterView
 import kotlin.math.max
+import kotlinx.coroutines.flow.update
 
 internal class DatastorePreferencePluginFragment : Fragment() {
 
@@ -34,27 +35,28 @@ internal class DatastorePreferencePluginFragment : Fragment() {
     ) = ComposeView(context = context!!).apply {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindow)
         setContent {
-            val state = viewModel.output.collectAsState(initial = null)
-            state.value?.let {
-                DataStorePrefComposable(
-                    it,
-                    modifier = Modifier
-                        .background(CommonColors.background)
-                        .padding(
-                            top = with(LocalDensity.current) {
-                                insets.value.top.toDp()
-                            }
-                        ),
-                    onExit = {
-                        activity?.finish()
-                    },
-                    listContentPadding = PaddingValues(
-                        bottom = with(LocalDensity.current) {
-                            insets.value.bottom.toDp()
-                        }
-                    ),
-                    updateValue = viewModel.updateValue
-                )
+            MaterialTheme {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                ) {
+                    val state = viewModel.output.collectAsState(initial = null)
+                    state.value?.let {
+                        DataStorePrefComposable(
+                            data = it,
+                            insets = insets,
+                            onExit = { activity?.finish() },
+                            onFilterClick = { viewModel.showFilterView.update { true } },
+                            updateValue = viewModel.updateValue
+                        )
+                    }
+                    FilterView(
+                        showFilterState = viewModel.showFilterView,
+                        filterState = viewModel.filteredPref,
+                        insets = insets,
+                    )
+                }
             }
         }
     }

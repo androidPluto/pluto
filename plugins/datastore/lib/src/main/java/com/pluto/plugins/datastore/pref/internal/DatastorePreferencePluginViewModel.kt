@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.map
@@ -21,39 +22,53 @@ import kotlinx.coroutines.launch
 @OptIn(FlowPreview::class)
 internal class DatastorePreferencePluginViewModel : ViewModel() {
 
-    internal val output: Flow<List<PrefUiModel>>
+    internal val output = MutableStateFlow<List<PrefUiModel>>(listOf())
+    internal val filteredPref = MutableStateFlow<Map<String, Boolean>>(mapOf())
+    internal val showFilterView: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val expandedMap = mutableMapOf<String, MutableState<Boolean>>()
 
     init {
-        output = PlutoDataStoreWatcher.sources.map { list ->
-            list.map { prefHolder ->
-                prefHolder.preferences.data.map { pref ->
-                    pref to prefHolder.name
+        viewModelScope.launch {
+            PlutoDataStoreWatcher.sources.map { list ->
+                filteredPref.value = list.associate {
+                    it.name to (filteredPref.value[it.name] ?: true)
                 }
-            }
-        }.map { listFlows ->
-            combine(
-                flows = listFlows,
-                transform = { listPreferences ->
-                    listPreferences.map { namePrefPair ->
-                        PrefUiModel(
-                            name = namePrefPair.second,
-                            data = namePrefPair.first.asMap().map { entry ->
-                                PrefElement(
-                                    key = entry.key.toString(),
-                                    value = entry.value.toString(),
-                                    type = Type.type(entry.value),
-                                    prefName = namePrefPair.second
-                                )
-                            },
-                            isExpanded = expandedMap.getOrPut(namePrefPair.second) {
-                                mutableStateOf(false)
-                            }
-                        )
+                list.map { prefHolder ->
+                    prefHolder.preferences.data.map { pref ->
+                        pref to prefHolder.name
                     }
                 }
-            )
-        }.flattenMerge()
+            }.map { listFlows ->
+                combine(
+                    flows = listFlows,
+                    transform = { listPreferences ->
+                        listPreferences.map { namePrefPair ->
+                            PrefUiModel(
+                                name = namePrefPair.second,
+                                data = namePrefPair.first.asMap().map { entry ->
+                                    PrefElement(
+                                        key = entry.key.toString(),
+                                        value = entry.value.toString(),
+                                        type = Type.type(entry.value),
+                                        prefName = namePrefPair.second
+                                    )
+                                },
+                                isExpanded = expandedMap.getOrPut(namePrefPair.second) {
+                                    mutableStateOf(false)
+                                }
+                            )
+                        }
+                    }
+                )
+            }.flattenMerge()
+                .combine(filteredPref) { prefList, filterMap ->
+                    prefList.filter {
+                        filterMap[it.name] ?: true
+                    }
+                }.collect { list ->
+                    output.value = list
+                }
+        }
     }
 
     val updateValue: (PrefElement, String) -> Unit = { preferenceElement, value ->
@@ -79,40 +94,6 @@ internal class DatastorePreferencePluginViewModel : ViewModel() {
                     }
                 }
             }
-        }
-    }
-}
-
-data class PrefUiModel(
-    val name: String,
-    val data: List<PrefElement>,
-    val isExpanded: MutableState<Boolean> = mutableStateOf(true)
-)
-
-data class PrefElement(
-    val prefName: String,
-    val key: String,
-    val value: String,
-    val type: Type
-)
-
-sealed class Type(val displayText: String) {
-
-    object TypeString : Type("string")
-    object TypeBoolean : Type("boolean")
-    object TypeDouble : Type("double")
-    object TypeFloat : Type("float")
-    object TypeLong : Type("long")
-    object TypeUnknown : Type("unknown")
-
-    companion object {
-        fun <K> type(obj: K) = when (obj) {
-            is String -> TypeString
-            is Boolean -> TypeBoolean
-            is Double -> TypeDouble
-            is Long -> TypeLong
-            is Float -> TypeFloat
-            else -> TypeUnknown
         }
     }
 }
