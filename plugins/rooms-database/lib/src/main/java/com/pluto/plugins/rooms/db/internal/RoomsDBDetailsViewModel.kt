@@ -14,6 +14,10 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _tables
     private val _tables = MutableLiveData<Pair<List<String>, Exception?>>()
 
+    val currentTable: LiveData<String>
+        get() = _currentTable
+    private val _currentTable = MutableLiveData<String>()
+
     fun fetchTables() {
         val tables = arrayListOf<String>()
         QueryExecutor.query(
@@ -28,5 +32,9 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
                 _tables.postValue(Pair(emptyList(), it))
             }
         )
+    }
+
+    fun selectTable(table: String) {
+        _currentTable.postValue(table)
     }
 }

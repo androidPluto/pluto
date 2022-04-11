@@ -5,4 +5,5 @@
     <string name="pluto_rooms___no_data_filter_applied">No filter applied.</string>
     <string name="pluto_rooms___apply_filter">Apply Filter</string>
     <string name="pluto_rooms___db_title">showing tables from</string>
+    <string name="pluto_rooms___select_table">Select Table</string>
 </resources>
