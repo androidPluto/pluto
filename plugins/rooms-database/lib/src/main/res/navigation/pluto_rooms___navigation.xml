@@ -19,5 +19,13 @@
         android:id="@+id/detailsView"
         android:name="com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment"
         android:label="detail"
-        tools:layout="@layout/pluto_rooms___fragment_db_details" />
+        tools:layout="@layout/pluto_rooms___fragment_db_details">
+        <action
+            android:id="@+id/openTableSelector"
+            app:destination="@id/tableSelectorView" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/tableSelectorView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSelectorFragment" />
 </navigation>
