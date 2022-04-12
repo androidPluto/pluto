@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -83,16 +84,14 @@ internal fun PrefListItem(
     element: PrefElement,
     modifier: Modifier = Modifier,
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
-    updateValue: (PrefElement, String) -> Unit = { _, _ -> }
+    updateValue: (PrefElement, String) -> Unit = { _, _ -> },
+    onFocus: () -> Unit = {},
 ) {
     val isEditing =
         editableItem.value?.name == element.prefName && editableItem.value?.key == element.key
-
     val newValue = remember {
         mutableStateOf(TextFieldValue(element.value, TextRange(element.value.length)))
     }
-    val focusRequester = remember { FocusRequester() }
-
     Column(
         modifier = modifier
             .animateContentSize()
@@ -136,8 +135,8 @@ internal fun PrefListItem(
             updateValue = updateValue,
             isEditing = isEditing,
             newValue = newValue,
-            focusRequester = focusRequester,
-            editableItem = editableItem
+            editableItem = editableItem,
+            onFocus = onFocus
         )
         Divider(Modifier.padding(top = 8.dp), color = CommonColors.dividerColor)
     }
@@ -149,42 +148,19 @@ private fun Element(
     updateValue: (PrefElement, String) -> Unit,
     isEditing: Boolean = false,
     newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
-    focusRequester: FocusRequester = FocusRequester(),
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
+    onFocus: () -> Unit,
 ) {
-    val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
     if (isEditing) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 24.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            OutlinedTextField(
-                value = newValue.value,
-                modifier = Modifier
-                    .focusTarget()
-                    .focusRequester(focusRequester)
-                    .weight(1f),
-                onValueChange = { input ->
-                    newValue.value = input
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    autoCorrect = false,
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                        updateValue(element, newValue.value.text)
-                        editableItem.value = null
-                    }
-                )
-            )
-            EditableElementCta(element, newValue, editableItem, updateValue)
-        }
+        EditableField(
+            newValue,
+            focusRequester,
+            onFocus,
+            element,
+            updateValue,
+            editableItem
+        )
     } else {
         Text(
             text = element.value,
@@ -202,11 +178,73 @@ private fun Element(
 }
 
 @Composable
-private fun EditableElementCta(
-    element: PrefElement,
+private fun EditableField(
     newValue: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
-    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
-    updateValue: (PrefElement, String) -> Unit
+    focusRequester: FocusRequester,
+    onFocus: () -> Unit = {},
+    element: PrefElement,
+    updateValue: (PrefElement, String) -> Unit,
+    editableItem: MutableState<PreferenceKey?> = mutableStateOf(null)
+) {
+    val focusManager = LocalFocusManager.current
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 24.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        OutlinedTextField(
+            value = newValue.value,
+            modifier = Modifier
+                .focusTarget()
+                .focusRequester(focusRequester)
+                .onFocusEvent {
+                    if (it.isFocused) {
+                        onFocus()
+                    }
+                }
+                .weight(1f),
+            onValueChange = { input ->
+                newValue.value = input
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                autoCorrect = false,
+                keyboardType = when (element.type) {
+                    Type.TypeString, Type.TypeBoolean -> KeyboardType.Text
+                    Type.TypeLong, Type.TypeFloat -> KeyboardType.Number
+                    else -> KeyboardType.Text
+                },
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                    updateValue(element, newValue.value.text)
+                    editableItem.value = null
+                }
+            )
+        )
+        EditableElementCta(
+            onSave = {
+                updateValue(element, newValue.value.text)
+                editableItem.value = null
+            },
+            onCancel = {
+                editableItem.value = null
+                newValue.value = TextFieldValue(
+                    element.value,
+                    TextRange(element.value.length)
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun EditableElementCta(
+    onSave: () -> Unit,
+    onCancel: () -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -214,13 +252,7 @@ private fun EditableElementCta(
     ) {
         Image(
             modifier = Modifier
-                .clickable {
-                    editableItem.value = null
-                    newValue.value = TextFieldValue(
-                        element.value,
-                        TextRange(element.value.length)
-                    )
-                }
+                .clickable(onClick = onCancel)
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 10.dp, bottom = 4.dp),
@@ -229,10 +261,7 @@ private fun EditableElementCta(
         )
         Image(
             modifier = Modifier
-                .clickable {
-                    updateValue(element, newValue.value.text)
-                    editableItem.value = null
-                }
+                .clickable(onClick = onSave)
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 4.dp, bottom = 10.dp),

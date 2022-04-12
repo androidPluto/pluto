@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -66,16 +67,20 @@ private fun DataStorePrefItemPreview() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class) // for stickyHeader
 internal fun LazyListScope.dataStorePrefItems(
     data: PrefUiModel,
     editableItem: MutableState<PreferenceKey?> = mutableStateOf(null),
-    updateValue: (PrefElement, String) -> Unit = { _, _ -> }
+    updateValue: (PrefElement, String) -> Unit = { _, _ -> },
+    onFocus: (String) -> Unit = {}
 ) {
-    item(data.name + "title") {
+    stickyHeader(data.name + "title") {
         Column(
-            modifier = Modifier.clickable {
-                data.isExpanded.value = !data.isExpanded.value
-            }
+            modifier = Modifier
+                .clickable {
+                    data.isExpanded.value = !data.isExpanded.value
+                }
+                .background(CommonColors.background)
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -111,7 +116,7 @@ internal fun LazyListScope.dataStorePrefItems(
         }
     }
     data.data.forEach { element ->
-        item(element.key) {
+        item(data.name + element.key) {
             AnimatedVisibility(
                 visible = data.isExpanded.value,
                 enter = expandVertically(expandFrom = Alignment.CenterVertically),
@@ -120,7 +125,10 @@ internal fun LazyListScope.dataStorePrefItems(
                 PrefListItem(
                     element = element,
                     editableItem = editableItem,
-                    updateValue = updateValue
+                    updateValue = updateValue,
+                    onFocus = {
+                        onFocus(data.name + element.key)
+                    }
                 )
             }
         }
