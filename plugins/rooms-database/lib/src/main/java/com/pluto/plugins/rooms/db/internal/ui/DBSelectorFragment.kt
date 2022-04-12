@@ -30,13 +30,13 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
     private val viewModel: RoomsDBViewModel by activityViewModels()
 
-    private val prefAdapter: BaseAdapter by lazy { RoomsDBAdapter(onActionListener) }
+    private val dbAdapter: BaseAdapter by lazy { RoomsDBAdapter(onActionListener) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetch()
         binding.list.apply {
-            adapter = prefAdapter
+            adapter = dbAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
 
@@ -44,7 +44,7 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
                     Session.searchText = it
-                    prefAdapter.list = filteredDBs(it)
+                    dbAdapter.list = filteredDBs(it)
                     if (it.isEmpty()) {
                         binding.list.linearLayoutManager()?.scrollToPositionWithOffset(0, 0)
                     }
@@ -72,7 +72,7 @@ class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector)
     }
 
     private val dbListObserver = Observer<List<DatabaseModel>> {
-        prefAdapter.list = filteredDBs(binding.search.text.toString())
+        dbAdapter.list = filteredDBs(binding.search.text.toString())
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
