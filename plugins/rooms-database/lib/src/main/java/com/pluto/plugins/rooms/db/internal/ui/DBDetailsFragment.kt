@@ -8,7 +8,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
-import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
@@ -16,9 +15,8 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
-import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
-import java.lang.Exception
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
@@ -40,25 +38,24 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 append(getString(R.string.pluto_rooms___db_title))
                 append(bold(" ${dbConfig.name}".uppercase()))
             }
-            viewModel.fetchTables()
+            viewModel.currentTable.value?.let {} ?: openTableSelector()
 
             binding.table.setDebounceClickListener {
-                findNavController().navigate(R.id.openTableSelector)
+                openTableSelector()
             }
 
-            viewModel.tables.removeObserver(tableListObserver)
-            viewModel.tables.observe(viewLifecycleOwner, tableListObserver)
+            viewModel.currentTable.removeObserver(currentTableObserver)
+            viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
         } ?: requireActivity().onBackPressed()
     }
 
-    private val tableListObserver = Observer<Pair<List<String>, Exception?>> {
-        it.second?.let { } ?: processTableList(it.first)
+    private fun openTableSelector() {
+        viewModel.fetchTables()
+        findNavController().navigate(R.id.openTableSelector)
     }
 
-    private fun processTableList(list: List<String>) {
-        list.forEach {
-            DebugLog.d("prateek", "$it, ${isSystemTable(it)}")
-        }
+    private val currentTableObserver = Observer<TableModel> {
+        binding.table.text = it.name
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {

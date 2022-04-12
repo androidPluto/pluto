@@ -84,7 +84,7 @@
                         android:drawableRight="@drawable/pluto_rooms___ic_chevron_down"
                         android:drawablePadding="@dimen/pluto___margin_xsmall"
                         android:fontFamily="@font/muli_semibold"
-                        android:hint="@string/pluto_rooms___search_database"
+                        android:hint="@string/pluto_rooms___select_table"
                         android:paddingHorizontal="@dimen/pluto___margin_small"
                         android:paddingVertical="@dimen/pluto___margin_xsmall"
                         android:textColor="@color/pluto___text_dark"
