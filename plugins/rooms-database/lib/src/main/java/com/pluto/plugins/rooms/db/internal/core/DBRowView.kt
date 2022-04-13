@@ -48,6 +48,7 @@ class DBRowView(context: Context) : TableLayout(context) {
             setBackgroundColor(tableHeaderBackground)
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             this.text = text
+            textSize = TEXT_SIZE_RECORD
             setTextColor(ContextCompat.getColor(context, R.color.pluto___app_bg))
             typeface = ResourcesCompat.getFont(context, R.font.muli_bold)
         }
@@ -65,8 +66,22 @@ class DBRowView(context: Context) : TableLayout(context) {
             gravity = Gravity.CENTER_VERTICAL
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             this.text = text
+            textSize = TEXT_SIZE_RECORD
             setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark))
             typeface = ResourcesCompat.getFont(context, R.font.muli)
+        }
+
+    private fun rowTableEnd() = TextView(context)
+        .apply {
+            minHeight = tableRowMinHeight
+            minWidth = 20f.dp.toInt()
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
+            this.text = context.getString(R.string.pluto_rooms___end_of_table)
+            textSize = TEXT_SIZE_EOT
+            setBackgroundColor(tableRowBackground)
+            setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark_80))
+            typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
         }
 
     /**
@@ -94,29 +109,27 @@ class DBRowView(context: Context) : TableLayout(context) {
      * @param column list of column names
      * @param rows list of rows, each row contains list of fields
      * @param onClick function to get called on clicking the row
-     * @param onLongClick function to get called on long clicking the row
      * @return [TableLayout] containing rows and columns filled with the provided values
      */
-    fun create(column: List<String>, rows: List<List<String>>, onClick: (Int) -> Unit, onLongClick: (Int) -> Unit): DBRowView {
+    fun create(column: List<String>, rows: List<List<String>>, onClick: (Int) -> Unit): DBRowView {
         addView(tableRow(column, true))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list, false).apply {
                 setOnClickListener { onClick(index) }
-                setOnLongClickListener {
-                    onLongClick(index)
-                    true
-                }
                 if (index % 2 != 0) {
                     setBackgroundColor(tableRowBackground)
                 }
             }
             addView(tableRow)
         }
+        addView(rowTableEnd())
         return this
     }
 
     companion object {
         val PADDING_VERTICAL = 12f.dp.toInt()
         val PADDING_HORIZONTAL = 18f.dp.toInt()
+        const val TEXT_SIZE_RECORD = 14f
+        const val TEXT_SIZE_EOT = 13f
     }
 }
