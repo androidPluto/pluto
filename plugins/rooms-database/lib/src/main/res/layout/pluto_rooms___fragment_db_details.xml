@@ -95,12 +95,12 @@
                         android:drawableEnd="@drawable/pluto_rooms___ic_chevron_down"
                         android:drawableRight="@drawable/pluto_rooms___ic_chevron_down"
                         android:drawablePadding="@dimen/pluto___margin_xsmall"
+                        android:ellipsize="end"
                         android:fontFamily="@font/muli_semibold"
                         android:hint="@string/pluto_rooms___select_table"
+                        android:maxLines="1"
                         android:paddingHorizontal="@dimen/pluto___margin_small"
                         android:paddingVertical="@dimen/pluto___margin_xsmall"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         android:textColor="@color/pluto___text_dark"
                         android:textColorHint="@color/pluto___text_dark_40"
                         android:textSize="14sp"
@@ -143,6 +143,19 @@
         android:layout_height="match_parent"
         android:background="@color/pluto___white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/note"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <HorizontalScrollView
+                android:id="@+id/hsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </androidx.core.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/note"

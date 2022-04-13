@@ -19,6 +19,9 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.plugins.rooms.db.internal.core.DBRowView
+import com.pluto.plugins.rooms.db.internal.core.query.QueryBuilder
+import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
@@ -61,6 +64,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         table?.let {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
+            displayData(table.name)
         } ?: openTableSelector()
     }
 
@@ -73,6 +77,42 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             }
             return null
         }
+    }
+
+    private fun displayData(table: String) {
+        binding.hsv.scrollTo(0, 0)
+        binding.nsv.scrollTo(0, 0)
+        binding.hsv.removeAllViews()
+        QueryExecutor.query(
+            QueryBuilder getAllValues table,
+            { result ->
+                val columns = result.first
+                val rows = result.second
+//            tv_record_count.text = getString(R.string.ri_label_number_of_records, rows.size)
+
+                DBRowView(requireContext())
+                    .create(
+                        columns, rows,
+                        {
+//                        updateRow(columns, rows[it])
+                        },
+                        {
+//                        deleteRow(columns, rows[it])
+                        }
+                    )
+                    .also { binding.hsv.addView(it) }
+            },
+            { ex ->
+//                tv_record_count.text = ""
+                context?.toast(
+                    ex.toString()
+//                    getString(
+//                        "failed",
+//                        it.message
+//                    )
+                )
+            }
+        )
     }
 
     companion object {
