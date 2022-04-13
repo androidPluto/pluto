@@ -76,6 +76,18 @@
                     android:background="@color/pluto___app_bg"
                     app:layout_constraintBottom_toBottomOf="parent">
 
+                    <ImageView
+                        android:id="@+id/alert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:paddingStart="@dimen/pluto___margin_xsmall"
+                        android:src="@drawable/pluto_rooms___ic_alert"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/table"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/table" />
+
                     <TextView
                         android:id="@+id/table"
                         android:layout_width="0dp"
@@ -87,12 +99,14 @@
                         android:hint="@string/pluto_rooms___select_table"
                         android:paddingHorizontal="@dimen/pluto___margin_small"
                         android:paddingVertical="@dimen/pluto___margin_xsmall"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/pluto___text_dark"
                         android:textColorHint="@color/pluto___text_dark_40"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/divider"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/alert"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View

@@ -1,9 +1,11 @@
 package com.pluto.plugins.rooms.db.internal
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.room.RoomDatabase
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.QueryBuilder
 import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
@@ -15,11 +17,16 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _tables
     private val _tables = MutableLiveData<Pair<List<TableModel>, Exception?>>()
 
-    val currentTable: LiveData<TableModel>
+    val currentTable: LiveData<TableModel?>
         get() = _currentTable
-    private val _currentTable = MutableLiveData<TableModel>()
+    private val _currentTable = MutableLiveData<TableModel?>()
 
-    fun fetchTables() {
+    fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
+        QueryExecutor.init(context, name, dbClass)
+        fetchTables()
+    }
+
+    private fun fetchTables() {
         val tables = arrayListOf<String>()
         QueryExecutor.query(
             QueryBuilder.GET_TABLE_NAMES,
@@ -37,7 +44,11 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
                         processedTableList.add(TableModel(table, false))
                     }
                 }
-
+                if (processedTableList.size == 1) {
+                    _currentTable.postValue(processedTableList.first())
+                } else {
+                    _currentTable.postValue(null)
+                }
                 _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
             },
             {
