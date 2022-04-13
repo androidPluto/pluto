@@ -47,7 +47,7 @@ object QueryBuilder {
      * @param values list of values to be inserted
      * @return query
      */
-    fun insert(table: String, values: List<String>): String {
+    fun insertRow(table: String, values: List<String>): String {
         var insertQuery = "INSERT INTO $table VALUES("
         values.forEachIndexed { index, value ->
             insertQuery += "'$value'"
@@ -69,7 +69,7 @@ object QueryBuilder {
      * @return query
      */
     @SuppressWarnings("StringLiteralDuplication")
-    fun updateTable(table: String, column: List<String>, oldValues: List<String>, newValues: List<String>): String {
+    fun updateRow(table: String, column: List<String>, oldValues: List<String>, newValues: List<String>): String {
         var query = "Update $table set "
         Pair(column, newValues).forEachIndexed { index, columnName, value ->
             query += "$columnName = '$value'"
