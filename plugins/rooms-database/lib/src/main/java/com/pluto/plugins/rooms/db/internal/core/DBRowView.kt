@@ -1,13 +1,13 @@
 package com.pluto.plugins.rooms.db.internal.core
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
 import android.view.Gravity
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugins.rooms.db.R
 
 /**
@@ -19,6 +19,14 @@ class DBRowView(context: Context) : TableLayout(context) {
     private val tableRowMinHeight by lazy {
         context.resources.getDimension(R.dimen.pluto___margin_vxlarge).toInt()
     }
+
+    private val tableHeaderBackground by lazy {
+        ContextCompat.getColor(
+            context,
+            R.color.pluto___dark_80
+        )
+    }
+
     private val tableRowBackground by lazy {
         ContextCompat.getColor(
             context,
@@ -30,32 +38,35 @@ class DBRowView(context: Context) : TableLayout(context) {
      * Creates a [TextView] to display column names in the table.
      *
      * @param text column name
-     * @return TableHeader
+     * @return RowHeader
      */
-    private fun tableHeader(text: String) = TextView(context)
+    private fun rowHeader(text: String) = TextView(context)
         .apply {
             minHeight = tableRowMinHeight
+            minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(PADDING, PADDING, PADDING, PADDING)
+            setBackgroundColor(tableHeaderBackground)
+            setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             this.text = text
-            setTextColor(Color.BLACK)
-            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(ContextCompat.getColor(context, R.color.pluto___app_bg))
+            typeface = ResourcesCompat.getFont(context, R.font.muli_bold)
         }
 
     /**
-     * Creates a [TextView] to display values in the table.
+     * Creates a [TextView] to display data in the table.
      *
      * @param text field value
-     * @return TableTuple
+     * @return RowData
      */
-    private fun tableTuple(text: String) = TextView(context)
+    private fun rowData(text: String) = TextView(context)
         .apply {
             minHeight = tableRowMinHeight
+            minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(PADDING, PADDING, PADDING, PADDING)
+            setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             this.text = text
-            setTextColor(Color.BLACK)
-            typeface = Typeface.DEFAULT
+            setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark))
+            typeface = ResourcesCompat.getFont(context, R.font.muli)
         }
 
     /**
@@ -67,12 +78,12 @@ class DBRowView(context: Context) : TableLayout(context) {
      */
     private fun tableRow(values: List<String>, isHeader: Boolean = false) =
         TableRow(context).apply {
-            setPadding(0, 2, 0, 2)
+            setPadding(0, 0, 0, 0)
             values.forEach {
                 if (isHeader) {
-                    addView(tableHeader(it))
+                    addView(rowHeader(it))
                 } else {
-                    addView(tableTuple(it))
+                    addView(rowData(it))
                 }
             }
         }
@@ -105,6 +116,7 @@ class DBRowView(context: Context) : TableLayout(context) {
     }
 
     companion object {
-        const val PADDING = 10
+        val PADDING_VERTICAL = 12f.dp.toInt()
+        val PADDING_HORIZONTAL = 18f.dp.toInt()
     }
 }
