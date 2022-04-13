@@ -50,6 +50,9 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.alert.setDebounceClickListener {
                 context?.toast(getString(R.string.pluto_rooms___system_table_error))
             }
+            binding.close.setDebounceClickListener {
+                requireActivity().onBackPressed()
+            }
 
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
@@ -84,22 +87,15 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         binding.nsv.scrollTo(0, 0)
         binding.hsv.removeAllViews()
         QueryExecutor.query(
-            QueryBuilder getAllValues table,
+            QueryBuilder.getAllValues(table),
             { result ->
                 val columns = result.first
                 val rows = result.second
 //            tv_record_count.text = getString(R.string.ri_label_number_of_records, rows.size)
 
-                DBRowView(requireContext())
-                    .create(
-                        columns, rows,
-                        {
-//                        updateRow(columns, rows[it])
-                        },
-                        {
-//                        deleteRow(columns, rows[it])
-                        }
-                    )
+                DBRowView(requireContext()).create(columns, rows) {
+                    openDetailsView(it, columns, rows[it])
+                }
                     .also { binding.hsv.addView(it) }
             },
             { ex ->
@@ -113,6 +109,10 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 )
             }
         )
+    }
+
+    private fun openDetailsView(index: Int, columns: List<String>, list: List<String>) {
+        context?.toast("$index $columns $list")
     }
 
     companion object {
