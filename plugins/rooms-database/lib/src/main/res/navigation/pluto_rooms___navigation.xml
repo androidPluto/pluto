@@ -23,9 +23,17 @@
         <action
             android:id="@+id/openTableSelector"
             app:destination="@id/tableSelectorView" />
+
+        <action
+            android:id="@+id/openDataEditor"
+            app:destination="@id/dataEditView" />
     </fragment>
 
     <dialog
         android:id="@+id/tableSelectorView"
         android:name="com.pluto.plugins.rooms.db.internal.ui.TableSelectorFragment" />
+
+    <dialog
+        android:id="@+id/dataEditView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.DataEditFragment" />
 </navigation>

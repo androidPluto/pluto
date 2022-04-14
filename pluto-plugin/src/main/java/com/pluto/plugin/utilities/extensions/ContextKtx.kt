@@ -12,6 +12,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.FontRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 
 @ColorInt
 fun Context.color(@ColorRes id: Int) = ContextCompat.getColor(this, id)
@@ -22,6 +23,12 @@ fun Context.drawable(@DrawableRes id: Int) = ContextCompat.getDrawable(this, id)
 
 fun Context.toast(message: String, isLong: Boolean = false) {
     Toast.makeText(this, message, if (isLong) LENGTH_LONG else LENGTH_SHORT).show()
+}
+
+fun Fragment.toast(message: String, isLong: Boolean = false) {
+    context?.let {
+        Toast.makeText(it, message, if (isLong) LENGTH_LONG else LENGTH_SHORT).show()
+    }
 }
 
 fun Context.checkAndOpenSupportedApp(uri: Uri?) {

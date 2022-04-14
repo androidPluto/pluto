@@ -26,9 +26,13 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _currentTable
     private val _currentTable = MutableLiveData<TableModel?>()
 
-    val hsv: LiveData<HorizontalScrollView>
-        get() = _hsv
-    private val _hsv = SingleLiveEvent<HorizontalScrollView>()
+    val dataView: LiveData<Pair<HorizontalScrollView?, Exception?>>
+        get() = _dataView
+    private val _dataView = SingleLiveEvent<Pair<HorizontalScrollView?, Exception?>>()
+
+    val addRecordEvent: LiveData<Pair<List<String>?, Exception?>>
+        get() = _addRecordEvent
+    private val _addRecordEvent = SingleLiveEvent<Pair<List<String>?, Exception?>>()
 
     fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
         QueryExecutor.init(context, name, dbClass)
@@ -83,10 +87,26 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
                     DBRowView(context).create(columns, rows) {
                         onClick(it, columns, rows[it])
                     }.also { hsv.addView(it) }
-                    _hsv.postValue(hsv)
+                    _dataView.postValue(Pair(hsv, null))
                 },
                 { ex ->
-                    ex.printStackTrace()
+                    _dataView.postValue(Pair(null, ex))
+                }
+            )
+        }
+    }
+
+    fun triggerAddRecordEvent(table: String) {
+        viewModelScope.launch {
+            QueryExecutor.query(
+                QueryBuilder.getColumnNames(table),
+                {
+                    result ->
+                    _addRecordEvent.postValue(Pair(result.first, null))
+                },
+                {
+                    ex ->
+                    _addRecordEvent.postValue(Pair(null, ex))
                 }
             )
         }

@@ -8,4 +8,7 @@
     <string name="pluto_rooms___select_table">Choose a Table</string>
     <string name="pluto_rooms___system_table_error">This is a System table.\nModifying it might have unintended errors.</string>
     <string name="pluto_rooms___end_of_table">~~ end of table ~~</string>
+    <string name="pluto_rooms___edit_row_title">Edit row</string>
+    <string name="pluto_rooms___add_row_title">Add new row</string>
+    <string name="pluto_rooms___select_table_options">Please select a table</string>
 </resources>
