@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.HorizontalScrollView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.extensions.toast
@@ -19,9 +21,6 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
-import com.pluto.plugins.rooms.db.internal.core.DBRowView
-import com.pluto.plugins.rooms.db.internal.core.query.QueryBuilder
-import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
@@ -56,6 +55,9 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
+
+            viewModel.hsv.removeObserver(dataViewObserver)
+            viewModel.hsv.observe(viewLifecycleOwner, dataViewObserver)
         } ?: requireActivity().onBackPressed()
     }
 
@@ -67,8 +69,18 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         table?.let {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
-            displayData(table.name)
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                viewModel.fetchData(requireContext(), it.name) { index, column, rows ->
+                    openDetailsView(index, column, rows)
+                }
+            }
         } ?: openTableSelector()
+    }
+
+    private val dataViewObserver = Observer<HorizontalScrollView> {
+        binding.nsv.scrollTo(0, 0)
+        binding.nsv.removeAllViews()
+        binding.nsv.addView(it)
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {
@@ -80,35 +92,6 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             }
             return null
         }
-    }
-
-    private fun displayData(table: String) {
-        binding.hsv.scrollTo(0, 0)
-        binding.nsv.scrollTo(0, 0)
-        binding.hsv.removeAllViews()
-        QueryExecutor.query(
-            QueryBuilder.getAllValues(table),
-            { result ->
-                val columns = result.first
-                val rows = result.second
-//            tv_record_count.text = getString(R.string.ri_label_number_of_records, rows.size)
-
-                DBRowView(requireContext()).create(columns, rows) {
-                    openDetailsView(it, columns, rows[it])
-                }
-                    .also { binding.hsv.addView(it) }
-            },
-            { ex ->
-//                tv_record_count.text = ""
-                context?.toast(
-                    ex.toString()
-//                    getString(
-//                        "failed",
-//                        it.message
-//                    )
-                )
-            }
-        )
     }
 
     private fun openDetailsView(index: Int, columns: List<String>, list: List<String>) {
