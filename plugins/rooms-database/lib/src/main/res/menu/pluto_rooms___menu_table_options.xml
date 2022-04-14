@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/pluto_rooms___ic_add_recoard"
+        android:title="@string/pluto_rooms___add_row_title" />
+</menu>

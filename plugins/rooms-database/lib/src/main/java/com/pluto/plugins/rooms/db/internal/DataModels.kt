@@ -15,3 +15,10 @@ internal data class TableModel(
     val name: String,
     val isSystemTable: Boolean
 ) : ListItem()
+
+@Keep
+internal data class ValuesModel(
+    val index: Int,
+    val columns: ArrayList<String>,
+    val values: ArrayList<String>?
+) : ListItem()

@@ -6,12 +6,14 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.HorizontalScrollView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
+import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
@@ -21,6 +23,10 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
+import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_INDEX
+import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_VALUES
+import java.lang.Exception
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
@@ -52,17 +58,36 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.close.setDebounceClickListener {
                 requireActivity().onBackPressed()
             }
+            binding.options.setDebounceClickListener {
+                viewModel.currentTable.value?.let { table ->
+                    context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
+                        when (item.itemId) {
+                            R.id.add -> viewModel.triggerAddRecordEvent(table.name)
+                        }
+                    }
+                } ?: toast(getString(R.string.pluto_rooms___select_table_options))
+            }
 
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
 
-            viewModel.hsv.removeObserver(dataViewObserver)
-            viewModel.hsv.observe(viewLifecycleOwner, dataViewObserver)
+            viewModel.addRecordEvent.removeObserver(addRecordEventObserver)
+            viewModel.addRecordEvent.observe(viewLifecycleOwner, addRecordEventObserver)
+
+            viewModel.dataView.removeObserver(dataViewObserver)
+            viewModel.dataView.observe(viewLifecycleOwner, dataViewObserver)
         } ?: requireActivity().onBackPressed()
     }
 
     private fun openTableSelector() {
         findNavController().navigate(R.id.openTableSelector)
+    }
+
+    private val addRecordEventObserver = Observer<Pair<List<String>?, Exception?>> {
+        it.first?.let { columns ->
+            val bundle = bundleOf(DATA_INDEX to -1, DATA_COLUMNS to columns)
+            findNavController().navigate(R.id.openDataEditor, bundle)
+        }
     }
 
     private val currentTableObserver = Observer<TableModel?> { table ->
@@ -77,10 +102,16 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         } ?: openTableSelector()
     }
 
-    private val dataViewObserver = Observer<HorizontalScrollView> {
+    private val dataViewObserver = Observer<Pair<HorizontalScrollView?, Exception?>> {
         binding.nsv.scrollTo(0, 0)
         binding.nsv.removeAllViews()
-        binding.nsv.addView(it)
+        it.first?.let { dataView ->
+            binding.nsv.addView(dataView)
+        }
+        it.second?.let { ex ->
+            requireContext().toast("Exception occurred : $ex")
+            ex.printStackTrace()
+        }
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {
@@ -95,7 +126,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     }
 
     private fun openDetailsView(index: Int, columns: List<String>, list: List<String>) {
-        context?.toast("$index $columns $list")
+        val bundle = bundleOf(DATA_INDEX to index, DATA_COLUMNS to columns, DATA_VALUES to list)
+        findNavController().navigate(R.id.openDataEditor, bundle)
     }
 
     companion object {
