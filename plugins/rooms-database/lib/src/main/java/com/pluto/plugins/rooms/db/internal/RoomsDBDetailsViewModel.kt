@@ -2,14 +2,19 @@ package com.pluto.plugins.rooms.db.internal
 
 import android.app.Application
 import android.content.Context
+import android.widget.HorizontalScrollView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
+import com.pluto.plugin.utilities.SingleLiveEvent
+import com.pluto.plugins.rooms.db.internal.core.DBRowView
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.QueryBuilder
 import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
 import java.lang.Exception
+import kotlinx.coroutines.launch
 
 internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -21,43 +26,69 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _currentTable
     private val _currentTable = MutableLiveData<TableModel?>()
 
+    val hsv: LiveData<HorizontalScrollView>
+        get() = _hsv
+    private val _hsv = SingleLiveEvent<HorizontalScrollView>()
+
     fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
         QueryExecutor.init(context, name, dbClass)
         fetchTables()
     }
 
     private fun fetchTables() {
-        val tables = arrayListOf<String>()
-        QueryExecutor.query(
-            QueryBuilder.GET_TABLE_NAMES,
-            {
-                it.second.forEach { list ->
-                    tables.addAll(list)
-                }
-
-                val processedTableList = arrayListOf<TableModel>()
-                val processedSystemTableList = arrayListOf<TableModel>()
-                tables.forEach { table ->
-                    if (isSystemTable(table)) {
-                        processedSystemTableList.add(TableModel(table, true))
-                    } else {
-                        processedTableList.add(TableModel(table, false))
+        viewModelScope.launch {
+            val tables = arrayListOf<String>()
+            QueryExecutor.query(
+                QueryBuilder.GET_TABLE_NAMES,
+                {
+                    it.second.forEach { list ->
+                        tables.addAll(list)
                     }
+
+                    val processedTableList = arrayListOf<TableModel>()
+                    val processedSystemTableList = arrayListOf<TableModel>()
+                    tables.forEach { table ->
+                        if (isSystemTable(table)) {
+                            processedSystemTableList.add(TableModel(table, true))
+                        } else {
+                            processedTableList.add(TableModel(table, false))
+                        }
+                    }
+                    if (processedTableList.size == 1) {
+                        _currentTable.postValue(processedTableList.first())
+                    } else {
+                        _currentTable.postValue(null)
+                    }
+                    _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
+                },
+                {
+                    _tables.postValue(Pair(emptyList(), it))
                 }
-                if (processedTableList.size == 1) {
-                    _currentTable.postValue(processedTableList.first())
-                } else {
-                    _currentTable.postValue(null)
-                }
-                _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
-            },
-            {
-                _tables.postValue(Pair(emptyList(), it))
-            }
-        )
+            )
+        }
     }
 
     fun selectTable(table: TableModel) {
         _currentTable.postValue(table)
+    }
+
+    fun fetchData(context: Context, table: String, onClick: (Int, List<String>, List<String>) -> Unit) {
+        val hsv = HorizontalScrollView(context)
+        viewModelScope.launch {
+            QueryExecutor.query(
+                QueryBuilder.getAllValues(table),
+                { result ->
+                    val columns = result.first
+                    val rows = result.second
+                    DBRowView(context).create(columns, rows) {
+                        onClick(it, columns, rows[it])
+                    }.also { hsv.addView(it) }
+                    _hsv.postValue(hsv)
+                },
+                { ex ->
+                    ex.printStackTrace()
+                }
+            )
+        }
     }
 }

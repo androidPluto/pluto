@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugins.rooms.db.R
 
 /**
@@ -115,7 +116,7 @@ class DBRowView(context: Context) : TableLayout(context) {
         addView(tableRow(column, true))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list, false).apply {
-                setOnClickListener { onClick(index) }
+                setDebounceClickListener(haptic = true) { onClick(index) }
                 if (index % 2 != 0) {
                     setBackgroundColor(tableRowBackground)
                 }

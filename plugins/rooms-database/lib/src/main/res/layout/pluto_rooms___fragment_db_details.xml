@@ -149,13 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/note"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <HorizontalScrollView
-                android:id="@+id/hsv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/note"
