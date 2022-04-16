@@ -15,7 +15,7 @@ import com.pluto.plugins.rooms.db.R
  * A custom [TableLayout] class having functionality for creating table by using given rows and columns.
  *
  */
-class DBRowView(context: Context) : TableLayout(context) {
+class TableGridView(context: Context) : TableLayout(context) {
 
     private val tableRowMinHeight by lazy {
         context.resources.getDimension(R.dimen.pluto___margin_vxlarge).toInt()
@@ -112,7 +112,7 @@ class DBRowView(context: Context) : TableLayout(context) {
      * @param onClick function to get called on clicking the row
      * @return [TableLayout] containing rows and columns filled with the provided values
      */
-    fun create(column: List<String>, rows: List<List<String>>, onClick: (Int) -> Unit): DBRowView {
+    fun create(column: List<String>, rows: List<List<String>>, onClick: (Int) -> Unit): TableGridView {
         addView(tableRow(column, true))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list, false).apply {

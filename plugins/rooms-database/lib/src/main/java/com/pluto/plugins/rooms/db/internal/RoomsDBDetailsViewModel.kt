@@ -9,9 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.SingleLiveEvent
-import com.pluto.plugins.rooms.db.internal.core.DBRowView
+import com.pluto.plugins.rooms.db.internal.core.TableGridView
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
-import com.pluto.plugins.rooms.db.internal.core.query.QueryBuilder
+import com.pluto.plugins.rooms.db.internal.core.query.Query
 import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
 import java.lang.Exception
 import kotlinx.coroutines.launch
@@ -43,7 +43,7 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         viewModelScope.launch {
             val tables = arrayListOf<String>()
             QueryExecutor.query(
-                QueryBuilder.GET_TABLE_NAMES,
+                Query.Database.GET_TABLE_NAMES,
                 {
                     it.second.forEach { list ->
                         tables.addAll(list)
@@ -80,11 +80,11 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         val hsv = HorizontalScrollView(context)
         viewModelScope.launch {
             QueryExecutor.query(
-                QueryBuilder.getAllValues(table),
+                Query.Tables.getAllValues(table),
                 { result ->
                     val columns = result.first
                     val rows = result.second
-                    DBRowView(context).create(columns, rows) {
+                    TableGridView(context).create(columns, rows) {
                         onClick(it, columns, rows[it])
                     }.also { hsv.addView(it) }
                     _dataView.postValue(Pair(hsv, null))
@@ -99,7 +99,7 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch {
             QueryExecutor.query(
-                QueryBuilder.getColumnNames(table),
+                Query.Tables.getColumnNames(table),
                 {
                     result ->
                     run {
