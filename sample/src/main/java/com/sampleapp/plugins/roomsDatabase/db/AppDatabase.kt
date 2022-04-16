@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.sampleapp.plugins.roomsDatabase.db.dao.UserDAO
 import com.sampleapp.plugins.roomsDatabase.db.entity.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     internal abstract fun personDAO(): UserDAO
@@ -30,6 +30,8 @@ abstract class AppDatabase : RoomDatabase() {
             val database: Builder<AppDatabase> =
                 Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
             return database
+                .addMigrations()
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build()
         }

@@ -21,6 +21,7 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
+import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
@@ -62,7 +63,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 viewModel.currentTable.value?.let { table ->
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
                         when (item.itemId) {
-                            R.id.add -> viewModel.triggerAddRecordEvent(table.name)
+                            R.id.add -> openDetailsView(table.name, -1) // viewModel.triggerAddRecordEvent(table.name)
                         }
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))
@@ -83,9 +84,9 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         findNavController().navigate(R.id.openTableSelector)
     }
 
-    private val addRecordEventObserver = Observer<Pair<List<String>?, Exception?>> {
-        it.first?.let { columns ->
-            val bundle = bundleOf(DATA_INDEX to -1, DATA_COLUMNS to columns)
+    private val addRecordEventObserver = Observer<Pair<EditEventData?, Exception?>> {
+        it.first?.let { data ->
+            val bundle = bundleOf(DATA_INDEX to data.index, DATA_COLUMNS to data.columns, DATA_VALUES to data.values)
             findNavController().navigate(R.id.openDataEditor, bundle)
         }
     }
@@ -95,8 +96,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                viewModel.fetchData(requireContext(), it.name) { index, column, rows ->
-                    openDetailsView(index, column, rows)
+                viewModel.fetchData(requireContext(), it.name) { index, _, rows ->
+                    openDetailsView(it.name, index, rows)
                 }
             }
         } ?: openTableSelector()
@@ -125,9 +126,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         }
     }
 
-    private fun openDetailsView(index: Int, columns: List<String>, list: List<String>) {
-        val bundle = bundleOf(DATA_INDEX to index, DATA_COLUMNS to columns, DATA_VALUES to list)
-        findNavController().navigate(R.id.openDataEditor, bundle)
+    private fun openDetailsView(table: String, index: Int, list: List<String>? = null) {
+        viewModel.triggerAddRecordEvent(table, index, list)
     }
 
     companion object {

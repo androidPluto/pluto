@@ -11,4 +11,6 @@
     <string name="pluto_rooms___edit_row_title">Edit row</string>
     <string name="pluto_rooms___add_row_title">Add new row</string>
     <string name="pluto_rooms___select_table_options">Please select a table</string>
+    <string name="pluto_rooms___add_cta_text">Add Data</string>
+    <string name="pluto_rooms___edit_cta_text">Update Data</string>
 </resources>

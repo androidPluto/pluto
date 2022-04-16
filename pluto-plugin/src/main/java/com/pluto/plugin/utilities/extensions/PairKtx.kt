@@ -1,6 +1,6 @@
 package com.pluto.plugin.utilities.extensions
 
-fun <A, B> Pair<Iterable<A>, Iterable<B>>.forEachIndexed(action: (Int, A, B) -> Unit) {
+fun <A, B> Pair<Iterable<A>, Iterable<B>>.forEachIndexed(action: (Int, A, B?) -> Unit) {
     val ia = first.iterator().withIndex()
     val ib = second.iterator().withIndex()
 
