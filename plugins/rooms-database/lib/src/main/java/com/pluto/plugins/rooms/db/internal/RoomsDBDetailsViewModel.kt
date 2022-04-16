@@ -11,8 +11,8 @@ import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugins.rooms.db.internal.core.TableGridView
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
-import com.pluto.plugins.rooms.db.internal.core.query.QueryExecutor
 import java.lang.Exception
 import kotlinx.coroutines.launch
 
@@ -34,15 +34,20 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _addRecordEvent
     private val _addRecordEvent = SingleLiveEvent<Pair<EditEventData?, Exception?>>()
 
+    override fun onCleared() {
+        super.onCleared()
+        Executor.destroySession()
+    }
+
     fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
-        QueryExecutor.init(context, name, dbClass)
+        Executor.initSession(context, name, dbClass)
         fetchTables()
     }
 
     private fun fetchTables() {
         viewModelScope.launch {
             val tables = arrayListOf<String>()
-            QueryExecutor.query(
+            Executor.instance.query(
                 Query.Database.GET_TABLE_NAMES,
                 {
                     it.second.forEach { list ->
@@ -79,7 +84,7 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
     fun fetchData(context: Context, table: String, onClick: (Int, List<String>, List<String>) -> Unit) {
         val hsv = HorizontalScrollView(context)
         viewModelScope.launch {
-            QueryExecutor.query(
+            Executor.instance.query(
                 Query.Tables.getAllValues(table),
                 { result ->
                     val columns = result.first
@@ -98,7 +103,7 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
 
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch {
-            QueryExecutor.query(
+            Executor.instance.query(
                 Query.Tables.getColumnNames(table),
                 {
                     result ->

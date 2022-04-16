@@ -11,20 +11,43 @@ private typealias RowsAndColumns = Pair<List<String>, List<List<String>>>
  * A class which is responsible for performing db operations.
  *
  */
-object QueryExecutor {
-    private lateinit var database: SupportSQLiteDatabase
+internal class Executor private constructor(private val database: SupportSQLiteDatabase) {
 
-    /**
-     * initialization function for [QueryExecutor].
-     * Initializes [database] by using provided [databaseClass] and [databaseName].
-     *
-     * @param context [Context] of the accessing class
-     * @param databaseClass a subclass of [RoomDatabase] registered in [Room] with @Database annotation
-     * @param databaseName name of [RoomDatabase] class
-     */
-    fun init(context: Context, databaseName: String, databaseClass: Class<out RoomDatabase>) {
-        val roomDatabase = Room.databaseBuilder(context, databaseClass, databaseName).build()
-        database = roomDatabase.openHelper.writableDatabase
+    companion object {
+        val instance: Executor
+            get() = returnInstance()
+
+        private fun returnInstance(): Executor {
+            _instance?.let {
+                return it
+            }
+            throw IllegalStateException("session not initialised")
+        }
+
+        private var _instance: Executor? = null
+
+        /**
+         * initialization function for [Executor].
+         * Initializes [database] by using provided [databaseClass] and [databaseName].
+         *
+         * @param context [Context] of the accessing class
+         * @param databaseClass a subclass of [RoomDatabase] registered in [Room] with @Database annotation
+         * @param databaseName name of [RoomDatabase] class
+         */
+        @Synchronized
+        fun initSession(context: Context, databaseName: String, databaseClass: Class<out RoomDatabase>): Executor {
+            _instance?.let {
+                throw IllegalStateException("session already initialised")
+            } ?: run {
+                val roomDatabase = Room.databaseBuilder(context, databaseClass, databaseName).build()
+                _instance = Executor(roomDatabase.openHelper.writableDatabase)
+                return _instance as Executor
+            }
+        }
+
+        fun destroySession() {
+            _instance = null
+        }
     }
 
     /**
