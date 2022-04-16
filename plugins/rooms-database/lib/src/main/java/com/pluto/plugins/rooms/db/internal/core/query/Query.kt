@@ -2,7 +2,7 @@ package com.pluto.plugins.rooms.db.internal.core.query
 
 import com.pluto.plugin.utilities.extensions.forEachIndexed
 
-class Query private constructor() {
+internal class Query private constructor() {
 
     class Database private constructor() {
         companion object {

@@ -15,7 +15,7 @@ import com.pluto.plugins.rooms.db.R
  * A custom [TableLayout] class having functionality for creating table by using given rows and columns.
  *
  */
-class TableGridView(context: Context) : TableLayout(context) {
+internal class TableGridView(context: Context) : TableLayout(context) {
 
     private val tableRowMinHeight by lazy {
         context.resources.getDimension(R.dimen.pluto___margin_vxlarge).toInt()

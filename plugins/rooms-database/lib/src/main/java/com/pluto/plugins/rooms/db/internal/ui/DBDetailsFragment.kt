@@ -24,6 +24,7 @@ import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_INDEX
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_VALUES
@@ -128,6 +129,11 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private fun openDetailsView(table: String, index: Int, list: List<String>? = null) {
         viewModel.triggerAddRecordEvent(table, index, list)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Executor.destroySession()
     }
 
     companion object {
