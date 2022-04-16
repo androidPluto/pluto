@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-typealias RowsAndColumns = Pair<List<String>, List<List<String>>>
+private typealias RowsAndColumns = Pair<List<String>, List<List<String>>>
 
 /**
  * A class which is responsible for performing db operations.
