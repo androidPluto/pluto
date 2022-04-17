@@ -19,6 +19,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShareViewModel
 import com.pluto.plugin.utilities.sharing.ShareAction
 import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.csv.CSVFormatter
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
@@ -27,12 +28,15 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
+import com.pluto.plugins.rooms.db.internal.TableContents
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.plugins.rooms.db.internal.core.TableGridView
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_INDEX
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_VALUES
 import java.lang.Exception
+import java.lang.StringBuilder
 
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
@@ -70,16 +74,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
                         when (item.itemId) {
                             R.id.add -> openDetailsView(table.name, -1) // viewModel.triggerAddRecordEvent(table.name)
-                            R.id.export -> sharer.performAction(
-                                ShareAction.ShareAsFile(
-                                    Shareable(
-                                        title = "Export Table",
-                                        content = "hello",
-                                        fileName = "Export table"
-                                    ),
-                                    "text/csv"
-                                )
-                            )
+                            R.id.export -> shareTableContent(table.name)
                             R.id.refresh -> viewModel.currentTable.value?.let { viewModel.selectTable(it) }
                         }
                     }
@@ -92,9 +87,26 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.addRecordEvent.removeObserver(addRecordEventObserver)
             viewModel.addRecordEvent.observe(viewLifecycleOwner, addRecordEventObserver)
 
-            viewModel.dataView.removeObserver(dataViewObserver)
-            viewModel.dataView.observe(viewLifecycleOwner, dataViewObserver)
+            viewModel.tableContent.removeObserver(tableContentObserver)
+            viewModel.tableContent.observe(viewLifecycleOwner, tableContentObserver)
         } ?: requireActivity().onBackPressed()
+    }
+
+    private fun shareTableContent(table: String) {
+        viewModel.tableContent.value?.first?.let { content ->
+            sharer.performAction(
+                ShareAction.ShareAsFile(
+                    Shareable(
+                        title = "Export $table Table",
+                        content = content.serialize(),
+                        fileName = "Export $table table"
+                    ),
+                    "text/csv"
+                )
+            )
+        } ?: run {
+            toast("no content found to share")
+        }
     }
 
     private fun openTableSelector() {
@@ -113,18 +125,22 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                viewModel.fetchData(requireContext(), it.name) { index, _, rows ->
-                    openDetailsView(it.name, index, rows)
-                }
+                viewModel.fetchData(it.name)
             }
         } ?: openTableSelector()
     }
 
-    private val dataViewObserver = Observer<Pair<HorizontalScrollView?, Exception?>> {
-        binding.nsv.scrollTo(0, 0)
-        binding.nsv.removeAllViews()
-        it.first?.let { dataView ->
-            binding.nsv.addView(dataView)
+    private val tableContentObserver = Observer<Pair<TableContents?, Exception?>> {
+        it.first?.let { data ->
+            binding.nsv.scrollTo(0, 0)
+            binding.nsv.removeAllViews()
+            val hsv = HorizontalScrollView(requireContext())
+            TableGridView(requireContext()).create(data.first, data.second) { index ->
+                viewModel.currentTable.value?.let { table ->
+                    openDetailsView(table.name, index, data.second[index])
+                }
+            }.also { view -> hsv.addView(view) }
+            binding.nsv.addView(hsv)
         }
         it.second?.let { ex ->
             requireContext().toast("Exception occurred : $ex")
@@ -156,4 +172,13 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         const val DB_CLASS = "dbClass"
         const val DB_NAME = "dbName"
     }
+}
+
+private fun TableContents.serialize(): String {
+    val stringBuilder = StringBuilder()
+    stringBuilder.append(CSVFormatter.write(first.toTypedArray()))
+    second.forEach {
+        stringBuilder.append(CSVFormatter.write(it.toTypedArray()))
+    }
+    return stringBuilder.toString()
 }

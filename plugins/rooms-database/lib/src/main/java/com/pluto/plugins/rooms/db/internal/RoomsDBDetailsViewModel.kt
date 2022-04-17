@@ -2,18 +2,15 @@ package com.pluto.plugins.rooms.db.internal
 
 import android.app.Application
 import android.content.Context
-import android.widget.HorizontalScrollView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.SingleLiveEvent
-import com.pluto.plugins.rooms.db.internal.core.TableGridView
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
-import java.lang.Exception
 import kotlinx.coroutines.launch
 
 internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -26,9 +23,13 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _currentTable
     private val _currentTable = MutableLiveData<TableModel?>()
 
-    val dataView: LiveData<Pair<HorizontalScrollView?, Exception?>>
-        get() = _dataView
-    private val _dataView = SingleLiveEvent<Pair<HorizontalScrollView?, Exception?>>()
+    val tableContent: LiveData<Pair<TableContents?, Exception?>>
+        get() = _tableContent
+    private val _tableContent = SingleLiveEvent<Pair<TableContents?, Exception?>>()
+
+//    val dataView: LiveData<Pair<HorizontalScrollView?, Exception?>>
+//        get() = _dataView
+//    private val _dataView = SingleLiveEvent<Pair<HorizontalScrollView?, Exception?>>()
 
     val addRecordEvent: LiveData<Pair<EditEventData?, Exception?>>
         get() = _addRecordEvent
@@ -81,39 +82,53 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         _currentTable.postValue(table)
     }
 
-    fun fetchData(context: Context, table: String, onClick: (Int, List<String>, List<String>) -> Unit) {
-        val hsv = HorizontalScrollView(context)
+    fun fetchData(table: String) {
         viewModelScope.launch {
             Executor.instance.query(
                 Query.Tables.getAllValues(table),
                 { result ->
                     val columns = result.first
                     val rows = result.second
-                    TableGridView(context).create(columns, rows) {
-                        onClick(it, columns, rows[it])
-                    }.also { hsv.addView(it) }
-                    _dataView.postValue(Pair(hsv, null))
+                    _tableContent.postValue(Pair(TableContents(columns, rows), null))
                 },
                 { ex ->
-                    _dataView.postValue(Pair(null, ex))
+                    _tableContent.postValue(Pair(null, ex))
                 }
             )
         }
     }
 
+//    fun fetchData(context: Context, table: String, onClick: (Int, List<String>, List<String>) -> Unit) {
+//        val hsv = HorizontalScrollView(context)
+//        viewModelScope.launch {
+//            Executor.instance.query(
+//                Query.Tables.getAllValues(table),
+//                { result ->
+//                    val columns = result.first
+//                    val rows = result.second
+//                    TableGridView(context).create(columns, rows) {
+//                        onClick(it, columns, rows[it])
+//                    }.also { hsv.addView(it) }
+//                    _dataView.postValue(Pair(hsv, null))
+//                },
+//                { ex ->
+//                    _dataView.postValue(Pair(null, ex))
+//                }
+//            )
+//        }
+//    }
+
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch {
             Executor.instance.query(
                 Query.Tables.getColumnNames(table),
-                {
-                    result ->
+                { result ->
                     run {
                         val eventData = EditEventData(index = index, columns = result.second.map { it[1] }, values = list)
                         _addRecordEvent.postValue(Pair(eventData, null))
                     }
                 },
-                {
-                    ex ->
+                { ex ->
                     _addRecordEvent.postValue(Pair(null, ex))
                 }
             )

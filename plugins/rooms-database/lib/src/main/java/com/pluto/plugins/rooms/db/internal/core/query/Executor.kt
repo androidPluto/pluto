@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-
-private typealias RowsAndColumns = Pair<List<String>, List<List<String>>>
+import com.pluto.plugins.rooms.db.internal.TableContents
 
 /**
  * A class which is responsible for performing db operations.
@@ -58,7 +57,7 @@ internal class Executor private constructor(private val database: SupportSQLiteD
      * @param onError action to be executed if [query] execution failed
      */
     @SuppressWarnings("TooGenericExceptionCaught", "NestedBlockDepth")
-    internal fun query(query: String, onSuccess: (RowsAndColumns) -> Unit, onError: (Exception) -> Unit) = try {
+    internal fun query(query: String, onSuccess: (TableContents) -> Unit, onError: (Exception) -> Unit) = try {
         val c = database.query(query, null)
         if (null == c) {
             onError(java.lang.Exception())
@@ -83,7 +82,7 @@ internal class Executor private constructor(private val database: SupportSQLiteD
             } while (c.moveToNext())
             c.close()
             onSuccess(
-                RowsAndColumns(
+                TableContents(
                     columnNames,
                     rows
                 )

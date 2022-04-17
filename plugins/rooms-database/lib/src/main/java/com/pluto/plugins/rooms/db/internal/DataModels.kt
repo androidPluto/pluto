@@ -38,6 +38,8 @@ internal data class ColumnModel<T>(
     val isPrimaryKey: Boolean
 )
 
+internal typealias TableContents = Pair<List<String>, List<List<String>>>
+
 @Keep
 internal data class EditEventData(
     val index: Int,
