@@ -2,6 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/add"
-        android:icon="@drawable/pluto_rooms___ic_add_recoard"
+        android:icon="@drawable/pluto_rooms___ic_add_record"
         android:title="@string/pluto_rooms___add_row_title" />
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/pluto_rooms___ic_clear_table"
+        android:title="@string/pluto_rooms___clear_table" />
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/pluto_rooms___ic_refresh"
+        android:title="@string/pluto_rooms___refresh_table" />
+    <item
+        android:id="@+id/export"
+        android:icon="@drawable/pluto_rooms___ic_export"
+        android:title="@string/pluto_rooms___export_table" />
+    <item
+        android:id="@+id/query"
+        android:icon="@drawable/pluto_rooms___ic_custom_query"
+        android:title="@string/pluto_rooms___custom_query" />
 </menu>
