@@ -16,6 +16,10 @@ import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.sharing.ContentShareViewModel
+import com.pluto.plugin.utilities.sharing.ShareAction
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
@@ -34,6 +38,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val binding by viewBinding(PlutoRoomsFragmentDbDetailsBinding::bind)
     private val viewModel: RoomsDBDetailsViewModel by activityViewModels()
+    private val sharer: ContentShareViewModel by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         convertArguments(arguments)?.let { dbConfig ->
@@ -65,6 +70,17 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
                         when (item.itemId) {
                             R.id.add -> openDetailsView(table.name, -1) // viewModel.triggerAddRecordEvent(table.name)
+                            R.id.export -> sharer.performAction(
+                                ShareAction.ShareAsFile(
+                                    Shareable(
+                                        title = "Export Table",
+                                        content = "hello",
+                                        fileName = "Export table"
+                                    ),
+                                    "text/csv"
+                                )
+                            )
+                            R.id.refresh -> viewModel.currentTable.value?.let { viewModel.selectTable(it) }
                         }
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))

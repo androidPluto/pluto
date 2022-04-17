@@ -42,7 +42,7 @@ class PlutoActivity : AppCompatActivity() {
         sharer.action.observe(this) {
             when (it) {
                 is ShareAction.ShareAsText -> share(it.shareable.processedContent, it.shareable.title)
-                is ShareAction.ShareAsFile -> shareFile(it.shareable.processedContent, it.shareable.title, it.shareable.fileName)
+                is ShareAction.ShareAsFile -> shareFile(it.shareable.processedContent, it.shareable.title, it.shareable.fileName, it.type)
                 is ShareAction.ShareAsCopy -> copyContent(it.shareable.content, it.shareable.title)
             }
         }

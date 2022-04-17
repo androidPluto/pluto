@@ -20,12 +20,12 @@ fun Context.share(message: String, title: String? = null, subject: String? = nul
     startActivity(Intent.createChooser(intent, title ?: "Share via..."))
 }
 
-fun Context.shareFile(message: String, title: String? = null, fileName: String) {
+fun Context.shareFile(message: String, title: String? = null, fileName: String, contentType: String) {
     val dir = getDirectoryName()
-    val file = generateFile(message, dir)
+    val file = generateFile(message, dir, contentType)
     val uri = FileProvider.getUriForFile(applicationContext, "pluto___${applicationContext.packageName}.provider", file)
     val intent = Intent().apply {
-        type = "text/*"
+        type = contentType
 
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         putExtra(Intent.EXTRA_TEXT, fileName)
@@ -52,12 +52,12 @@ private fun Context.getDirectoryName(): File {
 }
 
 @Suppress("TooGenericExceptionCaught")
-private fun generateFile(content: String, saveFilePath: File): File {
+private fun generateFile(content: String, saveFilePath: File, contentType: String): File {
     val dir = File(saveFilePath.absolutePath)
     if (!dir.exists()) {
         dir.mkdirs()
     }
-    val file = File(saveFilePath.absolutePath, "pluto_share.txt")
+    val file = File(saveFilePath.absolutePath, "pluto_share.${getFileExtension(contentType)}")
     try {
         val fOut = FileOutputStream(file)
         fOut.write(content.toByteArray())
@@ -67,4 +67,9 @@ private fun generateFile(content: String, saveFilePath: File): File {
         DebugLog.e("share", "error while generating file", e)
     }
     return file
+}
+
+private fun getFileExtension(contentType: String): String = when (contentType) {
+    "text/csv" -> "csv"
+    else -> "txt"
 }
