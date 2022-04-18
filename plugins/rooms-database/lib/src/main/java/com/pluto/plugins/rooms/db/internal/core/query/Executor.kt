@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.pluto.plugins.rooms.db.internal.TableContents
+import com.pluto.plugins.rooms.db.internal.RawTableContents
 
 /**
  * A class which is responsible for performing db operations.
@@ -57,7 +57,7 @@ internal class Executor private constructor(private val database: SupportSQLiteD
      */
     @SuppressWarnings("TooGenericExceptionThrown")
     @Throws(Exception::class)
-    internal fun query(query: String): TableContents {
+    internal fun query(query: String): RawTableContents {
         val c = database.query(query, null)
         c?.let {
             val columnNames = arrayListOf<String>()
@@ -75,7 +75,7 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                 }
             } while (c.moveToNext())
             c.close()
-            return TableContents(columnNames, rows)
+            return RawTableContents(columnNames, rows)
         }
         throw Exception()
     }
