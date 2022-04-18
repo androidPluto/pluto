@@ -17,9 +17,11 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.drawable
 import com.pluto.plugin.utilities.extensions.forEachIndexed
+import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
+import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ValuesModel
 
 class DataEditFragment : BottomSheetDialogFragment() {
@@ -126,17 +128,20 @@ class DataEditFragment : BottomSheetDialogFragment() {
         setText(value)
     }
 
-    private fun getColumnTextView(column: String): TextView = TextView(context).apply {
+    private fun getColumnTextView(column: ColumnModel): TextView = TextView(context).apply {
         layoutParams = LinearLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply {
-            weight = 1f
             setMargins(4f.dp.toInt(), 8f.dp.toInt(), 0, 0)
         }
-        text = column
+        setSpan {
+            append(semiBold(column.name))
+            if (column.isPrimaryKey) {
+                append(light("\t(PRIMARY KEY)"))
+            }
+        }
         textSize = TEXT_SIZE_COLUMN
-        typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
         setTextColor(requireContext().color(R.color.pluto___text_dark_60))
     }
 
@@ -144,7 +149,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
         return arguments?.let {
             val index = it.getInt(DATA_INDEX)
             val values = it.getStringArrayList(DATA_VALUES)
-            it.getStringArrayList(DATA_COLUMNS)?.let { columns ->
+            it.getParcelableArrayList<ColumnModel>(DATA_COLUMNS)?.let { columns ->
                 ValuesModel(index, columns, values)
             }
         }
