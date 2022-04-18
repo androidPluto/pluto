@@ -27,6 +27,9 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE_EVENT
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_CONTENT
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.TableContents
@@ -92,13 +95,16 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.tableContent.removeObserver(tableContentObserver)
             viewModel.tableContent.observe(viewLifecycleOwner, tableContentObserver)
 
+            viewModel.error.removeObserver(errorObserver)
+            viewModel.error.observe(viewLifecycleOwner, errorObserver)
+
             uiViewModel.dataView.removeObserver(tableUIObserver)
             uiViewModel.dataView.observe(viewLifecycleOwner, tableUIObserver)
         } ?: requireActivity().onBackPressed()
     }
 
     private fun shareTableContent(table: String) {
-        viewModel.tableContent.value?.first?.let { content ->
+        viewModel.tableContent.value?.let { content ->
             sharer.performAction(
                 ShareAction.ShareAsFile(
                     Shareable(
@@ -118,10 +124,21 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         findNavController().navigate(R.id.openTableSelector)
     }
 
-    private val addRecordEventObserver = Observer<Pair<EditEventData?, Exception?>> {
-        it.first?.let { data ->
-            val bundle = bundleOf(DATA_INDEX to data.index, DATA_COLUMNS to data.columns, DATA_VALUES to data.values)
-            findNavController().navigate(R.id.openDataEditor, bundle)
+    private val addRecordEventObserver = Observer<EditEventData> {
+        val bundle = bundleOf(DATA_INDEX to it.index, DATA_COLUMNS to it.columns, DATA_VALUES to it.values)
+        findNavController().navigate(R.id.openDataEditor, bundle)
+    }
+
+    private val errorObserver = Observer<Pair<String, Exception>> {
+        handleError(it.first, it.second)
+    }
+
+    private fun handleError(error: String, exception: Exception) {
+        when (error) {
+            ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_EVENT -> {
+                toast("Error (see logs) : ${exception.message}")
+                exception.printStackTrace()
+            }
         }
     }
 
@@ -135,19 +152,13 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         } ?: openTableSelector()
     }
 
-    private val tableContentObserver = Observer<Pair<TableContents?, Exception?>> {
-        it.first?.let { data ->
-            uiViewModel.generateView(requireContext(), data.first, data.second) { index, value ->
-                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                    viewModel.currentTable.value?.let { table ->
-                        openDetailsView(table.name, index, value)
-                    }
+    private val tableContentObserver = Observer<TableContents> {
+        uiViewModel.generateView(requireContext(), it.first, it.second) { index, value ->
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                viewModel.currentTable.value?.let { table ->
+                    openDetailsView(table.name, index, value)
                 }
             }
-        }
-        it.second?.let { ex ->
-            requireContext().toast("Exception occurred : $ex")
-            ex.printStackTrace()
         }
     }
 
