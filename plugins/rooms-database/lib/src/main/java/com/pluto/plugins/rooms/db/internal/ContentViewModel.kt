@@ -106,12 +106,25 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught")
+    @SuppressWarnings("TooGenericExceptionCaught", "MagicNumber")
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val queryResult = Executor.instance.query(Query.Tables.getColumnNames(table))
-                val eventData = EditEventData(index = index, columns = queryResult.second.map { it[1] }, values = list)
+                val eventData = EditEventData(
+                    index = index,
+                    columns = queryResult.second.map {
+                        ColumnModel(
+                            columnId = it[0].toInt(),
+                            name = it[1],
+                            type = it[2],
+                            isNotNull = it[3].toInt() > 0,
+                            defaultValue = it[4],
+                            isPrimaryKey = it[5].toInt() > 0
+                        )
+                    },
+                    values = list
+                )
                 _addRecordEvent.postValue(eventData)
             } catch (e: Exception) {
                 _error.postValue(Pair(ERROR_ADD_UPDATE_EVENT, e))

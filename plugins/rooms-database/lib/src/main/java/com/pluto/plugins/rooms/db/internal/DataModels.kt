@@ -1,8 +1,10 @@
 package com.pluto.plugins.rooms.db.internal
 
+import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.list.ListItem
+import kotlinx.parcelize.Parcelize
 
 @Keep
 internal data class DatabaseModel(
@@ -19,7 +21,7 @@ internal data class TableModel(
 @Keep
 internal data class ValuesModel(
     val index: Int,
-    val columns: ArrayList<String>,
+    val columns: ArrayList<ColumnModel>,
     val values: ArrayList<String>?
 ) : ListItem()
 
@@ -29,6 +31,7 @@ internal data class ValuesModel(
  */
 
 @Keep
+@Parcelize
 internal data class ColumnModel(
     val columnId: Int,
     val name: String,
@@ -36,7 +39,7 @@ internal data class ColumnModel(
     val isNotNull: Boolean,
     val defaultValue: String?,
     val isPrimaryKey: Boolean
-)
+) : Parcelable
 
 internal typealias RawTableContents = Pair<List<String>, List<List<String>>>
 
@@ -45,6 +48,6 @@ internal typealias ProcessedTableContents = Pair<List<ColumnModel>, List<List<St
 @Keep
 internal data class EditEventData(
     val index: Int,
-    val columns: List<String>,
+    val columns: List<ColumnModel>,
     val values: List<String>?
 )
