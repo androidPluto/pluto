@@ -111,7 +111,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
             FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply {
             weight = 1f
-            setMargins(0, 4f.dp.toInt(), 0, 16f.dp.toInt())
+            setMargins(0, 4f.dp.toInt(), 0, 8f.dp.toInt())
         }
         setPadding(
             paddingStart + 8f.dp.toInt(),
@@ -132,7 +132,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
             FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply {
             weight = 1f
-            setMargins(4f.dp.toInt(), 0, 0, 0)
+            setMargins(4f.dp.toInt(), 8f.dp.toInt(), 0, 0)
         }
         text = column
         textSize = TEXT_SIZE_COLUMN
