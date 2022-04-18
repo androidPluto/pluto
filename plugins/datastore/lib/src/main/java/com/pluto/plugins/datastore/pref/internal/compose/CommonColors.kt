@@ -9,4 +9,6 @@ internal object CommonColors {
     val tagTextColor = Color(0xFF71B36B)
     val tagBGColor = Color(0xFFF1F7EF)
     val elementTextColor = Color(0xFF78768B)
+    val dialogBackground = Color(0xE6F8F8F8)
+    val checkBoxColor = Color(0xFF1471DD)
 }

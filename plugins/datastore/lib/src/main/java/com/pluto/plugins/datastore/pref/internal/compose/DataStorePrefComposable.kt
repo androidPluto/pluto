@@ -1,27 +1,25 @@
 package com.pluto.plugins.datastore.pref.internal.compose
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import com.pluto.plugins.datastore.pref.R
+import androidx.core.graphics.Insets
 import com.pluto.plugins.datastore.pref.internal.PrefElement
 import com.pluto.plugins.datastore.pref.internal.PrefUiModel
 import kotlinx.coroutines.CoroutineScope
@@ -31,9 +29,9 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun DataStorePrefComposable(
     data: List<PrefUiModel>,
-    modifier: Modifier = Modifier,
+    insets: MutableState<Insets> = mutableStateOf(Insets.NONE),
     onExit: () -> Unit,
-    listContentPadding: PaddingValues = PaddingValues(0.dp),
+    onFilterClick: () -> Unit,
     updateValue: (PrefElement, String) -> Unit = { _, _ -> },
 ) {
     val editableItem = remember {
@@ -41,20 +39,27 @@ internal fun DataStorePrefComposable(
     }
     val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()
-    Column(modifier) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-            contentDescription = "go back",
-            modifier = Modifier
-                .clickable { onExit() }
-                .padding(all = 16.dp)
-        )
+    Column(
+        Modifier
+            .background(CommonColors.background)
+            .padding(
+                top = with(LocalDensity.current) {
+                    insets.value.top.toDp()
+                }
+            )
+    ) {
+        ToolBar(onExit = onExit, onFilterClick = onFilterClick)
+        Divider(color = CommonColors.dividerColor)
         val density = LocalDensity.current
         LazyColumn(
             modifier = Modifier
-                .wrapContentHeight(Alignment.Top),
+                .fillMaxHeight(),
             state = scrollState,
-            contentPadding = listContentPadding
+            contentPadding = PaddingValues(
+                bottom = with(LocalDensity.current) {
+                    insets.value.bottom.toDp()
+                }
+            )
         ) {
             populateList(data, editableItem, updateValue, scope, scrollState, density)
         }
