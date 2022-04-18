@@ -32,7 +32,7 @@ internal class DatastorePreferencePluginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = ComposeView(context = context!!).apply {
+    ) = ComposeView(context = requireContext()).apply {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindow)
         setContent {
             MaterialTheme {
