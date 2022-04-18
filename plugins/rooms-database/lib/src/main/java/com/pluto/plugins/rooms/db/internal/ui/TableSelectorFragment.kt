@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
@@ -17,7 +18,9 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentTableSelectorBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.TableModel
+import java.lang.Exception
 
 class TableSelectorFragment : BottomSheetDialogFragment() {
 
@@ -40,16 +43,26 @@ class TableSelectorFragment : BottomSheetDialogFragment() {
 
         viewModel.tables.removeObserver(tableListObserver)
         viewModel.tables.observe(viewLifecycleOwner, tableListObserver)
+
+        viewModel.error.removeObserver(errorObserver)
+        viewModel.error.observe(viewLifecycleOwner, errorObserver)
     }
 
-    private val tableListObserver = Observer<Pair<List<TableModel>, Exception?>> {
-        it.second?.let {
-            // todo capture exception
-        } ?: processTableList(it.first)
+    private val tableListObserver = Observer<List<TableModel>> {
+        tableAdapter.list = it
     }
 
-    private fun processTableList(list: List<TableModel>) {
-        tableAdapter.list = list
+    private val errorObserver = Observer<Pair<String, Exception>> {
+        handleError(it.first, it.second)
+    }
+
+    private fun handleError(error: String, exception: Exception) {
+        when (error) {
+            ERROR_FETCH_TABLES -> {
+                toast("Exception occurred (see logs) : $exception")
+                exception.printStackTrace()
+            }
+        }
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {

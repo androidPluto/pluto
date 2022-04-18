@@ -16,21 +16,25 @@ import kotlinx.coroutines.launch
 
 internal class ContentViewModel(application: Application) : AndroidViewModel(application) {
 
-    val tables: LiveData<Pair<List<TableModel>, Exception?>>
+    val tables: LiveData<List<TableModel>>
         get() = _tables
-    private val _tables = MutableLiveData<Pair<List<TableModel>, Exception?>>()
+    private val _tables = MutableLiveData<List<TableModel>>()
 
-    val currentTable: LiveData<TableModel?>
+    val currentTable: LiveData<TableModel>
         get() = _currentTable
-    private val _currentTable = MutableLiveData<TableModel?>()
+    private val _currentTable = MutableLiveData<TableModel>()
 
-    val tableContent: LiveData<Pair<TableContents?, Exception?>>
+    val tableContent: LiveData<TableContents>
         get() = _tableContent
-    private val _tableContent = SingleLiveEvent<Pair<TableContents?, Exception?>>()
+    private val _tableContent = SingleLiveEvent<TableContents>()
 
-    val addRecordEvent: LiveData<Pair<EditEventData?, Exception?>>
+    val addRecordEvent: LiveData<EditEventData>
         get() = _addRecordEvent
-    private val _addRecordEvent = SingleLiveEvent<Pair<EditEventData?, Exception?>>()
+    private val _addRecordEvent = SingleLiveEvent<EditEventData>()
+
+    val error: LiveData<Pair<String, Exception>>
+        get() = _error
+    private val _error = SingleLiveEvent<Pair<String, Exception>>()
 
     override fun onCleared() {
         super.onCleared()
@@ -66,9 +70,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                 } else {
                     _currentTable.postValue(null)
                 }
-                _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
+                _tables.postValue(processedTableList.plus(processedSystemTableList))
             } catch (e: Exception) {
-                _tables.postValue(Pair(emptyList(), e))
+                _error.postValue(Pair(ERROR_FETCH_TABLES, e))
             }
         }
     }
@@ -82,9 +86,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val contents = Executor.instance.query(Query.Tables.getAllValues(table))
-                _tableContent.postValue(Pair(contents, null))
+                _tableContent.postValue(contents)
             } catch (e: Exception) {
-                _tableContent.postValue(Pair(null, e))
+                _error.postValue(Pair(ERROR_FETCH_CONTENT, e))
             }
         }
     }
@@ -95,10 +99,16 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
             try {
                 val queryResult = Executor.instance.query(Query.Tables.getColumnNames(table))
                 val eventData = EditEventData(index = index, columns = queryResult.second.map { it[1] }, values = list)
-                _addRecordEvent.postValue(Pair(eventData, null))
+                _addRecordEvent.postValue(eventData)
             } catch (e: Exception) {
-                _addRecordEvent.postValue(Pair(null, e))
+                _error.postValue(Pair(ERROR_ADD_UPDATE_EVENT, e))
             }
         }
+    }
+
+    companion object {
+        const val ERROR_FETCH_TABLES = "error_fetch_tables"
+        const val ERROR_FETCH_CONTENT = "error_fetch_content"
+        const val ERROR_ADD_UPDATE_EVENT = "error_add_update_event"
     }
 }
