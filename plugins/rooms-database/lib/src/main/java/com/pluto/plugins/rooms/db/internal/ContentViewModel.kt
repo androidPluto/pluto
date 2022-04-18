@@ -24,9 +24,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _currentTable
     private val _currentTable = MutableLiveData<TableModel>()
 
-    val tableContent: LiveData<TableContents>
+    val processedTableContent: LiveData<ProcessedTableContents>
         get() = _tableContent
-    private val _tableContent = SingleLiveEvent<TableContents>()
+    private val _tableContent = SingleLiveEvent<ProcessedTableContents>()
 
     val addRecordEvent: LiveData<EditEventData>
         get() = _addRecordEvent
@@ -81,12 +81,25 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         _currentTable.postValue(table)
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught")
+    @SuppressWarnings("TooGenericExceptionCaught", "MagicNumber")
     fun fetchData(table: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val contents = Executor.instance.query(Query.Tables.getAllValues(table))
-                _tableContent.postValue(contents)
+                val valueResult = Executor.instance.query(Query.Tables.getAllValues(table))
+                val columnResult = Executor.instance.query(Query.Tables.getColumnNames(table))
+
+//                val columns = columnResult.second.map { it[1] }
+                val columns = columnResult.second.map {
+                    ColumnModel(
+                        columnId = it[0].toInt(),
+                        name = it[1],
+                        type = it[2],
+                        isNotNull = it[3].toInt() > 0,
+                        defaultValue = it[4],
+                        isPrimaryKey = it[5].toInt() > 0
+                    )
+                }
+                _tableContent.postValue(ProcessedTableContents(columns, valueResult.second))
             } catch (e: Exception) {
                 _error.postValue(Pair(ERROR_FETCH_CONTENT, e))
             }

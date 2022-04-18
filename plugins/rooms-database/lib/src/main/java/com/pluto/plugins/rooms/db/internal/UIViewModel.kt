@@ -17,12 +17,29 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
         get() = _dataView
     private val _dataView = SingleLiveEvent<HorizontalScrollView>()
 
-    fun generateView(context: Context, columns: List<String>, rows: List<List<String>>, onClick: (Int, List<String>) -> Unit) {
+    @SuppressWarnings("LongParameterList")
+    fun generateView(
+        context: Context,
+        columns: List<ColumnModel>,
+        rows: List<List<String>>,
+        onRowClick: (Int, List<String>) -> Unit,
+        onColumnClick: (ColumnModel) -> Unit,
+        onColumnLongClick: (ColumnModel) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val hsv = HorizontalScrollView(context)
-            TableGridView(context).create(columns, rows) { index ->
-                onClick.invoke(index, rows[index])
-            }.also { view -> hsv.addView(view) }
+            TableGridView(context).create(
+                columns, rows,
+                { index -> // row click
+                    onRowClick.invoke(index, rows[index])
+                },
+                { column -> // column click
+                    onColumnClick.invoke(column)
+                },
+                { column -> // column long click
+                    onColumnLongClick.invoke(column)
+                }
+            ).also { view -> hsv.addView(view) }
             _dataView.postValue(hsv)
         }
     }

@@ -32,7 +32,7 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETC
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.EditEventData
-import com.pluto.plugins.rooms.db.internal.TableContents
+import com.pluto.plugins.rooms.db.internal.ProcessedTableContents
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
@@ -92,8 +92,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.addRecordEvent.removeObserver(addRecordEventObserver)
             viewModel.addRecordEvent.observe(viewLifecycleOwner, addRecordEventObserver)
 
-            viewModel.tableContent.removeObserver(tableContentObserver)
-            viewModel.tableContent.observe(viewLifecycleOwner, tableContentObserver)
+            viewModel.processedTableContent.removeObserver(tableContentObserver)
+            viewModel.processedTableContent.observe(viewLifecycleOwner, tableContentObserver)
 
             viewModel.error.removeObserver(errorObserver)
             viewModel.error.observe(viewLifecycleOwner, errorObserver)
@@ -104,7 +104,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     }
 
     private fun shareTableContent(table: String) {
-        viewModel.tableContent.value?.let { content ->
+        viewModel.processedTableContent.value?.let { content ->
             sharer.performAction(
                 ShareAction.ShareAsFile(
                     Shareable(
@@ -152,14 +152,23 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         } ?: openTableSelector()
     }
 
-    private val tableContentObserver = Observer<TableContents> {
-        uiViewModel.generateView(requireContext(), it.first, it.second) { index, value ->
-            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                viewModel.currentTable.value?.let { table ->
-                    openDetailsView(table.name, index, value)
+    private val tableContentObserver = Observer<ProcessedTableContents> {
+        uiViewModel.generateView(
+            requireContext(), it.first, it.second,
+            { index, value -> // row click
+                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                    viewModel.currentTable.value?.let { table ->
+                        openDetailsView(table.name, index, value)
+                    }
                 }
+            },
+            { column -> // column click
+                toast("try sorting")
+            },
+            { column -> // column long click
+                toast("${column.type} ${column.isPrimaryKey}")
             }
-        }
+        )
     }
 
     private val tableUIObserver = Observer<HorizontalScrollView> {
@@ -196,9 +205,9 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     }
 }
 
-private fun TableContents.serialize(): String {
+private fun ProcessedTableContents.serialize(): String {
     val stringBuilder = StringBuilder()
-    stringBuilder.append(CSVFormatter.write(first.toTypedArray()))
+    stringBuilder.append(CSVFormatter.write(first.map { it.name }.toTypedArray()))
     second.forEach {
         stringBuilder.append(CSVFormatter.write(it.toTypedArray()))
     }

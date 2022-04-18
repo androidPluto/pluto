@@ -29,16 +29,18 @@ internal data class ValuesModel(
  */
 
 @Keep
-internal data class ColumnModel<T>(
+internal data class ColumnModel(
     val columnId: Int,
     val name: String,
     val type: String,
     val isNotNull: Boolean,
-    val defaultValue: T,
+    val defaultValue: String?,
     val isPrimaryKey: Boolean
 )
 
-internal typealias TableContents = Pair<List<String>, List<List<String>>>
+internal typealias RawTableContents = Pair<List<String>, List<List<String>>>
+
+internal typealias ProcessedTableContents = Pair<List<ColumnModel>, List<List<String>>>
 
 @Keep
 internal data class EditEventData(
