@@ -1,6 +1,7 @@
 package com.pluto.plugins.rooms.db.internal.ui
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,10 +88,10 @@ class DataEditFragment : BottomSheetDialogFragment() {
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
         }
         val columns = dataConfig.columns
-        val rows = dataConfig.values ?: dataConfig.columns.map { "" }
+        val rows = dataConfig.values ?: dataConfig.columns.map { null }
         Pair(columns, rows).forEachIndexed { _, column, value ->
             val columnTextView = getColumnTextView(column)
-            val valueEditText = getValueTextView(value)
+            val valueEditText = getValueTextView(column, value)
             etList.add(valueEditText)
             val row = LinearLayout(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
@@ -107,7 +108,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
         binding.nsv.addView(mainLayout)
     }
 
-    private fun getValueTextView(value: String?): EditText = EditText(context).apply {
+    private fun getValueTextView(column: ColumnModel, value: String?): EditText = EditText(context).apply {
         layoutParams = LinearLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
@@ -121,11 +122,20 @@ class DataEditFragment : BottomSheetDialogFragment() {
             paddingEnd + 8f.dp.toInt(),
             paddingBottom
         )
+        hint = "${column.type} (${if (column.isNotNull) "not_null" else "null"})"
+        inputType = handleKeypad(column.type)
         textSize = TEXT_SIZE_DATA
         setTextColor(requireContext().color(R.color.pluto___text_dark_80))
+        setHintTextColor(requireContext().color(R.color.pluto___text_dark_20))
         typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
         background = etBackground
-        setText(value)
+        setText(value ?: column.defaultValue?.replace("\'", ""))
+    }
+
+    // todo increase data type coverage
+    private fun handleKeypad(type: String): Int = when (type) {
+        "INTEGER" -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        else -> InputType.TYPE_CLASS_TEXT
     }
 
     private fun getColumnTextView(column: ColumnModel): TextView = TextView(context).apply {
