@@ -50,18 +50,16 @@ internal class Executor private constructor(private val database: SupportSQLiteD
     }
 
     /**
-     * Query the db with given [query] and returns result in [onSuccess] or error in [onError].
+     * Query the db with given [query].
+     * This method should be called on background thread
      *
      * @param query SQL query
-     * @param onSuccess action to be executed if [query] returns result
-     * @param onError action to be executed if [query] execution failed
      */
-    @SuppressWarnings("TooGenericExceptionCaught", "NestedBlockDepth")
-    internal fun query(query: String, onSuccess: (TableContents) -> Unit, onError: (Exception) -> Unit) = try {
+    @SuppressWarnings("TooGenericExceptionThrown")
+    @Throws(Exception::class)
+    internal fun query(query: String): TableContents {
         val c = database.query(query, null)
-        if (null == c) {
-            onError(java.lang.Exception())
-        } else {
+        c?.let {
             val columnNames = arrayListOf<String>()
             for (i in 0 until c.columnCount) columnNames.add(c.getColumnName(i))
             val rows = mutableListOf<ArrayList<String>>()
@@ -69,40 +67,27 @@ internal class Executor private constructor(private val database: SupportSQLiteD
             do {
                 val rowValues = arrayListOf<String>()
                 for (i in 0 until c.columnCount) {
-                    try {
-                        val value = c.getString(i)
-                        rowValues.add(value)
-                    } catch (e: Exception) {
-                        onError(e)
-                    }
+                    val value = c.getString(i)
+                    rowValues.add(value)
                 }
                 if (rowValues.isNotEmpty()) {
                     rows.add(rowValues)
                 }
             } while (c.moveToNext())
             c.close()
-            onSuccess(
-                TableContents(
-                    columnNames,
-                    rows
-                )
-            )
+            return TableContents(columnNames, rows)
         }
-    } catch (ex: Exception) {
-        onError(ex)
+        throw Exception()
     }
 
     /**
      * Executes the given [query].
+     * This method should be called on background thread
      *
      * @param query SQL query
-     * @param onSuccess action to be executed if [query] executed successfully
-     * @param onError action to be executed if [query] execution failed
      */
-    @SuppressWarnings("TooGenericExceptionCaught")
-    internal fun execute(query: String, onSuccess: () -> Unit, onError: (Exception) -> Unit) = try {
-        database.execSQL(query).also { onSuccess() }
-    } catch (ex: Exception) {
-        onError(ex)
+    @Throws(Exception::class)
+    internal fun execSQL(query: String) {
+        database.execSQL(query)
     }
 }

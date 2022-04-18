@@ -11,6 +11,7 @@ import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,10 +28,6 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         get() = _tableContent
     private val _tableContent = SingleLiveEvent<Pair<TableContents?, Exception?>>()
 
-//    val dataView: LiveData<Pair<HorizontalScrollView?, Exception?>>
-//        get() = _dataView
-//    private val _dataView = SingleLiveEvent<Pair<HorizontalScrollView?, Exception?>>()
-
     val addRecordEvent: LiveData<Pair<EditEventData?, Exception?>>
         get() = _addRecordEvent
     private val _addRecordEvent = SingleLiveEvent<Pair<EditEventData?, Exception?>>()
@@ -45,36 +42,34 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         fetchTables()
     }
 
+    @SuppressWarnings("TooGenericExceptionCaught")
     private fun fetchTables() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val tables = arrayListOf<String>()
-            Executor.instance.query(
-                Query.Database.GET_TABLE_NAMES,
-                {
-                    it.second.forEach { list ->
-                        tables.addAll(list)
-                    }
-
-                    val processedTableList = arrayListOf<TableModel>()
-                    val processedSystemTableList = arrayListOf<TableModel>()
-                    tables.forEach { table ->
-                        if (isSystemTable(table)) {
-                            processedSystemTableList.add(TableModel(table, true))
-                        } else {
-                            processedTableList.add(TableModel(table, false))
-                        }
-                    }
-                    if (processedTableList.size == 1) {
-                        _currentTable.postValue(processedTableList.first())
-                    } else {
-                        _currentTable.postValue(null)
-                    }
-                    _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
-                },
-                {
-                    _tables.postValue(Pair(emptyList(), it))
+            try {
+                val queryResult = Executor.instance.query(Query.Database.GET_TABLE_NAMES)
+                queryResult.second.forEach { list ->
+                    tables.addAll(list)
                 }
-            )
+
+                val processedTableList = arrayListOf<TableModel>()
+                val processedSystemTableList = arrayListOf<TableModel>()
+                tables.forEach { table ->
+                    if (isSystemTable(table)) {
+                        processedSystemTableList.add(TableModel(table, true))
+                    } else {
+                        processedTableList.add(TableModel(table, false))
+                    }
+                }
+                if (processedTableList.size == 1) {
+                    _currentTable.postValue(processedTableList.first())
+                } else {
+                    _currentTable.postValue(null)
+                }
+                _tables.postValue(Pair(processedTableList.plus(processedSystemTableList), null))
+            } catch (e: Exception) {
+                _tables.postValue(Pair(emptyList(), e))
+            }
         }
     }
 
@@ -82,56 +77,28 @@ internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewMo
         _currentTable.postValue(table)
     }
 
+    @SuppressWarnings("TooGenericExceptionCaught")
     fun fetchData(table: String) {
-        viewModelScope.launch {
-            Executor.instance.query(
-                Query.Tables.getAllValues(table),
-                { result ->
-                    val columns = result.first
-                    val rows = result.second
-                    _tableContent.postValue(Pair(TableContents(columns, rows), null))
-                },
-                { ex ->
-                    _tableContent.postValue(Pair(null, ex))
-                }
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val contents = Executor.instance.query(Query.Tables.getAllValues(table))
+                _tableContent.postValue(Pair(contents, null))
+            } catch (e: Exception) {
+                _tableContent.postValue(Pair(null, e))
+            }
         }
     }
 
-//    fun fetchData(context: Context, table: String, onClick: (Int, List<String>, List<String>) -> Unit) {
-//        val hsv = HorizontalScrollView(context)
-//        viewModelScope.launch {
-//            Executor.instance.query(
-//                Query.Tables.getAllValues(table),
-//                { result ->
-//                    val columns = result.first
-//                    val rows = result.second
-//                    TableGridView(context).create(columns, rows) {
-//                        onClick(it, columns, rows[it])
-//                    }.also { hsv.addView(it) }
-//                    _dataView.postValue(Pair(hsv, null))
-//                },
-//                { ex ->
-//                    _dataView.postValue(Pair(null, ex))
-//                }
-//            )
-//        }
-//    }
-
+    @SuppressWarnings("TooGenericExceptionCaught")
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
-        viewModelScope.launch {
-            Executor.instance.query(
-                Query.Tables.getColumnNames(table),
-                { result ->
-                    run {
-                        val eventData = EditEventData(index = index, columns = result.second.map { it[1] }, values = list)
-                        _addRecordEvent.postValue(Pair(eventData, null))
-                    }
-                },
-                { ex ->
-                    _addRecordEvent.postValue(Pair(null, ex))
-                }
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val queryResult = Executor.instance.query(Query.Tables.getColumnNames(table))
+                val eventData = EditEventData(index = index, columns = queryResult.second.map { it[1] }, values = list)
+                _addRecordEvent.postValue(Pair(eventData, null))
+            } catch (e: Exception) {
+                _addRecordEvent.postValue(Pair(null, e))
+            }
         }
     }
 }
