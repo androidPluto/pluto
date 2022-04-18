@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,12 +26,12 @@ import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
+import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.EditEventData
-import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
 import com.pluto.plugins.rooms.db.internal.TableContents
 import com.pluto.plugins.rooms.db.internal.TableModel
-import com.pluto.plugins.rooms.db.internal.core.TableGridView
+import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
 import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_INDEX
@@ -41,7 +42,8 @@ import java.lang.StringBuilder
 class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val binding by viewBinding(PlutoRoomsFragmentDbDetailsBinding::bind)
-    private val viewModel: RoomsDBDetailsViewModel by activityViewModels()
+    private val viewModel: ContentViewModel by activityViewModels()
+    private val uiViewModel: UIViewModel by viewModels()
     private val sharer: ContentShareViewModel by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,6 +91,9 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
             viewModel.tableContent.removeObserver(tableContentObserver)
             viewModel.tableContent.observe(viewLifecycleOwner, tableContentObserver)
+
+            uiViewModel.dataView.removeObserver(tableUIObserver)
+            uiViewModel.dataView.observe(viewLifecycleOwner, tableUIObserver)
         } ?: requireActivity().onBackPressed()
     }
 
@@ -132,19 +137,25 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val tableContentObserver = Observer<Pair<TableContents?, Exception?>> {
         it.first?.let { data ->
-            binding.nsv.scrollTo(0, 0)
-            binding.nsv.removeAllViews()
-            val hsv = HorizontalScrollView(requireContext())
-            TableGridView(requireContext()).create(data.first, data.second) { index ->
-                viewModel.currentTable.value?.let { table ->
-                    openDetailsView(table.name, index, data.second[index])
+            uiViewModel.generateView(requireContext(), data.first, data.second) { index, value ->
+                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                    viewModel.currentTable.value?.let { table ->
+                        openDetailsView(table.name, index, value)
+                    }
                 }
-            }.also { view -> hsv.addView(view) }
-            binding.nsv.addView(hsv)
+            }
         }
         it.second?.let { ex ->
             requireContext().toast("Exception occurred : $ex")
             ex.printStackTrace()
+        }
+    }
+
+    private val tableUIObserver = Observer<HorizontalScrollView> {
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            binding.nsv.scrollTo(0, 0)
+            binding.nsv.removeAllViews()
+            binding.nsv.addView(it)
         }
     }
 

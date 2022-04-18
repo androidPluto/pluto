@@ -14,7 +14,7 @@ import com.pluto.plugins.rooms.db.internal.core.query.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-internal class RoomsDBDetailsViewModel(application: Application) : AndroidViewModel(application) {
+internal class ContentViewModel(application: Application) : AndroidViewModel(application) {
 
     val tables: LiveData<Pair<List<TableModel>, Exception?>>
         get() = _tables
