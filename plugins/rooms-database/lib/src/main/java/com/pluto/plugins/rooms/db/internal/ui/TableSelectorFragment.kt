@@ -16,13 +16,13 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentTableSelectorBinding
-import com.pluto.plugins.rooms.db.internal.RoomsDBDetailsViewModel
+import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.TableModel
 
 class TableSelectorFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSelectorBinding::bind)
-    private val viewModel: RoomsDBDetailsViewModel by activityViewModels()
+    private val viewModel: ContentViewModel by activityViewModels()
 
     private val tableAdapter: BaseAdapter by lazy { RoomsTableAdapter(onActionListener) }
 
