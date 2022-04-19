@@ -27,7 +27,7 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
-import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE_EVENT
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE_REQUEST
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_CONTENT
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
@@ -132,7 +132,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private fun handleError(error: String, exception: Exception) {
         when (error) {
-            ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_EVENT -> {
+            ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
                 toast("Error (see logs) : ${exception.message}")
                 exception.printStackTrace()
             }
@@ -144,6 +144,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                resetTableGrid()
                 viewModel.fetchData(it.name)
             }
         } ?: openTableSelector()
@@ -170,10 +171,13 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val tableUIObserver = Observer<HorizontalScrollView> {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            binding.nsv.scrollTo(0, 0)
             binding.nsv.removeAllViews()
             binding.nsv.addView(it)
         }
+    }
+
+    private fun resetTableGrid() {
+        binding.nsv.scrollTo(0, 0)
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {

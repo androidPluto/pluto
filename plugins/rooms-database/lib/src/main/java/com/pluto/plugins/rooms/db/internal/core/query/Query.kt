@@ -21,7 +21,7 @@ internal class Query private constructor() {
              * @param table name of the table
              * @return query
              */
-            fun getColumnNames(table: String) = "PRAGMA table_info($table)"
+            fun columns(table: String) = "PRAGMA table_info($table)"
 
             /**
              * Query to get all values of the table.
@@ -29,7 +29,7 @@ internal class Query private constructor() {
              * @param table name of the table
              * @return query
              */
-            fun getAllValues(table: String) = "SELECT * FROM $table"
+            fun values(table: String) = "SELECT * FROM $table"
 
             /**
              * Query to drop the table.
@@ -45,7 +45,7 @@ internal class Query private constructor() {
              * @param table name of the table
              * @return query
              */
-            fun deleteTable(table: String) = "DELETE FROM $table"
+            fun clear(table: String) = "DELETE FROM $table"
         }
     }
 
@@ -58,7 +58,7 @@ internal class Query private constructor() {
              * @param values list of values to be inserted
              * @return query
              */
-            fun insertRow(table: String, values: List<String>): String {
+            fun insert(table: String, values: List<String>): String {
                 var insertQuery = "INSERT INTO $table VALUES("
                 values.forEachIndexed { index, value ->
                     insertQuery += "'$value'"
@@ -80,17 +80,25 @@ internal class Query private constructor() {
              * @return query
              */
             @SuppressWarnings("StringLiteralDuplication")
-            fun updateRow(table: String, column: List<String>, oldValues: List<String>, newValues: List<String>): String {
+            fun update(table: String, column: List<String>, oldValues: List<String?>, newValues: List<String>): String {
                 var query = "Update $table set "
                 Pair(column, newValues).forEachIndexed { index, columnName, value ->
-                    query += "$columnName = '$value'"
+                    query += if (value != null) {
+                        "$columnName = '$value'"
+                    } else {
+                        "$columnName = null"
+                    }
                     if (index != column.size - 1) {
                         query += ", "
                     }
                 }
                 query += " where "
                 Pair(column, oldValues).forEachIndexed { index, columnName, value ->
-                    query += "$columnName = '$value'"
+                    query += if (value != null) {
+                        "$columnName = '$value'"
+                    } else {
+                        "$columnName = null"
+                    }
                     if (index != column.size - 1) {
                         query += " AND "
                     }
@@ -106,7 +114,7 @@ internal class Query private constructor() {
              * @param values list of values to be deleted
              * @return query
              */
-            fun deleteRow(table: String, column: List<String>, values: List<String>): String {
+            fun delete(table: String, column: List<String>, values: List<String>): String {
                 var query = "DELETE FROM $table where "
                 Pair(column, values).forEachIndexed { index, columnName, value ->
                     query += "$columnName = '$value'"

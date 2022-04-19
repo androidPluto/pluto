@@ -12,6 +12,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,18 +22,23 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.drawable
 import com.pluto.plugin.utilities.extensions.forEachIndexed
+import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
+import com.pluto.plugins.rooms.db.internal.ContentViewModel
+import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import java.lang.Exception
 
 class DataEditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentDataEditorBinding::bind)
-//    private val viewModel: RoomsDBDetailsViewModel by activityViewModels()
+    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_data_editor, container, false)
@@ -42,6 +49,8 @@ class DataEditFragment : BottomSheetDialogFragment() {
      * Holds all [EditText]s in this view.
      */
     private val etList = mutableListOf<EditText>()
+    private val fieldValues
+        get() = etList.map { it.text.toString() }
 
     private val etBackground by lazy {
         requireContext().drawable(R.drawable.pluto_rooms___bg_edittext_round)
@@ -77,16 +86,22 @@ class DataEditFragment : BottomSheetDialogFragment() {
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
-        convertArguments(arguments)?.let { values ->
-            showInsertUI(values)
+        convertArguments(arguments)?.let { dataConfig ->
+            showInsertUI(dataConfig, dataConfig.values == null)
         } ?: dismiss()
+
+        viewModel.editEventState.removeObserver(editStateObserver)
+        viewModel.editEventState.observe(viewLifecycleOwner, editStateObserver)
+
+        viewModel.error.removeObserver(errorObserver)
+        viewModel.error.observe(viewLifecycleOwner, errorObserver)
     }
 
-    private fun showInsertUI(dataConfig: EditEventData) {
-        dataConfig.values?.let {
+    private fun showInsertUI(dataConfig: EditEventData, isInsertSession: Boolean) {
+        if (isInsertSession) {
             binding.title.text = getString(R.string.pluto_rooms___edit_row_title)
             binding.save.text = getString(R.string.pluto_rooms___edit_cta_text)
-        } ?: run {
+        } else {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
         }
@@ -110,6 +125,15 @@ class DataEditFragment : BottomSheetDialogFragment() {
         }
         binding.nsv.removeAllViews()
         binding.nsv.addView(mainLayout)
+        binding.save.setDebounceClickListener {
+            if (isInsertSession) {
+                viewModel.addNewRow(dataConfig.table, fieldValues)
+            } else {
+                dataConfig.values?.let { values ->
+                    viewModel.updateRow(dataConfig.table, dataConfig.columns.map { it.name }, values, fieldValues)
+                }
+            }
+        }
     }
 
     private fun getValueTextView(column: ColumnModel, value: String?): EditText = EditText(context).apply {
@@ -134,6 +158,24 @@ class DataEditFragment : BottomSheetDialogFragment() {
         typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
         background = etBackground
         setText(value ?: column.defaultValue?.replace("\'", ""))
+    }
+
+    private val editStateObserver = Observer<Boolean> {
+        toast("Success!")
+        dismiss()
+    }
+
+    private val errorObserver = Observer<Pair<String, Exception>> {
+        handleError(it.first, it.second)
+    }
+
+    private fun handleError(error: String, exception: Exception) {
+        when (error) {
+            ERROR_ADD_UPDATE -> {
+                toast("Error (see logs) : ${exception.message}")
+                exception.printStackTrace()
+            }
+        }
     }
 
     // todo increase data type coverage

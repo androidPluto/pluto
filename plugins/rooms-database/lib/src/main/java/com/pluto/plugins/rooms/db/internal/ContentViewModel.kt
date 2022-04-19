@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
+import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
@@ -31,6 +32,10 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     val addRecordEvent: LiveData<EditEventData>
         get() = _addRecordEvent
     private val _addRecordEvent = SingleLiveEvent<EditEventData>()
+
+    val editEventState: LiveData<Boolean>
+        get() = _editEventState
+    private val _editEventState = SingleLiveEvent<Boolean>()
 
     val error: LiveData<Pair<String, Exception>>
         get() = _error
@@ -85,8 +90,8 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     fun fetchData(table: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val valueResult = Executor.instance.query(Query.Tables.getAllValues(table))
-                val columnResult = Executor.instance.query(Query.Tables.getColumnNames(table))
+                val valueResult = Executor.instance.query(Query.Tables.values(table))
+                val columnResult = Executor.instance.query(Query.Tables.columns(table))
 
 //                val columns = columnResult.second.map { it[1] }
                 val columns = columnResult.second.map {
@@ -110,7 +115,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val queryResult = Executor.instance.query(Query.Tables.getColumnNames(table))
+                val queryResult = Executor.instance.query(Query.Tables.columns(table))
                 val eventData = EditEventData(
                     index = index,
                     table = table,
@@ -128,7 +133,35 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                 )
                 _addRecordEvent.postValue(eventData)
             } catch (e: Exception) {
-                _error.postValue(Pair(ERROR_ADD_UPDATE_EVENT, e))
+                _error.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, e))
+            }
+        }
+    }
+
+    @SuppressWarnings("TooGenericExceptionCaught")
+    fun addNewRow(table: String, values: List<String>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val queryResult = Executor.instance.query(Query.Rows.insert(table, values))
+                DebugLog.d("rooms-db", queryResult.toString())
+                fetchData(table)
+                _editEventState.postValue(true)
+            } catch (e: Exception) {
+                _error.postValue(Pair(ERROR_ADD_UPDATE, e))
+            }
+        }
+    }
+
+    @SuppressWarnings("TooGenericExceptionCaught")
+    fun updateRow(table: String, columns: List<String>, prevValues: List<String?>, newValues: List<String>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val queryResult = Executor.instance.query(Query.Rows.update(table, columns, prevValues, newValues))
+                DebugLog.d("rooms-db", queryResult.toString())
+                fetchData(table)
+                _editEventState.postValue(true)
+            } catch (e: Exception) {
+                _error.postValue(Pair(ERROR_ADD_UPDATE, e))
             }
         }
     }
@@ -136,7 +169,8 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     companion object {
         const val ERROR_FETCH_TABLES = "error_fetch_tables"
         const val ERROR_FETCH_CONTENT = "error_fetch_content"
-        const val ERROR_ADD_UPDATE_EVENT = "error_add_update_event"
+        const val ERROR_ADD_UPDATE_REQUEST = "error_add_update_request"
+        const val ERROR_ADD_UPDATE = "error_add_update"
 
         private const val COLUMN_CID_INDEX = 0
         private const val COLUMN_NAME_INDEX = 1
