@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -23,7 +25,8 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
-import com.pluto.plugins.rooms.db.internal.ValuesModel
+import com.pluto.plugins.rooms.db.internal.EditEventData
+import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 
 class DataEditFragment : BottomSheetDialogFragment() {
 
@@ -79,7 +82,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
         } ?: dismiss()
     }
 
-    private fun showInsertUI(dataConfig: ValuesModel) {
+    private fun showInsertUI(dataConfig: EditEventData) {
         dataConfig.values?.let {
             binding.title.text = getString(R.string.pluto_rooms___edit_row_title)
             binding.save.text = getString(R.string.pluto_rooms___edit_cta_text)
@@ -87,6 +90,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
         }
+        binding.warning.visibility = if (isSystemTable(dataConfig.table)) VISIBLE else GONE
         val columns = dataConfig.columns
         val rows = dataConfig.values ?: dataConfig.columns.map { null }
         Pair(columns, rows).forEachIndexed { _, column, value ->
@@ -155,20 +159,11 @@ class DataEditFragment : BottomSheetDialogFragment() {
         setTextColor(requireContext().color(R.color.pluto___text_dark_60))
     }
 
-    private fun convertArguments(arguments: Bundle?): ValuesModel? {
-        return arguments?.let {
-            val index = it.getInt(DATA_INDEX)
-            val values = it.getStringArrayList(DATA_VALUES)
-            it.getParcelableArrayList<ColumnModel>(DATA_COLUMNS)?.let { columns ->
-                ValuesModel(index, columns, values)
-            }
-        }
+    private fun convertArguments(arguments: Bundle?): EditEventData? {
+        return arguments?.getParcelable("data")
     }
 
     companion object {
-        const val DATA_INDEX = "index"
-        const val DATA_COLUMNS = "columns"
-        const val DATA_VALUES = "values"
         const val TEXT_SIZE_COLUMN = 14f
         const val TEXT_SIZE_DATA = 15f
     }
