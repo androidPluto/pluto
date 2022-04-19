@@ -72,6 +72,20 @@
                         android:background="@color/pluto___dark_05"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/warning"
+                        android:layout_marginTop="@dimen/pluto___margin_small"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@string/pluto_rooms___system_table_edit_warning"
+                        android:textColor="@color/pluto___red_60"
+                        android:gravity="center"
+                        android:fontFamily="@font/muli"
+                        android:textSize="@dimen/pluto___text_xsmall"
+                        android:visibility="gone"
+                        android:layout_marginHorizontal="@dimen/pluto___margin_small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -81,7 +95,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@+id/warning">
 
                         <TextView
                             android:id="@+id/save"

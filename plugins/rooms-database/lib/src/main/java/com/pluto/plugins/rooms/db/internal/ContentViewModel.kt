@@ -81,7 +81,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         _currentTable.postValue(table)
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught", "MagicNumber")
+    @SuppressWarnings("TooGenericExceptionCaught")
     fun fetchData(table: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -91,12 +91,12 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 //                val columns = columnResult.second.map { it[1] }
                 val columns = columnResult.second.map {
                     ColumnModel(
-                        columnId = it[0].toInt(),
-                        name = it[1],
-                        type = it[2],
-                        isNotNull = it[3].toInt() > 0,
-                        defaultValue = it[4],
-                        isPrimaryKey = it[5].toInt() > 0
+                        columnId = it[COLUMN_CID_INDEX].toInt(),
+                        name = it[COLUMN_NAME_INDEX],
+                        type = it[COLUMN_TYPE_INDEX],
+                        isNotNull = it[COLUMN_NOTNULL_INDEX].toInt() > 0,
+                        defaultValue = it[COLUMN_DFLT_VALUE_INDEX],
+                        isPrimaryKey = it[COLUMN_PRIMARY_KEY_INDEX].toInt() > 0
                     )
                 }
                 _tableContent.postValue(ProcessedTableContents(columns, valueResult.second))
@@ -106,21 +106,22 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught", "MagicNumber")
+    @SuppressWarnings("TooGenericExceptionCaught")
     fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val queryResult = Executor.instance.query(Query.Tables.getColumnNames(table))
                 val eventData = EditEventData(
                     index = index,
+                    table = table,
                     columns = queryResult.second.map {
                         ColumnModel(
-                            columnId = it[0].toInt(),
-                            name = it[1],
-                            type = it[2],
-                            isNotNull = it[3].toInt() > 0,
-                            defaultValue = it[4],
-                            isPrimaryKey = it[5].toInt() > 0
+                            columnId = it[COLUMN_CID_INDEX].toInt(),
+                            name = it[COLUMN_NAME_INDEX],
+                            type = it[COLUMN_TYPE_INDEX],
+                            isNotNull = it[COLUMN_NOTNULL_INDEX].toInt() > 0,
+                            defaultValue = it[COLUMN_DFLT_VALUE_INDEX],
+                            isPrimaryKey = it[COLUMN_PRIMARY_KEY_INDEX].toInt() > 0
                         )
                     },
                     values = list
@@ -136,5 +137,12 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         const val ERROR_FETCH_TABLES = "error_fetch_tables"
         const val ERROR_FETCH_CONTENT = "error_fetch_content"
         const val ERROR_ADD_UPDATE_EVENT = "error_add_update_event"
+
+        private const val COLUMN_CID_INDEX = 0
+        private const val COLUMN_NAME_INDEX = 1
+        private const val COLUMN_TYPE_INDEX = 2
+        private const val COLUMN_NOTNULL_INDEX = 3
+        private const val COLUMN_DFLT_VALUE_INDEX = 4
+        private const val COLUMN_PRIMARY_KEY_INDEX = 5
     }
 }

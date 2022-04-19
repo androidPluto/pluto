@@ -36,9 +36,6 @@ import com.pluto.plugins.rooms.db.internal.ProcessedTableContents
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
-import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_COLUMNS
-import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_INDEX
-import com.pluto.plugins.rooms.db.internal.ui.DataEditFragment.Companion.DATA_VALUES
 import java.lang.Exception
 import java.lang.StringBuilder
 
@@ -125,7 +122,7 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     }
 
     private val addRecordEventObserver = Observer<EditEventData> {
-        val bundle = bundleOf(DATA_INDEX to it.index, DATA_COLUMNS to it.columns, DATA_VALUES to it.values)
+        val bundle = bundleOf("data" to it)
         findNavController().navigate(R.id.openDataEditor, bundle)
     }
 
