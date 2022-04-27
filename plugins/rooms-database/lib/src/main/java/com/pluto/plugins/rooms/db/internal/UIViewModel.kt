@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugin.utilities.SingleLiveEvent
-import com.pluto.plugins.rooms.db.internal.core.TableGridView
+import com.pluto.plugins.rooms.db.internal.core.widgets.TableGridView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,7 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
         onColumnClick: (ColumnModel) -> Unit,
         onColumnLongClick: (ColumnModel) -> Unit
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             val hsv = HorizontalScrollView(context)
             TableGridView(context).create(
                 columns, rows,

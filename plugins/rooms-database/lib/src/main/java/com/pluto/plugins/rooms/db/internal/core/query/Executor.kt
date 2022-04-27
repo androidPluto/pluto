@@ -1,10 +1,14 @@
 package com.pluto.plugins.rooms.db.internal.core.query
 
 import android.content.Context
+import android.database.SQLException
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.pluto.plugins.rooms.db.internal.RawTableContents
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 /**
  * A class which is responsible for performing db operations.
@@ -51,43 +55,69 @@ internal class Executor private constructor(private val database: SupportSQLiteD
 
     /**
      * Query the db with given [query].
-     * This method should be called on background thread
      *
      * @param query SQL query
      */
-    @SuppressWarnings("TooGenericExceptionThrown")
-    @Throws(Exception::class)
-    internal fun query(query: String): RawTableContents {
-        val c = database.query(query, null)
-        c?.let {
-            val columnNames = arrayListOf<String>()
-            for (i in 0 until c.columnCount) columnNames.add(c.getColumnName(i))
-            val rows = mutableListOf<ArrayList<String>>()
-            c.moveToFirst()
-            do {
-                val rowValues = arrayListOf<String>()
-                for (i in 0 until c.columnCount) {
-                    val value = c.getString(i)
-                    rowValues.add(value)
-                }
-                if (rowValues.isNotEmpty()) {
-                    rows.add(rowValues)
-                }
-            } while (c.moveToNext())
-            c.close()
-            return RawTableContents(columnNames, rows)
+    @SuppressWarnings("TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    internal fun query(query: String) = flow {
+        try {
+            val c = database.query(query, null)
+            c?.let {
+                val columnNames = arrayListOf<String>()
+                for (i in 0 until c.columnCount) columnNames.add(c.getColumnName(i))
+                val rows = mutableListOf<ArrayList<String>>()
+                c.moveToFirst()
+                do {
+                    val rowValues = arrayListOf<String>()
+                    for (i in 0 until c.columnCount) {
+                        val value = c.getString(i)
+                        rowValues.add(value)
+                    }
+                    if (rowValues.isNotEmpty()) {
+                        rows.add(rowValues)
+                    }
+                } while (c.moveToNext())
+                c.close()
+                emit(QueryResult.Success(RawTableContents(columnNames, rows)))
+            } ?: run {
+                throw Exception()
+            }
+        } catch (e: Exception) {
+            emit(QueryResult.Failure(e))
         }
-        throw Exception()
-    }
+    }.flowOn(Dispatchers.IO)
+
+    @SuppressWarnings("UnusedPrivateMember")
+    internal fun insert(table: String, values: List<String?>) = flow<ExecuteResult> {
+//        database.insert(table, CONFLICT_FAIL, ContentValues().put())
+    }.flowOn(Dispatchers.IO)
+
+    @SuppressWarnings("UnusedPrivateMember")
+    internal fun update(table: String) = flow<ExecuteResult> {
+//        database.update(table, CONFLICT_FAIL, ContentValues(), )
+    }.flowOn(Dispatchers.IO)
 
     /**
      * Executes the given [query].
-     * This method should be called on background thread
      *
      * @param query SQL query
      */
-    @Throws(Exception::class)
-    internal fun execSQL(query: String) {
-        database.execSQL(query)
-    }
+    internal fun execSQL(query: String) = flow {
+        try {
+
+            database.execSQL(query)
+        } catch (e: SQLException) {
+            emit(ExecuteResult.Failure(e))
+        }
+    }.flowOn(Dispatchers.IO)
+}
+
+sealed class QueryResult {
+    data class Success(val data: RawTableContents) : QueryResult()
+    data class Failure(val exception: Exception) : QueryResult()
+}
+
+sealed class ExecuteResult {
+    object Success : ExecuteResult()
+    data class Failure(val exception: Exception) : ExecuteResult()
 }

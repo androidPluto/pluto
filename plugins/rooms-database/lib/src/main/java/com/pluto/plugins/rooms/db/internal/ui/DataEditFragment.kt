@@ -33,6 +33,7 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
 import java.lang.Exception
 
 class DataEditFragment : BottomSheetDialogFragment() {
@@ -48,9 +49,9 @@ class DataEditFragment : BottomSheetDialogFragment() {
     /**
      * Holds all [EditText]s in this view.
      */
-    private val etList = mutableListOf<EditText>()
+    private val etList = mutableListOf<DataEditWidget>()
     private val fieldValues
-        get() = etList.map { it.text.toString() }
+        get() = etList.map { it.content }
 
     private val etBackground by lazy {
         requireContext().drawable(R.drawable.pluto_rooms___bg_edittext_round)
@@ -99,18 +100,18 @@ class DataEditFragment : BottomSheetDialogFragment() {
 
     private fun showInsertUI(dataConfig: EditEventData, isInsertSession: Boolean) {
         if (isInsertSession) {
-            binding.title.text = getString(R.string.pluto_rooms___edit_row_title)
-            binding.save.text = getString(R.string.pluto_rooms___edit_cta_text)
-        } else {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
+        } else {
+            binding.title.text = getString(R.string.pluto_rooms___edit_row_title)
+            binding.save.text = getString(R.string.pluto_rooms___edit_cta_text)
         }
         binding.warning.visibility = if (isSystemTable(dataConfig.table)) VISIBLE else GONE
         val columns = dataConfig.columns
         val rows = dataConfig.values ?: dataConfig.columns.map { null }
         Pair(columns, rows).forEachIndexed { _, column, value ->
             val columnTextView = getColumnTextView(column)
-            val valueEditText = getValueTextView(column, value)
+            val valueEditText = getValueWidget(column, value)
             etList.add(valueEditText)
             val row = LinearLayout(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
@@ -136,6 +137,12 @@ class DataEditFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun getValueWidget(column: ColumnModel, value: String?): DataEditWidget = DataEditWidget(requireContext()).apply {
+        setup(column)
+        content = value
+    }
+
+    @SuppressWarnings("UnusedPrivateMember")
     private fun getValueTextView(column: ColumnModel, value: String?): EditText = EditText(context).apply {
         layoutParams = LinearLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
