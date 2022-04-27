@@ -58,7 +58,7 @@ internal class Query private constructor() {
              * @param values list of values to be inserted
              * @return query
              */
-            fun insert(table: String, values: List<String>): String {
+            fun insert(table: String, values: List<String?>): String {
                 var insertQuery = "INSERT INTO $table VALUES("
                 values.forEachIndexed { index, value ->
                     insertQuery += "'$value'"

@@ -18,4 +18,5 @@
     <string name="pluto_rooms___custom_query">Run Custom Query</string>
     <string name="pluto_rooms___refresh_table">Refresh</string>
     <string name="pluto_rooms___system_table_edit_warning">You are editing a System table.</string>
+    <string name="pluto_rooms___null">null</string>
 </resources>

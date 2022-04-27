@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pluto_rooms___bg_edittext_round">
+
+    <EditText
+        android:id="@+id/value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textColorHint="@color/pluto___text_dark_20"
+        android:textColor="@color/pluto___text_dark_80"
+        android:padding="@dimen/pluto___margin_medium"
+        android:textSize="@dimen/pluto___text_xmedium"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+    <Button
+        android:id="@+id/nullCta"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/pluto___margin_mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/pluto_rooms___null"
+        android:textAllCaps="false"
+        android:fontFamily="@font/muli_semibold"
+        android:textColor="@color/pluto___white_80"
+        android:backgroundTint="@color/pluto___dark_80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

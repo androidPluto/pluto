@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.core
+package com.pluto.plugins.rooms.db.internal.core.widgets
 
 import android.content.Context
 import android.graphics.Paint
