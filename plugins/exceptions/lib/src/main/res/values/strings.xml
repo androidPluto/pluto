@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pluto_excep___plugin_name">Crashes &amp; Exceptions</string>
+    <string name="pluto_excep___plugin_name">Crashes &amp; ANRs</string>
     <string name="pluto_excep___notification_title">Pluto detected a crash in %s</string>
     <string name="pluto_excep___notification_subtitle">Tap here to see crash details.</string>
     <string name="pluto_excep___no_crashes_text">No Crashes.</string>
