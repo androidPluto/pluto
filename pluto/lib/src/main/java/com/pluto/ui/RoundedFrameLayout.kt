@@ -52,23 +52,23 @@ internal class RoundedFrameLayout : FrameLayout {
                 R.styleable.pluto___RoundedFrameLayout
             )
             val mCornerRadius =
-                array.getDimension(R.styleable.pluto___RoundedFrameLayout_corner_radius, -1f)
+                array.getDimension(R.styleable.pluto___RoundedFrameLayout_rfl_corner_radius, -1f)
             if (mCornerRadius != -1f) {
                 for (i in 0 until NO_OF_CORNERS) {
                     radiiArray[i] = mCornerRadius
                 }
             } else {
                 val topLeft =
-                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_corner_radius_left_top, DEF_RADIUS)
+                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_rfl_corner_radius_left_top, DEF_RADIUS)
                 val topRight =
-                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_corner_radius_right_top, DEF_RADIUS)
+                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_rfl_corner_radius_right_top, DEF_RADIUS)
                 val bottomRight =
                     array.getDimension(
-                        R.styleable.pluto___RoundedFrameLayout_corner_radius_right_bottom,
+                        R.styleable.pluto___RoundedFrameLayout_rfl_corner_radius_right_bottom,
                         DEF_RADIUS
                     )
                 val bottomLeft =
-                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_corner_radius_left_bottom, DEF_RADIUS)
+                    array.getDimension(R.styleable.pluto___RoundedFrameLayout_rfl_corner_radius_left_bottom, DEF_RADIUS)
                 radiiArray = floatArrayOf(
                     topLeft,
                     topLeft,

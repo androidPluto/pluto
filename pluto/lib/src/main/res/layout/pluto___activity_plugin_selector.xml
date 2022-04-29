@@ -13,7 +13,7 @@
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
-        app:corner_radius="@dimen/pluto___margin_xsmall"
+        app:rfl_corner_radius="@dimen/pluto___margin_xsmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
