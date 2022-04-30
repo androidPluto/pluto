@@ -4,8 +4,11 @@ import android.content.Context
 import android.text.InputType
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.spannable.createSpan
+import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDataEditWidgetBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -14,37 +17,60 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
 
     private val binding = PlutoRoomsDataEditWidgetBinding.inflate(LayoutInflater.from(context), this, true)
 
-    var content: String? = null
-        get() {
-            return null
+    var input: Pair<ColumnModel, String?>? = null
+
+    val get: Pair<ColumnModel, String?> by lazy { getValue() }
+
+    private fun getValue(): Pair<ColumnModel, String?> {
+        input?.let {
+            return Pair(it.first, if (isNull) null else binding.value.text.toString())
         }
-        internal set(value) {
-            field = value
-            binding.value.setText(field)
-        }
+        throw IllegalStateException("calling get before creating the widget")
+    }
 
     private var isNull: Boolean = false
 
-    init {
-        binding.nullCta.setDebounceClickListener {
-            if (isNull) {
-                isNull = false
+    fun create(column: ColumnModel, value: String?) {
+        input = Pair(column, value)
+        binding.column.setSpan {
+            if (column.isPrimaryKey) {
+                append(semiBold(underline(column.name)))
             } else {
-                isNull = true
-                content = null
-                binding.value.text = null
+                append(column.name)
             }
         }
-    }
-
-    fun setup(column: ColumnModel) {
-        binding.value.hint = "${column.type} (${if (column.isNotNull) "not_null" else "null"})"
+        binding.nullCta.visibility = if (column.isNotNull) GONE else VISIBLE
+        setValue(value)
         binding.value.inputType = handleKeypad(column.type)
-        binding.value.setText(column.defaultValue?.replace("\'", ""))
         binding.nullCta.setOnLongClickListener {
             context?.toast(context.getString(R.string.pluto_rooms___set_as_null))
             true
         }
+        binding.nullCta.setDebounceClickListener {
+            if (!column.isNotNull) {
+                setValue(null)
+            }
+        }
+        binding.value.doOnTextChanged { text, _, _, _ ->
+            if (text?.length ?: 0 > 0) {
+                isNull = false
+                binding.value.hint = context?.createSpan {
+                    append("blank")
+                }
+            }
+        }
+    }
+
+    private fun setValue(value: String?) {
+        isNull = value == null
+        binding.value.hint = context?.createSpan {
+            if (isNull) {
+                append(italic("null"))
+            } else {
+                append("blank")
+            }
+        }
+        binding.value.setText(value)
     }
 
     // todo increase data type coverage
@@ -52,12 +78,4 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
         "INTEGER" -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL
         else -> InputType.TYPE_CLASS_TEXT
     }
-
-//    init {
-// //        initView()
-//    }
-//
-//    private fun initView() {
-// //        inflate(context, R.layout.pluto_rooms___data_edit_widget, this);
-//    }
 }
