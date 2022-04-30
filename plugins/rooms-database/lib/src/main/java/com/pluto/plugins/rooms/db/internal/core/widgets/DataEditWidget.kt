@@ -4,7 +4,9 @@ import android.content.Context
 import android.text.InputType
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDataEditWidgetBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 
@@ -16,7 +18,10 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
         get() {
             return null
         }
-        internal set
+        internal set(value) {
+            field = value
+            binding.value.setText(field)
+        }
 
     private var isNull: Boolean = false
 
@@ -36,6 +41,10 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
         binding.value.hint = "${column.type} (${if (column.isNotNull) "not_null" else "null"})"
         binding.value.inputType = handleKeypad(column.type)
         binding.value.setText(column.defaultValue?.replace("\'", ""))
+        binding.nullCta.setOnLongClickListener {
+            context?.toast(context.getString(R.string.pluto_rooms___set_as_null))
+            true
+        }
     }
 
     // todo increase data type coverage

@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -140,6 +141,12 @@ class DataEditFragment : BottomSheetDialogFragment() {
     private fun getValueWidget(column: ColumnModel, value: String?): DataEditWidget = DataEditWidget(requireContext()).apply {
         setup(column)
         content = value
+        layoutParams = ConstraintLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            setMargins(0, 4f.dp.toInt(), 0, 8f.dp.toInt())
+        }
     }
 
     @SuppressWarnings("UnusedPrivateMember")
@@ -199,7 +206,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
             setMargins(4f.dp.toInt(), 8f.dp.toInt(), 0, 0)
         }
         setSpan {
-            append(semiBold(column.name))
+            append(regular(column.name))
             if (column.isPrimaryKey) {
                 append(light("\t(PRIMARY KEY)"))
             }
