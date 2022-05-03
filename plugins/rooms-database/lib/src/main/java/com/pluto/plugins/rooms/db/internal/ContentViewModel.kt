@@ -143,7 +143,8 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                                     isPrimaryKey = col[COLUMN_PRIMARY_KEY_INDEX].toInt() > 0
                                 )
                             },
-                            values = list
+                            values = list,
+                            isInsertEvent = list == null
                         )
                         _addRecordEvent.postValue(eventData)
                     }

@@ -43,5 +43,6 @@ internal data class EditEventData(
     val index: Int,
     val table: String,
     val columns: List<ColumnModel>,
-    val values: List<String>?
+    val values: List<String>?,
+    val isInsertEvent: Boolean
 ) : Parcelable
