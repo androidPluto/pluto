@@ -80,7 +80,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
             }
         }
         convertArguments(arguments)?.let { dataConfig ->
-            showInsertUI(dataConfig, dataConfig.values == null)
+            showInsertUI(dataConfig)
         } ?: dismiss()
 
         viewModel.editEventState.removeObserver(editStateObserver)
@@ -90,8 +90,8 @@ class DataEditFragment : BottomSheetDialogFragment() {
         viewModel.error.observe(viewLifecycleOwner, errorObserver)
     }
 
-    private fun showInsertUI(dataConfig: EditEventData, isInsertSession: Boolean) {
-        if (isInsertSession) {
+    private fun showInsertUI(dataConfig: EditEventData) {
+        if (dataConfig.isInsertEvent) {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
         } else {
@@ -121,9 +121,11 @@ class DataEditFragment : BottomSheetDialogFragment() {
         binding.nsv.addView(mainLayout)
         binding.save.setDebounceClickListener {
             fieldValues.forEach {
-                DebugLog.d("prateek", "${it.first.name} : ${it.second}")
+                it.second?.let { value ->
+                    DebugLog.d("prateek", "${it.first.name} : $value")
+                }
             }
-            if (isInsertSession) {
+            if (dataConfig.isInsertEvent) {
 //                viewModel.addNewRow(dataConfig.table, fieldValues)
             } else {
                 dataConfig.values?.let { values ->
