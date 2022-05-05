@@ -40,9 +40,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _editEventState
     private val _editEventState = SingleLiveEvent<Boolean>()
 
-    val error: LiveData<Pair<String, Exception>>
-        get() = _error
-    private val _error = SingleLiveEvent<Pair<String, Exception>>()
+    val queryError: LiveData<Pair<String, Exception>>
+        get() = _queryError
+    private val _queryError = SingleLiveEvent<Pair<String, Exception>>()
+
+    val editError: LiveData<Pair<String, Exception>>
+        get() = _editError
+    private val _editError = SingleLiveEvent<Pair<String, Exception>>()
 
     override fun onCleared() {
         super.onCleared()
@@ -81,7 +85,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         }
                         _tables.postValue(processedTableList.plus(processedSystemTableList))
                     }
-                    is QueryResult.Failure -> _error.postValue(Pair(ERROR_FETCH_TABLES, it.exception))
+                    is QueryResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_TABLES, it.exception))
                 }
             }
         }
@@ -111,11 +115,11 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         Executor.instance.query(Query.Tables.values(table)).collect { valueResult ->
                             when (valueResult) {
                                 is QueryResult.Success -> _tableContent.postValue(ProcessedTableContents(columns, valueResult.data.second))
-                                is QueryResult.Failure -> _error.postValue(Pair(ERROR_FETCH_CONTENT, valueResult.exception))
+                                is QueryResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, valueResult.exception))
                             }
                         }
                     }
-                    is QueryResult.Failure -> _error.postValue(Pair(ERROR_FETCH_CONTENT, columnResult.exception))
+                    is QueryResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, columnResult.exception))
                 }
             }
 
@@ -148,14 +152,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         )
                         _addRecordEvent.postValue(eventData)
                     }
-                    is QueryResult.Failure -> _error.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
+                    is QueryResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
                 }
             }
         }
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught")
-    fun addNewRow(table: String, values: List<String?>) {
+    fun addNewRow(table: String, values: List<Pair<ColumnModel, String?>>) {
         viewModelScope.launch(Dispatchers.Default) {
             Executor.instance.insert(table, values).collect {
                 when (it) {
@@ -163,13 +166,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(true)
                     }
-                    is ExecuteResult.Failure -> _error.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
+                    is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                 }
             }
         }
     }
 
-    @SuppressWarnings("TooGenericExceptionCaught", "UnusedPrivateMember")
+    @SuppressWarnings("UnusedPrivateMember")
     fun updateRow(table: String, columns: List<String>, prevValues: List<String?>, newValues: List<String?>) {
         viewModelScope.launch(Dispatchers.Default) {
             Executor.instance.update(table).collect {
@@ -178,7 +181,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(true)
                     }
-                    is ExecuteResult.Failure -> _error.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
+                    is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                 }
             }
         }

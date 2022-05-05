@@ -44,8 +44,8 @@ class TableSelectorFragment : BottomSheetDialogFragment() {
         viewModel.tables.removeObserver(tableListObserver)
         viewModel.tables.observe(viewLifecycleOwner, tableListObserver)
 
-        viewModel.error.removeObserver(errorObserver)
-        viewModel.error.observe(viewLifecycleOwner, errorObserver)
+        viewModel.queryError.removeObserver(errorObserver)
+        viewModel.queryError.observe(viewLifecycleOwner, errorObserver)
     }
 
     private val tableListObserver = Observer<List<TableModel>> {

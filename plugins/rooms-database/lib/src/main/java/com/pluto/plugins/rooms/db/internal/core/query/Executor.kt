@@ -1,10 +1,13 @@
 package com.pluto.plugins.rooms.db.internal.core.query
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.SQLException
+import android.database.sqlite.SQLiteDatabase.CONFLICT_FAIL
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.RawTableContents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -87,9 +90,20 @@ internal class Executor private constructor(private val database: SupportSQLiteD
         }
     }.flowOn(Dispatchers.IO)
 
-    @SuppressWarnings("UnusedPrivateMember")
-    internal fun insert(table: String, values: List<String?>) = flow<ExecuteResult> {
-//        database.insert(table, CONFLICT_FAIL, ContentValues().put())
+    @SuppressWarnings("TooGenericExceptionCaught")
+    internal fun insert(table: String, values: List<Pair<ColumnModel, String?>>) = flow {
+        try {
+            val contentValue = ContentValues()
+            values.forEach {
+                it.second?.let { value ->
+                    contentValue.put(it.first.name, value)
+                }
+            }
+            database.insert(table, CONFLICT_FAIL, contentValue)
+            emit(ExecuteResult.Success)
+        } catch (e: Exception) {
+            emit(ExecuteResult.Failure(e))
+        }
     }.flowOn(Dispatchers.IO)
 
     @SuppressWarnings("UnusedPrivateMember")

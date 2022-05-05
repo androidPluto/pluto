@@ -92,8 +92,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.processedTableContent.removeObserver(tableContentObserver)
             viewModel.processedTableContent.observe(viewLifecycleOwner, tableContentObserver)
 
-            viewModel.error.removeObserver(errorObserver)
-            viewModel.error.observe(viewLifecycleOwner, errorObserver)
+            viewModel.queryError.removeObserver(errorObserver)
+            viewModel.queryError.observe(viewLifecycleOwner, errorObserver)
 
             uiViewModel.dataView.removeObserver(tableUIObserver)
             uiViewModel.dataView.observe(viewLifecycleOwner, tableUIObserver)

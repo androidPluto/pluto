@@ -86,8 +86,8 @@ class DataEditFragment : BottomSheetDialogFragment() {
         viewModel.editEventState.removeObserver(editStateObserver)
         viewModel.editEventState.observe(viewLifecycleOwner, editStateObserver)
 
-        viewModel.error.removeObserver(errorObserver)
-        viewModel.error.observe(viewLifecycleOwner, errorObserver)
+        viewModel.editError.removeObserver(errorObserver)
+        viewModel.editError.observe(viewLifecycleOwner, errorObserver)
     }
 
     private fun showInsertUI(dataConfig: EditEventData) {
@@ -126,7 +126,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
                 }
             }
             if (dataConfig.isInsertEvent) {
-//                viewModel.addNewRow(dataConfig.table, fieldValues)
+                viewModel.addNewRow(dataConfig.table, fieldValues)
             } else {
                 dataConfig.values?.let { values ->
 //                    viewModel.updateRow(dataConfig.table, dataConfig.columns.map { it.name }, values, fieldValues)
