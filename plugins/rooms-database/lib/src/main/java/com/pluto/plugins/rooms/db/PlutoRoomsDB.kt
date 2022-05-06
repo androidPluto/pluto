@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 object PlutoRoomsDB {
-
+    internal const val LOG_TAG = "rooms_db"
     internal val watchList = MutableStateFlow<Set<DatabaseModel>>(emptySet())
 
     fun watch(name: String, dbClass: Class<out RoomDatabase>) {

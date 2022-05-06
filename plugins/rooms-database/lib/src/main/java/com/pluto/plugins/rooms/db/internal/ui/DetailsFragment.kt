@@ -25,6 +25,7 @@ import com.pluto.plugin.utilities.sharing.csv.CSVFormatter
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
+import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
@@ -135,7 +136,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         when (error) {
             ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
                 toast("Error (see logs):\n${exception.message}")
-                DebugLog.e("rooms_db", "error while fetching from table", exception)
+                DebugLog.e(LOG_TAG, "error while fetching from table", exception)
             }
         }
     }
