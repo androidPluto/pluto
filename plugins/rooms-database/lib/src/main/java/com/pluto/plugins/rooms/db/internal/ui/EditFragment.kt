@@ -22,6 +22,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
+import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
 import com.pluto.plugins.rooms.db.internal.EditEventData
@@ -120,16 +121,15 @@ class EditFragment : BottomSheetDialogFragment() {
         binding.nsv.removeAllViews()
         binding.nsv.addView(mainLayout)
         binding.save.setDebounceClickListener {
-            fieldValues.forEach {
-                it.second?.let { value ->
-                    DebugLog.d("prateek", "${it.first.name} : $value")
-                }
-            }
             if (dataConfig.isInsertEvent) {
                 viewModel.addNewRow(dataConfig.table, fieldValues)
             } else {
                 dataConfig.values?.let { values ->
-//                    viewModel.updateRow(dataConfig.table, dataConfig.columns.map { it.name }, values, fieldValues)
+                    val prevValues: ArrayList<Pair<ColumnModel, String?>> = arrayListOf()
+                    fieldValues.forEachIndexed { index, pair ->
+                        prevValues.add(Pair(pair.first, values[index]))
+                    }
+                    viewModel.updateRow(dataConfig.table, fieldValues, prevValues)
                 }
             }
         }
