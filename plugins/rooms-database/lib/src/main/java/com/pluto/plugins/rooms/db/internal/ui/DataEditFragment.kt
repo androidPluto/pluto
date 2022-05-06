@@ -43,7 +43,7 @@ class DataEditFragment : BottomSheetDialogFragment() {
      */
     private val etList = mutableListOf<DataEditWidget>()
     private val fieldValues
-        get() = etList.map { it.get }
+        get() = etList.map { it.get() }
 
 //    private val etBackground by lazy {
 //        requireContext().drawable(R.drawable.pluto_rooms___bg_edittext_round)
@@ -147,8 +147,8 @@ class DataEditFragment : BottomSheetDialogFragment() {
     private fun handleError(error: String, exception: Exception) {
         when (error) {
             ERROR_ADD_UPDATE -> {
-                toast("Error (see logs) : ${exception.message}")
-                exception.printStackTrace()
+                toast("Error (see logs):\n${exception.message}")
+                DebugLog.e("rooms_db", "error while editing the table", exception)
             }
         }
     }

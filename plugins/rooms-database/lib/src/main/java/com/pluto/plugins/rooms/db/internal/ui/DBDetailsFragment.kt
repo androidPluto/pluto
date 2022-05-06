@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
+import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
@@ -133,8 +134,8 @@ class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     private fun handleError(error: String, exception: Exception) {
         when (error) {
             ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
-                toast("Error (see logs) : ${exception.message}")
-                exception.printStackTrace()
+                toast("Error (see logs):\n${exception.message}")
+                DebugLog.e("rooms_db", "error while fetching from table", exception)
             }
         }
     }

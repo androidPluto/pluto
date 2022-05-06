@@ -19,9 +19,7 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
 
     var input: Pair<ColumnModel, String?>? = null
 
-    val get: Pair<ColumnModel, String?> by lazy { getValue() }
-
-    private fun getValue(): Pair<ColumnModel, String?> {
+    fun get(): Pair<ColumnModel, String?> {
         input?.let {
             return Pair(it.first, if (isNull) null else binding.value.text.toString())
         }
