@@ -65,10 +65,6 @@ dependencies {
     implementation project(path: ':pluto-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
-
     implementation "androidx.room:room-ktx:$roomsVersion"
     kapt "androidx.room:room-compiler:$roomsVersion"
 }
