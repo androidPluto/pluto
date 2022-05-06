@@ -19,6 +19,9 @@ import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.sharing.ContentShareViewModel
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
 import com.pluto.plugins.rooms.db.R
@@ -35,6 +38,7 @@ class EditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentDataEditorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
+    private val sharer: ContentShareViewModel by lazyContentSharer()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_data_editor, container, false)
@@ -97,9 +101,11 @@ class EditFragment : BottomSheetDialogFragment() {
         if (dataConfig.isInsertEvent) {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
+            binding.share.visibility = GONE
         } else {
             binding.title.text = getString(R.string.pluto_rooms___edit_row_title)
             binding.save.text = getString(R.string.pluto_rooms___edit_cta_text)
+            binding.share.visibility = VISIBLE
         }
         binding.warning.visibility = if (isSystemTable(dataConfig.table)) VISIBLE else GONE
         val columns = dataConfig.columns
@@ -119,6 +125,14 @@ class EditFragment : BottomSheetDialogFragment() {
                 addView(valueEditText)
             }
             mainLayout.addView(row)
+        }
+        binding.share.setDebounceClickListener {
+            sharer.share(
+                Shareable(
+                    title = "Share Row",
+                    content = dataConfig.toShareText()
+                )
+            )
         }
         binding.nsv.removeAllViews()
         binding.nsv.addView(mainLayout)
@@ -163,4 +177,17 @@ class EditFragment : BottomSheetDialogFragment() {
     private fun convertArguments(arguments: Bundle?): EditEventData? {
         return arguments?.getParcelable("data")
     }
+}
+
+private fun EditEventData.toShareText(): String {
+    val text = StringBuilder()
+    text.append("Row from table: $table\n")
+    text.append("{\n")
+    values?.let {
+        Pair(columns, it).forEachIndexed { _, column, value ->
+            text.append("\t${column.name}: $value\n")
+        }
+    }
+    text.append("}")
+    return text.toString()
 }
