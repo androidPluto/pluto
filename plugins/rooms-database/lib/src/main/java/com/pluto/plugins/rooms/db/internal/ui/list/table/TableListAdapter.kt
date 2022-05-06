@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.ui
+package com.pluto.plugins.rooms.db.internal.ui.list.table
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -6,7 +6,7 @@ import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.rooms.db.internal.TableModel
 
-internal class RoomsTableAdapter(private val listener: OnActionListener) : BaseAdapter() {
+internal class TableListAdapter(private val listener: OnActionListener) : BaseAdapter() {
 
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
@@ -17,7 +17,7 @@ internal class RoomsTableAdapter(private val listener: OnActionListener) : BaseA
 
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
-            ITEM_TYPE_MODEL -> TableItemHolder(parent, listener)
+            ITEM_TYPE_MODEL -> TableListItemHolder(parent, listener)
             else -> null
         }
     }
