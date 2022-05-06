@@ -80,6 +80,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                             R.id.add -> openDetailsView(table.name, -1) // viewModel.triggerAddRecordEvent(table.name)
                             R.id.export -> shareTableContent(table.name)
                             R.id.refresh -> viewModel.currentTable.value?.let { viewModel.selectTable(it) }
+                            R.id.clear -> viewModel.clearTable(table.name)
                         }
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))
