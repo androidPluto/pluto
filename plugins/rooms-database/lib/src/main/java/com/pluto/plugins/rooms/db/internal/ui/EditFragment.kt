@@ -20,6 +20,7 @@ import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
+import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -27,6 +28,7 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
 import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
+import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
 
 class EditFragment : BottomSheetDialogFragment() {
@@ -135,8 +137,13 @@ class EditFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private val editStateObserver = Observer<Boolean> {
-        toast("Success!")
+    private val editStateObserver = Observer<ExecuteResult.Success> {
+        when (it) {
+            is ExecuteResult.Success.Insert -> toast("item id ${it.id} inserted!")
+            is ExecuteResult.Success.Update -> toast("${it.numberOfRows} row updated!")
+            else -> { /*ignore*/
+            }
+        }
         dismiss()
     }
 
@@ -148,7 +155,7 @@ class EditFragment : BottomSheetDialogFragment() {
         when (error) {
             ERROR_ADD_UPDATE -> {
                 toast("Error (see logs):\n${exception.message}")
-                DebugLog.e("rooms_db", "error while editing the table", exception)
+                DebugLog.e(LOG_TAG, "error while editing the table", exception)
             }
         }
     }

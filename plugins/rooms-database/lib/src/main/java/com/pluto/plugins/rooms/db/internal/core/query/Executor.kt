@@ -81,12 +81,12 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                     }
                 } while (c.moveToNext())
                 c.close()
-                emit(QueryResult.Success(RawTableContents(columnNames, rows)))
+                emit(ExecuteResult.Success.Query(RawTableContents(columnNames, rows)))
             } ?: run {
                 throw Exception()
             }
         } catch (e: Exception) {
-            emit(QueryResult.Failure(e))
+            emit(ExecuteResult.Failure(e))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -99,8 +99,8 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                     contentValue.put(it.first.name, value)
                 }
             }
-            database.insert(table, CONFLICT_FAIL, contentValue)
-            emit(ExecuteResult.Success)
+            val id = database.insert(table, CONFLICT_FAIL, contentValue)
+            emit(ExecuteResult.Success.Insert(id))
         } catch (e: Exception) {
             emit(ExecuteResult.Failure(e))
         }
@@ -123,8 +123,8 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                     whereArgs.add(pair.second)
                 }
             }
-            database.update(table, CONFLICT_FAIL, contentValue, whereClause.toString(), whereArgs.toArray())
-            emit(ExecuteResult.Success)
+            val numberOfRows = database.update(table, CONFLICT_FAIL, contentValue, whereClause.toString(), whereArgs.toArray())
+            emit(ExecuteResult.Success.Update(numberOfRows))
         } catch (e: Exception) {
             emit(ExecuteResult.Failure(e))
         }
@@ -138,18 +138,20 @@ internal class Executor private constructor(private val database: SupportSQLiteD
     internal fun execSQL(query: String) = flow {
         try {
             database.execSQL(query)
+            emit(ExecuteResult.Success.ExecSQL)
         } catch (e: SQLException) {
             emit(ExecuteResult.Failure(e))
         }
     }.flowOn(Dispatchers.IO)
 }
 
-sealed class QueryResult {
-    data class Success(val data: RawTableContents) : QueryResult()
-    data class Failure(val exception: Exception) : QueryResult()
-}
-
 sealed class ExecuteResult {
-    object Success : ExecuteResult()
+    sealed class Success : ExecuteResult() {
+        data class Query(val data: RawTableContents) : Success()
+        data class Insert(val id: Long) : Success()
+        data class Update(val numberOfRows: Int) : Success()
+        object ExecSQL : Success()
+    }
+
     data class Failure(val exception: Exception) : ExecuteResult()
 }
