@@ -135,6 +135,27 @@ internal class Executor private constructor(private val database: SupportSQLiteD
         }
     }.flowOn(Dispatchers.IO)
 
+    @SuppressWarnings("TooGenericExceptionCaught")
+    internal fun delete(table: String, values: List<Pair<ColumnModel, String?>>) = flow {
+        try {
+            val whereClause = StringBuilder()
+            val whereArgs = arrayListOf<String?>()
+            values.filter { it.second != null }.apply {
+                forEachIndexed { index, pair ->
+                    whereClause.append("${pair.first.name}=?")
+                    if (index < lastIndex) {
+                        whereClause.append(" and ")
+                    }
+                    whereArgs.add(pair.second)
+                }
+            }
+            val numberOfRows = database.delete(table, whereClause.toString(), whereArgs.toArray())
+            emit(ExecuteResult.Success.Delete(numberOfRows))
+        } catch (e: Exception) {
+            emit(ExecuteResult.Failure(e))
+        }
+    }.flowOn(Dispatchers.IO)
+
     /**
      * Executes the given [query].
      *
@@ -155,6 +176,7 @@ sealed class ExecuteResult {
         data class Query(val data: RawTableContents) : Success()
         data class Insert(val id: Long) : Success()
         data class Update(val numberOfRows: Int) : Success()
+        data class Delete(val numberOfRows: Int) : Success()
         object ExecSQL : Success()
     }
 

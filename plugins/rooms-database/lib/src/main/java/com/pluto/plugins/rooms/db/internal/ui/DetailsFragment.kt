@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
@@ -28,13 +30,15 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
+import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE_REQUEST
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_CONTENT
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
-import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.ProcessedTableContents
+import com.pluto.plugins.rooms.db.internal.RowAction
+import com.pluto.plugins.rooms.db.internal.RowDetailsData
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
@@ -77,7 +81,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 viewModel.currentTable.value?.let { table ->
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
                         when (item.itemId) {
-                            R.id.add -> openDetailsView(table.name, -1) // viewModel.triggerAddRecordEvent(table.name)
+                            R.id.add -> openDetailsView(table.name, -1, null, true)
                             R.id.export -> shareTableContent(table.name)
                             R.id.refresh -> viewModel.currentTable.value?.let { viewModel.selectTable(it) }
                             R.id.clear -> viewModel.clearTable(table.name)
@@ -93,8 +97,8 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
 
-            viewModel.addRecordEvent.removeObserver(addRecordEventObserver)
-            viewModel.addRecordEvent.observe(viewLifecycleOwner, addRecordEventObserver)
+            viewModel.rowActionEvent.removeObserver(rowClickEventObserver)
+            viewModel.rowActionEvent.observe(viewLifecycleOwner, rowClickEventObserver)
 
             viewModel.processedTableContent.removeObserver(tableContentObserver)
             viewModel.processedTableContent.observe(viewLifecycleOwner, tableContentObserver)
@@ -128,9 +132,29 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         findNavController().navigate(R.id.openTableSelector)
     }
 
-    private val addRecordEventObserver = Observer<EditEventData> {
-        val bundle = bundleOf("data" to it)
-        findNavController().navigate(R.id.openDataEditor, bundle)
+    private val rowClickEventObserver = Observer<Pair<RowAction, RowDetailsData>> {
+        when (it.first) {
+            is RowAction.Click -> {
+                val bundle = bundleOf("data" to it.second, "isInsert" to (it.first as RowAction.Click).isInsert)
+                findNavController().navigate(R.id.openDataEditor, bundle)
+            }
+            is RowAction.LongClick -> {
+                val bundle = bundleOf("data" to it.second)
+                findNavController().navigate(R.id.openActionsView, bundle)
+            }
+            RowAction.Duplicate -> viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(200L) {
+                val bundle = bundleOf("data" to it.second, "isInsert" to true)
+                findNavController().navigate(R.id.openDataEditor, bundle)
+            }
+            RowAction.Delete -> it.second.values?.let { values ->
+                val values1 = arrayListOf<Pair<ColumnModel, String?>>().apply {
+                    Pair(it.second.columns, values).forEachIndexed { _, column, row ->
+                        add(Pair(column, row))
+                    }
+                }
+                viewModel.deleteRow(it.second.table, values1)
+            }
+        }
     }
 
     private val errorObserver = Observer<Pair<String, Exception>> {
@@ -160,17 +184,24 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     private val tableContentObserver = Observer<ProcessedTableContents> {
         uiViewModel.generateView(
             requireContext(), it.first, it.second,
-            { index, value -> // row click
+            onRowClick = { index, value ->
                 viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                     viewModel.currentTable.value?.let { table ->
-                        openDetailsView(table.name, index, value)
+                        openDetailsView(table.name, index, value, false)
                     }
                 }
             },
-            { column -> // column click
+            onRowLongClick = { index, value ->
+                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                    viewModel.currentTable.value?.let { table ->
+                        openActionsView(table.name, index, value)
+                    }
+                }
+            },
+            onColumnClick = { column ->
                 toast("try sorting")
             },
-            { column -> // column long click
+            onColumnLongClick = { column ->
                 toast("${column.type} ${column.isPrimaryKey}")
             }
         )
@@ -198,8 +229,12 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         }
     }
 
-    private fun openDetailsView(table: String, index: Int, list: List<String>? = null) {
-        viewModel.triggerAddRecordEvent(table, index, list)
+    private fun openDetailsView(table: String, index: Int, list: List<String>? = null, isInsertEvent: Boolean) {
+        viewModel.triggerAddRecordEvent(table, index, list, isInsertEvent)
+    }
+
+    private fun openActionsView(table: String, index: Int, list: List<String>? = null) {
+        viewModel.triggerActionsOpenEvent(table, index, list)
     }
 
     override fun onDestroyView() {

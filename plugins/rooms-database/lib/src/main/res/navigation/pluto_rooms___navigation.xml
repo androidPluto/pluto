@@ -27,6 +27,10 @@
         <action
             android:id="@+id/openDataEditor"
             app:destination="@id/dataEditView" />
+
+        <action
+            android:id="@+id/openActionsView"
+            app:destination="@id/actionsView" />
     </fragment>
 
     <dialog
@@ -36,4 +40,12 @@
     <dialog
         android:id="@+id/dataEditView"
         android:name="com.pluto.plugins.rooms.db.internal.ui.EditFragment" />
+
+    <dialog
+        android:id="@+id/actionsView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.ActionsFragment">
+        <action
+            android:id="@+id/openDataEditor"
+            app:destination="@id/dataEditView" />
+    </dialog>
 </navigation>

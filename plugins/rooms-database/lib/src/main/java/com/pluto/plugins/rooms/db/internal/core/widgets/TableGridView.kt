@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.hapticFeedback
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
@@ -150,14 +151,17 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * @param column list of column names
      * @param rows list of rows, each row contains list of fields
      * @param onClick function to get called on clicking the row
+     * @param onLongClick function to get called on long pressing the row
      * @param onColumnClick function to get called on clicking a column item
      * @param onColumnLongClick function to get called on long pressing a column item
      * @return [TableLayout] containing rows and columns filled with the provided values
      */
+    @SuppressWarnings("LongParameterList")
     fun create(
         column: List<ColumnModel>,
         rows: List<List<String>>,
         onClick: (Int) -> Unit,
+        onLongClick: (Int) -> Unit,
         onColumnClick: (ColumnModel) -> Unit,
         onColumnLongClick: (ColumnModel) -> Unit
     ): TableGridView {
@@ -165,6 +169,11 @@ internal class TableGridView(context: Context) : TableLayout(context) {
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list).apply {
                 setDebounceClickListener(haptic = true) { onClick(index) }
+                setOnLongClickListener {
+                    hapticFeedback(true)
+                    onLongClick(index)
+                    true
+                }
                 if (index % 2 != 0) {
                     setBackgroundColor(tableRowBackground)
                 }

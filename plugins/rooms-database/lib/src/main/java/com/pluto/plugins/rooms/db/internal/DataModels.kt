@@ -39,10 +39,16 @@ internal typealias ProcessedTableContents = Pair<List<ColumnModel>, List<List<St
 
 @Keep
 @Parcelize
-internal data class EditEventData(
+internal data class RowDetailsData(
     val index: Int,
     val table: String,
     val columns: List<ColumnModel>,
-    val values: List<String>?,
-    val isInsertEvent: Boolean
+    val values: List<String>?
 ) : Parcelable
+
+internal sealed class RowAction {
+    class Click(val isInsert: Boolean) : RowAction()
+    object LongClick : RowAction()
+    object Delete : RowAction()
+    object Duplicate : RowAction()
+}
