@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.linearLayoutManager
-import com.pluto.plugin.utilities.list.BaseAdapter
+import com.pluto.plugin.utilities.extensions.setList
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
@@ -31,13 +31,11 @@ class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
     private val viewModel: RoomsDBViewModel by activityViewModels()
 
-    private val dbAdapter: BaseAdapter by lazy { DBListAdapter(onActionListener) }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetch()
         binding.list.apply {
-            adapter = dbAdapter
+            adapter = DBListAdapter(onActionListener)
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
 
@@ -45,7 +43,7 @@ class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
                     Session.searchText = it
-                    dbAdapter.list = filteredDBs(it)
+                    binding.list.setList(filteredDBs(it))
                     if (it.isEmpty()) {
                         binding.list.linearLayoutManager()?.scrollToPositionWithOffset(0, 0)
                     }
@@ -73,7 +71,7 @@ class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     }
 
     private val dbListObserver = Observer<List<DatabaseModel>> {
-        dbAdapter.list = filteredDBs(binding.search.text.toString())
+        binding.list.setList(filteredDBs(binding.search.text.toString()))
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {

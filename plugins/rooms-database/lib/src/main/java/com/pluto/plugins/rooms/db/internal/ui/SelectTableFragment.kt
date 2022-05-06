@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.setList
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
@@ -28,8 +28,6 @@ class SelectTableFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoRoomsFragmentTableSelectorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
 
-    private val tableAdapter: BaseAdapter by lazy { TableListAdapter(onActionListener) }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_table_selector, container, false)
 
@@ -38,7 +36,7 @@ class SelectTableFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.list.apply {
-            adapter = tableAdapter
+            adapter = TableListAdapter(onActionListener)
             addItemDecoration(CustomItemDecorator(requireContext(), 16f.dp.toInt()))
         }
 
@@ -50,7 +48,7 @@ class SelectTableFragment : BottomSheetDialogFragment() {
     }
 
     private val tableListObserver = Observer<List<TableModel>> {
-        tableAdapter.list = it
+        binding.list.setList(it)
     }
 
     private val errorObserver = Observer<Pair<String, Exception>> {
