@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CONFLICT_FAIL
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.RawTableContents
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,10 @@ import kotlinx.coroutines.flow.flowOn
  * A class which is responsible for performing db operations.
  *
  */
-internal class Executor private constructor(private val database: SupportSQLiteDatabase) {
+internal class Executor private constructor(private val dbOpenHelper: SupportSQLiteOpenHelper) {
+
+    private val database: SupportSQLiteDatabase
+        get() = dbOpenHelper.writableDatabase
 
     companion object {
         val instance: Executor
@@ -47,12 +51,13 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                 throw IllegalStateException("session already initialised")
             } ?: run {
                 val roomDatabase = Room.databaseBuilder(context, databaseClass, databaseName).build()
-                _instance = Executor(roomDatabase.openHelper.writableDatabase)
+                _instance = Executor(roomDatabase.openHelper)
                 return _instance as Executor
             }
         }
 
         fun destroySession() {
+            _instance?.dbOpenHelper?.close()
             _instance = null
         }
     }
