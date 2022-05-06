@@ -173,9 +173,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     }
 
     @SuppressWarnings("UnusedPrivateMember")
-    fun updateRow(table: String, columns: List<String>, prevValues: List<String?>, newValues: List<String?>) {
+    fun updateRow(table: String, newValues: List<Pair<ColumnModel, String?>>, prevValues: ArrayList<Pair<ColumnModel, String?>>) {
         viewModelScope.launch(Dispatchers.Default) {
-            Executor.instance.update(table).collect {
+            Executor.instance.update(table, newValues, prevValues).collect {
                 when (it) {
                     is ExecuteResult.Success -> {
                         fetchData(table)

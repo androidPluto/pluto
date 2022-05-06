@@ -106,9 +106,28 @@ internal class Executor private constructor(private val database: SupportSQLiteD
         }
     }.flowOn(Dispatchers.IO)
 
-    @SuppressWarnings("UnusedPrivateMember")
-    internal fun update(table: String) = flow<ExecuteResult> {
-//        database.update(table, CONFLICT_FAIL, ContentValues(), )
+    @SuppressWarnings("TooGenericExceptionCaught")
+    internal fun update(table: String, newValues: List<Pair<ColumnModel, String?>>, prevValues: ArrayList<Pair<ColumnModel, String?>>) = flow {
+        try {
+            val contentValue = ContentValues().apply {
+                newValues.map { put(it.first.name, it.second) }
+            }
+            val whereClause = StringBuilder()
+            val whereArgs = arrayListOf<String?>()
+            prevValues.filter { it.second != null }.apply {
+                forEachIndexed { index, pair ->
+                    whereClause.append("${pair.first.name}=?")
+                    if (index < lastIndex) {
+                        whereClause.append(" and ")
+                    }
+                    whereArgs.add(pair.second)
+                }
+            }
+            database.update(table, CONFLICT_FAIL, contentValue, whereClause.toString(), whereArgs.toArray())
+            emit(ExecuteResult.Success)
+        } catch (e: Exception) {
+            emit(ExecuteResult.Failure(e))
+        }
     }.flowOn(Dispatchers.IO)
 
     /**
@@ -118,7 +137,6 @@ internal class Executor private constructor(private val database: SupportSQLiteD
      */
     internal fun execSQL(query: String) = flow {
         try {
-
             database.execSQL(query)
         } catch (e: SQLException) {
             emit(ExecuteResult.Failure(e))
