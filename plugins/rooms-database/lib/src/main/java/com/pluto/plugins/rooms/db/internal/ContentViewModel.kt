@@ -174,7 +174,6 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-    @SuppressWarnings("UnusedPrivateMember")
     fun updateRow(table: String, newValues: List<Pair<ColumnModel, String?>>, prevValues: ArrayList<Pair<ColumnModel, String?>>) {
         viewModelScope.launch(Dispatchers.Default) {
             Executor.instance.update(table, newValues, prevValues).collect {
@@ -185,6 +184,21 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                     else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
+                }
+            }
+        }
+    }
+
+    fun clearTable(table: String) {
+        viewModelScope.launch(Dispatchers.Default) {
+            Executor.instance.query(Query.Tables.clear(table)).collect {
+                when (it) {
+                    is ExecuteResult.Success.Query -> {
+                        fetchData(table)
+                        _editEventState.postValue(it)
+                    }
+                    is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
+                    else -> DebugLog.e(LOG_TAG, "clearTable: invalid result")
                 }
             }
         }

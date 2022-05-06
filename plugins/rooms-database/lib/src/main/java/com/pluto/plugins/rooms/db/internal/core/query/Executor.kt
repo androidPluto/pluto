@@ -2,6 +2,7 @@ package com.pluto.plugins.rooms.db.internal.core.query
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.CursorIndexOutOfBoundsException
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase.CONFLICT_FAIL
 import androidx.room.Room
@@ -61,7 +62,7 @@ internal class Executor private constructor(private val database: SupportSQLiteD
      *
      * @param query SQL query
      */
-    @SuppressWarnings("TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    @SuppressWarnings("TooGenericExceptionCaught", "TooGenericExceptionThrown", "SwallowedException")
     internal fun query(query: String) = flow {
         try {
             val c = database.query(query, null)
@@ -73,8 +74,12 @@ internal class Executor private constructor(private val database: SupportSQLiteD
                 do {
                     val rowValues = arrayListOf<String>()
                     for (i in 0 until c.columnCount) {
-                        val value = c.getString(i)
-                        rowValues.add(value)
+                        try {
+                            val value = c.getString(i)
+                            rowValues.add(value)
+                        } catch (e: CursorIndexOutOfBoundsException) {
+                            /* handled empty table case */
+                        }
                     }
                     if (rowValues.isNotEmpty()) {
                         rows.add(rowValues)
