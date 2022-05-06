@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.ui
+package com.pluto.plugins.rooms.db.internal.ui.list.table
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.extensions.color
@@ -12,7 +12,7 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsItemTableSelectorBinding
 import com.pluto.plugins.rooms.db.internal.TableModel
 
-internal class TableItemHolder(
+internal class TableListItemHolder(
     parent: ViewGroup,
     actionListener: DiffAwareAdapter.OnActionListener
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_rooms___item_table_selector), actionListener) {

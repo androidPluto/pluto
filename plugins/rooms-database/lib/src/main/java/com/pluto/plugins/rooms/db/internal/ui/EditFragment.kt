@@ -28,7 +28,7 @@ import com.pluto.plugins.rooms.db.internal.EditEventData
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
 
-class DataEditFragment : BottomSheetDialogFragment() {
+class EditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentDataEditorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()

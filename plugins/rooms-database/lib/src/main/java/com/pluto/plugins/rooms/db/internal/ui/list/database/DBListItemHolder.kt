@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.ui
+package com.pluto.plugins.rooms.db.internal.ui.list.database
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.extensions.inflate
@@ -10,7 +10,7 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsItemDbSelectorBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 
-internal class DBItemHolder(
+internal class DBListItemHolder(
     parent: ViewGroup,
     actionListener: DiffAwareAdapter.OnActionListener
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_rooms___item_db_selector), actionListener) {

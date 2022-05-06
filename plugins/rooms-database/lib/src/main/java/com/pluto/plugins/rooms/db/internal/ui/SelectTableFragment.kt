@@ -20,14 +20,15 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentTableSelectorBin
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.plugins.rooms.db.internal.ui.list.table.TableListAdapter
 import java.lang.Exception
 
-class TableSelectorFragment : BottomSheetDialogFragment() {
+class SelectTableFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSelectorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
 
-    private val tableAdapter: BaseAdapter by lazy { RoomsTableAdapter(onActionListener) }
+    private val tableAdapter: BaseAdapter by lazy { TableListAdapter(onActionListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_table_selector, container, false)

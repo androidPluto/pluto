@@ -23,14 +23,15 @@ import com.pluto.plugins.rooms.db.Session
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbSelectorBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
 import com.pluto.plugins.rooms.db.internal.RoomsDBViewModel
-import com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment.Companion.DB_CLASS
-import com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment.Companion.DB_NAME
+import com.pluto.plugins.rooms.db.internal.ui.DetailsFragment.Companion.DB_CLASS
+import com.pluto.plugins.rooms.db.internal.ui.DetailsFragment.Companion.DB_NAME
+import com.pluto.plugins.rooms.db.internal.ui.list.database.DBListAdapter
 
-class DBSelectorFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
+class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
     private val viewModel: RoomsDBViewModel by activityViewModels()
 
-    private val dbAdapter: BaseAdapter by lazy { RoomsDBAdapter(onActionListener) }
+    private val dbAdapter: BaseAdapter by lazy { DBListAdapter(onActionListener) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

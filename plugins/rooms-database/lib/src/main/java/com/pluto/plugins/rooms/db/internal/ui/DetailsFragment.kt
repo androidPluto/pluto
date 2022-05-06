@@ -40,7 +40,7 @@ import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import java.lang.Exception
 import java.lang.StringBuilder
 
-class DBDetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
+class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val binding by viewBinding(PlutoRoomsFragmentDbDetailsBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()

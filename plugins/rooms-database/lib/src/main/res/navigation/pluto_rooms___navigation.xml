@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/selectorView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.DBSelectorFragment"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.SelectDBFragment"
         android:label="selector"
         tools:layout="@layout/pluto_rooms___fragment_db_selector">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/detailsView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.DBDetailsFragment"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.DetailsFragment"
         android:label="detail"
         tools:layout="@layout/pluto_rooms___fragment_db_details">
         <action
@@ -31,9 +31,9 @@
 
     <dialog
         android:id="@+id/tableSelectorView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSelectorFragment" />
+        android:name="com.pluto.plugins.rooms.db.internal.ui.SelectTableFragment" />
 
     <dialog
         android:id="@+id/dataEditView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.DataEditFragment" />
+        android:name="com.pluto.plugins.rooms.db.internal.ui.EditFragment" />
 </navigation>
