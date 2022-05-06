@@ -20,4 +20,7 @@
     <string name="pluto_rooms___system_table_edit_warning">You are editing a System table.</string>
     <string name="pluto_rooms___null">null</string>
     <string name="pluto_rooms___set_as_null">set value as null</string>
+    <string name="pluto_rooms___delete_row">Delete Row</string>
+    <string name="pluto_rooms___duplicate_row">Duplicate Row</string>
+    <string name="pluto_rooms___actions">Actions</string>
 </resources>

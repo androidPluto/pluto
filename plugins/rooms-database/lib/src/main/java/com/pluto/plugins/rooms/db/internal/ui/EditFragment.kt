@@ -29,7 +29,7 @@ import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBindin
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
-import com.pluto.plugins.rooms.db.internal.EditEventData
+import com.pluto.plugins.rooms.db.internal.RowDetailsData
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
@@ -86,9 +86,11 @@ class EditFragment : BottomSheetDialogFragment() {
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
-        convertArguments(arguments)?.let { dataConfig ->
-            showInsertUI(dataConfig)
-        } ?: dismiss()
+        convertArguments(arguments).apply {
+            convertArguments(arguments).second?.let {
+                showInsertUI(this.first, it)
+            }
+        }
 
         viewModel.editEventState.removeObserver(editStateObserver)
         viewModel.editEventState.observe(viewLifecycleOwner, editStateObserver)
@@ -97,8 +99,8 @@ class EditFragment : BottomSheetDialogFragment() {
         viewModel.editError.observe(viewLifecycleOwner, errorObserver)
     }
 
-    private fun showInsertUI(dataConfig: EditEventData) {
-        if (dataConfig.isInsertEvent) {
+    private fun showInsertUI(isInsertEvent: Boolean, dataConfig: RowDetailsData) {
+        if (isInsertEvent) {
             binding.title.text = getString(R.string.pluto_rooms___add_row_title)
             binding.save.text = getString(R.string.pluto_rooms___add_cta_text)
             binding.share.visibility = GONE
@@ -137,7 +139,7 @@ class EditFragment : BottomSheetDialogFragment() {
         binding.nsv.removeAllViews()
         binding.nsv.addView(mainLayout)
         binding.save.setDebounceClickListener {
-            if (dataConfig.isInsertEvent) {
+            if (isInsertEvent) {
                 viewModel.addNewRow(dataConfig.table, fieldValues)
             } else {
                 dataConfig.values?.let { values ->
@@ -174,12 +176,12 @@ class EditFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun convertArguments(arguments: Bundle?): EditEventData? {
-        return arguments?.getParcelable("data")
+    private fun convertArguments(arguments: Bundle?): Pair<Boolean, RowDetailsData?> {
+        return Pair(arguments?.getBoolean("isInsert") ?: true, arguments?.getParcelable("data"))
     }
 }
 
-private fun EditEventData.toShareText(): String {
+private fun RowDetailsData.toShareText(): String {
     val text = StringBuilder()
     text.append("Row from table: $table\n")
     text.append("{\n")

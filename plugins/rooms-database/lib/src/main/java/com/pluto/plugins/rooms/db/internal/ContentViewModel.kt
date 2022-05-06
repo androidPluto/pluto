@@ -32,9 +32,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _tableContent
     private val _tableContent = SingleLiveEvent<ProcessedTableContents>()
 
-    val addRecordEvent: LiveData<EditEventData>
-        get() = _addRecordEvent
-    private val _addRecordEvent = SingleLiveEvent<EditEventData>()
+    val rowActionEvent: LiveData<Pair<RowAction, RowDetailsData>>
+        get() = _rowActionEvent
+    private val _rowActionEvent = SingleLiveEvent<Pair<RowAction, RowDetailsData>>()
 
     val editEventState: LiveData<ExecuteResult.Success>
         get() = _editEventState
@@ -129,12 +129,12 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     }
 
     @SuppressWarnings("TooGenericExceptionCaught")
-    fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?) {
+    fun triggerAddRecordEvent(table: String, index: Int, list: List<String>?, isInsertEvent: Boolean) {
         viewModelScope.launch(Dispatchers.Default) {
             Executor.instance.query(Query.Tables.columns(table)).collect {
                 when (it) {
                     is ExecuteResult.Success.Query -> {
-                        val eventData = EditEventData(
+                        val eventData = RowDetailsData(
                             index = index,
                             table = table,
                             columns = it.data.second.map { col ->
@@ -148,15 +148,47 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                                 )
                             },
                             values = list,
-                            isInsertEvent = list == null
                         )
-                        _addRecordEvent.postValue(eventData)
+                        performAction(RowAction.Click(isInsertEvent), eventData)
                     }
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
                     else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
                 }
             }
         }
+    }
+
+    fun triggerActionsOpenEvent(table: String, index: Int, list: List<String>?) {
+        viewModelScope.launch(Dispatchers.Default) {
+            Executor.instance.query(Query.Tables.columns(table)).collect {
+                when (it) {
+                    is ExecuteResult.Success.Query -> {
+                        val eventData = RowDetailsData(
+                            index = index,
+                            table = table,
+                            columns = it.data.second.map { col ->
+                                ColumnModel(
+                                    columnId = col[COLUMN_CID_INDEX].toInt(),
+                                    name = col[COLUMN_NAME_INDEX],
+                                    type = col[COLUMN_TYPE_INDEX],
+                                    isNotNull = col[COLUMN_NOTNULL_INDEX].toInt() > 0,
+                                    defaultValue = col[COLUMN_DFLT_VALUE_INDEX],
+                                    isPrimaryKey = col[COLUMN_PRIMARY_KEY_INDEX].toInt() > 0
+                                )
+                            },
+                            values = list,
+                        )
+                        performAction(RowAction.LongClick, eventData)
+                    }
+                    is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
+                    else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
+                }
+            }
+        }
+    }
+
+    fun performAction(action: RowAction, data: RowDetailsData) {
+        _rowActionEvent.postValue(Pair(action, data))
     }
 
     fun addNewRow(table: String, values: List<Pair<ColumnModel, String?>>) {
@@ -179,6 +211,21 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
             Executor.instance.update(table, newValues, prevValues).collect {
                 when (it) {
                     is ExecuteResult.Success.Update -> {
+                        fetchData(table)
+                        _editEventState.postValue(it)
+                    }
+                    is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
+                    else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
+                }
+            }
+        }
+    }
+
+    fun deleteRow(table: String, values: List<Pair<ColumnModel, String?>>) {
+        viewModelScope.launch(Dispatchers.Default) {
+            Executor.instance.delete(table, values).collect {
+                when (it) {
+                    is ExecuteResult.Success.Delete -> {
                         fetchData(table)
                         _editEventState.postValue(it)
                     }

@@ -23,6 +23,7 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
         columns: List<ColumnModel>,
         rows: List<List<String>>,
         onRowClick: (Int, List<String>) -> Unit,
+        onRowLongClick: (Int, List<String>) -> Unit,
         onColumnClick: (ColumnModel) -> Unit,
         onColumnLongClick: (ColumnModel) -> Unit
     ) {
@@ -30,13 +31,16 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
             val hsv = HorizontalScrollView(context)
             TableGridView(context).create(
                 columns, rows,
-                { index -> // row click
+                onClick = { index -> // row click
                     onRowClick.invoke(index, rows[index])
                 },
-                { column -> // column click
+                onLongClick = { index ->
+                    onRowLongClick.invoke(index, rows[index])
+                },
+                onColumnClick = { column -> // column click
                     onColumnClick.invoke(column)
                 },
-                { column -> // column long click
+                onColumnLongClick = { column -> // column long click
                     onColumnLongClick.invoke(column)
                 }
             ).also { view -> hsv.addView(view) }
