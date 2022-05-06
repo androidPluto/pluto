@@ -64,6 +64,7 @@ dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(path: ':pluto-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     implementation "androidx.room:room-ktx:$roomsVersion"
     kapt "androidx.room:room-compiler:$roomsVersion"

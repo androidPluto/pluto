@@ -85,6 +85,10 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))
             }
+            binding.pullToRefresh.setOnRefreshListener {
+                viewModel.currentTable.value?.let { viewModel.selectTable(it) }
+                binding.pullToRefresh.isRefreshing = false
+            }
 
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
