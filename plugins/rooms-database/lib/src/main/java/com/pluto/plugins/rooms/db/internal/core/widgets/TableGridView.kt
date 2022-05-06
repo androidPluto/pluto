@@ -8,8 +8,10 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 
@@ -81,13 +83,19 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * @param text field value
      * @return RowData
      */
-    private fun rowData(text: String) = TextView(context)
+    private fun rowData(text: String?) = TextView(context)
         .apply {
             minHeight = tableRowMinHeight
             minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
-            this.text = text
+            setSpan {
+                text?.let {
+                    append(text)
+                } ?: run {
+                    append(light(italic(fontColor("null", context.color(R.color.pluto___text_dark_20)))))
+                }
+            }
             textSize = TEXT_SIZE_RECORD
             setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark))
             typeface = ResourcesCompat.getFont(context, R.font.muli)
