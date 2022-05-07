@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.showMoreOptions
@@ -106,6 +107,9 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.queryError.removeObserver(errorObserver)
             viewModel.queryError.observe(viewLifecycleOwner, errorObserver)
 
+            viewModel.rowCounts.removeObserver(rowCountObserver)
+            viewModel.rowCounts.observe(viewLifecycleOwner, rowCountObserver)
+
             uiViewModel.tableGridView.removeObserver(tableUIObserver)
             uiViewModel.tableGridView.observe(viewLifecycleOwner, tableUIObserver)
         } ?: requireActivity().onBackPressed()
@@ -161,6 +165,44 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
         handleError(it.first, it.second)
     }
 
+    private val rowCountObserver = Observer<Pair<Int, Int?>> {
+        binding.count.setSpan {
+            append("Showing")
+            append(bold(" ${it.first}"))
+            it.second?.let {
+                append("/$it")
+            }
+            append(" rows")
+        }
+
+        if (viewModel.filterConfig.isNotEmpty()) {
+            binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_filter, 0, 0, 0)
+            binding.applyFilter.setSpan {
+                append(
+                    fontColor(
+                        String.format(
+                            resources.getQuantityString(
+                                R.plurals.pluto_rooms___applied_filters,
+                                viewModel.filterConfig.size,
+                                viewModel.filterConfig.size
+                            )
+                        ),
+                        context.color(R.color.pluto___blue)
+                    )
+                )
+            }
+        } else {
+            binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
+            binding.applyFilter.setSpan {
+                append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(R.color.pluto___text_dark_40)))
+                append(" ${bold(getString(R.string.pluto_rooms___apply_filter))}")
+            }
+        }
+        binding.applyFilter.setDebounceClickListener(haptic = true) {
+            toast("apply filter")
+        }
+    }
+
     private fun handleError(error: String, exception: Exception) {
         when (error) {
             ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
@@ -211,6 +253,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     private val tableUIObserver = Observer<HorizontalScrollView> {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             binding.loader.visibility = GONE
+            binding.footerGroup.visibility = VISIBLE
             binding.nsv.removeAllViews()
             binding.nsv.addView(it)
         }
@@ -219,6 +262,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     private fun resetTableGrid() {
         binding.nsv.scrollTo(0, 0)
         binding.nsv.removeAllViews()
+        binding.footerGroup.visibility = GONE
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {

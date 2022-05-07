@@ -46,9 +46,20 @@ internal data class RowDetailsData(
     val values: List<String>?
 ) : Parcelable
 
+internal data class FilterModel(
+    val column: String,
+    val value: String?,
+    val relation: FilterRelation
+)
+
 internal sealed class RowAction {
     class Click(val isInsert: Boolean) : RowAction()
     object LongClick : RowAction()
     object Delete : RowAction()
     object Duplicate : RowAction()
+}
+
+internal sealed class FilterRelation {
+    object Equals : FilterRelation()
+    object Like : FilterRelation()
 }

@@ -48,6 +48,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _editError
     private val _editError = SingleLiveEvent<Pair<String, Exception>>()
 
+    val rowCounts: LiveData<Pair<Int, Int?>>
+        get() = _rowCounts
+    private val _rowCounts = SingleLiveEvent<Pair<Int, Int?>>()
+
+    var filterConfig: List<FilterModel> = arrayListOf()
+        private set
+
     override fun onCleared() {
         super.onCleared()
         Executor.destroySession()
@@ -113,9 +120,16 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                             )
                         }
 
-                        Executor.instance.query(Query.Tables.values(table)).collect { valueResult ->
+                        Executor.instance.query(Query.Tables.values(table, filterConfig)).collect { valueResult ->
                             when (valueResult) {
-                                is ExecuteResult.Success.Query -> _tableContent.postValue(ProcessedTableContents(columns, valueResult.data.second))
+                                is ExecuteResult.Success.Query -> {
+                                    if (filterConfig.isNotEmpty()) {
+                                        fetchRowCount(table, valueResult.data.second.size)
+                                    } else {
+                                        _rowCounts.postValue(Pair(valueResult.data.second.size, valueResult.data.second.size))
+                                    }
+                                    _tableContent.postValue(ProcessedTableContents(columns, valueResult.data.second))
+                                }
                                 is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, valueResult.exception))
                                 else -> DebugLog.e(LOG_TAG, "fetch values: invalid result")
                             }
@@ -123,6 +137,18 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, columnResult.exception))
                     else -> DebugLog.e(LOG_TAG, "fetch column: invalid result")
+                }
+            }
+        }
+    }
+
+    private fun fetchRowCount(table: String, filteredCount: Int) {
+        viewModelScope.launch(Dispatchers.Default) {
+            Executor.instance.query(Query.Tables.count(table)).collect {
+                when (it) {
+                    is ExecuteResult.Success.Query -> _rowCounts.postValue(Pair(filteredCount, it.data.second[0][0].toInt()))
+                    is ExecuteResult.Failure -> _rowCounts.postValue(Pair(filteredCount, null))
+                    else -> DebugLog.e(LOG_TAG, "fetchRowCount: invalid result")
                 }
             }
         }
