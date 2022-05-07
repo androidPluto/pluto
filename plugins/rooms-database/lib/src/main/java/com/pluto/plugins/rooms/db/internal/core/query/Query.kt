@@ -1,6 +1,8 @@
 package com.pluto.plugins.rooms.db.internal.core.query
 
-import com.pluto.plugin.utilities.extensions.forEachIndexed
+import com.pluto.plugins.rooms.db.internal.FilterModel
+import com.pluto.plugins.rooms.db.internal.FilterRelation
+import java.lang.StringBuilder
 
 internal class Query private constructor() {
 
@@ -29,7 +31,32 @@ internal class Query private constructor() {
              * @param table name of the table
              * @return query
              */
-            fun values(table: String) = "SELECT * FROM $table"
+            fun values(table: String, filters: List<FilterModel>?): String {
+                val stringBuilder = StringBuilder()
+                stringBuilder.append("SELECT * FROM $table")
+                if (!filters.isNullOrEmpty()) {
+                    stringBuilder.append(" WHERE")
+                    filters.filter { it.value != null }.forEachIndexed { index, filter ->
+                        stringBuilder.append(" ${filter.column}")
+                        when (filter.relation) {
+                            is FilterRelation.Equals -> stringBuilder.append("=${filter.value}")
+                            is FilterRelation.Like -> stringBuilder.append("%${filter.value}%")
+                        }
+                        if (index < filters.lastIndex) {
+                            stringBuilder.append(" AND")
+                        }
+                    }
+                }
+                return stringBuilder.toString()
+            }
+
+            /**
+             * Query to count the rows in the table.
+             *
+             * @param table name of the table
+             * @return query
+             */
+            fun count(table: String) = "SELECT COUNT(*) FROM $table"
 
             /**
              * Query to drop the table.
@@ -46,84 +73,6 @@ internal class Query private constructor() {
              * @return query
              */
             fun clear(table: String) = "DELETE FROM $table"
-        }
-    }
-
-    class Rows private constructor() {
-        companion object {
-            /**
-             * Query to insert values in to the table
-             *
-             * @param table name of the table
-             * @param values list of values to be inserted
-             * @return query
-             */
-            fun insert(table: String, values: List<String?>): String {
-                var insertQuery = "INSERT INTO $table VALUES("
-                values.forEachIndexed { index, value ->
-                    insertQuery += "'$value'"
-                    if (index != values.size - 1) {
-                        insertQuery += ","
-                    }
-                }
-                insertQuery += ")"
-                return insertQuery
-            }
-
-            /**
-             * Query to update values of the table.
-             *
-             * @param table name of the table
-             * @param column list of column names
-             * @param oldValues list of current values
-             * @param newValues list of values to be updated
-             * @return query
-             */
-            @SuppressWarnings("StringLiteralDuplication")
-            fun update(table: String, column: List<String>, oldValues: List<String?>, newValues: List<String>): String {
-                var query = "Update $table set "
-                Pair(column, newValues).forEachIndexed { index, columnName, value ->
-                    query += if (value != null) {
-                        "$columnName = '$value'"
-                    } else {
-                        "$columnName = null"
-                    }
-                    if (index != column.size - 1) {
-                        query += ", "
-                    }
-                }
-                query += " where "
-                Pair(column, oldValues).forEachIndexed { index, columnName, value ->
-                    query += if (value != null) {
-                        "$columnName = '$value'"
-                    } else {
-                        "$columnName = null"
-                    }
-                    if (index != column.size - 1) {
-                        query += " AND "
-                    }
-                }
-                return query
-            }
-
-            /**
-             * Query to delete values of a row.
-             *
-             * @param table name of the table
-             * @param column list of column names
-             * @param values list of values to be deleted
-             * @return query
-             */
-            fun delete(table: String, column: List<String>, values: List<String>): String {
-                var query = "DELETE FROM $table where "
-                Pair(column, values).forEachIndexed { index, columnName, value ->
-                    query += "$columnName = '$value'"
-                    if (index != column.size - 1) {
-                        query += " AND "
-                    }
-                }
-                return query
-            }
         }
     }
 }

@@ -144,14 +144,81 @@
         android:background="@color/pluto___white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pullToRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/footer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <View
+            android:id="@+id/footerBorder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:background="@color/pluto___app_bg"
+            app:layout_constraintTop_toTopOf="@+id/footer" />
+
+        <View
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintBottom_toBottomOf="@+id/applyFilter"
+            app:layout_constraintTop_toTopOf="@+id/applyFilter" />
+
+        <TextView
+            android:id="@+id/applyFilter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableStart="@drawable/pluto_rooms___ic_no_filter"
+            android:drawableLeft="@drawable/pluto_rooms___ic_no_filter"
+            android:drawablePadding="@dimen/pluto___margin_mini"
+            android:fontFamily="@font/muli_semibold"
+            android:gravity="center_vertical"
+            android:padding="@dimen/pluto___margin_small"
+            android:text="@string/pluto_rooms___apply_filter"
+            android:textColor="@color/pluto___blue"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/count"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:padding="@dimen/pluto___margin_small"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintBottom_toBottomOf="@+id/applyFilter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/applyFilter"
+            tools:text="Showing 103/5003" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/footerGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="footer,footerBorder,applyFilter,count"
+            tools:visibility="visible" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/loader"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/pullToRefresh"
-            app:layout_constraintTop_toTopOf="@+id/pullToRefresh">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 android:layout_width="@dimen/pluto___margin_vvlarge"
@@ -163,55 +230,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli"
-                android:textColor="@color/pluto___text_dark_60"
                 android:layout_marginTop="@dimen/pluto___margin_mini"
-                android:text="@string/pluto_rooms___loading_table" />
+                android:fontFamily="@font/muli"
+                android:text="@string/pluto_rooms___loading_table"
+                android:textColor="@color/pluto___text_dark_60" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/pullToRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/note"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <TextView
-            android:id="@+id/note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/pluto___dark_05"
-            android:drawableStart="@drawable/pluto_rooms___ic_no_filter"
-            android:drawableLeft="@drawable/pluto_rooms___ic_no_filter"
-            android:drawablePadding="@dimen/pluto___margin_xsmall"
-            android:fontFamily="@font/muli_semibold"
-            android:gravity="center_vertical"
-            android:padding="@dimen/pluto___margin_small"
-            android:text="@string/pluto_rooms___no_data_filter_applied"
-            android:textColor="@color/pluto___text_dark_60"
-            android:textSize="@dimen/pluto___text_xxsmall"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1" />
-
-        <TextView
-            android:id="@+id/applyFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/muli_bold"
-            android:padding="@dimen/pluto___margin_small"
-            android:text="@string/pluto_rooms___apply_filter"
-            android:textColor="@color/pluto___blue"
-            android:textSize="@dimen/pluto___text_xxsmall"
-            app:layout_constraintBottom_toBottomOf="@+id/note"
-            app:layout_constraintEnd_toEndOf="@+id/note"
-            app:layout_constraintTop_toTopOf="@+id/note" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
