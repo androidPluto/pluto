@@ -7,10 +7,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -30,6 +31,7 @@ import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_UPDATE
 import com.pluto.plugins.rooms.db.internal.RowDetailsData
+import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
@@ -38,6 +40,7 @@ class EditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentDataEditorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
+    private val uiViewModel: UIViewModel by viewModels()
     private val sharer: ContentShareViewModel by lazyContentSharer()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -51,23 +54,6 @@ class EditFragment : BottomSheetDialogFragment() {
     private val etList = mutableListOf<DataEditWidget>()
     private val fieldValues
         get() = etList.map { it.get() }
-
-//    private val etBackground by lazy {
-//        requireContext().drawable(R.drawable.pluto_rooms___bg_edittext_round)
-//    }
-
-    /**
-     * The main layout of this view, where all pairs of views will be added.
-     */
-    private val mainLayout: LinearLayout by lazy {
-        LinearLayout(context).apply {
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            )
-            orientation = LinearLayout.VERTICAL
-        }
-    }
 
     override fun onStart() {
         super.onStart()
@@ -97,6 +83,19 @@ class EditFragment : BottomSheetDialogFragment() {
 
         viewModel.editError.removeObserver(errorObserver)
         viewModel.editError.observe(viewLifecycleOwner, errorObserver)
+
+        uiViewModel.rowEditView.removeObserver(uiObserver)
+        uiViewModel.rowEditView.observe(viewLifecycleOwner, uiObserver)
+    }
+
+    private val uiObserver = Observer<Pair<List<DataEditWidget>, LinearLayout>> {
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            etList.clear()
+            etList.addAll(it.first)
+
+            binding.nsv.removeAllViews()
+            binding.nsv.addView(it.second)
+        }
     }
 
     private fun showInsertUI(isInsertEvent: Boolean, dataConfig: RowDetailsData) {
@@ -110,24 +109,7 @@ class EditFragment : BottomSheetDialogFragment() {
             binding.share.visibility = VISIBLE
         }
         binding.warning.visibility = if (isSystemTable(dataConfig.table)) VISIBLE else GONE
-        val columns = dataConfig.columns
-        val rows = dataConfig.values ?: dataConfig.columns.map { col ->
-            col.defaultValue?.replace("\'", "")
-        }
-        Pair(columns, rows).forEachIndexed { _, column, value ->
-            val valueEditText = DataEditWidget(requireContext())
-            etList.add(valueEditText)
-            valueEditText.create(column, value)
-            val row = LinearLayout(context).apply {
-                layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT
-                )
-                orientation = LinearLayout.VERTICAL
-                addView(valueEditText)
-            }
-            mainLayout.addView(row)
-        }
+        uiViewModel.generateRowEditView(requireContext(), dataConfig)
         binding.share.setDebounceClickListener {
             sharer.share(
                 Shareable(
@@ -136,8 +118,6 @@ class EditFragment : BottomSheetDialogFragment() {
                 )
             )
         }
-        binding.nsv.removeAllViews()
-        binding.nsv.addView(mainLayout)
         binding.save.setDebounceClickListener {
             if (isInsertEvent) {
                 viewModel.addNewRow(dataConfig.table, fieldValues)

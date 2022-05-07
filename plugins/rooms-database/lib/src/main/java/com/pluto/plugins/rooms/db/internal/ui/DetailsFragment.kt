@@ -106,8 +106,8 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             viewModel.queryError.removeObserver(errorObserver)
             viewModel.queryError.observe(viewLifecycleOwner, errorObserver)
 
-            uiViewModel.dataView.removeObserver(tableUIObserver)
-            uiViewModel.dataView.observe(viewLifecycleOwner, tableUIObserver)
+            uiViewModel.tableGridView.removeObserver(tableUIObserver)
+            uiViewModel.tableGridView.observe(viewLifecycleOwner, tableUIObserver)
         } ?: requireActivity().onBackPressed()
     }
 
@@ -142,7 +142,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 val bundle = bundleOf("data" to it.second)
                 findNavController().navigate(R.id.openActionsView, bundle)
             }
-            RowAction.Duplicate -> viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(200L) {
+            RowAction.Duplicate -> viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(100L) {
                 val bundle = bundleOf("data" to it.second, "isInsert" to true)
                 findNavController().navigate(R.id.openDataEditor, bundle)
             }
@@ -182,7 +182,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
     }
 
     private val tableContentObserver = Observer<ProcessedTableContents> {
-        uiViewModel.generateView(
+        uiViewModel.generateTableGridView(
             requireContext(), it.first, it.second,
             onRowClick = { index, value ->
                 viewLifecycleOwner.lifecycleScope.launchWhenResumed {
