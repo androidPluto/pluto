@@ -14,7 +14,7 @@ class RoomsDBActivity : AppCompatActivity() {
     private val phoneNumberRange = 9900000000..9999999999
     private val ageRange = 1..100
     private val range = 100
-    private val db: AppDatabase by lazy { AppDatabase.getInstance(this) }
+    private val db: AppDatabase by lazy { AppDatabase.getInstance(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,10 @@ class RoomsDBActivity : AppCompatActivity() {
                     "$name@gmail.com"
                 )
             )
+        }
+
+        binding.close.setOnClickListener {
+            finish()
         }
     }
 }
