@@ -5,10 +5,10 @@ import android.text.InputType
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDataEditWidgetBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -30,11 +30,16 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
 
     fun create(column: ColumnModel, value: String?) {
         input = Pair(column, value)
-        binding.column.setSpan {
+        binding.column.text = context.createSpan {
             if (column.isPrimaryKey) {
                 append(semiBold(underline(column.name)))
+                append(fontColor(italic(" (Primary Key)"), context.color(R.color.pluto___text_dark_40)))
             } else {
                 append(column.name)
+            }
+
+            if (!column.isNotNull) {
+                append(fontColor(italic(" (nullable)"), context.color(R.color.pluto___text_dark_40)))
             }
         }
         binding.nullCta.visibility = if (column.isNotNull) GONE else VISIBLE

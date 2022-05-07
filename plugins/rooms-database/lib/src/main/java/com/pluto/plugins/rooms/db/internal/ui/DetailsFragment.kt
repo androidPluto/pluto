@@ -175,6 +175,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             binding.alert.visibility = if (it.isSystemTable) VISIBLE else GONE
             binding.table.text = it.name
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                binding.loader.visibility = VISIBLE
                 resetTableGrid()
                 viewModel.fetchData(it.name)
             }
@@ -209,6 +210,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val tableUIObserver = Observer<HorizontalScrollView> {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            binding.loader.visibility = GONE
             binding.nsv.removeAllViews()
             binding.nsv.addView(it)
         }
@@ -216,6 +218,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private fun resetTableGrid() {
         binding.nsv.scrollTo(0, 0)
+        binding.nsv.removeAllViews()
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {

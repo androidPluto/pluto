@@ -23,4 +23,6 @@
     <string name="pluto_rooms___delete_row">Delete Row</string>
     <string name="pluto_rooms___duplicate_row">Duplicate Row</string>
     <string name="pluto_rooms___actions">Actions</string>
+    <string name="pluto_rooms___loading_editor">loading editor</string>
+    <string name="pluto_rooms___loading_table">loading table content</string>
 </resources>
