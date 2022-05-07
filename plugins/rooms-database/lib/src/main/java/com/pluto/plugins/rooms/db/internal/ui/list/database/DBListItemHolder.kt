@@ -16,11 +16,11 @@ internal class DBListItemHolder(
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_rooms___item_db_selector), actionListener) {
 
     private val binding = PlutoRoomsItemDbSelectorBinding.bind(itemView)
-    private val value = binding.value
 
     override fun onBind(item: ListItem) {
         if (item is DatabaseModel) {
-            value.text = item.name
+            binding.value.text = item.name
+            binding.dbClassName.text = "${item.dbClass.simpleName}.kt"
             binding.root.setDebounceClickListener {
                 onAction("click")
             }

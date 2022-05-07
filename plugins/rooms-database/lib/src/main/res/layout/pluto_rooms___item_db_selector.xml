@@ -4,27 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/pluto___margin_medium"
     android:foreground="?android:attr/selectableItemBackground"
     tools:background="@color/pluto___app_bg">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:layout_marginLeft="@dimen/pluto___margin_small"
+        android:src="@drawable/pluto_rooms___ic_database"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:layout_marginTop="@dimen/pluto___margin_medium"
+        android:layout_marginEnd="@dimen/pluto___margin_medium"
         android:ellipsize="end"
         android:fontFamily="@font/muli_semibold"
-        android:maxLines="3"
+        android:maxLines="1"
         android:textColor="@color/pluto___text_dark"
         android:textSize="@dimen/pluto___text_small"
-        app:autoSizeMaxTextSize="@dimen/pluto___text_small"
-        app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toStartOf="@+id/chevron"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="database name" />
+
+
+    <TextView
+        android:id="@+id/dbClassName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___dp_1"
+        android:layout_marginBottom="@dimen/pluto___margin_medium"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="1"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/value"
+        app:layout_constraintStart_toStartOf="@+id/value"
+        app:layout_constraintTop_toBottomOf="@+id/value"
+        tools:text="className.kt" />
+
+    <ImageView
+        android:id="@+id/chevron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/pluto___margin_small"
+        android:src="@drawable/pluto_rooms___ic_chevron_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="log tag" />
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
