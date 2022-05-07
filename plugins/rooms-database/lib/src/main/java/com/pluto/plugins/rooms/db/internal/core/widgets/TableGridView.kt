@@ -2,6 +2,8 @@ package com.pluto.plugins.rooms.db.internal.core.widgets
 
 import android.content.Context
 import android.graphics.Paint
+import android.os.Build
+import android.util.TypedValue
 import android.view.Gravity
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -142,6 +144,13 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             setPadding(0, 0, 0, 0)
             values.forEach {
                 addView(rowData(it))
+            }
+
+            val outValue = TypedValue()
+            context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                foreground = ContextCompat.getDrawable(context, outValue.resourceId)
             }
         }
 

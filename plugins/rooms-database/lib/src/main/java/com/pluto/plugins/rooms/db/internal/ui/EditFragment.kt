@@ -90,6 +90,7 @@ class EditFragment : BottomSheetDialogFragment() {
 
     private val uiObserver = Observer<Pair<List<DataEditWidget>, LinearLayout>> {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            binding.loader.visibility = GONE
             etList.clear()
             etList.addAll(it.first)
 

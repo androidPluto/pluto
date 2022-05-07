@@ -57,33 +57,35 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun generateRowEditView(context: Context, dataConfig: RowDetailsData) {
-        val etList = mutableListOf<DataEditWidget>()
-        val mainLayout = LinearLayout(context).apply {
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
-            )
-            orientation = LinearLayout.VERTICAL
-        }
-
-        val columns = dataConfig.columns
-        val rows = dataConfig.values ?: dataConfig.columns.map { col ->
-            col.defaultValue?.replace("\'", "")
-        }
-        Pair(columns, rows).forEachIndexed { _, column, value ->
-            val valueEditText = DataEditWidget(context)
-            etList.add(valueEditText)
-            valueEditText.create(column, value)
-            val row = LinearLayout(context).apply {
+        viewModelScope.launch(Dispatchers.Default) {
+            val etList = mutableListOf<DataEditWidget>()
+            val mainLayout = LinearLayout(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT
                 )
                 orientation = LinearLayout.VERTICAL
-                addView(valueEditText)
             }
-            mainLayout.addView(row)
+
+            val columns = dataConfig.columns
+            val rows = dataConfig.values ?: dataConfig.columns.map { col ->
+                col.defaultValue?.replace("\'", "")
+            }
+            Pair(columns, rows).forEachIndexed { _, column, value ->
+                val valueEditText = DataEditWidget(context)
+                etList.add(valueEditText)
+                valueEditText.create(column, value)
+                val row = LinearLayout(context).apply {
+                    layoutParams = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    orientation = LinearLayout.VERTICAL
+                    addView(valueEditText)
+                }
+                mainLayout.addView(row)
+            }
+            _rowEditView.postValue(Pair(etList, mainLayout))
         }
-        _rowEditView.postValue(Pair(etList, mainLayout))
     }
 }

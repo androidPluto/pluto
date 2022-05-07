@@ -144,6 +144,32 @@
         android:background="@color/pluto___white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/pullToRefresh"
+            app:layout_constraintTop_toTopOf="@+id/pullToRefresh">
+
+            <ProgressBar
+                android:layout_width="@dimen/pluto___margin_vvlarge"
+                android:layout_height="@dimen/pluto___margin_vvlarge"
+                android:backgroundTint="@color/pluto___dark_40"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/pluto___dark_40" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli"
+                android:textColor="@color/pluto___text_dark_60"
+                android:layout_marginTop="@dimen/pluto___margin_mini"
+                android:text="@string/pluto_rooms___loading_table" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"
