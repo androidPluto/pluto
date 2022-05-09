@@ -34,7 +34,7 @@ internal data class ColumnModel(
     val isNotNull: Boolean,
     val defaultValue: String?,
     val isPrimaryKey: Boolean
-) : Parcelable
+) : Parcelable, ListItem()
 
 internal typealias RawTableContents = Pair<List<String>, List<List<String>>>
 

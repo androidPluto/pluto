@@ -30,7 +30,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 
     val processedTableContent: LiveData<ProcessedTableContents>
         get() = _tableContent
-    private val _tableContent = SingleLiveEvent<ProcessedTableContents>()
+    private val _tableContent = MutableLiveData<ProcessedTableContents>()
 
     val rowActionEvent: LiveData<Pair<RowAction, RowDetailsData>>
         get() = _rowActionEvent
@@ -61,6 +61,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     override fun onCleared() {
         super.onCleared()
         Executor.destroySession()
+        _tableContent.value = null
     }
 
     fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
