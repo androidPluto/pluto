@@ -56,6 +56,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * Creates a [TextView] to display column names in the table.
      *
      * @param column column data
+     * @param sortBy sorting logic
      * @param onColumnClick function to get called on clicking a column item
      * @param onColumnLongClick function to get called on long pressing a column item
      * @return RowHeader
@@ -136,6 +137,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * creates a header by using the provided values.
      *
      * @param values list of values to display
+     * @param sortBy sorting logic
      * @param onColumnClick function to get called on clicking a column item
      * @param onColumnLongClick function to get called on long pressing a column item
      * @return TableRow
@@ -177,6 +179,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      *
      * @param column list of column names
      * @param rows list of rows, each row contains list of fields
+     * @param sortBy sorting logic
      * @param onClick function to get called on clicking the row
      * @param onLongClick function to get called on long pressing the row
      * @param onColumnClick function to get called on clicking a column item

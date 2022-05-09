@@ -30,6 +30,8 @@ internal class Query private constructor() {
              * Query to get all values of the table.
              *
              * @param table name of the table
+             * @param filters list of filters
+             * @param sortBy sorting logic
              * @return query
              */
             fun values(table: String, filters: List<FilterModel>?, sortBy: Pair<String, SortBy>?): String {

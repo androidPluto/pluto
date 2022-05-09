@@ -15,10 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-/**
- * A class which is responsible for performing db operations.
- *
- */
 internal class Executor private constructor(private val dbOpenHelper: SupportSQLiteOpenHelper) {
 
     private val database: SupportSQLiteDatabase
@@ -37,14 +33,6 @@ internal class Executor private constructor(private val dbOpenHelper: SupportSQL
 
         private var _instance: Executor? = null
 
-        /**
-         * initialization function for [Executor].
-         * Initializes [database] by using provided [databaseClass] and [databaseName].
-         *
-         * @param context [Context] of the accessing class
-         * @param databaseClass a subclass of [RoomDatabase] registered in [Room] with @Database annotation
-         * @param databaseName name of [RoomDatabase] class
-         */
         @Synchronized
         fun initSession(context: Context, databaseName: String, databaseClass: Class<out RoomDatabase>): Executor {
             _instance?.let {
@@ -62,11 +50,6 @@ internal class Executor private constructor(private val dbOpenHelper: SupportSQL
         }
     }
 
-    /**
-     * Query the db with given [query].
-     *
-     * @param query SQL query
-     */
     @SuppressWarnings("TooGenericExceptionCaught", "TooGenericExceptionThrown", "SwallowedException")
     internal fun query(query: String) = flow {
         try {
