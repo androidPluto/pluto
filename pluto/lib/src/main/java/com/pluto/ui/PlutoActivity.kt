@@ -37,7 +37,7 @@ class PlutoActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.pluto___dark_20)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.pluto___dark)
         sharer.data.observe(this) {
             val shareFragment = ShareFragment()
             shareFragment.arguments = Bundle().apply {
