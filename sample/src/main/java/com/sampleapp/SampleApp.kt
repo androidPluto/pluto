@@ -19,7 +19,7 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
-import com.sampleapp.plugins.roomsDatabase.db.AppDatabase
+import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -47,7 +47,7 @@ class SampleApp : Application() {
      * Rooms database handler
      */
     private fun watchRoomsDatabase() {
-        PlutoRoomsDB.watch(AppDatabase.DB_NAME, AppDatabase::class.java)
+        PlutoRoomsDB.watch(SampleDatabase.DB_NAME, SampleDatabase::class.java)
     }
 
     /**
