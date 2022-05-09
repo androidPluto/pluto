@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.truncateExcess
 import com.pluto.plugin.utilities.hapticFeedback
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
@@ -66,7 +67,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             gravity = Gravity.CENTER_VERTICAL
             setBackgroundColor(tableHeaderBackground)
             setPadding(PADDING_HORIZONTAL, 0, PADDING_HORIZONTAL, 0)
-            text = column.name
+            text = column.name.truncateExcess(TEXT_OFFSET)
             textSize = TEXT_SIZE_RECORD
             setTextColor(ContextCompat.getColor(context, R.color.pluto___app_bg))
             typeface = ResourcesCompat.getFont(
@@ -108,7 +109,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             setSpan {
                 text?.let {
-                    append(text)
+                    append(it.truncateExcess(TEXT_OFFSET))
                 } ?: run {
                     append(light(italic(fontColor("null", context.color(R.color.pluto___text_dark_20)))))
                 }
@@ -216,6 +217,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
         val PADDING_HORIZONTAL = 18f.dp.toInt()
         const val TEXT_SIZE_RECORD = 14f
         const val TEXT_SIZE_EOT = 13f
+        const val TEXT_OFFSET = 20
     }
 }
 
