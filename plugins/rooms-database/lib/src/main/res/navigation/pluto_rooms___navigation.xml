@@ -35,6 +35,10 @@
         <action
             android:id="@+id/openColumnDetailsView"
             app:destination="@id/columnDetailsView" />
+
+        <action
+            android:id="@+id/openTableSchemaView"
+            app:destination="@id/tableSchemaView" />
     </fragment>
 
     <dialog
@@ -52,4 +56,8 @@
     <dialog
         android:id="@+id/columnDetailsView"
         android:name="com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment"/>
+
+    <dialog
+        android:id="@+id/tableSchemaView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSchemaFragment"/>
 </navigation>

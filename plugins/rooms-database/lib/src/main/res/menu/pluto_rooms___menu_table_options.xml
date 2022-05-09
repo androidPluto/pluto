@@ -22,4 +22,9 @@
 <!--        android:id="@+id/query"-->
 <!--        android:icon="@drawable/pluto_rooms___ic_custom_query"-->
 <!--        android:title="@string/pluto_rooms___custom_query" />-->
+
+    <item
+        android:id="@+id/schema"
+        android:icon="@drawable/pluto_rooms___ic_table_schema"
+        android:title="@string/pluto_rooms___table_schema" />
 </menu>

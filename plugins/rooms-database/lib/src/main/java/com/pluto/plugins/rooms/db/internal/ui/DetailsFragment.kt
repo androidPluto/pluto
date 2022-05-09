@@ -88,6 +88,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                             R.id.export -> shareTableContent(table.name)
                             R.id.refresh -> viewModel.currentTable.value?.let { viewModel.selectTable(it) }
                             R.id.clear -> viewModel.clearTable(table.name)
+                            R.id.schema -> openTableSchema()
                         }
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))
@@ -136,6 +137,10 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
 
     private fun openTableSelector() {
         findNavController().navigate(R.id.openTableSelector)
+    }
+
+    private fun openTableSchema() {
+        findNavController().navigate(R.id.openTableSchemaView)
     }
 
     private val rowClickEventObserver = Observer<Pair<RowAction, RowDetailsData>> {
