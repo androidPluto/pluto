@@ -34,12 +34,24 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/pluto_rooms___table_schema" />
 
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto_rooms___ic_share"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:orientation="vertical"
+                app:layout_constrainedHeight="true"
                 android:layout_marginBottom="@dimen/pluto___margin_xsmall"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
