@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.os.Build
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -17,6 +18,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.internal.ColumnModel
+import com.pluto.plugins.rooms.db.internal.SortBy
 
 /**
  * A custom [TableLayout] class having functionality for creating table by using given rows and columns.
@@ -24,14 +26,21 @@ import com.pluto.plugins.rooms.db.internal.ColumnModel
  */
 internal class TableGridView(context: Context) : TableLayout(context) {
 
-    private val tableRowMinHeight by lazy {
-        context.resources.getDimension(R.dimen.pluto___margin_vxlarge).toInt()
+    private val tableRowHeight by lazy {
+        context.resources.getDimension(R.dimen.pluto_rooms___header_height).toInt()
     }
 
     private val tableHeaderBackground by lazy {
         ContextCompat.getColor(
             context,
             R.color.pluto___dark_80
+        )
+    }
+
+    private val tableHeaderSortedBackground by lazy {
+        ContextCompat.getColor(
+            context,
+            R.color.pluto___dark
         )
     }
 
@@ -50,14 +59,14 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * @param onColumnLongClick function to get called on long pressing a column item
      * @return RowHeader
      */
-    private fun rowHeader(column: ColumnModel, onColumnClick: (ColumnModel) -> Unit, onColumnLongClick: (ColumnModel) -> Unit) = TextView(context)
-        .apply {
-            minHeight = tableRowMinHeight
+    private fun rowHeader(column: ColumnModel, sortBy: SortBy?, onColumnClick: (ColumnModel) -> Unit, onColumnLongClick: (ColumnModel) -> Unit) =
+        TextView(context).apply {
+            height = tableRowHeight
             minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
             setBackgroundColor(tableHeaderBackground)
-            setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
-            this.text = column.name
+            setPadding(PADDING_HORIZONTAL, 0, PADDING_HORIZONTAL, 0)
+            text = column.name
             textSize = TEXT_SIZE_RECORD
             setTextColor(ContextCompat.getColor(context, R.color.pluto___app_bg))
             typeface = ResourcesCompat.getFont(
@@ -71,7 +80,12 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             if (column.isPrimaryKey) {
                 paintFlags = Paint.UNDERLINE_TEXT_FLAG
             }
-            setDebounceClickListener {
+            sortBy?.let {
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, it.indicator, 0)
+                typeface = ResourcesCompat.getFont(context, R.font.muli_bold)
+                setBackgroundColor(tableHeaderSortedBackground)
+            }
+            setDebounceClickListener(haptic = true) {
                 onColumnClick.invoke(column)
             }
             setOnLongClickListener {
@@ -88,7 +102,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      */
     private fun rowData(text: String?) = TextView(context)
         .apply {
-            minHeight = tableRowMinHeight
+            minHeight = tableRowHeight
             minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
@@ -106,7 +120,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
 
     private fun rowTableEnd() = TextView(context)
         .apply {
-            minHeight = tableRowMinHeight
+            minHeight = tableRowHeight
             minWidth = 20f.dp.toInt()
             gravity = Gravity.CENTER_VERTICAL
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
@@ -125,11 +139,20 @@ internal class TableGridView(context: Context) : TableLayout(context) {
      * @param onColumnLongClick function to get called on long pressing a column item
      * @return TableRow
      */
-    private fun tableHeader(values: List<ColumnModel>, onColumnClick: (ColumnModel) -> Unit, onColumnLongClick: (ColumnModel) -> Unit) =
+    private fun tableHeader(
+        values: List<ColumnModel>,
+        sortBy: Pair<String, SortBy>?,
+        onColumnClick: (ColumnModel) -> Unit,
+        onColumnLongClick: (ColumnModel) -> Unit
+    ) =
         TableRow(context).apply {
             setPadding(0, 0, 0, 0)
             values.forEach {
-                addView(rowHeader(it, onColumnClick, onColumnLongClick))
+                val sort = if (it.name == sortBy?.first) sortBy.second else null
+                val headerColumn = rowHeader(it, sort, onColumnClick, onColumnLongClick).apply {
+                    enableRippleEffect()
+                }
+                addView(headerColumn)
             }
         }
 
@@ -145,13 +168,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             values.forEach {
                 addView(rowData(it))
             }
-
-            val outValue = TypedValue()
-            context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                foreground = ContextCompat.getDrawable(context, outValue.resourceId)
-            }
+            enableRippleEffect()
         }
 
     /**
@@ -169,12 +186,13 @@ internal class TableGridView(context: Context) : TableLayout(context) {
     fun create(
         column: List<ColumnModel>,
         rows: List<List<String>>,
+        sortBy: Pair<String, SortBy>?,
         onClick: (Int) -> Unit,
         onLongClick: (Int) -> Unit,
         onColumnClick: (ColumnModel) -> Unit,
         onColumnLongClick: (ColumnModel) -> Unit
     ): TableGridView {
-        addView(tableHeader(column, onColumnClick, onColumnLongClick))
+        addView(tableHeader(column, sortBy, onColumnClick, onColumnLongClick))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list).apply {
                 setDebounceClickListener(haptic = true) { onClick(index) }
@@ -198,5 +216,14 @@ internal class TableGridView(context: Context) : TableLayout(context) {
         val PADDING_HORIZONTAL = 18f.dp.toInt()
         const val TEXT_SIZE_RECORD = 14f
         const val TEXT_SIZE_EOT = 13f
+    }
+}
+
+private fun View.enableRippleEffect() {
+    val outValue = TypedValue()
+    context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        foreground = ContextCompat.getDrawable(context, outValue.resourceId)
     }
 }

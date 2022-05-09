@@ -1,9 +1,11 @@
 package com.pluto.plugins.rooms.db.internal
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import androidx.room.RoomDatabase
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugins.rooms.db.R
 import kotlinx.parcelize.Parcelize
 
 @Keep
@@ -13,10 +15,11 @@ internal data class DatabaseModel(
 ) : ListItem()
 
 @Keep
+@Parcelize
 internal data class TableModel(
     val name: String,
     val isSystemTable: Boolean
-) : ListItem()
+) : Parcelable, ListItem()
 
 /**
  * column properties (ordered)
@@ -62,4 +65,9 @@ internal sealed class RowAction {
 internal sealed class FilterRelation {
     object Equals : FilterRelation()
     object Like : FilterRelation()
+}
+
+internal sealed class SortBy(val label: String, @DrawableRes val indicator: Int) {
+    class Asc(label: String = "ASC", indicator: Int = R.drawable.pluto_rooms___ic_sort_indicator_asc) : SortBy(label, indicator)
+    class Desc(label: String = "DESC", indicator: Int = R.drawable.pluto_rooms___ic_sort_indicator_desc) : SortBy(label, indicator)
 }

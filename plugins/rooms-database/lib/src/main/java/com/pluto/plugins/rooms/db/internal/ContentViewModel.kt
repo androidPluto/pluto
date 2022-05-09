@@ -55,6 +55,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     var filterConfig: List<FilterModel> = arrayListOf()
         private set
 
+    var sortBy: Pair<String, SortBy>? = null
+        private set
+
     override fun onCleared() {
         super.onCleared()
         Executor.destroySession()
@@ -100,6 +103,10 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     }
 
     fun selectTable(table: TableModel) {
+        if (table.name != _currentTable.value?.name) {
+            sortBy = null
+            filterConfig = emptyList()
+        }
         _currentTable.postValue(table)
     }
 
@@ -120,7 +127,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                             )
                         }
 
-                        Executor.instance.query(Query.Tables.values(table, filterConfig)).collect { valueResult ->
+                        Executor.instance.query(Query.Tables.values(table, filterConfig, sortBy)).collect { valueResult ->
                             when (valueResult) {
                                 is ExecuteResult.Success.Query -> {
                                     if (filterConfig.isNotEmpty()) {
@@ -275,6 +282,14 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                 }
             }
         }
+    }
+
+    fun setSortBy(column: ColumnModel, sort: SortBy) {
+        sortBy = Pair(column.name, sort)
+    }
+
+    fun clearSortBy() {
+        sortBy = null
     }
 
     companion object {

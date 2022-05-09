@@ -2,6 +2,7 @@ package com.pluto.plugins.rooms.db.internal.core.query
 
 import com.pluto.plugins.rooms.db.internal.FilterModel
 import com.pluto.plugins.rooms.db.internal.FilterRelation
+import com.pluto.plugins.rooms.db.internal.SortBy
 import java.lang.StringBuilder
 
 internal class Query private constructor() {
@@ -31,7 +32,7 @@ internal class Query private constructor() {
              * @param table name of the table
              * @return query
              */
-            fun values(table: String, filters: List<FilterModel>?): String {
+            fun values(table: String, filters: List<FilterModel>?, sortBy: Pair<String, SortBy>?): String {
                 val stringBuilder = StringBuilder()
                 stringBuilder.append("SELECT * FROM $table")
                 if (!filters.isNullOrEmpty()) {
@@ -46,6 +47,9 @@ internal class Query private constructor() {
                             stringBuilder.append(" AND")
                         }
                     }
+                }
+                sortBy?.let {
+                    stringBuilder.append(" ORDER BY ${sortBy.first} ${sortBy.second.label.uppercase()}")
                 }
                 return stringBuilder.toString()
             }
