@@ -14,6 +14,7 @@
     <color name="pluto___dark_80">#cc11141c</color>
 
     <color name="pluto___text_dark">#231f40</color>
+    <color name="pluto___text_dark_20">#33231f40</color>
     <color name="pluto___text_dark_40">#66231f40</color>
     <color name="pluto___text_dark_60">#99231f40</color>
     <color name="pluto___text_dark_80">#cc231f40</color>
@@ -26,6 +27,7 @@
     <color name="pluto___red_dark">#e50914</color>
     <color name="pluto___red">#ff5733</color>
     <color name="pluto___red_05">#0Dff5733</color>
+    <color name="pluto___red_40">#66ff5733</color>
     <color name="pluto___red_60">#99ff5733</color>
     <color name="pluto___red_80">#ccff5733</color>
     <color name="pluto___orange">#ff9100</color>

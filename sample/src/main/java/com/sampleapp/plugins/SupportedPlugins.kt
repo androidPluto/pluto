@@ -9,6 +9,7 @@ import com.sampleapp.plugins.exceptions.ExceptionActivity
 import com.sampleapp.plugins.logger.LoggerActivity
 import com.sampleapp.plugins.network.NetworkActivity
 import com.sampleapp.plugins.preferences.PreferencesActivity
+import com.sampleapp.plugins.roomsDatabase.RoomsDBActivity
 
 class SupportedPlugins private constructor() {
     companion object {
@@ -17,7 +18,8 @@ class SupportedPlugins private constructor() {
                 PluginListItem(NETWORK),
                 PluginListItem(EXCEPTIONS),
                 PluginListItem(PREFERENCES),
-                PluginListItem(LOGGER)
+                PluginListItem(LOGGER),
+                PluginListItem(DATABASE)
             )
         }
 
@@ -27,6 +29,7 @@ class SupportedPlugins private constructor() {
                 LOGGER -> Intent(context, LoggerActivity::class.java)
                 NETWORK -> Intent(context, NetworkActivity::class.java)
                 PREFERENCES -> Intent(context, PreferencesActivity::class.java)
+                DATABASE -> Intent(context, RoomsDBActivity::class.java)
                 else -> {
                     Toast.makeText(context, "unsupported plugin", LENGTH_SHORT).show()
                     null
@@ -41,5 +44,6 @@ class SupportedPlugins private constructor() {
         const val EXCEPTIONS: String = "exceptions"
         const val PREFERENCES: String = "preferences"
         const val LOGGER: String = "LOGGER"
+        const val DATABASE: String = "rooms-database"
     }
 }

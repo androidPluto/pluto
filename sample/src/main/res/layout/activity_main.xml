@@ -42,7 +42,7 @@
                 android:tooltipText="Open Pluto UI"
                 app:layout_constraintTop_toTopOf="@+id/title"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
-                android:text="@string/pluto___open_pluto"
+                android:text="Open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

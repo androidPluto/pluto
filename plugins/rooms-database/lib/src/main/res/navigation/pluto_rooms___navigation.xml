@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pluto_rooms___navigation.xml"
+    app:startDestination="@id/selectorView">
+
+    <fragment
+        android:id="@+id/selectorView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.SelectDBFragment"
+        android:label="selector"
+        tools:layout="@layout/pluto_rooms___fragment_db_selector">
+        <action
+            android:id="@+id/openDetails"
+            app:destination="@id/detailsView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.DetailsFragment"
+        android:label="detail"
+        tools:layout="@layout/pluto_rooms___fragment_db_details">
+        <action
+            android:id="@+id/openTableSelector"
+            app:destination="@id/tableSelectorView" />
+
+        <action
+            android:id="@+id/openDataEditor"
+            app:destination="@id/dataEditView" />
+
+        <action
+            android:id="@+id/openActionsView"
+            app:destination="@id/actionsView" />
+
+        <action
+            android:id="@+id/openColumnDetailsView"
+            app:destination="@id/columnDetailsView" />
+
+        <action
+            android:id="@+id/openTableSchemaView"
+            app:destination="@id/tableSchemaView" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/tableSelectorView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.SelectTableFragment" />
+
+    <dialog
+        android:id="@+id/dataEditView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.EditFragment" />
+
+    <dialog
+        android:id="@+id/actionsView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.ActionsFragment"/>
+
+    <dialog
+        android:id="@+id/columnDetailsView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment"/>
+
+    <dialog
+        android:id="@+id/tableSchemaView"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSchemaFragment"/>
+</navigation>

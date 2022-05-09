@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___app_bg"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/pluto___section_color"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/pluto_rooms___actions" />
+
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/pluto_rooms___ic_delete"
+                android:drawableLeft="@drawable/pluto_rooms___ic_delete"
+                android:drawablePadding="@dimen/pluto___margin_xsmall"
+                android:fontFamily="@font/muli_semibold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto_rooms___delete_row"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/pluto___margin_medium"
+                android:layout_marginLeft="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___dark_05"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/delete" />
+
+            <TextView
+                android:id="@+id/duplicate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/pluto_rooms___ic_duplicate"
+                android:drawableLeft="@drawable/pluto_rooms___ic_duplicate"
+                android:drawablePadding="@dimen/pluto___margin_xsmall"
+                android:fontFamily="@font/muli_semibold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto_rooms___duplicate_row"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

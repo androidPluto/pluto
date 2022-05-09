@@ -1,0 +1,38 @@
+<resources>
+    <string name="pluto_rooms___plugin_name">Rooms Database</string>
+    <string name="pluto_rooms___no_db_watched">No Rooms Databases\nbeing watched.</string>
+    <string name="pluto_rooms___search_database">Search Database</string>
+    <string name="pluto_rooms___no_data_filter_applied">No filter.</string>
+    <string name="pluto_rooms___apply_filter">Apply</string>
+    <plurals name="pluto_rooms___applied_filters">
+        <item quantity="one" formatted="true">%d filter applied</item>
+        <item quantity="other" formatted="true">%d filters applied</item>
+    </plurals>
+    <string name="pluto_rooms___db_title">showing tables from</string>
+    <string name="pluto_rooms___select_table">Choose a Table</string>
+    <string name="pluto_rooms___system_table_error">This is a System table.\nModifying it might have unintended errors.</string>
+    <string name="pluto_rooms___end_of_table">~~ end of table ~~</string>
+    <string name="pluto_rooms___edit_row_title">Update row</string>
+    <string name="pluto_rooms___add_row_title">Add new row</string>
+    <string name="pluto_rooms___select_table_options">Please select a table</string>
+    <string name="pluto_rooms___add_cta_text">Add Data</string>
+    <string name="pluto_rooms___edit_cta_text">Update Data</string>
+    <string name="pluto_rooms___export_table">Export Table</string>
+    <string name="pluto_rooms___clear_table">Clear Table</string>
+    <string name="pluto_rooms___custom_query">Run Custom Query</string>
+    <string name="pluto_rooms___refresh_table">Refresh</string>
+    <string name="pluto_rooms___system_table_edit_warning">You are editing a System table.</string>
+    <string name="pluto_rooms___null">null</string>
+    <string name="pluto_rooms___set_as_null">set value as null</string>
+    <string name="pluto_rooms___delete_row">Delete Row</string>
+    <string name="pluto_rooms___duplicate_row">Duplicate Row</string>
+    <string name="pluto_rooms___actions">Actions</string>
+    <string name="pluto_rooms___loading_editor">loading editor</string>
+    <string name="pluto_rooms___loading_table">loading table content</string>
+    <string name="pluto_rooms___primary_key">Primary Key</string>
+    <string name="pluto_rooms___sort_by">Sort by</string>
+    <string name="pluto_rooms___sort_asc">ASC</string>
+    <string name="pluto_rooms___sort_desc">DESC</string>
+    <string name="pluto_rooms___sort_clear">Clear</string>
+    <string name="pluto_rooms___table_schema">Table schema</string>
+</resources>

@@ -37,7 +37,7 @@ class PlutoActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.pluto___dark_20)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.pluto___dark)
         sharer.data.observe(this) {
             val shareFragment = ShareFragment()
             shareFragment.arguments = Bundle().apply {
@@ -51,7 +51,7 @@ class PlutoActivity : AppCompatActivity() {
         sharer.action.observe(this) {
             when (it) {
                 is ShareAction.ShareAsText -> share(it.shareable.processedContent, it.shareable.title)
-                is ShareAction.ShareAsFile -> shareFile(it.shareable.processedContent, it.shareable.title, it.shareable.fileName)
+                is ShareAction.ShareAsFile -> shareFile(it.shareable.processedContent, it.shareable.title, it.shareable.fileName, it.type)
                 is ShareAction.ShareAsCopy -> copyContent(it.shareable.content, it.shareable.title)
             }
         }
