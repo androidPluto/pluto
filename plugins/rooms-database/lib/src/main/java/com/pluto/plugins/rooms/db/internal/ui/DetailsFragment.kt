@@ -199,7 +199,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
             }
         }
         binding.applyFilter.setDebounceClickListener(haptic = true) {
-            toast("apply filter")
+            toast("Filters coming soon!")
         }
     }
 
