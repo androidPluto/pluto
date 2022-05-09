@@ -43,10 +43,12 @@ import com.pluto.plugins.rooms.db.internal.RowDetailsData
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
+import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_COLUMN
+import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_TABLE
 import java.lang.Exception
 import java.lang.StringBuilder
 
-class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
+internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val binding by viewBinding(PlutoRoomsFragmentDbDetailsBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
@@ -226,7 +228,7 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
 
     private val tableContentObserver = Observer<ProcessedTableContents> {
         uiViewModel.generateTableGridView(
-            requireContext(), it.first, it.second,
+            requireContext(), it.first, it.second, viewModel.sortBy,
             onRowClick = { index, value ->
                 viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                     viewModel.currentTable.value?.let { table ->
@@ -242,10 +244,20 @@ class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_details) {
                 }
             },
             onColumnClick = { column ->
-                toast("try sorting")
+                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                    viewModel.currentTable.value?.let { table ->
+                        val bundle = bundleOf(ATTR_COLUMN to column, ATTR_TABLE to table)
+                        findNavController().navigate(R.id.openColumnDetailsView, bundle)
+                    }
+                }
             },
             onColumnLongClick = { column ->
-                toast("${column.type} ${column.isPrimaryKey}")
+                viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                    viewModel.currentTable.value?.let { table ->
+                        val bundle = bundleOf(ATTR_COLUMN to column, ATTR_TABLE to table)
+                        findNavController().navigate(R.id.openColumnDetailsView, bundle)
+                    }
+                }
             }
         )
     }

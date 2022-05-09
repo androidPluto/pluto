@@ -29,4 +29,9 @@
     <string name="pluto_rooms___actions">Actions</string>
     <string name="pluto_rooms___loading_editor">loading editor</string>
     <string name="pluto_rooms___loading_table">loading table content</string>
+    <string name="pluto_rooms___primary_key">Primary Key</string>
+    <string name="pluto_rooms___sort_by">Sort by</string>
+    <string name="pluto_rooms___sort_asc">ASC</string>
+    <string name="pluto_rooms___sort_desc">DESC</string>
+    <string name="pluto_rooms___sort_clear">Clear</string>
 </resources>
