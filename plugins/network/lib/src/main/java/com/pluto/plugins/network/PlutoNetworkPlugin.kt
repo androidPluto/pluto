@@ -19,7 +19,7 @@ class PlutoNetworkPlugin(devIdentifier: String) : Plugin(devIdentifier) {
 
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
-            vcsLink = "https://github.com/plutolib/plugin-network",
+            vcsLink = "https://github.com/plutolib/pluto",
             website = "https://plutolib.com",
             twitter = "https://twitter.com/pluto_lib"
         )
