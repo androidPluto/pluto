@@ -27,6 +27,9 @@
             android:name=".plugins.exceptions.ExceptionActivity"
             android:exported="false" />
         <activity
+            android:name=".plugins.datastore.DatastoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

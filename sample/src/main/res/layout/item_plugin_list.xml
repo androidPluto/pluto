@@ -14,7 +14,6 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:padding="16dp"
-        android:fontFamily="@font/muli"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintTop_toTopOf="parent"

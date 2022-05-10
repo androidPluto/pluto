@@ -106,7 +106,7 @@ internal fun LazyListScope.dataStorePrefItems(
                 }
 
                 Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_expand_more_24),
+                    painter = painterResource(id = R.drawable.pluto_dts___ic_expand),
                     contentDescription = "expand",
                     Modifier
                         .rotate(degrees.value)

@@ -58,11 +58,14 @@ dependencies {
     /**
      * no-op dependencies
      */
-//    implementation project(path: ':pluto-no-op')
+//    implementation project(path: ':pluto:lib-no-op')
+//    implementation project(path: ':plugins:demo:lib')
 //    implementation project(path: ':plugins:exceptions:lib-no-op')
 //    implementation project(path: ':plugins:logger:lib-no-op')
 //    implementation project(path: ':plugins:network:lib-no-op')
 //    implementation project(path: ':plugins:shared-preferences:lib-no-op')
+//    implementation project(path: ':plugins:rooms-database:lib-no-op')
+//    implementation project(path: ':plugins:datastore:lib-no-op')
 
     /**
      * Maven dependencies
