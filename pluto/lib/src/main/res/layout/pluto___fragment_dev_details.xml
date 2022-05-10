@@ -99,6 +99,7 @@
                 android:layout_marginTop="@dimen/pluto___margin_mini"
                 android:gravity="center_vertical"
                 android:hint="@string/pluto___plugin_details_version_hint"
+                android:textColor="@color/pluto___text_dark_60"
                 android:textColorHint="@color/pluto___text_dark_40"
                 android:textSize="@dimen/pluto___text_mini"
                 app:layout_constraintEnd_toEndOf="@+id/name"

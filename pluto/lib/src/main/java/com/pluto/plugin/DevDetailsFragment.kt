@@ -28,8 +28,8 @@ internal class DevDetailsFragment : BottomSheetDialogFragment() {
         arguments?.getString("name")?.let { binding.name.text = it }
         arguments?.getString("version")?.let {
             binding.version.setSpan {
-                append(light(fontColor("ver ", R.color.pluto___text_dark_60)))
-                append(bold(fontColor(it, R.color.pluto___text_dark)))
+                append(light("ver "))
+                append(semiBold(it))
             }
         }
         arguments?.getString("website")?.let {

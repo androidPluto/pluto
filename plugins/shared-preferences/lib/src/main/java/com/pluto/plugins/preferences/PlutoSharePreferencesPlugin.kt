@@ -18,7 +18,7 @@ class PlutoSharePreferencesPlugin(identifier: String) : Plugin(identifier) {
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
             website = "https://plutolib.com",
-            vcsLink = "https://github.com/plutolib/plugin-shared-preferences",
+            vcsLink = "https://github.com/plutolib/pluto",
             twitter = "https://twitter.com/pluto_lib"
         )
     }
