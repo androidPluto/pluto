@@ -14,6 +14,7 @@ import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDB
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATABASE
+import com.sampleapp.plugins.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
@@ -30,7 +31,7 @@ class SampleApp : Application() {
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO))
             .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
-            .addPlugin(DataStorePrefPlugin())
+            .addPlugin(DataStorePrefPlugin(DATASTORE_PREF))
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))

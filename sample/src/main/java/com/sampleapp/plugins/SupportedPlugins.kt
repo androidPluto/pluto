@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.sampleapp.list.PluginListItem
+import com.sampleapp.plugins.datastore.DatastoreActivity
 import com.sampleapp.plugins.exceptions.ExceptionActivity
 import com.sampleapp.plugins.logger.LoggerActivity
 import com.sampleapp.plugins.network.NetworkActivity
@@ -19,7 +20,8 @@ class SupportedPlugins private constructor() {
                 PluginListItem(EXCEPTIONS),
                 PluginListItem(PREFERENCES),
                 PluginListItem(LOGGER),
-                PluginListItem(DATABASE)
+                PluginListItem(DATABASE),
+                PluginListItem(DATASTORE_PREF)
             )
         }
 
@@ -29,6 +31,7 @@ class SupportedPlugins private constructor() {
                 LOGGER -> Intent(context, LoggerActivity::class.java)
                 NETWORK -> Intent(context, NetworkActivity::class.java)
                 PREFERENCES -> Intent(context, PreferencesActivity::class.java)
+                DATASTORE_PREF -> Intent(context, DatastoreActivity::class.java)
                 DATABASE -> Intent(context, RoomsDBActivity::class.java)
                 else -> {
                     Toast.makeText(context, "unsupported plugin", LENGTH_SHORT).show()
@@ -43,7 +46,8 @@ class SupportedPlugins private constructor() {
         const val NETWORK: String = "network"
         const val EXCEPTIONS: String = "exceptions"
         const val PREFERENCES: String = "preferences"
-        const val LOGGER: String = "LOGGER"
+        const val LOGGER: String = "logger"
         const val DATABASE: String = "rooms-database"
+        const val DATASTORE_PREF: String = "datastore-preferences"
     }
 }

@@ -256,7 +256,7 @@ private fun EditableElementCta(
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 10.dp, bottom = 4.dp),
-            painter = painterResource(id = R.drawable.ic_baseline_clear_24),
+            painter = painterResource(id = R.drawable.pluto_dts___ic_clear),
             contentDescription = "cancel"
         )
         Image(
@@ -265,7 +265,7 @@ private fun EditableElementCta(
                 .size(width = 48.dp, height = 38.dp)
                 .padding(horizontal = 12.dp)
                 .padding(top = 4.dp, bottom = 10.dp),
-            painter = painterResource(id = R.drawable.ic_baseline_check_24),
+            painter = painterResource(id = R.drawable.pluto_dts___ic_check),
             contentDescription = "save",
             colorFilter = ColorFilter.tint(color = CommonColors.saveIconColor)
         )

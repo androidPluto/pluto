@@ -31,14 +31,14 @@ fun ToolBar(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+            painter = painterResource(id = R.drawable.pluto_dts___ic_back),
             contentDescription = "go back",
             modifier = Modifier
                 .clickable { onExit() }
                 .padding(all = 16.dp)
         )
         Image(
-            painter = painterResource(id = R.drawable.ic_baseline_filter_list_24),
+            painter = painterResource(id = R.drawable.pluto_dts___ic_filter),
             contentDescription = "filter",
             modifier = Modifier
                 .clickable { onFilterClick() }
