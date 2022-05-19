@@ -23,9 +23,9 @@ import com.pluto.plugins.datastore.pref.internal.compose.FilterView
 import kotlin.math.max
 import kotlinx.coroutines.flow.update
 
-internal class DatastorePreferencePluginFragment : Fragment() {
+internal class BaseFragment : Fragment() {
 
-    private val viewModel by viewModels<DatastorePreferencePluginViewModel>()
+    private val viewModel by viewModels<BaseViewModel>()
     private val insets = mutableStateOf(Insets.NONE)
 
     override fun onCreateView(

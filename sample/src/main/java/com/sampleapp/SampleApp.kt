@@ -4,8 +4,8 @@ import android.app.Application
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
-import com.pluto.plugins.datastore.pref.DataStorePrefPlugin
-import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
+import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
+import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
@@ -34,7 +34,7 @@ class SampleApp : Application() {
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO))
             .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
-            .addPlugin(DataStorePrefPlugin(DATASTORE_PREF))
+            .addPlugin(PlutoDatastorePreferencesPlugin(DATASTORE_PREF))
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
@@ -52,8 +52,8 @@ class SampleApp : Application() {
      * Datastore Preferences handler
      */
     private fun watchDatastorePreferences() {
-        PlutoDataStoreWatcher.watch("preference_name", dataStore)
-        PlutoDataStoreWatcher.watch("user_info", dataStore2)
+        PlutoDatastoreWatcher.watch("preference_name", dataStore)
+        PlutoDatastoreWatcher.watch("user_info", dataStore2)
     }
 
     /**

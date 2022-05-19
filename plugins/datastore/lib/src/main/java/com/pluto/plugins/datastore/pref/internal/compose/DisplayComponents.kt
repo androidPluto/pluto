@@ -48,42 +48,6 @@ import com.pluto.plugins.datastore.pref.internal.PrefElement
 import com.pluto.plugins.datastore.pref.internal.Type
 
 @Composable
-@Preview("normal item")
-private fun PreviewListItem() {
-    LazyColumn {
-        item {
-            PrefListItem(
-                element = PrefElement(
-                    "Preferences",
-                    "key param",
-                    "value of the key",
-                    Type.TypeString
-                ),
-                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
-            )
-        }
-    }
-}
-
-@Composable
-@Preview("very long item")
-private fun PreviewLongContentListItem() {
-    LazyColumn {
-        item {
-            PrefListItem(
-                element = PrefElement(
-                    "Preferences",
-                    "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
-                    "VERY VERY VERY VERY VERY very very very very Loooong value",
-                    Type.TypeBoolean
-                ),
-                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
-            )
-        }
-    }
-}
-
-@Composable
 @SuppressWarnings("LongMethod")
 internal fun PrefListItem(
     element: PrefElement,
@@ -239,7 +203,7 @@ private fun EditableField(
                 }
             )
         )
-        EditableElementCta(
+        ElementCta(
             onSave = {
                 updateValue(element, newValue.value.text)
                 editableItem.value = null
@@ -256,7 +220,7 @@ private fun EditableField(
 }
 
 @Composable
-private fun EditableElementCta(
+private fun ElementCta(
     onSave: () -> Unit,
     onCancel: () -> Unit,
 ) {
@@ -283,5 +247,41 @@ private fun EditableElementCta(
             contentDescription = "save",
             colorFilter = ColorFilter.tint(color = colorResource(id = R.color.pluto___dull_green))
         )
+    }
+}
+
+@Composable
+@Preview("normal item")
+private fun PreviewListItem() {
+    LazyColumn {
+        item {
+            PrefListItem(
+                element = PrefElement(
+                    "Preferences",
+                    "key param",
+                    "value of the key",
+                    Type.TypeString
+                ),
+                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
+            )
+        }
+    }
+}
+
+@Composable
+@Preview("very long item")
+private fun PreviewLongContentListItem() {
+    LazyColumn {
+        item {
+            PrefListItem(
+                element = PrefElement(
+                    "Preferences",
+                    "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
+                    "VERY VERY VERY VERY VERY very very very very Loooong value",
+                    Type.TypeBoolean
+                ),
+                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
+            )
+        }
     }
 }

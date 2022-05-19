@@ -23,12 +23,6 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.pluto.plugins.datastore.pref.R
 
-@Composable
-@Preview
-private fun PreviewToolbar() {
-    ToolBar(Modifier.background(colorResource(id = R.color.pluto___dark)), {}, {})
-}
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ToolBar(
@@ -87,4 +81,10 @@ fun ToolBar(
             )
         }
     }
+}
+
+@Composable
+@Preview
+private fun PreviewToolbar() {
+    ToolBar(Modifier.background(colorResource(id = R.color.pluto___dark)), {}, {})
 }

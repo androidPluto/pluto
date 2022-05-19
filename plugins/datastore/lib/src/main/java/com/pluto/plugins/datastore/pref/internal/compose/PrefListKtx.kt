@@ -39,37 +39,6 @@ import com.pluto.plugins.datastore.pref.internal.PrefElement
 import com.pluto.plugins.datastore.pref.internal.PrefUiModel
 import com.pluto.plugins.datastore.pref.internal.Type
 
-@Preview
-@Composable
-private fun DataStorePrefItemPreview() {
-    val prefName = "Preferences"
-    LazyColumn(
-        modifier = Modifier
-//            .animateItemPlacement()       enable when updating compose to latest
-            .wrapContentHeight(Alignment.Top)
-            .background(colorResource(id = R.color.pluto___white))
-    ) {
-        dataStorePrefItems(
-            PrefUiModel(
-                prefName,
-                listOf(
-                    PrefElement(prefName, "key", "value", Type.TypeString),
-                    PrefElement(prefName, "key1", "value1", Type.TypeString),
-                    PrefElement(prefName, "key2", "value2", Type.TypeString),
-                    PrefElement(prefName, "key3", "value3", Type.TypeString),
-                    PrefElement(
-                        prefName,
-                        "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
-                        "VERY VERY VERY VERY VERY very very very very Loooong value",
-                        Type.TypeString
-                    ),
-                    PrefElement(prefName, "key5", "value5", Type.TypeString),
-                )
-            ),
-        )
-    }
-}
-
 @OptIn(ExperimentalFoundationApi::class) // for stickyHeader
 @SuppressWarnings("LongMethod")
 internal fun LazyListScope.dataStorePrefItems(
@@ -139,6 +108,37 @@ internal fun LazyListScope.dataStorePrefItems(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun DataStorePrefItemPreview() {
+    val prefName = "Preferences"
+    LazyColumn(
+        modifier = Modifier
+//            .animateItemPlacement()       enable when updating compose to latest
+            .wrapContentHeight(Alignment.Top)
+            .background(colorResource(id = R.color.pluto___white))
+    ) {
+        dataStorePrefItems(
+            PrefUiModel(
+                prefName,
+                listOf(
+                    PrefElement(prefName, "key", "value", Type.TypeString),
+                    PrefElement(prefName, "key1", "value1", Type.TypeString),
+                    PrefElement(prefName, "key2", "value2", Type.TypeString),
+                    PrefElement(prefName, "key3", "value3", Type.TypeString),
+                    PrefElement(
+                        prefName,
+                        "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
+                        "VERY VERY VERY VERY VERY very very very very Loooong value",
+                        Type.TypeString
+                    ),
+                    PrefElement(prefName, "key5", "value5", Type.TypeString),
+                )
+            ),
+        )
     }
 }
 
