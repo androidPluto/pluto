@@ -29,7 +29,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun DataStorePrefComposable(
+internal fun MainComposable(
     data: List<PrefUiModel>,
     insets: MutableState<Insets> = mutableStateOf(Insets.NONE),
     onExit: () -> Unit,
