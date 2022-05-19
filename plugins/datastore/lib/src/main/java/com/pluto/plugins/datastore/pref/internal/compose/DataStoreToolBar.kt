@@ -14,15 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.pluto.plugins.datastore.pref.R
 
 @Composable
 @Preview
 private fun PreviewToolbar() {
-    ToolBar(Modifier.background(CommonColors.toolbarBackground), {}, {})
+    ToolBar(Modifier.background(colorResource(id = R.color.pluto___dark)), {}, {})
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -35,7 +39,7 @@ fun ToolBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(CommonColors.toolbarBackground),
+            .background(colorResource(id = R.color.pluto___dark)),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ConstraintLayout(
@@ -63,7 +67,11 @@ fun ToolBar(
                         bottom.linkTo(parent.bottom)
                         start.linkTo(close.end)
                     }
-                    .padding(vertical = 16.dp)
+                    .padding(vertical = 16.dp),
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                    fontSize = 16.sp
+                )
             )
             Image(
                 painter = painterResource(id = R.drawable.pluto_dts___ic_filter),

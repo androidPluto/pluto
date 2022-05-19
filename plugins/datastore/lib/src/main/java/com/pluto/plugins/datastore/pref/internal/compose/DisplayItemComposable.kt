@@ -31,8 +31,12 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -55,7 +59,7 @@ private fun PreviewListItem() {
                     "value of the key",
                     Type.TypeString
                 ),
-                modifier = Modifier.background(CommonColors.background),
+                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
             )
         }
     }
@@ -73,13 +77,14 @@ private fun PreviewLongContentListItem() {
                     "VERY VERY VERY VERY VERY very very very very Loooong value",
                     Type.TypeBoolean
                 ),
-                modifier = Modifier.background(CommonColors.background)
+                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
             )
         }
     }
 }
 
 @Composable
+@SuppressWarnings("LongMethod")
 internal fun PrefListItem(
     element: PrefElement,
     modifier: Modifier = Modifier,
@@ -114,20 +119,26 @@ internal fun PrefListItem(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .weight(1f),
-                fontSize = 12.sp,
-                color = CommonColors.elementTextColor
+                color = colorResource(id = R.color.pluto___text_dark_40),
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.muli)),
+                    fontSize = 12.sp
+                )
             )
             Text(
                 text = element.type.displayText,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .background(
-                        color = CommonColors.tagBGColor,
+                        color = colorResource(id = R.color.pluto___dull_green_08),
                         shape = RoundedCornerShape(10.dp)
                     )
                     .padding(bottom = 2.dp, start = 8.dp, end = 8.dp),
-                color = CommonColors.tagTextColor,
-                fontSize = 8.sp,
+                color = colorResource(id = R.color.pluto___dull_green),
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                    fontSize = 10.sp
+                )
             )
         }
         Element(
@@ -138,7 +149,7 @@ internal fun PrefListItem(
             editableItem = editableItem,
             onFocus = onFocus
         )
-        Divider(Modifier.padding(top = 8.dp), color = CommonColors.dividerColor)
+        Divider(Modifier.padding(top = 8.dp), color = colorResource(id = R.color.pluto___dark_05))
     }
 }
 
@@ -166,7 +177,10 @@ private fun Element(
             text = element.value,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 24.dp)
+                .padding(start = 16.dp, end = 24.dp),
+            style = TextStyle(
+                fontFamily = FontFamily(Font(R.font.muli))
+            )
         )
     }
 
@@ -267,7 +281,7 @@ private fun EditableElementCta(
                 .padding(top = 4.dp, bottom = 10.dp),
             painter = painterResource(id = R.drawable.pluto_dts___ic_check),
             contentDescription = "save",
-            colorFilter = ColorFilter.tint(color = CommonColors.saveIconColor)
+            colorFilter = ColorFilter.tint(color = colorResource(id = R.color.pluto___dull_green))
         )
     }
 }

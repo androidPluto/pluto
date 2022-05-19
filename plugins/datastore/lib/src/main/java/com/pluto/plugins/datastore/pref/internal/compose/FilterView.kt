@@ -32,8 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.Insets
+import com.pluto.plugins.datastore.pref.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
@@ -59,8 +65,8 @@ internal fun FilterView(
                 .padding(
                     top = with(LocalDensity.current) {
                         insets.value.top.toDp()
-                    } + 24.dp,
-                    end = 24.dp
+                    } + 16.dp,
+                    end = 12.dp
                 )
                 .align(Alignment.TopEnd)
         )
@@ -68,6 +74,7 @@ internal fun FilterView(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressWarnings("LongMethod")
 @Composable
 private fun FilterItem(
     visibleState: MutableTransitionState<Boolean>,
@@ -84,9 +91,9 @@ private fun FilterItem(
         Column(
             Modifier
                 .borderBackground(
-                    bgColor = CommonColors.background,
-                    borderColor = CommonColors.dividerColor,
-                    shape = RoundedCornerShape(20.dp)
+                    bgColor = colorResource(id = R.color.pluto___white),
+                    borderColor = colorResource(id = R.color.pluto___white),
+                    shape = RoundedCornerShape(4.dp)
                 )
                 .padding(vertical = 12.dp)
         ) {
@@ -104,7 +111,7 @@ private fun FilterItem(
                         .fillMaxWidth(ColumnWidthPercentage)
                 ) {
                     if (index != 0) {
-                        Divider(color = CommonColors.dividerColor)
+                        Divider(color = colorResource(id = R.color.pluto___dark_05))
                     }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -120,9 +127,15 @@ private fun FilterItem(
                                     }
                                 }
                             },
-                            colors = CheckboxDefaults.colors(checkedColor = CommonColors.checkBoxColor)
+                            colors = CheckboxDefaults.colors(checkedColor = colorResource(id = R.color.pluto___blue))
                         )
-                        Text(text = entry.key)
+                        Text(
+                            text = entry.key,
+                            style = TextStyle(
+                                fontFamily = FontFamily(Font(R.font.muli)),
+                                fontSize = 16.sp
+                            )
+                        )
                     }
                 }
             }
@@ -159,7 +172,7 @@ private fun FilterBackground(
             Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(CommonColors.dialogBackground)
+                .background(colorResource(id = R.color.pluto___dark_80))
                 .clickable {
                     showFilterState.update {
                         false
