@@ -43,7 +43,7 @@ import com.pluto.plugins.datastore.pref.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-const val ColumnWidthPercentage = .7f
+const val ColumnWidthPercentage = .8f
 
 @Composable
 internal fun FilterView(
@@ -95,8 +95,27 @@ private fun FilterItem(
                     borderColor = colorResource(id = R.color.pluto___white),
                     shape = RoundedCornerShape(4.dp)
                 )
-                .padding(vertical = 12.dp)
+                .padding(bottom = 4.dp)
         ) {
+            Column(
+                Modifier
+                    .fillMaxWidth(ColumnWidthPercentage)
+                    .borderBackground(
+                        bgColor = colorResource(id = R.color.pluto___section_color),
+                        borderColor = colorResource(id = R.color.pluto___section_color),
+                        shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp)
+                    )
+                    .padding(vertical = 12.dp, horizontal = 16.dp)
+            ) {
+                Text(
+                    text = "Preferences",
+                    color = colorResource(id = R.color.pluto___text_dark_80),
+                    style = TextStyle(
+                        fontFamily = FontFamily(Font(R.font.muli)),
+                        fontSize = 15.sp
+                    )
+                )
+            }
             filterState.collectAsState().value.entries.forEachIndexed { index, entry ->
                 Column(
                     Modifier
@@ -115,7 +134,7 @@ private fun FilterItem(
                     }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 8.dp)
+//                        modifier = Modifier.padding(horizontal = 8.dp)
                     ) {
                         Checkbox(
                             checked = entry.value,
@@ -127,13 +146,17 @@ private fun FilterItem(
                                     }
                                 }
                             },
-                            colors = CheckboxDefaults.colors(checkedColor = colorResource(id = R.color.pluto___blue))
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = colorResource(id = R.color.pluto___blue),
+                                uncheckedColor = colorResource(id = R.color.pluto___dark_40)
+                            )
                         )
                         Text(
                             text = entry.key,
+                            color = colorResource(id = R.color.pluto___text_dark_80),
                             style = TextStyle(
-                                fontFamily = FontFamily(Font(R.font.muli)),
-                                fontSize = 16.sp
+                                fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                                fontSize = 15.sp
                             )
                         )
                     }

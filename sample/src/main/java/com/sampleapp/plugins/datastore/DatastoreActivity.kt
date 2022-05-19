@@ -10,7 +10,6 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
-import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import com.sampleapp.databinding.ActivityDatastorePreferencesBinding
 import kotlinx.coroutines.launch
 
@@ -30,8 +29,6 @@ class DatastoreActivity : AppCompatActivity() {
     }
 
     private fun initDataForDataStoreSample() {
-        PlutoDataStoreWatcher.watch("preference_name", dataStore)
-        PlutoDataStoreWatcher.watch("user_info", dataStore2)
         lifecycleScope.launch {
             dataStore2.edit {
                 it[booleanPreferencesKey("isLoggedIn")] = true
@@ -53,9 +50,9 @@ class DatastoreActivity : AppCompatActivity() {
     }
 }
 
-private val Context.dataStore by preferencesDataStore(
+val Context.dataStore by preferencesDataStore(
     name = "preference name"
 )
-private val Context.dataStore2 by preferencesDataStore(
+val Context.dataStore2 by preferencesDataStore(
     name = "user_info"
 )

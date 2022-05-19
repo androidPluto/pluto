@@ -84,7 +84,7 @@ internal fun LazyListScope.dataStorePrefItems(
                 .clickable {
                     data.isExpanded.value = !data.isExpanded.value
                 }
-                .background(colorResource(id = R.color.pluto___app_bg))
+                .background(colorResource(id = R.color.pluto___section_color))
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,

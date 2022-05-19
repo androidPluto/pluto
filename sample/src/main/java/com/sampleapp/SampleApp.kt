@@ -5,6 +5,7 @@ import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.DataStorePrefPlugin
+import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
@@ -20,6 +21,8 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
+import com.sampleapp.plugins.datastore.dataStore
+import com.sampleapp.plugins.datastore.dataStore2
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import kotlin.system.exitProcess
 import timber.log.Timber
@@ -42,6 +45,15 @@ class SampleApp : Application() {
         plantPlutoTimber()
         setExceptionListener()
         watchRoomsDatabase()
+        watchDatastorePreferences()
+    }
+
+    /**
+     * Datastore Preferences handler
+     */
+    private fun watchDatastorePreferences() {
+        PlutoDataStoreWatcher.watch("preference_name", dataStore)
+        PlutoDataStoreWatcher.watch("user_info", dataStore2)
     }
 
     /**
