@@ -1,4 +1,4 @@
-## Integrate Exceptions Plugin in your application
+## Integrate Datastore Preferences Plugin in your application
 
 
 ### Add Gradle Dependencies
