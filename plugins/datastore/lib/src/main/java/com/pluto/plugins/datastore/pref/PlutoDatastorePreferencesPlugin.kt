@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
-import com.pluto.plugins.datastore.pref.internal.DatastorePreferencePluginFragment
+import com.pluto.plugins.datastore.pref.internal.BaseFragment
 
-class DataStorePrefPlugin(identifier: String) : Plugin(identifier) {
+class PlutoDatastorePreferencesPlugin(identifier: String) : Plugin(identifier) {
 
     override fun getConfig() = PluginConfiguration(
         name = "DataStore Preferences",
@@ -23,7 +23,7 @@ class DataStorePrefPlugin(identifier: String) : Plugin(identifier) {
     }
 
     override fun getView(): Fragment {
-        return DatastorePreferencePluginFragment()
+        return BaseFragment()
     }
 
     override fun onPluginInstalled() {}

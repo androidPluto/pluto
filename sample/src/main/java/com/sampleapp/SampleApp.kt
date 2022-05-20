@@ -4,7 +4,8 @@ import android.app.Application
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
-import com.pluto.plugins.datastore.pref.DataStorePrefPlugin
+import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
+import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
@@ -20,6 +21,10 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
+import com.sampleapp.plugins.datastore.appStateDatastore
+import com.sampleapp.plugins.datastore.userStateDatastore
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import kotlin.system.exitProcess
 import timber.log.Timber
@@ -31,7 +36,7 @@ class SampleApp : Application() {
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO))
             .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
-            .addPlugin(DataStorePrefPlugin(DATASTORE_PREF))
+            .addPlugin(PlutoDatastorePreferencesPlugin(DATASTORE_PREF))
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
@@ -42,6 +47,15 @@ class SampleApp : Application() {
         plantPlutoTimber()
         setExceptionListener()
         watchRoomsDatabase()
+        watchDatastorePreferences()
+    }
+
+    /**
+     * Datastore Preferences handler
+     */
+    private fun watchDatastorePreferences() {
+        PlutoDatastoreWatcher.watch(APP_STATE_PREF_NAME, appStateDatastore)
+        PlutoDatastoreWatcher.watch(USER_STATE_PREF_NAME, userStateDatastore)
     }
 
     /**

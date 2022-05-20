@@ -18,14 +18,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pluto.plugins.datastore.pref.internal.compose.DataStorePrefComposable
 import com.pluto.plugins.datastore.pref.internal.compose.FilterView
+import com.pluto.plugins.datastore.pref.internal.compose.MainComposable
 import kotlin.math.max
 import kotlinx.coroutines.flow.update
 
-internal class DatastorePreferencePluginFragment : Fragment() {
+internal class BaseFragment : Fragment() {
 
-    private val viewModel by viewModels<DatastorePreferencePluginViewModel>()
+    private val viewModel by viewModels<BaseViewModel>()
     private val insets = mutableStateOf(Insets.NONE)
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ internal class DatastorePreferencePluginFragment : Fragment() {
                 ) {
                     val state = viewModel.output.collectAsState(initial = null)
                     state.value?.let {
-                        DataStorePrefComposable(
+                        MainComposable(
                             data = it,
                             insets = insets,
                             onExit = { activity?.finish() },

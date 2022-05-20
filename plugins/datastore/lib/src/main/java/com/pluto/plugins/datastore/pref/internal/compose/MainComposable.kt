@@ -17,9 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.Insets
+import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.internal.PrefElement
 import com.pluto.plugins.datastore.pref.internal.PrefUiModel
 import kotlinx.coroutines.CoroutineScope
@@ -27,7 +29,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun DataStorePrefComposable(
+internal fun MainComposable(
     data: List<PrefUiModel>,
     insets: MutableState<Insets> = mutableStateOf(Insets.NONE),
     onExit: () -> Unit,
@@ -41,7 +43,7 @@ internal fun DataStorePrefComposable(
     val scope = rememberCoroutineScope()
     Column(
         Modifier
-            .background(CommonColors.background)
+            .background(colorResource(id = R.color.pluto___white))
             .padding(
                 top = with(LocalDensity.current) {
                     insets.value.top.toDp()
@@ -49,7 +51,7 @@ internal fun DataStorePrefComposable(
             )
     ) {
         ToolBar(onExit = onExit, onFilterClick = onFilterClick)
-        Divider(color = CommonColors.dividerColor)
+        Divider(color = colorResource(id = R.color.pluto___dark_05))
         val density = LocalDensity.current
         LazyColumn(
             modifier = Modifier

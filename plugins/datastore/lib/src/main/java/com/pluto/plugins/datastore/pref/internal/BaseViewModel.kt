@@ -10,7 +10,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
+import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
-internal class DatastorePreferencePluginViewModel : ViewModel() {
+internal class BaseViewModel : ViewModel() {
 
     internal val output = MutableStateFlow<List<PrefUiModel>>(listOf())
     internal val filteredPref = MutableStateFlow<Map<String, Boolean>>(mapOf())
@@ -29,7 +29,7 @@ internal class DatastorePreferencePluginViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            PlutoDataStoreWatcher.sources.map { list ->
+            PlutoDatastoreWatcher.sources.map { list ->
                 filteredPref.value = list.associate {
                     it.name to (filteredPref.value[it.name] ?: true)
                 }
@@ -73,7 +73,7 @@ internal class DatastorePreferencePluginViewModel : ViewModel() {
 
     val updateValue: (PrefElement, String) -> Unit = { preferenceElement, value ->
         viewModelScope.launch {
-            val preferences = PlutoDataStoreWatcher.sources.value.find {
+            val preferences = PlutoDatastoreWatcher.sources.value.find {
                 it.name == preferenceElement.prefName
             }?.preferences
             preferences?.edit { preference ->

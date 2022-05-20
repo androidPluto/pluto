@@ -10,8 +10,9 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
-import com.pluto.plugins.datastore.pref.PlutoDataStoreWatcher
 import com.sampleapp.databinding.ActivityDatastorePreferencesBinding
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
 import kotlinx.coroutines.launch
 
 class DatastoreActivity : AppCompatActivity() {
@@ -30,19 +31,17 @@ class DatastoreActivity : AppCompatActivity() {
     }
 
     private fun initDataForDataStoreSample() {
-        PlutoDataStoreWatcher.watch("preference_name", dataStore)
-        PlutoDataStoreWatcher.watch("user_info", dataStore2)
         lifecycleScope.launch {
-            dataStore2.edit {
-                it[booleanPreferencesKey("isLoggedIn")] = true
+            userStateDatastore.edit {
+                it[booleanPreferencesKey("is_logged_in")] = true
                 it[stringPreferencesKey("auth_token")] = "asljknva38uv972gv"
                 it[stringPreferencesKey("refresh_token")] = "iuch21d2c1acbkufh2918hcb1837bc1a"
             }
-            dataStore.edit {
-                it[booleanPreferencesKey("random_boolean")] = false
-                it[stringPreferencesKey("random_string")] = "random string value"
-                it[longPreferencesKey("random_long")] = RANDOM_LONG
-                it[floatPreferencesKey("random_float")] = PI_VALUE
+            appStateDatastore.edit {
+                it[booleanPreferencesKey("is_latest_version")] = false
+                it[stringPreferencesKey("session_uuid")] = "9522b353-e3a9-428c-9af6-338fd5e9f9d6"
+                it[longPreferencesKey("session_duration")] = RANDOM_LONG
+                it[floatPreferencesKey("pi_value")] = PI_VALUE
             }
         }
     }
@@ -50,12 +49,14 @@ class DatastoreActivity : AppCompatActivity() {
     companion object {
         const val RANDOM_LONG = 13_101_993L
         const val PI_VALUE = 3.141592653589793238462643383279502884197f
+        const val APP_STATE_PREF_NAME = "app states"
+        const val USER_STATE_PREF_NAME = "user states"
     }
 }
 
-private val Context.dataStore by preferencesDataStore(
-    name = "preference name"
+val Context.appStateDatastore by preferencesDataStore(
+    name = APP_STATE_PREF_NAME
 )
-private val Context.dataStore2 by preferencesDataStore(
-    name = "user_info"
+val Context.userStateDatastore by preferencesDataStore(
+    name = USER_STATE_PREF_NAME
 )

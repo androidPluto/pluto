@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-object PlutoDataStoreWatcher {
+object PlutoDatastoreWatcher {
 
     internal val sources = MutableStateFlow<Set<PreferenceHolder>>(emptySet())
 
