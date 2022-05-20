@@ -13,7 +13,7 @@ ext.genVersion = {
     def verNameShort = "${versionMajor}.${versionMinor}.${versionPatch}"
     def verPublish = "${versionMajor}.${versionMinor}.${versionPatch}"
     if (versionChannel != "release") {
-        verPublish = "${verPublish}-${versionChannel}"
+        verPublish = "${verPublish}-${versionChannel}${versionBuild}"
     }
 
     return [verCode, verName, versionBuild, verNameShort, verPublish]
