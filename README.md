@@ -46,6 +46,7 @@ Here is the list of some plugins provided by us
 - **[Exceptions & Crashes Plugin](plugins/exceptions/INTEGRATION.md)**
 - **[Logger Plugin](plugins/logger/INTEGRATION.md)**
 - **[Shared Preferences Plugin](plugins/shared-preferences/INTEGRATION.md)**
+- **[Rooms Database Plugin](plugins/rooms-database/INTEGRATION.md)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
