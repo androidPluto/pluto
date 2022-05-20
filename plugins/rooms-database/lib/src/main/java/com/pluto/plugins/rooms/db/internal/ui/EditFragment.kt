@@ -24,7 +24,7 @@ import com.pluto.plugin.utilities.sharing.ContentShareViewModel
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
-import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
+import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher.LOG_TAG
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDataEditorBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
