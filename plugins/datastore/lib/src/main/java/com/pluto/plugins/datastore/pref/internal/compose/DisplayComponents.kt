@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Divider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -168,7 +169,7 @@ private fun EditableField(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 24.dp),
+            .padding(start = 16.dp, end = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -186,6 +187,10 @@ private fun EditableField(
             onValueChange = { input ->
                 newValue.value = input
             },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = colorResource(id = R.color.pluto___text_dark_60),
+                unfocusedBorderColor = colorResource(id = R.color.pluto___text_dark_20)
+            ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = false,
                 keyboardType = when (element.type) {
