@@ -21,8 +21,10 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
-import com.sampleapp.plugins.datastore.dataStore
-import com.sampleapp.plugins.datastore.dataStore2
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
+import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
+import com.sampleapp.plugins.datastore.appStateDatastore
+import com.sampleapp.plugins.datastore.userStateDatastore
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import kotlin.system.exitProcess
 import timber.log.Timber
@@ -52,8 +54,8 @@ class SampleApp : Application() {
      * Datastore Preferences handler
      */
     private fun watchDatastorePreferences() {
-        PlutoDatastoreWatcher.watch("preference_name", dataStore)
-        PlutoDatastoreWatcher.watch("user_info", dataStore2)
+        PlutoDatastoreWatcher.watch(APP_STATE_PREF_NAME, appStateDatastore)
+        PlutoDatastoreWatcher.watch(USER_STATE_PREF_NAME, userStateDatastore)
     }
 
     /**
