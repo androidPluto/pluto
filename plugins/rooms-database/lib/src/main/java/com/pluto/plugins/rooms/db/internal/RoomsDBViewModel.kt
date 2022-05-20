@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.pluto.plugins.rooms.db.PlutoRoomsDB
+import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 
 internal class RoomsDBViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -13,6 +13,6 @@ internal class RoomsDBViewModel(application: Application) : AndroidViewModel(app
     private val _dbs = MutableLiveData<List<DatabaseModel>>()
 
     fun fetch() {
-        _dbs.postValue(PlutoRoomsDB.watchList.value.toList())
+        _dbs.postValue(PlutoRoomsDBWatcher.watchList.value.toList())
     }
 }

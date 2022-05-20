@@ -12,7 +12,7 @@ import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
-import com.pluto.plugins.rooms.db.PlutoRoomsDB
+import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATASTORE_PREF
@@ -62,7 +62,7 @@ class SampleApp : Application() {
      * Rooms database handler
      */
     private fun watchRoomsDatabase() {
-        PlutoRoomsDB.watch(SampleDatabase.DB_NAME, SampleDatabase::class.java)
+        PlutoRoomsDBWatcher.watch(SampleDatabase.DB_NAME, SampleDatabase::class.java)
     }
 
     /**

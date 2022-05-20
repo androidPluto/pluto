@@ -28,7 +28,7 @@ import com.pluto.plugin.utilities.sharing.csv.CSVFormatter
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
-import com.pluto.plugins.rooms.db.PlutoRoomsDB.LOG_TAG
+import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher.LOG_TAG
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentDbDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
