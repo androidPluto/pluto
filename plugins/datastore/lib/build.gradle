@@ -56,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = composeCompileVersion
     }
 
     resourcePrefix 'pluto_dts___'
@@ -65,14 +65,14 @@ android {
 dependencies {
     implementation project(path: ':pluto-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
-    implementation "androidx.compose.compiler:compiler:1.0.1"
-    implementation "androidx.compose.material3:material3:1.0.0-alpha08"
-    implementation "androidx.compose.foundation:foundation:1.0.1"
-    implementation "androidx.compose.runtime:runtime:1.0.1"
-    implementation "androidx.compose.ui:ui:1.0.1"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.0.1"
-    implementation "androidx.compose.ui:ui-tooling:1.0.1"
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+    implementation "androidx.compose.compiler:compiler:$composeCompileVersion"
+    implementation "androidx.compose.material3:material3:1.0.0-alpha12"
+    implementation "androidx.compose.foundation:foundation:$composeCompileVersion"
+    implementation "androidx.compose.runtime:runtime:$composeCompileVersion"
+    implementation "androidx.compose.ui:ui:$composeCompileVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeCompileVersion"
+    implementation "androidx.compose.ui:ui-tooling:$composeCompileVersion"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
