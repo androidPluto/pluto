@@ -26,11 +26,11 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 
     val currentTable: LiveData<TableModel>
         get() = _currentTable
-    private val _currentTable = MutableLiveData<TableModel>()
+    private val _currentTable = SingleLiveEvent<TableModel>()
 
     val processedTableContent: LiveData<ProcessedTableContents>
         get() = _tableContent
-    private val _tableContent = MutableLiveData<ProcessedTableContents>()
+    private val _tableContent = SingleLiveEvent<ProcessedTableContents>()
 
     val rowActionEvent: LiveData<Pair<RowAction, RowDetailsData>>
         get() = _rowActionEvent
@@ -64,9 +64,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         _tableContent.value = null
     }
 
-    fun init(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
+    fun initDBSession(context: Context, name: String, dbClass: Class<out RoomDatabase>) {
         Executor.initSession(context, name, dbClass)
         fetchTables()
+    }
+
+    fun destroyDBSession() {
+        Executor.destroySession()
     }
 
     @SuppressWarnings("TooGenericExceptionCaught")

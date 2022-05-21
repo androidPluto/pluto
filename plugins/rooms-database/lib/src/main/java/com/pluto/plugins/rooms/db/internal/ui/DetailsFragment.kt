@@ -42,7 +42,6 @@ import com.pluto.plugins.rooms.db.internal.RowAction
 import com.pluto.plugins.rooms.db.internal.RowDetailsData
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
-import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_COLUMN
 import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_TABLE
 import java.lang.Exception
@@ -65,7 +64,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                     }
                 }
             )
-            viewModel.init(requireContext(), dbConfig.name, dbConfig.dbClass)
+            viewModel.initDBSession(requireContext(), dbConfig.name, dbConfig.dbClass)
             binding.dbName.setSpan {
                 append(getString(R.string.pluto_rooms___db_title))
                 append(bold(" ${dbConfig.name}".uppercase()))
@@ -303,7 +302,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Executor.destroySession()
+        viewModel.destroyDBSession()
     }
 
     companion object {
