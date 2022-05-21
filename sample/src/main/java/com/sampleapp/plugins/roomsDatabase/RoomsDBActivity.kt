@@ -6,6 +6,8 @@ import com.sampleapp.databinding.ActivityRoomsDbBinding
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import com.sampleapp.plugins.roomsDatabase.db.entity.Admin
 import com.sampleapp.plugins.roomsDatabase.db.entity.User
+import com.sampleapp.plugins.roomsDatabase.db2.Sample2Database
+import com.sampleapp.plugins.roomsDatabase.db2.entity.UserV2
 import java.util.Random
 
 @SuppressWarnings("UnderscoresInNumericLiterals")
@@ -16,6 +18,7 @@ class RoomsDBActivity : AppCompatActivity() {
     private val ageRange = 1..100
     private val range = 100
     private val db: SampleDatabase by lazy { SampleDatabase.getInstance(applicationContext) }
+    private val db2: Sample2Database by lazy { Sample2Database.getInstance(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,21 @@ class RoomsDBActivity : AppCompatActivity() {
                     name,
                     isAdmin = true,
                     canWrite = false
+                )
+            )
+        }
+
+        binding.insertUser2.setOnClickListener {
+            val name = "User${Random().nextInt(range)}"
+            db2.userDao().insert(
+                UserV2(
+                    0,
+                    "2-$name",
+                    genders.random(),
+                    ageRange.random(),
+                    phoneNumberRange.random().toString(),
+                    "$name@yahoo.com",
+                    false
                 )
             )
         }
