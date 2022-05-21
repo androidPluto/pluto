@@ -26,6 +26,7 @@ import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PR
 import com.sampleapp.plugins.datastore.appStateDatastore
 import com.sampleapp.plugins.datastore.userStateDatastore
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
+import com.sampleapp.plugins.roomsDatabase.db2.Sample2Database
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -63,6 +64,7 @@ class SampleApp : Application() {
      */
     private fun watchRoomsDatabase() {
         PlutoRoomsDBWatcher.watch(SampleDatabase.DB_NAME, SampleDatabase::class.java)
+        PlutoRoomsDBWatcher.watch(Sample2Database.DB_NAME, Sample2Database::class.java)
     }
 
     /**
