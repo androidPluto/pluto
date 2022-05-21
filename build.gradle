@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
 
         // maven central dependencies
@@ -52,6 +52,7 @@ ext {
     roomsVersion = '2.4.1'
     moshiVersion = '1.13.0'
     navigationVersion = '2.4.1'
+    composeCompileVersion = '1.1.1'
 }
 
 task installGitHook(type: Copy) {
