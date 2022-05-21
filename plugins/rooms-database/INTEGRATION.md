@@ -27,6 +27,7 @@ Pluto.Installer(this)
 
 Create intance of DataStore Preferences and start watching in Pluto.
 ```kotlin
+// DB_NAME should be same as database name assigned while creating the database.
 PlutoRoomsDBWatcher.watch(DB_NAME, SampleDatabase::class.java)
 ```
 <br>
