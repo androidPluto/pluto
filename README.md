@@ -71,6 +71,12 @@ Please refer to your [`Contribution guidelines`](/CONTRIBUTING.md) to get starte
 
 <br>
 
+Have an idea to improve Pluto? Let's connect on 
+- [Twitter](https://twitter.com/srtv_prateek)
+- [Github](https://github.com/srtvprateek)
+
+<br>
+
 
 ## 📃 &nbsp;License
 
