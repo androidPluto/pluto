@@ -20,7 +20,7 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
-import com.sampleapp.plugins.SupportedPlugins.Companion.PREFERENCES
+import com.sampleapp.plugins.SupportedPlugins.Companion.SHARED_PREF
 import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
 import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
 import com.sampleapp.plugins.datastore.appStateDatastore
@@ -40,7 +40,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoDatastorePreferencesPlugin(DATASTORE_PREF))
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
-            .addPlugin(PlutoSharePreferencesPlugin(PREFERENCES))
+            .addPlugin(PlutoSharePreferencesPlugin(SHARED_PREF))
             .addPlugin(PlutoRoomsDatabasePlugin(DATABASE))
             .install()
         Pluto.showNotch(true)

@@ -1,32 +1,41 @@
 package com.sampleapp
 
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
-import com.pluto.Pluto
+import com.google.android.material.chip.Chip
 import com.sampleapp.databinding.ActivityMainBinding
-import com.sampleapp.list.PluginListAdapter
-import com.sampleapp.list.PluginListItem
 import com.sampleapp.plugins.SupportedPlugins
-import com.sampleapp.utils.DiffAdapter
-import com.sampleapp.utils.DiffAwareHolder
-import com.sampleapp.utils.ListAdapter
-import com.sampleapp.utils.ListItem
 
 class MainActivity : AppCompatActivity() {
 
-    private val pluginAdapter: ListAdapter by lazy { PluginListAdapter(onActionListener) }
+//    private val pluginAdapter: ListAdapter by lazy { PluginListAdapter(onActionListener) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        val javaTest = JavaTest()
+//        val javaTest = JavaTest()
         setContentView(binding.root)
 
-        binding.crashList.apply {
-            adapter = pluginAdapter
-        }
-        pluginAdapter.list = SupportedPlugins.get()
         binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
+        SupportedPlugins.get().forEach {
+            val chip = Chip(this).apply {
+                text = it.title.capitalize()
+                setTextAppearance(R.style.ChipTextStyle)
+                textStartPadding = CHIP_PADDING
+                textEndPadding = CHIP_PADDING
+                setOnClickListener { _ ->
+                    Toast.makeText(this@MainActivity, it.title, LENGTH_SHORT).show()
+                }
+            }
+            binding.functionGroup.addView(chip)
+        }
+
+//        binding.crashList.apply {
+//            adapter = pluginAdapter
+//        }
+//        pluginAdapter.list = SupportedPlugins.get()
 
 //        binding.showNotch.setOnClickListener {
 //            if (IS_TESTING_JAVA) {
@@ -44,13 +53,13 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //
-        binding.open.setOnClickListener {
-            if (IS_TESTING_JAVA) {
-                javaTest.open()
-            } else {
-                Pluto.open()
-            }
-        }
+//        binding.open.setOnClickListener {
+//            if (IS_TESTING_JAVA) {
+//                javaTest.open()
+//            } else {
+//                Pluto.open()
+//            }
+//        }
 //
 //        binding.openDemoPlugin.setOnClickListener {
 //            if (IS_TESTING_JAVA) {
@@ -61,15 +70,16 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    private val onActionListener = object : DiffAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (data is PluginListItem) {
-                SupportedPlugins.openPlugin(this@MainActivity, data)
-            }
-        }
-    }
-
+//    private val onActionListener = object : DiffAdapter.OnActionListener {
+//        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+//            if (data is PluginListItem) {
+//                SupportedPlugins.openPlugin(this@MainActivity, data)
+//            }
+//        }
+//    }
+//
     companion object {
-        const val IS_TESTING_JAVA = true
+        const val CHIP_PADDING = 40f
+//        const val IS_TESTING_JAVA = true
     }
 }

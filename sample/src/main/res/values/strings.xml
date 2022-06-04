@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Pluto Demo App</string>
     <string name="version_label">ver  %s</string>
+    <string name="alert_title">Enable Draw over apps permission</string>
+    <string name="supported_functions">Supported functions</string>
+    <string name="functions_missing">Still couldn\'t find what you are looking for?</string>
+    <string name="adding_more">and many more getting developed…</string>
+    <string name="suggest">\u2022 <u>Suggest a Plugin</u></string>
+    <string name="develop">\u2022 <u>Develop your own Plugin</u></string>
 </resources>

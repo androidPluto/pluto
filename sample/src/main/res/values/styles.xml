@@ -26,4 +26,9 @@
     <style name="CustomButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">serif</item>
     </style>
+
+    <style name="ChipTextStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
 </resources>
