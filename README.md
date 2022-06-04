@@ -20,8 +20,8 @@ Pluto is distributed through [***mavenCentral***](https://search.maven.org/artif
 > Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib:pluto:2.0.1-beta'
-  releaseImplementation 'com.plutolib:pluto-no-op:2.0.1-beta'
+  debugImplementation 'com.plutolib:pluto:2.0.2-beta2'
+  releaseImplementation 'com.plutolib:pluto-no-op:2.0.2-beta2'
 }
 ```
 
