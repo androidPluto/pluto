@@ -40,9 +40,9 @@
                 android:gravity="center"
                 android:textColor="@color/black_60"
                 android:textSize="11sp"
-                app:layout_constraintTop_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 app:layout_constraintVertical_bias="1"
                 tools:text="ver 2.0.0" />
 
@@ -163,6 +163,71 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/suggestCta" />
+
+        <View
+            android:id="@+id/bottomDivider"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="@+id/actionsView"
+            android:background="@color/appBg"
+            android:layout_height="1dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/actionsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0511141c"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/moreActionsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/more_actions"
+                android:textColor="@color/black_60"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/actionsGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/moreActionsTitle"
+                app:singleLine="false"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/openPlutoCta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open_pluto"
+                    android:textAppearance="@style/ChipTextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/showNotchCta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_notch"
+                    android:textAppearance="@style/ChipTextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/hideNotchCta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hide_notch"
+                    android:textAppearance="@style/ChipTextStyle" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

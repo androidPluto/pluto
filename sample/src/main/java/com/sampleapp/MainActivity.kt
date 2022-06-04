@@ -5,17 +5,16 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
+import com.pluto.Pluto
 import com.sampleapp.databinding.ActivityMainBinding
 import com.sampleapp.plugins.SupportedPlugins
+import com.sampleapp.utils.openBrowser
 
 class MainActivity : AppCompatActivity() {
-
-//    private val pluginAdapter: ListAdapter by lazy { PluginListAdapter(onActionListener) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-//        val javaTest = JavaTest()
         setContentView(binding.root)
 
         binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
@@ -32,54 +31,14 @@ class MainActivity : AppCompatActivity() {
             binding.functionGroup.addView(chip)
         }
 
-//        binding.crashList.apply {
-//            adapter = pluginAdapter
-//        }
-//        pluginAdapter.list = SupportedPlugins.get()
-
-//        binding.showNotch.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.showNotch(true)
-//            } else {
-//                Pluto.showNotch(true)
-//            }
-//        }
-//
-//        binding.hideNotch.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.showNotch(false)
-//            } else {
-//                Pluto.showNotch(false)
-//            }
-//        }
-//
-//        binding.open.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.open()
-//            } else {
-//                Pluto.open()
-//            }
-//        }
-//
-//        binding.openDemoPlugin.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.open(DEMO_PLUGIN_ID)
-//            } else {
-//                Pluto.open(DEMO_PLUGIN_ID)
-//            }
-//        }
+        binding.openPlutoCta.setOnClickListener { Pluto.open() }
+        binding.showNotchCta.setOnClickListener { Pluto.showNotch(true) }
+        binding.hideNotchCta.setOnClickListener { Pluto.showNotch(false) }
+        binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@pluto_lib") }
+        binding.developCta.setOnClickListener { openBrowser("https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)") }
     }
 
-//    private val onActionListener = object : DiffAdapter.OnActionListener {
-//        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-//            if (data is PluginListItem) {
-//                SupportedPlugins.openPlugin(this@MainActivity, data)
-//            }
-//        }
-//    }
-//
     companion object {
         const val CHIP_PADDING = 40f
-//        const val IS_TESTING_JAVA = true
     }
 }
