@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/pluto___margin_small" />
+    <stroke android:width="@dimen/pluto___dp_1"
+        android:color="#fd7e14"/>
+    <solid android:color="#0Dfd7e14" />
+</shape>

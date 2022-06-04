@@ -20,7 +20,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode verCode
-        versionName verNameShort
+        versionName verPublish
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,26 +46,26 @@ android {
 }
 
 dependencies {
-//    implementation project(path: ':pluto:lib')
-//    implementation project(path: ':plugins:demo:lib')
-//    implementation project(path: ':plugins:exceptions:lib')
-//    implementation project(path: ':plugins:logger:lib')
-//    implementation project(path: ':plugins:network:lib')
-//    implementation project(path: ':plugins:shared-preferences:lib')
-//    implementation project(path: ':plugins:datastore:lib')
-//    implementation project(path: ':plugins:rooms-database:lib')
+    implementation project(path: ':pluto:lib')
+    implementation project(path: ':plugins:demo:lib')
+    implementation project(path: ':plugins:exceptions:lib')
+    implementation project(path: ':plugins:logger:lib')
+    implementation project(path: ':plugins:network:lib')
+    implementation project(path: ':plugins:shared-preferences:lib')
+    implementation project(path: ':plugins:datastore:lib')
+    implementation project(path: ':plugins:rooms-database:lib')
 
     /**
      * no-op dependencies
      */
-    implementation project(path: ':pluto:lib-no-op')
-    implementation project(path: ':plugins:demo:lib-no-op')
-    implementation project(path: ':plugins:exceptions:lib-no-op')
-    implementation project(path: ':plugins:logger:lib-no-op')
-    implementation project(path: ':plugins:network:lib-no-op')
-    implementation project(path: ':plugins:shared-preferences:lib-no-op')
-    implementation project(path: ':plugins:rooms-database:lib-no-op')
-    implementation project(path: ':plugins:datastore:lib-no-op')
+//    implementation project(path: ':pluto:lib-no-op')
+//    implementation project(path: ':plugins:demo:lib-no-op')
+//    implementation project(path: ':plugins:exceptions:lib-no-op')
+//    implementation project(path: ':plugins:logger:lib-no-op')
+//    implementation project(path: ':plugins:network:lib-no-op')
+//    implementation project(path: ':plugins:shared-preferences:lib-no-op')
+//    implementation project(path: ':plugins:rooms-database:lib-no-op')
+//    implementation project(path: ':plugins:datastore:lib-no-op')
 
     /**
      * Maven dependencies

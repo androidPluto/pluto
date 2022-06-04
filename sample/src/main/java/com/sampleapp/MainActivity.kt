@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             adapter = pluginAdapter
         }
         pluginAdapter.list = SupportedPlugins.get()
-        binding.version.text = "ver ${BuildConfig.VERSION_NAME}"
+        binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
 
 //        binding.showNotch.setOnClickListener {
 //            if (IS_TESTING_JAVA) {
