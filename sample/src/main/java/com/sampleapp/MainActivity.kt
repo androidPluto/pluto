@@ -1,8 +1,6 @@
 package com.sampleapp
 
 import android.os.Bundle
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
@@ -25,7 +23,12 @@ class MainActivity : AppCompatActivity() {
                 textStartPadding = CHIP_PADDING
                 textEndPadding = CHIP_PADDING
                 setOnClickListener { _ ->
-                    Toast.makeText(this@MainActivity, it.title, LENGTH_SHORT).show()
+                    ContainerFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("plugin", it.title)
+                        }
+                        show(supportFragmentManager, "container")
+                    }
                 }
             }
             binding.functionGroup.addView(chip)

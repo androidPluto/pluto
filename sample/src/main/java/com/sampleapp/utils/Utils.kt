@@ -22,3 +22,8 @@ fun Context.openBrowser(url: String) {
         e.printStackTrace()
     }
 }
+
+fun Context.getScreen(): Pair<Int, Int> {
+    val dm = resources.displayMetrics
+    return Pair(dm.widthPixels, dm.heightPixels)
+}
