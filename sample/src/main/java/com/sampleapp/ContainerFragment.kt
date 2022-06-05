@@ -8,6 +8,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sampleapp.databinding.FragmentContainerBinding
+import com.sampleapp.plugins.FunctionsModel
+import com.sampleapp.plugins.SupportedPlugins
 import com.sampleapp.utils.getScreen
 
 class ContainerFragment : BottomSheetDialogFragment() {
@@ -17,6 +19,8 @@ class ContainerFragment : BottomSheetDialogFragment() {
         get() = _binding!!
 
     override fun getTheme(): Int = R.style.DemoBottomSheetDialog
+    private val functionInfo: FunctionsModel
+        get() = FunctionsModel(requireArguments().getString(FUNCTION_ID)!!, requireArguments().getString(FUNCTION_LABEL)!!)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContainerBinding.inflate(inflater, container, false)
@@ -38,5 +42,18 @@ class ContainerFragment : BottomSheetDialogFragment() {
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
+        addFunctionFragment()
+        binding.title.text = functionInfo.label
+    }
+
+    private fun addFunctionFragment() {
+        childFragmentManager.beginTransaction()
+            .add(R.id.container, SupportedPlugins.getDemoFragment(functionInfo.id))
+            .commit()
+    }
+
+    companion object {
+        const val FUNCTION_ID = "functionId"
+        const val FUNCTION_LABEL = "functionId"
     }
 }

@@ -1,14 +1,14 @@
-package com.sampleapp.plugins.network.internal
+package com.sampleapp.functions.network.internal
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.sampleapp.plugins.network.internal.core.ApiService
-import com.sampleapp.plugins.network.internal.core.Network
-import com.sampleapp.plugins.network.internal.core.ResponseWrapper
-import com.sampleapp.plugins.network.internal.core.enqueue
+import com.sampleapp.functions.network.internal.core.ApiService
+import com.sampleapp.functions.network.internal.core.Network
+import com.sampleapp.functions.network.internal.core.ResponseWrapper
+import com.sampleapp.functions.network.internal.core.enqueue
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody

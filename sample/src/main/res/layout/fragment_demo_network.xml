@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="16dp"
+    tools:context=".functions.network.internal.DemoNetworkFragment">
+
+<!--    <com.google.android.material.chip.ChipGroup-->
+<!--        android:id="@+id/ctaGroup"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:singleLine="false"-->
+<!--        app:singleSelection="true" />-->
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/postCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make POST Call"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipStartPadding="16dp"
+        app:chipEndPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/getCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make GET Call"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipStartPadding="16dp"
+        app:chipEndPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postCall" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/xmlCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Call with XML Response"
+        app:chipStartPadding="16dp"
+        app:chipEndPadding="16dp"
+        android:textAppearance="@style/ChipTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getCall" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/formEncodedCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:chipStartPadding="16dp"
+        app:chipEndPadding="16dp"
+        android:text="Make FormURLEncoded Call"
+        android:textAppearance="@style/ChipTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlCall" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

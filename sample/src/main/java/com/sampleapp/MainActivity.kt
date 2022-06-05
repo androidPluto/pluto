@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
+import com.sampleapp.ContainerFragment.Companion.FUNCTION_ID
+import com.sampleapp.ContainerFragment.Companion.FUNCTION_LABEL
 import com.sampleapp.databinding.ActivityMainBinding
 import com.sampleapp.plugins.SupportedPlugins
 import com.sampleapp.utils.canDrawOverlays
@@ -19,14 +21,15 @@ class MainActivity : AppCompatActivity() {
         binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
         SupportedPlugins.get().forEach {
             val chip = Chip(this).apply {
-                text = it.title.capitalize()
+                text = it.label
                 setTextAppearance(R.style.ChipTextStyle)
                 textStartPadding = CHIP_PADDING
                 textEndPadding = CHIP_PADDING
                 setOnClickListener { _ ->
                     ContainerFragment().apply {
                         arguments = Bundle().apply {
-                            putString("plugin", it.title)
+                            putString(FUNCTION_ID, it.id)
+                            putString(FUNCTION_LABEL, it.label)
                         }
                         show(supportFragmentManager, "container")
                     }

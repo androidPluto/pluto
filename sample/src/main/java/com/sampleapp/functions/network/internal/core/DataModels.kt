@@ -1,4 +1,4 @@
-package com.sampleapp.plugins.network.internal.core
+package com.sampleapp.functions.network.internal.core
 
 sealed class ResponseWrapper<out T> {
     data class Success<out T>(val body: T) : ResponseWrapper<T>()

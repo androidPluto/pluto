@@ -1,4 +1,4 @@
-package com.sampleapp.plugins.network.internal.core
+package com.sampleapp.functions.network.internal.core
 
 import com.google.gson.JsonObject
 import okhttp3.RequestBody

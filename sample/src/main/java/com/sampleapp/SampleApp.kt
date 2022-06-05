@@ -14,12 +14,12 @@ import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
-import com.sampleapp.plugins.SupportedPlugins.Companion.DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
 import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
+import com.sampleapp.plugins.SupportedPlugins.Companion.ROOMS_DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.SHARED_PREF
 import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
 import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
@@ -41,7 +41,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoNetworkPlugin(NETWORK))
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(SHARED_PREF))
-            .addPlugin(PlutoRoomsDatabasePlugin(DATABASE))
+            .addPlugin(PlutoRoomsDatabasePlugin(ROOMS_DATABASE))
             .install()
         Pluto.showNotch(true)
 
