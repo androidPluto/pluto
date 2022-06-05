@@ -11,4 +11,6 @@
     <string name="open_pluto">Open Pluto UI</string>
     <string name="show_notch">Show Notch</string>
     <string name="hide_notch">Hide Notch</string>
+    <string name="ask_permission_title">Enable Draw over apps permission</string>
+    <string name="ask_permission_description">Need Draw over other apps permission to show notch to open the Pluto UI.</string>
 </resources>

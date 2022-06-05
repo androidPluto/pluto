@@ -35,3 +35,13 @@ fun Context.canDrawOverlays(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERS
 } else {
     true
 }
+
+fun Context.openOverlaySettings() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val intent = Intent(
+            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:$packageName")
+        )
+        startActivity(intent)
+    }
+}

@@ -40,6 +40,7 @@
         <item name="android:backgroundDimAmount">0.9</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
+        <item name="android:textViewStyle">@style/CustomTextStyle</item>
         <item name="dialogTheme">@style/DemoBottomSheetDialogTheme</item>
     </style>
 

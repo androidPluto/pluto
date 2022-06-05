@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sampleapp.databinding.FragmentAskPermisionBinding
 import com.sampleapp.utils.getScreen
+import com.sampleapp.utils.openOverlaySettings
 
 class AskPermissionFragment : BottomSheetDialogFragment() {
 
@@ -37,6 +38,10 @@ class AskPermissionFragment : BottomSheetDialogFragment() {
                 dialog.behavior.peekHeight = requireContext().getScreen().second
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
+        }
+        binding.root.setOnClickListener {
+            dismiss()
+            requireContext().openOverlaySettings()
         }
     }
 }
