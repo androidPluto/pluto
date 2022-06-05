@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,4 +28,10 @@ fun Context.openBrowser(url: String) {
 fun Context.getScreen(): Pair<Int, Int> {
     val dm = resources.displayMetrics
     return Pair(dm.widthPixels, dm.heightPixels)
+}
+
+fun Context.canDrawOverlays(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    Settings.canDrawOverlays(this)
+} else {
+    true
 }

@@ -1,11 +1,14 @@
 package com.sampleapp
 
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
 import com.sampleapp.databinding.ActivityMainBinding
 import com.sampleapp.plugins.SupportedPlugins
+import com.sampleapp.utils.canDrawOverlays
 import com.sampleapp.utils.openBrowser
 
 class MainActivity : AppCompatActivity() {
@@ -33,10 +36,21 @@ class MainActivity : AppCompatActivity() {
             }
             binding.functionGroup.addView(chip)
         }
-
         binding.openPlutoCta.setOnClickListener { Pluto.open() }
-        binding.showNotchCta.setOnClickListener { Pluto.showNotch(true) }
-        binding.hideNotchCta.setOnClickListener { Pluto.showNotch(false) }
+        binding.showNotchCta.setOnClickListener {
+            if (canDrawOverlays()) {
+                Pluto.showNotch(true)
+            } else {
+                Toast.makeText(this, "Need Draw over apps permission.", LENGTH_SHORT).show()
+            }
+        }
+        binding.hideNotchCta.setOnClickListener {
+            if (canDrawOverlays()) {
+                Pluto.showNotch(false)
+            } else {
+                Toast.makeText(this, "Need Draw over apps permission.", LENGTH_SHORT).show()
+            }
+        }
         binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@pluto_lib") }
         binding.developCta.setOnClickListener { openBrowser("https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)") }
     }
