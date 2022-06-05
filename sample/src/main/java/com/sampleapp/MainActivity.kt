@@ -1,8 +1,6 @@
 package com.sampleapp
 
 import android.os.Bundle
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
@@ -41,14 +39,14 @@ class MainActivity : AppCompatActivity() {
             if (canDrawOverlays()) {
                 Pluto.showNotch(true)
             } else {
-                Toast.makeText(this, "Need Draw over apps permission.", LENGTH_SHORT).show()
+                AskPermissionFragment().show(supportFragmentManager, "permission")
             }
         }
         binding.hideNotchCta.setOnClickListener {
             if (canDrawOverlays()) {
                 Pluto.showNotch(false)
             } else {
-                Toast.makeText(this, "Need Draw over apps permission.", LENGTH_SHORT).show()
+                AskPermissionFragment().show(supportFragmentManager, "permission")
             }
         }
         binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@pluto_lib") }
