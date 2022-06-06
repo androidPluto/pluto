@@ -40,6 +40,9 @@ class ContainerFragment : BottomSheetDialogFragment() {
             }
         }
         addFunctionFragment()
+        binding.close.setOnClickListener {
+            dismiss()
+        }
         binding.title.text = functionInfo.label
     }
 

@@ -45,11 +45,21 @@
                         android:textColor="@color/pluto___text_dark_80"
                         tools:text="title"
                         android:textSize="@dimen/pluto___text_xmedium"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/close"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/close"
+                        android:layout_width="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/title"
+                        android:paddingHorizontal="12dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/title"
+                        android:src="@drawable/ic_close"
+                        android:layout_height="0dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.AppBarLayout>
