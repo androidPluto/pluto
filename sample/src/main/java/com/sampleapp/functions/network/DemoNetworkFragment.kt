@@ -1,4 +1,4 @@
-package com.sampleapp.functions.network.internal
+package com.sampleapp.functions.network
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sampleapp.R
 import com.sampleapp.databinding.FragmentDemoNetworkBinding
+import com.sampleapp.functions.network.internal.NetworkViewModel
 
 class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
 

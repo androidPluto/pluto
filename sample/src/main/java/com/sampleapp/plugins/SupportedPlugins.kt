@@ -2,7 +2,7 @@ package com.sampleapp.plugins
 
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
-import com.sampleapp.functions.network.internal.DemoNetworkFragment
+import com.sampleapp.functions.network.DemoNetworkFragment
 
 class SupportedPlugins private constructor() {
     companion object {
