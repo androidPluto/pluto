@@ -1,85 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/pluto___transparent">
+    android:fitsSystemWindows="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="40dp"
-        android:background="@color/pluto___app_bg"
-        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="440dp"
+            android:background="@color/pluto___app_bg"
+            app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+            app:layout_constraintVertical_bias="1"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/pluginCta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/pluto___dark"
-                android:theme="@style/PlutoTheme.AppBarOverlay">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pluto___dark"
+                    android:theme="@style/PlutoTheme.AppBarOverlay">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/pluto___section_color">
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/pluto___margin_medium"
+                            android:paddingVertical="@dimen/pluto___margin_small"
+                            android:textColor="@color/pluto___text_dark_80"
+                            tools:text="title"
+                            android:textSize="@dimen/pluto___text_xmedium"
+                            android:gravity="center_vertical"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/close"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/close"
+                            android:layout_width="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/title"
+                            android:paddingHorizontal="12dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/title"
+                            android:src="@drawable/ic_close"
+                            android:layout_height="0dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.AppBarLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/pluto___section_color">
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/pluto___margin_medium"
-                        android:paddingVertical="@dimen/pluto___margin_small"
-                        android:textColor="@color/pluto___text_dark_80"
-                        tools:text="title"
-                        android:textSize="@dimen/pluto___text_xmedium"
-                        android:gravity="center_vertical"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/close"
+                    <FrameLayout
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/close"
-                        android:layout_width="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/title"
-                        android:paddingHorizontal="12dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/title"
-                        android:src="@drawable/ic_close"
-                        android:layout_height="0dp"/>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="44dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <FrameLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/pluginCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Plugin View"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.pluto.Pluto
 import com.sampleapp.databinding.FragmentContainerBinding
 
 class ContainerFragment : BottomSheetDialogFragment() {
@@ -42,6 +43,9 @@ class ContainerFragment : BottomSheetDialogFragment() {
         addFunctionFragment()
         binding.close.setOnClickListener {
             dismiss()
+        }
+        binding.pluginCta.setOnClickListener {
+            Pluto.open(functionInfo.id)
         }
         binding.title.text = functionInfo.label
     }
