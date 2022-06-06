@@ -20,7 +20,7 @@ class ContainerFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int = R.style.DemoBottomSheetDialog
     private val functionInfo: FunctionsModel
-        get() = FunctionsModel(requireArguments().getString(FUNCTION_ID)!!, requireArguments().getString(FUNCTION_LABEL)!!)
+        get() = FunctionsModel(id = requireArguments().getString(FUNCTION_ID)!!, label = requireArguments().getString(FUNCTION_LABEL)!!)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContainerBinding.inflate(inflater, container, false)
@@ -54,6 +54,6 @@ class ContainerFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val FUNCTION_ID = "functionId"
-        const val FUNCTION_LABEL = "functionId"
+        const val FUNCTION_LABEL = "functionLabel"
     }
 }

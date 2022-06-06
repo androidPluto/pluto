@@ -2,6 +2,7 @@ package com.sampleapp.plugins
 
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
+import com.sampleapp.functions.exceptions.DemoExceptionFragment
 import com.sampleapp.functions.network.DemoNetworkFragment
 
 class SupportedPlugins private constructor() {
@@ -37,6 +38,7 @@ class SupportedPlugins private constructor() {
         fun getDemoFragment(id: String): Fragment {
             return when (id) {
                 NETWORK -> DemoNetworkFragment()
+                EXCEPTIONS -> DemoExceptionFragment()
                 else -> DemoNetworkFragment()
             }
         }
