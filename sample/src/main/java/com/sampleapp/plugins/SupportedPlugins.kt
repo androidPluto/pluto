@@ -2,6 +2,7 @@ package com.sampleapp.plugins
 
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
+import com.sampleapp.functions.datastore.DemoDatastorePrefFragment
 import com.sampleapp.functions.exceptions.DemoExceptionFragment
 import com.sampleapp.functions.network.DemoNetworkFragment
 import com.sampleapp.functions.sharedpreferences.DemoSharedPrefFragment
@@ -41,6 +42,7 @@ class SupportedPlugins private constructor() {
                 NETWORK -> DemoNetworkFragment()
                 EXCEPTIONS -> DemoExceptionFragment()
                 SHARED_PREF -> DemoSharedPrefFragment()
+                DATASTORE_PREF -> DemoDatastorePrefFragment()
                 else -> DemoNetworkFragment()
             }
         }

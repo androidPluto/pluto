@@ -14,6 +14,10 @@ import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
+import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.APP_STATE_PREF_NAME
+import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.USER_STATE_PREF_NAME
+import com.sampleapp.functions.datastore.appStateDatastore
+import com.sampleapp.functions.datastore.userStateDatastore
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
@@ -21,10 +25,6 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.ROOMS_DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.SHARED_PREF
-import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.APP_STATE_PREF_NAME
-import com.sampleapp.plugins.datastore.DatastoreActivity.Companion.USER_STATE_PREF_NAME
-import com.sampleapp.plugins.datastore.appStateDatastore
-import com.sampleapp.plugins.datastore.userStateDatastore
 import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
 import com.sampleapp.plugins.roomsDatabase.db2.Sample2Database
 import kotlin.system.exitProcess
