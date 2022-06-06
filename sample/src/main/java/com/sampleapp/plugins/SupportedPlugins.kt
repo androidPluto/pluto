@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import com.sampleapp.functions.exceptions.DemoExceptionFragment
 import com.sampleapp.functions.network.DemoNetworkFragment
+import com.sampleapp.functions.sharedpreferences.DemoSharedPrefFragment
 
 class SupportedPlugins private constructor() {
     companion object {
@@ -39,6 +40,7 @@ class SupportedPlugins private constructor() {
             return when (id) {
                 NETWORK -> DemoNetworkFragment()
                 EXCEPTIONS -> DemoExceptionFragment()
+                SHARED_PREF -> DemoSharedPrefFragment()
                 else -> DemoNetworkFragment()
             }
         }

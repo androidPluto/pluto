@@ -1,23 +1,33 @@
-package com.sampleapp.plugins.preferences
+package com.sampleapp.functions.sharedpreferences
 
 import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
-import com.sampleapp.databinding.ActivityPreferencesBinding
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.sampleapp.R
+import com.sampleapp.databinding.FragmentDemoSharedPrefBinding
 
-class PreferencesActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityPreferencesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+class DemoSharedPrefFragment : Fragment(R.layout.fragment_demo_shared_pref) {
+    private var _binding: FragmentDemoSharedPrefBinding? = null
+    private val binding
+        get() = _binding!!
 
-        binding.close.setOnClickListener {
-            finish()
-        }
-        binding.button.setOnClickListener {
-            resetSharedPreferences(this)
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentDemoSharedPrefBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.button.setOnClickListener { resetSharedPreferences(requireContext()) }
     }
 
     @SuppressWarnings("MagicNumber")
