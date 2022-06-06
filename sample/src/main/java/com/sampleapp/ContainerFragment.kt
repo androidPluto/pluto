@@ -8,9 +8,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sampleapp.databinding.FragmentContainerBinding
-import com.sampleapp.plugins.FunctionsModel
-import com.sampleapp.plugins.SupportedPlugins
-import com.sampleapp.utils.getScreen
 
 class ContainerFragment : BottomSheetDialogFragment() {
 

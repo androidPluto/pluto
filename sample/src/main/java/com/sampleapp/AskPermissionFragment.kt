@@ -8,8 +8,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sampleapp.databinding.FragmentAskPermisionBinding
-import com.sampleapp.utils.getScreen
-import com.sampleapp.utils.openOverlaySettings
 
 class AskPermissionFragment : BottomSheetDialogFragment() {
 

@@ -1,4 +1,4 @@
-package com.sampleapp.plugins
+package com.sampleapp
 
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment

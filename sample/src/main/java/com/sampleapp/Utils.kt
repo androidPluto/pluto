@@ -1,4 +1,4 @@
-package com.sampleapp.utils
+package com.sampleapp
 
 import android.content.ActivityNotFoundException
 import android.content.Context

@@ -7,9 +7,6 @@ import com.pluto.Pluto
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_ID
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_LABEL
 import com.sampleapp.databinding.ActivityMainBinding
-import com.sampleapp.plugins.SupportedPlugins
-import com.sampleapp.utils.canDrawOverlays
-import com.sampleapp.utils.openBrowser
 
 class MainActivity : AppCompatActivity() {
 
