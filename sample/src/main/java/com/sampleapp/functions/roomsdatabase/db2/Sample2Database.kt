@@ -1,11 +1,11 @@
-package com.sampleapp.plugins.roomsDatabase.db2
+package com.sampleapp.functions.roomsdatabase.db2
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sampleapp.plugins.roomsDatabase.db2.dao.UserV2DAO
-import com.sampleapp.plugins.roomsDatabase.db2.entity.UserV2
+import com.sampleapp.functions.roomsdatabase.db2.dao.UserV2DAO
+import com.sampleapp.functions.roomsdatabase.db2.entity.UserV2
 
 @Database(entities = [UserV2::class], version = 5)
 abstract class Sample2Database : RoomDatabase() {

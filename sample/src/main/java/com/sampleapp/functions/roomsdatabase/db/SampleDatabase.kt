@@ -1,13 +1,13 @@
-package com.sampleapp.plugins.roomsDatabase.db
+package com.sampleapp.functions.roomsdatabase.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sampleapp.plugins.roomsDatabase.db.dao.AdminDAO
-import com.sampleapp.plugins.roomsDatabase.db.dao.UserDAO
-import com.sampleapp.plugins.roomsDatabase.db.entity.Admin
-import com.sampleapp.plugins.roomsDatabase.db.entity.User
+import com.sampleapp.functions.roomsdatabase.db.dao.AdminDAO
+import com.sampleapp.functions.roomsdatabase.db.dao.UserDAO
+import com.sampleapp.functions.roomsdatabase.db.entity.Admin
+import com.sampleapp.functions.roomsdatabase.db.entity.User
 
 @Database(entities = [User::class, Admin::class], version = 5)
 abstract class SampleDatabase : RoomDatabase() {

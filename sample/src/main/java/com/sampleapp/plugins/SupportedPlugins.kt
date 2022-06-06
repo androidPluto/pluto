@@ -6,6 +6,7 @@ import com.sampleapp.functions.datastore.DemoDatastorePrefFragment
 import com.sampleapp.functions.exceptions.DemoExceptionFragment
 import com.sampleapp.functions.logger.DemoLoggerFragment
 import com.sampleapp.functions.network.DemoNetworkFragment
+import com.sampleapp.functions.roomsdatabase.DemoRoomsDatabaseFragment
 import com.sampleapp.functions.sharedpreferences.DemoSharedPrefFragment
 
 class SupportedPlugins private constructor() {
@@ -45,6 +46,7 @@ class SupportedPlugins private constructor() {
                 SHARED_PREF -> DemoSharedPrefFragment()
                 DATASTORE_PREF -> DemoDatastorePrefFragment()
                 LOGGER -> DemoLoggerFragment()
+                ROOMS_DATABASE -> DemoRoomsDatabaseFragment()
                 else -> DemoNetworkFragment()
             }
         }

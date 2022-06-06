@@ -1,9 +1,9 @@
-package com.sampleapp.plugins.roomsDatabase.db.dao
+package com.sampleapp.functions.roomsdatabase.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.sampleapp.plugins.roomsDatabase.db.entity.User
+import com.sampleapp.functions.roomsdatabase.db.entity.User
 
 @Dao
 internal interface UserDAO {

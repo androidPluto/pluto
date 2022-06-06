@@ -1,30 +1,44 @@
-package com.sampleapp.plugins.roomsDatabase
+package com.sampleapp.functions.roomsdatabase
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.sampleapp.databinding.ActivityRoomsDbBinding
-import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
-import com.sampleapp.plugins.roomsDatabase.db.entity.Admin
-import com.sampleapp.plugins.roomsDatabase.db.entity.User
-import com.sampleapp.plugins.roomsDatabase.db2.Sample2Database
-import com.sampleapp.plugins.roomsDatabase.db2.entity.UserV2
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.sampleapp.R
+import com.sampleapp.databinding.FragmentDemoRoomsDatabaseBinding
+import com.sampleapp.functions.roomsdatabase.db.SampleDatabase
+import com.sampleapp.functions.roomsdatabase.db.entity.Admin
+import com.sampleapp.functions.roomsdatabase.db.entity.User
+import com.sampleapp.functions.roomsdatabase.db2.Sample2Database
+import com.sampleapp.functions.roomsdatabase.db2.entity.UserV2
 import java.util.Random
 
 @SuppressWarnings("UnderscoresInNumericLiterals")
-class RoomsDBActivity : AppCompatActivity() {
+class DemoRoomsDatabaseFragment : Fragment(R.layout.fragment_demo_rooms_database) {
+    private var _binding: FragmentDemoRoomsDatabaseBinding? = null
+    private val binding
+        get() = _binding!!
 
     private val genders = arrayOf("Male", "Female")
     private val phoneNumberRange = 9900000000..9999999999
     private val ageRange = 1..100
     private val range = 100
-    private val db: SampleDatabase by lazy { SampleDatabase.getInstance(applicationContext) }
-    private val db2: Sample2Database by lazy { Sample2Database.getInstance(applicationContext) }
+    private val db: SampleDatabase by lazy { SampleDatabase.getInstance(requireContext()) }
+    private val db2: Sample2Database by lazy { Sample2Database.getInstance(requireContext()) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityRoomsDbBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentDemoRoomsDatabaseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.insertUser.setOnClickListener {
             val name = "User${Random().nextInt(range)}"
             db.userDao().insert(
@@ -65,10 +79,6 @@ class RoomsDBActivity : AppCompatActivity() {
                     false
                 )
             )
-        }
-
-        binding.close.setOnClickListener {
-            finish()
         }
     }
 }

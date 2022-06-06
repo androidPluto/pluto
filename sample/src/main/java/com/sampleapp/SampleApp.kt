@@ -18,6 +18,8 @@ import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.APP
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.USER_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.appStateDatastore
 import com.sampleapp.functions.datastore.userStateDatastore
+import com.sampleapp.functions.roomsdatabase.db.SampleDatabase
+import com.sampleapp.functions.roomsdatabase.db2.Sample2Database
 import com.sampleapp.plugins.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.plugins.SupportedPlugins.Companion.DEMO
 import com.sampleapp.plugins.SupportedPlugins.Companion.EXCEPTIONS
@@ -25,8 +27,6 @@ import com.sampleapp.plugins.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.plugins.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.plugins.SupportedPlugins.Companion.ROOMS_DATABASE
 import com.sampleapp.plugins.SupportedPlugins.Companion.SHARED_PREF
-import com.sampleapp.plugins.roomsDatabase.db.SampleDatabase
-import com.sampleapp.plugins.roomsDatabase.db2.Sample2Database
 import kotlin.system.exitProcess
 import timber.log.Timber
 

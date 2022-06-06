@@ -1,11 +1,11 @@
-package com.sampleapp.plugins.roomsDatabase.db2.entity
+package com.sampleapp.functions.roomsdatabase.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-internal data class UserV2(
+internal data class User(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String? = null,
