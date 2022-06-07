@@ -10,6 +10,7 @@
     <color name="black_80">#cc000000</color>
     <color name="black_60">#99000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_80">#ccFFFFFF</color>
     <color name="orange">#fd7e14</color>
     <color name="orange_05">#0Dfd7e14</color>
     <color name="blue">#366BD1</color>
