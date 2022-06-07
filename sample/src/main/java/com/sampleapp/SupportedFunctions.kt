@@ -22,23 +22,6 @@ class SupportedPlugins private constructor() {
             )
         }
 
-//        fun openPlugin(context: Context, plugin: PluginListItem) {
-//            when (plugin.id) {
-//                EXCEPTIONS -> Intent(context, ExceptionActivity::class.java)
-//                LOGGER -> Intent(context, LoggerActivity::class.java)
-//                NETWORK -> Intent(context, NetworkActivity::class.java)
-//                SHARED_PREF -> Intent(context, PreferencesActivity::class.java)
-//                DATASTORE_PREF -> Intent(context, DatastoreActivity::class.java)
-//                ROOMS_DATABASE -> Intent(context, RoomsDBActivity::class.java)
-//                else -> {
-//                    Toast.makeText(context, "unsupported plugin", LENGTH_SHORT).show()
-//                    null
-//                }
-//            }?.let {
-//                context.startActivity(it)
-//            }
-//        }
-
         fun getDemoFragment(id: String): Fragment {
             return when (id) {
                 NETWORK -> DemoNetworkFragment()
