@@ -25,6 +25,7 @@ class DemoExceptionFragment : Fragment(R.layout.fragment_demo_exception) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener { throw NullPointerException("test exception") }
+        binding.nullPointer.setOnClickListener { throw NullPointerException("test exception") }
+        binding.illegalState.setOnClickListener { throw IllegalStateException("test exception") }
     }
 }

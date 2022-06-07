@@ -7,10 +7,22 @@
     tools:context=".functions.exceptions.DemoExceptionFragment">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/button"
+        android:id="@+id/nullPointer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Throw NullPointer Exception"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/illegalState"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/illegalState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Throw Illegal State Exception"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
