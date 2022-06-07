@@ -16,8 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="440dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/pluto___app_bg"
-            app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+            android:background="@color/appBg"
+            app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toTopOf="@+id/pluginCta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,24 +33,22 @@
 
                 <com.google.android.material.appbar.AppBarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/pluto___dark"
-                    android:theme="@style/PlutoTheme.AppBarOverlay">
+                    android:layout_height="wrap_content">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/pluto___section_color">
+                        android:background="@color/appBg">
 
                         <TextView
                             android:id="@+id/title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="@dimen/pluto___margin_medium"
-                            android:paddingVertical="@dimen/pluto___margin_small"
-                            android:textColor="@color/pluto___text_dark_80"
-                            android:textSize="@dimen/pluto___text_xmedium"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/black_80"
+                            android:textSize="15sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toStartOf="@+id/close"
                             app:layout_constraintStart_toStartOf="parent"
