@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="30dp">
+
+    <TextView
+        android:id="@+id/logTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:text="Pluto Logs"
+        android:textColor="@color/black_80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/logCtaGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logTitle"
+        app:singleLine="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/logVerbose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Verbose log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/logError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Error log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/logInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Info log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/logDebug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Debug log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/logEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="20dp"
+            app:chipEndPadding="20dp"
+            android:text="*EVENT* log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/timberTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="40dp"
+        android:text="Timber Logs"
+        android:textColor="@color/black_80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logCtaGroup" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/timberCtaGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timberTitle"
+        app:singleLine="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timberVerbose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Verbose log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timberError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Error log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timberInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Info log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timberDebug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="10dp"
+            app:chipEndPadding="10dp"
+            android:text="Debug log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/timberEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipStartPadding="20dp"
+            app:chipEndPadding="20dp"
+            android:text="*EVENT* log"
+            android:textAppearance="@style/ChipTextStyle" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

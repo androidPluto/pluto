@@ -12,24 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".plugins.roomsDatabase.RoomsDBActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plugins.logger.LoggerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plugins.network.NetworkActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plugins.preferences.PreferencesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plugins.exceptions.ExceptionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plugins.datastore.DatastoreActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

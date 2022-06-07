@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="440dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/appBg"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/pluginCta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/appBg">
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/black_80"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@+id/close"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="title" />
+
+                        <ImageView
+                            android:id="@+id/close"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:paddingHorizontal="12dp"
+                            android:src="@drawable/ic_close"
+                            app:layout_constraintBottom_toBottomOf="@+id/title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/title" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <FrameLayout
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/pluginCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Plugin View"
+            android:textAppearance="@style/ChipTextStyle"
+            android:textColor="@color/white"
+            app:chipBackgroundColor="@color/black"
+            app:chipEndPadding="20dp"
+            app:chipIcon="@drawable/ic_arrow_white"
+            app:chipStartPadding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

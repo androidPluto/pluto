@@ -2,74 +2,58 @@ package com.sampleapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.chip.Chip
 import com.pluto.Pluto
+import com.sampleapp.ContainerFragment.Companion.FUNCTION_ID
+import com.sampleapp.ContainerFragment.Companion.FUNCTION_LABEL
 import com.sampleapp.databinding.ActivityMainBinding
-import com.sampleapp.list.PluginListAdapter
-import com.sampleapp.list.PluginListItem
-import com.sampleapp.plugins.SupportedPlugins
-import com.sampleapp.utils.DiffAdapter
-import com.sampleapp.utils.DiffAwareHolder
-import com.sampleapp.utils.ListAdapter
-import com.sampleapp.utils.ListItem
 
 class MainActivity : AppCompatActivity() {
-
-    private val pluginAdapter: ListAdapter by lazy { PluginListAdapter(onActionListener) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        val javaTest = JavaTest()
         setContentView(binding.root)
 
-        binding.crashList.apply {
-            adapter = pluginAdapter
+        binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
+        SupportedPlugins.get().forEach {
+            val chip = Chip(this).apply {
+                text = it.label
+                setTextAppearance(R.style.ChipTextStyle)
+                textStartPadding = CHIP_PADDING
+                textEndPadding = CHIP_PADDING
+                setOnClickListener { _ ->
+                    ContainerFragment().apply {
+                        arguments = Bundle().apply {
+                            putString(FUNCTION_ID, it.id)
+                            putString(FUNCTION_LABEL, it.label)
+                        }
+                        show(supportFragmentManager, "container")
+                    }
+                }
+            }
+            binding.functionGroup.addView(chip)
         }
-        pluginAdapter.list = SupportedPlugins.get()
-        binding.version.text = "ver ${BuildConfig.VERSION_NAME}"
-
-//        binding.showNotch.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.showNotch(true)
-//            } else {
-//                Pluto.showNotch(true)
-//            }
-//        }
-//
-//        binding.hideNotch.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.showNotch(false)
-//            } else {
-//                Pluto.showNotch(false)
-//            }
-//        }
-//
-        binding.open.setOnClickListener {
-            if (IS_TESTING_JAVA) {
-                javaTest.open()
+        binding.openPlutoCta.setOnClickListener { Pluto.open() }
+        binding.showNotchCta.setOnClickListener {
+            if (canDrawOverlays()) {
+                Pluto.showNotch(true)
             } else {
-                Pluto.open()
+                AskPermissionFragment().show(supportFragmentManager, "permission")
             }
         }
-//
-//        binding.openDemoPlugin.setOnClickListener {
-//            if (IS_TESTING_JAVA) {
-//                javaTest.open(DEMO_PLUGIN_ID)
-//            } else {
-//                Pluto.open(DEMO_PLUGIN_ID)
-//            }
-//        }
-    }
-
-    private val onActionListener = object : DiffAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (data is PluginListItem) {
-                SupportedPlugins.openPlugin(this@MainActivity, data)
+        binding.hideNotchCta.setOnClickListener {
+            if (canDrawOverlays()) {
+                Pluto.showNotch(false)
+            } else {
+                AskPermissionFragment().show(supportFragmentManager, "permission")
             }
         }
+        binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@pluto_lib") }
+        binding.developCta.setOnClickListener { openBrowser("https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)") }
     }
 
     companion object {
-        const val IS_TESTING_JAVA = true
+        const val CHIP_PADDING = 40f
     }
 }

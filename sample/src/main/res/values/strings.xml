@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Pluto Sample</string>
+    <string name="app_name">Pluto Demo App</string>
+    <string name="version_label">ver  %s</string>
+    <string name="alert_title">Enable Draw over apps permission</string>
+    <string name="supported_functions">Supported functions</string>
+    <string name="functions_missing">Still couldn\'t find what you are looking for?</string>
+    <string name="adding_more">and many more getting developed…</string>
+    <string name="suggest">\u2022 <u>Suggest a Plugin</u></string>
+    <string name="develop">\u2022 <u>Develop your own Plugin</u></string>
+    <string name="more_actions">More Actions</string>
+    <string name="open_pluto">Open Pluto UI</string>
+    <string name="show_notch">Show Notch</string>
+    <string name="hide_notch">Hide Notch</string>
+    <string name="ask_permission_title">Enable Draw over apps permission</string>
+    <string name="ask_permission_description">Need Draw over other apps permission to show notch to open the Pluto UI.</string>
 </resources>
