@@ -42,12 +42,12 @@ Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-
 
 Here is the list of some plugins provided by us
 
-- **[Network Plugin](plugins/network/INTEGRATION.md)**
-- **[Exceptions & Crashes Plugin](plugins/exceptions/INTEGRATION.md)**
-- **[Logger Plugin](plugins/logger/INTEGRATION.md)**
-- **[Shared Preferences Plugin](plugins/shared-preferences/INTEGRATION.md)**
-- **[Rooms Database Plugin](plugins/rooms-database/INTEGRATION.md)**
-- **[Datastore Preferences Plugin](plugins/datastore/INTEGRATION.md)**
+- **[Network Plugin](plugins/network)**
+- **[Exceptions & Crashes Plugin](plugins/exceptions)**
+- **[Logger Plugin](plugins/logger)**
+- **[Shared Preferences Plugin](plugins/shared-preferences)**
+- **[Rooms Database Plugin](plugins/rooms-database)**
+- **[Datastore Preferences Plugin](plugins/datastore)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
