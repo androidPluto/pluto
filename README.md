@@ -3,6 +3,8 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/plutolib/pluto)](https://cla-assistant.io/plutolib/pluto)
 [![Daily Builds](https://github.com/plutolib/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/plutolib/pluto/actions/workflows/daily_builds.yml)
 
+<a href="https://www.producthunt.com/posts/pluto-0265aff1-a022-48a7-bea2-85d33cf1f15a?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pluto&#0045;0265aff1&#0045;a022&#0045;48a7&#0045;bea2&#0045;85d33cf1f15a" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=349545&theme=light" alt="Pluto - Open&#0045;sourced&#0032;On&#0045;device&#0032;debug&#0032;framework&#0032;for&#0032;Android&#0032;apps | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 Pluto is an on-device debugging framework for Android applications, which helps in the inspection of HTTP requests/responses, captures Crashes, and ANRs, and manipulates application data on the go.
 
 It comes with a UI to monitor and share the information, as well as APIs to access and use that information in your application.
