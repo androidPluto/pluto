@@ -69,11 +69,18 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/center_guideline"
+            android:id="@+id/center_guideline_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.4" />
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
 
         <TextView
             android:id="@+id/url_label"
@@ -112,14 +119,13 @@
             android:id="@+id/method_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pluto___margin_large"
-            android:layout_marginTop="@dimen/pluto___margin_large"
-            android:layout_marginEnd="@dimen/pluto___margin_large"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_vxlarge"
             android:fontFamily="@font/muli"
             android:text="@string/pluto_network___method_label"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settingStub" />
 
@@ -148,7 +154,7 @@
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/center_guideline"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline_left"
             app:layout_constraintTop_toTopOf="@+id/method_label" />
 
         <TextView
@@ -166,31 +172,43 @@
 
         <TextView
             android:id="@+id/protocol_label"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/pluto___margin_large"
-            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:layout_marginEnd="@dimen/pluto___margin_large"
             android:fontFamily="@font/muli"
             android:text="@string/pluto_network___protocol_label"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/method" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/center_guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/method_label" />
 
         <TextView
             android:id="@+id/protocol"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/pluto___margin_large"
             android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:ellipsize="end"
             android:fontFamily="@font/muli_light"
-            android:text="@string/pluto_network___waiting_for_response"
-            android:textColor="@color/pluto___text_dark_40"
+            android:hint="@string/pluto_network___waiting_for_response"
+            android:maxLines="1"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textColorHint="@color/pluto___text_dark_40"
             android:textSize="@dimen/pluto___text_small"
             app:layout_constraintEnd_toEndOf="@+id/protocol_label"
             app:layout_constraintStart_toStartOf="@+id/protocol_label"
             app:layout_constraintTop_toBottomOf="@+id/protocol_label" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:layout_marginHorizontal="@dimen/pluto___margin_vxlarge"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/method" />
 
         <TextView
             android:id="@+id/request_time_label"
@@ -202,9 +220,9 @@
             android:text="@string/pluto_network___request_time_label"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/protocol" />
+            app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
         <TextView
             android:id="@+id/requestTime"
@@ -213,8 +231,9 @@
             android:layout_marginHorizontal="@dimen/pluto___margin_large"
             android:layout_marginTop="@dimen/pluto___margin_micro"
             android:fontFamily="@font/muli_light"
-            android:text="@string/pluto_network___waiting_for_response"
-            android:textColor="@color/pluto___text_dark_40"
+            android:hint="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textColorHint="@color/pluto___text_dark_40"
             android:textSize="@dimen/pluto___text_small"
             app:layout_constraintEnd_toEndOf="@+id/request_time_label"
             app:layout_constraintStart_toStartOf="@+id/request_time_label"
@@ -230,7 +249,7 @@
             android:text="@string/pluto_network___response_time_label"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/requestTime" />
 
@@ -241,8 +260,9 @@
             android:layout_marginHorizontal="@dimen/pluto___margin_large"
             android:layout_marginTop="@dimen/pluto___margin_micro"
             android:fontFamily="@font/muli_light"
-            android:text="@string/pluto_network___waiting_for_response"
-            android:textColor="@color/pluto___text_dark_40"
+            android:hint="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textColorHint="@color/pluto___text_dark_40"
             android:textSize="@dimen/pluto___text_small"
             app:layout_constraintEnd_toEndOf="@+id/response_time_label"
             app:layout_constraintStart_toStartOf="@+id/response_time_label"
@@ -258,7 +278,7 @@
             android:text="@string/pluto_network___delay_label"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/responseTime" />
 
@@ -269,12 +289,79 @@
             android:layout_marginHorizontal="@dimen/pluto___margin_large"
             android:layout_marginTop="@dimen/pluto___margin_micro"
             android:fontFamily="@font/muli_light"
-            android:text="@string/pluto_network___waiting_for_response"
-            android:textColor="@color/pluto___text_dark_40"
+            android:hint="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textColorHint="@color/pluto___text_dark_40"
             android:textSize="@dimen/pluto___text_small"
             app:layout_constraintEnd_toEndOf="@+id/delay_label"
             app:layout_constraintStart_toStartOf="@+id/delay_label"
             app:layout_constraintTop_toBottomOf="@+id/delay_label" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:layout_marginHorizontal="@dimen/pluto___margin_vxlarge"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:background="@color/pluto___dark_05"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delay" />
+
+        <TextView
+            android:id="@+id/request_size_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_large"
+            android:layout_marginTop="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___request_size_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <TextView
+            android:id="@+id/requestSize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_semibold"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_small"
+            app:layout_constraintEnd_toEndOf="@+id/request_size_label"
+            app:layout_constraintStart_toStartOf="@+id/request_size_label"
+            app:layout_constraintTop_toBottomOf="@+id/request_size_label"
+            android:text="0 MB" />
+
+        <TextView
+            android:id="@+id/response_size_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pluto___margin_large"
+            android:layout_marginEnd="@dimen/pluto___margin_large"
+            android:fontFamily="@font/muli"
+            android:text="@string/pluto_network___response_size_label"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/center_guideline_left"
+            app:layout_constraintTop_toTopOf="@+id/request_size_label" />
+
+        <TextView
+            android:id="@+id/responseSize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_light"
+            android:hint="@string/pluto_network___waiting_for_response"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textColorHint="@color/pluto___text_dark_40"
+            app:layout_constraintEnd_toEndOf="@+id/response_size_label"
+            app:layout_constraintStart_toStartOf="@+id/response_size_label"
+            app:layout_constraintTop_toBottomOf="@+id/response_size_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
