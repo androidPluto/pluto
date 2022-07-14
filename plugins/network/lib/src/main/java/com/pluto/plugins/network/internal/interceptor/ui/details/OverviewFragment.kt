@@ -15,7 +15,6 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
@@ -25,6 +24,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.plugins.network.internal.mock.logic.MockSettingsViewModel
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 
@@ -70,107 +70,50 @@ internal class OverviewFragment : Fragment(R.layout.pluto_network___fragment_det
         binding.method.setSpan { append(highlight(data.request.method, search)) }
         binding.ssl.setSpan { append(highlight(data.request.url.isHttps.toString(), search)) }
         binding.requestTime.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            data.request.timestamp.asFormattedDate(DATE_FORMAT),
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold(data.request.timestamp.asFormattedDate(DATE_FORMAT)))
+        }
+        binding.requestSize.setSpan {
+            append(semiBold(formatSizeAsBytes(data.request.body?.body?.length?.toLong() ?: 0L)))
         }
         binding.settingStub.copyCurl.setDebounceClickListener {
             contentSharer.share(Shareable(title = "Share Request cURL", content = data.curl, fileName = "cURL Request from Pluto"))
         }
-
         data.exception?.let {
-            handleExceptionUI(it, data, search)
+            handleExceptionUI(it, data)
         }
-
         data.response?.let {
-            handleResponseUI(it, search)
+            handleResponseUI(it)
         }
     }
 
-    private fun handleResponseUI(it: ResponseData, search: String?) {
+    private fun handleResponseUI(it: ResponseData) {
         binding.protocol.setSpan {
-            val protocolSpan = context.createSpan {
-                append(semiBold(fontColor("${it.protocol}", context.color(R.color.pluto___text_dark_80))))
-                append(regular(fontColor(" (${it.protocol.name})", context.color(R.color.pluto___text_dark_60))))
-            }
-            append(highlight(protocolSpan, search))
+            append(semiBold(fontColor("${it.protocol}", context.color(R.color.pluto___text_dark_80))))
+            append(regular(fontColor(" (${it.protocol.name})", context.color(R.color.pluto___text_dark_60))))
         }
         binding.requestTime.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            it.sendTimeMillis.asFormattedDate(DATE_FORMAT),
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold(it.sendTimeMillis.asFormattedDate(DATE_FORMAT)))
         }
         binding.responseTime.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            it.receiveTimeMillis.asFormattedDate(DATE_FORMAT),
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold(it.receiveTimeMillis.asFormattedDate(DATE_FORMAT)))
         }
         binding.delay.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            "${it.receiveTimeMillis - it.sendTimeMillis} ms",
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold("${it.receiveTimeMillis - it.sendTimeMillis} ms"))
+        }
+        binding.responseSize.setSpan {
+            append(semiBold(formatSizeAsBytes(it.body?.body?.length?.toLong() ?: 0L)))
         }
     }
 
-    private fun handleExceptionUI(it: ExceptionData, data: ApiCallData, search: String?) {
-        binding.protocol.text = context?.getString(R.string.pluto_network___na)
+    private fun handleExceptionUI(it: ExceptionData, data: ApiCallData) {
+        binding.protocol.setSpan {
+            append(semiBold(context.getString(R.string.pluto_network___na)))
+        }
         binding.responseTime.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            it.timeStamp.asFormattedDate(DATE_FORMAT),
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold(it.timeStamp.asFormattedDate(DATE_FORMAT)))
         }
         binding.delay.setSpan {
-            append(
-                highlight(
-                    semiBold(
-                        fontColor(
-                            "${it.timeStamp - data.request.timestamp} ms",
-                            context.color(R.color.pluto___text_dark_80)
-                        )
-                    ),
-                    search
-                )
-            )
+            append(semiBold("${it.timeStamp - data.request.timestamp} ms"))
         }
     }
 
@@ -193,12 +136,7 @@ internal class OverviewFragment : Fragment(R.layout.pluto_network___fragment_det
             binding.progress.visibility = GONE
             binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
             binding.status.setSpan {
-                append(
-                    fontColor(
-                        it.name ?: context.getString(R.string.pluto_network___network_state_failed),
-                        context.color(R.color.pluto___red)
-                    )
-                )
+                append(fontColor(it.name ?: context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red)))
             }
             binding.statusView.setBackgroundColor(requireContext().color(R.color.pluto___red_05))
         }

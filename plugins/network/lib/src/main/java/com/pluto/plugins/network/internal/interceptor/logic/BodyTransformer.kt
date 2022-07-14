@@ -9,6 +9,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.core.doUnZipToString
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.FormEncodedTransformer
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.JsonBaseTransformer
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.XmlBaseTransformer
+import java.math.BigDecimal
 import java.nio.charset.Charset
 import okhttp3.HttpUrl
 import okhttp3.RequestBody
@@ -145,6 +146,20 @@ internal fun HttpUrl.hostUrl(): String {
     return hostString.toString()
 }
 
+internal fun formatSizeAsBytes(origin: Long): String {
+    var size = BigDecimal(origin.toString())
+    return if (size < KILO_BYTES) {
+        "$size B"
+    } else {
+        size = size.divide(KILO_BYTES)
+        if (size > KILO_BYTES) {
+            "${size.divide(KILO_BYTES, 2, BigDecimal.ROUND_DOWN)} MB"
+        } else {
+            "${size.setScale(2, BigDecimal.ROUND_DOWN)} KB"
+        }
+    }
+}
+
 internal const val LOGTAG = "pluto_network"
 internal const val BODY_INDENTATION = 2
 private const val BINARY_BODY = "~ Binary Data"
@@ -152,3 +167,4 @@ internal const val BINARY_MEDIA_TYPE = "binary"
 internal val UTF8 = Charset.forName("UTF-8")
 private const val HTTP_PORT = 80
 private const val HTTPS_PORT = 443
+private val KILO_BYTES = BigDecimal("1024")

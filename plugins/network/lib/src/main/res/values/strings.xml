@@ -71,5 +71,7 @@
     <string name="pluto_network___mock_settings_edit">Create Mock Settings</string>
     <string name="pluto_network___mock_edit_note">Changes will be reflected in future API calls</string>
     <string name="pluto_network___share_in_parts">Share in parts</string>
+    <string name="pluto_network___request_size_label">Request Size</string>
+    <string name="pluto_network___response_size_label">Response Size</string>
 
 </resources>
