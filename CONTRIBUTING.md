@@ -7,7 +7,7 @@ When submitting code, please make every effort to follow existing conventions an
 
 Before your code can be accepted into the project you must also sign the [Individual Contributor License Agreement (CLA)][1].
 
-[1]: https://cla-assistant.io/mocklets/pluto -->
+[1]: https://cla-assistant.io/plutolib/pluto -->
 
 
 
@@ -16,7 +16,7 @@ Before your code can be accepted into the project you must also sign the [Indivi
 <!-- If you would like to contribute code to Pluto you can do so through GitHub by forking the repository and sending a pull request. -->
 
 Hers's how you can help
-  - Look for issues marked as [`help wanted`](https://github.com/mocklets/pluto/labels/help%20wanted).
+  - Look for issues marked as [`help wanted`](https://github.com/plutolib/pluto/labels/help%20wanted).
   - Submit a new Plugin, see the [guidelines](/SUBMIT_GUIDELINES.md).
   - While submitting a new PR, make sure tests are all successful. If you think we need any new test, feel free to add new tests.
 
@@ -42,5 +42,5 @@ This will build the library and make sure your CI checks will pass.
 > Before your code can be accepted into the project you must also sign the [Individual Contributor License Agreement (CLA)][1]. You will be prompted to sign the agreement once you raise the pull request.
 > 
 
-[1]: https://cla-assistant.io/mocklets/pluto
+[1]: https://cla-assistant.io/plutolib/pluto
 
