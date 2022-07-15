@@ -15,6 +15,7 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsResponseBinding
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
+import com.pluto.plugins.network.internal.interceptor.logic.MAX_BLOB_LENGTH
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
@@ -79,24 +80,19 @@ internal class ResponseFragment : Fragment(R.layout.pluto_network___fragment_det
             binding.body.setSpan {
                 append(fontColor(italic(context.getString(R.string.pluto_network___processing_body)), context.color(R.color.pluto___text_dark_40)))
             }
+            val bodyLength = data.body?.body?.length ?: 0
+            binding.bodyHeaderAlert.visibility = if (bodyLength > MAX_BLOB_LENGTH) VISIBLE else GONE
             data.body?.let {
                 if (it.isValid) {
                     binding.bodyGroup.visibility = VISIBLE
                     binding.body.setSpan {
                         if (it.isBinary) {
-                            append(fontColor(italic("${it.body}"), context.color(R.color.pluto___text_dark_60)))
+                            append(fontColor(italic(it.body.toString()), context.color(R.color.pluto___text_dark_60)))
                         } else {
-                            if (it.body?.length ?: 0 > MAX_BLOB_LENGTH) {
-                                append(highlight("${it.body?.subSequence(0, MAX_BLOB_LENGTH)}", search))
-                                append("\n\n\t")
-                                append(
-                                    fontColor(
-                                        italic(bold(context.getString(R.string.pluto_network___content_truncated))),
-                                        context.color(R.color.pluto___text_dark_40)
-                                    )
-                                )
+                            if (bodyLength > MAX_BLOB_LENGTH) {
+                                append(it.body.toString())
                             } else {
-                                append(highlight("${it.body}", search))
+                                append(highlight(it.body.toString(), search))
                             }
                         }
                     }
@@ -141,7 +137,6 @@ internal class ResponseFragment : Fragment(R.layout.pluto_network___fragment_det
     }
 
     private companion object {
-        const val MAX_BLOB_LENGTH = 25_000
         const val MAX_STACK_TRACE_LINES = 15
     }
 }

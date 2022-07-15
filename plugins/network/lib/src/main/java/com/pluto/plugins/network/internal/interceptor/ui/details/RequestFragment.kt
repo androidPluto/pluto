@@ -13,6 +13,7 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsRequestBinding
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
+import com.pluto.plugins.network.internal.interceptor.logic.MAX_BLOB_LENGTH
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
@@ -60,12 +61,18 @@ internal class RequestFragment : Fragment(R.layout.pluto_network___fragment_deta
         binding.bodyGroup.visibility = GONE
         data.body?.let {
             if (it.isValid) {
+                val bodyLength = it.body?.length ?: 0
                 binding.bodyGroup.visibility = VISIBLE
+                binding.bodyHeaderAlert.visibility = if (bodyLength > MAX_BLOB_LENGTH) VISIBLE else GONE
                 binding.body.setSpan {
                     if (it.isBinary) {
-                        append(fontColor(italic("${it.body}"), context.color(R.color.pluto___text_dark_60)))
+                        append(fontColor(italic(it.body.toString()), context.color(R.color.pluto___text_dark_60)))
                     } else {
-                        append(highlight("${it.body}", search))
+                        if (bodyLength > MAX_BLOB_LENGTH) {
+                            append(it.body.toString())
+                        } else {
+                            append(highlight(it.body.toString(), search))
+                        }
                     }
                 }
             }

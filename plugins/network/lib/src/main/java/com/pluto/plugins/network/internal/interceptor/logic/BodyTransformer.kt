@@ -168,3 +168,4 @@ internal val UTF8 = Charset.forName("UTF-8")
 private const val HTTP_PORT = 80
 private const val HTTPS_PORT = 443
 private val KILO_BYTES = BigDecimal("1024")
+internal const val MAX_BLOB_LENGTH = 25_000

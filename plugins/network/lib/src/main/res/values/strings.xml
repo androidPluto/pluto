@@ -62,7 +62,6 @@
     <string name="pluto_network___copied_from_mocklets">URL auto filled by Mocklets selection</string>
     <string name="pluto_network___search_network_proxy">Search proxy settings</string>
     <string name="pluto_network___processing_body">~ Laa…aarge response body,\nworking hard to process it…</string>
-    <string name="pluto_network___content_truncated">~~ CONTENT TRUNCATED ~~</string>
     <string name="pluto_network___mock_settings_open">Open Mock Settings</string>
     <string name="pluto_network___mock_settings_list">Mock Settings</string>
     <string name="pluto_network___search_mock_settings">Search Mock Settings</string>
@@ -73,5 +72,6 @@
     <string name="pluto_network___share_in_parts">Share in parts</string>
     <string name="pluto_network___request_size_label">Request Size</string>
     <string name="pluto_network___response_size_label">Response Size</string>
+    <string name="pluto_network___body_title_search_alert">Search is disabled due to large content size.</string>
 
 </resources>

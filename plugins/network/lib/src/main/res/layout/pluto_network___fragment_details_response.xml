@@ -22,14 +22,14 @@
             android:layout_marginTop="@dimen/pluto___margin_medium"
             android:orientation="horizontal"
             android:paddingStart="@dimen/pluto___margin_small"
+            android:paddingLeft="@dimen/pluto___margin_small"
             android:paddingTop="@dimen/pluto___margin_mini"
             android:paddingEnd="@dimen/pluto___margin_medium"
+            android:paddingRight="@dimen/pluto___margin_medium"
             android:paddingBottom="@dimen/pluto___margin_mini"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:paddingLeft="@dimen/pluto___margin_small"
-            android:paddingRight="@dimen/pluto___margin_medium"
             tools:background="@color/pluto___dark_05">
 
             <ProgressBar
@@ -37,11 +37,11 @@
                 android:layout_width="@dimen/pluto___margin_xlarge"
                 android:layout_height="@dimen/pluto___margin_xlarge"
                 android:layout_marginEnd="@dimen/pluto___margin_mini"
+                android:layout_marginRight="@dimen/pluto___margin_mini"
                 android:backgroundTint="@color/pluto___dark_40"
                 android:padding="@dimen/pluto___margin_micro"
                 app:layout_constraintBottom_toBottomOf="@+id/status"
                 app:layout_constraintEnd_toStartOf="@+id/status"
-                android:layout_marginRight="@dimen/pluto___margin_mini"
                 app:layout_constraintTop_toTopOf="@+id/status" />
 
             <TextView
@@ -96,7 +96,6 @@
                 android:id="@+id/headers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textIsSelectable="true"
                 android:fontFamily="@font/muli"
                 android:hint="@string/pluto_network___no_headers"
                 android:lineSpacingExtra="6sp"
@@ -104,7 +103,8 @@
                 android:paddingEnd="@dimen/pluto___margin_medium"
                 android:paddingBottom="@dimen/pluto___margin_small"
                 android:textColor="@color/pluto___text_dark_60"
-                android:textColorHint="@color/pluto___text_dark_40" />
+                android:textColorHint="@color/pluto___text_dark_40"
+                android:textIsSelectable="true" />
 
         </HorizontalScrollView>
 
@@ -114,30 +114,56 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="headerTitle,divider,headersScroll" />
 
-        <TextView
-            android:id="@+id/bodyTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bodyHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/pluto___margin_medium"
             android:background="@drawable/pluto_network___bg_section_header"
-            android:fontFamily="@font/muli_bold"
-            android:lineSpacingExtra="6sp"
             android:paddingStart="@dimen/pluto___margin_medium"
             android:paddingTop="@dimen/pluto___margin_medium"
             android:paddingEnd="@dimen/pluto___margin_medium"
             android:paddingBottom="@dimen/pluto___margin_small"
-            android:text="@string/pluto_network___body_title"
-            android:textAllCaps="true"
-            android:textColor="@color/pluto___text_dark_60"
-            android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintTop_toBottomOf="@+id/headersScroll" />
+            app:layout_constraintTop_toBottomOf="@+id/headersScroll">
+
+            <TextView
+                android:id="@+id/bodyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_bold"
+                android:lineSpacingExtra="6sp"
+                android:text="@string/pluto_network___body_title"
+                android:textAllCaps="true"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_xsmall"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bodyHeaderAlert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pluto___margin_mini"
+                android:drawableStart="@drawable/pluto_network___ic_alert"
+                android:drawableLeft="@drawable/pluto_network___ic_alert"
+                android:drawablePadding="@dimen/pluto___margin_mini"
+                android:fontFamily="@font/muli"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="6sp"
+                android:text="@string/pluto_network___body_title_search_alert"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_mini"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/bodyTitle"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/divider1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/pluto___dp_1"
             android:background="@color/pluto___dark_05"
-            app:layout_constraintTop_toBottomOf="@id/bodyTitle" />
+            app:layout_constraintTop_toBottomOf="@id/bodyHeader" />
 
         <HorizontalScrollView
             android:id="@+id/bodyScroll"
@@ -153,12 +179,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/muli"
-                android:textIsSelectable="true"
                 android:lineSpacingExtra="3sp"
                 android:paddingStart="@dimen/pluto___margin_medium"
                 android:paddingEnd="@dimen/pluto___margin_medium"
                 android:paddingBottom="@dimen/pluto___margin_small"
-                android:textColor="@color/pluto___text_dark_80" />
+                android:textColor="@color/pluto___text_dark_80"
+                android:textIsSelectable="true" />
 
         </HorizontalScrollView>
 
@@ -167,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="bodyTitle,divider1,bodyScroll"
+            app:constraint_referenced_ids="bodyHeader,divider1,bodyScroll"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
