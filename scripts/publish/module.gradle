@@ -63,9 +63,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'https://github.com/mocklets/pluto'
+                        connection = 'https://github.com/plutolib/pluto'
                         developerConnection = 'https://github.com/srtvprateek'
-                        url = 'https://github.com/mocklets/pluto'
+                        url = 'https://github.com/plutolib/pluto'
                     }
                 }
             }

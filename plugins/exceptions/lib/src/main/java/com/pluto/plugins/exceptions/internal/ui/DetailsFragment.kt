@@ -103,7 +103,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (action == "report_crash") {
                 exceptionCipher?.let {
-                    val url = "https://pluto.mocklets.com/exception/$it/a0bbe9cd-2f02-4a12-b7b7-36fce61a6b48"
+                    val url = "https://plutolib.com/exception/$it/a0bbe9cd-2f02-4a12-b7b7-36fce61a6b48"
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(browserIntent)
                 }
