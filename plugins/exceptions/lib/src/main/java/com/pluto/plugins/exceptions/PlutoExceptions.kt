@@ -59,6 +59,10 @@ object PlutoExceptions {
         throw IllegalStateException("UncaughtExceptionHandler cannot be set as Pluto is not initialised.")
     }
 
+    @SuppressWarnings("UnusedPrivateMember", "EmptyFunctionBlock")
+    fun setANRHandler(anrHandler: UncaughtANRHandler) {
+    }
+
     fun getPriorityString(priority: Int) =
         when (priority) {
             Thread.MAX_PRIORITY -> "maximum"

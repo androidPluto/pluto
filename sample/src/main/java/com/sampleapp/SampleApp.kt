@@ -82,5 +82,9 @@ class SampleApp : Application() {
             Log.d("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
             exitProcess(0)
         }
+
+        PlutoExceptions.setANRHandler { thread, exception ->
+            Log.d("anr_demo", "uncaught exception handled on thread: " + thread.name, exception)
+        }
     }
 }
