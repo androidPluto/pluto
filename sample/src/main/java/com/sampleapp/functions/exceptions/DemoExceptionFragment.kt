@@ -27,5 +27,9 @@ class DemoExceptionFragment : Fragment(R.layout.fragment_demo_exception) {
         super.onViewCreated(view, savedInstanceState)
         binding.nullPointer.setOnClickListener { throw NullPointerException("test exception") }
         binding.illegalState.setOnClickListener { throw IllegalStateException("test exception") }
+
+        binding.deadlockCta.setOnClickListener { TestingThreadANR.testDeadLock() }
+        binding.sleepCta.setOnClickListener { TestingThreadANR.testSleep() }
+        binding.infiniteLoopCta.setOnClickListener { TestingThreadANR.testInfiniteLoop() }
     }
 }

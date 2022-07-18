@@ -6,29 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".functions.exceptions.DemoExceptionFragment">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/nullPointer"
+    <TextView
+        android:id="@+id/crashTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Throw NullPointer Exception"
-        android:textAppearance="@style/ChipTextStyle"
-        app:chipEndPadding="16dp"
-        app:chipStartPadding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/illegalState"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/illegalState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Throw Illegal State Exception"
-        android:textAppearance="@style/ChipTextStyle"
-        app:chipEndPadding="16dp"
-        app:chipStartPadding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        android:text="Throw Exceptions"
+        android:textColor="@color/black_80"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/crashGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crashTitle"
+        app:singleLine="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/nullPointer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NullPointer"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crashTitle" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/illegalState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Illegal State"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nullPointer" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/anrTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Generate ANRs"
+        android:textColor="@color/black_80"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crashGroup" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/anrGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anrTitle"
+        app:singleLine="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/deadlockCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deadlock"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/infiniteLoopCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infinite Loop"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sleepCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thread Sleep"
+            android:textAppearance="@style/ChipTextStyle"
+            app:chipEndPadding="16dp"
+            app:chipStartPadding="16dp" />
+
+    </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

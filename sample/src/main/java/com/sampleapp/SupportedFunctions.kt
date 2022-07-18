@@ -14,7 +14,7 @@ class SupportedPlugins private constructor() {
         internal fun get(): List<FunctionsModel> {
             return listOf(
                 FunctionsModel(NETWORK, "Network & API calls"),
-                FunctionsModel(EXCEPTIONS, "Exceptions & Crashes"),
+                FunctionsModel(EXCEPTIONS, "Crashes & ANRs"),
                 FunctionsModel(LOGGER, "Logger"),
                 FunctionsModel(SHARED_PREF, "Shared Preferences"),
                 FunctionsModel(ROOMS_DATABASE, "Rooms Database"),
