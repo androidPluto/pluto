@@ -79,12 +79,12 @@ class SampleApp : Application() {
      */
     private fun setExceptionListener() {
         PlutoExceptions.setExceptionHandler { thread, throwable ->
-            Log.d("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
+            Log.e("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
             exitProcess(0)
         }
 
         PlutoExceptions.setANRHandler { thread, exception ->
-            Log.d("anr_demo", "uncaught exception handled on thread: " + thread.name, exception)
+            Log.e("anr_demo", "uncaught exception handled on thread: " + thread.name, exception)
         }
     }
 }
