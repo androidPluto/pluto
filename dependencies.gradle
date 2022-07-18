@@ -1,0 +1,16 @@
+ext {
+    minSdkVersion = 21
+    targetSdkVersion = 32
+    compileSdkVersion = 32
+    buildToolsVersion = '32.0.0'
+
+    kotlinVersion = '1.5.21'
+    detektVersion = '1.19.0'
+
+    androidXCoreVersion = '1.7.0'
+    okhttpVersion = '4.9.1'
+    roomsVersion = '2.4.1'
+    moshiVersion = '1.13.0'
+    navigationVersion = '2.4.1'
+    composeCompileVersion = '1.1.1'
+}
