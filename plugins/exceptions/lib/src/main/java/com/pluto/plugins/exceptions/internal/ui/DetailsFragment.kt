@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -24,7 +25,6 @@ import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
-import com.pluto.plugins.exceptions.capitalizeText
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentDetailsBinding
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.pluto.plugins.exceptions.internal.ReportData

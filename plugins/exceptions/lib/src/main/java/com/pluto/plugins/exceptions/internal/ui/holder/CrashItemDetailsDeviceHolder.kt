@@ -1,12 +1,12 @@
 package com.pluto.plugins.exceptions.internal.ui.holder
 
 import android.view.ViewGroup
+import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.R
-import com.pluto.plugins.exceptions.capitalizeText
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsDeviceBinding
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 

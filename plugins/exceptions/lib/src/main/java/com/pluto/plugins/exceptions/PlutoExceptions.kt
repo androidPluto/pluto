@@ -1,6 +1,7 @@
 package com.pluto.plugins.exceptions
 
 import android.content.Context
+import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugins.exceptions.internal.CrashHandler
 import com.pluto.plugins.exceptions.internal.Preferences
 import com.pluto.plugins.exceptions.internal.Session
@@ -93,7 +94,3 @@ object PlutoExceptions {
         }
     }
 }
-
-// todo take from plugin
-fun String.capitalizeText(): String =
-    replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
