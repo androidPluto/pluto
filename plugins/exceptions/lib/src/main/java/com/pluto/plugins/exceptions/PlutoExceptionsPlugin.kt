@@ -5,6 +5,7 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.exceptions.internal.BaseFragment
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
 class PlutoExceptionsPlugin(private val identifier: String) : Plugin(identifier) {
     override fun getConfig() = PluginConfiguration(

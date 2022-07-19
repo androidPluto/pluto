@@ -27,7 +27,7 @@ import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentDetailsBinding
 import com.pluto.plugins.exceptions.internal.ReportData
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.net.URLEncoder

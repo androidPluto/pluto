@@ -1,4 +1,4 @@
-package com.pluto.plugins.exceptions.internal
+package com.pluto.plugins.exceptions.internal.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context

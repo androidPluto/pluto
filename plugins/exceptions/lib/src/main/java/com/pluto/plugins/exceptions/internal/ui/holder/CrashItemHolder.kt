@@ -11,7 +11,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashBinding
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 internal class CrashItemHolder(
     parent: ViewGroup,

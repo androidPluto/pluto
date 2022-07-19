@@ -1,7 +1,7 @@
-package com.pluto.plugins.exceptions.internal
+package com.pluto.plugins.exceptions.internal.crash
 
 import android.content.Context
-import com.pluto.plugins.exceptions.ExceptionDBHandler
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
 internal class CrashHandler(context: Context) : Thread.UncaughtExceptionHandler {
 

@@ -1,9 +1,10 @@
 package com.pluto.plugins.exceptions
 
 import android.content.Context
-import com.pluto.plugins.exceptions.internal.CrashHandler
 import com.pluto.plugins.exceptions.internal.Session
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor
+import com.pluto.plugins.exceptions.internal.crash.CrashHandler
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
 object PlutoExceptions {
 

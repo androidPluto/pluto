@@ -7,7 +7,7 @@ import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionData
 import com.pluto.plugins.exceptions.internal.ThreadData
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsDeviceHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsHeaderHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadHolder

@@ -1,4 +1,4 @@
-package com.pluto.plugins.exceptions.internal
+package com.pluto.plugins.exceptions.internal.crash
 
 import android.app.Notification
 import android.app.NotificationChannel

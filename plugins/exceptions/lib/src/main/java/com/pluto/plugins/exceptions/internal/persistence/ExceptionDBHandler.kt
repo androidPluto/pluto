@@ -1,17 +1,14 @@
-package com.pluto.plugins.exceptions
+package com.pluto.plugins.exceptions.internal.persistence
 
 import android.content.Context
 import androidx.annotation.Keep
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
-import com.pluto.plugins.exceptions.internal.Preferences
 import com.pluto.plugins.exceptions.internal.asDeviceInfo
 import com.pluto.plugins.exceptions.internal.asExceptionData
 import com.pluto.plugins.exceptions.internal.asThreadData
-import com.pluto.plugins.exceptions.internal.dao.ExceptionDao
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
-import com.pluto.plugins.exceptions.internal.dao.database.DatabaseManager
+import com.pluto.plugins.exceptions.internal.persistence.database.DatabaseManager
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi

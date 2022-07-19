@@ -24,7 +24,7 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentListBinding
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
 

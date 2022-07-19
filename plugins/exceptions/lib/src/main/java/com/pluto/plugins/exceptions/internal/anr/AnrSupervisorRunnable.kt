@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.exceptions.ANRException
-import com.pluto.plugins.exceptions.ExceptionDBHandler
 import com.pluto.plugins.exceptions.UncaughtANRHandler
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_THREAD_NAME
@@ -14,6 +13,7 @@ import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_TH
 import com.pluto.plugins.exceptions.internal.asExceptionData
 import com.pluto.plugins.exceptions.internal.asThreadData
 import com.pluto.plugins.exceptions.internal.extensions.wait
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
 /**
  * A [Runnable] testing the UI thread every 10s until [ ][.stop] is called

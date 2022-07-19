@@ -1,4 +1,4 @@
-package com.pluto.plugins.exceptions.internal.dao
+package com.pluto.plugins.exceptions.internal.persistence
 
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo
