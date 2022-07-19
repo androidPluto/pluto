@@ -27,4 +27,6 @@
     <string name="pluto_excep___invalid_id">Invalid Crash id</string>
     <string name="pluto_excep___loading_crashes">Loading Crashes &amp; ANRs</string>
     <string name="pluto_excep___thread_states_label">Thread States</string>
+    <string name="pluto_excep___anr_list_message">Main thread unresponsive for +%d ms</string>
+    <string name="pluto_excep___anr_list_title">ANR detected</string>
 </resources>

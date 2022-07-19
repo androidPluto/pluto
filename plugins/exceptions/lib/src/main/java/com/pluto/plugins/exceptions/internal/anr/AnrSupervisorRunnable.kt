@@ -91,7 +91,7 @@ internal class AnrSupervisorRunnable : Runnable {
             timestamp = System.currentTimeMillis(),
             exception = ExceptionAllData(
                 thread = thread.asThreadData(),
-                exception = exception.asExceptionData(),
+                exception = exception.asExceptionData(isANR = true),
                 threadStateList = ThreadStates(exception.threadStateList)
             )
         )
