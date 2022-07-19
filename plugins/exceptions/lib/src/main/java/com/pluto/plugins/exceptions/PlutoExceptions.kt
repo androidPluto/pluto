@@ -23,7 +23,7 @@ object PlutoExceptions {
         Thread.setDefaultUncaughtExceptionHandler(crashHandler)
     }
 
-    @Deprecated("global level plugin options are no longer supported", ReplaceWith("setCrashHandler()"))
+    @Deprecated("please use setCrashHandler()", ReplaceWith("setCrashHandler()"))
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
         this.crashHandler?.let {
             it.setExceptionHandler(uncaughtExceptionHandler)
