@@ -1,5 +1,7 @@
 package com.pluto.plugins.exceptions.internal.anr
 
+import com.pluto.plugins.exceptions.internal.extensions.notifyAll
+
 /**
  * A [Runnable] which calls [.notifyAll] when run.
  */

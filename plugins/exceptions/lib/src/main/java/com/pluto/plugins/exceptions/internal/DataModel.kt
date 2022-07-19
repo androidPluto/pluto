@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.BuildConfig
+import com.pluto.plugins.exceptions.internal.extensions.getPriorityString
 import com.squareup.moshi.JsonClass
 
 @Keep
@@ -11,7 +12,6 @@ import com.squareup.moshi.JsonClass
 internal data class ExceptionAllData(
     val thread: ThreadData? = null,
     val exception: ExceptionData,
-    val device: DeviceInfo,
     val threadStateList: ThreadStates? = null
 )
 
@@ -24,7 +24,9 @@ internal data class ThreadData(
     val isDaemon: Boolean,
     val state: String,
     val group: ThreadGroupData?
-) : ListItem()
+) : ListItem() {
+    val priorityString: String = getPriorityString(priority)
+}
 
 @Keep
 @JsonClass(generateAdapter = true)
@@ -77,14 +79,14 @@ internal data class DeviceInfo(
     val screenOrientation: String
 ) : ListItem()
 
-internal fun Throwable.asExceptionData(/*isANR: Boolean = false*/): ExceptionData {
+internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
     return ExceptionData(
         name = this.toString().replace(": $message", "", true),
         message = message,
         stackTrace = stackTrace.asStringArray(),
         file = stackTrace.getOrNull(0)?.fileName,
         lineNumber = stackTrace.getOrNull(0)?.lineNumber ?: Int.MIN_VALUE,
-//        isANRException = isANR
+        isANRException = isANR
     )
 }
 

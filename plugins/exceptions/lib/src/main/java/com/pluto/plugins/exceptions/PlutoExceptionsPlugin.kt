@@ -28,6 +28,7 @@ class PlutoExceptionsPlugin(private val identifier: String) : Plugin(identifier)
     }
 
     override fun onPluginInstalled() {
+        ExceptionDBHandler.initialize(context)
         PlutoExceptions.initialize(context, identifier)
     }
 }

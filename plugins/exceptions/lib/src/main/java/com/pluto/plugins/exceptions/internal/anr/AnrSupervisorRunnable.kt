@@ -4,11 +4,16 @@ import android.os.Handler
 import android.os.Looper
 import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.exceptions.ANRException
+import com.pluto.plugins.exceptions.ExceptionDBHandler
 import com.pluto.plugins.exceptions.UncaughtANRHandler
+import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_THREAD_NAME
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_TIMEOUT
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.LOGTAG
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
+import com.pluto.plugins.exceptions.internal.asExceptionData
+import com.pluto.plugins.exceptions.internal.asThreadData
+import com.pluto.plugins.exceptions.internal.extensions.wait
 
 /**
  * A [Runnable] testing the UI thread every 10s until [ ][.stop] is called
@@ -56,6 +61,8 @@ internal class AnrSupervisorRunnable : Runnable {
                     if (!callback.isCalled) {
                         val e = ANRException(mHandler.looper.thread)
                         anrHandler?.uncaughtANR(mHandler.looper.thread, e)
+                        persistException(mHandler.looper.thread, e)
+//                        ExceptionDBHandler.persist(e.asExceptionData())
                         // todo save exception to db
                         // Pluto.exceptionRepo.saveANR(e)
                         /** Wait until the thread responds again */
@@ -76,6 +83,16 @@ internal class AnrSupervisorRunnable : Runnable {
         // Set stop completed flag
         isStopped = true
         DebugLog.d(LOGTAG, "ANR supervision stopped")
+    }
+
+    private fun persistException(thread: Thread, exception: ANRException) {
+        ExceptionDBHandler.persist(
+            timestamp = System.currentTimeMillis(),
+            exception = ExceptionAllData(
+                thread = thread.asThreadData(),
+                exception = exception.asExceptionData()
+            )
+        )
     }
 
     @Synchronized

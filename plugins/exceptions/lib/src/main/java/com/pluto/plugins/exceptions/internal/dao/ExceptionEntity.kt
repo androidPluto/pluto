@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.squareup.moshi.JsonClass
 
@@ -20,5 +21,7 @@ internal data class ExceptionEntity(
     @ColumnInfo(name = "timestamp")
     val timestamp: Long,
     @ColumnInfo(name = "data")
-    val data: ExceptionAllData
+    val data: ExceptionAllData,
+    @ColumnInfo(name = "device")
+    val device: DeviceInfo
 ) : ListItem()

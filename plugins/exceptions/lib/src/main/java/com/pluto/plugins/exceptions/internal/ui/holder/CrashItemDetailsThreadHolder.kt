@@ -7,7 +7,6 @@ import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.spannable.setSpan
-import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadBinding
 import com.pluto.plugins.exceptions.internal.ThreadData
@@ -31,7 +30,7 @@ internal class CrashItemDetailsThreadHolder(
                     fontColor("(thread id: ${item.id})", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
                 )
             }
-            priority.text = PlutoExceptions.getPriorityString(item.priority)
+            priority.text = item.priorityString
             daemon.text = item.isDaemon.toString()
             state.text = item.state
         }
