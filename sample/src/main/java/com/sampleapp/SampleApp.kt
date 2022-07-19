@@ -78,7 +78,7 @@ class SampleApp : Application() {
      * Exception handler
      */
     private fun setExceptionListener() {
-        PlutoExceptions.setCrashHandler { thread, throwable ->
+        PlutoExceptions.setExceptionHandler { thread, throwable ->
             Log.e("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
             exitProcess(0)
         }

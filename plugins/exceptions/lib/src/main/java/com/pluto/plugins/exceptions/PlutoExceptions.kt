@@ -23,16 +23,7 @@ object PlutoExceptions {
         Thread.setDefaultUncaughtExceptionHandler(crashHandler)
     }
 
-    @Deprecated("please use setCrashHandler()", ReplaceWith("setCrashHandler()"))
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
-        this.crashHandler?.let {
-            it.setExceptionHandler(uncaughtExceptionHandler)
-            return
-        }
-        throw IllegalStateException("UncaughtExceptionHandler cannot be set as Pluto is not initialised.")
-    }
-
-    fun setCrashHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
         this.crashHandler?.let {
             it.setExceptionHandler(uncaughtExceptionHandler)
             return
