@@ -113,8 +113,8 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
     private val exceptionObserver = Observer<ExceptionEntity> {
         val list = arrayListOf<ListItem>()
         list.add(it.data.exception)
-//        it.data.threadStateList?.let { states -> list.add(states) }
-//        it.data.thread?.let { thread -> list.add(thread) }
+        it.data.threadStateList?.let { states -> list.add(states) }
+        it.data.thread?.let { thread -> list.add(thread) }
         list.add(it.device)
 
         crashAdapter.list = list

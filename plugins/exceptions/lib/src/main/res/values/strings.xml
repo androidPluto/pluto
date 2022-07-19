@@ -26,4 +26,5 @@
     <string name="pluto_excep___crash_report_subtitle">Tap here to report this crash to us, so that you don\'t have to face this crash again.</string>
     <string name="pluto_excep___invalid_id">Invalid Crash id</string>
     <string name="pluto_excep___loading_crashes">Loading Crashes &amp; ANRs</string>
+    <string name="pluto_excep___thread_states_label">Thread States</string>
 </resources>

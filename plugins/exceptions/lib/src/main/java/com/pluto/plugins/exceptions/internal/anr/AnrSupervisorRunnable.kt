@@ -6,6 +6,7 @@ import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.exceptions.ANRException
 import com.pluto.plugins.exceptions.UncaughtANRHandler
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
+import com.pluto.plugins.exceptions.internal.ThreadStates
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_THREAD_NAME
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_TIMEOUT
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.LOGTAG
@@ -90,7 +91,8 @@ internal class AnrSupervisorRunnable : Runnable {
             timestamp = System.currentTimeMillis(),
             exception = ExceptionAllData(
                 thread = thread.asThreadData(),
-                exception = exception.asExceptionData()
+                exception = exception.asExceptionData(),
+                threadStateList = ThreadStates(exception.threadStateList)
             )
         )
     }
