@@ -84,8 +84,37 @@
             android:gravity="center"
             android:text="@string/pluto_excep___no_crashes_text"
             android:textColor="@color/pluto___text_dark_40"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/bottom"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="@dimen/pluto___margin_vvlarge"
+            android:layout_height="@dimen/pluto___margin_vvlarge"
+            android:backgroundTint="@color/pluto___dark_40"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/pluto___dark_40"
+            app:layout_constraintBottom_toTopOf="@+id/loaderText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/loaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:gravity="center"
+            android:text="@string/pluto_excep___loading_crashes"
+            android:textColor="@color/pluto___text_dark_40"
+            app:layout_constraintBottom_toTopOf="@+id/bottom"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/loaderGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="loader,loaderText" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom"

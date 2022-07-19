@@ -3,7 +3,7 @@
     <string name="pluto_excep___plugin_name">Crashes &amp; ANRs</string>
     <string name="pluto_excep___notification_title">Pluto detected a crash in %s</string>
     <string name="pluto_excep___notification_subtitle">Tap here to see crash details.</string>
-    <string name="pluto_excep___no_crashes_text">No Crashes.</string>
+    <string name="pluto_excep___no_crashes_text">No Crashes or ANRs.</string>
     <string name="pluto_excep___search_crash">Search Exceptions</string>
     <string name="pluto_excep___delete_crashes">Delete All Crashes</string>
     <string name="pluto_excep___no_search_result">No search result found.</string>
@@ -25,4 +25,5 @@
     <string name="pluto_excep___crash_report_title">Oops! this looks like our miss.</string>
     <string name="pluto_excep___crash_report_subtitle">Tap here to report this crash to us, so that you don\'t have to face this crash again.</string>
     <string name="pluto_excep___invalid_id">Invalid Crash id</string>
+    <string name="pluto_excep___loading_crashes">Loading Crashes &amp; ANRs</string>
 </resources>
