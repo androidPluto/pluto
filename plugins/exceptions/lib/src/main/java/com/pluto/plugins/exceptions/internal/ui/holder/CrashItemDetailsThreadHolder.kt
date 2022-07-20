@@ -6,7 +6,8 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.spannable.setSpan
+import com.pluto.plugin.utilities.spannable.createSpan
+import com.pluto.plugin.utilities.views.KeyValuePairView
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadBinding
 import com.pluto.plugins.exceptions.internal.ThreadData
@@ -17,22 +18,52 @@ internal class CrashItemDetailsThreadHolder(
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_excep___item_crash_details_thread), actionListener) {
 
     private val binding = PlutoExcepItemCrashDetailsThreadBinding.bind(itemView)
-    private val name = binding.name
-    private val priority = binding.priority
-    private val daemon = binding.daemon
-    private val state = binding.state
 
     override fun onBind(item: ListItem) {
         if (item is ThreadData) {
-            name.setSpan {
-                append("${item.name.uppercase()}   ")
-                append(
-                    fontColor("(thread id: ${item.id})", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
-                )
-            }
-            priority.text = item.priorityString
-            daemon.text = item.isDaemon.toString()
-            state.text = item.state
+            binding.container.addView(
+                KeyValuePairView(context).apply {
+                    set(
+                        "Name",
+                        context.createSpan {
+                            append("${item.name.uppercase()}\t")
+                            append(
+                                fontColor("(id: ${item.id})", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
+                            )
+                        }
+                    )
+                }
+            )
+            binding.container.addView(
+                KeyValuePairView(context).apply {
+                    set(
+                        "Priority",
+                        context.createSpan {
+                            append(item.priorityString)
+                        }
+                    )
+                }
+            )
+            binding.container.addView(
+                KeyValuePairView(context).apply {
+                    set(
+                        "Is Daemon",
+                        context.createSpan {
+                            append(bold(item.isDaemon.toString()))
+                        }
+                    )
+                }
+            )
+            binding.container.addView(
+                KeyValuePairView(context).apply {
+                    set(
+                        "State",
+                        context.createSpan {
+                            append(item.state)
+                        }
+                    )
+                }
+            )
         }
     }
 }
