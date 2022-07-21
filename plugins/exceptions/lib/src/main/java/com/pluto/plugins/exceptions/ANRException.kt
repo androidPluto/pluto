@@ -11,12 +11,12 @@ import java.util.Locale
 class ANRException(thread: Thread) : Exception("ANR detected") {
 
     val threadStateMap: String
+        get() = generateProcessMap()
     internal val threadStateList: List<ProcessThread>
+        get() = generateProcessList()
 
     init {
         stackTrace = thread.stackTrace
-        threadStateMap = generateProcessMap()
-        threadStateList = generateProcessList()
     }
 
     /**
