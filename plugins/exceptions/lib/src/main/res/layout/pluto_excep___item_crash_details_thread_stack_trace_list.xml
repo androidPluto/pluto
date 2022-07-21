@@ -16,6 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli_semibold"
+        android:gravity="center_vertical"
         android:lineSpacingExtra="6sp"
         android:paddingHorizontal="@dimen/pluto___margin_medium"
         android:paddingVertical="@dimen/pluto___margin_small"
@@ -23,7 +24,7 @@
         android:maxLines="1"
         android:text="@string/pluto_excep___thread_state_label"
         android:textColor="@color/pluto___text_dark_80"
-        android:textSize="@dimen/pluto___text_xsmall"
+        android:textSize="@dimen/pluto___text_small"
         app:layout_constraintEnd_toStartOf="@+id/threadState"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +32,7 @@
     <TextView
         android:id="@+id/threadState"
         android:layout_width="wrap_content"
+        android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli"
         android:lineSpacingExtra="6sp"
