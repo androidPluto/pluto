@@ -1,11 +1,14 @@
 package com.pluto.plugins.exceptions.internal.ui.holder
 
 import android.view.ViewGroup
+import androidx.appcompat.widget.LinearLayoutCompat
 import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.spannable.createSpan
+import com.pluto.plugin.utilities.views.KeyValuePairView
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsDeviceBinding
 import com.pluto.plugins.exceptions.internal.DeviceInfo
@@ -17,31 +20,77 @@ internal class CrashItemDetailsDeviceHolder(
 
     private val binding = PlutoExcepItemCrashDetailsDeviceBinding.bind(itemView)
 
-    private val appVersion = binding.appVersion
-    private val androidOS = binding.androidOS
-    private val androidAPI = binding.androidAPILevel
-    private val orientation = binding.orientation
-    private val rooted = binding.rooted
-
-    private val height = binding.deviceHeight
-    private val width = binding.deviceWidth
-    private val density = binding.density
-    private val size = binding.size
-    private val build = binding.build
-
     override fun onBind(item: ListItem) {
         if (item is DeviceInfo) {
-            item.appVersionName.let { appVersion.text = "$it (${item.appVersionCode})" }
-            androidOS.text = item.androidOs
-            androidAPI.text = item.androidAPILevel
-            orientation.text = item.screenOrientation.capitalizeText()
-            rooted.text = item.isRooted.toString()
-
-            build.text = "${item.buildBrand?.capitalizeText()} ${item.buildModel}"
-            height.text = "${item.screenHeightPx} px"
-            width.text = "${item.screenWidthPx} px"
-            density.text = "${item.screenDensityDpi} dpi"
-            size.text = "${item.screenSizeInch} inches"
+            binding.appContainer.setupAppStateUI(item)
+            binding.deviceContainer.setupDeviceInfoUI(item)
         }
+    }
+
+    private fun LinearLayoutCompat.setupAppStateUI(item: DeviceInfo) {
+        addView(
+            KeyValuePairView(context).apply {
+                set(
+                    "App Version",
+                    context.createSpan {
+                        append(semiBold(item.appVersionName))
+                        append(" (${item.appVersionCode})")
+                    }
+                )
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Android OS", item.androidOs)
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Android API Level", item.androidAPILevel)
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Orientation", item.screenOrientation.capitalizeText())
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set(
+                    "Is Rooted",
+                    context.createSpan {
+                        append(bold(item.isRooted.toString()))
+                    }
+                )
+            }
+        )
+    }
+
+    private fun LinearLayoutCompat.setupDeviceInfoUI(item: DeviceInfo) {
+        addView(
+            KeyValuePairView(context).apply {
+                set("Model", "${item.buildBrand?.capitalizeText()} ${item.buildModel}")
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Height", "${item.screenHeightPx} px")
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Width", "${item.screenWidthPx} px")
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Density", "${item.screenDensityDpi} dpi")
+            }
+        )
+        addView(
+            KeyValuePairView(context).apply {
+                set("Screen Size", "${item.screenSizeInch} inches")
+            }
+        )
     }
 }

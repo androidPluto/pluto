@@ -14,7 +14,7 @@
     <string name="pluto_excep___android_api_level_label">Android API Level</string>
     <string name="pluto_excep___orientation_label">Orientation</string>
     <string name="pluto_excep___rooted_label">is_Rooted</string>
-    <string name="pluto_excep___device_label">Device Info</string>
+    <string name="pluto_excep___device_label">Device Information</string>
     <string name="pluto_excep___height_label">Height</string>
     <string name="pluto_excep___width_label">Width</string>
     <string name="pluto_excep___density_label">Density</string>
