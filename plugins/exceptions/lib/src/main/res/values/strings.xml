@@ -33,4 +33,5 @@
     <string name="pluto_excep___anr_list_message">Main thread unresponsive for +%d ms</string>
     <string name="pluto_excep___anr_list_title">ANR detected</string>
     <string name="pluto_excep___thread_stack_traces_description">Look for threads in <b>BLOCKED</b> state.</string>
+    <string name="pluto_excep___filter">Filter</string>
 </resources>

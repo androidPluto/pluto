@@ -106,7 +106,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(browserIntent)
                 }
-                "thread_stack_trace" -> {}
+                "thread_stack_trace" -> findNavController().navigate(R.id.openStackTrace)
             }
         }
     }

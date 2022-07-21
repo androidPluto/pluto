@@ -97,7 +97,7 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
                 requireActivity().hideKeyboard()
                 if (data.id != null) {
                     viewModel.fetch(data.id)
-                    findNavController().navigate(R.id.detailsView)
+                    findNavController().navigate(R.id.openDetails)
                 } else {
                     requireContext().toast(getString(R.string.pluto_excep___invalid_id))
                 }
