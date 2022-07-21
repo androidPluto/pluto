@@ -11,6 +11,7 @@ import com.pluto.plugin.utilities.views.KeyValuePairView
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadBinding
 import com.pluto.plugins.exceptions.internal.ThreadData
+import com.pluto.plugins.exceptions.internal.getStateStringSpan
 
 internal class CrashItemDetailsThreadHolder(
     parent: ViewGroup,
@@ -58,9 +59,7 @@ internal class CrashItemDetailsThreadHolder(
                 KeyValuePairView(context).apply {
                     set(
                         context.getString(R.string.pluto_excep___thread_run_state_label),
-                        context.createSpan {
-                            append(item.state)
-                        }
+                        getStateStringSpan(context, item.state)
                     )
                 }
             )

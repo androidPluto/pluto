@@ -1,9 +1,13 @@
 package com.pluto.plugins.exceptions.internal
 
+import android.content.Context
 import androidx.annotation.Keep
 import com.pluto.plugin.utilities.device.Device
+import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.exceptions.BuildConfig
+import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.internal.extensions.getPriorityString
 import com.squareup.moshi.JsonClass
 
@@ -139,6 +143,25 @@ private fun ThreadGroup?.convert(): ThreadGroupData? {
         )
     }
     return null
+}
+
+internal fun getStateStringSpan(context: Context, state: String): CharSequence? {
+    return context.createSpan {
+        append(
+            bold(
+                fontColor(
+                    state.uppercase(),
+                    context.color(
+                        when (state) {
+                            Thread.State.BLOCKED.name -> R.color.pluto___red_dark
+                            Thread.State.WAITING.name -> R.color.pluto___orange
+                            else -> R.color.pluto___text_dark_80
+                        }
+                    )
+                )
+            )
+        )
+    }
 }
 
 @Keep

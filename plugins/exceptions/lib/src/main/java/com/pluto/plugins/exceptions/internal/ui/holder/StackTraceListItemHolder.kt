@@ -2,6 +2,7 @@ package com.pluto.plugins.exceptions.internal.ui.holder
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.extensions.color
+import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
@@ -10,8 +11,9 @@ import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadStackTraceListBinding
 import com.pluto.plugins.exceptions.internal.ProcessThread
+import com.pluto.plugins.exceptions.internal.getStateStringSpan
 
-internal class CrashItemDetailsThreadStackTraceListHolder(
+internal class StackTraceListItemHolder(
     parent: ViewGroup,
     actionListener: DiffAwareAdapter.OnActionListener
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto_excep___item_crash_details_thread_stack_trace_list), actionListener) {
@@ -20,23 +22,23 @@ internal class CrashItemDetailsThreadStackTraceListHolder(
 
     override fun onBind(item: ListItem) {
         if (item is ProcessThread) {
+            binding.thread.text = item.name
+            binding.thread.setCompoundDrawablesWithIntrinsicBounds(
+                if (item.name == "main") R.drawable.pluto_excep___ic_main_thread else R.drawable.pluto_excep___ic_non_main_thread,
+                0, 0, 0
+            )
+            binding.thread.compoundDrawablePadding = 8f.dp.toInt()
+            binding.threadState.text = getStateStringSpan(context, item.state)
             binding.stackTrace.setSpan {
-                append(
-                    fontColor(
-                        semiBold("${item.name} (${item.state.uppercase()})"),
-                        context.color(if (item.state == Thread.State.BLOCKED.name) R.color.pluto___red else R.color.pluto___text_dark_80)
-                    )
-                )
                 item.stackTrace.take(MAX_STACK_TRACE_LINES).forEach {
-                    append("\n\t")
                     append(fontColor(" at  ", context.color(R.color.pluto___text_dark_40)))
-                    append(it)
+                    append("$it\n")
                 }
                 val extraTrace = item.stackTrace.size - MAX_STACK_TRACE_LINES
                 if (extraTrace > 0) {
                     append(
                         fontColor(
-                            "\n\t + $extraTrace more lines", context.color(R.color.pluto___text_dark_40)
+                            "\t + $extraTrace more lines\n", context.color(R.color.pluto___text_dark_40)
                         )
                     )
                 }
