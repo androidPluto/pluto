@@ -31,7 +31,7 @@ internal class CrashItemDetailsDeviceHolder(
         addView(
             KeyValuePairView(context).apply {
                 set(
-                    "App Version",
+                    context.getString(R.string.pluto_excep___app_version_label),
                     context.createSpan {
                         append(semiBold(item.appVersionName))
                         append(" (${item.appVersionCode})")
@@ -41,23 +41,23 @@ internal class CrashItemDetailsDeviceHolder(
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Android OS", item.androidOs)
+                set(context.getString(R.string.pluto_excep___android_os_label), item.androidOs)
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Android API Level", item.androidAPILevel)
+                set(context.getString(R.string.pluto_excep___android_api_level_label), item.androidAPILevel)
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Orientation", item.screenOrientation.capitalizeText())
+                set(context.getString(R.string.pluto_excep___orientation_label), item.screenOrientation.capitalizeText())
             }
         )
         addView(
             KeyValuePairView(context).apply {
                 set(
-                    "Is Rooted",
+                    context.getString(R.string.pluto_excep___rooted_label),
                     context.createSpan {
                         append(bold(item.isRooted.toString()))
                     }
@@ -69,27 +69,27 @@ internal class CrashItemDetailsDeviceHolder(
     private fun LinearLayoutCompat.setupDeviceInfoUI(item: DeviceInfo) {
         addView(
             KeyValuePairView(context).apply {
-                set("Model", "${item.buildBrand?.capitalizeText()} ${item.buildModel}")
+                set(context.getString(R.string.pluto_excep___model_label), "${item.buildBrand?.capitalizeText()} ${item.buildModel}")
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Height", "${item.screenHeightPx} px")
+                set(context.getString(R.string.pluto_excep___height_label), "${item.screenHeightPx} px")
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Width", "${item.screenWidthPx} px")
+                set(context.getString(R.string.pluto_excep___width_label), "${item.screenWidthPx} px")
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Density", "${item.screenDensityDpi} dpi")
+                set(context.getString(R.string.pluto_excep___density_label), "${item.screenDensityDpi} dpi")
             }
         )
         addView(
             KeyValuePairView(context).apply {
-                set("Screen Size", "${item.screenSizeInch} inches")
+                set(context.getString(R.string.pluto_excep___size_label), "${item.screenSizeInch} inches")
             }
         )
     }

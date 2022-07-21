@@ -24,7 +24,7 @@ internal class CrashItemDetailsThreadHolder(
             binding.container.addView(
                 KeyValuePairView(context).apply {
                     set(
-                        "Name",
+                        context.getString(R.string.pluto_excep___thread_name_label),
                         context.createSpan {
                             append("${item.name.uppercase()}\t")
                             append(
@@ -37,7 +37,7 @@ internal class CrashItemDetailsThreadHolder(
             binding.container.addView(
                 KeyValuePairView(context).apply {
                     set(
-                        "Priority",
+                        context.getString(R.string.pluto_excep___priority_label),
                         context.createSpan {
                             append(item.priorityString)
                         }
@@ -47,7 +47,7 @@ internal class CrashItemDetailsThreadHolder(
             binding.container.addView(
                 KeyValuePairView(context).apply {
                     set(
-                        "Is Daemon",
+                        context.getString(R.string.pluto_excep___daemon_label),
                         context.createSpan {
                             append(bold(item.isDaemon.toString()))
                         }
@@ -57,7 +57,7 @@ internal class CrashItemDetailsThreadHolder(
             binding.container.addView(
                 KeyValuePairView(context).apply {
                     set(
-                        "State",
+                        context.getString(R.string.pluto_excep___thread_run_state_label),
                         context.createSpan {
                             append(item.state)
                         }
