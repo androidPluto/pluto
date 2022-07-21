@@ -55,60 +55,90 @@
                 android:fontFamily="@font/muli_bold"
                 android:gravity="center"
                 android:paddingStart="@dimen/pluto___margin_small"
-                android:paddingEnd="@dimen/pluto___margin_small"
-                android:src="@drawable/pluto_excep___ic_share"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:textColor="@color/pluto___text_dark_80"
-                android:textSize="@dimen/pluto___text_small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/divider"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@+id/close"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="@dimen/pluto___dp_1"
-                android:layout_height="0dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="18dp"
-                android:background="@color/pluto___white_20"
-                android:elevation="@dimen/pluto___margin_mini"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/filter"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/filter"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center"
-                android:paddingStart="@dimen/pluto___margin_small"
-                android:paddingLeft="@dimen/pluto___margin_small"
                 android:paddingEnd="@dimen/pluto___margin_medium"
-                android:paddingRight="@dimen/pluto___margin_medium"
-                android:src="@drawable/pluto_excep___ic_filter_light"
+                android:src="@drawable/pluto_excep___ic_share"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@+id/close"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/pluto_excep___item_crash" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/filterViewTopDivider"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/pluto_excep___item_crash" />
+
+        <View
+            android:id="@+id/filterViewTopDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/pluto___dark_20"
+            app:layout_constraintBottom_toTopOf="@+id/footerView" />
+
+        <View
+            android:id="@+id/footerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/pluto___section_color"
+            app:layout_constraintBottom_toBottomOf="@+id/filterDescription"
+            app:layout_constraintTop_toTopOf="@+id/filterDescription" />
+
+        <TextView
+            android:id="@+id/filterDescription"
+            android:layout_width="0dp"
+            android:drawableStart="@drawable/pluto_excep___ic_filter"
+            android:drawableLeft="@drawable/pluto_excep___ic_filter"
+            android:drawablePadding="@dimen/pluto___margin_mini"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_semibold"
+            android:gravity="center_vertical"
+            android:padding="@dimen/pluto___margin_medium"
+            android:text="@string/pluto_excep___trace_filter_text"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/filterCta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/filterCta"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:drawableEnd="@drawable/pluto_excep___ic_dropdown_cta"
+            android:drawableRight="@drawable/pluto_excep___ic_dropdown_cta"
+            android:drawablePadding="@dimen/pluto___margin_micro"
+            android:fontFamily="@font/muli_bold"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:padding="@dimen/pluto___margin_medium"
+            android:text="All Traces"
+            android:textAllCaps="true"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintBottom_toBottomOf="@+id/filterDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/filterDescription"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

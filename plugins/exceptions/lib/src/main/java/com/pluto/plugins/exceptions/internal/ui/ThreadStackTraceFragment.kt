@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
@@ -49,6 +50,19 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
         }
         binding.close.setDebounceClickListener {
             activity?.onBackPressed()
+        }
+
+        binding.filterCta.setDebounceClickListener {
+            context?.showMoreOptions(it, R.menu.pluto_excep___menu_stack_trace_filter) { item ->
+                val filterValue: String? = when (item.itemId) {
+                    R.id.filterBlocked -> "blocked"
+                    R.id.filterWaiting -> "waiting"
+                    R.id.filterTimedWaiting -> "timed_waiting"
+                    R.id.filterRunnable -> "runnable"
+                    else -> null
+                }
+                binding.filterCta.text = filterValue ?: "all traces"
+            }
         }
         binding.share.setDebounceClickListener {
             viewModel.currentException.value?.data?.threadStateList?.let {
