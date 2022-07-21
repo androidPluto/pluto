@@ -47,6 +47,6 @@ internal class StackTraceListItemHolder(
     }
 
     companion object {
-        const val MAX_STACK_TRACE_LINES = 10
+        internal const val MAX_STACK_TRACE_LINES = 10
     }
 }

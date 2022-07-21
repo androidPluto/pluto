@@ -15,18 +15,22 @@ import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentThreadStackTraceBinding
 import com.pluto.plugins.exceptions.internal.ProcessThread
+import com.pluto.plugins.exceptions.internal.ThreadStates
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.ui.holder.StackTraceListItemHolder
 
 class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread_stack_trace) {
     private val binding by viewBinding(PlutoExcepFragmentThreadStackTraceBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
     private val threadAdapter: BaseAdapter by lazy { StackTracesAdapter(onActionListener) }
     private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-//    private val contentSharer by lazyContentSharer()
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +50,11 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
         binding.close.setDebounceClickListener {
             activity?.onBackPressed()
         }
+        binding.share.setDebounceClickListener {
+            viewModel.currentException.value?.data?.threadStateList?.let {
+                contentSharer.share(Shareable(title = "Share Thread Stack Trace", content = it.toShareText(), fileName = "ANR Thread Stack Trace from Pluto"))
+            }
+        }
 
         viewModel.currentException.removeObservers(viewLifecycleOwner)
         viewModel.currentException.observe(viewLifecycleOwner, exceptionObserver)
@@ -59,6 +68,22 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
         }
     }
+}
+
+private fun ThreadStates.toShareText(): String {
+    val text = StringBuilder()
+    text.append("ANR Thread Stack Trace : \n")
+    states.forEach {
+        text.append("\n* ${it.name}\t ${it.state.uppercase()}\n")
+        it.stackTrace.take(StackTraceListItemHolder.MAX_STACK_TRACE_LINES).forEach { trace ->
+            text.append("\tat $trace\n")
+        }
+        val extraTrace = it.stackTrace.size - StackTraceListItemHolder.MAX_STACK_TRACE_LINES
+        if (extraTrace > 0) {
+            text.append("\t +$extraTrace more lines\n")
+        }
+    }
+    return text.toString()
 }
 
 private fun List<ProcessThread>.process(): List<ProcessThread> {
