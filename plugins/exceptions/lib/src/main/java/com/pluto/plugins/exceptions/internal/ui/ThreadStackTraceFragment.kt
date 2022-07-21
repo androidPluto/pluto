@@ -18,6 +18,7 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentThreadStackTraceBinding
+import com.pluto.plugins.exceptions.internal.ProcessThread
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread_stack_trace) {
@@ -51,7 +52,7 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
     }
 
     private val exceptionObserver = Observer<ExceptionEntity> {
-        threadAdapter.list = it.data.threadStateList?.states ?: emptyList()
+        threadAdapter.list = (it.data.threadStateList?.states ?: emptyList()).process()
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
@@ -61,5 +62,22 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
                 }
             }
         }
+    }
+}
+
+private fun List<ProcessThread>.process(): List<ProcessThread> {
+    val list = arrayListOf<ProcessThread>()
+    val mainThreadName = "main"
+    var mainThread: ProcessThread? = null
+    forEach {
+        if (it.name == mainThreadName) {
+            mainThread = it
+        } else {
+            list.add(it)
+        }
+    }
+    return arrayListOf<ProcessThread>().apply {
+        mainThread?.let { add(it) }
+        addAll(list)
     }
 }
