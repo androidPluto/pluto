@@ -13,8 +13,8 @@ import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsDeviceHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsHeaderHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadHolder
-import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStatesHolder
-import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStatesItemHolder
+import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStackThreadHolder
+import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStackTraceListHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemHolder
 
 internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdapter() {
@@ -36,8 +36,8 @@ internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdap
             ITEM_DETAILS_TYPE_HEADER -> CrashItemDetailsHeaderHolder(parent, listener)
             ITEM_DETAILS_TYPE_THREAD -> CrashItemDetailsThreadHolder(parent, listener)
             ITEM_DETAILS_TYPE_DEVICE -> CrashItemDetailsDeviceHolder(parent, listener)
-            ITEM_DETAILS_TYPE_THREAD_STATES -> CrashItemDetailsThreadStatesHolder(parent, listener)
-            ITEM_DETAILS_TYPE_THREAD_STATES_ITEM -> CrashItemDetailsThreadStatesItemHolder(parent, listener)
+            ITEM_DETAILS_TYPE_THREAD_STATES -> CrashItemDetailsThreadStackThreadHolder(parent, listener)
+            ITEM_DETAILS_TYPE_THREAD_STATES_ITEM -> CrashItemDetailsThreadStackTraceListHolder(parent, listener)
             else -> null
         }
     }

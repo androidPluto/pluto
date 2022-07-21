@@ -8,15 +8,15 @@ import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
-import com.pluto.plugins.exceptions.databinding.PlutoExcepItemAnrThreadStateBinding
+import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadStackTraceListBinding
 import com.pluto.plugins.exceptions.internal.ProcessThread
 
-internal class CrashItemDetailsThreadStatesItemHolder(
+internal class CrashItemDetailsThreadStackTraceListHolder(
     parent: ViewGroup,
     actionListener: DiffAwareAdapter.OnActionListener
-) : DiffAwareHolder(parent.inflate(R.layout.pluto_excep___item_anr_thread_state), actionListener) {
+) : DiffAwareHolder(parent.inflate(R.layout.pluto_excep___item_crash_details_thread_stack_trace_list), actionListener) {
 
-    private val binding = PlutoExcepItemAnrThreadStateBinding.bind(itemView)
+    private val binding = PlutoExcepItemCrashDetailsThreadStackTraceListBinding.bind(itemView)
 
     override fun onBind(item: ListItem) {
         if (item is ProcessThread) {
