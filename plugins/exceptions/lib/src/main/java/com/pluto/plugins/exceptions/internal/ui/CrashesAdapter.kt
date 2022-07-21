@@ -6,7 +6,6 @@ import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionData
-import com.pluto.plugins.exceptions.internal.ProcessThread
 import com.pluto.plugins.exceptions.internal.ThreadData
 import com.pluto.plugins.exceptions.internal.ThreadStates
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
@@ -14,7 +13,6 @@ import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsDeviceHol
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsHeaderHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStackThreadHolder
-import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStackTraceListHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemHolder
 
 internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdapter() {
@@ -25,7 +23,6 @@ internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdap
             is ThreadData -> ITEM_DETAILS_TYPE_THREAD
             is DeviceInfo -> ITEM_DETAILS_TYPE_DEVICE
             is ThreadStates -> ITEM_DETAILS_TYPE_THREAD_STATES
-            is ProcessThread -> ITEM_DETAILS_TYPE_THREAD_STATES_ITEM
             else -> null
         }
     }
@@ -37,7 +34,6 @@ internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdap
             ITEM_DETAILS_TYPE_THREAD -> CrashItemDetailsThreadHolder(parent, listener)
             ITEM_DETAILS_TYPE_DEVICE -> CrashItemDetailsDeviceHolder(parent, listener)
             ITEM_DETAILS_TYPE_THREAD_STATES -> CrashItemDetailsThreadStackThreadHolder(parent, listener)
-            ITEM_DETAILS_TYPE_THREAD_STATES_ITEM -> CrashItemDetailsThreadStackTraceListHolder(parent, listener)
             else -> null
         }
     }
@@ -48,6 +44,5 @@ internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdap
         const val ITEM_DETAILS_TYPE_THREAD = 1101
         const val ITEM_DETAILS_TYPE_DEVICE = 1102
         const val ITEM_DETAILS_TYPE_THREAD_STATES = 1103
-        const val ITEM_DETAILS_TYPE_THREAD_STATES_ITEM = 1104
     }
 }
