@@ -6,22 +6,22 @@
 
     <View
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="@+id/thread"
-        app:layout_constraintBottom_toBottomOf="@+id/thread"
+        android:layout_height="0dp"
         android:background="@color/pluto___section_color"
-        android:layout_height="0dp"/>
+        app:layout_constraintBottom_toBottomOf="@+id/thread"
+        app:layout_constraintTop_toTopOf="@+id/thread" />
 
     <TextView
         android:id="@+id/thread"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/muli_semibold"
         android:gravity="center_vertical"
         android:lineSpacingExtra="6sp"
+        android:maxLines="1"
         android:paddingHorizontal="@dimen/pluto___margin_medium"
         android:paddingVertical="@dimen/pluto___margin_small"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:text="@string/pluto_excep___thread_state_label"
         android:textColor="@color/pluto___text_dark_80"
         android:textSize="@dimen/pluto___text_small"
@@ -32,9 +32,9 @@
     <TextView
         android:id="@+id/threadState"
         android:layout_width="wrap_content"
-        android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli"
+        android:gravity="center_vertical"
         android:lineSpacingExtra="6sp"
         android:padding="@dimen/pluto___margin_small"
         android:text="@string/pluto_excep___thread_state_label"

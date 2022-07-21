@@ -57,10 +57,6 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            when (action) {
-                "click" -> {
-                }
-            }
         }
     }
 }
