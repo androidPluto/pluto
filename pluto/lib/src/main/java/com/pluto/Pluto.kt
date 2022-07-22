@@ -6,12 +6,14 @@ import android.os.Bundle
 import androidx.lifecycle.LiveData
 import com.pluto.applifecycle.AppLifecycle
 import com.pluto.applifecycle.AppState
+import com.pluto.applifecycle.UiState
 import com.pluto.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
 import com.pluto.ui.PlutoActivity
@@ -22,6 +24,8 @@ object Pluto {
     internal var notch: Notch? = null
     internal val appState: LiveData<AppState>
         get() = appLifecycle.state
+
+    internal val uiState: SingleLiveEvent<UiState> = SingleLiveEvent()
 
     internal val pluginManager = PluginManager()
     private lateinit var application: Application
@@ -59,6 +63,10 @@ object Pluto {
 
     fun showNotch(state: Boolean) {
         notch?.enable(state)
+    }
+
+    internal fun close() {
+        uiState.postValue(UiState.Close)
     }
 
     class Installer(private val application: Application) {

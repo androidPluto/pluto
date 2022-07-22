@@ -6,9 +6,11 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
+import com.pluto.applifecycle.UiState
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
@@ -56,6 +58,8 @@ class PlutoActivity : AppCompatActivity() {
             }
         }
         handleIntent(intent)
+        Pluto.uiState.removeObserver(uiStateListener)
+        Pluto.uiState.observe(this, uiStateListener)
     }
 
     private fun copyContent(content: String, title: String) {
@@ -76,6 +80,12 @@ class PlutoActivity : AppCompatActivity() {
                 return
             }
             applicationContext.toast("Plugin [$id] not installed")
+            finish()
+        }
+    }
+
+    private val uiStateListener = Observer<UiState> {
+        if (it is UiState.Close) {
             finish()
         }
     }

@@ -62,6 +62,9 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
             }
         }
 
+        isFetchingInProgress = true
+        viewModel.fetchAll()
+
         viewModel.exceptions.removeObserver(exceptionObserver)
         viewModel.exceptions.observe(viewLifecycleOwner, exceptionObserver)
     }
@@ -103,11 +106,5 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        isFetchingInProgress = true
-        viewModel.fetchAll()
     }
 }
