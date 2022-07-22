@@ -11,8 +11,8 @@ import com.sampleapp.functions.sharedpreferences.DemoSharedPrefFragment
 
 class SupportedPlugins private constructor() {
     companion object {
-        internal fun get(): List<FunctionsModel> {
-            return listOf(
+        internal fun get(): ArrayList<FunctionsModel> {
+            return arrayListOf(
                 FunctionsModel(NETWORK, "Network & API calls"),
                 FunctionsModel(EXCEPTIONS, "Crashes & ANRs"),
                 FunctionsModel(LOGGER, "Logger"),
