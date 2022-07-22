@@ -32,6 +32,7 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
     private val threadAdapter: BaseAdapter by lazy { StackTracesAdapter(onActionListener) }
     private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     private val contentSharer by lazyContentSharer()
+    private var filterValue: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,14 +55,15 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
 
         binding.filterCta.setDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_excep___menu_stack_trace_filter) { item ->
-                val filterValue: String? = when (item.itemId) {
-                    R.id.filterBlocked -> "blocked"
-                    R.id.filterWaiting -> "waiting"
-                    R.id.filterTimedWaiting -> "timed_waiting"
-                    R.id.filterRunnable -> "runnable"
+                filterValue = when (item.itemId) {
+                    R.id.filterBlocked -> getString(R.string.pluto_excep___trace_filter_blocked)
+                    R.id.filterWaiting -> getString(R.string.pluto_excep___trace_filter_waiting)
+                    R.id.filterTimedWaiting -> getString(R.string.pluto_excep___trace_filter_timed_waiting)
+                    R.id.filterRunnable -> getString(R.string.pluto_excep___trace_filter_runnable)
                     else -> null
                 }
-                binding.filterCta.text = filterValue ?: "all traces"
+                threadAdapter.list = (viewModel.currentException.value?.data?.threadStateList?.states ?: emptyList()).process(filterValue)
+                binding.filterCta.text = filterValue ?: getString(R.string.pluto_excep___trace_filter_all)
             }
         }
         binding.share.setDebounceClickListener {
@@ -75,7 +77,7 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
     }
 
     private val exceptionObserver = Observer<ExceptionEntity> {
-        threadAdapter.list = (it.data.threadStateList?.states ?: emptyList()).process()
+        threadAdapter.list = (it.data.threadStateList?.states ?: emptyList()).process(filterValue)
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
@@ -100,15 +102,17 @@ private fun ThreadStates.toShareText(): String {
     return text.toString()
 }
 
-private fun List<ProcessThread>.process(): List<ProcessThread> {
+private fun List<ProcessThread>.process(filterValue: String?): List<ProcessThread> {
     val list = arrayListOf<ProcessThread>()
     val mainThreadName = "main"
     var mainThread: ProcessThread? = null
     forEach {
-        if (it.name == mainThreadName) {
-            mainThread = it
-        } else {
-            list.add(it)
+        if (filterValue == null || it.state.equals(filterValue, true)) {
+            if (it.name == mainThreadName) {
+                mainThread = it
+            } else {
+                list.add(it)
+            }
         }
     }
     return arrayListOf<ProcessThread>().apply {
