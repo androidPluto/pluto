@@ -63,6 +63,7 @@ class PluginSelectorActivity : FragmentActivity() {
             Pluto.pluginManager.installedPlugins.forEach {
                 it.onPluginDataCleared()
             }
+            Pluto.close()
         }
     }
 
