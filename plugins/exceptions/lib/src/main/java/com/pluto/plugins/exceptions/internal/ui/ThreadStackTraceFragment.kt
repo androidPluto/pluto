@@ -88,8 +88,8 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
 
 private fun ThreadStates.toShareText(): String {
     val text = StringBuilder()
-    text.append("ANR Thread Stack Trace : \n")
-    states.forEach {
+    text.append("ANR Thread Stack Trace - ${states.size} threads : \n")
+    states.process().forEach {
         text.append("\n* ${it.name}\t ${it.state.uppercase()}\n")
         it.stackTrace.take(StackTraceListItemHolder.MAX_STACK_TRACE_LINES).forEach { trace ->
             text.append("\tat $trace\n")
@@ -102,7 +102,7 @@ private fun ThreadStates.toShareText(): String {
     return text.toString()
 }
 
-private fun List<ProcessThread>.process(filterValue: String?): List<ProcessThread> {
+private fun List<ProcessThread>.process(filterValue: String? = null): List<ProcessThread> {
     val list = arrayListOf<ProcessThread>()
     val mainThreadName = "main"
     var mainThread: ProcessThread? = null
