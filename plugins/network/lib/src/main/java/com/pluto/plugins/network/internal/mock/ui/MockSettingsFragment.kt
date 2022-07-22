@@ -17,7 +17,7 @@ import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.fadeInAndOut
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsBinding
@@ -57,11 +57,11 @@ internal class MockSettingsFragment : Fragment(R.layout.pluto_network___fragment
 
         requestConfig?.let { viewModel.fetch(it.url, it.method) }
 
-        binding.back.setDebounceClickListener {
+        binding.back.setOnDebounceClickListener {
             requireActivity().hideKeyboard()
             findNavController().navigateUp()
         }
-        binding.save.setDebounceClickListener {
+        binding.save.setOnDebounceClickListener {
             requestConfig?.let {
                 viewModel.update(
                     binding.endPoint.text.toString(),
@@ -71,12 +71,12 @@ internal class MockSettingsFragment : Fragment(R.layout.pluto_network___fragment
             }
             requireActivity().hideKeyboard()
         }
-        binding.delete.setDebounceClickListener {
+        binding.delete.setOnDebounceClickListener {
             requireActivity().hideKeyboard()
             requestConfig?.url?.let { viewModel.delete(it) }
         }
         binding.method.text = requestConfig?.method?.uppercase()
-        binding.accessMocklets.setDebounceClickListener {
+        binding.accessMocklets.setOnDebounceClickListener {
             val uri = Uri.parse(MOCKLETS_URL)
                 .buildUpon()
                 .appendQueryParameter(METHOD_PARAM, requestConfig?.method)

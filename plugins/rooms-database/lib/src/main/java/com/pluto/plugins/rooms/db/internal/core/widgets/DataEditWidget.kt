@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDataEditWidgetBinding
@@ -49,7 +49,7 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
             context?.toast(context.getString(R.string.pluto_rooms___set_as_null))
             true
         }
-        binding.nullCta.setDebounceClickListener {
+        binding.nullCta.setOnDebounceClickListener {
             if (!column.isNotNull) {
                 setValue(null)
             }

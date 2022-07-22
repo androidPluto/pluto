@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
@@ -56,7 +56,7 @@ internal class DetailsFragment : BottomSheetDialogFragment() {
             append(italic(fontColor(data.level.label.uppercase(), context.color(data.level.textColor))))
         }
 
-        binding.cta.setDebounceClickListener {
+        binding.cta.setOnDebounceClickListener {
             context?.let {
                 contentSharer.share(Shareable(title = "Share Log details", content = data.toShareText(it)))
             }

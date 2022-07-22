@@ -15,7 +15,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
@@ -49,11 +49,11 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
             layoutManager = linearLayoutManager
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.onBackPressed()
         }
 
-        binding.filterCta.setDebounceClickListener {
+        binding.filterCta.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_excep___menu_stack_trace_filter) { item ->
                 filterValue = when (item.itemId) {
                     R.id.filterBlocked -> getString(R.string.pluto_excep___trace_filter_blocked)
@@ -66,7 +66,7 @@ class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread
                 binding.filterCta.text = filterValue ?: getString(R.string.pluto_excep___trace_filter_all)
             }
         }
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             viewModel.currentException.value?.data?.threadStateList?.let {
                 contentSharer.share(Shareable(title = "Share Thread Stack Trace", content = it.toShareText(), fileName = "ANR Thread Stack Trace from Pluto"))
             }

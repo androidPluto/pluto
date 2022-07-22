@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentColumnDetailsBinding
@@ -62,15 +62,15 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-        binding.sortAscLabel.setDebounceClickListener(haptic = true) {
+        binding.sortAscLabel.setOnDebounceClickListener(haptic = true) {
             applySort(data, SortBy.Asc())
         }
 
-        binding.sortDescLabel.setDebounceClickListener(haptic = true) {
+        binding.sortDescLabel.setOnDebounceClickListener(haptic = true) {
             applySort(data, SortBy.Desc())
         }
 
-        binding.sortClear.setDebounceClickListener(haptic = true) {
+        binding.sortClear.setOnDebounceClickListener(haptic = true) {
             viewModel.clearSortBy()
             viewModel.selectTable(data.first)
             dismiss()

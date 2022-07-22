@@ -19,7 +19,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsListBinding
@@ -48,17 +48,17 @@ internal class MockSettingsListFragment : Fragment(R.layout.pluto_network___frag
             adapter = mockSettingsAdapter
             addItemDecoration(CustomItemDecorator(context, DECORATOR_DIVIDER_PADDING))
         }
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             handleBackPress()
         }
-        binding.search.setDebounceClickListener {
+        binding.search.setOnDebounceClickListener {
             binding.searchView.visibility = View.VISIBLE
             binding.searchView.requestFocus()
         }
-        binding.closeSearch.setDebounceClickListener {
+        binding.closeSearch.setOnDebounceClickListener {
             exitSearch()
         }
-        binding.clearSearch.setDebounceClickListener {
+        binding.clearSearch.setOnDebounceClickListener {
             binding.editSearch.text = null
         }
         binding.editSearch.setOnFocusChangeListener { v, hasFocus ->

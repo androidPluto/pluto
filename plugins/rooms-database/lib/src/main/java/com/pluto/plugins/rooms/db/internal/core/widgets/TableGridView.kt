@@ -15,7 +15,7 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.truncateExcess
 import com.pluto.plugin.utilities.hapticFeedback
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -87,7 +87,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
                 typeface = ResourcesCompat.getFont(context, R.font.muli_bold)
                 setBackgroundColor(tableHeaderSortedBackground)
             }
-            setDebounceClickListener(haptic = true) {
+            setOnDebounceClickListener(haptic = true) {
                 onColumnClick.invoke(column)
             }
             setOnLongClickListener {
@@ -199,7 +199,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
         addView(tableHeader(column, sortBy, onColumnClick, onColumnLongClick))
         rows.forEachIndexed { index, list ->
             val tableRow = tableRow(list).apply {
-                setDebounceClickListener(haptic = true) { onClick(index) }
+                setOnDebounceClickListener(haptic = true) { onClick(index) }
                 setOnLongClickListener {
                     hapticFeedback(true)
                     onLongClick(index)

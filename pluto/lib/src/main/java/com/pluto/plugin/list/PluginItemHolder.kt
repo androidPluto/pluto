@@ -14,7 +14,7 @@ import com.pluto.plugin.utilities.extensions.setListener
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 
 internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin), actionListener) {
@@ -27,7 +27,7 @@ internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdap
         if (item is Plugin) {
             icon.setImageResource(item.getConfig().icon)
             name.text = item.getConfig().name
-            binding.root.setDebounceClickListener(haptic = true) {
+            binding.root.setOnDebounceClickListener(haptic = true) {
                 val scale = context.loadAnimation(R.anim.pluto___click_bounce)
                 scale.duration = ANIMATION_DURATION
                 scale.interpolator = OvershootInterpolator()

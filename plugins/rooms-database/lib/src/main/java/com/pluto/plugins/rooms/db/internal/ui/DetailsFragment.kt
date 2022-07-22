@@ -20,7 +20,7 @@ import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShareViewModel
 import com.pluto.plugin.utilities.sharing.ShareAction
 import com.pluto.plugin.utilities.sharing.Shareable
@@ -70,16 +70,16 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 append(bold(" ${dbConfig.name}".uppercase()))
             }
 
-            binding.table.setDebounceClickListener {
+            binding.table.setOnDebounceClickListener {
                 openTableSelector()
             }
-            binding.alert.setDebounceClickListener {
+            binding.alert.setOnDebounceClickListener {
                 context?.toast(getString(R.string.pluto_rooms___system_table_error))
             }
-            binding.close.setDebounceClickListener {
+            binding.close.setOnDebounceClickListener {
                 requireActivity().onBackPressed()
             }
-            binding.options.setDebounceClickListener {
+            binding.options.setOnDebounceClickListener {
                 viewModel.currentTable.value?.let { table ->
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
                         when (item.itemId) {
@@ -204,7 +204,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 append(" ${bold(getString(R.string.pluto_rooms___apply_filter))}")
             }
         }
-        binding.applyFilter.setDebounceClickListener(haptic = true) {
+        binding.applyFilter.setOnDebounceClickListener(haptic = true) {
             toast("Filters coming soon!")
         }
     }

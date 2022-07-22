@@ -17,7 +17,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
@@ -60,10 +60,10 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         viewModel.serializedLogs.removeObserver(serializedLogsObserver)
         viewModel.serializedLogs.observe(viewLifecycleOwner, serializedLogsObserver)
 
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.finish()
         }
-        binding.options.setDebounceClickListener {
+        binding.options.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_logger___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.clear -> LogsRepo.deleteAll()

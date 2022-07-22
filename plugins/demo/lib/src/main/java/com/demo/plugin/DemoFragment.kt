@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.demo.plugin.databinding.DemoFragmentDemoBinding
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
@@ -18,10 +18,10 @@ class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.finish()
         }
-        binding.options.setDebounceClickListener {
+        binding.options.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.demo___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.action1 -> requireContext().toast("Demo Action 1 clicked")
@@ -29,7 +29,7 @@ class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
                 }
             }
         }
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             contentSharer.share(
                 Shareable(
                     title = "Demo share",
@@ -38,7 +38,7 @@ class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
                 )
             )
         }
-        binding.notification.setDebounceClickListener {
+        binding.notification.setOnDebounceClickListener {
             DemoNotification(requireContext()).add()
         }
     }

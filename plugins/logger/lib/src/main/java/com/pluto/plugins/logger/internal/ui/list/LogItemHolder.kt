@@ -8,7 +8,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.logger.R
 import com.pluto.plugins.logger.databinding.PlutoLoggerListItemBinding
@@ -47,7 +47,7 @@ internal class LogItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
             }
             timestamp.text = item.timeStamp.asTimeElapsed()
             itemView.setBackgroundColor(itemView.context.color(item.level.color))
-            itemView.setDebounceClickListener { onAction("click") }
+            itemView.setOnDebounceClickListener { onAction("click") }
         }
     }
 

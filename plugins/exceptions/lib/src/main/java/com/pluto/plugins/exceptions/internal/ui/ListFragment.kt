@@ -19,7 +19,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
@@ -51,10 +51,10 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
             }
         }
         binding.search.setText(PlutoExceptions.session.lastSearchText)
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             requireActivity().finish()
         }
-        binding.options.setDebounceClickListener {
+        binding.options.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_excep___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.clear -> viewModel.deleteAll()

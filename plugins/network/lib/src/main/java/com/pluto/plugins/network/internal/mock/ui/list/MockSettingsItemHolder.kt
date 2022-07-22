@@ -5,7 +5,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemMockSettingsBinding
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
@@ -21,7 +21,7 @@ internal class MockSettingsItemHolder(
     override fun onBind(item: ListItem) {
         if (item is MockSettingsEntity) {
             value.text = item.requestUrl
-            binding.root.setDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
         }

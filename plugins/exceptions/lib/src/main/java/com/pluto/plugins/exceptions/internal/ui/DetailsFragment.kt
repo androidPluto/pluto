@@ -19,7 +19,7 @@ import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
@@ -56,11 +56,11 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
         binding.list.apply {
             adapter = crashAdapter
         }
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.onBackPressed()
         }
 
-        binding.delete.setDebounceClickListener {
+        binding.delete.setOnDebounceClickListener {
             viewModel.currentException.value?.id?.let { id ->
                 lifecycleScope.delayedLaunchWhenResumed(SCREEN_CLOSE_DELAY) {
                     viewModel.delete(id)
@@ -70,7 +70,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
             }
         }
 
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             viewModel.currentException.value?.let {
                 contentSharer.share(Shareable(title = "Share Crash Report", content = it.toShareText(), fileName = "Crash Report from Pluto"))
             }

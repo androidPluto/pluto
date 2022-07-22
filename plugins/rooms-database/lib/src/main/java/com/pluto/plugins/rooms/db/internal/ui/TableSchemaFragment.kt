@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.setList
 import com.pluto.plugin.utilities.list.CustomItemDecorator
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShareViewModel
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
@@ -50,7 +50,7 @@ class TableSchemaFragment : BottomSheetDialogFragment() {
             adapter = ColumnListAdapter()
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             viewModel.processedTableContent.value?.first?.let {
                 sharer.share(
                     Shareable(

@@ -17,7 +17,7 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
@@ -51,20 +51,20 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         viewModel.apiCalls.removeObserver(listUpdateObserver)
         viewModel.apiCalls.observe(viewLifecycleOwner, listUpdateObserver)
 
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             handleBackPress()
         }
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             findNavController().navigate(R.id.openShareView)
         }
-        binding.search.setDebounceClickListener {
+        binding.search.setOnDebounceClickListener {
             binding.searchView.visibility = View.VISIBLE
             binding.searchView.requestFocus()
         }
-        binding.closeSearch.setDebounceClickListener {
+        binding.closeSearch.setOnDebounceClickListener {
             exitSearch()
         }
-        binding.clearSearch.setDebounceClickListener {
+        binding.clearSearch.setOnDebounceClickListener {
             binding.editSearch.text = null
         }
         binding.editSearch.setOnFocusChangeListener { v, hasFocus ->

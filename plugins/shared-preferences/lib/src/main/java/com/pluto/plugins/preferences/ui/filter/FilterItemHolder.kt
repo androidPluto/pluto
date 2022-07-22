@@ -6,7 +6,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.SharedPrefRepo
@@ -31,7 +31,7 @@ internal class FilterItemHolder(
                     append(item.label)
                 }
             }
-            itemView.setDebounceClickListener {
+            itemView.setOnDebounceClickListener {
                 onAction("click")
             }
             checkbox.isSelected = SharedPrefRepo.getSelectedPreferenceFiles(context).contains(item)

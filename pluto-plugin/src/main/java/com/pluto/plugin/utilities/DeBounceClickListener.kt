@@ -6,7 +6,7 @@ import android.view.View
 import com.pluto.plugin.utilities.ClickUtils.Companion.DEBOUNCE_DELAY
 import com.pluto.plugin.utilities.ClickUtils.Companion.enabled
 
-fun View.setDebounceClickListener(
+fun View.setOnDebounceClickListener(
     delay: Long = DEBOUNCE_DELAY,
     haptic: Boolean = false,
     action: ((View) -> Unit)?
