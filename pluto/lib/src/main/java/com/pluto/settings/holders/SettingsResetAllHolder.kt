@@ -7,7 +7,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.settings.SettingsResetAllEntity
 
 internal class SettingsResetAllHolder(parent: ViewGroup, listener: DiffAwareAdapter.OnActionListener) :
@@ -17,7 +17,7 @@ internal class SettingsResetAllHolder(parent: ViewGroup, listener: DiffAwareAdap
 
     override fun onBind(item: ListItem) {
         if (item is SettingsResetAllEntity) {
-            binding.root.setDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
         }

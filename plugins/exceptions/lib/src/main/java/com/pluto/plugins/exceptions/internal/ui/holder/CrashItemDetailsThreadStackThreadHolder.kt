@@ -6,7 +6,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadStackTraceBinding
@@ -25,7 +25,7 @@ internal class CrashItemDetailsThreadStackThreadHolder(
                 append(context.getString(R.string.pluto_excep___thread_stack_traces_label))
                 append(fontColor(" (${item.states.size})", context.color(R.color.pluto___text_dark_40)))
             }
-            binding.root.setDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 onAction("thread_stack_trace")
             }
         }

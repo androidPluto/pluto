@@ -13,7 +13,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.SharedPrefRepo
@@ -44,11 +44,11 @@ internal class FilterFragment : Fragment(R.layout.pluto_pref___fragment_filter) 
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext(), DECORATOR_DIVIDER_PADDING))
         }
-        binding.back.setDebounceClickListener {
+        binding.back.setOnDebounceClickListener {
             findNavController().navigateUp()
         }
 
-        binding.clear.setDebounceClickListener {
+        binding.clear.setOnDebounceClickListener {
             SharedPrefRepo.deSelectAll()
             prefAdapter.notifyDataSetChanged()
             requireContext().toast(requireContext().getString(R.string.pluto_pref___preferences_cleared))

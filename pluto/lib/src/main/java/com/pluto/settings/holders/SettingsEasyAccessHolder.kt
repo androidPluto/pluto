@@ -7,7 +7,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.settings.SettingsEasyAccessEntity
 import com.pluto.settings.canDrawOverlays
 
@@ -20,7 +20,7 @@ internal class SettingsEasyAccessHolder(parent: ViewGroup, listener: DiffAwareAd
     override fun onBind(item: ListItem) {
         if (item is SettingsEasyAccessEntity) {
             checkbox.isSelected = itemView.context.canDrawOverlays()
-            itemView.setDebounceClickListener {
+            itemView.setOnDebounceClickListener {
                 onAction("click")
             }
         }

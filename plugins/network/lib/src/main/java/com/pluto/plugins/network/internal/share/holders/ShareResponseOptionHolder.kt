@@ -9,7 +9,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemShareOptionResponseBinding
@@ -23,7 +23,7 @@ internal class ShareResponseOptionHolder(parent: ViewGroup, actionListener: Diff
         if (item is ShareOptionType) {
             binding.label.setCompoundDrawablesWithIntrinsicBounds(item.icon, 0, 0, 0)
             if (item.enabled) {
-                binding.root.setDebounceClickListener {
+                binding.root.setOnDebounceClickListener {
                     onAction("click")
                 }
                 binding.label.setSpan {

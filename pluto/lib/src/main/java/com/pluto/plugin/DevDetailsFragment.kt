@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentDevDetailsBinding
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 
@@ -34,19 +34,19 @@ internal class DevDetailsFragment : BottomSheetDialogFragment() {
         }
         arguments?.getString("website")?.let {
             binding.website.text = it
-            binding.website.setDebounceClickListener { _ ->
+            binding.website.setOnDebounceClickListener { _ ->
                 openUrl(it)
             }
         }
         arguments?.getString("vcs")?.let {
             binding.vcsLink.text = it
-            binding.vcsLink.setDebounceClickListener { _ ->
+            binding.vcsLink.setOnDebounceClickListener { _ ->
                 openUrl(it)
             }
         }
         arguments?.getString("twitter")?.let {
             binding.twitterLink.text = it
-            binding.twitterLink.setDebounceClickListener { _ ->
+            binding.twitterLink.setOnDebounceClickListener { _ ->
                 openUrl(it)
             }
         }

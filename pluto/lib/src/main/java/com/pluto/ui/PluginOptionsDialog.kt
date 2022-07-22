@@ -24,7 +24,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
 
 @Deprecated("global level plugin options are no longer supported")
@@ -81,14 +81,14 @@ internal class PluginOptionsDialog(context: Context, onOptionSelected: (String) 
 
         developerDetails?.website?.let { url ->
             binding.website.text = url
-            binding.website.setDebounceClickListener {
+            binding.website.setOnDebounceClickListener {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 context.startActivity(browserIntent)
             }
         }
         developerDetails?.vcsLink?.let { url ->
             binding.vcsLink.text = url
-            binding.vcsLink.setDebounceClickListener {
+            binding.vcsLink.setOnDebounceClickListener {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 context.startActivity(browserIntent)
             }

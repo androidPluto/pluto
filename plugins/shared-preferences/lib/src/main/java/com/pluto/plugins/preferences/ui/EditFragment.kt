@@ -16,7 +16,7 @@ import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.showKeyboard
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
@@ -100,12 +100,12 @@ class EditFragment : BottomSheetDialogFragment() {
         binding.key.text = pref.key
         binding.value.setText(pref.value.toString())
         binding.value.setSelection(pref.value.toString().length)
-        binding.save.setDebounceClickListener {
+        binding.save.setOnDebounceClickListener {
             SharedPrefRepo.set(requireContext(), pref, binding.value.text.toString().convert(pref.value))
             viewModel.refresh()
             dismiss()
         }
-        binding.cta.setDebounceClickListener {
+        binding.cta.setOnDebounceClickListener {
             contentSharer.share(
                 Shareable(
                     content = "${pref.key} : ${pref.value}",

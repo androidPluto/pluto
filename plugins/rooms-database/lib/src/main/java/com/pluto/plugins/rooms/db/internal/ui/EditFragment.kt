@@ -19,7 +19,7 @@ import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugin.utilities.device.Device
 import com.pluto.plugin.utilities.extensions.forEachIndexed
 import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.ContentShareViewModel
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
@@ -111,7 +111,7 @@ class EditFragment : BottomSheetDialogFragment() {
         }
         binding.warning.visibility = if (isSystemTable(dataConfig.table)) VISIBLE else GONE
         uiViewModel.generateRowEditView(requireContext(), dataConfig)
-        binding.share.setDebounceClickListener {
+        binding.share.setOnDebounceClickListener {
             sharer.share(
                 Shareable(
                     title = "Share Row",
@@ -119,7 +119,7 @@ class EditFragment : BottomSheetDialogFragment() {
                 )
             )
         }
-        binding.save.setDebounceClickListener {
+        binding.save.setOnDebounceClickListener {
             if (isInsertEvent) {
                 viewModel.addNewRow(dataConfig.table, fieldValues)
             } else {

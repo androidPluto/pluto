@@ -5,7 +5,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsItemDbSelectorBinding
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
@@ -21,7 +21,7 @@ internal class DBListItemHolder(
         if (item is DatabaseModel) {
             binding.value.text = item.name
             binding.dbClassName.text = "${item.dbClass.simpleName}.kt"
-            binding.root.setDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
         }

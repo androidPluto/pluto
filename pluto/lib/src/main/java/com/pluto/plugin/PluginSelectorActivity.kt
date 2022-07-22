@@ -17,7 +17,7 @@ import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
@@ -40,7 +40,7 @@ class PluginSelectorActivity : FragmentActivity() {
             layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
         }
 
-        binding.root.setDebounceClickListener {
+        binding.root.setOnDebounceClickListener {
             finish()
         }
 
@@ -49,7 +49,7 @@ class PluginSelectorActivity : FragmentActivity() {
             append(regular(com.pluto.BuildConfig.VERSION_NAME))
         }
 
-        binding.settings.setDebounceClickListener {
+        binding.settings.setOnDebounceClickListener {
             SettingsFragment().show(supportFragmentManager, "settings")
         }
 

@@ -8,7 +8,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 
 internal class PluginOptionItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin_option), actionListener) {
@@ -21,7 +21,7 @@ internal class PluginOptionItemHolder(parent: ViewGroup, actionListener: DiffAwa
         if (item is PluginOption) {
             icon.setImageResource(item.icon)
             label.text = item.label
-            binding.root.setDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
         }

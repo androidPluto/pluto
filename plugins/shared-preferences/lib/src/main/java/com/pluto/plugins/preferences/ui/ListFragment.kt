@@ -16,7 +16,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.Session
@@ -47,7 +47,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
                 }
             }
         }
-        binding.options.setDebounceClickListener {
+        binding.options.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_pref___menu_more_options) { item ->
                 when (item.itemId) {
                     R.id.filter -> findNavController().navigate(R.id.openFilterSettings)
@@ -58,7 +58,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
         viewModel.preferences.removeObserver(sharedPrefObserver)
         viewModel.preferences.observe(viewLifecycleOwner, sharedPrefObserver)
 
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.finish()
         }
     }

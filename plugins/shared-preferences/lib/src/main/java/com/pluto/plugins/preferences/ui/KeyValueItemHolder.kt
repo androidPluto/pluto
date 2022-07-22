@@ -8,7 +8,7 @@ import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.databinding.PlutoPrefItemSharedPrefKeyValueBinding
@@ -41,7 +41,7 @@ internal class KeyValueItemHolder(
             }
             item.value?.let { value.text = it.toString() }
 
-            itemView.setDebounceClickListener {
+            itemView.setOnDebounceClickListener {
                 onAction("click")
             }
         }

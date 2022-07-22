@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.asFormattedDate
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.sharing.Shareable
 import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
@@ -43,7 +43,7 @@ internal class OverviewFragment : Fragment(R.layout.pluto_network___fragment_det
         mockSettingsViewModel.currentMock.removeObservers(viewLifecycleOwner)
         mockSettingsViewModel.currentMock.observe(viewLifecycleOwner, proxySettingsObserver)
 
-        binding.settingStub.setupMock.setDebounceClickListener {
+        binding.settingStub.setupMock.setOnDebounceClickListener {
             viewModel.detailContentLiveData.value?.api?.request?.let { request ->
                 val bundle = bundleOf("url" to request.url.toString(), "method" to request.method)
                 findNavController().navigate(R.id.openMockSettingsEdit, bundle)
@@ -75,7 +75,7 @@ internal class OverviewFragment : Fragment(R.layout.pluto_network___fragment_det
         binding.requestSize.setSpan {
             append(semiBold(formatSizeAsBytes(data.request.body?.body?.length?.toLong() ?: 0L)))
         }
-        binding.settingStub.copyCurl.setDebounceClickListener {
+        binding.settingStub.copyCurl.setOnDebounceClickListener {
             contentSharer.share(Shareable(title = "Share Request cURL", content = data.curl, fileName = "cURL Request from Pluto"))
         }
         data.exception?.let {

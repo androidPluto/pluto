@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.utilities.device.Device
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentRowActionsBinding
@@ -43,11 +43,11 @@ class ActionsFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupView(dataConfig: RowDetailsData) {
-        binding.delete.setDebounceClickListener {
+        binding.delete.setOnDebounceClickListener {
             viewModel.performAction(RowAction.Delete, dataConfig)
             dismiss()
         }
-        binding.duplicate.setDebounceClickListener {
+        binding.duplicate.setOnDebounceClickListener {
             viewModel.performAction(RowAction.Duplicate, dataConfig)
             dismiss()
         }

@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugin.R
 import com.pluto.plugin.databinding.PlutoViewKeyValuePairBinding
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 
 class KeyValuePairView(context: Context) : ConstraintLayout(context) {
@@ -24,7 +24,7 @@ class KeyValuePairView(context: Context) : ConstraintLayout(context) {
         }
         onClick?.let {
             binding.root.isClickable = true
-            binding.root.setDebounceClickListener { onClick.invoke() }
+            binding.root.setOnDebounceClickListener { onClick.invoke() }
         } ?: run {
             binding.root.isClickable = false
         }

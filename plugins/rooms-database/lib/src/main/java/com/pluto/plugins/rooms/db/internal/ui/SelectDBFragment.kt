@@ -16,7 +16,7 @@ import com.pluto.plugin.utilities.list.CustomItemDecorator
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setDebounceClickListener
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.Session
@@ -54,7 +54,7 @@ class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
         viewModel.dbs.removeObserver(dbListObserver)
         viewModel.dbs.observe(viewLifecycleOwner, dbListObserver)
 
-        binding.close.setDebounceClickListener {
+        binding.close.setOnDebounceClickListener {
             activity?.finish()
         }
     }
