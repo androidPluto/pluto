@@ -5,7 +5,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.HorizontalScrollView
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +17,7 @@ import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.forEachIndexed
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.showMoreOptions
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setOnDebounceClickListener
@@ -56,14 +56,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         convertArguments(arguments)?.let { dbConfig ->
-            requireActivity().onBackPressedDispatcher.addCallback(
-                viewLifecycleOwner,
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        findNavController().navigateUp()
-                    }
-                }
-            )
+            onBackPressed { findNavController().navigateUp() }
             viewModel.initDBSession(requireContext(), dbConfig.name, dbConfig.dbClass)
             binding.dbName.setSpan {
                 append(getString(R.string.pluto_rooms___db_title))

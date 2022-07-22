@@ -2,7 +2,6 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.hideKeyboard
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setOnDebounceClickListener
@@ -35,14 +35,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    handleBackPress()
-                }
-            }
-        )
+        onBackPressed { handleBackPress() }
         setupPager()
 
         viewModel.detailContentLiveData.removeObserver(detailsObserver)

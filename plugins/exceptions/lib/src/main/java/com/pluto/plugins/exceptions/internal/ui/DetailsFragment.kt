@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Base64.DEFAULT
 import android.util.Base64.encodeToString
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
@@ -45,14 +45,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                }
-            }
-        )
+        onBackPressed { findNavController().navigateUp() }
         binding.list.apply {
             adapter = crashAdapter
         }
