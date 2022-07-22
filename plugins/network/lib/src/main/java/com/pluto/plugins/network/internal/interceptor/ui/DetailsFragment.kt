@@ -37,43 +37,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         super.onViewCreated(view, savedInstanceState)
         onBackPressed { handleBackPress() }
         setupPager()
+        setupControls()
 
         viewModel.detailContentLiveData.removeObserver(detailsObserver)
         viewModel.detailContentLiveData.observe(viewLifecycleOwner, detailsObserver)
 
         viewModel.apiCalls.removeObserver(listUpdateObserver)
         viewModel.apiCalls.observe(viewLifecycleOwner, listUpdateObserver)
-
-        binding.close.setOnDebounceClickListener {
-            handleBackPress()
-        }
-        binding.share.setOnDebounceClickListener {
-            findNavController().navigate(R.id.openShareView)
-        }
-        binding.search.setOnDebounceClickListener {
-            binding.searchView.visibility = View.VISIBLE
-            binding.searchView.requestFocus()
-        }
-        binding.closeSearch.setOnDebounceClickListener {
-            exitSearch()
-        }
-        binding.clearSearch.setOnDebounceClickListener {
-            binding.editSearch.text = null
-        }
-        binding.editSearch.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                v.showKeyboard()
-            } else {
-                v.hideKeyboard()
-            }
-        }
-        binding.editSearch.doOnTextChanged { text, _, _, _ ->
-            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                text?.toString()?.let {
-                    viewModel.searchContent(it)
-                }
-            }
-        }
     }
 
     private val listUpdateObserver = Observer<List<ApiCallData>> {
@@ -111,6 +81,39 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         }.attach()
         binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
         binding.tabs.isInlineLabel = false
+    }
+
+    private fun setupControls() {
+        binding.close.setOnDebounceClickListener {
+            handleBackPress()
+        }
+        binding.share.setOnDebounceClickListener {
+            findNavController().navigate(R.id.openShareView)
+        }
+        binding.search.setOnDebounceClickListener {
+            binding.searchView.visibility = View.VISIBLE
+            binding.searchView.requestFocus()
+        }
+        binding.closeSearch.setOnDebounceClickListener {
+            exitSearch()
+        }
+        binding.clearSearch.setOnDebounceClickListener {
+            binding.editSearch.text = null
+        }
+        binding.editSearch.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                v.showKeyboard()
+            } else {
+                v.hideKeyboard()
+            }
+        }
+        binding.editSearch.doOnTextChanged { text, _, _, _ ->
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                text?.toString()?.let {
+                    viewModel.searchContent(it)
+                }
+            }
+        }
     }
 
     private fun exitSearch() {
