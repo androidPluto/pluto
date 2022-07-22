@@ -2,6 +2,8 @@ package com.pluto.plugins.exceptions.internal.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,13 +24,14 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentListBinding
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
 
     private val binding by viewBinding(PlutoExcepFragmentListBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
     private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
+    private var isFetchingInProgress: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,21 +67,27 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
     }
 
     private val exceptionObserver = Observer<List<ExceptionEntity>> {
+        isFetchingInProgress = false
         crashAdapter.list = filteredLogs(binding.search.text.toString())
     }
 
     private fun filteredLogs(search: String): List<ExceptionEntity> {
         var list = emptyList<ExceptionEntity>()
-        viewModel.exceptions.value?.let {
-            list = it.filter { exception ->
-                (exception.data.exception.name ?: "").contains(search, true) ||
-                    (exception.data.exception.file ?: "").contains(search, true)
+        if (isFetchingInProgress) {
+            binding.loaderGroup.visibility = VISIBLE
+        } else {
+            binding.loaderGroup.visibility = GONE
+            viewModel.exceptions.value?.let {
+                list = it.filter { exception ->
+                    (exception.data.exception.name ?: "").contains(search, true) ||
+                        (exception.data.exception.file ?: "").contains(search, true)
+                }
             }
+            binding.noItemText.text = getString(
+                if (search.isNotEmpty()) R.string.pluto_excep___no_search_result else R.string.pluto_excep___no_crashes_text
+            )
+            binding.noItemText.visibility = if (list.isEmpty()) VISIBLE else GONE
         }
-        binding.noItemText.text = getString(
-            if (search.isNotEmpty()) R.string.pluto_excep___no_search_result else R.string.pluto_excep___no_crashes_text
-        )
-        binding.noItemText.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         return list
     }
 
@@ -88,7 +97,7 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
                 requireActivity().hideKeyboard()
                 if (data.id != null) {
                     viewModel.fetch(data.id)
-                    findNavController().navigate(R.id.detailsView)
+                    findNavController().navigate(R.id.openDetails)
                 } else {
                     requireContext().toast(getString(R.string.pluto_excep___invalid_id))
                 }
@@ -98,6 +107,7 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
 
     override fun onResume() {
         super.onResume()
+        isFetchingInProgress = true
         viewModel.fetchAll()
     }
 }

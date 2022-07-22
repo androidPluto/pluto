@@ -107,8 +107,6 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/pluto___margin_medium"
-        android:layout_marginEnd="@dimen/pluto___margin_medium"
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

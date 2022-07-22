@@ -11,7 +11,8 @@ import com.pluto.plugin.utilities.setDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashBinding
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 internal class CrashItemHolder(
     parent: ViewGroup,
@@ -23,34 +24,34 @@ internal class CrashItemHolder(
 
     override fun onBind(item: ListItem) {
         if (item is ExceptionEntity) {
-//            with(item.data.exception) {
-//                if (isANRException) {
-//                    binding.message.text =
-//                        context.getString(R.string.pluto___anr_list_message, MAIN_THREAD_RESPONSE_THRESHOLD)
-//                    binding.title.setSpan {
-//                        context.apply {
-//                            append(
-//                                fontColor(
-//                                    getString(R.string.pluto___anr_list_title), color(com.pluto.plugin.R.color.pluto___text_dark_80)
-//                                )
-//                            )
-//                        }
-//                    }
-//                    binding.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto___ic_anr_warning, 0, 0, 0)
-//                } else {
-            binding.message.setSpan {
-                append("${item.data.exception.file}\t\t")
-                append(
-                    fontColor(
-                        "line:${item.data.exception.lineNumber}",
-                        context.color(com.pluto.plugin.R.color.pluto___text_dark_60)
-                    )
-                )
+            with(item.data.exception) {
+                if (isANRException) {
+                    binding.message.text =
+                        context.getString(R.string.pluto_excep___anr_list_message, MAIN_THREAD_RESPONSE_THRESHOLD)
+                    binding.title.setSpan {
+                        context.apply {
+                            append(
+                                fontColor(
+                                    getString(R.string.pluto_excep___anr_list_title), color(com.pluto.plugin.R.color.pluto___text_dark_80)
+                                )
+                            )
+                        }
+                    }
+                    binding.title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_excep___ic_anr_warning, 0, 0, 0)
+                } else {
+                    binding.message.setSpan {
+                        append("${item.data.exception.file}\t\t")
+                        append(
+                            fontColor(
+                                "line:${item.data.exception.lineNumber}",
+                                context.color(com.pluto.plugin.R.color.pluto___text_dark_60)
+                            )
+                        )
+                    }
+                    binding.title.text = item.data.exception.name
+                    binding.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                }
             }
-            binding.title.text = item.data.exception.name
-            binding.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-//                }
-//            }
             timeElapsed.text = item.timestamp.asTimeElapsed()
             itemView.setDebounceClickListener {
                 onAction("click")

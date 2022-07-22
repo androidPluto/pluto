@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="21dp"
+    android:height="21dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/pluto___dark_80"
+        android:pathData="M3,10h11v2h-11z" />
+    <path
+        android:fillColor="@color/pluto___dark_80"
+        android:pathData="M3,6h11v2h-11z" />
+    <path
+        android:fillColor="@color/pluto___dark_80"
+        android:pathData="M3,14h7v2h-7z" />
+    <path
+        android:fillColor="@color/pluto___dark_80"
+        android:pathData="M16,13l0,8l6,-4z" />
+</vector>

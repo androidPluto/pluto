@@ -5,9 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugins.exceptions.internal.dao.ExceptionDao
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
-import com.pluto.plugins.exceptions.internal.dao.database.DatabaseManager
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionDao
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.database.DatabaseManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -19,6 +19,16 @@
         android:id="@+id/detailsView"
         android:name="com.pluto.plugins.exceptions.internal.ui.DetailsFragment"
         android:label="detail"
-        tools:layout="@layout/pluto_excep___fragment_details" />
+        tools:layout="@layout/pluto_excep___fragment_details">
+        <action
+            android:id="@+id/openStackTrace"
+            app:destination="@id/stackTraceView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stackTraceView"
+        android:name="com.pluto.plugins.exceptions.internal.ui.ThreadStackTraceFragment"
+        android:label="detail"
+        tools:layout="@layout/pluto_excep___fragment_thread_stack_trace" />
 
 </navigation>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/pluto___key_value_divider_bg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___key_value_bg"
+        android:fontFamily="@font/muli"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="10dp"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topDivider"
+        app:layout_constraintWidth_percent="0.35"
+        tools:text="column name" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/muli"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintBottom_toBottomOf="@+id/key"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/key"
+        app:layout_constraintTop_toTopOf="@+id/key" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/pluto___key_value_divider_bg"
+        app:layout_constraintTop_toBottomOf="@+id/key" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

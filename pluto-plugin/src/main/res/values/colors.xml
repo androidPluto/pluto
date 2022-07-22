@@ -5,6 +5,9 @@
     <color name="pluto___colorAccent">@color/pluto___text_dark_60</color>
 
     <color name="pluto___app_bg">#f8f8f8</color>
+    <color name="pluto___divider_bg">#eeecec</color>
+    <color name="pluto___key_value_divider_bg">#f0f0f0</color>
+    <color name="pluto___key_value_bg">#f6f6f6</color>
     <color name="pluto___white">#ffffff</color>
     <color name="pluto___dark">#11141c</color>
     <color name="pluto___dark_05">#0D11141c</color>

@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.utilities.extensions.capitalizeText
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
@@ -24,11 +25,9 @@ import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
-import com.pluto.plugins.exceptions.capitalizeText
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentDetailsBinding
-import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.pluto.plugins.exceptions.internal.ReportData
-import com.pluto.plugins.exceptions.internal.dao.ExceptionEntity
+import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.net.URLEncoder
@@ -73,7 +72,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
 
         binding.share.setDebounceClickListener {
             viewModel.currentException.value?.let {
-                contentSharer.share(Shareable(title = "Share Crash Report", content = it.data.toShareText(), fileName = "Crash Report from Pluto"))
+                contentSharer.share(Shareable(title = "Share Crash Report", content = it.toShareText(), fileName = "Crash Report from Pluto"))
             }
         }
 
@@ -101,12 +100,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (action == "report_crash") {
-                exceptionCipher?.let {
+            when (action) {
+                "report_crash" -> exceptionCipher?.let {
                     val url = "https://plutolib.com/exception/$it/a0bbe9cd-2f02-4a12-b7b7-36fce61a6b48"
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(browserIntent)
                 }
+                "thread_stack_trace" -> findNavController().navigate(R.id.openStackTrace)
             }
         }
     }
@@ -114,9 +114,9 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
     private val exceptionObserver = Observer<ExceptionEntity> {
         val list = arrayListOf<ListItem>()
         list.add(it.data.exception)
-//        it.data.threadStateList?.let { states -> list.add(states) }
-//        it.data.thread?.let { thread -> list.add(thread) }
-        list.add(it.data.device)
+        it.data.threadStateList?.let { states -> list.add(states) }
+        it.data.thread?.let { thread -> list.add(thread) }
+        list.add(it.device)
 
         crashAdapter.list = list
     }
@@ -129,24 +129,24 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
 
 private const val STACK_TRACE_LENGTH = 25
 private const val SHARE_SECTION_DIVIDER = "\n\n==================\n\n"
-private fun ExceptionAllData.toShareText(): String {
+private fun ExceptionEntity.toShareText(): String {
     val text = StringBuilder()
     text.append("EXCEPTION : \n")
-    text.append("${this.exception.name}: ${this.exception.message}\n")
-    this.exception.stackTrace.take(STACK_TRACE_LENGTH).forEach {
+    text.append("${this.data.exception.name}: ${this.data.exception.message}\n")
+    this.data.exception.stackTrace.take(STACK_TRACE_LENGTH).forEach {
         text.append("\t at $it\n")
     }
-    if (this.exception.stackTrace.size - STACK_TRACE_LENGTH > 0) {
-        text.append("\t + ${this.exception.stackTrace.size - STACK_TRACE_LENGTH} more lines\n\n")
+    if (this.data.exception.stackTrace.size - STACK_TRACE_LENGTH > 0) {
+        text.append("\t + ${this.data.exception.stackTrace.size - STACK_TRACE_LENGTH} more lines\n\n")
     }
 
     text.append(SHARE_SECTION_DIVIDER)
 
-    this.thread?.let {
+    this.data.thread?.let {
         text.append("Thread : ")
         text.append("${it.name.uppercase()} (")
         text.append("id : ${it.id},  ")
-        text.append("priority : ${PlutoExceptions.getPriorityString(it.priority)},  ")
+        text.append("priority : ${it.priorityString},  ")
         text.append("is_Daemon : ${it.isDaemon},  ")
         text.append("state : ${it.state}")
         text.append(")")

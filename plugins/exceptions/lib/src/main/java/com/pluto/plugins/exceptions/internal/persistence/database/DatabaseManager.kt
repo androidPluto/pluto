@@ -1,4 +1,4 @@
-package com.pluto.plugins.exceptions.internal.dao.database
+package com.pluto.plugins.exceptions.internal.persistence.database
 
 import android.content.Context
 import androidx.room.Room

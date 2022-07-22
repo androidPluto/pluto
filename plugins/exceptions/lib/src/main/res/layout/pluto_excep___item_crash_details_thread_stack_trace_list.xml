@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/pluto___section_color"
+        app:layout_constraintBottom_toBottomOf="@+id/thread"
+        app:layout_constraintTop_toTopOf="@+id/thread" />
+
+    <TextView
+        android:id="@+id/thread"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli_semibold"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="6sp"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_excep___thread_state_label"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toStartOf="@+id/threadState"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/threadState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="6sp"
+        android:padding="@dimen/pluto___margin_small"
+        android:text="@string/pluto_excep___thread_state_label"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/thread" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___app_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thread">
+
+        <TextView
+            android:id="@+id/stackTrace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+            android:layout_marginTop="@dimen/pluto___margin_small"
+            android:fontFamily="@font/muli"
+            android:lineSpacingExtra="5sp"
+            android:paddingEnd="@dimen/pluto___margin_large"
+            android:paddingRight="@dimen/pluto___margin_large"
+            android:paddingBottom="@dimen/pluto___margin_xsmall"
+            android:textColor="@color/pluto___text_dark_60"
+            android:textSize="@dimen/pluto___text_xsmall" />
+
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

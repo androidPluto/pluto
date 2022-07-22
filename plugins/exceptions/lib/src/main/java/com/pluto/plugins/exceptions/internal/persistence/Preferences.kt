@@ -1,4 +1,4 @@
-package com.pluto.plugins.exceptions.internal
+package com.pluto.plugins.exceptions.internal.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.content.SharedPreferences
 @SuppressWarnings("UseDataClass")
 internal class Preferences(context: Context) {
 
-    private val statePrefs: SharedPreferences = context.preferences("pluto_exception")
+    private val statePrefs: SharedPreferences = context.getSharedPreferences("_pluto_exception", Context.MODE_PRIVATE)
 
     internal var lastSessionCrash: String?
         get() = statePrefs.getString(LAST_SESSION_CRASH, null)
@@ -21,5 +21,3 @@ internal class Preferences(context: Context) {
         const val LAST_SESSION_CRASH = "last_session_crash"
     }
 }
-
-private fun Context.preferences(name: String, mode: Int = Context.MODE_PRIVATE) = getSharedPreferences(name, mode)

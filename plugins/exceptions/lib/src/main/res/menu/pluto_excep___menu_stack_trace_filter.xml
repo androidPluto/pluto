@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filterAll"
+        android:title="@string/pluto_excep___trace_filter_all" />
+    <item
+        android:id="@+id/filterBlocked"
+        android:title="@string/pluto_excep___trace_filter_blocked" />
+    <item
+        android:id="@+id/filterWaiting"
+        android:title="@string/pluto_excep___trace_filter_waiting" />
+    <item
+        android:id="@+id/filterTimedWaiting"
+        android:title="@string/pluto_excep___trace_filter_timed_waiting" />
+    <item
+        android:id="@+id/filterRunnable"
+        android:title="@string/pluto_excep___trace_filter_runnable" />
+</menu>

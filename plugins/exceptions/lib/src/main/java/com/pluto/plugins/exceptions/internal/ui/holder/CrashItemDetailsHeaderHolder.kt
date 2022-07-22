@@ -11,6 +11,7 @@ import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsHeaderBinding
 import com.pluto.plugins.exceptions.internal.ExceptionData
+import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
 
 internal class CrashItemDetailsHeaderHolder(
     parent: ViewGroup,
@@ -63,17 +64,32 @@ internal class CrashItemDetailsHeaderHolder(
     }
 
     private fun handleTitle(item: ExceptionData) {
-        title.setSpan {
-            append("${item.file}\t\t")
-            append(
-                fontColor("line: ${item.lineNumber}", context.color(com.pluto.plugin.R.color.pluto___text_dark_80))
-            )
-        }
-        message.setSpan {
-            append("${item.name}\n")
-            append(
-                fontColor("${item.message}", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
-            )
+        if (item.isANRException) {
+            message.text =
+                context.getString(R.string.pluto_excep___anr_list_message, MAIN_THREAD_RESPONSE_THRESHOLD)
+            title.setSpan {
+                context.apply {
+                    append(
+                        fontColor(
+                            getString(R.string.pluto_excep___anr_list_title),
+                            color(R.color.pluto___text_dark_80)
+                        )
+                    )
+                }
+            }
+        } else {
+            title.setSpan {
+                append("${item.file}\t\t")
+                append(
+                    fontColor("line: ${item.lineNumber}", context.color(R.color.pluto___text_dark_80))
+                )
+            }
+            message.setSpan {
+                append("${item.name}\n")
+                append(
+                    fontColor("${item.message}", context.color(R.color.pluto___text_dark_60))
+                )
+            }
         }
     }
 
