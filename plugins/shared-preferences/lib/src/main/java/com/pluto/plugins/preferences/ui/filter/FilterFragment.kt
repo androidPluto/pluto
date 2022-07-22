@@ -2,11 +2,11 @@ package com.pluto.plugins.preferences.ui.filter
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.dp
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
@@ -32,14 +32,7 @@ internal class FilterFragment : Fragment(R.layout.pluto_pref___fragment_filter) 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                }
-            }
-        )
+        onBackPressed { findNavController().navigateUp() }
         binding.list.apply {
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext(), DECORATOR_DIVIDER_PADDING))

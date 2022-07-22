@@ -2,7 +2,6 @@ package com.pluto.plugins.network.internal.mock.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -13,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.hideKeyboard
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.CustomItemDecorator
@@ -35,14 +35,7 @@ internal class MockSettingsListFragment : Fragment(R.layout.pluto_network___frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    handleBackPress()
-                }
-            }
-        )
+        onBackPressed { handleBackPress() }
         mockSettingsAdapter = MockSettingsItemAdapter(onActionListener)
         binding.apiList.apply {
             adapter = mockSettingsAdapter

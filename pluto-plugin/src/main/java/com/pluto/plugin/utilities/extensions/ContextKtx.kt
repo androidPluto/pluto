@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -38,4 +39,15 @@ fun Context.checkAndOpenSupportedApp(uri: Uri?) {
     } else {
         toast("No app to perform this action")
     }
+}
+
+fun Fragment.onBackPressed(action: () -> Unit) {
+    requireActivity().onBackPressedDispatcher.addCallback(
+        viewLifecycleOwner,
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                action.invoke()
+            }
+        }
+    )
 }

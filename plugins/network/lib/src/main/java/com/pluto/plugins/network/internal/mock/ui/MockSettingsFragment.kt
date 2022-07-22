@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +15,7 @@ import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.plugin.utilities.extensions.fadeInAndOut
 import com.pluto.plugin.utilities.extensions.hideKeyboard
+import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
@@ -37,14 +37,7 @@ internal class MockSettingsFragment : Fragment(R.layout.pluto_network___fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestConfig = convertArguments(arguments)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                }
-            }
-        )
+        onBackPressed { findNavController().navigateUp() }
 
         viewModel.currentMock.removeObservers(viewLifecycleOwner)
         viewModel.currentMock.observe(viewLifecycleOwner, mockObserver)
