@@ -17,6 +17,7 @@ class TabularDataView : ConstraintLayout {
 
     fun set(title: String, keyValuePairs: List<KeyValuePairData>) {
         binding.tabularDataTitle.text = title
+        binding.tabularDataContainer.removeAllViews()
         keyValuePairs.forEach { binding.tabularDataContainer.addView(KeyValuePairView(context).apply { set(it) }) }
     }
 }
