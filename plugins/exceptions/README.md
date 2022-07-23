@@ -25,10 +25,17 @@ Pluto.Installer(this)
 
 ###  Set Global Exception Handler
 
-To intercept uncaught exceptions in your app, attach `UncaughtExceptionHandler` to Pluto
+To intercept uncaught exceptions in your app, attach `UncaughtExceptionHandler` to PlutoExceptions
 ```kotlin
 PlutoExceptions.setExceptionHandler { thread, throwable ->
-    Log.d("Exception", "uncaught exception handled on thread: " + thread.name, throwable)
+    Log.d("exception_demo", "uncaught exception handled on thread: " + thread.name, throwable)
+}
+```
+
+To intercept & report potential ANRs in your app, attach `UncaughtANRHandler` to PlutoExceptions
+```kotlin
+PlutoExceptions.setANRHandler { thread, exception ->
+    Log.d("anr_demo", "potential ANR detected on thread: " + thread.name, exception)
 }
 ```
 <br>
