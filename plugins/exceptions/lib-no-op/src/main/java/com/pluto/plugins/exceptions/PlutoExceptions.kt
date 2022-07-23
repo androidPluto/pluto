@@ -5,4 +5,7 @@ object PlutoExceptions {
 
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
     }
+
+    fun setANRHandler(anrHandler: UncaughtANRHandler) {
+    }
 }
