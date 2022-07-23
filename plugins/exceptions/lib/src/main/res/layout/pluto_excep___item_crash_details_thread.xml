@@ -5,31 +5,9 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/pluto___margin_medium">
 
-    <TextView
-        android:id="@+id/label"
+    <com.pluto.plugin.utilities.views.TabularDataView
+        android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pluto___section_color"
-        android:fontFamily="@font/muli_semibold"
-        android:lineSpacingExtra="6sp"
-        android:paddingHorizontal="@dimen/pluto___margin_medium"
-        android:paddingVertical="@dimen/pluto___margin_small"
-        android:text="@string/pluto_excep___thread_state_label"
-        android:textColor="@color/pluto___text_dark_80"
-        android:textSize="@dimen/pluto___text_small"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/label" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pluto___dp_1"
-        android:background="@color/pluto___divider_bg"
-        app:layout_constraintTop_toBottomOf="@id/container" />
 </androidx.constraintlayout.widget.ConstraintLayout>
