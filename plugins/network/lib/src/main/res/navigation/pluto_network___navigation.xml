@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/detailsView"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment"
         android:label="details"
-        tools:layout="@layout/pluto_network___fragment_details">
+        tools:layout="@layout/pluto_network___fragment_details_new">
         <argument
             android:name="id"
             android:defaultValue=""

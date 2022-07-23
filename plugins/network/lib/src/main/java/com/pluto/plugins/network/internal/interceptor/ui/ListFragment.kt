@@ -25,6 +25,7 @@ import com.pluto.plugins.network.internal.Session
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.API_CALL_ID
 import com.pluto.plugins.network.internal.interceptor.ui.list.NetworkAdapter
 
 internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {
@@ -95,7 +96,7 @@ internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {
             if (data is ApiCallData) {
                 requireActivity().let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {
-                        val bundle = bundleOf("id" to data.id)
+                        val bundle = bundleOf(API_CALL_ID to data.id)
                         findNavController().navigate(R.id.openDetails, bundle)
                     }
                 }
