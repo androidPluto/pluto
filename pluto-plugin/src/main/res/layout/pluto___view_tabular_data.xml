@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tabularDataTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___section_color"
+        android:fontFamily="@font/muli_semibold"
+        android:lineSpacingExtra="6sp"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="table title" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/tabularDataContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tabularDataTitle" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pluto___dp_1"
+        android:background="@color/pluto___divider_bg"
+        app:layout_constraintTop_toBottomOf="@id/tabularDataContainer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

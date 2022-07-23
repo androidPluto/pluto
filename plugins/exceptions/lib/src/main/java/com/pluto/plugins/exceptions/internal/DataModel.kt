@@ -145,7 +145,7 @@ private fun ThreadGroup?.convert(): ThreadGroupData? {
     return null
 }
 
-internal fun getStateStringSpan(context: Context, state: String): CharSequence? {
+internal fun getStateStringSpan(context: Context, state: String): CharSequence {
     return context.createSpan {
         append(
             bold(

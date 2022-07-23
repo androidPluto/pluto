@@ -1,13 +1,13 @@
 package com.pluto.plugins.exceptions.internal.ui.holder
 
 import android.view.ViewGroup
+import com.pluto.plugin.KeyValuePairData
 import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugin.utilities.extensions.inflate
 import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.spannable.createSpan
-import com.pluto.plugin.utilities.views.KeyValuePairView
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsThreadBinding
 import com.pluto.plugins.exceptions.internal.ThreadData
@@ -22,47 +22,50 @@ internal class CrashItemDetailsThreadHolder(
 
     override fun onBind(item: ListItem) {
         if (item is ThreadData) {
-            binding.container.addView(
-                KeyValuePairView(context).apply {
-                    set(
-                        context.getString(R.string.pluto_excep___thread_name_label),
-                        context.createSpan {
-                            append("${item.name.uppercase()}\t")
-                            append(
-                                fontColor("(id: ${item.id})", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
-                            )
-                        }
-                    )
-                }
+            setupTabularData(item)
+        }
+    }
+
+    private fun setupTabularData(item: ThreadData) {
+        val dataList = arrayListOf<KeyValuePairData>().apply {
+            add(
+                KeyValuePairData(
+                    key = context.getString(R.string.pluto_excep___thread_name_label),
+                    value = context.createSpan {
+                        append(semiBold("${item.name.uppercase()}\t"))
+                        append(fontColor("(", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
+                        append(fontColor("id: ", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
+                        append(bold(fontColor("${item.id}", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
+                        append(fontColor(")", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
+                    }
+                )
             )
-            binding.container.addView(
-                KeyValuePairView(context).apply {
-                    set(
-                        context.getString(R.string.pluto_excep___priority_label),
-                        context.createSpan {
-                            append(item.priorityString)
-                        }
-                    )
-                }
+            add(
+                KeyValuePairData(
+                    key = context.getString(R.string.pluto_excep___priority_label),
+                    value = context.createSpan {
+                        append(item.priorityString)
+                    }
+                )
             )
-            binding.container.addView(
-                KeyValuePairView(context).apply {
-                    set(
-                        context.getString(R.string.pluto_excep___daemon_label),
-                        context.createSpan {
-                            append(bold(item.isDaemon.toString()))
-                        }
-                    )
-                }
+            add(
+                KeyValuePairData(
+                    key = context.getString(R.string.pluto_excep___daemon_label),
+                    value = context.createSpan {
+                        append(bold(item.isDaemon.toString()))
+                    }
+                )
             )
-            binding.container.addView(
-                KeyValuePairView(context).apply {
-                    set(
-                        context.getString(R.string.pluto_excep___thread_run_state_label),
-                        getStateStringSpan(context, item.state)
-                    )
-                }
+            add(
+                KeyValuePairData(
+                    key = context.getString(R.string.pluto_excep___thread_run_state_label),
+                    value = getStateStringSpan(context, item.state)
+                )
             )
         }
+        binding.table.set(
+            title = context.getString(R.string.pluto_excep___thread_state_label),
+            keyValuePairs = dataList
+        )
     }
 }

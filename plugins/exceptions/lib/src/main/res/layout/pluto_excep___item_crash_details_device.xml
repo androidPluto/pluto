@@ -5,61 +5,17 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/pluto___margin_medium">
 
-    <TextView
-        android:id="@+id/appLabel"
+    <com.pluto.plugin.utilities.views.TabularDataView
+        android:id="@+id/appDataTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pluto___section_color"
-        android:fontFamily="@font/muli_semibold"
-        android:lineSpacingExtra="6sp"
-        android:paddingHorizontal="@dimen/pluto___margin_medium"
-        android:paddingVertical="@dimen/pluto___margin_small"
-        android:text="@string/pluto_excep___app_state_label"
-        android:textColor="@color/pluto___text_dark_80"
-        android:textSize="@dimen/pluto___text_small"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/appContainer"
+    <com.pluto.plugin.utilities.views.TabularDataView
+        android:id="@+id/deviceDataTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/appLabel" />
-
-    <View
-        android:id="@+id/appBottomDivider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pluto___dp_1"
-        android:background="@color/pluto___divider_bg"
-        app:layout_constraintTop_toBottomOf="@id/appContainer" />
-
-
-    <TextView
-        android:id="@+id/deviceLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/pluto___section_color"
-        android:fontFamily="@font/muli_semibold"
         android:layout_marginTop="@dimen/pluto___margin_medium"
-        android:lineSpacingExtra="6sp"
-        android:paddingHorizontal="@dimen/pluto___margin_medium"
-        android:paddingVertical="@dimen/pluto___margin_small"
-        android:text="@string/pluto_excep___device_label"
-        android:textColor="@color/pluto___text_dark_80"
-        android:textSize="@dimen/pluto___text_small"
-        app:layout_constraintTop_toBottomOf="@+id/appBottomDivider" />
+        app:layout_constraintTop_toBottomOf="@+id/appDataTable" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/deviceContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/deviceLabel" />
-
-    <View
-        android:id="@+id/deviceBottomDivider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pluto___dp_1"
-        android:background="@color/pluto___divider_bg"
-        app:layout_constraintTop_toBottomOf="@id/deviceContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

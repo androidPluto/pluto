@@ -539,7 +539,7 @@ style:
     methods: [ 'kotlin.io.println', 'kotlin.io.print' ]
   ForbiddenPublicDataClass:
     active: true
-    ignorePackages: [ '*.internal', '*.internal.*' ]
+    ignorePackages: [ '*', '*.internal.*' ]
   ForbiddenVoid:
     active: true
     ignoreOverridden: false
