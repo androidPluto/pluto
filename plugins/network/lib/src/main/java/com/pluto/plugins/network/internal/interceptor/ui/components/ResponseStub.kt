@@ -7,12 +7,13 @@ import android.view.View.VISIBLE
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugin.KeyValuePairData
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsResponseBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_RES_BODY
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_RES_HEADERS
 
 internal class ResponseStub : ConstraintLayout {
 
@@ -22,32 +23,32 @@ internal class ResponseStub : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun set(response: ResponseData?, exception: ExceptionData?) {
+    fun set(response: ResponseData?, exception: ExceptionData?, onAction: (String) -> Unit) {
         binding.loaderGroup.visibility = GONE
         binding.response.visibility = GONE
         binding.exceptionGroup.visibility = GONE
 
         exception?.setup(context, binding) ?: run {
-            response?.setup(context, binding) ?: run {
+            response?.setup(context, binding, onAction) ?: run {
                 binding.loaderGroup.visibility = VISIBLE
             }
         }
     }
 }
 
-private fun ResponseData.setup(context: Context, binding: PlutoNetworkStubDetailsResponseBinding) {
+private fun ResponseData.setup(context: Context, binding: PlutoNetworkStubDetailsResponseBinding, onAction: (String) -> Unit) {
     binding.response.visibility = VISIBLE
     binding.response.set(
         title = context.getString(R.string.pluto_network___tab_response),
         keyValuePairs = arrayListOf<KeyValuePairData>().apply {
             add(
                 getHeadersData(context, headers) {
-                    context.toast("response header clicked")
+                    onAction.invoke(ACTION_OPEN_RES_HEADERS)
                 }
             )
             add(
                 getBodyData(context, body) {
-                    context.toast("response body clicked")
+                    onAction.invoke(ACTION_OPEN_RES_BODY)
                 }
             )
         }

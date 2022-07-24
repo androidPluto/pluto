@@ -83,7 +83,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/pluto___margin_medium">
 
             <com.pluto.plugins.network.internal.interceptor.ui.components.OverviewStub
                 android:id="@+id/overview"

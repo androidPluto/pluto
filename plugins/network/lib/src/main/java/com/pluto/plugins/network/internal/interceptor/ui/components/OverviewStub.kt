@@ -8,11 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugin.KeyValuePairData
 import com.pluto.plugin.utilities.extensions.asFormattedDate
 import com.pluto.plugin.utilities.extensions.color
+import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_SHARE_CURL
 
 internal class OverviewStub : ConstraintLayout {
 
@@ -22,9 +25,19 @@ internal class OverviewStub : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun set(api: ApiCallData) {
+    fun set(api: ApiCallData, onAction: (String) -> Unit) {
         setupStatusView(api)
         setupOverview(api, waitingText(context))
+        handleMockSettings(onAction)
+        binding.settingStub.copyCurl.setOnDebounceClickListener {
+            onAction.invoke(ACTION_SHARE_CURL)
+        }
+    }
+
+    private fun handleMockSettings(onAction: (String) -> Unit) {
+        binding.settingStub.proxyRoot.setOnDebounceClickListener {
+            onAction.invoke(ACTION_OPEN_MOCK_SETTINGS)
+        }
     }
 
     private fun setupStatusView(data: ApiCallData) {
