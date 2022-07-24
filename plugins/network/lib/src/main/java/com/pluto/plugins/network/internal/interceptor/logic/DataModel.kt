@@ -43,7 +43,11 @@ internal class ApiCallData(
     var exception: ExceptionData? = null,
     var mock: MockConfig? = null,
 ) : ListItem() {
-    val curl: String = request.getCurl()
+    val curl: String
+        get() = request.getCurl()
+    val responseTime
+        get() = exception?.timeStamp ?: response?.receiveTimeMillis
+
     override fun isEqual(other: Any): Boolean {
         if (other is ApiCallData) {
             id == other.id && response == other.response && exception == other.exception

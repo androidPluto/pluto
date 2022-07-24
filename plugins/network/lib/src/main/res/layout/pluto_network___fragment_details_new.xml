@@ -76,10 +76,73 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/statusView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/pluto___margin_medium"
+            android:paddingVertical="@dimen/pluto___margin_xsmall"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/pluto___dark_05">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="@dimen/pluto___margin_xlarge"
+                android:layout_height="@dimen/pluto___margin_xlarge"
+                android:layout_marginEnd="@dimen/pluto___margin_mini"
+                android:layout_marginRight="@dimen/pluto___margin_mini"
+                android:backgroundTint="@color/pluto___dark_40"
+                android:padding="@dimen/pluto___margin_micro"
+                app:layout_constraintBottom_toBottomOf="@+id/status"
+                app:layout_constraintEnd_toStartOf="@+id/status"
+                app:layout_constraintTop_toTopOf="@+id/status" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:drawableStart="@drawable/pluto_network___ic_error"
+                tools:drawableLeft="@drawable/pluto_network___ic_error"
+                android:drawablePadding="@dimen/pluto___margin_xsmall"
+                android:fontFamily="@font/muli"
+                android:gravity="center_vertical"
+                android:text="@string/pluto_network___network_state_in_progress"
+                android:textSize="@dimen/pluto___text_xsmall"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <com.pluto.plugin.utilities.views.TabularDataView
+            android:id="@+id/overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            app:layout_constraintTop_toBottomOf="@+id/statusView" />
+
+        <com.pluto.plugin.utilities.views.TabularDataView
+            android:id="@+id/request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            app:layout_constraintTop_toBottomOf="@+id/overview" />
+
+        <com.pluto.plugin.utilities.views.TabularDataView
+            android:id="@+id/response"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pluto___margin_medium"
+            app:layout_constraintTop_toBottomOf="@+id/request" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,7 +15,7 @@ class TabularDataView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun set(title: String, keyValuePairs: List<KeyValuePairData>) {
+    fun set(title: String, keyValuePairs: List<KeyValuePairData> = arrayListOf()) {
         binding.tabularDataTitle.text = title
         binding.tabularDataContainer.removeAllViews()
         keyValuePairs.forEach { binding.tabularDataContainer.addView(KeyValuePairView(context).apply { set(it) }) }

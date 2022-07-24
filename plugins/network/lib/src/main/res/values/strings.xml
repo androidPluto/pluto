@@ -27,11 +27,11 @@
     <string name="pluto_network___url_label">URL</string>
     <string name="pluto_network___waiting_for_response">~ Waiting for response</string>
     <string name="pluto_network___method_label">Method</string>
-    <string name="pluto_network___ssl_label">is_SSL</string>
+    <string name="pluto_network___ssl_label">Is SSL</string>
     <string name="pluto_network___protocol_label">Protocol</string>
     <string name="pluto_network___request_time_label">Requested at</string>
-    <string name="pluto_network___response_time_label">Response received at</string>
-    <string name="pluto_network___delay_label">Delay (milliseconds)</string>
+    <string name="pluto_network___response_time_label">Response at</string>
+    <string name="pluto_network___delay_label">Delay</string>
     <string name="pluto_network___settings_link_mocklets_title">Link Mocklets Account</string>
     <string name="pluto_network___link">Link</string>
     <string name="pluto_network___settings_link_mocklets_description">Connect you Mocklets account to manage your network proxy setting efficiently</string>
