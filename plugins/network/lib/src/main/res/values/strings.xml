@@ -73,5 +73,7 @@
     <string name="pluto_network___request_size_label">Request Size</string>
     <string name="pluto_network___response_size_label">Response Size</string>
     <string name="pluto_network___body_title_search_alert">Search is disabled due to large content size.</string>
+    <string name="pluto_network___tap_for_details">tap for details</string>
+    <string name="pluto_network___binary_body">~ Binary Data ~</string>
 
 </resources>

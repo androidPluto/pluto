@@ -12,7 +12,10 @@ internal data class RequestData(
 //    val headerCount: Int,
     val timestamp: Long,
     val isGzipped: Boolean,
-)
+) {
+    val bodySize: Long
+        get() = body?.body?.length?.toLong() ?: 0L
+}
 
 internal data class MockConfig(
     val url: String,
@@ -28,7 +31,10 @@ internal data class ResponseData(
     val sendTimeMillis: Long,
     val receiveTimeMillis: Long,
     val isGzipped: Boolean,
-)
+) {
+    val bodySize: Long
+        get() = body?.body?.length?.toLong() ?: 0L
+}
 
 internal data class Status(
     val code: Int,

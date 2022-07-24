@@ -149,7 +149,7 @@ internal fun HttpUrl.hostUrl(): String {
 internal fun formatSizeAsBytes(origin: Long): String {
     var size = BigDecimal(origin.toString())
     return if (size < KILO_BYTES) {
-        "$size B"
+        "$size bytes"
     } else {
         size = size.divide(KILO_BYTES)
         if (size > KILO_BYTES) {
