@@ -46,7 +46,7 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
 
     private val detailsObserver = Observer<DetailContentData> {
         binding.title.setSpan {
-            append(fontColor(bold("${it.api.request.method.uppercase()},\t"), requireContext().color(R.color.pluto___white_60)))
+            append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
             append(it.api.request.url.encodedPath)
         }
         binding.overview.set(it.api)

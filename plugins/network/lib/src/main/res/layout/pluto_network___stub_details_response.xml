@@ -1,13 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.pluto.plugin.utilities.views.TabularDataView
-        android:id="@+id/table"
+    <TextView
+        android:id="@+id/loaderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/pluto___section_color"
+        android:fontFamily="@font/muli_semibold"
+        android:lineSpacingExtra="6sp"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_network___waiting_for_response"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loaderProgress"
+        android:layout_width="@dimen/pluto___margin_xlarge"
+        android:layout_height="@dimen/pluto___margin_xlarge"
+        android:layout_marginEnd="@dimen/pluto___margin_medium"
+        android:backgroundTint="@color/pluto___dark_20"
+        android:padding="@dimen/pluto___margin_micro"
+        app:layout_constraintBottom_toBottomOf="@+id/loaderTitle"
+        app:layout_constraintEnd_toEndOf="@+id/loaderTitle"
+        app:layout_constraintTop_toTopOf="@+id/loaderTitle" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/loaderGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="loaderTitle,loaderProgress"
+        tools:visibility="gone" />
+
+    <com.pluto.plugin.utilities.views.TabularDataView
+        android:id="@+id/response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/exceptionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___section_color"
+        android:drawableStart="@drawable/pluto_network___ic_error_outline"
+        android:drawableLeft="@drawable/pluto_network___ic_error_outline"
+        android:drawablePadding="@dimen/pluto___margin_xsmall"
+        android:fontFamily="@font/muli_semibold"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="6sp"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_network___tab_error"
+        android:textColor="@color/pluto___red_dark"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/exceptionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli"
+        android:lineSpacingExtra="6sp"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintTop_toBottomOf="@+id/exceptionTitle" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pluto___dp_1"
+        android:background="@color/pluto___divider_bg"
+        app:layout_constraintTop_toBottomOf="@id/exceptionDetails" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/exceptionGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="exceptionTitle,exceptionDetails,divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

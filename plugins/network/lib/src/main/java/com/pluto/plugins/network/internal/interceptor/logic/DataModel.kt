@@ -12,10 +12,7 @@ internal data class RequestData(
 //    val headerCount: Int,
     val timestamp: Long,
     val isGzipped: Boolean,
-) {
-    val bodySize: Long
-        get() = body?.body?.length?.toLong() ?: 0L
-}
+)
 
 internal data class MockConfig(
     val url: String,
@@ -31,10 +28,7 @@ internal data class ResponseData(
     val sendTimeMillis: Long,
     val receiveTimeMillis: Long,
     val isGzipped: Boolean,
-) {
-    val bodySize: Long
-        get() = body?.body?.length?.toLong() ?: 0L
-}
+)
 
 internal data class Status(
     val code: Int,
@@ -69,4 +63,6 @@ internal data class ProcessedBody(
     val mediaSubtype: String?,
 ) {
     val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
+    val sizeAsLong: Long
+        get() = body?.length?.toLong() ?: 0L
 }

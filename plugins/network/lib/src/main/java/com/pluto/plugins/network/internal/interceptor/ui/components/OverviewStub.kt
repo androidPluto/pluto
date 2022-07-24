@@ -37,7 +37,7 @@ internal class OverviewStub : ConstraintLayout {
             binding.progress.visibility = View.GONE
             binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
             binding.status.setSpan {
-                append(fontColor(it.name ?: context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red)))
+                append(fontColor(it.name ?: context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red_dark)))
             }
             binding.statusView.setBackgroundColor(context.color(R.color.pluto___red_05))
         }
