@@ -90,21 +90,27 @@
                 android:id="@+id/overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <com.pluto.plugins.network.internal.interceptor.ui.components.RequestStub
                 android:id="@+id/request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pluto___margin_medium"
-                app:layout_constraintTop_toBottomOf="@+id/overview" />
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/overview"
+                tools:visibility="visible" />
 
             <com.pluto.plugins.network.internal.interceptor.ui.components.ResponseStub
                 android:id="@+id/response"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pluto___margin_medium"
-                app:layout_constraintTop_toBottomOf="@+id/request" />
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/request"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

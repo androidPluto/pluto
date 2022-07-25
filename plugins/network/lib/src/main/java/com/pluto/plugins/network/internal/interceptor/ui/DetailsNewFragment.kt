@@ -2,6 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.VISIBLE
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -71,9 +72,18 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
             append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
             append(it.api.request.url.encodedPath)
         }
-        binding.overview.set(it.api) { action -> handleUserAction(action, it.api) }
-        binding.request.set(it.api.request) { action -> handleUserAction(action, it.api) }
-        binding.response.set(it.api.response, it.api.exception) { action -> handleUserAction(action, it.api) }
+        binding.overview.apply {
+            visibility = VISIBLE
+            set(it.api) { action -> handleUserAction(action, it.api) }
+        }
+        binding.request.apply {
+            visibility = VISIBLE
+            set(it.api.request) { action -> handleUserAction(action, it.api) }
+        }
+        binding.response.apply {
+            visibility = VISIBLE
+            set(it.api.response, it.api.exception) { action -> handleUserAction(action, it.api) }
+        }
     }
 
     private val listUpdateObserver = Observer<List<ApiCallData>> {
