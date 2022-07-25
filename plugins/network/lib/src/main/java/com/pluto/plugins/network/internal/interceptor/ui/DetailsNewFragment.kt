@@ -55,7 +55,10 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
                 R.id.openMockSettingsEdit,
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
             )
-            ACTION_OPEN_REQ_HEADERS -> requireContext().toast("req headers")
+            ACTION_OPEN_REQ_HEADERS -> {
+                requireContext().toast("req headers")
+                findNavController().navigate(R.id.openContentFormatter)
+            }
             ACTION_OPEN_REQ_PARAMS -> requireContext().toast("req params")
             ACTION_OPEN_REQ_BODY -> requireContext().toast("req body")
             ACTION_OPEN_RES_HEADERS -> requireContext().toast("res headers")

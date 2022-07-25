@@ -30,11 +30,19 @@
         <action
             android:id="@+id/openMockSettingsEdit"
             app:destination="@id/mockSettingsEditView" />
-
         <action
             android:id="@+id/openShareView"
             app:destination="@id/shareView" />
+        <action
+            android:id="@+id/openContentFormatter"
+            app:destination="@id/contentFormatterView" />
     </fragment>
+
+    <fragment
+        android:id="@+id/contentFormatterView"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.ContentFormatterFragment"
+        android:label="mockSettings"
+        tools:layout="@layout/pluto_network___fragment_content_formatter"/>
 
     <fragment
         android:id="@+id/mockSettingsListView"
