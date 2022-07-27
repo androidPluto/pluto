@@ -66,10 +66,3 @@ internal data class ProcessedBody(
     val sizeAsLong: Long
         get() = body?.length?.toLong() ?: 0L
 }
-
-internal data class ContentFormatterData(
-    val title: String,
-    val content: CharSequence,
-    val type: String,
-    val sizeText: String
-)

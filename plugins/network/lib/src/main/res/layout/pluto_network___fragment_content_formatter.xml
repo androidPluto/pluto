@@ -59,16 +59,16 @@
                 android:focusable="true"
                 android:fontFamily="@font/muli_bold"
                 android:gravity="center"
-                android:src="@drawable/pluto_network___ic_share"
                 android:paddingStart="@dimen/pluto___margin_small"
                 android:paddingEnd="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto_network___ic_share"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@+id/close"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
@@ -89,17 +89,17 @@
                 android:layout_height="0dp"
                 android:fontFamily="@font/muli_bold"
                 android:gravity="center"
-                android:paddingEnd="@dimen/pluto___margin_medium"
                 android:paddingStart="@dimen/pluto___margin_small"
+                android:paddingLeft="@dimen/pluto___margin_small"
+                android:paddingEnd="@dimen/pluto___margin_medium"
                 android:paddingRight="@dimen/pluto___margin_medium"
+                android:src="@drawable/pluto_network___ic_search_white"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                android:paddingLeft="@dimen/pluto___margin_small"
-                android:src="@drawable/pluto_network___ic_search_white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,15 +114,14 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/filterViewTopDivider"
             app:layout_constraintTop_toTopOf="parent">
 
             <HorizontalScrollView
-                android:id="@+id/headersScroll"
+                android:id="@+id/horizontalScroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/pluto___margin_small"
-                android:paddingBottom="@dimen/pluto___margin_small"
+                android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/divider">
 
                 <TextView
@@ -132,12 +131,12 @@
                     android:fontFamily="@font/muli"
                     android:hint="@string/pluto_network___no_headers"
                     android:lineSpacingExtra="6sp"
-                    android:textIsSelectable="true"
                     android:paddingStart="@dimen/pluto___margin_medium"
                     android:paddingEnd="@dimen/pluto___margin_medium"
                     android:paddingBottom="@dimen/pluto___margin_small"
                     android:textColor="@color/pluto___text_dark_60"
-                    android:textColorHint="@color/pluto___text_dark_40" />
+                    android:textColorHint="@color/pluto___text_dark_40"
+                    android:textIsSelectable="true" />
 
             </HorizontalScrollView>
 
@@ -155,23 +154,40 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/pluto___section_color"
-            app:layout_constraintBottom_toBottomOf="@+id/filterDescription"
-            app:layout_constraintTop_toTopOf="@+id/filterDescription" />
+            app:layout_constraintBottom_toBottomOf="@+id/contentSize"
+            app:layout_constraintTop_toTopOf="@+id/contentSize" />
 
         <TextView
-            android:id="@+id/filterDescription"
+            android:id="@+id/contentSize"
             android:layout_width="0dp"
-            android:drawablePadding="@dimen/pluto___margin_mini"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/pluto___margin_mini"
             android:fontFamily="@font/muli_semibold"
             android:gravity="center_vertical"
-            android:padding="@dimen/pluto___margin_medium"
+            android:paddingHorizontal="@dimen/pluto___margin_medium"
+            android:paddingVertical="@dimen/pluto___margin_small"
             android:text="afsdvdsfdgd sfsfsdds"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/typeFilter"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/typeFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/pluto___margin_mini"
+            android:fontFamily="@font/muli_semibold"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/pluto___margin_medium"
+            android:text="Key-Value"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintBottom_toBottomOf="@+id/contentSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/contentSize"
             app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

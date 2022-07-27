@@ -21,6 +21,8 @@ import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsNewBindi
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
+import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 
 class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_new) {
 
@@ -58,12 +60,50 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
             )
             ACTION_OPEN_REQ_HEADERS -> {
                 requireContext().toast("req headers")
-                findNavController().navigate(R.id.openContentFormatter)
+                findNavController().navigate(
+                    R.id.openContentFormatter,
+                    bundleOf(
+                        "data" to ContentFormatterData(
+                            title = "Request Header",
+                            content = context?.beautifyHeaders(api.request.headers),
+                            type = "Key-Value",
+                            sizeText = "${api.request.headers.size} items"
+                        )
+                    )
+                )
             }
             ACTION_OPEN_REQ_PARAMS -> requireContext().toast("req params")
-            ACTION_OPEN_REQ_BODY -> requireContext().toast("req body")
+            ACTION_OPEN_REQ_BODY -> {
+                requireContext().toast("req body")
+                findNavController().navigate(
+                    R.id.openContentFormatter,
+                    bundleOf(
+                        "data" to ContentFormatterData(
+                            title = "Request Body",
+                            content = api.request.body?.body,
+                            type = "JSON",
+                            sizeText = formatSizeAsBytes(api.request.body?.sizeAsLong ?: 0L)
+                        )
+                    )
+                )
+            }
             ACTION_OPEN_RES_HEADERS -> requireContext().toast("res headers")
-            ACTION_OPEN_RES_BODY -> requireContext().toast("res body")
+            ACTION_OPEN_RES_BODY -> {
+                requireContext().toast("res body")
+                api.response?.let { res ->
+                    findNavController().navigate(
+                        R.id.openContentFormatter,
+                        bundleOf(
+                            "data" to ContentFormatterData(
+                                title = "Response Body",
+                                content = res.body?.body,
+                                type = "JSON",
+                                sizeText = formatSizeAsBytes(res.body?.sizeAsLong ?: 0L)
+                            )
+                        )
+                    )
+                }
+            }
         }
     }
 
