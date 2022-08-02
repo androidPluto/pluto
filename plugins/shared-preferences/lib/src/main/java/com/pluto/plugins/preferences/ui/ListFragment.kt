@@ -54,6 +54,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
                 }
             }
         }
+        binding.filter.setOnDebounceClickListener { findNavController().navigate(R.id.openFilterSettings) }
         binding.search.setText(Session.searchText)
         viewModel.preferences.removeObserver(sharedPrefObserver)
         viewModel.preferences.observe(viewLifecycleOwner, sharedPrefObserver)
