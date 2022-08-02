@@ -1,12 +1,11 @@
 package com.sampleapp.functions.network.internal.core
 
-import com.google.gson.GsonBuilder
 import com.pluto.plugins.network.PlutoInterceptor
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Network {
 
@@ -15,7 +14,7 @@ object Network {
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.mocklets.com/p68296/")
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
