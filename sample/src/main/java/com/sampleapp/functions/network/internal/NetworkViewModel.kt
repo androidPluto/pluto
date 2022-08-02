@@ -3,8 +3,6 @@ package com.sampleapp.functions.network.internal
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.sampleapp.functions.network.internal.core.ApiService
 import com.sampleapp.functions.network.internal.core.Network
 import com.sampleapp.functions.network.internal.core.ResponseWrapper
@@ -16,7 +14,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class NetworkViewModel : ViewModel() {
 
     private val apiService: ApiService by Network.getService()
-    private val responseData = MutableLiveData<Pair<String, JsonObject>>()
+    private val responseData = MutableLiveData<Pair<String, Any?>>()
 
     fun get() {
         val label = "GET call"
@@ -25,10 +23,7 @@ class NetworkViewModel : ViewModel() {
             responseData.postValue(
                 when (auth) {
                     is ResponseWrapper.Success -> Pair(label, auth.body)
-                    is ResponseWrapper.Failure -> {
-                        val string = Gson().toJson(auth.error)
-                        Pair(label, Gson().fromJson(string, JsonObject::class.java))
-                    }
+                    is ResponseWrapper.Failure -> Pair(label, auth.error)
                 }
             )
         }
@@ -48,10 +43,7 @@ class NetworkViewModel : ViewModel() {
             responseData.postValue(
                 when (auth) {
                     is ResponseWrapper.Success -> Pair(label, auth.body)
-                    is ResponseWrapper.Failure -> {
-                        val string = Gson().toJson(auth.error)
-                        Pair(label, Gson().fromJson(string, JsonObject::class.java))
-                    }
+                    is ResponseWrapper.Failure -> Pair(label, auth.error)
                 }
             )
         }
@@ -71,10 +63,7 @@ class NetworkViewModel : ViewModel() {
             responseData.postValue(
                 when (auth) {
                     is ResponseWrapper.Success -> Pair(label, auth.body)
-                    is ResponseWrapper.Failure -> {
-                        val string = Gson().toJson(auth.error)
-                        Pair(label, Gson().fromJson(string, JsonObject::class.java))
-                    }
+                    is ResponseWrapper.Failure -> Pair(label, auth.error)
                 }
             )
         }
@@ -89,10 +78,7 @@ class NetworkViewModel : ViewModel() {
             responseData.postValue(
                 when (auth) {
                     is ResponseWrapper.Success -> Pair(label, auth.body)
-                    is ResponseWrapper.Failure -> {
-                        val string = Gson().toJson(auth.error)
-                        Pair(label, Gson().fromJson(string, JsonObject::class.java))
-                    }
+                    is ResponseWrapper.Failure -> Pair(label, auth.error)
                 }
             )
         }

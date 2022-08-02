@@ -1,7 +1,8 @@
 package com.sampleapp.functions.network.internal.core
 
 import android.util.Log
-import com.google.gson.Gson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -36,13 +37,14 @@ suspend fun <T> enqueue(
 
 @Suppress("TooGenericExceptionCaught")
 private fun convertErrorBody(throwable: HttpException): ErrorResponse {
+    val moshiAdapter: JsonAdapter<ErrorResponse> = Moshi.Builder().build().adapter(ErrorResponse::class.java)
     val errorString = throwable.response()?.errorBody()?.string()
     return if (!errorString.isNullOrEmpty()) {
         try {
             run {
-                val error = Gson().fromJson(errorString, ErrorResponse::class.java)
+                val error = moshiAdapter.fromJson(errorString)
                 validateError(error)
-                error
+                error ?: ErrorResponse(VALIDATION_ERROR_MESSAGE, DEFAULT_ERROR_MESSAGE)
             }
         } catch (exception: Exception) {
             Log.e(
@@ -57,13 +59,14 @@ private fun convertErrorBody(throwable: HttpException): ErrorResponse {
     }
 }
 
-private fun validateError(error: ErrorResponse) {
-    if (error.error == null) { // TODO handle deserialization issue
+private fun validateError(error: ErrorResponse?) {
+    if (error?.error == null) { // TODO handle deserialization issue
         throw KotlinNullPointerException("response.error value null")
     }
 }
 
 private const val DEFAULT_ERROR_MESSAGE = "Something went wrong!"
 private const val EMPTY_ERROR_MESSAGE = "empty error response"
+private const val VALIDATION_ERROR_MESSAGE = "validation_error_message"
 private const val UPSTREAM_FAILURE = "upstream_failure"
 private const val CONVERSION_FAILURE = "response_conversion_failure"

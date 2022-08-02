@@ -1,6 +1,5 @@
 package com.sampleapp.functions.network.internal.core
 
-import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -14,15 +13,15 @@ interface ApiService {
     @FormUrlEncoded
     @Headers("Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a")
     @POST("post?scope=points,preferences")
-    suspend fun form(@Field("title") title: String, @Field("diff") diff: String): JsonObject
+    suspend fun form(@Field("title") title: String, @Field("diff") diff: String): Any
 
     @Headers("Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a")
     @POST("post")
-    suspend fun post(@Body hashMapOf: Any): JsonObject
+    suspend fun post(@Body hashMapOf: Any): Any
 
     @Headers("Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a")
     @GET("get")
-    suspend fun get(): JsonObject
+    suspend fun get(): Any
 
     @Headers(
         "type: xml",
@@ -30,5 +29,5 @@ interface ApiService {
         "Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a"
     )
     @POST("xml")
-    suspend fun xml(@Body hashMapOf: RequestBody): JsonObject
+    suspend fun xml(@Body hashMapOf: RequestBody): Any
 }
