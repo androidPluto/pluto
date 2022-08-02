@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -61,9 +62,12 @@ dependencies {
     implementation project(path: ':pluto-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
-    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 }
 
 task validateChanges {

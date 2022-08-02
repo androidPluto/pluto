@@ -2,20 +2,17 @@ package com.pluto.plugins.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.preference.PreferenceManager
 import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.preferences.ui.SharedPrefFile
 import com.pluto.plugins.preferences.ui.SharedPrefKeyValuePair
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import java.io.File
-import java.lang.reflect.Type
 
 // todo can be a static class
 internal object SharedPrefRepo {
-
-//    private val prefList: ArrayList<SharedPrefFile>
-//        get() = Pluto.appContext.getSharePreferencesFiles()
 
     private var preferences: Preferences? = null
 
@@ -23,8 +20,8 @@ internal object SharedPrefRepo {
         preferences = Preferences(context)
     }
 
-    private val selectedFileListType: Type = object : TypeToken<HashSet<SharedPrefFile>>() {}.type
-    private val gson: Gson = Gson()
+    private val moshi: Moshi = Moshi.Builder().build()
+    private val moshiAdapter: JsonAdapter<HashSet<SharedPrefFile>?> = moshi.adapter(Types.newParameterizedType(Set::class.java, SharedPrefFile::class.java))
 
     fun get(context: Context): List<SharedPrefKeyValuePair> {
         val list = arrayListOf<SharedPrefKeyValuePair>()
@@ -50,28 +47,32 @@ internal object SharedPrefRepo {
     }
 
     internal fun getSelectedPreferenceFiles(context: Context): Set<SharedPrefFile> {
-        var selectedFiles: HashSet<SharedPrefFile>? =
-            gson.fromJson(preferences?.selectedPreferenceFiles, selectedFileListType)
-        if (selectedFiles == null) {
-            preferences?.selectedPreferenceFiles = gson.toJson(context.getSharePreferencesFiles())
-            selectedFiles = gson.fromJson(preferences?.selectedPreferenceFiles, selectedFileListType)
+        return preferences?.selectedPreferenceFiles?.let {
+            var selectedFiles = moshiAdapter.fromJson(it)
+            if (selectedFiles.isNullOrEmpty()) {
+                preferences?.selectedPreferenceFiles = moshiAdapter.toJson(
+                    hashSetOf<SharedPrefFile>().apply {
+                        addAll(context.getSharePreferencesFiles())
+                    }
+                )
+                selectedFiles = preferences?.selectedPreferenceFiles?.let { it1 -> moshiAdapter.fromJson(it1) }
+            }
+            selectedFiles ?: emptySet()
+        } ?: run {
+            emptySet()
         }
-        return selectedFiles ?: emptySet()
     }
 
     fun updateSelectedPreferenceFile(file: SharedPrefFile) {
-        val selectedFiles: HashSet<SharedPrefFile>? =
-            gson.fromJson(preferences?.selectedPreferenceFiles, selectedFileListType)
-        selectedFiles?.let {
-            if (!it.add(file)) {
-                it.remove(file)
-            }
-            preferences?.selectedPreferenceFiles = gson.toJson(selectedFiles)
+        val selectedFiles: HashSet<SharedPrefFile> = preferences?.selectedPreferenceFiles?.let { moshiAdapter.fromJson(it) } ?: run { hashSetOf() }
+        if (!selectedFiles.add(file)) {
+            selectedFiles.remove(file)
         }
+        preferences?.selectedPreferenceFiles = moshiAdapter.toJson(selectedFiles)
     }
 
     fun deSelectAll() {
-        preferences?.selectedPreferenceFiles = gson.toJson(emptySet<SharedPrefFile>())
+        preferences?.selectedPreferenceFiles = null
     }
 }
 
