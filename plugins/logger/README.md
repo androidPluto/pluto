@@ -44,6 +44,10 @@ Timber.tag("error_log").e(NullPointerException("demo"), "api call falied with ht
 Timber.tag("warning_log").w(NullPointerException("demo"), "warning log")
 Timber.i("api call completed")
 ```
+Install Pluto as a Tree for Timber:
+```
+Timber.plant(PlutoTimberTree());
+```
 
 But if you are connected to Logcat, PlutoLogs behave similar to Log class, with an improvement to tag the method and file name also. In Logcat, PlutoLogs will look like the following.
 ```
