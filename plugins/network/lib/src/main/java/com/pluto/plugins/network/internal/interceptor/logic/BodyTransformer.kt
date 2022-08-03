@@ -17,14 +17,14 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import okio.IOException
 
-internal fun RequestBody.convertPretty(gzipped: Boolean): ProcessedBody {
+internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody {
     contentType()?.let {
         DebugLog.e(LOGTAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
         return if (it.isText()) {
             val plainBody = convert(gzipped)
             ProcessedBody(
                 isValid = true,
-                body = it.beautify(plainBody),
+                body = plainBody,
                 mediaType = it.type,
                 mediaSubtype = it.subtype
             )
@@ -44,7 +44,7 @@ internal fun RequestBody.convertPretty(gzipped: Boolean): ProcessedBody {
     )
 }
 
-internal fun ResponseBody?.convertPretty(buffer: Buffer): ProcessedBody? {
+internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
     this?.let {
         val contentType = it.contentType()
         if (contentType != null) {
