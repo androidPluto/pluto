@@ -58,11 +58,11 @@ internal class ApiCallData(
 
 internal data class ProcessedBody(
     val isValid: Boolean,
-    val body: CharSequence? = null,
+    val body: CharSequence,
     val mediaType: String?,
     val mediaSubtype: String?,
 ) {
     val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
     val sizeAsLong: Long
-        get() = body?.length?.toLong() ?: 0L
+        get() = body.length.toLong()
 }

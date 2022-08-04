@@ -10,7 +10,7 @@ internal fun RequestData.getCurl(): String {
     }
 
     body?.let {
-        curlCommandBuilder.append(" -d '${it.flatten()}'")
+        curlCommandBuilder.append(" -d '${it.body}'")
     }
     curlCommandBuilder.append(" \"$url\"")
     curlCommandBuilder.append(" -L")

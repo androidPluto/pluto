@@ -21,7 +21,6 @@ import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsNewBindi
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
-import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 
 class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_new) {
@@ -65,7 +64,7 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
                     bundleOf(
                         "data" to ContentFormatterData(
                             title = "Request Header",
-                            content = context?.beautifyHeaders(api.request.headers),
+                            content = api.request.headers.toString(),
                             type = "Key-Value",
                             sizeText = "${api.request.headers.size} items"
                         )
