@@ -17,10 +17,10 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import okio.IOException
 
-internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody {
-    contentType()?.let {
+internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
+    return contentType()?.let {
         DebugLog.e(LOGTAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
-        return if (it.isText()) {
+        if (it.isText()) {
             val plainBody = convert(gzipped)
             ProcessedBody(
                 isValid = true,
@@ -37,42 +37,29 @@ internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody {
             )
         }
     }
-    return ProcessedBody(
-        isValid = false,
-        mediaType = null,
-        mediaSubtype = null
-    )
 }
 
 internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
-    this?.let {
-        val contentType = it.contentType()
-        if (contentType != null) {
-            return if (contentType.isText()) {
-                val body = buffer.readString(contentType.charset(UTF8) ?: UTF8)
-                ProcessedBody(
-                    isValid = true,
-                    body = contentType.beautify(body),
-                    mediaType = contentType.type,
-                    mediaSubtype = contentType.subtype
-                )
-            } else {
-                // todo process image response
-                ProcessedBody(
-                    isValid = true,
-                    body = BINARY_BODY,
-                    mediaType = BINARY_MEDIA_TYPE,
-                    mediaSubtype = BINARY_MEDIA_TYPE
-                )
-            }
+    return this?.contentType()?.let {
+        DebugLog.e(LOGTAG, "response  : ${it.type}, ${it.subtype}, ${it.charset()}")
+        if (it.isText()) {
+            val body = buffer.readString(it.charset(UTF8) ?: UTF8)
+            ProcessedBody(
+                isValid = true,
+                body = body,
+                mediaType = it.type,
+                mediaSubtype = it.subtype
+            )
+        } else {
+            // todo process image response
+            ProcessedBody(
+                isValid = true,
+                body = BINARY_BODY,
+                mediaType = BINARY_MEDIA_TYPE,
+                mediaSubtype = BINARY_MEDIA_TYPE
+            )
         }
-        return ProcessedBody(
-            isValid = false,
-            mediaType = null,
-            mediaSubtype = null
-        )
     }
-    return null
 }
 
 private fun RequestBody.convert(gzipped: Boolean): CharSequence {
