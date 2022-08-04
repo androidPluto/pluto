@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.share
+package com.pluto.plugins.network.internal.interceptor.ui.share
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep

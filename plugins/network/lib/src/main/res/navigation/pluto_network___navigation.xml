@@ -71,6 +71,6 @@
 
     <dialog
         android:id="@+id/shareView"
-        android:name="com.pluto.plugins.network.internal.share.ShareFragment"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.share.ShareFragment"
         tools:layout="@layout/pluto_network___fragment_share"/>
 </navigation>

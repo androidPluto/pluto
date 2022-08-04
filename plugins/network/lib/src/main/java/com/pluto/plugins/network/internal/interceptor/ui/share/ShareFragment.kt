@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.share
+package com.pluto.plugins.network.internal.interceptor.ui.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +20,8 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentShareBinding
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.responseToText
+import com.pluto.plugins.network.internal.interceptor.logic.toShareText
 
 class ShareFragment : BottomSheetDialogFragment() {
 

@@ -1,8 +1,6 @@
-package com.pluto.plugins.network.internal.share
+package com.pluto.plugins.network.internal.interceptor.logic
 
 import com.pluto.plugin.utilities.extensions.asFormattedDate
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -81,6 +79,27 @@ internal fun ApiCallData.responseToText(): String {
         }
     }
     return text.toString()
+}
+
+internal fun RequestData.getCurl(): String {
+    val curlCommandBuilder = StringBuilder("")
+    curlCommandBuilder.append("cURL")
+    curlCommandBuilder.append(" -X")
+    curlCommandBuilder.append(" ${method.uppercase()}")
+    for (headerName in headers) {
+        curlCommandBuilder.append(headerPair(headerName.key, headerName.value))
+    }
+
+    body?.let {
+        curlCommandBuilder.append(" -d '${it.body}'")
+    }
+    curlCommandBuilder.append(" \"$url\"")
+    curlCommandBuilder.append(" -L")
+    return curlCommandBuilder.toString() // beautify(request.url.toString(), curlCommandBuilder.toString())
+}
+
+private fun headerPair(headerName: String, headerValue: String?): String {
+    return " -H \"$headerName: $headerValue\""
 }
 
 private const val STACK_TRACE_LENGTH = 10

@@ -1,12 +1,12 @@
-package com.pluto.plugins.network.internal.share
+package com.pluto.plugins.network.internal.interceptor.ui.share
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugins.network.internal.share.holders.ShareHeadingHolder
-import com.pluto.plugins.network.internal.share.holders.ShareOptionHolder
-import com.pluto.plugins.network.internal.share.holders.ShareResponseOptionHolder
+import com.pluto.plugins.network.internal.interceptor.ui.share.holders.ShareHeadingHolder
+import com.pluto.plugins.network.internal.interceptor.ui.share.holders.ShareOptionHolder
+import com.pluto.plugins.network.internal.interceptor.ui.share.holders.ShareResponseOptionHolder
 
 internal class ShareOptionsAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

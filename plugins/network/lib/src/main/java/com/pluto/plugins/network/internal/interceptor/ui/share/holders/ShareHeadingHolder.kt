@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.share.holders
+package com.pluto.plugins.network.internal.interceptor.ui.share.holders
 
 import android.view.ViewGroup
 import com.pluto.plugin.utilities.extensions.inflate

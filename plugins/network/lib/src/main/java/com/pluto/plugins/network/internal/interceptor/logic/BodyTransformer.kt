@@ -1,17 +1,11 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
-import android.content.Context
 import com.pluto.plugin.utilities.DebugLog
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.spannable.createSpan
-import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.interceptor.logic.core.doUnZipToString
-import com.pluto.plugins.network.internal.interceptor.logic.transformers.FormEncodedTransformer
-import com.pluto.plugins.network.internal.interceptor.logic.transformers.JsonBaseTransformer
-import com.pluto.plugins.network.internal.interceptor.logic.transformers.XmlBaseTransformer
 import java.math.BigDecimal
 import java.nio.charset.Charset
 import okhttp3.HttpUrl
+import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import okio.Buffer
@@ -21,7 +15,7 @@ internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
     return contentType()?.let {
         DebugLog.e(LOGTAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
         if (it.isText()) {
-            val plainBody = convert(gzipped)
+            val plainBody = extractBody(gzipped)
             ProcessedBody(
                 isValid = true,
                 body = plainBody,
@@ -62,7 +56,7 @@ internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
     }
 }
 
-private fun RequestBody.convert(gzipped: Boolean): CharSequence {
+private fun RequestBody.extractBody(gzipped: Boolean): CharSequence {
     return try {
         val buffer = Buffer()
         writeTo(buffer)
@@ -76,62 +70,72 @@ private fun RequestBody.convert(gzipped: Boolean): CharSequence {
         ""
     }
 }
+//
+// internal fun Context?.beautifyHeaders(data: Map<String, String?>): CharSequence? {
+//    return this?.createSpan {
+//        data.forEach {
+//            append("${it.key} : ")
+//            if (it.value != null) {
+//                append(fontColor(semiBold("${it.value}"), context.color(R.color.pluto___text_dark_80)))
+//            } else {
+//                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
+//            }
+//            append("\n")
+//        }
+//    }?.trim()
+// }
+//
+// internal fun Context?.beautifyQueryParams(url: HttpUrl): CharSequence? {
+//    return this?.createSpan {
+//        url.queryParameterNames.forEach {
+//            append("$it : ")
+//            val value = url.queryParameter(it)
+//            if (value != null) {
+//                append(fontColor(semiBold("$value"), context.color(R.color.pluto___text_dark_80)))
+//            } else {
+//                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
+//            }
+//            append("\n")
+//        }
+//    }?.trim()
+// }
+//
+// internal fun ProcessedBody.flatten(): String {
+//    return body.toString().let { body ->
+//        when {
+//            mediaType == "binary" -> body
+//            mediaSubtype == "json" -> JsonBaseTransformer().flatten(body)
+//            mediaSubtype == "xml" || mediaSubtype == "html" -> XmlBaseTransformer().flatten(body)
+//            mediaSubtype == "x-www-form-urlencoded" -> FormEncodedTransformer().flatten(body)
+//            else -> body
+//        }
+//    }
+// }
+//
+// internal fun ProcessedBody.beautify(plain: CharSequence, indent: Int = BODY_INDENTATION): CharSequence? {
+//    return mediaSubtype?.let {
+//        when {
+//            it.endsWith("json") -> JsonBaseTransformer().beautify(plain, indent)
+//            it == "xml" || it == "html" -> XmlBaseTransformer().beautify(plain, indent)
+//            it == "x-www-form-urlencoded" -> FormEncodedTransformer().beautify(plain)
+//            else -> plain
+//        }
+//    } ?: run {
+//        plain
+//    }
+// }
 
-internal fun Context?.beautifyHeaders(data: Map<String, String?>): CharSequence? {
-    return this?.createSpan {
-        data.forEach {
-            append("${it.key} : ")
-            if (it.value != null) {
-                append(fontColor(semiBold("${it.value}"), context.color(R.color.pluto___text_dark_80)))
-            } else {
-                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
-            }
-            append("\n")
-        }
-    }?.trim()
-}
+internal fun MediaType.isText(): Boolean = (type == "application" || type == "text") &&
+    (subtype.endsWith("json") || subtype == "plain" || subtype == "xml" || subtype == "html" || subtype == "x-www-form-urlencoded")
 
-internal fun Context?.beautifyQueryParams(url: HttpUrl): CharSequence? {
-    return this?.createSpan {
-        url.queryParameterNames.forEach {
-            append("$it : ")
-            val value = url.queryParameter(it)
-            if (value != null) {
-                append(fontColor(semiBold("$value"), context.color(R.color.pluto___text_dark_80)))
-            } else {
-                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
-            }
-            append("\n")
-        }
-    }?.trim()
-}
+internal fun String.pruneQueryParams(): String = split("?")[0]
 
-internal fun ProcessedBody.flatten(): String? {
-    body?.toString()?.let { body ->
-        return when {
-            mediaType == "binary" -> body
-            mediaSubtype == "json" -> JsonBaseTransformer().flatten(body)
-            mediaSubtype == "xml" || mediaSubtype == "html" -> XmlBaseTransformer().flatten(body)
-            mediaSubtype == "x-www-form-urlencoded" -> FormEncodedTransformer().flatten(body)
-            else -> body
-        }
-    }
-    return null
-}
-
-internal fun String.pruneQueryParams(): String {
-    val separated: List<String> = split("?")
-    return separated[0]
-}
-
-internal fun HttpUrl.hostUrl(): String {
-    val hostString = StringBuilder()
-    hostString.append("$scheme://$host")
+internal fun HttpUrl.hostUrl(): String = StringBuilder().apply {
+    append("$scheme://$host")
     if (port != HTTP_PORT && port != HTTPS_PORT) {
-        hostString.append(":$port")
+        append(":$port")
     }
-    return hostString.toString()
-}
+}.toString()
 
 internal fun formatSizeAsBytes(origin: Long): String {
     var size = BigDecimal(origin.toString())
