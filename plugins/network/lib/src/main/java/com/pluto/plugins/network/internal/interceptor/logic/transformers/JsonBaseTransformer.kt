@@ -20,11 +20,11 @@ internal class JsonBaseTransformer : BaseTransformer {
         return try {
             try {
                 val jsonObject = moshiObjectAdapter.fromJson(plain.toString())
-                moshiObjectAdapter.indent("  ").toJson(jsonObject)
+                moshiObjectAdapter.indent(INDENTATION_TEXT).toJson(jsonObject)
             } catch (e: JsonDataException) {
                 DebugLog.e(LOGTAG, "json object conversion failed, trying array conversion")
                 val jsonArray = moshiArrayAdapter.fromJson(plain.toString())
-                moshiArrayAdapter.indent("  ").toJson(jsonArray)
+                moshiArrayAdapter.indent(INDENTATION_TEXT).toJson(jsonArray)
             }
         } catch (e: Exception) {
             DebugLog.e(LOGTAG, "json parsing failed", e)
@@ -34,5 +34,9 @@ internal class JsonBaseTransformer : BaseTransformer {
 
     override fun flatten(plain: CharSequence): String {
         return plain.toString().replace("\n", "").replace("\\s+".toRegex(), "")
+    }
+
+    companion object {
+        private const val INDENTATION_TEXT = "  "
     }
 }
