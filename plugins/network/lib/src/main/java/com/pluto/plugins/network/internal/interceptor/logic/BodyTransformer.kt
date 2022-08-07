@@ -1,7 +1,14 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
+import android.content.Context
 import com.pluto.plugin.utilities.DebugLog
+import com.pluto.plugin.utilities.extensions.color
+import com.pluto.plugin.utilities.spannable.createSpan
+import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.interceptor.logic.core.doUnZipToString
+import com.pluto.plugins.network.internal.interceptor.logic.transformers.FormEncodedTransformer
+import com.pluto.plugins.network.internal.interceptor.logic.transformers.JsonTransformer
+import com.pluto.plugins.network.internal.interceptor.logic.transformers.XmlTransformer
 import java.math.BigDecimal
 import java.nio.charset.Charset
 import okhttp3.HttpUrl
@@ -70,35 +77,36 @@ private fun RequestBody.extractBody(gzipped: Boolean): CharSequence {
         ""
     }
 }
-//
-// internal fun Context?.beautifyHeaders(data: Map<String, String?>): CharSequence? {
-//    return this?.createSpan {
-//        data.forEach {
-//            append("${it.key} : ")
-//            if (it.value != null) {
-//                append(fontColor(semiBold("${it.value}"), context.color(R.color.pluto___text_dark_80)))
-//            } else {
-//                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
-//            }
-//            append("\n")
-//        }
-//    }?.trim()
-// }
-//
-// internal fun Context?.beautifyQueryParams(url: HttpUrl): CharSequence? {
-//    return this?.createSpan {
-//        url.queryParameterNames.forEach {
-//            append("$it : ")
-//            val value = url.queryParameter(it)
-//            if (value != null) {
-//                append(fontColor(semiBold("$value"), context.color(R.color.pluto___text_dark_80)))
-//            } else {
-//                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
-//            }
-//            append("\n")
-//        }
-//    }?.trim()
-// }
+
+internal fun Context.beautifyHeaders(data: Map<String, String?>): CharSequence {
+    return createSpan {
+        data.forEach {
+            append(fontColor("${it.key} : ", context.color(R.color.pluto___text_dark_40)))
+            if (it.value != null) {
+                append(fontColor(semiBold("${it.value}"), context.color(R.color.pluto___text_dark_80)))
+            } else {
+                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
+            }
+            append("\n")
+        }
+    }.trim()
+}
+
+internal fun Context.beautifyQueryParams(url: HttpUrl): CharSequence {
+    return createSpan {
+        url.queryParameterNames.forEach {
+            append(fontColor("$it : ", context.color(R.color.pluto___text_dark_40)))
+            val value = url.queryParameter(it)
+            if (value != null) {
+                append(fontColor(semiBold("$value"), context.color(R.color.pluto___text_dark_80)))
+            } else {
+                append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
+            }
+            append("\n")
+        }
+    }.trim()
+}
+
 //
 // internal fun ProcessedBody.flatten(): String {
 //    return body.toString().let { body ->
@@ -112,18 +120,14 @@ private fun RequestBody.extractBody(gzipped: Boolean): CharSequence {
 //    }
 // }
 //
-// internal fun ProcessedBody.beautify(plain: CharSequence, indent: Int = BODY_INDENTATION): CharSequence? {
-//    return mediaSubtype?.let {
-//        when {
-//            it.endsWith("json") -> JsonBaseTransformer().beautify(plain, indent)
-//            it == "xml" || it == "html" -> XmlBaseTransformer().beautify(plain, indent)
-//            it == "x-www-form-urlencoded" -> FormEncodedTransformer().beautify(plain)
-//            else -> plain
-//        }
-//    } ?: run {
-//        plain
-//    }
-// }
+internal fun ProcessedBody.beautify(): CharSequence {
+    return when {
+        mediaSubtype.endsWith("json") -> JsonTransformer().beautify(body)
+        mediaSubtype == "xml" || mediaSubtype == "html" -> XmlTransformer().beautify(body)
+        mediaSubtype == "x-www-form-urlencoded" -> FormEncodedTransformer().beautify(body)
+        else -> body
+    }
+}
 
 internal fun MediaType.isText(): Boolean = (type == "application" || type == "text") &&
     (subtype.endsWith("json") || subtype == "plain" || subtype == "xml" || subtype == "html" || subtype == "x-www-form-urlencoded")

@@ -22,7 +22,7 @@ internal fun Request.convert(): RequestData {
         url = this.url,
         method = this.method,
         body = body,
-        headers = this.headerMap(body?.sizeAsLong ?: 0L),
+        headers = this.headerMap(body?.sizeInBytes ?: 0L),
         timestamp = System.currentTimeMillis(),
         isGzipped = this.isGzipped
     )

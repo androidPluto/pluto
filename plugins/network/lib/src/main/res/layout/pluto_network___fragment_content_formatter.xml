@@ -129,12 +129,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/muli"
-                    android:hint="@string/pluto_network___no_headers"
                     android:lineSpacingExtra="6sp"
-                    android:paddingStart="@dimen/pluto___margin_medium"
-                    android:paddingEnd="@dimen/pluto___margin_medium"
-                    android:paddingBottom="@dimen/pluto___margin_small"
-                    android:textColor="@color/pluto___text_dark_60"
+                    android:padding="@dimen/pluto___margin_medium"
+                    android:textColor="@color/pluto___text_dark_80"
                     android:textColorHint="@color/pluto___text_dark_40"
                     android:textIsSelectable="true" />
 

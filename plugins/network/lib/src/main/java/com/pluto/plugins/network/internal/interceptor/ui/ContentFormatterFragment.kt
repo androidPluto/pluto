@@ -17,7 +17,7 @@ class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_cont
 
     private val binding by viewBinding(PlutoNetworkFragmentContentFormatterBinding::bind)
     private val argumentData: ContentFormatterData?
-        get() = arguments?.getParcelable("data")
+        get() = arguments?.getParcelable(DATA)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,23 +26,25 @@ class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_cont
         binding.horizontalScroll.layoutParams
         argumentData?.let {
             binding.title.text = it.title
-            it.content?.let { content ->
-                binding.content.setSpan {
-                    append("\n")
-                    append(content)
-                    append("\n")
-                }
+            binding.content.setSpan {
+                append(it.content)
+                append("\n")
             }
-            binding.typeFilter.text = it.type
+            binding.typeFilter.text = it.typeText
             binding.contentSize.text = it.sizeText
         }
+    }
+
+    companion object {
+        internal const val DATA = "data"
     }
 }
 
 @Parcelize
 internal data class ContentFormatterData(
     val title: String,
-    val content: CharSequence?,
-    val type: String,
-    val sizeText: String
+    val content: CharSequence,
+    val typeText: String? = null,
+    val sizeText: String,
+    val isTreeViewAllowed: Boolean = false
 ) : Parcelable

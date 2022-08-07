@@ -9,7 +9,7 @@ import java.net.URLEncoder
 internal class FormEncodedTransformer : BaseTransformer {
 
     @Suppress("TooGenericExceptionCaught")
-    override fun beautify(plain: CharSequence, indent: Int): CharSequence? {
+    override fun beautify(plain: CharSequence): CharSequence {
         return try {
             val items = plain.split("&")
             val stringBuilder = StringBuilder()

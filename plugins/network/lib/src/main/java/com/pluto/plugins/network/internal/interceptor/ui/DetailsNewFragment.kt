@@ -21,7 +21,11 @@ import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsNewBindi
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.beautify
+import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
+import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
+import com.pluto.plugins.network.internal.interceptor.ui.ContentFormatterFragment.Companion.DATA
 
 class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_new) {
 
@@ -57,53 +61,55 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
                 R.id.openMockSettingsEdit,
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
             )
-            ACTION_OPEN_REQ_HEADERS -> {
-                requireContext().toast("req headers")
-                findNavController().navigate(
-                    R.id.openContentFormatter,
-                    bundleOf(
-                        "data" to ContentFormatterData(
-                            title = "Request Header",
-                            content = api.request.headers.toString(),
-                            type = "Key-Value",
-                            sizeText = "${api.request.headers.size} items"
-                        )
-                    )
+            ACTION_OPEN_REQ_HEADERS -> openContentView(
+                title = "Request Header",
+                content = requireContext().beautifyHeaders(api.request.headers),
+                sizeText = "${api.request.headers.size} items"
+            )
+            ACTION_OPEN_REQ_PARAMS -> openContentView(
+                title = "Request Query Params",
+                content = requireContext().beautifyQueryParams(api.request.url),
+                sizeText = "${api.request.url.queryParameterNames.size} items"
+            )
+            ACTION_OPEN_REQ_BODY -> api.request.body?.let {
+                openContentView(
+                    title = "Request Body",
+                    content = it.beautify(),
+                    typeText = it.mediaTypeFull,
+                    sizeText = formatSizeAsBytes(it.sizeInBytes)
                 )
             }
-            ACTION_OPEN_REQ_PARAMS -> requireContext().toast("req params")
-            ACTION_OPEN_REQ_BODY -> {
-                requireContext().toast("req body")
-                findNavController().navigate(
-                    R.id.openContentFormatter,
-                    bundleOf(
-                        "data" to ContentFormatterData(
-                            title = "Request Body",
-                            content = api.request.body?.body,
-                            type = "JSON",
-                            sizeText = formatSizeAsBytes(api.request.body?.sizeAsLong ?: 0L)
-                        )
-                    )
+            ACTION_OPEN_RES_HEADERS -> api.response?.headers?.let {
+                openContentView(
+                    title = "Request Headers",
+                    content = requireContext().beautifyHeaders(it),
+                    sizeText = "${it.size} items"
                 )
             }
-            ACTION_OPEN_RES_HEADERS -> requireContext().toast("res headers")
-            ACTION_OPEN_RES_BODY -> {
-                requireContext().toast("res body")
-                api.response?.let { res ->
-                    findNavController().navigate(
-                        R.id.openContentFormatter,
-                        bundleOf(
-                            "data" to ContentFormatterData(
-                                title = "Response Body",
-                                content = res.body?.body,
-                                type = "JSON",
-                                sizeText = formatSizeAsBytes(res.body?.sizeAsLong ?: 0L)
-                            )
-                        )
-                    )
-                }
+            ACTION_OPEN_RES_BODY -> api.response?.body?.let {
+                openContentView(
+                    title = "Response Body",
+                    content = it.beautify(),
+                    typeText = it.mediaTypeFull,
+                    sizeText = formatSizeAsBytes(it.sizeInBytes ?: 0L)
+                )
             }
         }
+    }
+
+    private fun openContentView(title: String, content: CharSequence, typeText: String? = null, sizeText: String, isTreeViewAllowed: Boolean = false) {
+        findNavController().navigate(
+            R.id.openContentFormatter,
+            bundleOf(
+                DATA to ContentFormatterData(
+                    title = title,
+                    content = content,
+                    typeText = typeText,
+                    sizeText = sizeText,
+                    isTreeViewAllowed = isTreeViewAllowed
+                )
+            )
+        )
     }
 
     private val detailsObserver = Observer<DetailContentData> {

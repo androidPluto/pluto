@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-internal class JsonBaseTransformer : BaseTransformer {
+internal class JsonTransformer : BaseTransformer {
 
     private val moshi: Moshi = Moshi.Builder().build()
     private val moshiObjectAdapter: JsonAdapter<Map<String, Any?>?> =
@@ -15,7 +15,7 @@ internal class JsonBaseTransformer : BaseTransformer {
     private val moshiArrayAdapter: JsonAdapter<List<Any?>?> = moshi.adapter(Types.newParameterizedType(List::class.java, Any::class.java))
 
     @SuppressWarnings("TooGenericExceptionCaught")
-    override fun beautify(plain: CharSequence, indent: Int): CharSequence? {
+    override fun beautify(plain: CharSequence): CharSequence {
         // todo fix this, find a better way to detect array/object
         return try {
             try {
@@ -37,6 +37,6 @@ internal class JsonBaseTransformer : BaseTransformer {
     }
 
     companion object {
-        private const val INDENTATION_TEXT = "  "
+        private const val INDENTATION_TEXT = "\t\t"
     }
 }

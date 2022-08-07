@@ -73,8 +73,8 @@ internal fun getBodyData(context: Context, body: ProcessedBody?, onClick: () -> 
             if (it.isBinary) {
                 append(binaryBodyText(context))
             } else {
-                if (it.sizeAsLong > 0) {
-                    append(semiBold(formatSizeAsBytes(it.sizeAsLong)))
+                if (it.sizeInBytes > 0) {
+                    append(semiBold(formatSizeAsBytes(it.sizeInBytes)))
                     append(tapIndicatorText(context))
                 } else {
                     append(
@@ -89,12 +89,12 @@ internal fun getBodyData(context: Context, body: ProcessedBody?, onClick: () -> 
             append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
         }
     },
-    showClickIndicator = body?.isBinary != true && (body?.sizeAsLong ?: 0L) > 0,
+    showClickIndicator = body?.isBinary != true && (body?.sizeInBytes ?: 0L) > 0,
     onClick = body?.let {
         if (it.isBinary) {
             null
         } else {
-            if (it.sizeAsLong > 0) {
+            if (it.sizeInBytes > 0) {
                 { onClick.invoke() }
             } else {
                 null
