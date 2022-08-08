@@ -22,6 +22,11 @@
     <string name="pluto_network___query_params_title">Query Params</string>
     <string name="pluto_network___body_title">Body</string>
     <string name="pluto_network___exception_title">Exception</string>
+    <string name="pluto_network___content_request_headers">Request Headers</string>
+    <string name="pluto_network___content_request_query_param">Request Query Params</string>
+    <string name="pluto_network___content_request_body">Request Body</string>
+    <string name="pluto_network___content_response_headers">Response Headers</string>
+    <string name="pluto_network___content_response_body">Response Body</string>
     <string name="pluto_network___no_headers">~ No Headers</string>
     <string name="pluto_network___network_state_in_progress">In Progress</string>
     <string name="pluto_network___network_state_failed">Failed</string>

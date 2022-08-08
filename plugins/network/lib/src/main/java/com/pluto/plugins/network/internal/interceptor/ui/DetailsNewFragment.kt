@@ -62,36 +62,38 @@ class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_ne
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
             )
             ACTION_OPEN_REQ_HEADERS -> openContentView(
-                title = "Request Header",
+                title = getString(R.string.pluto_network___content_request_headers),
                 content = requireContext().beautifyHeaders(api.request.headers),
                 sizeText = "${api.request.headers.size} items"
             )
             ACTION_OPEN_REQ_PARAMS -> openContentView(
-                title = "Request Query Params",
+                title = getString(R.string.pluto_network___content_request_query_param),
                 content = requireContext().beautifyQueryParams(api.request.url),
                 sizeText = "${api.request.url.queryParameterNames.size} items"
             )
             ACTION_OPEN_REQ_BODY -> api.request.body?.let {
                 openContentView(
-                    title = "Request Body",
+                    title = getString(R.string.pluto_network___content_request_body),
                     content = it.beautify(),
                     typeText = it.mediaTypeFull,
-                    sizeText = formatSizeAsBytes(it.sizeInBytes)
+                    sizeText = formatSizeAsBytes(it.sizeInBytes),
+                    isTreeViewAllowed = true
                 )
             }
             ACTION_OPEN_RES_HEADERS -> api.response?.headers?.let {
                 openContentView(
-                    title = "Request Headers",
+                    title = getString(R.string.pluto_network___content_response_headers),
                     content = requireContext().beautifyHeaders(it),
                     sizeText = "${it.size} items"
                 )
             }
             ACTION_OPEN_RES_BODY -> api.response?.body?.let {
                 openContentView(
-                    title = "Response Body",
+                    title = getString(R.string.pluto_network___content_response_body),
                     content = it.beautify(),
                     typeText = it.mediaTypeFull,
-                    sizeText = formatSizeAsBytes(it.sizeInBytes ?: 0L)
+                    sizeText = formatSizeAsBytes(it.sizeInBytes),
+                    isTreeViewAllowed = true
                 )
             }
         }
