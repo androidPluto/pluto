@@ -3,9 +3,15 @@ package com.pluto.plugins.network.internal.interceptor.ui
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.view.View.VISIBLE
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.onBackPressed
+import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
@@ -21,17 +27,53 @@ class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_cont
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onBackPressed { findNavController().navigateUp() }
+        onBackPressed { handleBackPress() }
         binding.close.setOnDebounceClickListener { requireActivity().onBackPressed() }
-        binding.horizontalScroll.layoutParams
+        binding.search.setOnDebounceClickListener { binding.searchView.visibility = VISIBLE }
+        binding.search.setOnDebounceClickListener {
+            binding.searchView.visibility = View.VISIBLE
+            binding.searchView.requestFocus()
+        }
+        binding.closeSearch.setOnDebounceClickListener { exitSearch() }
+        binding.clearSearch.setOnDebounceClickListener { binding.editSearch.text = null }
+        binding.editSearch.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                v.showKeyboard()
+            } else {
+                v.hideKeyboard()
+            }
+        }
+        binding.editSearch.doOnTextChanged { text, _, _, _ ->
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                text?.toString()?.let { search ->
+                    argumentData?.let {
+                        binding.content.setSpan {
+                            append(highlight(it.content, search.trim()))
+                            append("\n")
+                        }
+                    }
+                }
+            }
+        }
         argumentData?.let {
             binding.title.text = it.title
-            binding.content.setSpan {
-                append(it.content)
-                append("\n")
-            }
             binding.typeFilter.text = it.typeText
             binding.contentSize.text = it.sizeText
+            binding.editSearch.setText("")
+        }
+    }
+
+    private fun exitSearch() {
+        binding.editSearch.text = null
+        binding.searchView.visibility = View.GONE
+        binding.editSearch.clearFocus()
+    }
+
+    private fun handleBackPress() {
+        if (binding.searchView.isVisible) {
+            exitSearch()
+        } else {
+            findNavController().navigateUp()
         }
     }
 

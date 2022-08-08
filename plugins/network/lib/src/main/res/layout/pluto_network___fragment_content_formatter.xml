@@ -15,6 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/close"
                 android:layout_width="wrap_content"
@@ -104,6 +110,71 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/pluto___margin_xsmall"
+            android:layout_marginVertical="@dimen/pluto___margin_mini"
+            android:background="@color/pluto___section_color"
+            android:elevation="@dimen/pluto___margin_medium"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/closeSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___exit_network_call_details_search"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                    android:src="@drawable/pluto_network___ic_arrow_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:fontFamily="@font/muli_semibold"
+                    android:hint="@string/pluto_network___search_content"
+                    android:inputType="text"
+                    android:textColor="@color/pluto___text_dark"
+                    android:textColorHint="@color/pluto___text_dark_40"
+                    android:textSize="@dimen/pluto___text_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/clearSearch"
+                    app:layout_constraintStart_toEndOf="@+id/closeSearch"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/clearSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___exit_network_call_details_search_clear"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                    android:src="@drawable/pluto_network___ic_close_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,7 +234,7 @@
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/pluto___margin_medium"
             android:paddingVertical="@dimen/pluto___margin_small"
-            android:text="afsdvdsfdgd sfsfsdds"
+            tools:text="afsdvdsfdgd sfsfsdds"
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -179,7 +250,7 @@
             android:fontFamily="@font/muli_semibold"
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/pluto___margin_medium"
-            android:text="Key-Value"
+            tools:text="Key-Value"
             android:textColor="@color/pluto___text_dark_80"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintBottom_toBottomOf="@+id/contentSize"

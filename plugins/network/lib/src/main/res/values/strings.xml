@@ -71,6 +71,7 @@
     <string name="pluto_network___mock_settings_open">Open Mock Settings</string>
     <string name="pluto_network___mock_settings_list">Mock Settings</string>
     <string name="pluto_network___search_mock_settings">Search Mock Settings</string>
+    <string name="pluto_network___search_content">Search Content</string>
     <string name="pluto_network___no_mock_settings">No Mock settings available</string>
     <string name="pluto_network___mock_settings_note">Use CTA on Network call details to add Mock settings</string>
     <string name="pluto_network___mock_settings_edit">Create Mock Settings</string>
