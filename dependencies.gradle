@@ -7,7 +7,7 @@ ext {
     kotlinVersion = '1.5.21'
     detektVersion = '1.19.0'
 
-    androidXCoreVersion = '1.7.0'
+    androidXCoreVersion = '1.6.0'
     okhttpVersion = '4.9.1'
     roomsVersion = '2.4.1'
     moshiVersion = '1.13.0'
