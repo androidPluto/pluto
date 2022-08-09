@@ -14,8 +14,8 @@ import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_SHARE_CURL
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_SHARE_CURL
 
 internal class OverviewStub : ConstraintLayout {
 

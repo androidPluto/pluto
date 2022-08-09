@@ -12,8 +12,8 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsResponseBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_RES_BODY
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_RES_HEADERS
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_BODY
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_HEADERS
 
 internal class ResponseStub : ConstraintLayout {
 

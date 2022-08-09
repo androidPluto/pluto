@@ -25,7 +25,7 @@ import com.pluto.plugins.network.internal.Session
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.API_CALL_ID
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.API_CALL_ID
 import com.pluto.plugins.network.internal.interceptor.ui.list.NetworkAdapter
 
 internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {

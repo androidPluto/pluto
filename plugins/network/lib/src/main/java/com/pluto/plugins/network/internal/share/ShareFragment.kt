@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.interceptor.ui.share
+package com.pluto.plugins.network.internal.share
 
 import android.os.Bundle
 import android.view.LayoutInflater

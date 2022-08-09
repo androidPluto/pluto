@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.interceptor.ui.share.holders
+package com.pluto.plugins.network.internal.share.holders
 
 import android.content.res.ColorStateList
 import android.view.View.GONE
@@ -13,7 +13,7 @@ import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemShareOptionResponseBinding
-import com.pluto.plugins.network.internal.interceptor.ui.share.ShareOptionType
+import com.pluto.plugins.network.internal.share.ShareOptionType
 
 internal class ShareResponseOptionHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto_network___item_share_option_response), actionListener) {

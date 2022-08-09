@@ -107,19 +107,18 @@ internal fun Context.beautifyQueryParams(url: HttpUrl): CharSequence {
     }.trim()
 }
 
-//
 // internal fun ProcessedBody.flatten(): String {
 //    return body.toString().let { body ->
 //        when {
 //            mediaType == "binary" -> body
-//            mediaSubtype == "json" -> JsonBaseTransformer().flatten(body)
-//            mediaSubtype == "xml" || mediaSubtype == "html" -> XmlBaseTransformer().flatten(body)
+//            mediaSubtype == "json" -> JsonTransformer().flatten(body)
+//            mediaSubtype == "xml" || mediaSubtype == "html" -> XmlTransformer().flatten(body)
 //            mediaSubtype == "x-www-form-urlencoded" -> FormEncodedTransformer().flatten(body)
 //            else -> body
 //        }
 //    }
 // }
-//
+
 internal fun ProcessedBody.beautify(): CharSequence {
     return when {
         mediaSubtype.endsWith("json") -> JsonTransformer().beautify(body)

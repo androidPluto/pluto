@@ -9,7 +9,6 @@ internal data class RequestData(
     val method: String,
     val body: ProcessedBody?,
     val headers: Map<String, String?>,
-//    val headerCount: Int,
     val timestamp: Long,
     val isGzipped: Boolean,
 )

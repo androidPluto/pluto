@@ -17,7 +17,7 @@ import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
-import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsNewBinding
+import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
@@ -27,9 +27,9 @@ import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.plugins.network.internal.interceptor.ui.ContentFormatterFragment.Companion.DATA
 
-class DetailsNewFragment : Fragment(R.layout.pluto_network___fragment_details_new) {
+class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 
-    private val binding by viewBinding(PlutoNetworkFragmentDetailsNewBinding::bind)
+    private val binding by viewBinding(PlutoNetworkFragmentDetailsBinding::bind)
     private val viewModel: NetworkViewModel by activityViewModels()
     private val contentSharer by lazyContentSharer()
 

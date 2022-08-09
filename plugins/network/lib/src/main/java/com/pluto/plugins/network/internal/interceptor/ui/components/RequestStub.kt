@@ -8,9 +8,9 @@ import com.pluto.plugin.KeyValuePairData
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsRequestBinding
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_REQ_BODY
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_REQ_HEADERS
-import com.pluto.plugins.network.internal.interceptor.ui.DetailsNewFragment.Companion.ACTION_OPEN_REQ_PARAMS
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_BODY
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_HEADERS
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_PARAMS
 
 internal class RequestStub : ConstraintLayout {
 
