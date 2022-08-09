@@ -83,7 +83,7 @@ internal fun Context.beautifyHeaders(data: Map<String, String?>): CharSequence {
         data.forEach {
             append(fontColor("${it.key} : ", context.color(R.color.pluto___text_dark_40)))
             if (it.value != null) {
-                append(fontColor(semiBold("${it.value}"), context.color(R.color.pluto___text_dark_80)))
+                append(fontColor("${it.value}", context.color(R.color.pluto___text_dark_80)))
             } else {
                 append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
             }
@@ -98,7 +98,7 @@ internal fun Context.beautifyQueryParams(url: HttpUrl): CharSequence {
             append(fontColor("$it : ", context.color(R.color.pluto___text_dark_40)))
             val value = url.queryParameter(it)
             if (value != null) {
-                append(fontColor(semiBold("$value"), context.color(R.color.pluto___text_dark_80)))
+                append(fontColor("$value", context.color(R.color.pluto___text_dark_80)))
             } else {
                 append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
             }

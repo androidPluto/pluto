@@ -12,30 +12,26 @@ internal fun ApiCallData.toShareText(): String {
 
     val text = StringBuilder()
     text.append("${request.method.uppercase()}, ${request.url}  ")
-    if (response != null) {
+    text.append(
+        "\n\nRequested at : ${request.timestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
+    )
+    response?.let {
         text.append(
-            "\n\nRequested at : ${response!!.sendTimeMillis.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
+            "\nReceived at : ${it.receiveTimeMillis.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
         )
-        text.append(
-            "\nReceived at : ${response!!.receiveTimeMillis.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
-        )
-        text.append("\nDelay : ${response!!.receiveTimeMillis - response!!.sendTimeMillis} ms")
-        text.append("\nProtocol : ${response!!.protocol.name}")
-    } else {
-        text.append(
-            "\n\nRequested at : ${request.timestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
-        )
+        text.append("\nDelay : ${it.receiveTimeMillis - it.sendTimeMillis} ms")
+        text.append("\nProtocol : ${it.protocol.name}")
     }
     text.append("\n\n==================\n\n")
     text.append("REQUEST")
-    text.append("\n\n*** Headers *** \n${moshiAdapter.toJson(request.headers)}")
-    text.append("\n\n*** Body ***\n${request.body?.body}")
+    text.append("\n\n*** Headers (${request.headers.size} items) *** \n${moshiAdapter.toJson(request.headers)}")
+    text.append("\n\n*** Body (${formatSizeAsBytes(request.body?.sizeInBytes ?: 0L)}) ***\n${request.body?.body}")
 
     response?.let { response ->
         text.append("\n\n==================\n\n")
         text.append("RESPONSE")
-        text.append("\n\n*** Headers *** \n${response.headers}")
-        text.append("\n\n*** Body *** \n${response.body?.body}")
+        text.append("\n\n*** Headers (${response.headers.size} items) *** \n${moshiAdapter.toJson(response.headers)}")
+        text.append("\n\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
     }
     exception?.let { exception ->
         text.append("\n\n==================\n\n")
@@ -57,17 +53,20 @@ internal fun RequestData.toShareText(): String {
 
     val text = StringBuilder()
     text.append("${method.uppercase()}, $url")
-    text.append("\n\n*** Headers *** \n${moshiAdapter.toJson(headers)}")
-    text.append("\n\n*** Body ***\n${body?.body}")
+    text.append("\n\n*** Headers (${headers.size} items) *** \n${moshiAdapter.toJson(headers)}")
+    text.append("\n\n*** Body (${formatSizeAsBytes(body?.sizeInBytes ?: 0L)}) ***\n${body?.body}")
 
     return text.toString()
 }
 
 internal fun ApiCallData.responseToText(): String {
+    val moshi = Moshi.Builder().build()
+    val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
+
     val text = StringBuilder()
     response?.let { response ->
-        text.append("*** Headers *** \n${response.headers}")
-        text.append("\n\n*** Body *** \n${response.body?.body}")
+        text.append("*** Headers (${response.headers.size} items) *** \n${moshiAdapter.toJson(response.headers)}")
+        text.append("\n\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
     }
     exception?.let { exception ->
         text.append("*** Exception *** \n${exception.name}: ${exception.message}\n")
