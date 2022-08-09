@@ -7,8 +7,8 @@ Pluto Logger is distributed through [***mavenCentral***](https://search.maven.or
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:logger:2.0.1-beta'
-  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.0.1-beta'
+  debugImplementation 'com.plutolib.plugins:logger:2.0.4'
+  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.0.4'
 }
 ```
 <br>
