@@ -23,7 +23,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.beautify
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
-import com.pluto.plugins.network.internal.interceptor.ui.ContentFormatterFragment.Companion.DATA
+import com.pluto.plugins.network.internal.interceptor.ui.ContentFragment.Companion.DATA
 
 class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 

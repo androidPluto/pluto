@@ -18,12 +18,12 @@ import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
-import com.pluto.plugins.network.databinding.PlutoNetworkFragmentContentFormatterBinding
+import com.pluto.plugins.network.databinding.PlutoNetworkFragmentContentBinding
 import kotlinx.parcelize.Parcelize
 
-class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_content_formatter) {
+class ContentFragment : Fragment(R.layout.pluto_network___fragment_content) {
 
-    private val binding by viewBinding(PlutoNetworkFragmentContentFormatterBinding::bind)
+    private val binding by viewBinding(PlutoNetworkFragmentContentBinding::bind)
     private val contentSharer by lazyContentSharer()
     private val argumentData: ContentFormatterData?
         get() = arguments?.getParcelable(DATA)

@@ -40,9 +40,9 @@
 
     <fragment
         android:id="@+id/contentFormatterView"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.ContentFormatterFragment"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.ContentFragment"
         android:label="mockSettings"
-        tools:layout="@layout/pluto_network___fragment_content_formatter"/>
+        tools:layout="@layout/pluto_network___fragment_content"/>
 
     <fragment
         android:id="@+id/mockSettingsListView"
