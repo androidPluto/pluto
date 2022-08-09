@@ -19,8 +19,6 @@ import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
 import com.pluto.plugins.network.internal.interceptor.logic.beautify
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams

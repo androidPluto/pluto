@@ -1,9 +1,11 @@
-package com.pluto.plugins.network.internal.interceptor.logic
+package com.pluto.plugins.network.internal.interceptor.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 
 internal class NetworkViewModel : ViewModel() {
 

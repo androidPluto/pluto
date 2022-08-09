@@ -24,7 +24,6 @@ import com.pluto.plugins.network.databinding.PlutoNetworkFragmentListBinding
 import com.pluto.plugins.network.internal.Session
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.API_CALL_ID
 import com.pluto.plugins.network.internal.interceptor.ui.list.NetworkAdapter
 
