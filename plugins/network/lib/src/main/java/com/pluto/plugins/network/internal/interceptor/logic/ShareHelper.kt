@@ -1,15 +1,9 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
 import com.pluto.plugin.utilities.extensions.asFormattedDate
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 
 @Suppress("StringLiteralDuplication")
 internal fun ApiCallData.toShareText(): String {
-    val moshi = Moshi.Builder().build()
-    val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-
     val text = StringBuilder()
     text.append("${request.method.uppercase()}, ${request.url}  ")
     text.append(
@@ -24,14 +18,14 @@ internal fun ApiCallData.toShareText(): String {
     }
     text.append("\n\n==================\n\n")
     text.append("REQUEST")
-    text.append("\n\n*** Headers (${request.headers.size} items) *** \n${moshiAdapter.toJson(request.headers)}")
-    text.append("\n\n*** Body (${formatSizeAsBytes(request.body?.sizeInBytes ?: 0L)}) ***\n${request.body?.body}")
+    text.append("\n\n*** Headers (${request.headers.size} items) *** \n${request.headers.toShareText()}")
+    text.append("\n*** Body (${formatSizeAsBytes(request.body?.sizeInBytes ?: 0L)}) ***\n${request.body?.body}")
 
     response?.let { response ->
         text.append("\n\n==================\n\n")
         text.append("RESPONSE")
-        text.append("\n\n*** Headers (${response.headers.size} items) *** \n${moshiAdapter.toJson(response.headers)}")
-        text.append("\n\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
+        text.append("\n\n*** Headers (${response.headers.size} items) *** \n${response.headers.toShareText()}")
+        text.append("\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
     }
     exception?.let { exception ->
         text.append("\n\n==================\n\n")
@@ -48,25 +42,19 @@ internal fun ApiCallData.toShareText(): String {
 }
 
 internal fun RequestData.toShareText(): String {
-    val moshi = Moshi.Builder().build()
-    val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-
     val text = StringBuilder()
     text.append("${method.uppercase()}, $url")
-    text.append("\n\n*** Headers (${headers.size} items) *** \n${moshiAdapter.toJson(headers)}")
-    text.append("\n\n*** Body (${formatSizeAsBytes(body?.sizeInBytes ?: 0L)}) ***\n${body?.body}")
+    text.append("\n\n*** Headers (${headers.size} items) *** \n${headers.toShareText()}")
+    text.append("\n*** Body (${formatSizeAsBytes(body?.sizeInBytes ?: 0L)}) ***\n${body?.body}")
 
     return text.toString()
 }
 
 internal fun ApiCallData.responseToText(): String {
-    val moshi = Moshi.Builder().build()
-    val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-
     val text = StringBuilder()
     response?.let { response ->
-        text.append("*** Headers (${response.headers.size} items) *** \n${moshiAdapter.toJson(response.headers)}")
-        text.append("\n\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
+        text.append("*** Headers (${response.headers.size} items) *** \n${response.headers.toShareText()}")
+        text.append("\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
     }
     exception?.let { exception ->
         text.append("*** Exception *** \n${exception.name}: ${exception.message}\n")
@@ -76,6 +64,14 @@ internal fun ApiCallData.responseToText(): String {
         if (exception.stackTrace.size - STACK_TRACE_LENGTH > 0) {
             text.append("\t + ${exception.stackTrace.size - STACK_TRACE_LENGTH} more lines")
         }
+    }
+    return text.toString()
+}
+
+private fun Map<String, String?>.toShareText(): String {
+    val text = StringBuilder()
+    forEach { entry ->
+        text.append("${entry.key} : ${entry.value}\n")
     }
     return text.toString()
 }
