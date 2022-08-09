@@ -13,6 +13,8 @@ import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.onBackPressed
 import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.setOnDebounceClickListener
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
@@ -22,6 +24,7 @@ import kotlinx.parcelize.Parcelize
 class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_content_formatter) {
 
     private val binding by viewBinding(PlutoNetworkFragmentContentFormatterBinding::bind)
+    private val contentSharer by lazyContentSharer()
     private val argumentData: ContentFormatterData?
         get() = arguments?.getParcelable(DATA)
 
@@ -31,7 +34,7 @@ class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_cont
         binding.close.setOnDebounceClickListener { requireActivity().onBackPressed() }
         binding.search.setOnDebounceClickListener { binding.searchView.visibility = VISIBLE }
         binding.search.setOnDebounceClickListener {
-            binding.searchView.visibility = View.VISIBLE
+            binding.searchView.visibility = VISIBLE
             binding.searchView.requestFocus()
         }
         binding.closeSearch.setOnDebounceClickListener { exitSearch() }
@@ -53,6 +56,11 @@ class ContentFormatterFragment : Fragment(R.layout.pluto_network___fragment_cont
                         }
                     }
                 }
+            }
+        }
+        binding.share.setOnDebounceClickListener {
+            argumentData?.let {
+                contentSharer.share(Shareable(title = "Share content", content = it.content.toString()))
             }
         }
         argumentData?.let {
