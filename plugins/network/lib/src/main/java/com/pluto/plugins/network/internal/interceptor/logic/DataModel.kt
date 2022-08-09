@@ -9,7 +9,6 @@ internal data class RequestData(
     val method: String,
     val body: ProcessedBody?,
     val headers: Map<String, String?>,
-//    val headerCount: Int,
     val timestamp: Long,
     val isGzipped: Boolean,
 )
@@ -43,7 +42,11 @@ internal class ApiCallData(
     var exception: ExceptionData? = null,
     var mock: MockConfig? = null,
 ) : ListItem() {
-    val curl: String = request.getCurl()
+    val curl: String
+        get() = request.getCurl()
+    val responseTime
+        get() = exception?.timeStamp ?: response?.receiveTimeMillis
+
     override fun isEqual(other: Any): Boolean {
         if (other is ApiCallData) {
             id == other.id && response == other.response && exception == other.exception
@@ -54,9 +57,13 @@ internal class ApiCallData(
 
 internal data class ProcessedBody(
     val isValid: Boolean,
-    val body: CharSequence? = null,
-    val mediaType: String?,
-    val mediaSubtype: String?,
+    val body: CharSequence,
+    val mediaType: String,
+    val mediaSubtype: String,
 ) {
     val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
+    val sizeInBytes: Long
+        get() = body.length.toLong()
+    val mediaTypeFull: String
+        get() = "$mediaType/$mediaSubtype"
 }

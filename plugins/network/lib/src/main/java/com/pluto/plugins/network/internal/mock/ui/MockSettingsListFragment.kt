@@ -23,7 +23,6 @@ import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsListBinding
-import com.pluto.plugins.network.internal.mock.logic.MockSettingsViewModel
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 import com.pluto.plugins.network.internal.mock.ui.list.MockSettingsItemAdapter
 

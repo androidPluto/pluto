@@ -18,8 +18,10 @@ import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentShareBinding
-import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.responseToText
+import com.pluto.plugins.network.internal.interceptor.logic.toShareText
+import com.pluto.plugins.network.internal.interceptor.ui.DetailContentData
+import com.pluto.plugins.network.internal.interceptor.ui.NetworkViewModel
 
 class ShareFragment : BottomSheetDialogFragment() {
 

@@ -2,7 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.logic.core
 
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.internal.interceptor.logic.convertPretty
+import com.pluto.plugins.network.internal.interceptor.logic.processBody
 import java.io.File
 import java.io.IOException
 import okhttp3.MediaType
@@ -64,7 +64,7 @@ internal class ResponseBodyProcessor {
             file?.let { f ->
                 readResponseBuffer(f, response.isGzipped)?.let {
                     val responseBody = response.body ?: return
-                    val body = responseBody.convertPretty(it)
+                    val body = responseBody.processBody(it)
                     apiCallData.response = response.convert(body)
                     NetworkCallsRepo.set(apiCallData)
                 }

@@ -5,7 +5,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.convertPretty
+import com.pluto.plugins.network.internal.interceptor.logic.processBody
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -17,21 +17,22 @@ import okhttp3.Response
 import okio.IOException
 
 internal fun Request.convert(): RequestData {
+    val body = this.body?.processBody(this.isGzipped)
     return RequestData(
         url = this.url,
         method = this.method,
-        body = this.body?.convertPretty(this.isGzipped),
-        headers = this.headerMap(),
+        body = body,
+        headers = this.headerMap(body?.sizeInBytes ?: 0L),
         timestamp = System.currentTimeMillis(),
         isGzipped = this.isGzipped
     )
 }
 
-internal fun Request.headerMap(): Map<String, String?> {
+internal fun Request.headerMap(contentLength: Long): Map<String, String?> {
     val headerNames = arrayListOf<String>()
     headerNames.addAll(headers.names())
     headerNames.add("content-type")
-//    headerNames.add("content-length") todo get content-length header
+    headerNames.add("content-length")
     headerNames.sortBy { it }
 
     val map = mutableMapOf<String, String?>()
@@ -41,6 +42,7 @@ internal fun Request.headerMap(): Map<String, String?> {
             "content-type" -> body?.contentType()?.toString()?.let { value ->
                 map[key] = value.trim()
             }
+            "content-length" -> map[key] = headers[it]?.trim() ?: run { contentLength.toString() }
             else -> map[key] = headers[it]?.trim()
         }
     }

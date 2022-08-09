@@ -23,7 +23,6 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsBinding
 import com.pluto.plugins.network.internal.customTab
 import com.pluto.plugins.network.internal.interceptor.logic.pruneQueryParams
-import com.pluto.plugins.network.internal.mock.logic.MockSettingsViewModel
 import com.pluto.plugins.network.internal.mock.logic.dao.MockData
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 

@@ -14,6 +14,7 @@
     <string name="pluto_network___tab_overview">Overview</string>
     <string name="pluto_network___tab_request">Request</string>
     <string name="pluto_network___tab_response">Response</string>
+    <string name="pluto_network___tab_error">Error Response</string>
     <string name="pluto_network___na">N/A</string>
     <string name="pluto_network___tab_network">Network</string>
     <string name="pluto_network___network_proxy_settings_enabled_description">showing response from</string>
@@ -21,17 +22,22 @@
     <string name="pluto_network___query_params_title">Query Params</string>
     <string name="pluto_network___body_title">Body</string>
     <string name="pluto_network___exception_title">Exception</string>
+    <string name="pluto_network___content_request_headers">Request Headers</string>
+    <string name="pluto_network___content_request_query_param">Request Query Params</string>
+    <string name="pluto_network___content_request_body">Request Body</string>
+    <string name="pluto_network___content_response_headers">Response Headers</string>
+    <string name="pluto_network___content_response_body">Response Body</string>
     <string name="pluto_network___no_headers">~ No Headers</string>
     <string name="pluto_network___network_state_in_progress">In Progress</string>
     <string name="pluto_network___network_state_failed">Failed</string>
     <string name="pluto_network___url_label">URL</string>
     <string name="pluto_network___waiting_for_response">~ Waiting for response</string>
     <string name="pluto_network___method_label">Method</string>
-    <string name="pluto_network___ssl_label">is_SSL</string>
+    <string name="pluto_network___ssl_label">Is SSL</string>
     <string name="pluto_network___protocol_label">Protocol</string>
     <string name="pluto_network___request_time_label">Requested at</string>
-    <string name="pluto_network___response_time_label">Response received at</string>
-    <string name="pluto_network___delay_label">Delay (milliseconds)</string>
+    <string name="pluto_network___response_time_label">Response at</string>
+    <string name="pluto_network___delay_label">Delay</string>
     <string name="pluto_network___settings_link_mocklets_title">Link Mocklets Account</string>
     <string name="pluto_network___link">Link</string>
     <string name="pluto_network___settings_link_mocklets_description">Connect you Mocklets account to manage your network proxy setting efficiently</string>
@@ -65,6 +71,7 @@
     <string name="pluto_network___mock_settings_open">Open Mock Settings</string>
     <string name="pluto_network___mock_settings_list">Mock Settings</string>
     <string name="pluto_network___search_mock_settings">Search Mock Settings</string>
+    <string name="pluto_network___search_content">Search Content</string>
     <string name="pluto_network___no_mock_settings">No Mock settings available</string>
     <string name="pluto_network___mock_settings_note">Use CTA on Network call details to add Mock settings</string>
     <string name="pluto_network___mock_settings_edit">Create Mock Settings</string>
@@ -73,5 +80,14 @@
     <string name="pluto_network___request_size_label">Request Size</string>
     <string name="pluto_network___response_size_label">Response Size</string>
     <string name="pluto_network___body_title_search_alert">Search is disabled due to large content size.</string>
-
+    <string name="pluto_network___tap_for_details">tap for details</string>
+    <string name="pluto_network___binary_body">~ Binary Data ~</string>
+    <plurals name="pluto_network___query_params_value_text">
+        <item quantity="one">1 param</item>
+        <item quantity="other">%d params</item>
+    </plurals>
+    <plurals name="pluto_network___headers_value_text">
+        <item quantity="one">1 items</item>
+        <item quantity="other">%d items</item>
+    </plurals>
 </resources>

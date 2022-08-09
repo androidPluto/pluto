@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-internal class JsonBaseTransformer : BaseTransformer {
+internal class JsonTransformer : BaseTransformer {
 
     private val moshi: Moshi = Moshi.Builder().build()
     private val moshiObjectAdapter: JsonAdapter<Map<String, Any?>?> =
@@ -15,16 +15,16 @@ internal class JsonBaseTransformer : BaseTransformer {
     private val moshiArrayAdapter: JsonAdapter<List<Any?>?> = moshi.adapter(Types.newParameterizedType(List::class.java, Any::class.java))
 
     @SuppressWarnings("TooGenericExceptionCaught")
-    override fun beautify(plain: CharSequence, indent: Int): CharSequence? {
+    override fun beautify(plain: CharSequence): CharSequence {
         // todo fix this, find a better way to detect array/object
         return try {
             try {
                 val jsonObject = moshiObjectAdapter.fromJson(plain.toString())
-                moshiObjectAdapter.indent("  ").toJson(jsonObject)
+                moshiObjectAdapter.indent(INDENTATION_TEXT).toJson(jsonObject)
             } catch (e: JsonDataException) {
                 DebugLog.e(LOGTAG, "json object conversion failed, trying array conversion")
                 val jsonArray = moshiArrayAdapter.fromJson(plain.toString())
-                moshiArrayAdapter.indent("  ").toJson(jsonArray)
+                moshiArrayAdapter.indent(INDENTATION_TEXT).toJson(jsonArray)
             }
         } catch (e: Exception) {
             DebugLog.e(LOGTAG, "json parsing failed", e)
@@ -34,5 +34,9 @@ internal class JsonBaseTransformer : BaseTransformer {
 
     override fun flatten(plain: CharSequence): String {
         return plain.toString().replace("\n", "").replace("\\s+".toRegex(), "")
+    }
+
+    companion object {
+        private const val INDENTATION_TEXT = "\t\t"
     }
 }

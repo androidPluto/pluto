@@ -2,82 +2,137 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
+import android.view.View.VISIBLE
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.hideKeyboard
 import com.pluto.plugin.utilities.extensions.onBackPressed
-import com.pluto.plugin.utilities.extensions.showKeyboard
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugin.utilities.setOnDebounceClickListener
+import com.pluto.plugin.utilities.sharing.Shareable
+import com.pluto.plugin.utilities.sharing.lazyContentSharer
 import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.DetailContentData
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkViewModel
-import com.pluto.plugins.network.internal.interceptor.ui.details.DetailsPagerAdapter
-import com.pluto.plugins.network.internal.interceptor.ui.details.TAB_TITLES
+import com.pluto.plugins.network.internal.interceptor.logic.beautify
+import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
+import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
+import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
+import com.pluto.plugins.network.internal.interceptor.ui.ContentFragment.Companion.DATA
 
-internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
+class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 
     private val binding by viewBinding(PlutoNetworkFragmentDetailsBinding::bind)
     private val viewModel: NetworkViewModel by activityViewModels()
+    private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onBackPressed { handleBackPress() }
-        setupPager()
+        onBackPressed { findNavController().navigateUp() }
+        setupControls()
 
         viewModel.detailContentLiveData.removeObserver(detailsObserver)
         viewModel.detailContentLiveData.observe(viewLifecycleOwner, detailsObserver)
 
         viewModel.apiCalls.removeObserver(listUpdateObserver)
         viewModel.apiCalls.observe(viewLifecycleOwner, listUpdateObserver)
+    }
 
+    private fun setupControls() {
         binding.close.setOnDebounceClickListener {
-            handleBackPress()
+            requireActivity().onBackPressed()
         }
         binding.share.setOnDebounceClickListener {
             findNavController().navigate(R.id.openShareView)
         }
-        binding.search.setOnDebounceClickListener {
-            binding.searchView.visibility = View.VISIBLE
-            binding.searchView.requestFocus()
-        }
-        binding.closeSearch.setOnDebounceClickListener {
-            exitSearch()
-        }
-        binding.clearSearch.setOnDebounceClickListener {
-            binding.editSearch.text = null
-        }
-        binding.editSearch.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                v.showKeyboard()
-            } else {
-                v.hideKeyboard()
+    }
+
+    private fun handleUserAction(action: String, api: ApiCallData) {
+        when (action) {
+            ACTION_SHARE_CURL -> contentSharer.share(Shareable(title = "Share Request cURL", content = api.curl, fileName = "cURL Request from Pluto"))
+            ACTION_OPEN_MOCK_SETTINGS -> findNavController().navigate(
+                R.id.openMockSettingsEdit,
+                bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
+            )
+            ACTION_OPEN_REQ_HEADERS -> openContentView(
+                title = getString(R.string.pluto_network___content_request_headers),
+                content = requireContext().beautifyHeaders(api.request.headers),
+                sizeText = "${api.request.headers.size} items"
+            )
+            ACTION_OPEN_REQ_PARAMS -> openContentView(
+                title = getString(R.string.pluto_network___content_request_query_param),
+                content = requireContext().beautifyQueryParams(api.request.url),
+                sizeText = "${api.request.url.queryParameterNames.size} items"
+            )
+            ACTION_OPEN_REQ_BODY -> api.request.body?.let {
+                openContentView(
+                    title = getString(R.string.pluto_network___content_request_body),
+                    content = it.beautify(),
+                    typeText = it.mediaTypeFull,
+                    sizeText = formatSizeAsBytes(it.sizeInBytes),
+                    isTreeViewAllowed = true
+                )
             }
-        }
-        binding.editSearch.doOnTextChanged { text, _, _, _ ->
-            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                text?.toString()?.let {
-                    viewModel.searchContent(it)
-                }
+            ACTION_OPEN_RES_HEADERS -> api.response?.headers?.let {
+                openContentView(
+                    title = getString(R.string.pluto_network___content_response_headers),
+                    content = requireContext().beautifyHeaders(it),
+                    sizeText = "${it.size} items"
+                )
+            }
+            ACTION_OPEN_RES_BODY -> api.response?.body?.let {
+                openContentView(
+                    title = getString(R.string.pluto_network___content_response_body),
+                    content = it.beautify(),
+                    typeText = it.mediaTypeFull,
+                    sizeText = formatSizeAsBytes(it.sizeInBytes),
+                    isTreeViewAllowed = true
+                )
             }
         }
     }
 
+    private fun openContentView(title: String, content: CharSequence, typeText: String? = null, sizeText: String, isTreeViewAllowed: Boolean = false) {
+        findNavController().navigate(
+            R.id.openContentFormatter,
+            bundleOf(
+                DATA to ContentFormatterData(
+                    title = title,
+                    content = content,
+                    typeText = typeText,
+                    sizeText = sizeText,
+                    isTreeViewAllowed = isTreeViewAllowed
+                )
+            )
+        )
+    }
+
+    private val detailsObserver = Observer<DetailContentData> {
+        binding.title.setSpan {
+            append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
+            append(it.api.request.url.encodedPath)
+        }
+        binding.overview.apply {
+            visibility = VISIBLE
+            set(it.api) { action -> handleUserAction(action, it.api) }
+        }
+        binding.request.apply {
+            visibility = VISIBLE
+            set(it.api.request) { action -> handleUserAction(action, it.api) }
+        }
+        binding.response.apply {
+            visibility = VISIBLE
+            set(it.api.response, it.api.exception) { action -> handleUserAction(action, it.api) }
+        }
+    }
+
     private val listUpdateObserver = Observer<List<ApiCallData>> {
-        val id = requireArguments().getString("id", null)
+        val id = requireArguments().getString(API_CALL_ID, null)
         if (!id.isNullOrEmpty()) {
             viewModel.setCurrent(id)
         } else {
@@ -86,36 +141,14 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         }
     }
 
-    private val detailsObserver = Observer<DetailContentData> {
-        binding.title.setSpan {
-            append(fontColor(bold("${it.api.request.method.uppercase()}, "), requireContext().color(R.color.pluto___white_60)))
-            append(it.api.request.url.encodedPath)
-        }
-    }
-
-    private fun handleBackPress() {
-        if (binding.searchView.isVisible) {
-            exitSearch()
-        } else {
-            findNavController().navigateUp()
-        }
-    }
-
-    private fun setupPager() {
-        val pagerAdapter = DetailsPagerAdapter(this)
-        binding.viewPager.adapter = pagerAdapter
-        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = requireContext().getString(TAB_TITLES[position])
-        }.attach()
-        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        binding.tabs.isInlineLabel = false
-    }
-
-    private fun exitSearch() {
-        binding.editSearch.text = null
-        binding.searchView.visibility = View.GONE
-        binding.editSearch.clearFocus()
+    companion object {
+        internal const val API_CALL_ID = "id"
+        internal const val ACTION_SHARE_CURL = "share_curl"
+        internal const val ACTION_OPEN_MOCK_SETTINGS = "open_mock_settings"
+        internal const val ACTION_OPEN_REQ_HEADERS = "open_request_headers"
+        internal const val ACTION_OPEN_REQ_PARAMS = "open_request_params"
+        internal const val ACTION_OPEN_REQ_BODY = "open_request_body"
+        internal const val ACTION_OPEN_RES_HEADERS = "open_response_headers"
+        internal const val ACTION_OPEN_RES_BODY = "open_response_body"
     }
 }
