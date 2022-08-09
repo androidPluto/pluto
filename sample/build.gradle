@@ -48,18 +48,20 @@ android {
 dependencies {
     implementation project(path: ':pluto:lib')
     implementation project(path: ':plugins:demo:lib')
-    implementation project(path: ':plugins:exceptions:lib')
-    implementation project(path: ':plugins:logger:lib')
-    implementation project(path: ':plugins:network:lib')
-    implementation project(path: ':plugins:shared-preferences:lib')
-    implementation project(path: ':plugins:datastore:lib')
-    implementation project(path: ':plugins:rooms-database:lib')
+    implementation project(path: ':plugin-bundle:core:lib')
+//    implementation project(path: ':plugins:exceptions:lib')
+//    implementation project(path: ':plugins:logger:lib')
+//    implementation project(path: ':plugins:network:lib')
+//    implementation project(path: ':plugins:shared-preferences:lib')
+//    implementation project(path: ':plugins:datastore:lib')
+//    implementation project(path: ':plugins:rooms-database:lib')
 
     /**
      * no-op dependencies
      */
 //    implementation project(path: ':pluto:lib-no-op')
 //    implementation project(path: ':plugins:demo:lib-no-op')
+//    implementation project(path: ':plugin-bundle:core:lib-no-op')
 //    implementation project(path: ':plugins:exceptions:lib-no-op')
 //    implementation project(path: ':plugins:logger:lib-no-op')
 //    implementation project(path: ':plugins:network:lib-no-op')
@@ -71,10 +73,14 @@ dependencies {
      * Maven dependencies
      */
 //    implementation "com.plutolib:pluto:$plutoVersion"
-//    implementation "com.plutolib.plugins:network:$networkVersion"
-//    implementation "com.plutolib.plugins:logger:$loggerVersion"
-//    implementation "com.plutolib.plugins:exceptions:$exceptionsVersion"
-//    implementation "com.plutolib.plugins:preferences:$preferencesVersion"
+//    implementation project(path: ':plugins:demo:lib-no-op')
+//    implementation "com.plutolib.plugins:bundle-core:$plutoVersion"
+//    implementation "com.plutolib.plugins:network:$plutoVersion"
+//    implementation "com.plutolib.plugins:logger:$plutoVersion"
+//    implementation "com.plutolib.plugins:exceptions:$plutoVersion"
+//    implementation "com.plutolib.plugins:preferences:$plutoVersion"
+//    implementation "com.plutolib.plugins:rooms-database:$plutoVersion"
+//    implementation "com.plutolib.plugins:datastore:$plutoVersion"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation 'androidx.appcompat:appcompat:1.4.2'
