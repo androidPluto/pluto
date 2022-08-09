@@ -29,14 +29,17 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        // for testing Pluto staged repository
+        maven { url "https://s01.oss.sonatype.org/content/groups/staging/" }
     }
 }
 
 subprojects {
 //    if (project.name != "pluto-no-op") {
-        pluginManager.withPlugin('kotlin-android') {
-            apply from: "$rootDir/scripts/static-analysis/code-analysis.gradle"
-        }
+    pluginManager.withPlugin('kotlin-android') {
+        apply from: "$rootDir/scripts/static-analysis/code-analysis.gradle"
+    }
 //    }
 }
 

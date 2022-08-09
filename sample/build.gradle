@@ -73,10 +73,14 @@ dependencies {
      * Maven dependencies
      */
 //    implementation "com.plutolib:pluto:$plutoVersion"
-//    implementation "com.plutolib.plugins:network:$networkVersion"
-//    implementation "com.plutolib.plugins:logger:$loggerVersion"
-//    implementation "com.plutolib.plugins:exceptions:$exceptionsVersion"
-//    implementation "com.plutolib.plugins:preferences:$preferencesVersion"
+//    implementation project(path: ':plugins:demo:lib-no-op')
+//    implementation "com.plutolib.plugins:bundle-core:$plutoVersion"
+//    implementation "com.plutolib.plugins:network:plutoVersion"
+//    implementation "com.plutolib.plugins:logger:plutoVersion"
+//    implementation "com.plutolib.plugins:exceptions:plutoVersion"
+//    implementation "com.plutolib.plugins:preferences:plutoVersion"
+//    implementation "com.plutolib.plugins:rooms-database:plutoVersion"
+//    implementation "com.plutolib.plugins:datastore:plutoVersion"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation 'androidx.appcompat:appcompat:1.4.2'
