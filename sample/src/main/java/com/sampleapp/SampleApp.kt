@@ -7,7 +7,6 @@ import android.os.StrictMode.VmPolicy
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
-import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
@@ -57,10 +56,9 @@ class SampleApp : Application() {
     }
 
     private fun initializeStrictMode() {
-        toast("policy set")
         StrictMode.setThreadPolicy(
             ThreadPolicy.Builder()
-                .detectDiskReads()
+                .permitDiskReads()
                 .detectDiskWrites()
                 .detectNetwork() // or .detectAll() for all detectable problems
                 .penaltyLog()
@@ -71,7 +69,6 @@ class SampleApp : Application() {
                 .detectLeakedSqlLiteObjects()
                 .detectLeakedClosableObjects()
                 .penaltyLog()
-                .penaltyDeath()
                 .build()
         )
     }
