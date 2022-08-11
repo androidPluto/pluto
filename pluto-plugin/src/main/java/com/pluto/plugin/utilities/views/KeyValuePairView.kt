@@ -14,26 +14,6 @@ class KeyValuePairView(context: Context) : ConstraintLayout(context) {
 
     private val binding = PlutoViewKeyValuePairBinding.inflate(LayoutInflater.from(context), this, true)
 
-    fun set(key: String, value: CharSequence?, showClickIndicator: Boolean = false, onClick: (() -> Unit)? = null) {
-        binding.key.text = key
-        binding.value.setSpan {
-            value?.let {
-                append(it)
-            } ?: run {
-                append(italic(fontColor("~ null", context.color(R.color.pluto___text_dark_40))))
-            }
-        }
-        if (showClickIndicator) {
-            binding.value.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.pluto___ic_chevron_right, 0)
-        }
-        onClick?.let {
-            binding.root.isClickable = true
-            binding.root.setOnDebounceClickListener { onClick.invoke() }
-        } ?: run {
-            binding.root.isClickable = false
-        }
-    }
-
     fun set(data: KeyValuePairData) {
         binding.key.text = data.key
         binding.value.setSpan {

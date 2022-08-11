@@ -12,11 +12,19 @@
         android:background="@color/pluto___key_value_divider_bg"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        app:layout_constraintTop_toTopOf="@+id/key"
+        app:layout_constraintStart_toStartOf="@+id/key"
+        app:layout_constraintEnd_toEndOf="@+id/key"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomBarrier"
+        android:background="@color/pluto___key_value_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
     <TextView
         android:id="@+id/key"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/pluto___key_value_bg"
         android:fontFamily="@font/muli"
         android:paddingHorizontal="@dimen/pluto___margin_medium"
         android:paddingVertical="10dp"
@@ -30,23 +38,31 @@
     <TextView
         android:id="@+id/value"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/muli"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/pluto___margin_medium"
+        android:paddingVertical="10dp"
         android:paddingEnd="@dimen/pluto___margin_xsmall"
         android:textColor="@color/pluto___text_dark_80"
         android:textSize="@dimen/pluto___text_xsmall"
-        app:layout_constraintBottom_toBottomOf="@+id/key"
+        tools:text="very long value text here, very long value text here, very long value text here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/key"
-        app:layout_constraintTop_toTopOf="@+id/key" />
+        app:layout_constraintTop_toBottomOf="@+id/topDivider" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottomBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="key,value" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/pluto___key_value_divider_bg"
-        app:layout_constraintTop_toBottomOf="@+id/key" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomBarrier" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
