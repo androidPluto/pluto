@@ -1,6 +1,9 @@
 package com.sampleapp
 
 import android.app.Application
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
+import android.os.StrictMode.VmPolicy
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
@@ -33,6 +36,7 @@ import timber.log.Timber
 class SampleApp : Application() {
 
     override fun onCreate() {
+        initializeStrictMode()
         super.onCreate()
         Pluto.Installer(this)
             .addPlugin(DemoPlugin(DEMO))
@@ -49,6 +53,24 @@ class SampleApp : Application() {
         setExceptionListener()
         watchRoomsDatabase()
         watchDatastorePreferences()
+    }
+
+    private fun initializeStrictMode() {
+        StrictMode.setThreadPolicy(
+            ThreadPolicy.Builder()
+                .permitDiskReads()
+                .detectDiskWrites()
+                .detectNetwork() // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .build()
+        )
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .build()
+        )
     }
 
     /**
