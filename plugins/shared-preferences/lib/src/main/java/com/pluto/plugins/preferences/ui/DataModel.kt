@@ -2,8 +2,10 @@ package com.pluto.plugins.preferences.ui
 
 import androidx.annotation.Keep
 import com.pluto.plugin.utilities.list.ListItem
+import com.squareup.moshi.JsonClass
 
 @Keep
+@JsonClass(generateAdapter = true)
 internal data class SharedPrefFile(
     val label: String,
     val isDefault: Boolean
