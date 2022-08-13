@@ -7,8 +7,8 @@ Pluto Exceptions is distributed through [***mavenCentral***](https://search.mave
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:exceptions:2.0.4'
-  releaseImplementation 'com.plutolib.plugins:exceptions-no-op:2.0.4'
+  debugImplementation 'com.plutolib.plugins:exceptions:2.0.5'
+  releaseImplementation 'com.plutolib.plugins:exceptions-no-op:2.0.5'
 }
 ```
 <br>
