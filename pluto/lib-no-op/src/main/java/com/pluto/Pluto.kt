@@ -13,6 +13,10 @@ object Pluto {
     fun showNotch(state: Boolean) {
     }
 
+    fun clearAllLogs() {}
+
+    fun clearLogs(plugin: Any) {}
+
     class Installer(private val application: Application) {
 
         private val plugins = linkedSetOf<Any>()

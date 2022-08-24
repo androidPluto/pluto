@@ -65,6 +65,16 @@ object Pluto {
         notch?.enable(state)
     }
 
+    fun clearAllLogs() {
+        pluginManager.installedPlugins.forEach { it.onPluginDataCleared() }
+    }
+
+    fun clearLogs(plugin: Plugin) {
+        if (pluginManager.installedPlugins.contains(plugin)) {
+            plugin.onPluginDataCleared()
+        }
+    }
+
     internal fun close() {
         uiState.postValue(UiState.Close)
     }
