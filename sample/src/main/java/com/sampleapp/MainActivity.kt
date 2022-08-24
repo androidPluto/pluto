@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.version.text = String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
+        binding.version.text =
+            String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)
         SupportedPlugins.get().forEach {
             val chip = Chip(this).apply {
                 text = it.label
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
             binding.functionGroup.addView(chip)
         }
+        binding.clearLogsChip.setOnClickListener { Pluto.clearAllLogs() }
         binding.openPlutoCta.setOnClickListener { Pluto.open() }
         binding.showNotchCta.setOnClickListener {
             if (canDrawOverlays()) {
