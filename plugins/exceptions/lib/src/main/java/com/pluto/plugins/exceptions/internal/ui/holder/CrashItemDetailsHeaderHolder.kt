@@ -8,10 +8,10 @@ import com.pluto.plugin.utilities.list.DiffAwareAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.spannable.setSpan
+import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsHeaderBinding
 import com.pluto.plugins.exceptions.internal.ExceptionData
-import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
 
 internal class CrashItemDetailsHeaderHolder(
     parent: ViewGroup,
@@ -66,7 +66,7 @@ internal class CrashItemDetailsHeaderHolder(
     private fun handleTitle(item: ExceptionData) {
         if (item.isANRException) {
             message.text =
-                context.getString(R.string.pluto_excep___anr_list_message, MAIN_THREAD_RESPONSE_THRESHOLD)
+                context.getString(R.string.pluto_excep___anr_list_message, PlutoExceptions.mainThreadResponseThreshold)
             title.setSpan {
                 context.apply {
                     append(
