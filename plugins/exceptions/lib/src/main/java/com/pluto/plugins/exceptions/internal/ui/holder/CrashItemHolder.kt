@@ -9,9 +9,9 @@ import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugin.utilities.spannable.setSpan
+import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashBinding
-import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 
 internal class CrashItemHolder(
@@ -27,7 +27,7 @@ internal class CrashItemHolder(
             with(item.data.exception) {
                 if (isANRException) {
                     binding.message.text =
-                        context.getString(R.string.pluto_excep___anr_list_message, MAIN_THREAD_RESPONSE_THRESHOLD)
+                        context.getString(R.string.pluto_excep___anr_list_message, PlutoExceptions.mainThreadResponseThreshold)
                     binding.title.setSpan {
                         context.apply {
                             append(

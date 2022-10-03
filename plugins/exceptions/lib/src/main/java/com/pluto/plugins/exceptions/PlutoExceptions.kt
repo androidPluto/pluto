@@ -3,6 +3,7 @@ package com.pluto.plugins.exceptions
 import android.content.Context
 import com.pluto.plugins.exceptions.internal.Session
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor
+import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.DEFAULT_MAIN_THREAD_RESPONSE_THRESHOLD
 import com.pluto.plugins.exceptions.internal.crash.CrashHandler
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
@@ -14,6 +15,12 @@ object PlutoExceptions {
         private set
     internal val session = Session()
     internal lateinit var appPackageName: String
+
+    /**
+     * The threshold for main thread response
+     * time before resulting in ANR.
+     */
+    var mainThreadResponseThreshold = DEFAULT_MAIN_THREAD_RESPONSE_THRESHOLD
 
     internal fun initialize(context: Context, identifier: String) {
         appPackageName = context.packageName

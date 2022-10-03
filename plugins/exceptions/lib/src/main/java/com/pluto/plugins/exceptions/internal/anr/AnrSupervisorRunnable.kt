@@ -4,13 +4,13 @@ import android.os.Handler
 import android.os.Looper
 import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.exceptions.ANRException
+import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.UncaughtANRHandler
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
 import com.pluto.plugins.exceptions.internal.ThreadStates
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_THREAD_NAME
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.ANR_WATCHER_TIMEOUT
 import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.LOGTAG
-import com.pluto.plugins.exceptions.internal.anr.AnrSupervisor.Companion.MAIN_THREAD_RESPONSE_THRESHOLD
 import com.pluto.plugins.exceptions.internal.asExceptionData
 import com.pluto.plugins.exceptions.internal.asThreadData
 import com.pluto.plugins.exceptions.internal.extensions.wait
@@ -56,7 +56,7 @@ internal class AnrSupervisorRunnable : Runnable {
                 // Perform test, Handler should run the callback within 1s
                 synchronized(callback) {
                     mHandler.post(callback)
-                    callback.wait(MAIN_THREAD_RESPONSE_THRESHOLD)
+                    callback.wait(PlutoExceptions.mainThreadResponseThreshold)
 
                     // Check if called
                     if (!callback.isCalled) {
@@ -101,7 +101,7 @@ internal class AnrSupervisorRunnable : Runnable {
     @Throws(InterruptedException::class)
     private fun checkStopped() {
         if (mStopped) {
-            Thread.sleep(MAIN_THREAD_RESPONSE_THRESHOLD)
+            Thread.sleep(PlutoExceptions.mainThreadResponseThreshold)
             if (mStopped) {
                 throw InterruptedException()
             }

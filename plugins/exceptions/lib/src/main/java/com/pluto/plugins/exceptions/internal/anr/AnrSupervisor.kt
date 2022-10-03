@@ -49,6 +49,6 @@ internal class AnrSupervisor {
         const val LOGTAG = "Pluto-ANR-watcher"
         const val ANR_WATCHER_THREAD_NAME = "pluto-anr-watcher"
         const val ANR_WATCHER_TIMEOUT: Long = 10_000
-        const val MAIN_THREAD_RESPONSE_THRESHOLD: Long = 2_000
+        const val DEFAULT_MAIN_THREAD_RESPONSE_THRESHOLD: Long = 2_000
     }
 }
