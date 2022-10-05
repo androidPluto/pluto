@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':pluto-plugin')
+    implementation project(path: ':pluto-helpers:base-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation "androidx.compose.compiler:compiler:$composeCompileVersion"
     implementation "androidx.compose.material3:material3:1.0.0-alpha12"

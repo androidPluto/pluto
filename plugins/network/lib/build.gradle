@@ -60,7 +60,7 @@ android {
 
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
-    implementation project(path: ':pluto-plugin')
+    implementation project(path: ':pluto-helpers:base-plugin')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
