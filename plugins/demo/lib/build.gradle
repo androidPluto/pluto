@@ -50,5 +50,5 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':pluto-helpers:base-plugin')
+    implementation project(path: ':pluto-plugins:base:lib')
 }
