@@ -43,10 +43,10 @@ android {
 }
 
 dependencies {
-    api project(path: ':plugins:exceptions:lib')
-    api project(path: ':plugins:network:lib')
-    api project(path: ':plugins:shared-preferences:lib')
-    api project(path: ':plugins:logger:lib')
-    api project(path: ':plugins:datastore:lib')
-    api project(path: ':plugins:rooms-database:lib')
+    api project(path: ':pluto-plugins:plugins:exceptions:lib')
+    api project(path: ':pluto-plugins:plugins:network:lib')
+    api project(path: ':pluto-plugins:plugins:shared-preferences:lib')
+    api project(path: ':pluto-plugins:plugins:logger:lib')
+    api project(path: ':pluto-plugins:plugins:datastore:lib')
+    api project(path: ':pluto-plugins:plugins:rooms-database:lib')
 }

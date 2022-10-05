@@ -43,10 +43,10 @@ android {
 }
 
 dependencies {
-    api project(path: ':plugins:exceptions:lib-no-op')
-    api project(path: ':plugins:network:lib-no-op')
-    api project(path: ':plugins:shared-preferences:lib-no-op')
-    api project(path: ':plugins:logger:lib-no-op')
-    api project(path: ':plugins:datastore:lib-no-op')
-    api project(path: ':plugins:rooms-database:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:exceptions:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:network:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:shared-preferences:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:logger:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:datastore:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:rooms-database:lib-no-op')
 }
