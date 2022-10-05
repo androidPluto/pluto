@@ -56,12 +56,12 @@ dependencies {
 
 But, if you want to use individual plugins, here is the list of some plugins provided by us
 
-- **[Network Plugin](plugins/network)**
-- **[Exceptions & Crashes Plugin](plugins/exceptions)**
-- **[Logger Plugin](plugins/logger)**
-- **[Shared Preferences Plugin](plugins/shared-preferences)**
-- **[Rooms Database Plugin](plugins/rooms-database)**
-- **[Datastore Preferences Plugin](plugins/datastore)**
+- **[Network Plugin](pluto-plugins/plugins/network)**
+- **[Exceptions & Crashes Plugin](pluto-plugins/plugins/exceptions)**
+- **[Logger Plugin](pluto-plugins/plugins/logger)**
+- **[Shared Preferences Plugin](pluto-plugins/plugins/shared-preferences)**
+- **[Rooms Database Plugin](pluto-plugins/plugins/rooms-database)**
+- **[Datastore Preferences Plugin](pluto-plugins/plugins/datastore)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
