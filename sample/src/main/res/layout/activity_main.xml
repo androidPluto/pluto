@@ -110,19 +110,6 @@
                     app:singleLine="false"
                     app:singleSelection="true" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/clearLogsChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/clear_all_logs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/functionGroup"
-                    app:singleLine="false"
-                    app:singleSelection="true" />
-
                 <TextView
                     android:id="@+id/addingMore"
                     android:layout_width="0dp"
@@ -137,7 +124,7 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clearLogsChip" />
+                    app:layout_constraintTop_toBottomOf="@+id/functionGroup" />
 
                 <TextView
                     android:id="@+id/functionMissing"
@@ -250,6 +237,12 @@
                     android:text="@string/hide_notch"
                     android:textAppearance="@style/ChipTextStyle" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/clearLogsCta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_all_logs"
+                    android:textAppearance="@style/ChipTextStyle" />
 
             </com.google.android.material.chip.ChipGroup>
 
