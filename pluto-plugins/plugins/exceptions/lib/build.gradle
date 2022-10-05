@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -10,9 +12,9 @@ def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 ext {
-    PUBLISH_GROUP_ID = "com.plutolib"
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'pluto'
+    PUBLISH_ARTIFACT_ID = 'exceptions'
 }
 
 android {
@@ -45,17 +47,27 @@ android {
             shrinkResources false
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    resourcePrefix 'pluto___'
+    resourcePrefix 'pluto_excep___'
 }
 
 dependencies {
-    api project(path: ':pluto-plugins:base:lib')
+//    implementation 'com.plutolib:plugin:2.0.0'
+    implementation project(path: ':pluto-plugins:base:lib')
+    implementation "androidx.core:core-ktx:$androidXCoreVersion"
+
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    implementation "androidx.room:room-ktx:$roomsVersion"
+    kapt "androidx.room:room-compiler:$roomsVersion"
 }

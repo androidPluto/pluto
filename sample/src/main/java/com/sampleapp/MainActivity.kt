@@ -56,6 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val CHIP_PADDING = 40f
+        const val CHIP_PADDING = 16f
     }
 }

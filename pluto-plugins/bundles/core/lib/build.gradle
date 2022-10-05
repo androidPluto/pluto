@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -10,18 +9,14 @@ def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 ext {
-    PUBLISH_GROUP_ID = "com.plutolib"
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'pluto'
+    PUBLISH_ARTIFACT_ID = 'bundle-core'
 }
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
-
-    buildFeatures {
-        viewBinding true
-    }
 
     lintOptions {
         abortOnError false
@@ -32,10 +27,6 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode verCode
         versionName verName
-
-        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
-        buildConfigField ("long", "VERSION_CODE", "${verCode}")
-        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
     }
 
     buildTypes {
@@ -49,13 +40,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    resourcePrefix 'pluto___'
 }
 
 dependencies {
-    api project(path: ':pluto-plugins:base:lib')
+    api project(path: ':pluto-plugins:plugins:exceptions:lib')
+    api project(path: ':pluto-plugins:plugins:network:lib')
+    api project(path: ':pluto-plugins:plugins:shared-preferences:lib')
+    api project(path: ':pluto-plugins:plugins:logger:lib')
+    api project(path: ':pluto-plugins:plugins:datastore:lib')
+    api project(path: ':pluto-plugins:plugins:rooms-database:lib')
 }
