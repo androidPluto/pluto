@@ -9,7 +9,8 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.dp
-import com.pluto.plugin.utilities.extensions.px
+import com.pluto.plugin.utilities.extensions.dp2px
+import com.pluto.plugin.utilities.extensions.px2dp
 import com.pluto.plugins.uitools.R
 import kotlin.math.abs
 
@@ -38,7 +39,7 @@ internal class RulerScaleView(context: Context) : View(context) {
     private var moveStartY = 0f
     private var heightDP = 0
     private var widthDP = 0
-    private val scaleLength: Int = 4f.px.toInt() // ViewKnife.dip2px(4f).toInt()
+    private val scaleLength: Int = 4f.dp2px.toInt() // ViewKnife.dip2px(4f).toInt()
     private val scaleGap = 5 // (dp)
 
     // scroll direction
@@ -58,23 +59,32 @@ internal class RulerScaleView(context: Context) : View(context) {
         init {
             color = context.getColor(R.color.pluto___red_dark)
             style = Style.FILL
-            strokeWidth = 1f.px
+            strokeWidth = 1f.dp2px
         }
     }
+
+    private val spikePain: Paint = object : Paint(ANTI_ALIAS_FLAG) {
+        init {
+            color = context.getColor(R.color.pluto___red_80)
+            style = Style.FILL
+            strokeWidth = 1f.dp2px
+        }
+    }
+
     private val oldPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.getColor(R.color.pluto___red_80)
             style = Style.STROKE
-            strokeWidth = 1f.px
+            strokeWidth = 1f.dp2px
             pathEffect = DashPathEffect(floatArrayOf(3f.dp, 2f.dp), 0f)
         }
     }
     private val mutablePaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
-            color = context.getColor(R.color.pluto___blue)
+            color = context.getColor(R.color.pluto___colorPrimaryDark)
             style = Style.FILL
-            strokeWidth = 3f.px // ViewKnife.dip2px(2f)
-            textSize = 14f.px // ViewKnife.dip2px(12f)
+            strokeWidth = 4f.dp2px // ViewKnife.dip2px(2f)
+            textSize = 14f.dp2px // ViewKnife.dip2px(12f)
             typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
             flags = FAKE_BOLD_TEXT_FLAG
         }
@@ -82,7 +92,7 @@ internal class RulerScaleView(context: Context) : View(context) {
     private val defPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.getColor(R.color.pluto___emerald)
-            strokeWidth = 2f.px // ViewKnife.dip2px(2f)
+            strokeWidth = 2f.dp2px // ViewKnife.dip2px(2f)
             style = Style.STROKE
         }
     }
@@ -95,8 +105,8 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        heightDP = measuredHeight.toFloat().dp.toInt() // ViewKnife.px2dip(measuredHeight.toFloat())
-        widthDP = measuredWidth.toFloat().dp.toInt() // ViewKnife.px2dip(measuredWidth.toFloat())
+        heightDP = measuredHeight.toFloat().px2dp.toInt() // ViewKnife.px2dip(measuredHeight.toFloat())
+        widthDP = measuredWidth.toFloat().px2dp.toInt() // ViewKnife.px2dip(measuredWidth.toFloat())
     }
 
     @SuppressWarnings("LongMethod", "ComplexMethod", "NestedBlockDepth")
@@ -174,17 +184,26 @@ internal class RulerScaleView(context: Context) : View(context) {
             canvas.drawLine(initX, 0f, initX, measuredHeight.toFloat(), paint)
         }
         // scale
-        run {
-            var i = 0
-            while (i < heightDP) {
-                canvas.drawLine(initX, i.toFloat().dp, initX + scaleLength, i.toFloat().dp, paint)
-                i += scaleGap
+
+        var i = 0f
+        while (i < heightDP) {
+            val scLength = if (i / scaleGap % SPIKE_INDICATOR_INDEX > 0) {
+                scaleLength
+            } else {
+                scaleLength * 2
             }
-        }
-        var i = 0
-        while (i < widthDP) {
-            canvas.drawLine(i.toFloat().dp, initY, i.toFloat().dp, initY + scaleLength, paint)
+            canvas.drawLine(initX, i.dp2px, initX + scLength, i.dp2px, spikePain)
             i += scaleGap
+        }
+        var j = 0f
+        while (j < widthDP) {
+            val scLength = if (j / scaleGap % SPIKE_INDICATOR_INDEX > 0) {
+                scaleLength
+            } else {
+                scaleLength * 2
+            }
+            canvas.drawLine(j.dp2px, initY, j.dp2px, initY + scLength, spikePain)
+            j += scaleGap
         }
         // scroll
         if (direction == Direction.HORIZONTAL) {
@@ -192,13 +211,13 @@ internal class RulerScaleView(context: Context) : View(context) {
             val dis = lastX - moveStartX
             canvas.drawLine(initX, initY, initX + dis, initY, mutablePaint)
             mutablePaint.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.dp} dp", initX + dis / 2, initY - 12f.dp, mutablePaint)
+            canvas.drawText("${dis.px2dp} dp", initX + dis / 2, initY - 12f.dp, mutablePaint)
         } else if (direction == Direction.VERTICAL) {
             canvas.drawLine(0f, initY + lastY - moveStartY, measuredWidth.toFloat(), initY + lastY - moveStartY, paint)
             val dis = lastY - moveStartY
             canvas.drawLine(initX, initY, initX, initY + dis, mutablePaint)
             mutablePaint.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.dp} dp", initX + 12f.dp, initY + dis / 2, mutablePaint)
+            canvas.drawText("${dis.px2dp} dp", initX + 12f.dp, initY + dis / 2, mutablePaint)
         }
         // old
         if (oldX > 0) {
@@ -207,5 +226,9 @@ internal class RulerScaleView(context: Context) : View(context) {
         if (oldY > 0) {
             canvas.drawLine(0f, oldY, measuredWidth.toFloat(), oldY, oldPaint)
         }
+    }
+
+    private companion object {
+        const val SPIKE_INDICATOR_INDEX = 5
     }
 }

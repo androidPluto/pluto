@@ -16,10 +16,16 @@ val Float.sp: Float
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, displayMetrics)
     }
 
-val Float.px: Float
+val Float.dp2px: Float
     get() {
         val scale = Resources.getSystem().displayMetrics.density
         return this * scale + 0.5f
+    }
+
+val Float.px2dp: Float
+    get() {
+        val scale = Resources.getSystem().displayMetrics.density
+        return this / scale + 0.5f
     }
 
 val Int.twoDigit: String
