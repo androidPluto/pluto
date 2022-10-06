@@ -211,7 +211,7 @@ internal class RulerScaleView(context: Context) : View(context) {
                 0f,
                 clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
                 measuredWidth.toFloat(),
-                clickCoordinate.y + clickCoordinate.y - moveStartCoordinate.y,
+                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
                 paint
             )
             val dis = lastTouchCoordinate.y - moveStartCoordinate.y
