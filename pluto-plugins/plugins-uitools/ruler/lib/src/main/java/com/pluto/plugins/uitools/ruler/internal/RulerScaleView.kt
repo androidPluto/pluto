@@ -47,63 +47,70 @@ internal class RulerScaleView(context: Context) : View(context) {
         screen.width = measuredWidth.toFloat().px2dp.toInt()
     }
 
-    @SuppressWarnings("LongMethod", "ComplexMethod", "NestedBlockDepth")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                lastTouchCoordinate.x = event.x
-                downCoordinate.x = lastTouchCoordinate.x
-                lastTouchCoordinate.y = event.y
-                downCoordinate.y = lastTouchCoordinate.y
+                handleActionDown(event)
                 super.onTouchEvent(event)
                 return true
             }
-            MotionEvent.ACTION_MOVE -> {
-                lastTouchCoordinate.x = event.x
-                lastTouchCoordinate.y = event.y
-                val dx = lastTouchCoordinate.x - downCoordinate.x
-                val dy = lastTouchCoordinate.y - downCoordinate.y
-                if (direction == Direction.NONE) {
-                    if (abs(dx) > touchSlop) {
-                        direction = Direction.HORIZONTAL
-                        moveStartCoordinate.x = lastTouchCoordinate.x
-                        prevCoordinate.x = clickCoordinate.x
-                        if (clickCoordinate.y <= 0) {
-                            clickCoordinate.y = lastTouchCoordinate.y
-                        }
-                    } else if (abs(dy) > touchSlop) {
-                        direction = Direction.VERTICAL
-                        moveStartCoordinate.y = lastTouchCoordinate.y
-                        prevCoordinate.y = clickCoordinate.y
-                        if (clickCoordinate.x <= 0) {
-                            clickCoordinate.x = lastTouchCoordinate.x
-                        }
-                    }
-                }
-                if (direction != Direction.NONE) {
-                    invalidate()
-                }
-            }
-            MotionEvent.ACTION_UP -> {
-                if (direction == Direction.NONE) {
-                    prevCoordinate.y = 0f
-                    prevCoordinate.x = prevCoordinate.y
-                    clickCoordinate.x = event.x
-                    clickCoordinate.y = event.y
-                } else {
-                    if (direction == Direction.HORIZONTAL) {
-                        prevCoordinate.x = clickCoordinate.x
-                        clickCoordinate.x += event.x - moveStartCoordinate.x
-                    } else if (direction == Direction.VERTICAL) {
-                        prevCoordinate.y = clickCoordinate.y
-                        clickCoordinate.y += event.y - moveStartCoordinate.y
-                    }
-                    direction = Direction.NONE
-                }
-                invalidate()
-            }
+            MotionEvent.ACTION_MOVE -> handleActionMove(event)
+            MotionEvent.ACTION_UP -> handleActionUp(event)
         }
         return super.onTouchEvent(event)
+    }
+
+    private fun handleActionUp(event: MotionEvent) {
+        if (direction == Direction.NONE) {
+            prevCoordinate.y = 0f
+            prevCoordinate.x = prevCoordinate.y
+            clickCoordinate.x = event.x
+            clickCoordinate.y = event.y
+        } else {
+            if (direction == Direction.HORIZONTAL) {
+                prevCoordinate.x = clickCoordinate.x
+                clickCoordinate.x += event.x - moveStartCoordinate.x
+            } else if (direction == Direction.VERTICAL) {
+                prevCoordinate.y = clickCoordinate.y
+                clickCoordinate.y += event.y - moveStartCoordinate.y
+            }
+            direction = Direction.NONE
+        }
+        invalidate()
+    }
+
+    private fun handleActionMove(event: MotionEvent) {
+        lastTouchCoordinate.x = event.x
+        lastTouchCoordinate.y = event.y
+        val dx = lastTouchCoordinate.x - downCoordinate.x
+        val dy = lastTouchCoordinate.y - downCoordinate.y
+        if (direction == Direction.NONE) {
+            if (abs(dx) > touchSlop) {
+                direction = Direction.HORIZONTAL
+                moveStartCoordinate.x = lastTouchCoordinate.x
+                prevCoordinate.x = clickCoordinate.x
+                if (clickCoordinate.y <= 0) {
+                    clickCoordinate.y = lastTouchCoordinate.y
+                }
+            } else if (abs(dy) > touchSlop) {
+                direction = Direction.VERTICAL
+                moveStartCoordinate.y = lastTouchCoordinate.y
+                prevCoordinate.y = clickCoordinate.y
+                if (clickCoordinate.x <= 0) {
+                    clickCoordinate.x = lastTouchCoordinate.x
+                }
+            }
+        }
+        if (direction != Direction.NONE) {
+            invalidate()
+        }
+    }
+
+    private fun handleActionDown(event: MotionEvent) {
+        lastTouchCoordinate.x = event.x
+        downCoordinate.x = lastTouchCoordinate.x
+        lastTouchCoordinate.y = event.y
+        downCoordinate.y = lastTouchCoordinate.y
     }
 
     override fun onDraw(canvas: Canvas) {
