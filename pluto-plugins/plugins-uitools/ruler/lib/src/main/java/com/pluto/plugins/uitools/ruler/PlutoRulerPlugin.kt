@@ -1,9 +1,12 @@
-package com.pluto.plugins.ruler
+package com.pluto.plugins.uitools.ruler
 
 import androidx.fragment.app.Fragment
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
+import com.pluto.plugins.uitools.BuildConfig
+import com.pluto.plugins.uitools.R
+import com.pluto.plugins.uitools.ruler.internal.RulerFragment
 
 class PlutoRulerPlugin : Plugin("ruler") {
     override fun getConfig(): PluginConfiguration = PluginConfiguration(

@@ -1,8 +1,7 @@
-package com.pluto.plugins.ruler
+package com.pluto.plugins.uitools.ruler.internal
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.view.MotionEvent
@@ -11,9 +10,10 @@ import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.px
+import com.pluto.plugins.uitools.R
 import kotlin.math.abs
 
-class RulerScaleView(context: Context) : View(context) {
+internal class RulerScaleView(context: Context) : View(context) {
 
     private val touchSlop: Int
 
@@ -45,11 +45,6 @@ class RulerScaleView(context: Context) : View(context) {
     @Direction
     private var direction = 0
 
-    //    @IntDef(
-//        Direction.NONE,
-//        Direction.HORIZONTAL,
-//        Direction.VERTICAL
-//    )
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class Direction {
         companion object {
@@ -86,7 +81,7 @@ class RulerScaleView(context: Context) : View(context) {
     }
     private val defPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
-            color = Color.YELLOW
+            color = context.getColor(R.color.pluto___emerald)
             strokeWidth = 2f.px // ViewKnife.dip2px(2f)
             style = Style.STROKE
         }
