@@ -10,11 +10,11 @@ import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.dp2px
 import com.pluto.plugin.utilities.extensions.px2dp
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 internal class RulerScaleView(context: Context) : View(context) {
 
     private val touchSlop: Int
-
     private var downCoordinate = CoordinatePair() // action down coordinate
     private var lastTouchCoordinate = CoordinatePair() // touch coordinate
     private var clickCoordinate = CoordinatePair() // click coordinate
@@ -58,6 +58,74 @@ internal class RulerScaleView(context: Context) : View(context) {
             MotionEvent.ACTION_UP -> handleActionUp(event)
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        drawInitialScale(canvas, screen)
+        drawScroll(canvas)
+        drawPreviousScale(canvas)
+    }
+
+    private fun drawInitialScale(canvas: Canvas, screen: ScreenMeasurement) {
+        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), paintType.boundary)
+
+        // init
+        if (clickCoordinate.y > 0) {
+            canvas.drawLine(0f, clickCoordinate.y, measuredWidth.toFloat(), clickCoordinate.y, paintType.scale)
+        }
+        if (clickCoordinate.x > 0) {
+            canvas.drawLine(clickCoordinate.x, 0f, clickCoordinate.x, measuredHeight.toFloat(), paintType.scale)
+        }
+
+        // scale
+        var i = 0
+        while (i < screen.height) {
+            canvas.drawLine(clickCoordinate.x, i.toFloat().dp2px, clickCoordinate.x + getMarkerHeight(i), i.toFloat().dp2px, paintType.scaleMarker)
+            i += SCALE_GAP
+        }
+        var j = 0
+        while (j < screen.width) {
+            canvas.drawLine(j.toFloat().dp2px, clickCoordinate.y, j.toFloat().dp2px, clickCoordinate.y + getMarkerHeight(j), paintType.scaleMarker)
+            j += SCALE_GAP
+        }
+    }
+
+    private fun drawPreviousScale(canvas: Canvas) {
+        if (prevCoordinate.x > 0) {
+            canvas.drawLine(prevCoordinate.x, 0f, prevCoordinate.x, measuredHeight.toFloat(), paintType.prevScale)
+        }
+        if (prevCoordinate.y > 0) {
+            canvas.drawLine(0f, prevCoordinate.y, measuredWidth.toFloat(), prevCoordinate.y, paintType.prevScale)
+        }
+    }
+
+    private fun drawScroll(canvas: Canvas) {
+        if (direction == Direction.HORIZONTAL) {
+            canvas.drawLine(
+                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
+                0f,
+                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
+                measuredHeight.toFloat(),
+                paintType.scale
+            )
+            val dis = lastTouchCoordinate.x - moveStartCoordinate.x
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
+            paintType.measurement.textAlign = Paint.Align.CENTER
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
+        } else if (direction == Direction.VERTICAL) {
+            canvas.drawLine(
+                0f,
+                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
+                measuredWidth.toFloat(),
+                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
+                paintType.scale
+            )
+            val dis = lastTouchCoordinate.y - moveStartCoordinate.y
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, paintType.measurement)
+            paintType.measurement.textAlign = Paint.Align.LEFT
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
+        }
     }
 
     private fun handleActionUp(event: MotionEvent) {
@@ -113,81 +181,19 @@ internal class RulerScaleView(context: Context) : View(context) {
         downCoordinate.y = lastTouchCoordinate.y
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        initScales(canvas, screen)
-        // scroll
-        if (direction == Direction.HORIZONTAL) {
-            canvas.drawLine(
-                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
-                0f,
-                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
-                measuredHeight.toFloat(),
-                paintType.scale
-            )
-            val dis = lastTouchCoordinate.x - moveStartCoordinate.x
-            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
-            paintType.measurement.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
-        } else if (direction == Direction.VERTICAL) {
-            canvas.drawLine(
-                0f,
-                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
-                measuredWidth.toFloat(),
-                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
-                paintType.scale
-            )
-            val dis = lastTouchCoordinate.y - moveStartCoordinate.y
-            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, paintType.measurement)
-            paintType.measurement.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
-        }
-        // old
-        if (prevCoordinate.x > 0) {
-            canvas.drawLine(prevCoordinate.x, 0f, prevCoordinate.x, measuredHeight.toFloat(), paintType.prevScale)
-        }
-        if (prevCoordinate.y > 0) {
-            canvas.drawLine(0f, prevCoordinate.y, measuredWidth.toFloat(), prevCoordinate.y, paintType.prevScale)
-        }
-    }
-
-    private fun initScales(canvas: Canvas, screen: ScreenMeasurement) {
-        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), paintType.boundary)
-
-        // init
-        if (clickCoordinate.y > 0) {
-            canvas.drawLine(0f, clickCoordinate.y, measuredWidth.toFloat(), clickCoordinate.y, paintType.scale)
-        }
-        if (clickCoordinate.x > 0) {
-            canvas.drawLine(clickCoordinate.x, 0f, clickCoordinate.x, measuredHeight.toFloat(), paintType.scale)
-        }
-
-        // scale
-        var i = 0f
-        while (i < screen.height) {
-            val scLength = if (i / SCALE_GAP % SPIKE_INDICATOR_INDEX > 0) {
-                SCALE_LENGTH
-            } else {
-                SCALE_LENGTH * 2
-            }
-            canvas.drawLine(clickCoordinate.x, i.dp2px, clickCoordinate.x + scLength, i.dp2px, paintType.scaleMarker)
-            i += SCALE_GAP
-        }
-        var j = 0f
-        while (j < screen.width) {
-            val scLength = if (j / SCALE_GAP % SPIKE_INDICATOR_INDEX > 0) {
-                SCALE_LENGTH
-            } else {
-                SCALE_LENGTH * 2
-            }
-            canvas.drawLine(j.dp2px, clickCoordinate.y, j.dp2px, clickCoordinate.y + scLength, paintType.scaleMarker)
-            j += SCALE_GAP
+    private fun getMarkerHeight(position: Int): Int {
+        return when {
+            position / SCALE_GAP % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
+            position / SCALE_GAP % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
+            else -> MARKER_HEIGHT.roundToInt()
         }
     }
 
     private companion object {
-        const val SPIKE_INDICATOR_INDEX = 5
+        const val MARKER_SPIKE_INDICATOR_INDEX = 5
         const val SCALE_GAP = 5
-        val SCALE_LENGTH = 4f.dp2px.toInt()
+        val MARKER_HEIGHT = 4f.dp2px
+        val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
+        val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2
     }
 }
