@@ -2,16 +2,13 @@ package com.pluto.plugins.uitools.ruler.internal
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import androidx.core.content.res.ResourcesCompat
 import com.pluto.plugin.utilities.extensions.dp
 import com.pluto.plugin.utilities.extensions.dp2px
 import com.pluto.plugin.utilities.extensions.px2dp
-import com.pluto.plugins.uitools.R
 import kotlin.math.abs
 
 internal class RulerScaleView(context: Context) : View(context) {
@@ -23,13 +20,9 @@ internal class RulerScaleView(context: Context) : View(context) {
     private var clickCoordinate = CoordinatePair() // click coordinate
     private var prevCoordinate = CoordinatePair() // before event coordinate
     private var moveStartCoordinate = CoordinatePair() // move start coordinate
+    private var screen = ScreenMeasurement()
+    private val paintType = PaintType(context)
 
-    private var heightDP = 0
-    private var widthDP = 0
-    private val scaleLength: Int = 4f.dp2px.toInt() // ViewKnife.dip2px(4f).toInt()
-    private val scaleGap = 5 // (dp)
-
-    // scroll direction
     @Direction
     private var direction = 0
 
@@ -42,48 +35,6 @@ internal class RulerScaleView(context: Context) : View(context) {
         }
     }
 
-    private val paint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.getColor(R.color.pluto___red_dark)
-            style = Style.FILL
-            strokeWidth = 1f.dp2px
-        }
-    }
-
-    private val spikePain: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.getColor(R.color.pluto___red_80)
-            style = Style.FILL
-            strokeWidth = 1f.dp2px
-        }
-    }
-
-    private val oldPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.getColor(R.color.pluto___red_80)
-            style = Style.STROKE
-            strokeWidth = 1f.dp2px
-            pathEffect = DashPathEffect(floatArrayOf(3f.dp, 2f.dp), 0f)
-        }
-    }
-    private val mutablePaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.getColor(R.color.pluto___colorPrimaryDark)
-            style = Style.FILL
-            strokeWidth = 4f.dp2px // ViewKnife.dip2px(2f)
-            textSize = 14f.dp2px // ViewKnife.dip2px(12f)
-            typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
-            flags = FAKE_BOLD_TEXT_FLAG
-        }
-    }
-    private val defPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.getColor(R.color.pluto___emerald)
-            strokeWidth = 2f.dp2px // ViewKnife.dip2px(2f)
-            style = Style.STROKE
-        }
-    }
-
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
         val vc = ViewConfiguration.get(context)
@@ -92,22 +43,18 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        heightDP = measuredHeight.toFloat().px2dp.toInt() // ViewKnife.px2dip(measuredHeight.toFloat())
-        widthDP = measuredWidth.toFloat().px2dp.toInt() // ViewKnife.px2dip(measuredWidth.toFloat())
+        screen.height = measuredHeight.toFloat().px2dp.toInt()
+        screen.width = measuredWidth.toFloat().px2dp.toInt()
     }
 
     @SuppressWarnings("LongMethod", "ComplexMethod", "NestedBlockDepth")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                run {
-                    lastTouchCoordinate.x = event.x
-                    downCoordinate.x = lastTouchCoordinate.x
-                }
-                run {
-                    lastTouchCoordinate.y = event.y
-                    downCoordinate.y = lastTouchCoordinate.y
-                }
+                lastTouchCoordinate.x = event.x
+                downCoordinate.x = lastTouchCoordinate.x
+                lastTouchCoordinate.y = event.y
+                downCoordinate.y = lastTouchCoordinate.y
                 super.onTouchEvent(event)
                 return true
             }
@@ -159,40 +106,9 @@ internal class RulerScaleView(context: Context) : View(context) {
         return super.onTouchEvent(event)
     }
 
-    @SuppressWarnings("LongMethod")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
-
-        // init
-        if (clickCoordinate.y > 0) {
-            canvas.drawLine(0f, clickCoordinate.y, measuredWidth.toFloat(), clickCoordinate.y, paint)
-        }
-        if (clickCoordinate.x > 0) {
-            canvas.drawLine(clickCoordinate.x, 0f, clickCoordinate.x, measuredHeight.toFloat(), paint)
-        }
-        // scale
-
-        var i = 0f
-        while (i < heightDP) {
-            val scLength = if (i / scaleGap % SPIKE_INDICATOR_INDEX > 0) {
-                scaleLength
-            } else {
-                scaleLength * 2
-            }
-            canvas.drawLine(clickCoordinate.x, i.dp2px, clickCoordinate.x + scLength, i.dp2px, spikePain)
-            i += scaleGap
-        }
-        var j = 0f
-        while (j < widthDP) {
-            val scLength = if (j / scaleGap % SPIKE_INDICATOR_INDEX > 0) {
-                scaleLength
-            } else {
-                scaleLength * 2
-            }
-            canvas.drawLine(j.dp2px, clickCoordinate.y, j.dp2px, clickCoordinate.y + scLength, spikePain)
-            j += scaleGap
-        }
+        initScales(canvas, screen)
         // scroll
         if (direction == Direction.HORIZONTAL) {
             canvas.drawLine(
@@ -200,35 +116,71 @@ internal class RulerScaleView(context: Context) : View(context) {
                 0f,
                 clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
                 measuredHeight.toFloat(),
-                paint
+                paintType.scale
             )
             val dis = lastTouchCoordinate.x - moveStartCoordinate.x
-            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, mutablePaint)
-            mutablePaint.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, mutablePaint)
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
+            paintType.measurement.textAlign = Paint.Align.CENTER
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
         } else if (direction == Direction.VERTICAL) {
             canvas.drawLine(
                 0f,
                 clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
                 measuredWidth.toFloat(),
                 clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
-                paint
+                paintType.scale
             )
             val dis = lastTouchCoordinate.y - moveStartCoordinate.y
-            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, mutablePaint)
-            mutablePaint.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, mutablePaint)
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, paintType.measurement)
+            paintType.measurement.textAlign = Paint.Align.LEFT
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
         }
         // old
         if (prevCoordinate.x > 0) {
-            canvas.drawLine(prevCoordinate.x, 0f, prevCoordinate.x, measuredHeight.toFloat(), oldPaint)
+            canvas.drawLine(prevCoordinate.x, 0f, prevCoordinate.x, measuredHeight.toFloat(), paintType.prevScale)
         }
         if (prevCoordinate.y > 0) {
-            canvas.drawLine(0f, prevCoordinate.y, measuredWidth.toFloat(), prevCoordinate.y, oldPaint)
+            canvas.drawLine(0f, prevCoordinate.y, measuredWidth.toFloat(), prevCoordinate.y, paintType.prevScale)
+        }
+    }
+
+    private fun initScales(canvas: Canvas, screen: ScreenMeasurement) {
+        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), paintType.boundary)
+
+        // init
+        if (clickCoordinate.y > 0) {
+            canvas.drawLine(0f, clickCoordinate.y, measuredWidth.toFloat(), clickCoordinate.y, paintType.scale)
+        }
+        if (clickCoordinate.x > 0) {
+            canvas.drawLine(clickCoordinate.x, 0f, clickCoordinate.x, measuredHeight.toFloat(), paintType.scale)
+        }
+
+        // scale
+        var i = 0f
+        while (i < screen.height) {
+            val scLength = if (i / SCALE_GAP % SPIKE_INDICATOR_INDEX > 0) {
+                SCALE_LENGTH
+            } else {
+                SCALE_LENGTH * 2
+            }
+            canvas.drawLine(clickCoordinate.x, i.dp2px, clickCoordinate.x + scLength, i.dp2px, paintType.scaleMarker)
+            i += SCALE_GAP
+        }
+        var j = 0f
+        while (j < screen.width) {
+            val scLength = if (j / SCALE_GAP % SPIKE_INDICATOR_INDEX > 0) {
+                SCALE_LENGTH
+            } else {
+                SCALE_LENGTH * 2
+            }
+            canvas.drawLine(j.dp2px, clickCoordinate.y, j.dp2px, clickCoordinate.y + scLength, paintType.scaleMarker)
+            j += SCALE_GAP
         }
     }
 
     private companion object {
         const val SPIKE_INDICATOR_INDEX = 5
+        const val SCALE_GAP = 5
+        val SCALE_LENGTH = 4f.dp2px.toInt()
     }
 }
