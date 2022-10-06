@@ -18,25 +18,12 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     private val touchSlop: Int
 
-    // downEvent
-    private var downX = 0f
-    private var downY = 0f
+    private var downCoordinate = CoordinatePair() // action down coordinate
+    private var lastTouchCoordinate = CoordinatePair() // touch coordinate
+    private var clickCoordinate = CoordinatePair() // click coordinate
+    private var prevCoordinate = CoordinatePair() // before event coordinate
+    private var moveStartCoordinate = CoordinatePair() // move start coordinate
 
-    // touchEvent
-    private var lastX = 0f
-    private var lastY = 0f
-
-    // clickEvent
-    private var initX = 0f
-    private var initY = 0f
-
-    // before changed
-    private var oldX = 0f
-    private var oldY = 0f
-
-    // moveStartEvent
-    private var moveStartX = 0f
-    private var moveStartY = 0f
     private var heightDP = 0
     private var widthDP = 0
     private val scaleLength: Int = 4f.dp2px.toInt() // ViewKnife.dip2px(4f).toInt()
@@ -114,35 +101,35 @@ internal class RulerScaleView(context: Context) : View(context) {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 run {
-                    lastX = event.x
-                    downX = lastX
+                    lastTouchCoordinate.x = event.x
+                    downCoordinate.x = lastTouchCoordinate.x
                 }
                 run {
-                    lastY = event.y
-                    downY = lastY
+                    lastTouchCoordinate.y = event.y
+                    downCoordinate.y = lastTouchCoordinate.y
                 }
                 super.onTouchEvent(event)
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
-                lastX = event.x
-                lastY = event.y
-                val dx = lastX - downX
-                val dy = lastY - downY
+                lastTouchCoordinate.x = event.x
+                lastTouchCoordinate.y = event.y
+                val dx = lastTouchCoordinate.x - downCoordinate.x
+                val dy = lastTouchCoordinate.y - downCoordinate.y
                 if (direction == Direction.NONE) {
                     if (abs(dx) > touchSlop) {
                         direction = Direction.HORIZONTAL
-                        moveStartX = lastX
-                        oldX = initX
-                        if (initY <= 0) {
-                            initY = lastY
+                        moveStartCoordinate.x = lastTouchCoordinate.x
+                        prevCoordinate.x = clickCoordinate.x
+                        if (clickCoordinate.y <= 0) {
+                            clickCoordinate.y = lastTouchCoordinate.y
                         }
                     } else if (abs(dy) > touchSlop) {
                         direction = Direction.VERTICAL
-                        moveStartY = lastY
-                        oldY = initY
-                        if (initX <= 0) {
-                            initX = lastX
+                        moveStartCoordinate.y = lastTouchCoordinate.y
+                        prevCoordinate.y = clickCoordinate.y
+                        if (clickCoordinate.x <= 0) {
+                            clickCoordinate.x = lastTouchCoordinate.x
                         }
                     }
                 }
@@ -152,17 +139,17 @@ internal class RulerScaleView(context: Context) : View(context) {
             }
             MotionEvent.ACTION_UP -> {
                 if (direction == Direction.NONE) {
-                    oldY = 0f
-                    oldX = oldY
-                    initX = event.x
-                    initY = event.y
+                    prevCoordinate.y = 0f
+                    prevCoordinate.x = prevCoordinate.y
+                    clickCoordinate.x = event.x
+                    clickCoordinate.y = event.y
                 } else {
                     if (direction == Direction.HORIZONTAL) {
-                        oldX = initX
-                        initX += event.x - moveStartX
+                        prevCoordinate.x = clickCoordinate.x
+                        clickCoordinate.x += event.x - moveStartCoordinate.x
                     } else if (direction == Direction.VERTICAL) {
-                        oldY = initY
-                        initY += event.y - moveStartY
+                        prevCoordinate.y = clickCoordinate.y
+                        clickCoordinate.y += event.y - moveStartCoordinate.y
                     }
                     direction = Direction.NONE
                 }
@@ -172,16 +159,17 @@ internal class RulerScaleView(context: Context) : View(context) {
         return super.onTouchEvent(event)
     }
 
+    @SuppressWarnings("LongMethod")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
 
         // init
-        if (initY > 0) {
-            canvas.drawLine(0f, initY, measuredWidth.toFloat(), initY, paint)
+        if (clickCoordinate.y > 0) {
+            canvas.drawLine(0f, clickCoordinate.y, measuredWidth.toFloat(), clickCoordinate.y, paint)
         }
-        if (initX > 0) {
-            canvas.drawLine(initX, 0f, initX, measuredHeight.toFloat(), paint)
+        if (clickCoordinate.x > 0) {
+            canvas.drawLine(clickCoordinate.x, 0f, clickCoordinate.x, measuredHeight.toFloat(), paint)
         }
         // scale
 
@@ -192,7 +180,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             } else {
                 scaleLength * 2
             }
-            canvas.drawLine(initX, i.dp2px, initX + scLength, i.dp2px, spikePain)
+            canvas.drawLine(clickCoordinate.x, i.dp2px, clickCoordinate.x + scLength, i.dp2px, spikePain)
             i += scaleGap
         }
         var j = 0f
@@ -202,29 +190,41 @@ internal class RulerScaleView(context: Context) : View(context) {
             } else {
                 scaleLength * 2
             }
-            canvas.drawLine(j.dp2px, initY, j.dp2px, initY + scLength, spikePain)
+            canvas.drawLine(j.dp2px, clickCoordinate.y, j.dp2px, clickCoordinate.y + scLength, spikePain)
             j += scaleGap
         }
         // scroll
         if (direction == Direction.HORIZONTAL) {
-            canvas.drawLine(initX + lastX - moveStartX, 0f, initX + lastX - moveStartX, measuredHeight.toFloat(), paint)
-            val dis = lastX - moveStartX
-            canvas.drawLine(initX, initY, initX + dis, initY, mutablePaint)
+            canvas.drawLine(
+                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
+                0f,
+                clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
+                measuredHeight.toFloat(),
+                paint
+            )
+            val dis = lastTouchCoordinate.x - moveStartCoordinate.x
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, mutablePaint)
             mutablePaint.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.px2dp} dp", initX + dis / 2, initY - 12f.dp, mutablePaint)
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, mutablePaint)
         } else if (direction == Direction.VERTICAL) {
-            canvas.drawLine(0f, initY + lastY - moveStartY, measuredWidth.toFloat(), initY + lastY - moveStartY, paint)
-            val dis = lastY - moveStartY
-            canvas.drawLine(initX, initY, initX, initY + dis, mutablePaint)
+            canvas.drawLine(
+                0f,
+                clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
+                measuredWidth.toFloat(),
+                clickCoordinate.y + clickCoordinate.y - moveStartCoordinate.y,
+                paint
+            )
+            val dis = lastTouchCoordinate.y - moveStartCoordinate.y
+            canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, mutablePaint)
             mutablePaint.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.px2dp} dp", initX + 12f.dp, initY + dis / 2, mutablePaint)
+            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, mutablePaint)
         }
         // old
-        if (oldX > 0) {
-            canvas.drawLine(oldX, 0f, oldX, measuredHeight.toFloat(), oldPaint)
+        if (prevCoordinate.x > 0) {
+            canvas.drawLine(prevCoordinate.x, 0f, prevCoordinate.x, measuredHeight.toFloat(), oldPaint)
         }
-        if (oldY > 0) {
-            canvas.drawLine(0f, oldY, measuredWidth.toFloat(), oldY, oldPaint)
+        if (prevCoordinate.y > 0) {
+            canvas.drawLine(0f, prevCoordinate.y, measuredWidth.toFloat(), prevCoordinate.y, oldPaint)
         }
     }
 
