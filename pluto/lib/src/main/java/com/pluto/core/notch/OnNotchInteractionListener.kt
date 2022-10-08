@@ -1,4 +1,4 @@
-package com.pluto.notch
+package com.pluto.core.notch
 
 import android.view.WindowManager
 

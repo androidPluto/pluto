@@ -1,4 +1,4 @@
-package com.pluto.share
+package com.pluto.core.share
 
 import android.os.Bundle
 import android.view.LayoutInflater

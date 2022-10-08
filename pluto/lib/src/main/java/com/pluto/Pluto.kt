@@ -4,19 +4,20 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.LiveData
-import com.pluto.applifecycle.AppLifecycle
-import com.pluto.applifecycle.AppState
-import com.pluto.applifecycle.UiState
-import com.pluto.notch.Notch
+import com.pluto.core.Session
+import com.pluto.core.applifecycle.AppLifecycle
+import com.pluto.core.applifecycle.AppState
+import com.pluto.core.applifecycle.UiState
+import com.pluto.core.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
-import com.pluto.plugin.PluginSelectorActivity
 import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.settings.SettingsPreferences
-import com.pluto.ui.PlutoActivity
+import com.pluto.ui.container.PlutoActivity
+import com.pluto.ui.selector.SelectorActivity
 
 object Pluto {
 
@@ -55,7 +56,7 @@ object Pluto {
             }
             application.applicationContext.toast("Plugin [$identifier] not installed")
         } else {
-            intent = Intent(application.applicationContext, PluginSelectorActivity::class.java)
+            intent = Intent(application.applicationContext, SelectorActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             application.applicationContext.startActivity(intent)
         }

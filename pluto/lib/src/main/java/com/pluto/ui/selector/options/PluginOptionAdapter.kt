@@ -1,27 +1,27 @@
-package com.pluto.plugin.list
+package com.pluto.ui.selector.options
 
 import android.view.ViewGroup
-import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginOption
 import com.pluto.plugin.utilities.list.BaseAdapter
 import com.pluto.plugin.utilities.list.DiffAwareHolder
 import com.pluto.plugin.utilities.list.ListItem
 
-internal class PluginAdapter(private val listener: OnActionListener) : BaseAdapter() {
+internal class PluginOptionAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is Plugin -> ITEM_TYPE_PLUGIN
+            is PluginOption -> ITEM_TYPE_PLUGIN_OPTION
             else -> null
         }
     }
 
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
-            ITEM_TYPE_PLUGIN -> PluginItemHolder(parent, listener)
+            ITEM_TYPE_PLUGIN_OPTION -> PluginOptionItemHolder(parent, listener)
             else -> null
         }
     }
 
     companion object {
-        const val ITEM_TYPE_PLUGIN = 1000
+        const val ITEM_TYPE_PLUGIN_OPTION = 1000
     }
 }

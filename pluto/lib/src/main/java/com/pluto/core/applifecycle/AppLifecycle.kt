@@ -1,4 +1,4 @@
-package com.pluto.applifecycle
+package com.pluto.core.applifecycle
 
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.pluto.DebugNotification
-import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.core.notification.DebugNotification
+import com.pluto.ui.selector.SelectorActivity
 
 internal class AppLifecycle : ActivityLifecycleCallbacks {
 
@@ -38,13 +38,13 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
             _state.postValue(AppState.Foreground)
             DebugNotification(activity.applicationContext).add()
         }
-        if (activity is PluginSelectorActivity) {
+        if (activity is SelectorActivity) {
             showingSelector.postValue(true)
         }
     }
 
     override fun onActivityStopped(activity: Activity) {
-        if (activity is PluginSelectorActivity) {
+        if (activity is SelectorActivity) {
             showingSelector.postValue(false)
         }
         activityCount--

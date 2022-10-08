@@ -1,4 +1,4 @@
-package com.pluto
+package com.pluto.core
 
 import androidx.core.content.FileProvider
 

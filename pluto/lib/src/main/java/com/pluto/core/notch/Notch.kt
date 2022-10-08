@@ -1,11 +1,11 @@
-package com.pluto.notch
+package com.pluto.core.notch
 
 import android.app.Application
 import android.app.Service
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import com.pluto.Pluto
-import com.pluto.applifecycle.AppState
+import com.pluto.core.applifecycle.AppState
 import com.pluto.settings.canDrawOverlays
 
 internal class Notch(private val application: Application, shouldShowNotch: LiveData<Boolean>) {

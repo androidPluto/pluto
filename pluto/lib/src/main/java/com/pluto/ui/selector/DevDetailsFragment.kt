@@ -1,4 +1,4 @@
-package com.pluto.plugin
+package com.pluto.ui.selector
 
 import android.content.Intent
 import android.net.Uri

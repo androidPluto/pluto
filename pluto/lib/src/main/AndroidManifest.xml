@@ -7,19 +7,19 @@
 
     <application>
         <activity
-            android:name=".plugin.PluginSelectorActivity"
+            android:name="com.pluto.ui.selector.SelectorActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.Selector" />
         <activity
-            android:name=".ui.PlutoActivity"
+            android:name=".ui.container.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.Base"
             android:windowSoftInputMode="stateUnspecified|adjustResize" />
 
         <provider
-            android:name=".PlutoFileProvider"
+            android:name=".core.PlutoFileProvider"
             android:authorities="pluto___${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

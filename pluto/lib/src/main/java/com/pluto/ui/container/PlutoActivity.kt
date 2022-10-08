@@ -1,4 +1,4 @@
-package com.pluto.ui
+package com.pluto.ui.container
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
-import com.pluto.applifecycle.UiState
+import com.pluto.core.applifecycle.UiState
+import com.pluto.core.share.ShareFragment
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
@@ -23,7 +24,6 @@ import com.pluto.plugin.utilities.sharing.share
 import com.pluto.plugin.utilities.sharing.shareFile
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.canDrawOverlays
-import com.pluto.share.ShareFragment
 
 class PlutoActivity : AppCompatActivity() {
 

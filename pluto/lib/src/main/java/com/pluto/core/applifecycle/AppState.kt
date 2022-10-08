@@ -1,4 +1,4 @@
-package com.pluto.applifecycle
+package com.pluto.core.applifecycle
 
 internal sealed class AppState {
     object Foreground : AppState()

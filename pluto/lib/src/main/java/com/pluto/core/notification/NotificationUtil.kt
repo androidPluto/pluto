@@ -1,4 +1,4 @@
-package com.pluto.notification
+package com.pluto.core.notification
 
 import android.app.Notification
 import android.app.NotificationChannel

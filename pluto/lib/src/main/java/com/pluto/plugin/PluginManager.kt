@@ -2,7 +2,7 @@ package com.pluto.plugin
 
 import android.app.Application
 import com.pluto.plugin.utilities.DebugLog
-import com.pluto.ui.PlutoActivity
+import com.pluto.ui.container.PlutoActivity
 
 internal class PluginManager {
 

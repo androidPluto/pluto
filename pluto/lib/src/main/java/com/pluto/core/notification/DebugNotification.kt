@@ -1,12 +1,12 @@
-package com.pluto
+package com.pluto.core.notification
 
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.pluto.notification.NotificationUtil
-import com.pluto.plugin.PluginSelectorActivity
+import com.pluto.R
 import com.pluto.plugin.utilities.device.Device
+import com.pluto.ui.selector.SelectorActivity
 
 internal class DebugNotification(private val context: Context) {
 
@@ -15,7 +15,7 @@ internal class DebugNotification(private val context: Context) {
     private val device = Device(context)
 
     fun add() {
-        val notificationIntent = Intent(context, PluginSelectorActivity::class.java)
+        val notificationIntent = Intent(context, SelectorActivity::class.java)
         val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
         } else {
