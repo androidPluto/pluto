@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.applifecycle.AppState
@@ -38,6 +40,11 @@ class PluginSelectorActivity : FragmentActivity() {
         binding.list.apply {
             adapter = pluginAdapter
             layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
+        }
+
+        binding.toolsList.apply {
+            adapter = pluginAdapter
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         }
 
         binding.root.setOnDebounceClickListener {
