@@ -1,9 +1,6 @@
 package com.pluto.plugins.exceptions.internal.ui
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionData
 import com.pluto.plugins.exceptions.internal.ThreadData
@@ -14,6 +11,9 @@ import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsHeaderHol
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemDetailsThreadStackThreadHolder
 import com.pluto.plugins.exceptions.internal.ui.holder.CrashItemHolder
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 
 internal class CrashesAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

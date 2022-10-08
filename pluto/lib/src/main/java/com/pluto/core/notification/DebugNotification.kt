@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.pluto.R
-import com.pluto.plugin.utilities.device.Device
 import com.pluto.ui.selector.SelectorActivity
+import com.pluto.utilities.device.Device
 
 internal class DebugNotification(private val context: Context) {
 

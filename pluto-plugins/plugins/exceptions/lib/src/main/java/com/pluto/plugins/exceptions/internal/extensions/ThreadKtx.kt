@@ -1,6 +1,6 @@
 package com.pluto.plugins.exceptions.internal.extensions
 
-import com.pluto.plugin.utilities.extensions.capitalizeText
+import com.pluto.utilities.extensions.capitalizeText
 
 fun getPriorityString(priority: Int) =
     when (priority) {

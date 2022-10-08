@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentDevDetailsBinding
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.setSpan
-import com.pluto.plugin.utilities.viewBinding
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
+import com.pluto.utilities.viewBinding
 
 internal class DevDetailsFragment : BottomSheetDialogFragment() {
 

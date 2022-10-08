@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
-import com.pluto.plugin.utilities.extensions.asFormattedDate
+import com.pluto.utilities.extensions.asFormattedDate
 
 @Suppress("StringLiteralDuplication")
 internal fun ApiCallData.toShareText(): String {

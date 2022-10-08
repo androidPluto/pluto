@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.ListItem
 import com.squareup.moshi.JsonClass
 
 @Keep

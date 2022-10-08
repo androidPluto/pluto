@@ -1,8 +1,8 @@
 package com.pluto.plugins.network.internal.interceptor.logic.transformers
 
-import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.network.internal.interceptor.logic.LOGTAG
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8
+import com.pluto.utilities.DebugLog
 import java.net.URLDecoder
 import java.net.URLEncoder
 

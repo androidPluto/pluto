@@ -1,10 +1,10 @@
 package com.pluto.plugins.preferences.ui
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.preferences.ui.filter.FilterItemHolder
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 
 internal class SharedPrefAdapter(private val listener: OnActionListener) : BaseAdapter() {
 

@@ -38,7 +38,7 @@
         app:constraint_referenced_ids="loaderTitle,loaderProgress"
         tools:visibility="gone" />
 
-    <com.pluto.plugin.utilities.views.TabularDataView
+    <com.pluto.utilities.views.TabularDataView
         android:id="@+id/response"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

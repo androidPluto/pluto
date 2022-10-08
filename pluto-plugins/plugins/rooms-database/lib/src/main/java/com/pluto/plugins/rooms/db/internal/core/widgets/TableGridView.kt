@@ -11,15 +11,15 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.dp
-import com.pluto.plugin.utilities.extensions.truncateExcess
-import com.pluto.plugin.utilities.hapticFeedback
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.SortBy
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.truncateExcess
+import com.pluto.utilities.hapticFeedback
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 
 /**
  * A custom [TableLayout] class having functionality for creating table by using given rows and columns.

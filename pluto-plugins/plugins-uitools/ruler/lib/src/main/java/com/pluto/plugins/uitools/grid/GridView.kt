@@ -4,10 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.view.View
 import android.view.ViewConfiguration
-import com.pluto.plugin.utilities.extensions.dp2px
-import com.pluto.plugin.utilities.extensions.px2dp
 import com.pluto.plugins.uitools.ruler.internal.PaintType
 import com.pluto.plugins.uitools.ruler.internal.ScreenMeasurement
+import com.pluto.utilities.extensions.dp2px
+import com.pluto.utilities.extensions.px2dp
 
 internal class GridView(context: Context) : View(context) {
 

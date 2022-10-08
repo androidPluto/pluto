@@ -4,10 +4,10 @@ import android.content.Context
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import androidx.core.content.res.ResourcesCompat
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.dp
-import com.pluto.plugin.utilities.extensions.dp2px
 import com.pluto.plugins.uitools.R
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.dp2px
 
 internal data class PaintType(val context: Context) {
     val grid: Paint = object : Paint(ANTI_ALIAS_FLAG) {

@@ -1,12 +1,12 @@
 package com.pluto.plugins.network.internal.interceptor.ui.components
 
 import android.content.Context
-import com.pluto.plugin.KeyValuePairData
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.spannable.createSpan
+import com.pluto.utilities.views.keyvalue.KeyValuePairData
 import okhttp3.HttpUrl
 
 internal fun waitingText(context: Context) = context.createSpan {

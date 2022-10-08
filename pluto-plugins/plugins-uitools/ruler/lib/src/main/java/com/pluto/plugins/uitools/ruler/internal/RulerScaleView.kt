@@ -6,9 +6,9 @@ import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import com.pluto.plugin.utilities.extensions.dp
-import com.pluto.plugin.utilities.extensions.dp2px
-import com.pluto.plugin.utilities.extensions.px2dp
+import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.dp2px
+import com.pluto.utilities.extensions.px2dp
 import kotlin.math.abs
 import kotlin.math.roundToInt
 

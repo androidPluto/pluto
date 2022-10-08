@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/pluto___margin_medium">
 
-    <com.pluto.plugin.utilities.views.TabularDataView
+    <com.pluto.utilities.views.TabularDataView
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

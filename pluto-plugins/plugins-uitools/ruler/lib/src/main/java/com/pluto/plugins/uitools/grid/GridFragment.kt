@@ -1,7 +1,7 @@
 package com.pluto.plugins.uitools.grid
 
-import com.pluto.plugin.utilities.extensions.toast
 import com.pluto.plugins.uitools.FullScreenTool
+import com.pluto.utilities.extensions.toast
 
 internal class GridFragment : FullScreenTool() {
 

@@ -3,9 +3,9 @@ package com.pluto.plugins.uitools.ruler.internal
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugins.uitools.FullScreenTool
 import com.pluto.plugins.uitools.databinding.PlutoRulerControlsBinding
+import com.pluto.utilities.setOnDebounceClickListener
 
 internal class ControlsWidget(context: Context) : ConstraintLayout(context) {
 

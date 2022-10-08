@@ -9,12 +9,12 @@ import androidx.annotation.AnimRes
 import com.pluto.R
 import com.pluto.databinding.PlutoItemPluginBinding
 import com.pluto.plugin.Plugin
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.extensions.setListener
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.extensions.setListener
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
 
 internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin), actionListener) {

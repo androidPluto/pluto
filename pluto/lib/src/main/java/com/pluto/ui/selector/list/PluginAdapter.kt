@@ -2,9 +2,9 @@ package com.pluto.ui.selector.list
 
 import android.view.ViewGroup
 import com.pluto.plugin.Plugin
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 
 internal class PluginAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

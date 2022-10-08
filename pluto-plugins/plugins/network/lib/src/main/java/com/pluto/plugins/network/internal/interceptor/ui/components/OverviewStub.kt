@@ -5,17 +5,17 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugin.KeyValuePairData
-import com.pluto.plugin.utilities.extensions.asFormattedDate
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.createSpan
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_SHARE_CURL
+import com.pluto.utilities.extensions.asFormattedDate
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.createSpan
+import com.pluto.utilities.spannable.setSpan
+import com.pluto.utilities.views.keyvalue.KeyValuePairData
 
 internal class OverviewStub : ConstraintLayout {
 

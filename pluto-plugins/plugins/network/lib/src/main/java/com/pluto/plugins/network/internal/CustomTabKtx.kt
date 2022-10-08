@@ -11,11 +11,11 @@ import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsIntent.SHARE_STATE_OFF
 import androidx.browser.customtabs.CustomTabsServiceConnection
-import com.pluto.plugin.utilities.DebugLog
-import com.pluto.plugin.utilities.extensions.checkAndOpenSupportedApp
-import com.pluto.plugin.utilities.extensions.color
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.mock.ui.MockSettingsFragment.Companion.IN_APP_BROWSER_RESULT_CODE
+import com.pluto.utilities.DebugLog
+import com.pluto.utilities.extensions.checkAndOpenSupportedApp
+import com.pluto.utilities.extensions.color
 
 internal const val CHROME_PACKAGE_NAME = "com.android.chrome"
 

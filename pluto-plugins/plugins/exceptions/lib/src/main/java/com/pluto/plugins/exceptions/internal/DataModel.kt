@@ -2,13 +2,13 @@ package com.pluto.plugins.exceptions.internal
 
 import android.content.Context
 import androidx.annotation.Keep
-import com.pluto.plugin.utilities.device.Device
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.exceptions.BuildConfig
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.internal.extensions.getPriorityString
+import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.spannable.createSpan
 import com.squareup.moshi.JsonClass
 
 @Keep

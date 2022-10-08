@@ -4,11 +4,11 @@ import android.view.ViewGroup
 import com.pluto.R
 import com.pluto.databinding.PlutoItemPluginOptionBinding
 import com.pluto.plugin.PluginOption
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
 
 internal class PluginOptionItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin_option), actionListener) {

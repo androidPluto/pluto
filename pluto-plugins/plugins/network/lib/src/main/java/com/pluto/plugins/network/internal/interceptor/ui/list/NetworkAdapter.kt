@@ -1,10 +1,10 @@
 package com.pluto.plugins.network.internal.interceptor.ui.list
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 
 internal class NetworkAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

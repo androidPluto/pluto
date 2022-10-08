@@ -11,20 +11,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
-import com.pluto.plugin.utilities.extensions.fadeInAndOut
-import com.pluto.plugin.utilities.extensions.hideKeyboard
-import com.pluto.plugin.utilities.extensions.onBackPressed
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsBinding
 import com.pluto.plugins.network.internal.customTab
 import com.pluto.plugins.network.internal.interceptor.logic.pruneQueryParams
 import com.pluto.plugins.network.internal.mock.logic.dao.MockData
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.utilities.extensions.fadeInAndOut
+import com.pluto.utilities.extensions.hideKeyboard
+import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.viewBinding
 
 internal class MockSettingsFragment : Fragment(R.layout.pluto_network___fragment_mock_settings) {
 

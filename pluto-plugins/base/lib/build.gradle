@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    api project(path: ':utilities')
     api "androidx.core:core-ktx:$androidXCoreVersion"
     api 'androidx.appcompat:appcompat:1.4.0'
 

@@ -12,17 +12,17 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.plugin.utilities.device.Device
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
-import com.pluto.plugin.utilities.extensions.showKeyboard
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.sharing.Shareable
-import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.SharedPrefRepo
 import com.pluto.plugins.preferences.databinding.PlutoPrefFragmentEditBinding
+import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.utilities.extensions.showKeyboard
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.sharing.Shareable
+import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.viewBinding
 
 class EditFragment : BottomSheetDialogFragment() {
 

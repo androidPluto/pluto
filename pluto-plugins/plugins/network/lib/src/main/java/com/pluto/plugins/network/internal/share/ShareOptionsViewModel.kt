@@ -5,9 +5,9 @@ import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.utilities.list.ListItem
 
 internal class ShareOptionsViewModel : ViewModel() {
 

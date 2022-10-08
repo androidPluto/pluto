@@ -5,13 +5,13 @@ import android.text.InputType
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDataEditWidgetBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.createSpan
 
 internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
 

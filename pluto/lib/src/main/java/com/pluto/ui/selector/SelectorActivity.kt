@@ -15,16 +15,16 @@ import com.pluto.core.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginsViewModel
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
 import com.pluto.ui.selector.list.PluginAdapter
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 
 class SelectorActivity : FragmentActivity() {
 

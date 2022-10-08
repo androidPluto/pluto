@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.ListItem
 import okhttp3.HttpUrl
 import okhttp3.Protocol
 

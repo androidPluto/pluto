@@ -3,15 +3,15 @@ package com.pluto.plugins.preferences.ui
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.databinding.PlutoPrefItemSharedPrefKeyValueBinding
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.createSpan
 
 internal class KeyValueItemHolder(
     parent: ViewGroup,

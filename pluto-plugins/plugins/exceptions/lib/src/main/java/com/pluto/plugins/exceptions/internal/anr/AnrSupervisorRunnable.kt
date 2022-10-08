@@ -2,7 +2,6 @@ package com.pluto.plugins.exceptions.internal.anr
 
 import android.os.Handler
 import android.os.Looper
-import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.exceptions.ANRException
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.UncaughtANRHandler
@@ -15,6 +14,7 @@ import com.pluto.plugins.exceptions.internal.asExceptionData
 import com.pluto.plugins.exceptions.internal.asThreadData
 import com.pluto.plugins.exceptions.internal.extensions.wait
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
+import com.pluto.utilities.DebugLog
 
 /**
  * A [Runnable] testing the UI thread every 10s until [ ][.stop] is called

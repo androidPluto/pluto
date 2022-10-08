@@ -1,17 +1,17 @@
 package com.pluto.plugins.exceptions.internal.ui.holder
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.extensions.asFormattedDate
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepItemCrashDetailsHeaderBinding
 import com.pluto.plugins.exceptions.internal.ExceptionData
+import com.pluto.utilities.extensions.asFormattedDate
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.spannable.setSpan
 
 internal class CrashItemDetailsHeaderHolder(
     parent: ViewGroup,

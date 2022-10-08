@@ -9,13 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.onBackPressed
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.sharing.Shareable
-import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.spannable.setSpan
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.logger.R
 import com.pluto.plugins.logger.databinding.PlutoLoggerFragmentDetailsBinding
 import com.pluto.plugins.logger.internal.LogData
@@ -23,6 +16,13 @@ import com.pluto.plugins.logger.internal.LogsViewModel
 import com.pluto.plugins.logger.internal.asExceptionData
 import com.pluto.plugins.logger.internal.beautifyAttributes
 import com.pluto.plugins.logger.internal.ui.DetailsFragment.Companion.MAX_STACK_TRACE_LINES
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.sharing.Shareable
+import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.spannable.setSpan
+import com.pluto.utilities.viewBinding
 
 internal class DetailsFragment : BottomSheetDialogFragment() {
 

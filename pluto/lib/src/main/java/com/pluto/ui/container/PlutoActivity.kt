@@ -14,16 +14,16 @@ import com.pluto.core.applifecycle.UiState
 import com.pluto.core.share.ShareFragment
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
-import com.pluto.plugin.utilities.extensions.delayedLaunchWhenResumed
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.sharing.ContentShareViewModel
-import com.pluto.plugin.utilities.sharing.ShareAction
-import com.pluto.plugin.utilities.sharing.copyToClipboard
-import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.sharing.share
-import com.pluto.plugin.utilities.sharing.shareFile
 import com.pluto.settings.OverConsentFragment
 import com.pluto.settings.canDrawOverlays
+import com.pluto.utilities.extensions.delayedLaunchWhenResumed
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.sharing.ContentShareViewModel
+import com.pluto.utilities.sharing.ShareAction
+import com.pluto.utilities.sharing.copyToClipboard
+import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.sharing.share
+import com.pluto.utilities.sharing.shareFile
 
 class PlutoActivity : AppCompatActivity() {
 

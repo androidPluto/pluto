@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
-import com.pluto.plugin.utilities.DebugLog
+import com.pluto.utilities.DebugLog
 
 class DemoPlugin(devIdentifier: String) : Plugin(devIdentifier) {
 

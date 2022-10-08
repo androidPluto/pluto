@@ -8,14 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.onBackPressed
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.sharing.Shareable
-import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.spannable.setSpan
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
@@ -24,6 +16,14 @@ import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.plugins.network.internal.interceptor.ui.ContentFragment.Companion.DATA
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.sharing.Shareable
+import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.spannable.setSpan
+import com.pluto.utilities.viewBinding
 
 class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 
