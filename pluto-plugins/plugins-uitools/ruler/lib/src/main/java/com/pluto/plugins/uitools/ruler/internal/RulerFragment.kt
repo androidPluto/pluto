@@ -1,16 +1,21 @@
 package com.pluto.plugins.uitools.ruler.internal
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.plugins.uitools.FullScreenTool
 
-internal class RulerFragment : Fragment() {
+internal class RulerFragment : FullScreenTool() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun getToolView(): View {
         val view = RulerScaleView(requireContext())
         view.isClickable = true
         return view
+    }
+
+    override fun onHintClicked() {
+        requireContext().toast("hint clicked")
+    }
+
+    override fun onCloseClicked() {
     }
 }
