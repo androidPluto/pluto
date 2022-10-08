@@ -17,7 +17,6 @@ import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
-import com.pluto.plugins.uitools.ruler.PlutoRulerPlugin
 import com.sampleapp.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.SupportedPlugins.Companion.DEMO
 import com.sampleapp.SupportedPlugins.Companion.EXCEPTIONS
@@ -47,7 +46,6 @@ class SampleApp : Application() {
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(SHARED_PREF))
             .addPlugin(PlutoRoomsDatabasePlugin(ROOMS_DATABASE))
-            .addPlugin(PlutoRulerPlugin())
             .install()
         Pluto.showNotch(true)
 
