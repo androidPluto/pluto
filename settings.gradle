@@ -1,7 +1,6 @@
 rootProject.name='pluto-sample'
 include ':sample'
 include ':pluto:lib'
-include ':pluto:lib:tools'
 include ':pluto:lib-no-op'
 /* plugin modules */
 include ':pluto-plugins:base:lib'
