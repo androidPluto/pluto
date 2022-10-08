@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingVertical="@dimen/pluto___margin_medium"
-    android:background="?android:attr/selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
+    android:paddingVertical="@dimen/pluto___margin_medium">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iconCard"
@@ -34,6 +34,10 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="@dimen/pluto___text_xxsmall"
+        android:autoSizeMinTextSize="@dimen/pluto___text_mini"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
         android:breakStrategy="simple"
         android:ellipsize="middle"
         android:fontFamily="@font/muli_semibold"
