@@ -14,6 +14,7 @@ import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
 import com.pluto.settings.SettingsPreferences
+import com.pluto.tools.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.utilities.SingleLiveEvent
@@ -29,6 +30,7 @@ object Pluto {
     internal val uiState: SingleLiveEvent<UiState> = SingleLiveEvent()
 
     internal val pluginManager = PluginManager()
+    internal val toolManager = ToolManager()
     private lateinit var application: Application
     internal val session = Session()
 
@@ -37,6 +39,7 @@ object Pluto {
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
+        toolManager.initialise()
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application, appLifecycle.shouldShowNotch)
     }

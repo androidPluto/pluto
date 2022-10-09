@@ -3,6 +3,8 @@ include ':sample'
 include ':pluto:lib'
 include ':pluto:lib-no-op'
 include ':utilities'
+/* tool modules */
+include ':pluto-tools'
 /* plugin modules */
 include ':pluto-plugins:base:lib'
 include ':pluto-plugins:bundles:core:lib'
