@@ -55,7 +55,7 @@ internal data class PaintType(val context: Context) {
     val boundary: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(R.color.pluto___emerald)
-            strokeWidth = 2f.dp2px
+            strokeWidth = 4f.dp2px
             style = Style.STROKE
         }
     }

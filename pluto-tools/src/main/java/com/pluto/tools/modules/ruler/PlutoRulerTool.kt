@@ -5,7 +5,7 @@ import com.pluto.tools.PlutoTool
 import com.pluto.tools.R
 import com.pluto.tools.ToolConfiguration
 
-class PlutoRulerTool : PlutoTool("ruler") {
+internal class PlutoRulerTool : PlutoTool("ruler") {
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
         name = context.getString(R.string.pluto_tool___ruler_name),
         icon = R.drawable.pluto_tool___ic_ruler_logo,
