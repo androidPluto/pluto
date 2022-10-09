@@ -1,4 +1,4 @@
-package com.pluto.ui.selector.list
+package com.pluto.plugin.selector
 
 import android.view.ViewGroup
 import com.pluto.plugin.Plugin

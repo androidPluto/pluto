@@ -1,9 +1,13 @@
 package com.pluto.ui.selector
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.annotation.AnimRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,12 +17,12 @@ import com.pluto.core.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginsViewModel
+import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
 import com.pluto.tools.PlutoTool
-import com.pluto.ui.selector.list.PluginAdapter
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -127,7 +131,12 @@ class SelectorActivity : FragmentActivity() {
         }
     }
 
-    private companion object {
-        const val GRID_SPAN_COUNT = 4
+    companion object {
+        private const val GRID_SPAN_COUNT = 4
+        const val ANIMATION_DURATION = 250L
     }
+}
+
+fun Context.loadAnimation(@AnimRes id: Int): Animation {
+    return AnimationUtils.loadAnimation(this, id)
 }

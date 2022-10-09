@@ -1,14 +1,12 @@
-package com.pluto.ui.selector.list
+package com.pluto.plugin.selector
 
-import android.content.Context
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
-import androidx.annotation.AnimRes
 import com.pluto.R
 import com.pluto.databinding.PlutoItemPluginBinding
 import com.pluto.plugin.Plugin
+import com.pluto.ui.selector.SelectorActivity.Companion.ANIMATION_DURATION
+import com.pluto.ui.selector.loadAnimation
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.extensions.setListener
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -47,12 +45,4 @@ internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdap
             }
         }
     }
-
-    companion object {
-        const val ANIMATION_DURATION = 250L
-    }
-}
-
-fun Context.loadAnimation(@AnimRes id: Int): Animation {
-    return AnimationUtils.loadAnimation(this, id)
 }
