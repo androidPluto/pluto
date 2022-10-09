@@ -7,8 +7,6 @@ import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.core.applifecycle.AppState
@@ -17,6 +15,9 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginsViewModel
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
+import com.pluto.tool.ToolsViewModel
+import com.pluto.tool.selector.ToolAdapter
+import com.pluto.tools.PlutoTool
 import com.pluto.ui.selector.list.PluginAdapter
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.BaseAdapter
@@ -30,6 +31,8 @@ class SelectorActivity : FragmentActivity() {
 
     private val pluginsViewModel by viewModels<PluginsViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
+    private val toolsViewModel by viewModels<ToolsViewModel>()
+    private val toolAdapter: BaseAdapter by lazy { ToolAdapter(onActionListener) }
     private val settingsViewModel by viewModels<SettingsViewModel>()
     private lateinit var binding: PlutoActivityPluginSelectorBinding
 
@@ -45,8 +48,8 @@ class SelectorActivity : FragmentActivity() {
         }
 
         binding.toolsList.apply {
-            adapter = pluginAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            adapter = toolAdapter
+            layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
         }
 
         binding.root.setOnDebounceClickListener {
@@ -67,6 +70,8 @@ class SelectorActivity : FragmentActivity() {
 
         pluginsViewModel.plugins.removeObserver(pluginListObserver)
         pluginsViewModel.plugins.observe(this, pluginListObserver)
+        toolsViewModel.tools.removeObserver(toolListObserver)
+        toolsViewModel.tools.observe(this, toolListObserver)
 
         settingsViewModel.resetAll.observe(this) {
             Pluto.pluginManager.installedPlugins.forEach {
@@ -83,6 +88,10 @@ class SelectorActivity : FragmentActivity() {
         }
     }
 
+    private val toolListObserver = Observer<List<PlutoTool>> {
+        toolAdapter.list = it
+    }
+
     private val appStateListener = Observer<AppState> {
         if (it is AppState.Background) {
             finish()
@@ -91,8 +100,8 @@ class SelectorActivity : FragmentActivity() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (data is Plugin) {
-                when (action) {
+            when (data) {
+                is Plugin -> when (action) {
                     "click" -> {
                         Pluto.open(data.devIdentifier)
                         finish()
@@ -109,6 +118,10 @@ class SelectorActivity : FragmentActivity() {
                         }
                         devDetailsFragment.show(supportFragmentManager, "devDetails")
                     }
+                }
+                is PlutoTool -> {
+                    Pluto.toolManager.select(data.id)
+                    finish()
                 }
             }
         }

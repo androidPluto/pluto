@@ -14,7 +14,7 @@ abstract class PlutoTool(val id: String) : ListItem() {
     val context: Context
         get() = returnContext()
     private var _application: Application? = null
-    private fun returnContext(): Context {
+    fun returnContext(): Context {
         _application?.let {
             return it.applicationContext
         }

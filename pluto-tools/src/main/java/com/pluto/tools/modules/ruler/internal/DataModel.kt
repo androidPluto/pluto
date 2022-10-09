@@ -1,4 +1,4 @@
-package com.pluto.plugins.uitools.ruler.internal
+package com.pluto.tools.modules.ruler.internal
 
 internal class CoordinatePair {
     var x = 0f

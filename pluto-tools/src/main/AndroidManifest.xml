@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.pluto.tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pluto.tools">
+
+    <application>
+        <activity
+            android:name=".modules.ruler.RulerActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/PlutoToolRulerTheme" />
+    </application>
 
 </manifest>

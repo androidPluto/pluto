@@ -37,7 +37,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    resourcePrefix 'pluto_tools___'
+    resourcePrefix 'pluto_tool___'
 }
 
 dependencies {

@@ -1,11 +1,11 @@
-package com.pluto.plugins.uitools.grid
+package com.pluto.tools.modules.grid
 
 import android.content.Context
 import android.graphics.Canvas
 import android.view.View
 import android.view.ViewConfiguration
-import com.pluto.plugins.uitools.ruler.internal.PaintType
-import com.pluto.plugins.uitools.ruler.internal.ScreenMeasurement
+import com.pluto.tools.modules.ruler.internal.PaintType
+import com.pluto.tools.modules.ruler.internal.ScreenMeasurement
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 

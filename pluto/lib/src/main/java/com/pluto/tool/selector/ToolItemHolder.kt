@@ -1,14 +1,12 @@
-package com.pluto.ui.selector.list
+package com.pluto.tool.selector
 
-import android.content.Context
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
-import androidx.annotation.AnimRes
 import com.pluto.R
-import com.pluto.databinding.PlutoItemPluginBinding
-import com.pluto.plugin.Plugin
+import com.pluto.databinding.PlutoItemToolBinding
+import com.pluto.tools.PlutoTool
+import com.pluto.ui.selector.list.PluginItemHolder.Companion.ANIMATION_DURATION
+import com.pluto.ui.selector.list.loadAnimation
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.extensions.setListener
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -16,15 +14,15 @@ import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 
-internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
-    DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin), actionListener) {
+internal class ToolItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
+    DiffAwareHolder(parent.inflate(R.layout.pluto___item_tool), actionListener) {
 
-    private val binding = PlutoItemPluginBinding.bind(itemView)
+    private val binding = PlutoItemToolBinding.bind(itemView)
     private val name = binding.name
     private val icon = binding.icon
 
     override fun onBind(item: ListItem) {
-        if (item is Plugin) {
+        if (item is PlutoTool) {
             icon.setImageResource(item.getConfig().icon)
             name.text = item.getConfig().name
             binding.root.setOnDebounceClickListener(haptic = true) {
@@ -40,19 +38,6 @@ internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdap
                 }
                 it.startAnimation(scale)
             }
-
-            binding.root.setOnLongClickListener {
-                onAction("long_click")
-                return@setOnLongClickListener true
-            }
         }
     }
-
-    companion object {
-        const val ANIMATION_DURATION = 250L
-    }
-}
-
-fun Context.loadAnimation(@AnimRes id: Int): Animation {
-    return AnimationUtils.loadAnimation(this, id)
 }

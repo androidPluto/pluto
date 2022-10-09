@@ -1,15 +1,15 @@
-package com.pluto.plugins.uitools.ruler.internal
+package com.pluto.tools.modules.ruler.internal
 
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugins.uitools.FullScreenTool
-import com.pluto.plugins.uitools.databinding.PlutoRulerControlsBinding
+import com.pluto.tools.FullScreenTool
+import com.pluto.tools.databinding.PlutoToolRulerControlsBinding
 import com.pluto.utilities.setOnDebounceClickListener
 
 internal class ControlsWidget(context: Context) : ConstraintLayout(context) {
 
-    private val binding = PlutoRulerControlsBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = PlutoToolRulerControlsBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun initialise(listener: FullScreenTool.OnControlClickListener? = null) {
         binding.text.setOnDebounceClickListener(haptic = true) {

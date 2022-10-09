@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
+    android:paddingVertical="@dimen/pluto___margin_medium">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/iconCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___white_60"
+        android:backgroundTint="@color/pluto___white_60"
+        android:clipToPadding="true"
+        app:cardCornerRadius="@dimen/pluto___margin_small"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/pluto___plugin_icon_dimen"
+            android:layout_height="@dimen/pluto___plugin_icon_dimen"
+            android:layout_gravity="center"
+            android:layout_margin="6dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="@dimen/pluto___text_xxsmall"
+        android:autoSizeMinTextSize="@dimen/pluto___text_mini"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:breakStrategy="simple"
+        android:ellipsize="middle"
+        android:fontFamily="@font/muli_semibold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:paddingHorizontal="@dimen/pluto___margin_small"
+        android:paddingVertical="@dimen/pluto___margin_mini"
+        android:textColor="@color/pluto___white_60"
+        android:textSize="@dimen/pluto___text_xxsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconCard"
+        tools:text="log tag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

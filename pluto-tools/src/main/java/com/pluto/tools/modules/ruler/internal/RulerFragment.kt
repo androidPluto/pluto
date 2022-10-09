@@ -1,7 +1,7 @@
-package com.pluto.plugins.uitools.ruler.internal
+package com.pluto.tools.modules.ruler.internal
 
 import android.view.View
-import com.pluto.plugins.uitools.FullScreenTool
+import com.pluto.tools.FullScreenTool
 import com.pluto.utilities.extensions.toast
 
 internal class RulerFragment : FullScreenTool() {

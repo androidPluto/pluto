@@ -1,10 +1,10 @@
-package com.pluto.plugins.uitools.ruler.internal
+package com.pluto.tools.modules.ruler.internal
 
 import android.content.Context
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import androidx.core.content.res.ResourcesCompat
-import com.pluto.plugins.uitools.R
+import com.pluto.tools.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px

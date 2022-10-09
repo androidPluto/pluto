@@ -39,7 +39,7 @@ object Pluto {
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
-        toolManager.initialise()
+        toolManager.initialise(application)
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application, appLifecycle.shouldShowNotch)
     }

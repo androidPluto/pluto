@@ -1,18 +1,27 @@
 package com.pluto.tools
 
+import android.app.Application
+import com.pluto.tools.modules.ruler.PlutoRulerTool
+
 class ToolManager {
 
-    private var plugins: LinkedHashSet<PlutoTool> = linkedSetOf()
-    internal val installedPlugins: List<PlutoTool>
-        get() {
-            val list = arrayListOf<PlutoTool>()
-            list.addAll(plugins)
-            return list
-        }
+    var tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
+        add(PlutoRulerTool())
+    }
 
-    fun initialise() {
-//        plugins.forEach {
-//            it.initialise(application)
-//        }
+    fun initialise(application: Application) {
+        tools.forEach {
+            it.initialise(application)
+        }
+    }
+
+    fun get(identifier: String): PlutoTool? {
+        return tools.firstOrNull {
+            it.id == identifier
+        }
+    }
+
+    fun select(id: String) {
+        get(id)?.onToolSelected()
     }
 }
