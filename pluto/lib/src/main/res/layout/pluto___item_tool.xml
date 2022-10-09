@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackgroundBorderless"
-    android:paddingVertical="@dimen/pluto___margin_medium">
+    android:paddingTop="@dimen/pluto___margin_medium"
+    android:paddingBottom="@dimen/pluto___margin_xsmall">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iconCard"

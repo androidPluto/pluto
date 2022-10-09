@@ -11,46 +11,20 @@
         android:id="@+id/plugins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_small"
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall"
         app:layout_constraintBottom_toTopOf="@+id/tools"
-        android:layout_marginBottom="@dimen/pluto___margin_small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/pluto___dark_60"
-            android:paddingVertical="@dimen/pluto___margin_medium">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/pluto___margin_large"
-                android:layout_marginBottom="@dimen/pluto___margin_small"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center_vertical"
-                android:text="@string/pluto___choose_plugin"
-                android:textColor="@color/pluto___white_60"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintBottom_toTopOf="@+id/list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/topDivider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pluto___dp_1"
-                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
-                android:background="@color/pluto___white_05"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/list" />
+            android:paddingTop="@dimen/pluto___margin_large">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
@@ -86,49 +60,56 @@
     </com.pluto.ui.RoundedFrameLayout>
 
     <com.pluto.ui.RoundedFrameLayout
-        android:id="@+id/tools"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_small"
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall"
-        app:layout_constraintBottom_toTopOf="@+id/bottom"
-        android:layout_marginBottom="@dimen/pluto___margin_small"
+        app:layout_constraintBottom_toTopOf="@+id/plugins"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/plugins"
+        app:rfl_corner_radius="@dimen/pluto___margin_medium">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eaeaea">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pluto___margin_xxlarge"
+                android:fontFamily="@font/muli_bold"
+                android:paddingHorizontal="@dimen/pluto___margin_xlarge"
+                android:gravity="center_vertical"
+                android:text="@string/pluto___choose_plugin"
+                android:textColor="@color/pluto___dark"
+                android:textSize="@dimen/pluto___text_xsmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.pluto.ui.RoundedFrameLayout>
+
+    <com.pluto.ui.RoundedFrameLayout
+        android:id="@+id/tools"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_small"
+        android:clickable="true"
+        android:elevation="@dimen/pluto___margin_medium"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/pluto___dark_60"
-            android:paddingTop="@dimen/pluto___margin_medium">
-
-            <TextView
-                android:id="@+id/toolsTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/pluto___margin_large"
-                android:layout_marginBottom="@dimen/pluto___margin_small"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center_vertical"
-                android:text="@string/pluto___tools"
-                android:textColor="@color/pluto___white_60"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintBottom_toTopOf="@+id/toolsList"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/toolsTopDivider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pluto___dp_1"
-                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
-                android:background="@color/pluto___white_05"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolsList" />
+            android:background="@color/pluto___dark_60">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toolsList"
@@ -149,10 +130,10 @@
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -172,9 +153,9 @@
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                 android:textColor="@color/pluto___white_60"
                 android:textSize="@dimen/pluto___text_small"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="version" />
 
             <TextView
