@@ -10,13 +10,6 @@ import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 
 internal data class PaintType(val context: Context) {
-    val grid: Paint = object : Paint(ANTI_ALIAS_FLAG) {
-        init {
-            color = context.color(R.color.pluto___red_40)
-            style = Style.FILL
-            strokeWidth = 1f
-        }
-    }
 
     val scale: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
@@ -42,6 +35,7 @@ internal data class PaintType(val context: Context) {
             pathEffect = DashPathEffect(floatArrayOf(3f.dp, 2f.dp), 0f)
         }
     }
+
     val measurement: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(R.color.pluto___blue)
@@ -52,6 +46,7 @@ internal data class PaintType(val context: Context) {
             flags = FAKE_BOLD_TEXT_FLAG
         }
     }
+
     val boundary: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(R.color.pluto___emerald)
