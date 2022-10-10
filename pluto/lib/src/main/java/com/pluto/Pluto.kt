@@ -3,11 +3,9 @@ package com.pluto
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.LiveData
 import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
-import com.pluto.core.applifecycle.AppState
-import com.pluto.core.applifecycle.UiState
+import com.pluto.core.callback.ResetDataCallback
 import com.pluto.core.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
@@ -17,24 +15,22 @@ import com.pluto.settings.SettingsPreferences
 import com.pluto.tools.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
-import com.pluto.utilities.SingleLiveEvent
 import com.pluto.utilities.extensions.toast
 
 object Pluto {
 
-    private lateinit var appLifecycle: AppLifecycle
-    internal var notch: Notch? = null
-    internal val appState: LiveData<AppState>
-        get() = appLifecycle.state
-
-    internal val uiState: SingleLiveEvent<UiState> = SingleLiveEvent()
+    internal lateinit var appLifecycle: AppLifecycle
+    private var notch: Notch? = null
 
     internal val pluginManager = PluginManager()
     internal val toolManager = ToolManager()
     private lateinit var application: Application
     internal val session = Session()
 
+    internal lateinit var resetDataCallback: ResetDataCallback
+
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
+        resetDataCallback = ResetDataCallback()
         this.application = application
         appLifecycle = AppLifecycle()
         application.registerActivityLifecycleCallbacks(appLifecycle)
@@ -77,10 +73,6 @@ object Pluto {
         if (pluginManager.installedPlugins.contains(plugin)) {
             plugin.onPluginDataCleared()
         }
-    }
-
-    internal fun close() {
-        uiState.postValue(UiState.Close)
     }
 
     class Installer(private val application: Application) {

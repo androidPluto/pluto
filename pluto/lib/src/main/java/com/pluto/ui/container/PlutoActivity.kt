@@ -9,7 +9,6 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Observer
 import com.pluto.Pluto
 import com.pluto.R
-import com.pluto.core.applifecycle.UiState
 import com.pluto.core.share.ShareFragment
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
@@ -54,8 +53,8 @@ class PlutoActivity : AppCompatActivity() {
             }
         }
         handleIntent(intent)
-        Pluto.uiState.removeObserver(uiStateListener)
-        Pluto.uiState.observe(this, uiStateListener)
+        Pluto.resetDataCallback.state.removeObserver(uiStateListener)
+        Pluto.resetDataCallback.state.observe(this, uiStateListener)
     }
 
     private fun copyContent(content: String, title: String) {
@@ -80,8 +79,8 @@ class PlutoActivity : AppCompatActivity() {
         }
     }
 
-    private val uiStateListener = Observer<UiState> {
-        if (it is UiState.Close) {
+    private val uiStateListener = Observer<Boolean> {
+        if (it) {
             finish()
         }
     }

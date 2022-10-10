@@ -76,8 +76,8 @@ class SelectorActivity : FragmentActivity() {
             openOverlaySettings()
         }
 
-        Pluto.appState.removeObserver(appStateListener)
-        Pluto.appState.observe(this, appStateListener)
+        Pluto.appLifecycle.state.removeObserver(appStateListener)
+        Pluto.appLifecycle.state.observe(this, appStateListener)
 
         pluginsViewModel.plugins.removeObserver(pluginListObserver)
         pluginsViewModel.plugins.observe(this, pluginListObserver)
@@ -88,7 +88,7 @@ class SelectorActivity : FragmentActivity() {
             Pluto.pluginManager.installedPlugins.forEach {
                 it.onPluginDataCleared()
             }
-            Pluto.close()
+            Pluto.resetDataCallback.state.postValue(true)
         }
     }
 

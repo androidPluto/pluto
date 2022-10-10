@@ -61,13 +61,18 @@ internal class AppLifecycle : ActivityLifecycleCallbacks {
     override fun onActivityDestroyed(activity: Activity) {}
 
     private fun getState(state: AppState?, showing: Boolean?): Boolean {
-        val appState = state ?: AppState.Background
-        val showingSelector = showing ?: false
-
-        return if (appState is AppState.Background) {
-            false
-        } else {
-            !showingSelector
+        state?.let {
+            return if (it is AppState.Background) {
+                false
+            } else {
+                !(showing ?: false)
+            }
         }
+        return false
     }
+}
+
+internal sealed class AppState {
+    object Foreground : AppState()
+    object Background : AppState()
 }

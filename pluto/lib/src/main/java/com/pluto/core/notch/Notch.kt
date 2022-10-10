@@ -52,7 +52,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
 
     internal fun enable(state: Boolean) {
         enabled = state
-        if (enabled && Pluto.appState.value is AppState.Foreground) {
+        if (enabled && Pluto.appLifecycle.state.value is AppState.Foreground) {
             add()
         } else {
             remove()
