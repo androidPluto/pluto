@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/pluto___dark_60"
-            android:paddingTop="@dimen/pluto___margin_large">
+            android:paddingTop="@dimen/pluto___margin_xlarge">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
@@ -75,7 +75,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#eaeaea">
+            android:background="#ebebeb">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
         android:id="@+id/tools"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_small"
+        android:layout_marginBottom="@dimen/pluto___margin_mini"
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
@@ -151,7 +151,7 @@
                 android:fontFamily="@font/muli"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
-                android:textColor="@color/pluto___white_60"
+                android:textColor="@color/pluto___white_80"
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +170,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                 android:text="@string/pluto___settings"
-                android:textColor="@color/pluto___white_60"
+                android:textColor="@color/pluto___white_80"
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/version" />
