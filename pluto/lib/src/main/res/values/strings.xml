@@ -35,4 +35,5 @@
     <string name="pluto___plugin_details_vcs_hint">plugin vcs link goes here</string>
     <string name="pluto___plugin_details_twitter_hint">plugin twitter link goes here</string>
     <string name="pluto___tools">Tools</string>
+    <string name="pluto___overlay_setting_for_tool">Need Draw over other apps to enable all the tools.</string>
 </resources>

@@ -81,8 +81,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/pluto___margin_xxlarge"
                 android:fontFamily="@font/muli_bold"
-                android:paddingHorizontal="@dimen/pluto___margin_xlarge"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_xlarge"
                 android:text="@string/pluto___choose_plugin"
                 android:textColor="@color/pluto___dark"
                 android:textSize="@dimen/pluto___text_xsmall"
@@ -97,7 +97,7 @@
         android:id="@+id/tools"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_mini"
+        android:layout_marginBottom="@dimen/pluto___margin_xsmall"
         android:clickable="true"
         android:elevation="@dimen/pluto___margin_medium"
         android:focusable="true"
@@ -117,7 +117,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/pluto___margin_small"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/overlaySetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ebebeb"
+                android:drawableEnd="@drawable/pluto___ic_chevron_right"
+                android:drawableRight="@drawable/pluto___ic_chevron_right"
+                android:ellipsize="end"
+                android:fontFamily="@font/muli_semibold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/pluto___margin_small"
+                android:singleLine="true"
+                android:text="@string/pluto___overlay_setting_for_tool"
+                android:textColor="@color/pluto___dark_80"
+                android:textSize="@dimen/pluto___text_xsmall"
+                app:layout_constraintTop_toBottomOf="@+id/toolsList" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

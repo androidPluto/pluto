@@ -7,16 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.core.applifecycle.UiState
 import com.pluto.core.share.ShareFragment
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
-import com.pluto.settings.OverConsentFragment
-import com.pluto.settings.canDrawOverlays
-import com.pluto.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.sharing.ContentShareViewModel
 import com.pluto.utilities.sharing.ShareAction
@@ -90,14 +86,14 @@ class PlutoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!Pluto.session.isConsentAlreadyShown && Pluto.notch?.enabled == true && !canDrawOverlays()) {
-            lifecycleScope.delayedLaunchWhenResumed(CONSENT_SHOW_DELAY) {
-                OverConsentFragment().show(supportFragmentManager, CONSENT_SHOW_TAG)
-            }
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        if (!Pluto.session.isConsentAlreadyShown && Pluto.notch?.enabled == true && !canDrawOverlays()) {
+//            lifecycleScope.delayedLaunchWhenResumed(CONSENT_SHOW_DELAY) {
+//                OverConsentFragment().show(supportFragmentManager, CONSENT_SHOW_TAG)
+//            }
+//        }
+//    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)

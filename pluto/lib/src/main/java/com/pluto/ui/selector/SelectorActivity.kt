@@ -20,6 +20,8 @@ import com.pluto.plugin.PluginsViewModel
 import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
+import com.pluto.settings.canDrawOverlays
+import com.pluto.settings.openOverlaySettings
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
 import com.pluto.tools.PlutoTool
@@ -67,6 +69,11 @@ class SelectorActivity : FragmentActivity() {
 
         binding.settings.setOnDebounceClickListener {
             SettingsFragment().show(supportFragmentManager, "settings")
+        }
+
+        binding.overlaySetting.visibility = if (canDrawOverlays()) GONE else VISIBLE
+        binding.overlaySetting.setOnDebounceClickListener {
+            openOverlaySettings()
         }
 
         Pluto.appState.removeObserver(appStateListener)
