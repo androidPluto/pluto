@@ -76,8 +76,8 @@ class SelectorActivity : FragmentActivity() {
             openOverlaySettings()
         }
 
-        Pluto.appLifecycle.state.removeObserver(appStateListener)
-        Pluto.appLifecycle.state.observe(this, appStateListener)
+        Pluto.appStateCallback.state.removeObserver(appStateListener)
+        Pluto.appStateCallback.state.observe(this, appStateListener)
 
         pluginsViewModel.plugins.removeObserver(pluginListObserver)
         pluginsViewModel.plugins.observe(this, pluginListObserver)
@@ -136,6 +136,16 @@ class SelectorActivity : FragmentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Pluto.selectorStateCallback.state.postValue(true)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Pluto.selectorStateCallback.state.postValue(false)
     }
 
     companion object {

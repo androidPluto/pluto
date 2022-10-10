@@ -32,8 +32,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
         }
     }
 
-    internal var enabled = true
-        private set
+    private var enabled = true
     private val notchViewManager: NotchViewManager = NotchViewManager(application.applicationContext, interactionListener)
     private val windowManager: WindowManager = application.applicationContext.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
@@ -52,7 +51,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
 
     internal fun enable(state: Boolean) {
         enabled = state
-        if (enabled && Pluto.appLifecycle.state.value is AppState.Foreground) {
+        if (enabled && Pluto.appStateCallback.state.value is AppState.Foreground) {
             add()
         } else {
             remove()

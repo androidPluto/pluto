@@ -5,7 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
+import com.pluto.core.callback.AppStateCallback
+import com.pluto.core.callback.NotchStateCallback
 import com.pluto.core.callback.ResetDataCallback
+import com.pluto.core.callback.SelectorStateCallback
 import com.pluto.core.notch.Notch
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
@@ -19,7 +22,7 @@ import com.pluto.utilities.extensions.toast
 
 object Pluto {
 
-    internal lateinit var appLifecycle: AppLifecycle
+    private lateinit var appLifecycle: AppLifecycle
     private var notch: Notch? = null
 
     internal val pluginManager = PluginManager()
@@ -28,16 +31,19 @@ object Pluto {
     internal val session = Session()
 
     internal lateinit var resetDataCallback: ResetDataCallback
+    internal lateinit var appStateCallback: AppStateCallback
+    internal lateinit var selectorStateCallback: SelectorStateCallback
+    private lateinit var notchStateCallback: NotchStateCallback
 
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
-        resetDataCallback = ResetDataCallback()
+        initialiseCallbacks()
         this.application = application
-        appLifecycle = AppLifecycle()
+        appLifecycle = AppLifecycle(appStateCallback)
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
         toolManager.initialise(application)
         SettingsPreferences.init(application.applicationContext)
-        notch = Notch(application, appLifecycle.shouldShowNotch)
+        notch = Notch(application, notchStateCallback.state)
     }
 
     @JvmOverloads
@@ -73,6 +79,13 @@ object Pluto {
         if (pluginManager.installedPlugins.contains(plugin)) {
             plugin.onPluginDataCleared()
         }
+    }
+
+    private fun initialiseCallbacks() {
+        resetDataCallback = ResetDataCallback()
+        appStateCallback = AppStateCallback()
+        selectorStateCallback = SelectorStateCallback()
+        notchStateCallback = NotchStateCallback(appStateCallback.state, selectorStateCallback.state)
     }
 
     class Installer(private val application: Application) {
