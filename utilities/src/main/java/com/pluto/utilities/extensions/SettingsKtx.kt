@@ -1,4 +1,4 @@
-package com.pluto.settings
+package com.pluto.utilities.extensions
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 
-internal fun Context.canDrawOverlays(): Boolean {
+fun Context.canDrawOverlays(): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         Settings.canDrawOverlays(this)
     } else {
@@ -14,7 +14,7 @@ internal fun Context.canDrawOverlays(): Boolean {
     }
 }
 
-internal fun Context.openOverlaySettings() {
+fun Context.openOverlaySettings() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val intent = Intent(
             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

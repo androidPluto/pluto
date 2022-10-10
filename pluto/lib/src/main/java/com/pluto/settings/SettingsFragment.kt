@@ -11,6 +11,7 @@ import com.pluto.BuildConfig
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
 import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator

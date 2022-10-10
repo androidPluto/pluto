@@ -8,6 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentOverlayConsentBinding
+import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 

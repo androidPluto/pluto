@@ -7,7 +7,7 @@ import com.pluto.R
 import com.pluto.databinding.PlutoItemSettingsEasyAccessAppearanceBinding
 import com.pluto.settings.SettingsEasyAccessPopupAppearanceEntity
 import com.pluto.settings.SettingsPreferences
-import com.pluto.settings.canDrawOverlays
+import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder

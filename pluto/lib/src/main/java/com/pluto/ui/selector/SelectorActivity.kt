@@ -20,12 +20,12 @@ import com.pluto.plugin.PluginsViewModel
 import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
-import com.pluto.settings.canDrawOverlays
-import com.pluto.settings.openOverlaySettings
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
 import com.pluto.tools.PlutoTool
+import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder

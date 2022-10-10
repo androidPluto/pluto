@@ -3,13 +3,20 @@ package com.pluto.tools.modules.grid
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.os.Build
 import android.view.View
 import android.view.ViewConfiguration
+import android.view.WindowManager
+import android.widget.FrameLayout
+import androidx.core.view.ViewCompat
 import com.pluto.tools.R
 import com.pluto.tools.modules.ruler.internal.ScreenMeasurement
+import com.pluto.utilities.extensions.addViewToWindow
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
+import com.pluto.utilities.extensions.removeViewFromWindow
 
 internal class GridView(context: Context) : View(context) {
 
@@ -19,7 +26,7 @@ internal class GridView(context: Context) : View(context) {
         init {
             color = context.color(R.color.pluto___red_40)
             style = Style.FILL
-            strokeWidth = 1f
+            strokeWidth = 1f.dp2px
         }
     }
 
@@ -49,6 +56,34 @@ internal class GridView(context: Context) : View(context) {
             startY += LINE_INTERVAL
         }
     }
+
+    fun toggle() {
+        if (isShowing()) {
+            close()
+        } else {
+            open()
+        }
+    }
+
+    private fun open() {
+        val params = WindowManager.LayoutParams()
+        params.width = FrameLayout.LayoutParams.MATCH_PARENT
+        params.height = FrameLayout.LayoutParams.MATCH_PARENT
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
+        } else {
+            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        }
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        params.format = PixelFormat.TRANSLUCENT
+        context.addViewToWindow(this, params)
+    }
+
+    private fun close() {
+        context.removeViewFromWindow(this)
+    }
+
+    private fun isShowing() = ViewCompat.isAttachedToWindow(this)
 
     private companion object {
         const val LINE_INTERVAL = 5
