@@ -7,7 +7,7 @@ import com.pluto.tools.ToolConfiguration
 
 internal class PlutoRulerTool : PlutoTool("ruler") {
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
-        name = context.getString(R.string.pluto_tool___ruler_name),
+        name = application.getString(R.string.pluto_tool___ruler_name),
         icon = R.drawable.pluto_tool___ic_ruler_logo,
     )
 
@@ -15,9 +15,9 @@ internal class PlutoRulerTool : PlutoTool("ruler") {
     }
 
     override fun onToolSelected() {
-        val intent = Intent(returnContext().applicationContext, RulerActivity::class.java)
+        val intent = Intent(application.applicationContext, RulerActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        returnContext().applicationContext.startActivity(intent)
+        application.applicationContext.startActivity(intent)
     }
 
     override fun onToolUnselected() {

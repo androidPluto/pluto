@@ -1,7 +1,6 @@
 package com.pluto.tools
 
 import android.app.Application
-import android.content.Context
 import com.pluto.utilities.list.ListItem
 
 abstract class PlutoTool(val id: String) : ListItem() {
@@ -11,12 +10,12 @@ abstract class PlutoTool(val id: String) : ListItem() {
     abstract fun onToolSelected()
     abstract fun onToolUnselected()
 
-    val context: Context
-        get() = returnContext()
+    val application: Application
+        get() = returnApplication()
     private var _application: Application? = null
-    fun returnContext(): Context {
+    private fun returnApplication(): Application {
         _application?.let {
-            return it.applicationContext
+            return it
         }
         throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
     }

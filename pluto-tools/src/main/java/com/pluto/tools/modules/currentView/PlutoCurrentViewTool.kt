@@ -6,7 +6,7 @@ import com.pluto.tools.ToolConfiguration
 
 internal class PlutoCurrentViewTool : PlutoTool("currentView") {
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
-        name = context.getString(R.string.pluto_tool___current_view_name),
+        name = application.getString(R.string.pluto_tool___current_view_name),
         icon = R.drawable.pluto_tool___ic_current_view_logo,
     )
 

@@ -17,7 +17,7 @@ internal class PlutoGridTool : PlutoTool("grid") {
     private var gridView: GridView? = null
 
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
-        name = context.getString(R.string.pluto_tool___grid_name),
+        name = application.getString(R.string.pluto_tool___grid_name),
         icon = R.drawable.pluto_tool___ic_grid_logo,
     )
 
@@ -46,16 +46,16 @@ internal class PlutoGridTool : PlutoTool("grid") {
 
     private fun showGrid() {
         if (gridView == null) {
-            gridView = GridView(context.applicationContext)
+            gridView = GridView(application)
         }
         gridView?.let {
-            context.addViewToWindow(it, layoutParams())
+            application.addViewToWindow(it, layoutParams())
         }
     }
 
     private fun hideGrid() {
         gridView?.parent?.let {
-            context.removeViewFromWindow(gridView!!)
+            application.removeViewFromWindow(gridView!!)
             gridView = null
         }
     }

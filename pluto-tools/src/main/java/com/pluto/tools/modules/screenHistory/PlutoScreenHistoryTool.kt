@@ -6,7 +6,7 @@ import com.pluto.tools.ToolConfiguration
 
 internal class PlutoScreenHistoryTool : PlutoTool("screenHistory") {
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
-        name = context.getString(R.string.pluto_tool___screen_history_name),
+        name = application.getString(R.string.pluto_tool___screen_history_name),
         icon = R.drawable.pluto_tool___ic_screen_history_logo
     )
 
