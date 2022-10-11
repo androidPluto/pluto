@@ -9,7 +9,7 @@ internal class AppLifecycleListener(private val appStateCallback: OnCurrentScree
     override fun onActivityStopped(activity: Activity) {}
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
     override fun onActivityResumed(activity: Activity) {
-        appStateCallback.onUpdate("fragment", activity.localClassName)
+        appStateCallback.onUpdate("fragment", activity::class.java.name)
     }
 
     override fun onActivityPaused(activity: Activity) {}
