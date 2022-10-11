@@ -2,7 +2,7 @@ package com.pluto.tools
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.pluto.tools.modules.currentView.CurrentViewTool
+import com.pluto.tools.modules.currentScreen.CurrentScreenTool
 import com.pluto.tools.modules.grid.GridViewTool
 import com.pluto.tools.modules.ruler.RulerTool
 import com.pluto.tools.modules.screenHistory.ScreenHistoryTool
@@ -13,7 +13,7 @@ class ToolManager(private val application: Application, state: MutableLiveData<A
     val tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
         add(RulerTool())
         add(GridViewTool())
-        add(CurrentViewTool())
+        add(CurrentScreenTool())
         add(ScreenHistoryTool())
     }
 

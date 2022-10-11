@@ -2,6 +2,6 @@
 <resources>
     <string name="pluto_tool___ruler_name">Ruler</string>
     <string name="pluto_tool___grid_name">Grid</string>
-    <string name="pluto_tool___current_view_name">Current View</string>
+    <string name="pluto_tool___current_screen_name">Current Screen</string>
     <string name="pluto_tool___screen_history_name">Screen History</string>
 </resources>
