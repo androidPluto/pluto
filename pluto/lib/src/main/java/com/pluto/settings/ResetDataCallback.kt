@@ -1,4 +1,4 @@
-package com.pluto.core.callback
+package com.pluto.settings
 
 import com.pluto.utilities.SingleLiveEvent
 

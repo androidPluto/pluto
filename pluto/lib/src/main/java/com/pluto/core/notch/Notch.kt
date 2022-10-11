@@ -5,7 +5,7 @@ import android.app.Service
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import com.pluto.Pluto
-import com.pluto.core.applifecycle.AppState
+import com.pluto.utilities.AppState
 import com.pluto.utilities.extensions.canDrawOverlays
 
 internal class Notch(private val application: Application, shouldShowNotch: LiveData<Boolean>) {

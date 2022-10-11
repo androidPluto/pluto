@@ -5,19 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
-import com.pluto.core.callback.AppStateCallback
-import com.pluto.core.callback.NotchStateCallback
-import com.pluto.core.callback.ResetDataCallback
-import com.pluto.core.callback.SelectorStateCallback
 import com.pluto.core.notch.Notch
+import com.pluto.core.notch.NotchStateCallback
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
+import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
 import com.pluto.tools.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
+import com.pluto.ui.selector.SelectorStateCallback
+import com.pluto.utilities.AppStateCallback
 import com.pluto.utilities.extensions.toast
 
 object Pluto {
@@ -41,7 +41,7 @@ object Pluto {
         appLifecycle = AppLifecycle(appStateCallback)
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
-        toolManager.initialise(application)
+        toolManager.initialise(application, appStateCallback.state)
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application, notchStateCallback.state)
     }

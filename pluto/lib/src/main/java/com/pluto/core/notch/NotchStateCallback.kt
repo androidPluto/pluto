@@ -1,8 +1,8 @@
-package com.pluto.core.callback
+package com.pluto.core.notch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.pluto.core.applifecycle.AppState
+import com.pluto.utilities.AppState
 
 internal class NotchStateCallback(appState: LiveData<AppState>, selectorState: LiveData<Boolean>) {
     val state = MediatorLiveData<Boolean>()

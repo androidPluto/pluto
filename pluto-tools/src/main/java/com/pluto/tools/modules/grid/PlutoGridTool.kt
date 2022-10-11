@@ -22,5 +22,6 @@ internal class PlutoGridTool : PlutoTool("grid") {
     }
 
     override fun onToolUnselected() {
+        gridView.hideGrid()
     }
 }

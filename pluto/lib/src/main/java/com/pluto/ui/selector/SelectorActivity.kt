@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pluto.Pluto
 import com.pluto.R
-import com.pluto.core.applifecycle.AppState
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginsViewModel
@@ -23,6 +22,7 @@ import com.pluto.settings.SettingsViewModel
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
 import com.pluto.tools.PlutoTool
+import com.pluto.utilities.AppState
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings

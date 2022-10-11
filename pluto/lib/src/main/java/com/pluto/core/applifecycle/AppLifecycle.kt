@@ -3,7 +3,8 @@ package com.pluto.core.applifecycle
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import com.pluto.core.callback.AppStateCallback
+import com.pluto.utilities.AppState
+import com.pluto.utilities.AppStateCallback
 
 internal class AppLifecycle(private val appStateCallback: AppStateCallback) : ActivityLifecycleCallbacks {
 
@@ -28,9 +29,4 @@ internal class AppLifecycle(private val appStateCallback: AppStateCallback) : Ac
     override fun onActivityPaused(activity: Activity) {}
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
     override fun onActivityDestroyed(activity: Activity) {}
-}
-
-internal sealed class AppState {
-    object Foreground : AppState()
-    object Background : AppState()
 }

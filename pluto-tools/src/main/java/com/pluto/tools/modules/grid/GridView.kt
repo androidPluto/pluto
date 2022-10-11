@@ -59,13 +59,13 @@ internal class GridView(context: Context) : View(context) {
 
     fun toggle() {
         if (isShowing()) {
-            close()
+            hideGrid()
         } else {
-            open()
+            showGrid()
         }
     }
 
-    private fun open() {
+    private fun showGrid() {
         val params = WindowManager.LayoutParams()
         params.width = FrameLayout.LayoutParams.MATCH_PARENT
         params.height = FrameLayout.LayoutParams.MATCH_PARENT
@@ -79,7 +79,7 @@ internal class GridView(context: Context) : View(context) {
         context.addViewToWindow(this, params)
     }
 
-    private fun close() {
+    internal fun hideGrid() {
         context.removeViewFromWindow(this)
     }
 
