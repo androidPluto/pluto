@@ -12,7 +12,7 @@ import com.pluto.tools.ToolConfiguration
 import com.pluto.utilities.extensions.addViewToWindow
 import com.pluto.utilities.extensions.removeViewFromWindow
 
-internal class PlutoGridTool : PlutoTool("grid") {
+internal class GridViewTool : PlutoTool("grid") {
 
     private var gridView: GridView? = null
 
