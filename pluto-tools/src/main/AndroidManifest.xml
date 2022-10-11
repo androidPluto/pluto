@@ -6,7 +6,6 @@
         <activity
             android:name=".modules.ruler.RulerActivity"
             android:exported="false"
-            android:launchMode="singleInstance"
             android:theme="@style/PlutoToolRulerTheme" />
     </application>
 
