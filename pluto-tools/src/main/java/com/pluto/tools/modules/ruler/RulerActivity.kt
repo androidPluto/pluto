@@ -16,4 +16,9 @@ class RulerActivity : AppCompatActivity() {
             this.add(R.id.container, RulerFragment()).commit()
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
 }
