@@ -8,16 +8,16 @@ import com.pluto.tools.modules.ruler.PlutoRulerTool
 import com.pluto.tools.modules.screenHistory.PlutoScreenHistoryTool
 import com.pluto.utilities.AppState
 
-class ToolManager {
+class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
 
-    var tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
+    val tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
         add(PlutoRulerTool())
         add(PlutoGridTool())
         add(PlutoCurrentViewTool())
         add(PlutoScreenHistoryTool())
     }
 
-    fun initialise(application: Application, state: MutableLiveData<AppState>) {
+    init {
         state.observeForever {
             if (it is AppState.Background) {
                 tools.forEach { tool ->
@@ -25,6 +25,9 @@ class ToolManager {
                 }
             }
         }
+    }
+
+    fun initialise() {
         tools.forEach {
             it.initialise(application)
         }

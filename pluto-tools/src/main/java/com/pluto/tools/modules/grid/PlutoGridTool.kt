@@ -6,7 +6,7 @@ import com.pluto.tools.ToolConfiguration
 
 internal class PlutoGridTool : PlutoTool("grid") {
 
-    private lateinit var gridView: GridView
+    private var gridView: GridView? = null
 
     override fun getConfig(): ToolConfiguration = ToolConfiguration(
         name = context.getString(R.string.pluto_tool___grid_name),
@@ -14,14 +14,17 @@ internal class PlutoGridTool : PlutoTool("grid") {
     )
 
     override fun onToolInitialised() {
-        gridView = GridView(returnContext())
     }
 
     override fun onToolSelected() {
-        gridView.toggle()
+        if (gridView == null) {
+            gridView = GridView(context.applicationContext)
+        }
+        gridView?.toggle()
     }
 
     override fun onToolUnselected() {
-        gridView.hideGrid()
+        gridView?.hideGrid()
+        gridView = null
     }
 }

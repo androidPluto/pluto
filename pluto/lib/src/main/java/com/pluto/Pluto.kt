@@ -26,7 +26,7 @@ object Pluto {
     private var notch: Notch? = null
 
     internal val pluginManager = PluginManager()
-    internal val toolManager = ToolManager()
+    internal lateinit var toolManager: ToolManager
     private lateinit var application: Application
     internal val session = Session()
 
@@ -41,7 +41,9 @@ object Pluto {
         appLifecycle = AppLifecycle(appStateCallback)
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
-        toolManager.initialise(application, appStateCallback.state)
+        toolManager = ToolManager(application, appStateCallback.state).apply {
+            initialise()
+        }
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application, notchStateCallback.state)
     }
