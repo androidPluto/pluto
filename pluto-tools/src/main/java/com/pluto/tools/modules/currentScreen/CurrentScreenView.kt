@@ -23,13 +23,15 @@ internal class CurrentScreenView(context: Context) : AppCompatTextView(context) 
         setPadding(10f.dp2px.toInt(), 4f.dp2px.toInt(), 10f.dp2px.toInt(), 4f.dp2px.toInt())
     }
 
-    fun updateText(newValue: CharSequence?) {
-        var value = if (newValue.toString().startsWith("com.pluto", true)) {
+    fun updateText(activity: CharSequence?, fragment: CharSequence?) {
+        var value: CharSequence? = if (activity.toString().startsWith(PLUTO_PKG_PREFIX, false)) {
             context.createSpan {
                 append(light(italic(fontColor("~ Pluto Screen ~", context.color(R.color.pluto___white_60)))))
             }
         } else {
-            newValue
+            context.createSpan {
+                append("$fragment ($activity)")
+            }
         }
         if (!TextUtils.isEmpty(value)) {
             lastInfo = text
@@ -41,5 +43,6 @@ internal class CurrentScreenView(context: Context) : AppCompatTextView(context) 
 
     companion object {
         private const val TEXT_SIZE = 14f
+        private const val PLUTO_PKG_PREFIX = "com.pluto"
     }
 }

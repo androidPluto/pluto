@@ -19,7 +19,7 @@ internal class CurrentScreenTool : PlutoTool("currentScreen") {
 
     private val onCurrentViewUpdateListener = object : OnCurrentScreenUpdateListener {
         override fun onUpdate(fragment: String?, activity: String?) {
-            gridView?.updateText("$activity\n$fragment")
+            gridView?.updateText(activity, fragment)
         }
     }
 
