@@ -13,7 +13,7 @@
         android:fontFamily="@font/muli_bold"
         android:paddingHorizontal="@dimen/pluto___margin_xsmall"
         android:paddingVertical="@dimen/pluto___margin_mini"
-        android:text="f"
+        android:text="F"
         android:textColor="@color/pluto___white_60"
         android:textSize="@dimen/pluto___text_small"
         app:layout_constraintEnd_toEndOf="@+id/activityLabel"
@@ -24,6 +24,7 @@
         android:id="@+id/fragmentView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pluto___margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fragmentLabel"
         app:layout_constraintTop_toTopOf="parent">
@@ -52,7 +53,7 @@
         android:fontFamily="@font/muli_bold"
         android:paddingHorizontal="@dimen/pluto___margin_xsmall"
         android:paddingVertical="@dimen/pluto___margin_mini"
-        android:text="a"
+        android:text="A"
         android:textColor="@color/pluto___white_60"
         android:textSize="@dimen/pluto___text_small"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +63,7 @@
         android:id="@+id/activityView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pluto___margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/activityLabel"
         app:layout_constraintTop_toBottomOf="@+id/fragmentView">
