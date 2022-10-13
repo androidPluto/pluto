@@ -70,7 +70,7 @@ internal class CurrentScreenTool : PlutoTool("currentScreen") {
 
     private fun layoutParams(): WindowManager.LayoutParams {
         val params = WindowManager.LayoutParams()
-        params.width = FrameLayout.LayoutParams.WRAP_CONTENT
+        params.width = FrameLayout.LayoutParams.MATCH_PARENT
         params.height = FrameLayout.LayoutParams.WRAP_CONTENT
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/fragmentLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___dark"
+        android:fontFamily="@font/muli_bold"
+        android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+        android:paddingVertical="@dimen/pluto___margin_mini"
+        android:text="f"
+        android:textColor="@color/pluto___white_60"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toEndOf="@+id/activityLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/fragmentView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragmentLabel"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/pluto___dark_80"
+            android:ellipsize="start"
+            android:fontFamily="@font/muli_semibold"
+            android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+            android:paddingVertical="@dimen/pluto___margin_mini"
+            android:singleLine="true"
+            android:textColor="@color/pluto___white"
+            android:textSize="@dimen/pluto___text_small"
+            tools:text="fragment name" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/pluto___dark"
+        android:fontFamily="@font/muli_bold"
+        android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+        android:paddingVertical="@dimen/pluto___margin_mini"
+        android:text="a"
+        android:textColor="@color/pluto___white_60"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentLabel" />
+
+    <LinearLayout
+        android:id="@+id/activityView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activityLabel"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentView">
+
+        <TextView
+            android:id="@+id/activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/pluto___dark_80"
+            android:ellipsize="start"
+            android:fontFamily="@font/muli_semibold"
+            android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+            android:paddingVertical="@dimen/pluto___margin_mini"
+            android:singleLine="true"
+            android:textColor="@color/pluto___white"
+            android:textSize="@dimen/pluto___text_small"
+            tools:text="activity name" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/pluto___dp_1"
+        android:background="@color/pluto___white_20"
+        app:layout_constraintBottom_toTopOf="@+id/activityLabel"
+        app:layout_constraintEnd_toEndOf="@+id/fragmentLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/activityLabel" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/fragmentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="fragmentLabel,fragmentView,divider" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/activityGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="activityLabel,activityView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
