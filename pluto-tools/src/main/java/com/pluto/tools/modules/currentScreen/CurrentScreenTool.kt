@@ -11,6 +11,7 @@ import com.pluto.tools.PlutoTool
 import com.pluto.tools.R
 import com.pluto.tools.ToolConfiguration
 import com.pluto.utilities.extensions.addViewToWindow
+import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.removeViewFromWindow
 
 internal class CurrentScreenTool : PlutoTool("currentScreen") {
@@ -39,6 +40,8 @@ internal class CurrentScreenTool : PlutoTool("currentScreen") {
     override fun onToolUnselected() {
         hideView()
     }
+
+    override fun isEnabled(): Boolean = application.applicationContext.canDrawOverlays()
 
     private fun toggle() {
         gridView?.let {

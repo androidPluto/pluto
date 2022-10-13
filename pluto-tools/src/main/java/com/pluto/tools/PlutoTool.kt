@@ -9,6 +9,7 @@ abstract class PlutoTool(val id: String) : ListItem() {
     abstract fun onToolInitialised()
     abstract fun onToolSelected()
     abstract fun onToolUnselected()
+    abstract fun isEnabled(): Boolean
 
     val application: Application
         get() = returnApplication()

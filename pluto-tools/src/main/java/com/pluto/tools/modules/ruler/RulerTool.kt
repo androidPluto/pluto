@@ -22,4 +22,6 @@ internal class RulerTool : PlutoTool("ruler") {
 
     override fun onToolUnselected() {
     }
+
+    override fun isEnabled(): Boolean = true
 }

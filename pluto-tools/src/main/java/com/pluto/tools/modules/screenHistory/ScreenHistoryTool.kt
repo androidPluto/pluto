@@ -18,4 +18,6 @@ internal class ScreenHistoryTool : PlutoTool("screenHistory") {
 
     override fun onToolUnselected() {
     }
+
+    override fun isEnabled(): Boolean = true
 }
