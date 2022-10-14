@@ -11,15 +11,10 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1"
     }
 
     buildTypes {
@@ -38,6 +33,10 @@ android {
     }
 
     resourcePrefix 'pluto___'
+    namespace 'com.pluto.utilities'
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {

@@ -23,15 +23,10 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode verCode
-        versionName verName
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
         buildConfigField("long", "VERSION_CODE", "${verCode}")
@@ -52,6 +47,10 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    namespace 'com.pluto.plugins.datastore.pref'
+    lint {
+        abortOnError false
     }
 }
 
