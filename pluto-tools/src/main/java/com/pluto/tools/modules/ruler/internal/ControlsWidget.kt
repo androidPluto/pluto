@@ -3,7 +3,6 @@ package com.pluto.tools.modules.ruler.internal
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.tools.FullScreenTool
 import com.pluto.tools.databinding.PlutoToolRulerControlsBinding
 import com.pluto.utilities.setOnDebounceClickListener
 

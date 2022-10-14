@@ -1,4 +1,4 @@
-package com.pluto.tools
+package com.pluto.tools.modules.ruler.internal
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
-import com.pluto.tools.modules.ruler.internal.ControlsWidget
 
 internal abstract class FullScreenTool : Fragment() {
 
