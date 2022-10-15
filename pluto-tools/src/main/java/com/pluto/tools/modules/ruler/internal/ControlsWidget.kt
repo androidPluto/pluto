@@ -3,9 +3,11 @@ package com.pluto.tools.modules.ruler.internal
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.pluto.tools.R
 import com.pluto.tools.databinding.PlutoToolRulerControlsBinding
 import com.pluto.tools.modules.ruler.internal.control.ControlCta
 import com.pluto.tools.modules.ruler.internal.control.ControlCtaAdapter
@@ -28,7 +30,11 @@ internal class ControlsWidget : ConstraintLayout {
         mListener = listener
         binding.list.apply {
             adapter = pluginAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            addItemDecoration(
+                DividerItemDecoration(context, LinearLayout.HORIZONTAL).apply {
+                    setDrawable(ContextCompat.getDrawable(context, R.drawable.pluto_tool___item_divider)!!)
+                }
+            )
         }
         pluginAdapter.list = ctas
     }
