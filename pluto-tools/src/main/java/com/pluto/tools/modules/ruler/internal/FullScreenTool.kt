@@ -27,7 +27,7 @@ internal abstract class FullScreenTool : Fragment() {
     private fun generateControls(context: Context): ControlsWidget {
         return ControlsWidget(context).apply {
             id = View.generateViewId()
-            initialise(onControlInteractionListener)
+//            initialise(onControlInteractionListener)
         }
     }
 
@@ -55,16 +55,6 @@ internal abstract class FullScreenTool : Fragment() {
         set.clear(controls.id, ConstraintSet.RIGHT)
         set.clear(controls.id, ConstraintSet.LEFT)
         set.applyTo(parent)
-    }
-
-    private val onControlInteractionListener = object : OnControlClickListener {
-        override fun onHint() {
-            onHintClicked()
-        }
-
-        override fun onClose() {
-            onCloseClicked()
-        }
     }
 
     interface OnControlClickListener {
