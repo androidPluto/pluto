@@ -5,7 +5,7 @@ import com.pluto.utilities.list.ListItem
 
 data class ToolConfiguration(
     val name: String,
-    @DrawableRes val icon: Int = R.drawable.pluto_tool___ic_placeholder_icon
+    @DrawableRes val icon: Int
 ) : ListItem() {
     val identifier = name.lowercase().replace(" ", "_", true)
 
