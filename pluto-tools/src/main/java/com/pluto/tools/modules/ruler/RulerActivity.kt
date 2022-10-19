@@ -9,7 +9,7 @@ import com.pluto.tools.databinding.PlutoToolRulerActivityBinding
 import com.pluto.tools.modules.ruler.internal.ControlsWidget
 import com.pluto.tools.modules.ruler.internal.RulerFragment
 import com.pluto.tools.modules.ruler.internal.control.ControlCta
-import com.pluto.utilities.extensions.toast
+import com.pluto.tools.modules.ruler.internal.hint.HintFragment
 
 class RulerActivity : AppCompatActivity() {
 
@@ -57,7 +57,7 @@ class RulerActivity : AppCompatActivity() {
                 }
 
                 ID_CLOSE -> finish()
-                ID_HINT -> toast("hint clicked")
+                ID_HINT -> HintFragment().show(supportFragmentManager, "hint")
             }
         }
     }

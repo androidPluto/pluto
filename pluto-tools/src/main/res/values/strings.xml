@@ -4,4 +4,5 @@
     <string name="pluto_tool___grid_name">Grid</string>
     <string name="pluto_tool___current_screen_name">Current Screen</string>
     <string name="pluto_tool___screen_history_name">Screen History</string>
+    <string name="pluto_tool___ruler_hint_label">How to use</string>
 </resources>
