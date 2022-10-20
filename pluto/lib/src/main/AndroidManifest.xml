@@ -6,7 +6,7 @@
 
     <application>
         <activity
-            android:name="com.pluto.ui.selector.SelectorActivity"
+            android:name=".ui.selector.SelectorActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.Selector" />
@@ -16,6 +16,11 @@
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.NoActionBar"
             android:windowSoftInputMode="stateUnspecified|adjustResize" />
+        <activity
+            android:name=".tool.modules.ruler.RulerActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/PlutoToolRulerTheme" />
 
         <provider
             android:name=".core.PlutoFileProvider"

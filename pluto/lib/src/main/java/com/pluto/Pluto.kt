@@ -13,7 +13,7 @@ import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
 import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
-import com.pluto.tools.ToolManager
+import com.pluto.tool.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.ui.selector.SelectorStateCallback

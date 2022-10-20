@@ -1,27 +1,30 @@
-package com.pluto.tool.selector
+package com.pluto.tool.modules.ruler.internal.hint
 
 import android.view.ViewGroup
-import com.pluto.tool.PlutoTool
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 
-class ToolAdapter(private val listener: OnActionListener) : BaseAdapter() {
+internal class HintAdapter : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is PlutoTool -> ITEM_TYPE_PLUGIN
+            is HintItem -> ITEM_TYPE_HINT
             else -> null
         }
     }
 
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
-            ITEM_TYPE_PLUGIN -> ToolItemHolder(parent, listener)
+            ITEM_TYPE_HINT -> HintItemHolder(parent)
             else -> null
         }
     }
 
     companion object {
-        const val ITEM_TYPE_PLUGIN = 1000
+        const val ITEM_TYPE_HINT = 1000
     }
 }
+
+data class HintItem(
+    val text: String
+) : ListItem()

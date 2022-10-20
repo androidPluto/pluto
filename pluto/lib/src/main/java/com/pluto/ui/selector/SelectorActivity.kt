@@ -19,9 +19,9 @@ import com.pluto.plugin.PluginsViewModel
 import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
 import com.pluto.settings.SettingsViewModel
+import com.pluto.tool.PlutoTool
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
-import com.pluto.tools.PlutoTool
 import com.pluto.utilities.AppState
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
