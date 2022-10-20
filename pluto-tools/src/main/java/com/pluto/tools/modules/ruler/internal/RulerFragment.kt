@@ -13,17 +13,4 @@ internal class RulerFragment : Fragment() {
             id = View.generateViewId()
         }
     }
-
-//    override fun getToolView(): View {
-//        val view = RulerScaleView(requireContext())
-//        view.isClickable = true
-//        return view
-//    }
-//
-//    override fun onHintClicked() {
-//        requireContext().toast("hint clicked")
-//    }
-//
-//    override fun onCloseClicked() {
-//    }
 }

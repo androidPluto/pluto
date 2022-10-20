@@ -5,7 +5,7 @@ import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 
-class ControlCtaAdapter(private val listener: OnActionListener) : BaseAdapter() {
+internal class ControlCtaAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
             is ControlCta -> ITEM_TYPE_CONTROL_CTA

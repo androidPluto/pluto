@@ -1,5 +1,5 @@
 package com.pluto.tools.modules.currentScreen
 
-interface OnCurrentScreenUpdateListener {
+internal interface OnCurrentScreenUpdateListener {
     fun onUpdate(fragment: String?, activity: String?)
 }

@@ -14,7 +14,7 @@ import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.viewBinding
 
-class HintFragment : BottomSheetDialogFragment() {
+internal class HintFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoToolRulerHintFragmentBinding::bind)
     private val settingsAdapter: BaseAdapter by lazy { HintAdapter() }
