@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/pluto___margin_medium"
-        android:fontFamily="@font/muli_semibold"
+        android:fontFamily="@font/muli"
         android:gravity="center_vertical"
         android:textColor="@color/pluto___text_dark"
         android:textSize="@dimen/pluto___text_small"

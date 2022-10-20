@@ -15,7 +15,7 @@ internal class HintItemHolder(parent: ViewGroup, listener: DiffAwareAdapter.OnAc
 
     override fun onBind(item: ListItem) {
         if (item is HintItem) {
-            binding.text.text = item.text
+            binding.text.text = "${layoutPosition + 1}.\t${item.text}"
         }
     }
 }

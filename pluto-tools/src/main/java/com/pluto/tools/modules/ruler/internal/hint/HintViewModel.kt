@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.pluto.tools.R
 
 internal class HintViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,8 +20,8 @@ internal class HintViewModel(application: Application) : AndroidViewModel(applic
     private fun generate(context: Context?) {
         context?.apply {
             val list = arrayListOf<HintItem>()
-            list.add(HintItem("hello"))
-            list.add(HintItem("bye bye"))
+            list.add(HintItem(getString(R.string.pluto_tool___ruler_hint_reset_position)))
+            list.add(HintItem(getString(R.string.pluto_tool___ruler_hint_measure)))
             _list.postValue(list)
         }
     }
