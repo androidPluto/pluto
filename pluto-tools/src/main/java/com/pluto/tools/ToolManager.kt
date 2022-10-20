@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.pluto.tools.modules.currentScreen.CurrentScreenTool
 import com.pluto.tools.modules.grid.GridViewTool
 import com.pluto.tools.modules.ruler.RulerTool
-import com.pluto.tools.modules.screenHistory.ScreenHistoryTool
 import com.pluto.utilities.AppState
 
 class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
@@ -14,7 +13,7 @@ class ToolManager(private val application: Application, state: MutableLiveData<A
         add(RulerTool())
         add(GridViewTool())
         add(CurrentScreenTool())
-        add(ScreenHistoryTool())
+//        add(ScreenHistoryTool())
     }
 
     init {
