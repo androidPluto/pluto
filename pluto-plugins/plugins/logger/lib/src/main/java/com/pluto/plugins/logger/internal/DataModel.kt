@@ -2,8 +2,8 @@ package com.pluto.plugins.logger.internal
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.logger.R
+import com.pluto.utilities.list.ListItem
 
 internal sealed class Level(
     val label: String,

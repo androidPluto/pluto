@@ -1,12 +1,12 @@
 package com.pluto.settings
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.settings.holders.SettingsEasyAccessHolder
 import com.pluto.settings.holders.SettingsEasyAccessPopupAppearanceHolder
 import com.pluto.settings.holders.SettingsResetAllHolder
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 
 internal class SettingsAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {

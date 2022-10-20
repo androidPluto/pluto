@@ -3,41 +3,49 @@ package com.pluto
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.LiveData
-import com.pluto.applifecycle.AppLifecycle
-import com.pluto.applifecycle.AppState
-import com.pluto.applifecycle.UiState
-import com.pluto.notch.Notch
+import com.pluto.core.Session
+import com.pluto.core.applifecycle.AppLifecycle
+import com.pluto.core.notch.Notch
+import com.pluto.core.notch.NotchStateCallback
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
-import com.pluto.plugin.PluginSelectorActivity
-import com.pluto.plugin.utilities.SingleLiveEvent
-import com.pluto.plugin.utilities.extensions.toast
+import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
-import com.pluto.ui.PlutoActivity
+import com.pluto.tools.ToolManager
+import com.pluto.ui.container.PlutoActivity
+import com.pluto.ui.selector.SelectorActivity
+import com.pluto.ui.selector.SelectorStateCallback
+import com.pluto.utilities.AppStateCallback
+import com.pluto.utilities.extensions.toast
 
 object Pluto {
 
     private lateinit var appLifecycle: AppLifecycle
-    internal var notch: Notch? = null
-    internal val appState: LiveData<AppState>
-        get() = appLifecycle.state
-
-    internal val uiState: SingleLiveEvent<UiState> = SingleLiveEvent()
+    private var notch: Notch? = null
 
     internal val pluginManager = PluginManager()
+    internal lateinit var toolManager: ToolManager
     private lateinit var application: Application
     internal val session = Session()
 
+    internal lateinit var resetDataCallback: ResetDataCallback
+    internal lateinit var appStateCallback: AppStateCallback
+    internal lateinit var selectorStateCallback: SelectorStateCallback
+    private lateinit var notchStateCallback: NotchStateCallback
+
     private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
+        initialiseCallbacks()
         this.application = application
-        appLifecycle = AppLifecycle()
+        appLifecycle = AppLifecycle(appStateCallback)
         application.registerActivityLifecycleCallbacks(appLifecycle)
         pluginManager.install(application, plugins)
+        toolManager = ToolManager(application, appStateCallback.state).apply {
+            initialise()
+        }
         SettingsPreferences.init(application.applicationContext)
-        notch = Notch(application, appLifecycle.shouldShowNotch)
+        notch = Notch(application, notchStateCallback.state)
     }
 
     @JvmOverloads
@@ -55,7 +63,7 @@ object Pluto {
             }
             application.applicationContext.toast("Plugin [$identifier] not installed")
         } else {
-            intent = Intent(application.applicationContext, PluginSelectorActivity::class.java)
+            intent = Intent(application.applicationContext, SelectorActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             application.applicationContext.startActivity(intent)
         }
@@ -75,8 +83,11 @@ object Pluto {
         }
     }
 
-    internal fun close() {
-        uiState.postValue(UiState.Close)
+    private fun initialiseCallbacks() {
+        resetDataCallback = ResetDataCallback()
+        appStateCallback = AppStateCallback()
+        selectorStateCallback = SelectorStateCallback()
+        notchStateCallback = NotchStateCallback(appStateCallback.state, selectorStateCallback.state)
     }
 
     class Installer(private val application: Application) {

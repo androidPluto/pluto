@@ -1,17 +1,17 @@
 package com.pluto.plugins.preferences.ui.filter
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.SharedPrefRepo
 import com.pluto.plugins.preferences.databinding.PlutoPrefItemFilterBinding
 import com.pluto.plugins.preferences.ui.SharedPrefFile
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 
 internal class FilterItemHolder(
     parent: ViewGroup,

@@ -6,11 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugin.utilities.SingleLiveEvent
 import com.pluto.plugins.network.internal.interceptor.logic.pruneQueryParams
 import com.pluto.plugins.network.internal.mock.logic.MockSettingsRepo
 import com.pluto.plugins.network.internal.mock.logic.dao.MockData
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
+import com.pluto.utilities.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

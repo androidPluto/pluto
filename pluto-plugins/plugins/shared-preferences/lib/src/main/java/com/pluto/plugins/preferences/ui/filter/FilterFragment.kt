@@ -5,16 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.pluto.plugin.utilities.extensions.dp
-import com.pluto.plugin.utilities.extensions.onBackPressed
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.list.BaseAdapter
-import com.pluto.plugin.utilities.list.CustomItemDecorator
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.preferences.R
 import com.pluto.plugins.preferences.SharedPrefRepo
 import com.pluto.plugins.preferences.databinding.PlutoPrefFragmentFilterBinding
@@ -22,6 +12,16 @@ import com.pluto.plugins.preferences.getSharePreferencesFiles
 import com.pluto.plugins.preferences.ui.SharedPrefAdapter
 import com.pluto.plugins.preferences.ui.SharedPrefFile
 import com.pluto.plugins.preferences.ui.SharedPrefViewModel
+import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.CustomItemDecorator
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.viewBinding
 
 internal class FilterFragment : Fragment(R.layout.pluto_pref___fragment_filter) {
 

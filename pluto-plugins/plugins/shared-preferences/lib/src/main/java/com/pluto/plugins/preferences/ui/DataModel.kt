@@ -1,7 +1,7 @@
 package com.pluto.plugins.preferences.ui
 
 import androidx.annotation.Keep
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.ListItem
 import com.squareup.moshi.JsonClass
 
 @Keep

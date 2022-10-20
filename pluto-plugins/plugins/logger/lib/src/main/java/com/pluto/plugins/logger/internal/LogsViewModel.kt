@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugin.utilities.extensions.asFormattedDate
+import com.pluto.utilities.extensions.asFormattedDate
 import kotlinx.coroutines.launch
 
 internal class LogsViewModel : ViewModel() {

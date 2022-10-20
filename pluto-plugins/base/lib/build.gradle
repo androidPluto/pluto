@@ -23,15 +23,10 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode verCode
-        versionName verName
     }
 
     buildTypes {
@@ -50,9 +45,14 @@ android {
     }
 
     resourcePrefix 'pluto___'
+    namespace 'com.pluto.plugin'
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {
+    api project(path: ':utilities')
     api "androidx.core:core-ktx:$androidXCoreVersion"
     api 'androidx.appcompat:appcompat:1.4.0'
 

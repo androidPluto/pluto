@@ -16,15 +16,10 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode verCode
-        versionName verName
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
@@ -47,6 +42,10 @@ android {
     }
 
     resourcePrefix 'demo___'
+    namespace 'com.demo.plugin'
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {

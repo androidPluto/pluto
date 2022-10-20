@@ -1,6 +1,6 @@
 package com.pluto.settings
 
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.ListItem
 
 internal data class SettingsEasyAccessEntity(
     val label: String = "easy_access"

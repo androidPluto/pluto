@@ -2,10 +2,10 @@ package com.pluto.plugins.logger.internal
 
 import android.content.Context
 import androidx.annotation.Keep
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.spannable.createSpan
 import com.pluto.plugins.logger.R
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.spannable.createSpan
 
 internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
     return ExceptionData(

@@ -4,8 +4,8 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import androidx.room.RoomDatabase
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.rooms.db.R
+import com.pluto.utilities.list.ListItem
 import kotlinx.parcelize.Parcelize
 
 @Keep

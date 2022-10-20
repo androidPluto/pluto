@@ -25,15 +25,10 @@ android {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode verCode
-        versionName verName
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
@@ -56,6 +51,10 @@ android {
     }
 
     resourcePrefix 'pluto_network___'
+    namespace 'com.pluto.plugins.network'
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {

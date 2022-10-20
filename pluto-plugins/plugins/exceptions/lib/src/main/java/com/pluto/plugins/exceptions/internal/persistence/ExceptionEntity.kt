@@ -5,9 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.pluto.plugin.utilities.list.ListItem
 import com.pluto.plugins.exceptions.internal.DeviceInfo
 import com.pluto.plugins.exceptions.internal.ExceptionAllData
+import com.pluto.utilities.list.ListItem
 import com.squareup.moshi.JsonClass
 
 @Keep

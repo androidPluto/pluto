@@ -5,15 +5,15 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugin.KeyValuePairData
-import com.pluto.plugin.utilities.extensions.color
-import com.pluto.plugin.utilities.spannable.setSpan
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsResponseBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_BODY
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_HEADERS
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.spannable.setSpan
+import com.pluto.utilities.views.keyvalue.KeyValuePairData
 
 internal class ResponseStub : ConstraintLayout {
 

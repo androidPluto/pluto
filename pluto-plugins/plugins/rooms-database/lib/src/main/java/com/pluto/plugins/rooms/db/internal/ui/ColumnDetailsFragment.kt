@@ -11,16 +11,16 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.plugin.utilities.device.Device
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.viewBinding
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentColumnDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.SortBy
 import com.pluto.plugins.rooms.db.internal.TableModel
+import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.viewBinding
 
 internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
 

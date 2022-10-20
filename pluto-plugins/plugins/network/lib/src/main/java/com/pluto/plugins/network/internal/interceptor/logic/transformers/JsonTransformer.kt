@@ -1,7 +1,7 @@
 package com.pluto.plugins.network.internal.interceptor.logic.transformers
 
-import com.pluto.plugin.utilities.DebugLog
 import com.pluto.plugins.network.internal.interceptor.logic.LOGTAG
+import com.pluto.utilities.DebugLog
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi

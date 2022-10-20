@@ -5,9 +5,9 @@ import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
-import com.pluto.plugin.utilities.DebugLog
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.DebugLog
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.list.ListItem
 
 @Keep
 abstract class Plugin(val devIdentifier: String) : ListItem() {

@@ -1,8 +1,7 @@
 package com.pluto.plugin
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.Keep
-import com.pluto.plugin.utilities.list.ListItem
+import com.pluto.utilities.list.ListItem
 
 data class DeveloperDetails(
     val vcsLink: String? = null,
@@ -35,13 +34,3 @@ data class PluginOption(
         return other is PluginOption && id == other.id
     }
 }
-
-@Keep
-data class KeyValuePairData(
-    val key: String,
-    val value: CharSequence?,
-    val iconStart: Int? = null,
-    val showClickIndicator: Boolean = false,
-    val isClickable: Boolean = false,
-    val onClick: (() -> Unit)? = null
-)

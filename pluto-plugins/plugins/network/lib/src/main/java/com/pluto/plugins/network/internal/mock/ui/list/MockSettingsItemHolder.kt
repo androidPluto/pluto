@@ -1,14 +1,14 @@
 package com.pluto.plugins.network.internal.mock.ui.list
 
 import android.view.ViewGroup
-import com.pluto.plugin.utilities.extensions.inflate
-import com.pluto.plugin.utilities.list.DiffAwareAdapter
-import com.pluto.plugin.utilities.list.DiffAwareHolder
-import com.pluto.plugin.utilities.list.ListItem
-import com.pluto.plugin.utilities.setOnDebounceClickListener
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemMockSettingsBinding
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
+import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
 
 internal class MockSettingsItemHolder(
     parent: ViewGroup,

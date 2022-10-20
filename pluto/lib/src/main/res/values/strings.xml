@@ -2,7 +2,7 @@
     <string name="pluto___your_plugins">Plugins</string>
     <string name="pluto___settings">Settings</string>
     <string name="pluto___about">About</string>
-    <string name="pluto___choose_plugin">Choose Pluto Plugin</string>
+    <string name="pluto___choose_plugin">Pluto Plugins</string>
     <string name="pluto___dev_details">Developer Details</string>
 
     <string name="pluto___notification_title">Pluto is debugging %s</string>
@@ -34,4 +34,6 @@
     <string name="pluto___plugin_details_website_hint">plugin website goes here</string>
     <string name="pluto___plugin_details_vcs_hint">plugin vcs link goes here</string>
     <string name="pluto___plugin_details_twitter_hint">plugin twitter link goes here</string>
+    <string name="pluto___tools">Tools</string>
+    <string name="pluto___overlay_setting_for_tool">Need Draw over other apps to enable all the tools.</string>
 </resources>

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pluto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application>
         <activity
-            android:name=".plugin.PluginSelectorActivity"
+            android:name="com.pluto.ui.selector.SelectorActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.Selector" />
         <activity
-            android:name=".ui.PlutoActivity"
+            android:name=".ui.container.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/PlutoTheme.NoActionBar"
             android:windowSoftInputMode="stateUnspecified|adjustResize" />
 
         <provider
-            android:name=".PlutoFileProvider"
+            android:name=".core.PlutoFileProvider"
             android:authorities="pluto___${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

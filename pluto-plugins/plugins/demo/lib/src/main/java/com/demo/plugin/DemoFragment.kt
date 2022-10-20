@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.demo.plugin.databinding.DemoFragmentDemoBinding
-import com.pluto.plugin.utilities.extensions.showMoreOptions
-import com.pluto.plugin.utilities.extensions.toast
-import com.pluto.plugin.utilities.setOnDebounceClickListener
-import com.pluto.plugin.utilities.sharing.Shareable
-import com.pluto.plugin.utilities.sharing.lazyContentSharer
-import com.pluto.plugin.utilities.viewBinding
+import com.pluto.utilities.extensions.showMoreOptions
+import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.sharing.Shareable
+import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.viewBinding
 
 class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
 
