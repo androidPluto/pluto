@@ -7,13 +7,14 @@ import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
 import com.pluto.core.notch.Notch
 import com.pluto.core.notch.NotchStateCallback
+import com.pluto.core.notification.NotificationManager
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginHelper.Companion.BUNDLE_LABEL
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.plugin.PluginManager
 import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
-import com.pluto.tools.ToolManager
+import com.pluto.tool.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.ui.selector.SelectorStateCallback
@@ -23,11 +24,13 @@ import com.pluto.utilities.extensions.toast
 object Pluto {
 
     private lateinit var appLifecycle: AppLifecycle
+    private lateinit var application: Application
     private var notch: Notch? = null
 
     internal val pluginManager = PluginManager()
     internal lateinit var toolManager: ToolManager
-    private lateinit var application: Application
+    private lateinit var notificationManager: NotificationManager
+
     internal val session = Session()
 
     internal lateinit var resetDataCallback: ResetDataCallback
@@ -44,6 +47,7 @@ object Pluto {
         toolManager = ToolManager(application, appStateCallback.state).apply {
             initialise()
         }
+        notificationManager = NotificationManager(application, appStateCallback.state)
         SettingsPreferences.init(application.applicationContext)
         notch = Notch(application, notchStateCallback.state)
     }

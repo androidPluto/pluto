@@ -1,27 +1,26 @@
-package com.pluto.tool.selector
+package com.pluto.tool.modules.ruler.internal.control
 
 import android.view.ViewGroup
-import com.pluto.tool.PlutoTool
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 
-class ToolAdapter(private val listener: OnActionListener) : BaseAdapter() {
+internal class ControlCtaAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is PlutoTool -> ITEM_TYPE_PLUGIN
+            is ControlCta -> ITEM_TYPE_CONTROL_CTA
             else -> null
         }
     }
 
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
-            ITEM_TYPE_PLUGIN -> ToolItemHolder(parent, listener)
+            ITEM_TYPE_CONTROL_CTA -> ControlCtaItemHolder(parent, listener)
             else -> null
         }
     }
 
     companion object {
-        const val ITEM_TYPE_PLUGIN = 1000
+        const val ITEM_TYPE_CONTROL_CTA = 1000
     }
 }

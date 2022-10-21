@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pluto.Pluto
-import com.pluto.tools.PlutoTool
 
 internal class ToolsViewModel(application: Application) : AndroidViewModel(application) {
 
