@@ -78,15 +78,17 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         }
     }
 
+    @Synchronized
     private fun filteredLogs(search: String): List<LogData> {
-        var list = emptyList<LogData>()
-        viewModel.logs.value?.let {
-            list = it.filter { log ->
+        val list = arrayListOf<LogData>()
+            .apply {
+                viewModel.logs.value?.let { addAll(it) }
+            }
+            .filter { log ->
                 log.tag.contains(search, true) ||
                     log.message.contains(search, true) ||
                     log.stackTraceElement.fileName.contains(search, true)
             }
-        }
         binding.noItemText.text = getString(
             if (search.isNotEmpty()) {
                 R.string.pluto_logger___no_search_result
