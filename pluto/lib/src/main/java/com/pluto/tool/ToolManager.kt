@@ -7,7 +7,7 @@ import com.pluto.tool.modules.grid.GridViewTool
 import com.pluto.tool.modules.ruler.RulerTool
 import com.pluto.utilities.AppState
 
-class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
+internal class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
 
     val tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
         add(RulerTool())

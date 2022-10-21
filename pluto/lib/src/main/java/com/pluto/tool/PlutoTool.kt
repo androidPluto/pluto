@@ -3,7 +3,7 @@ package com.pluto.tool
 import android.app.Application
 import com.pluto.utilities.list.ListItem
 
-abstract class PlutoTool(val id: String) : ListItem() {
+internal abstract class PlutoTool(val id: String) : ListItem() {
 
     abstract fun getConfig(): ToolConfiguration
     abstract fun onToolInitialised()

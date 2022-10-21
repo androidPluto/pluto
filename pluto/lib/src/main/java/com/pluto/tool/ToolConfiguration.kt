@@ -3,7 +3,7 @@ package com.pluto.tool
 import androidx.annotation.DrawableRes
 import com.pluto.utilities.list.ListItem
 
-data class ToolConfiguration(
+internal data class ToolConfiguration(
     val name: String,
     @DrawableRes val icon: Int
 ) : ListItem() {
