@@ -11,7 +11,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'bundle-core'
+    PUBLISH_ARTIFACT_ID = 'bundle-core-no-op'
 }
 
 android {
@@ -42,10 +42,10 @@ android {
 }
 
 dependencies {
-    api project(path: ':pluto-plugins:plugins:exceptions:lib')
-    api project(path: ':pluto-plugins:plugins:network:lib')
-    api project(path: ':pluto-plugins:plugins:shared-preferences:lib')
-    api project(path: ':pluto-plugins:plugins:logger:lib')
-    api project(path: ':pluto-plugins:plugins:datastore:lib')
-    api project(path: ':pluto-plugins:plugins:rooms-database:lib')
+    api project(path: ':pluto-plugins:plugins-core:plugins:exceptions:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-core:plugins:network:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-core:plugins:shared-preferences:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-core:plugins:logger:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-core:plugins:datastore:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-core:plugins:rooms-database:lib-no-op')
 }
