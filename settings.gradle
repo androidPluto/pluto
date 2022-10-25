@@ -1,10 +1,12 @@
-rootProject.name='pluto-sample'
+rootProject.name = 'pluto-sample'
 include ':sample'
 include ':pluto:lib'
 include ':pluto:lib-no-op'
-//include ':utilities'
+
 /* plugin modules */
 include ':pluto-plugins:base:lib'
+
+/* core plugin modules */
 include ':pluto-plugins:plugins-core:bundle:lib'
 include ':pluto-plugins:plugins-core:bundle:lib-no-op'
 include ':pluto-plugins:plugins-core:plugins:demo:lib'
@@ -21,3 +23,7 @@ include ':pluto-plugins:plugins-core:plugins:datastore:lib'
 include ':pluto-plugins:plugins-core:plugins:datastore:lib-no-op'
 include ':pluto-plugins:plugins-core:plugins:rooms-database:lib'
 include ':pluto-plugins:plugins-core:plugins:rooms-database:lib-no-op'
+
+/* ui plugin modules */
+include ':pluto-plugins:plugins-ui:plugins:layout-inspector:lib'
+include ':pluto-plugins:plugins-ui:plugins:layout-inspector:lib-no-op'

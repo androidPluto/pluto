@@ -50,6 +50,7 @@ dependencies {
     implementation project(path: ':pluto:lib')
     implementation project(path: ':pluto-plugins:plugins-core:plugins:demo:lib')
     implementation project(path: ':pluto-plugins:plugins-core:bundle:lib')
+    implementation project(path: ':pluto-plugins:plugins-ui:plugins:layout-inspector:lib')
 //    implementation project(path: ':plugins:exceptions:lib')
 //    implementation project(path: ':plugins:logger:lib')
 //    implementation project(path: ':plugins:network:lib')
