@@ -14,13 +14,13 @@
             android:name=".ui.container.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/PlutoTheme.NoActionBar"
+            android:theme="@style/PlutoContainerTheme"
             android:windowSoftInputMode="stateUnspecified|adjustResize" />
         <activity
             android:name=".tool.modules.ruler.RulerActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/PlutoToolRulerTheme" />
+            android:theme="@style/PlutoContainerTheme" />
 
         <provider
             android:name=".core.PlutoFileProvider"
