@@ -43,4 +43,5 @@ android {
 
 dependencies {
     api project(path: ':pluto-plugins:plugins-ui:plugins:layout-inspector:lib-no-op')
+    api project(path: ':pluto-plugins:plugins-ui:plugins:ruler:lib-no-op')
 }
