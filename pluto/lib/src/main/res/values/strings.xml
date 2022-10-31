@@ -40,7 +40,4 @@
     <string name="pluto___tool_grid_name" translatable="false">Grid</string>
     <string name="pluto___tool_current_screen_name" translatable="false">Current Screen</string>
     <string name="pluto___tool_screen_history_name" translatable="false">Screen History</string>
-    <string name="pluto___tool_ruler_hint_label" translatable="false">How to use</string>
-    <string name="pluto___tool_ruler_hint_reset_position" translatable="false">Click on the screen to set start position.</string>
-    <string name="pluto___tool_ruler_hint_measure" translatable="false">Drag your finger to measure the distance.</string>
 </resources>
