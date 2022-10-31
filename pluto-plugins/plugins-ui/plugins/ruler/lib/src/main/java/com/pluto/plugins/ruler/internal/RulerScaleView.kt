@@ -3,6 +3,7 @@ package com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -12,7 +13,7 @@ import com.pluto.utilities.extensions.px2dp
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-internal class RulerScaleView(context: Context) : View(context) {
+internal class RulerScaleView : View {
 
     private val touchSlop: Int
     private var downCoordinate = CoordinatePair() // action down coordinate
@@ -23,10 +24,14 @@ internal class RulerScaleView(context: Context) : View(context) {
     private var screen = ScreenMeasurement()
     private val paintType = PaintType(context)
 
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
+    constructor(context: Context) : super(context, null, 0)
+
     @Direction
     private var direction = 0
 
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     annotation class Direction {
         companion object {
             var NONE = 0x00
