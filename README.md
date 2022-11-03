@@ -23,8 +23,8 @@ Pluto is distributed through [***mavenCentral***](https://search.maven.org/artif
 ```groovy
 dependencies {
   ....
-  debugImplementation 'com.plutolib:pluto:2.0.5'
-  releaseImplementation 'com.plutolib:pluto-no-op:2.0.5'
+  debugImplementation 'com.plutolib:pluto:2.0.6'
+  releaseImplementation 'com.plutolib:pluto-no-op:2.0.6'
   ....
 }
 ```
@@ -48,8 +48,8 @@ Plugin bundle comes with all the basic plugins bundled together as single depend
 ```groovy
 dependencies {
   ....
-  debugImplementation 'com.plutolib.plugins:bundle-core:2.0.5'
-  releaseImplementation 'com.plutolib.plugins:bundle-core-no-op:2.0.5'
+  debugImplementation 'com.plutolib.plugins:bundle-core:2.0.6'
+  releaseImplementation 'com.plutolib.plugins:bundle-core-no-op:2.0.6'
   ....
 }
 ```
