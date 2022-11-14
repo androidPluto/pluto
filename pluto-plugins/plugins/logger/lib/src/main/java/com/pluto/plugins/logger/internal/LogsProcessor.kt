@@ -29,7 +29,7 @@ internal class LogsProcessor private constructor() {
                 if (!it.className.startsWith(BuildConfig.LIBRARY_PACKAGE_NAME) &&
                     !it.className.startsWith("java.lang.") &&
                     !it.className.startsWith("dalvik.system.") &&
-                    !it.fileName.startsWith("Timber.kt")
+                    it.fileName?.startsWith("Timber.kt") != true
                 ) {
                     return it
                 }
