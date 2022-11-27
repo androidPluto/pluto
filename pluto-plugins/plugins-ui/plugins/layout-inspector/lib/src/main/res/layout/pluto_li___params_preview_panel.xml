@@ -6,15 +6,9 @@
     tools:context=".ViewInfoFragment">
 
     <TextView
-        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="info view" />
-
-    <com.pluto.plugins.layoutinspector.internal.OperableView
-        android:id="@+id/operableView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:text="param panel" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
