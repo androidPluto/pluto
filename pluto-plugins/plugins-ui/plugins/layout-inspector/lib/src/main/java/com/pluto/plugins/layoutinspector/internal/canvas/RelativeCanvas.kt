@@ -94,22 +94,22 @@ internal class RelativeCanvas(private val container: View) {
         if (startX == endX) {
             drawLineWithEndPoint(canvas, startX, (startY + endPointSpace).roundToInt(), endX, (endY - endPointSpace).roundToInt())
             val text = "${(endY - startY).toFloat().px2dp} dp"
-            drawText(canvas, text, (startX + textLineDistance), startY + (endY - startY) / 2 + getTextHeight(textPaint, text) / 2)
+            drawText(canvas, text, startX + textLineDistance, startY + (endY - startY) / 2 + getTextHeight(textPaint, text) / 2)
         } else if (startY == endY) {
             drawLineWithEndPoint(canvas, (startX + endPointSpace).roundToInt(), startY, (endX - endPointSpace).roundToInt(), endY)
             val text = "${(endX - startX).toFloat().px2dp} dp"
-            drawText(canvas, text, startX + (endX - startX) / 2 - getTextWidth(textPaint, text) / 2, (startY - textLineDistance))
+            drawText(canvas, text, startX + (endX - startX) / 2 - getTextWidth(textPaint, text) / 2, startY - textLineDistance)
         }
     }
 
     private fun drawLineWithEndPoint(canvas: Canvas, startX: Int, startY: Int, endX: Int, endY: Int) {
         canvas.drawLine(startX.toFloat(), startY.toFloat(), endX.toFloat(), endY.toFloat(), areaPaint)
         if (startX == endX) {
-            canvas.drawLine((startX - endPointSpace), startY.toFloat(), (endX + endPointSpace), startY.toFloat(), areaPaint)
-            canvas.drawLine((startX - endPointSpace), endY.toFloat(), (endX + endPointSpace), endY.toFloat(), areaPaint)
+            canvas.drawLine(startX - endPointSpace, startY.toFloat(), endX + endPointSpace, startY.toFloat(), areaPaint)
+            canvas.drawLine(startX - endPointSpace, endY.toFloat(), endX + endPointSpace, endY.toFloat(), areaPaint)
         } else if (startY == endY) {
-            canvas.drawLine(startX.toFloat(), (startY - endPointSpace), startX.toFloat(), (endY + endPointSpace), areaPaint)
-            canvas.drawLine(endX.toFloat(), (startY - endPointSpace), endX.toFloat(), (endY + endPointSpace), areaPaint)
+            canvas.drawLine(startX.toFloat(), startY - endPointSpace, startX.toFloat(), endY + endPointSpace, areaPaint)
+            canvas.drawLine(endX.toFloat(), startY - endPointSpace, endX.toFloat(), endY + endPointSpace, areaPaint)
         }
     }
 
@@ -147,20 +147,16 @@ internal class RelativeCanvas(private val container: View) {
     private fun drawNestedAreaLine(canvas: Canvas, firstRect: Rect, secondRect: Rect) {
         if (secondRect.left >= firstRect.left && secondRect.right <= firstRect.right && secondRect.top >= firstRect.top && secondRect.bottom <= firstRect.bottom) {
             drawLineWithText(
-                canvas, secondRect.left, secondRect.top + secondRect.height() / 2,
-                firstRect.left, secondRect.top + secondRect.height() / 2
+                canvas, secondRect.left, secondRect.top + secondRect.height() / 2, firstRect.left, secondRect.top + secondRect.height() / 2
             )
             drawLineWithText(
-                canvas, secondRect.right, secondRect.top + secondRect.height() / 2,
-                firstRect.right, secondRect.top + secondRect.height() / 2
+                canvas, secondRect.right, secondRect.top + secondRect.height() / 2, firstRect.right, secondRect.top + secondRect.height() / 2
             )
             drawLineWithText(
-                canvas, secondRect.left + secondRect.width() / 2, secondRect.top,
-                secondRect.left + secondRect.width() / 2, firstRect.top
+                canvas, secondRect.left + secondRect.width() / 2, secondRect.top, secondRect.left + secondRect.width() / 2, firstRect.top
             )
             drawLineWithText(
-                canvas, secondRect.left + secondRect.width() / 2, secondRect.bottom,
-                secondRect.left + secondRect.width() / 2, firstRect.bottom
+                canvas, secondRect.left + secondRect.width() / 2, secondRect.bottom, secondRect.left + secondRect.width() / 2, firstRect.bottom
             )
         }
     }

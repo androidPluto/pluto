@@ -1,20 +1,28 @@
 package com.pluto.plugins.layoutinspector.internal
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import android.widget.Toast
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.RelativeCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
+import kotlin.math.abs
 
-internal class OperableView : View {
+internal class OperableView : ElementHoldView {
 
+    private var gridAnimator: ValueAnimator? = null
+    private var targetElement: Element? = null
     private var touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
     private var gridCanvas: GridCanvas = GridCanvas(this)
     private var clickInfoCanvas: ClickInfoCanvas = ClickInfoCanvas(this)
@@ -23,8 +31,15 @@ internal class OperableView : View {
     private var tapTimeout: Int = ViewConfiguration.getTapTimeout()
     private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
 
-    @State
-    private val state = 0
+    private var prevCoordinate = CoordinatePair()
+    private var downCoordinate = CoordinatePair()
+
+    private var state: OperableViewState = OperableViewState.Idle
+    private var searchCount = 0
+
+    // max selectable count
+    private val elementsNum = 2
+    private var relativeElements = arrayOfNulls<Element>(elementsNum)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
@@ -37,31 +52,173 @@ internal class OperableView : View {
             style = Style.STROKE
         }
     }
+    private val longPressCheck = Runnable {
+        state = OperableViewState.Dragging //State.DRAGGING
+        alpha = 1f
+    }
+    private val tapTimeoutCheck = Runnable {
+        state = OperableViewState.Pressing //State.PRESSING
+        gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
+            .setDuration((longPressTimeout - tapTimeout).toLong())
+        gridAnimator?.addUpdateListener(AnimatorUpdateListener { animation ->
+            val value = animation.animatedValue as Float
+            alpha = value
+            invalidate()
+        })
+        gridAnimator?.start()
+    }
 
-    @Retention(AnnotationRetention.SOURCE)
-    annotation class State {
-        companion object {
-            var NONE = 0x00
-            var PRESSING = 0x01 // after tapTimeout and before longPressTimeout
-            var TOUCHING = 0x02 // trigger move before dragging
-            var DRAGGING = 0x03 // since long press
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event!!.action) {
+            MotionEvent.ACTION_DOWN -> {
+                run {
+                    prevCoordinate.x = event.x
+                    downCoordinate.x = prevCoordinate.x
+                }
+                run {
+                    prevCoordinate.y = event.y
+                    downCoordinate.y = prevCoordinate.y
+                }
+                tryStartCheckTask()
+                return true
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                when (state) {
+                    is OperableViewState.Dragging -> targetElement?.let {
+                            val dx: Float = event.x - prevCoordinate.x
+                            val dy: Float = event.y - prevCoordinate.y
+                            it.offset(dx, dy)
+                            for (e in relativeElements) {
+                                e?.reset()
+                            }
+                            invalidate()
+                        }
+                    is OperableViewState.Touching -> {}
+                    else -> {
+                        val dx: Float = event.x - downCoordinate.x
+                        val dy: Float = event.y - downCoordinate.y
+                        if (dx * dx + dy * dy > touchSlop * touchSlop) {
+                            if (state is OperableViewState.Pressing) {
+                                Toast.makeText(context, "CANCEL", Toast.LENGTH_SHORT).show()
+                            }
+                            state = OperableViewState.Touching
+                            cancelCheckTask()
+                            invalidate()
+                        }
+                    }
+                }
+                downCoordinate.x = event.x
+                downCoordinate.y = event.y
+            }
+
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+                cancelCheckTask()
+                when (state) {
+                    is OperableViewState.Idle -> handleClick(event.x, event.y)
+                    is OperableViewState.Dragging -> resetAll()
+                    else -> {}
+                }
+                state = OperableViewState.Idle
+                invalidate()
+            }
         }
+        return super.onTouchEvent(event)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
-        if (state === State.DRAGGING) {
-            gridCanvas.draw(canvas, 1f)
-        } else if (state === State.PRESSING) {
-            gridCanvas.draw(canvas, alpha)
+        when (state) {
+            is OperableViewState.Dragging -> gridCanvas.draw(canvas, 1f)
+            is OperableViewState.Pressing -> gridCanvas.draw(canvas, alpha)
+            else -> {}
         }
-//        selectCanvas.draw(canvas, relativeElements)
-//        relativeCanvas.draw(
-//            canvas, relativeElements.get(searchCount % elementsNum),
-//            relativeElements.get(Math.abs(searchCount - 1) % elementsNum)
-//        )
+        selectCanvas.draw(canvas, *relativeElements)
+        relativeCanvas.draw(
+            canvas, relativeElements[searchCount % elementsNum],
+            relativeElements[abs(searchCount - 1) % elementsNum]
+        )
         clickInfoCanvas.draw(canvas)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        cancelCheckTask()
+        relativeElements = emptyArray()
+    }
+
+    private fun cancelCheckTask() {
+        removeCallbacks(longPressCheck)
+        removeCallbacks(tapTimeoutCheck)
+        gridAnimator?.cancel()
+        gridAnimator = null
+    }
+
+    private fun tryStartCheckTask() {
+        cancelCheckTask()
+        targetElement?.let {
+            postDelayed(longPressCheck, longPressTimeout.toLong())
+            postDelayed(tapTimeoutCheck, tapTimeout.toLong())
+        }
+    }
+
+    private fun handleClick(x: Float, y: Float) {
+        getTargetElement(x, y)?.let {
+            handleElementSelected(it, true)
+        }
+    }
+
+    fun handleClick(v: View): Boolean {
+        return getTargetElement(v)?.let {
+            handleElementSelected(it, false)
+            invalidate()
+            true
+        } ?: run {
+            false
+        }
+    }
+
+    private fun handleElementSelected(element: Element, cancelIfSelected: Boolean) {
+        targetElement = element
+        var bothNull = true
+        for (i in relativeElements.indices) {
+            if (relativeElements[i] != null) {
+                if (relativeElements[i] === element) {
+                    if (cancelIfSelected) {
+                        // cancel selected
+                        relativeElements[i] = null
+                        searchCount = i
+                    }
+                    clickListener?.onClick(element.view)
+                    return
+                }
+                bothNull = false
+            }
+        }
+        if (bothNull) {
+            // If only one is selected, show info
+            clickInfoCanvas.setInfoElement(element)
+        }
+        relativeElements[searchCount % elementsNum] = element
+        searchCount++
+        clickListener?.onClick(element.view)
+    }
+
+    fun isSelectedEmpty(): Boolean {
+        var empty = true
+        for (i in 0 until elementsNum) {
+            if (relativeElements[i] != null) {
+                empty = false
+                break
+            }
+        }
+        return empty
+    }
+
+    private var clickListener: OnClickListener? = null
+    override fun setOnClickListener(l: OnClickListener?) {
+        clickListener = l
     }
 
 }

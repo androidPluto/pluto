@@ -8,7 +8,7 @@ internal class Element(val view: View) {
     private val originRect: Rect = Rect()
     val rect: Rect = Rect()
     private val location = IntArray(2)
-    private val parentElement: Element?
+    val parentElement: Element?
         get() {
             val parentView: Any = view.parent
             return if (parentView is View) {
@@ -43,7 +43,7 @@ internal class Element(val view: View) {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if ((o == null) || (javaClass != o.javaClass)) return false
+        if (o == null || javaClass != o.javaClass) return false
         val element = o as Element
         return view == element.view
     }

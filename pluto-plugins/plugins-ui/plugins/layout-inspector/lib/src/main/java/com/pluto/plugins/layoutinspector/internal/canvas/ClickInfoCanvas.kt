@@ -72,14 +72,14 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
             show = infoAnimator?.isRunning ?: false
         }
         if (show) {
-            val alpha: Int = if (showInfoAlways) 255 else ((infoAnimator?.animatedValue ?: 0) as Int)
+            val alpha: Int = if (showInfoAlways) 255 else (infoAnimator?.animatedValue ?: 0) as Int
             cornerPaint.alpha = alpha
             textPaint.alpha = alpha
             val rect: Rect = infoElement!!.rect
             val widthText = "${rect.width().toFloat().px2dp} dp"
-            drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, (rect.top - textLineDistance))
+            drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - textLineDistance)
             val heightText = "${rect.height().toFloat().px2dp} dp"
-            drawText(canvas, heightText, (rect.right + textLineDistance), rect.centerY().toFloat())
+            drawText(canvas, heightText, rect.right + textLineDistance, rect.centerY().toFloat())
         }
     }
 
