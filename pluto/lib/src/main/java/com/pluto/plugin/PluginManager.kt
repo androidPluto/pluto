@@ -1,10 +1,12 @@
 package com.pluto.plugin
 
 import android.app.Application
+import com.pluto.plugin.lib_interface.PlutoInterface
 import com.pluto.ui.container.PlutoActivity
+import com.pluto.ui.selector.SelectorActivity
 import com.pluto.utilities.DebugLog
 
-internal class PluginManager {
+internal class PluginManager(private val application: Application) {
 
     private var plugins: LinkedHashSet<Plugin> = linkedSetOf()
     internal val installedPlugins: List<Plugin>
@@ -14,12 +16,15 @@ internal class PluginManager {
             return list
         }
 
-    fun install(application: Application, plugins: LinkedHashSet<Plugin>) {
-        PluginUiBridge.create(
-            UiBridgeComponents(
-                activityClass = PlutoActivity::class.java
-            )
+    init {
+        PlutoInterface.create(
+            application = application,
+            pluginActivityClass = PlutoActivity::class.java,
+            selectorActivityClass = SelectorActivity::class.java
         )
+    }
+
+    fun install(plugins: LinkedHashSet<Plugin>) {
         plugins.forEach {
             if (it.shouldInstallPlugin()) {
                 it.install(application)

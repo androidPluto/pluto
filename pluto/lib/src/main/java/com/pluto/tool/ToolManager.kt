@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.pluto.tool.modules.currentScreen.CurrentScreenTool
 import com.pluto.tool.modules.grid.GridViewTool
-import com.pluto.utilities.AppState
+import com.pluto.core.applifecycle.AppStateCallback
 
-internal class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
+internal class ToolManager(private val application: Application, state: MutableLiveData<AppStateCallback.State>) {
 
     val tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
         add(GridViewTool())
@@ -16,7 +16,7 @@ internal class ToolManager(private val application: Application, state: MutableL
 
     init {
         state.observeForever {
-            if (it is AppState.Background) {
+            if (it is AppStateCallback.State.Background) {
                 tools.forEach { tool ->
                     tool.onToolUnselected()
                 }

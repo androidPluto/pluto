@@ -31,10 +31,6 @@ internal open class ElementHoldView : View {
 
     fun getTargetElement(x: Float, y: Float): Element? {
         var target: Element? = null
-        DebugLog.e("prateek", elements.size.toString())
-        for(i in elements) {
-            DebugLog.e("prateek", elements.toString())
-        }
         for (i in elements.indices.reversed()) {
             val element = elements[i]
             if (element.rect.contains(x.toInt(), y.toInt())) {

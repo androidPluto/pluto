@@ -22,7 +22,7 @@ import com.pluto.settings.SettingsViewModel
 import com.pluto.tool.PlutoTool
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
-import com.pluto.utilities.AppState
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings
@@ -103,8 +103,8 @@ class SelectorActivity : FragmentActivity() {
         toolAdapter.list = it
     }
 
-    private val appStateListener = Observer<AppState> {
-        if (it is AppState.Background) {
+    private val appStateListener = Observer<AppStateCallback.State> {
+        if (it is AppStateCallback.State.Background) {
             finish()
         }
     }
