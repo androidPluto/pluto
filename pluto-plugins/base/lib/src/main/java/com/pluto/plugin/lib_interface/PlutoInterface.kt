@@ -4,7 +4,11 @@ import android.app.Application
 import androidx.fragment.app.FragmentActivity
 import java.lang.IllegalStateException
 
-class PlutoInterface private constructor(val application: Application, val pluginActivityClass: Class<out FragmentActivity>, val selectorActivityClass: Class<out FragmentActivity>) {
+class PlutoInterface private constructor(
+    val application: Application,
+    val pluginActivityClass: Class<out FragmentActivity>,
+    val selectorActivityClass: Class<out FragmentActivity>
+) {
 
     companion object {
         private var instance: PlutoInterface? = null
@@ -23,7 +27,11 @@ class PlutoInterface private constructor(val application: Application, val plugi
         val libInfo: LibraryInfoInterface
             get() = LibraryInfoInterface(get.pluginActivityClass, get.selectorActivityClass)
 
-        fun create(application: Application, pluginActivityClass: Class<out FragmentActivity>, selectorActivityClass: Class<out FragmentActivity>): PlutoInterface? {
+        fun create(
+            application: Application,
+            pluginActivityClass: Class<out FragmentActivity>,
+            selectorActivityClass: Class<out FragmentActivity>
+        ): PlutoInterface? {
             if (instance == null) {
                 synchronized(PlutoInterface::class.java) {
                     if (instance == null) {

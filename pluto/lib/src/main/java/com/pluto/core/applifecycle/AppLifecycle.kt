@@ -3,7 +3,6 @@ package com.pluto.core.applifecycle
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import com.pluto.ui.container.PlutoActivity
 
 internal class AppLifecycle(private val appStateCallback: AppStateCallback) : ActivityLifecycleCallbacks {
 
