@@ -7,7 +7,7 @@ import com.pluto.plugins.ruler.R
 import com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.control.ControlCta
 import com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.hint.HintFragment
 import com.pluto.plugins.ruler.databinding.PlutoRulerRulerFragmentBinding
-import com.pluto.plugins.ruler.internal.ControlsWidget
+import com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.ControlsWidget
 import com.pluto.utilities.viewBinding
 
 internal class RulerFragment : Fragment(R.layout.pluto_ruler___ruler_fragment) {

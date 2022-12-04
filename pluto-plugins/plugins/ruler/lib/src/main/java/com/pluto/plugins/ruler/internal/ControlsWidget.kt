@@ -1,4 +1,4 @@
-package com.pluto.plugins.ruler.internal
+package com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal
 
 import android.content.Context
 import android.util.AttributeSet

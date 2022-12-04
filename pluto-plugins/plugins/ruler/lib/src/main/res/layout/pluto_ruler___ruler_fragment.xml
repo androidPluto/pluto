@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.pluto.plugins.ruler.internal.ControlsWidget
+    <com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.ControlsWidget
         android:id="@+id/leftControls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.pluto.plugins.ruler.internal.ControlsWidget
+    <com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.ControlsWidget
         android:id="@+id/rightControls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

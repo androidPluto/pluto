@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
-import com.pluto.plugins.ruler.internal.ControlsWidget
+import com.pluto.plugins.ruler.com.pluto.plugins.ruler.internal.ControlsWidget
 
 internal abstract class FullScreenTool : Fragment() {
 
