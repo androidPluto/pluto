@@ -2,7 +2,6 @@ package com.pluto.plugins.layoutinspector.internal
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -60,11 +59,11 @@ internal class OperableView : ElementHoldView {
         state = OperableViewState.Pressing //State.PRESSING
         gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
             .setDuration((longPressTimeout - tapTimeout).toLong())
-        gridAnimator?.addUpdateListener(AnimatorUpdateListener { animation ->
+        gridAnimator?.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             alpha = value
             invalidate()
-        })
+        }
         gridAnimator?.start()
     }
 
@@ -86,14 +85,15 @@ internal class OperableView : ElementHoldView {
             MotionEvent.ACTION_MOVE -> {
                 when (state) {
                     is OperableViewState.Dragging -> targetElement?.let {
-                            val dx: Float = event.x - prevCoordinate.x
-                            val dy: Float = event.y - prevCoordinate.y
-                            it.offset(dx, dy)
-                            for (e in relativeElements) {
-                                e?.reset()
-                            }
-                            invalidate()
+                        val dx: Float = event.x - prevCoordinate.x
+                        val dy: Float = event.y - prevCoordinate.y
+                        it.offset(dx, dy)
+                        for (e in relativeElements) {
+                            e?.reset()
                         }
+                        invalidate()
+                    }
+
                     is OperableViewState.Touching -> {}
                     else -> {
                         val dx: Float = event.x - downCoordinate.x
@@ -108,8 +108,8 @@ internal class OperableView : ElementHoldView {
                         }
                     }
                 }
-                downCoordinate.x = event.x
-                downCoordinate.y = event.y
+                prevCoordinate.x = event.x
+                prevCoordinate.y = event.y
             }
 
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
