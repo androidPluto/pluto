@@ -73,11 +73,11 @@ internal class OperableView : ElementHoldView {
             MotionEvent.ACTION_DOWN -> {
                 run {
                     prevCoordinate.x = event.x
-                    downCoordinate.x = prevCoordinate.x
+                    downCoordinate.x = event.x
                 }
                 run {
                     prevCoordinate.y = event.y
-                    downCoordinate.y = prevCoordinate.y
+                    downCoordinate.y = event.y
                 }
                 tryStartCheckTask()
                 return true

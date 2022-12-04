@@ -2,6 +2,7 @@ package com.pluto.plugins.layoutinspector.internal
 
 import android.graphics.Rect
 import android.view.View
+import com.pluto.utilities.DebugLog
 
 internal class Element(val view: View) {
 
@@ -25,6 +26,7 @@ internal class Element(val view: View) {
 
     fun reset() {
         view.getLocationOnScreen(location)
+        DebugLog.e("prateek", "${location[0]}, ${location[1]}")
         val width = view.width
         val height = view.height
 
@@ -33,7 +35,7 @@ internal class Element(val view: View) {
         val top = location[1]
         val bottom = top + height
 
-        rect[left, top, right] = bottom
+        rect.set(left, top, right, bottom)
     }
 
     fun offset(dx: Float, dy: Float) {

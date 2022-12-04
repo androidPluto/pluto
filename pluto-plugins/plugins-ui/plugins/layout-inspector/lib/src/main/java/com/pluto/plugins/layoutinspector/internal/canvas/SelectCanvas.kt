@@ -20,7 +20,7 @@ internal class SelectCanvas(private val view: View) {
     private val areaPaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = Color.RED
+            color = Color.BLUE
             style = Style.STROKE
             strokeWidth = 1f.dp2px
         }
@@ -28,7 +28,7 @@ internal class SelectCanvas(private val view: View) {
     private val dashLinePaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = -0x55010000
+            color = Color.GREEN
             style = Style.STROKE
             pathEffect = DashPathEffect(floatArrayOf(3f.dp2px, 3f.dp2px), 0f)
         }
