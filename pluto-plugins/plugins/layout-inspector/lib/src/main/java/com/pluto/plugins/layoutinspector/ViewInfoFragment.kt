@@ -10,7 +10,6 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.control.ControlCta
 import com.pluto.plugins.layoutinspector.internal.control.ControlsWidget
 import com.pluto.plugins.layoutinspector.internal.hint.HintFragment
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.viewBinding
 
 internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_info), View.OnClickListener {
@@ -65,8 +64,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     }
 
     private fun refreshViewDetails(view: View) {
-        context?.toast("${view.width}, ${view.height} : ${view.javaClass.simpleName}")
-//        binding.text.text = "${view.width}, ${view.height}"
+        binding.bsContainer.previewPanel.refresh(view)
     }
 
     private val onControlCtaListener = object : ControlsWidget.OnClickListener {

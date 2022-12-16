@@ -20,7 +20,8 @@ internal class ParamsPreviewPanel : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun initialise(view: View, listener: OnClickListener? = null) {
+    fun refresh(view: View, listener: OnClickListener? = null) {
+        binding.details.text = "${view.width}, ${view.height} : ${view.javaClass.simpleName}"
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
