@@ -6,7 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.pluto.plugin.lib_interface.PlutoInterface
+import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.utilities.device.Device

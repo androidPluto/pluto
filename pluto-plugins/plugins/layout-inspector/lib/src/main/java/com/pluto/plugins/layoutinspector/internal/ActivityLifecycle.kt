@@ -3,7 +3,7 @@ package com.pluto.plugins.layoutinspector.internal
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import com.pluto.plugin.lib_interface.PlutoInterface
+import com.pluto.plugin.libinterface.PlutoInterface
 
 internal class ActivityLifecycle : ActivityLifecycleCallbacks {
 

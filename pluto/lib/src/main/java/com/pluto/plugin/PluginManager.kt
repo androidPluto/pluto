@@ -1,7 +1,7 @@
 package com.pluto.plugin
 
 import android.app.Application
-import com.pluto.plugin.lib_interface.PlutoInterface
+import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.utilities.DebugLog

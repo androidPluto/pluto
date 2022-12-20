@@ -121,4 +121,6 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
     private fun getTextWidth(paint: Paint, text: String?): Float {
         return paint.measureText(text)
     }
+
+    private companion object
 }

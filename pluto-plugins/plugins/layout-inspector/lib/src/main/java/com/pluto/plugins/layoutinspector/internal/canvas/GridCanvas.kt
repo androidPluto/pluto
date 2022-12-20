@@ -21,7 +21,7 @@ internal class GridCanvas(private val container: View) {
     fun draw(canvas: Canvas, alpha: Float) {
         canvas.save()
         var startX = 0
-        paint.alpha = (255 * alpha).toInt()
+        paint.alpha = (ALPHA_MAX * alpha).toInt()
         while (startX < measuredWidth) {
             canvas.drawLine(startX.toFloat(), 0f, startX.toFloat(), measuredHeight.toFloat(), paint)
             startX += LINE_INTERVAL
@@ -36,5 +36,6 @@ internal class GridCanvas(private val container: View) {
 
     companion object {
         private val LINE_INTERVAL: Int = 5f.dp2px.toInt()
+        private const val ALPHA_MAX = 255
     }
 }

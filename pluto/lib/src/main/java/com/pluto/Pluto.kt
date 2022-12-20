@@ -11,8 +11,8 @@ import com.pluto.core.notch.NotchStateCallback
 import com.pluto.core.notification.NotificationManager
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
-import com.pluto.plugin.lib_interface.NotificationInterface.Companion.BUNDLE_LABEL
-import com.pluto.plugin.lib_interface.NotificationInterface.Companion.ID_LABEL
+import com.pluto.plugin.libinterface.NotificationInterface.Companion.BUNDLE_LABEL
+import com.pluto.plugin.libinterface.NotificationInterface.Companion.ID_LABEL
 import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
 import com.pluto.tool.ToolManager

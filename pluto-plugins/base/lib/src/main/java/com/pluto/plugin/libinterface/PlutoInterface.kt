@@ -1,4 +1,4 @@
-package com.pluto.plugin.lib_interface
+package com.pluto.plugin.libinterface
 
 import android.app.Application
 import androidx.fragment.app.FragmentActivity

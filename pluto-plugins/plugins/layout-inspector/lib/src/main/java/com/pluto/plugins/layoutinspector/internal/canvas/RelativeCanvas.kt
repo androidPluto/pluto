@@ -73,11 +73,11 @@ internal class RelativeCanvas(private val container: View) {
         }
     }
 
-    private fun drawLineWithText(canvas: Canvas, _startX: Int, _startY: Int, _endX: Int, _endY: Int) {
-        var startX = _startX
-        var startY = _startY
-        var endX = _endX
-        var endY = _endY
+    private fun drawLineWithText(canvas: Canvas, xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
+        var startX = xStart
+        var startY = yStart
+        var endX = xEnd
+        var endY = yEnd
         if (startX == endX && startY == endY) {
             return
         }
