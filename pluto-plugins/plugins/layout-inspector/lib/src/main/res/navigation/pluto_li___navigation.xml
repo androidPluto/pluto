@@ -10,5 +10,14 @@
         android:name="com.pluto.plugins.layoutinspector.ViewInfoFragment"
         android:label="detail"
         tools:layout="@layout/pluto_li___fragment_view_info">
+
+        <action
+            android:id="@+id/openAttrView"
+            app:destination="@id/attrView" />
+
     </fragment>
+
+    <dialog
+        android:id="@+id/attrView"
+        android:name="com.pluto.plugins.layoutinspector.internal.ViewAttrFragment" />
 </navigation>

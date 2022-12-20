@@ -60,8 +60,7 @@ internal class OperableView : ElementHoldView {
         gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
             .setDuration((longPressTimeout - tapTimeout).toLong())
         gridAnimator?.addUpdateListener { animation ->
-            val value = animation.animatedValue as Float
-            alpha = value
+            alpha = animation.animatedValue as Float
             invalidate()
         }
         gridAnimator?.start()

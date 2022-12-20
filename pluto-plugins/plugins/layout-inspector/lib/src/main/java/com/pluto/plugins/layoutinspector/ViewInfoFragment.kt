@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewInfoBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
@@ -64,7 +65,10 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     }
 
     private fun refreshViewDetails(view: View) {
-        binding.bsContainer.previewPanel.refresh(view)
+        binding.bsContainer.previewPanel.refresh(view) {
+            targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
+            findNavController().navigate(R.id.openAttrView)
+        }
     }
 
     private val onControlCtaListener = object : ControlsWidget.OnClickListener {
