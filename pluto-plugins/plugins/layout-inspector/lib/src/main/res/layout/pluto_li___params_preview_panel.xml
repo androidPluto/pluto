@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
     android:background="@color/pluto___white"
-    android:fitsSystemWindows="true">
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true">
 
     <View
         android:id="@+id/topBorder"
@@ -16,14 +17,101 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/details"
-        android:layout_width="match_parent"
+        android:id="@+id/viewType"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:background="@color/pluto___blue_80"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli_bold"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/pluto___margin_mini"
+        android:paddingVertical="@dimen/pluto___margin_micro"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:textColor="@color/pluto___white_80"
+        android:textSize="@dimen/pluto___text_mini"
+        app:layout_constraintBottom_toBottomOf="@+id/viewId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewId"
+        tools:text="viewGroup" />
+
+    <TextView
+        android:id="@+id/viewId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/pluto___margin_xsmall"
+        android:layout_marginTop="@dimen/pluto___margin_small"
         android:fontFamily="@font/muli_semibold"
-        android:gravity="center"
-        android:padding="@dimen/pluto___margin_xsmall"
-        android:text="param panel"
         android:textColor="@color/pluto___text_dark_80"
-        app:layout_constraintTop_toBottomOf="@+id/topBorder" />
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toStartOf="@+id/viewDimens"
+        app:layout_constraintStart_toEndOf="@+id/viewType"
+        app:layout_constraintTop_toBottomOf="@+id/topBorder"
+        tools:text="param panel" />
+
+    <TextView
+        android:id="@+id/viewDimens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___dark_10"
+        android:fontFamily="@font/muli_bold"
+        android:paddingHorizontal="@dimen/pluto___margin_mini"
+        android:paddingVertical="@dimen/pluto___margin_micro"
+        android:textColor="@color/pluto___blue"
+        android:textSize="@dimen/pluto___text_mini"
+        app:layout_constraintBottom_toBottomOf="@+id/viewId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewId"
+        tools:text="172 x 40 dp" />
+
+    <TextView
+        android:id="@+id/viewClass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_mini"
+        android:layout_marginBottom="@dimen/pluto___margin_small"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_xsmall"
+        app:layout_constraintEnd_toEndOf="@+id/viewDimens"
+        app:layout_constraintStart_toStartOf="@+id/viewType"
+        app:layout_constraintTop_toBottomOf="@+id/viewId"
+        tools:text="view type class" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/actionsGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pluto___margin_xsmall"
+        android:layout_marginTop="@dimen/pluto___margin_mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/viewDimens"
+        app:layout_constraintStart_toStartOf="@+id/viewType"
+        app:layout_constraintTop_toBottomOf="@+id/viewClass"
+        app:singleLine="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/viewAttrCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pluto_li___view_attr_cta"
+            android:textAppearance="@style/PlutoLIChipTextStyle"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/viewHierarchyCta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pluto_li___view_hierarchy_cta"
+            android:textAppearance="@style/PlutoLIChipTextStyle"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+    </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

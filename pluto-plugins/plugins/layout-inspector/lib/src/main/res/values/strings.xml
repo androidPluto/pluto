@@ -4,4 +4,6 @@
     <string name="pluto_li___hint_label">How to use</string>
     <string name="pluto_li___hint_reset_position" translatable="false">Click on the screen to set start position.</string>
     <string name="pluto_li___hint_measure" translatable="false">Drag your finger to measure the distance.</string>
+    <string name="pluto_li___view_attr_cta">View Attributes</string>
+    <string name="pluto_li___view_hierarchy_cta">View Hierarchy</string>
 </resources>

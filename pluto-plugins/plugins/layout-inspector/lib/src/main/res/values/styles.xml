@@ -15,4 +15,9 @@
         <item name="bottomSheetStyle">@style/PlutoBottomSheet</item>
         <item name="dialogTheme">@style/PlutoBottomSheetDialogTheme</item>
     </style>
+
+    <style name="PlutoLIChipTextStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/muli_semibold</item>
+    </style>
 </resources>
