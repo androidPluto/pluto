@@ -9,13 +9,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
+import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.sharing.ContentShareViewModel
 import com.pluto.utilities.sharing.Shareable
 import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
-
 
 class ViewAttrFragment : BottomSheetDialogFragment() {
 
@@ -71,7 +72,11 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
             convertArguments(arguments).apply {
 
             }
-            binding.title.text = target.javaClass.simpleName
+            binding.title.setSpan {
+                append(semiBold(target.javaClass.simpleName))
+                append("\n")
+                append(regular(fontSize(target.getIdString(), 12)))
+            }
         }
     }
 
