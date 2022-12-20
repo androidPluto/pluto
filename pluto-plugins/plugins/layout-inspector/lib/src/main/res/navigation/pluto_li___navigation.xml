@@ -19,5 +19,5 @@
 
     <dialog
         android:id="@+id/attrView"
-        android:name="com.pluto.plugins.layoutinspector.internal.ViewAttrFragment" />
+        android:name="com.pluto.plugins.layoutinspector.internal.attributes.ViewAttrFragment" />
 </navigation>

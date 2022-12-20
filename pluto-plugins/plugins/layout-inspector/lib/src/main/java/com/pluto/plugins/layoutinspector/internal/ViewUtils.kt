@@ -79,8 +79,8 @@ object ViewUtils {
                     mViewField.isAccessible = true
                     val decorView = mViewField[`object`] as View
                     val layoutParams = mWindowAttributesField[`object`] as WindowManager.LayoutParams
-                    if (layoutParams.title.toString().contains(targetActivity.javaClass.name)
-                        || getTargetDecorView(targetActivity, decorView) != null
+                    if (layoutParams.title.toString().contains(targetActivity.javaClass.name) ||
+                        getTargetDecorView(targetActivity, decorView) != null
                     ) {
                         return decorView
                     }
@@ -138,5 +138,4 @@ object ViewUtils {
             "NO_ID"
         }
     }
-
 }

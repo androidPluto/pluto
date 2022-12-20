@@ -96,5 +96,4 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
         const val ID_MOVE_LEFT = "moveToLeft"
         const val ID_MOVE_RIGHT = "moveToRight"
     }
-
 }

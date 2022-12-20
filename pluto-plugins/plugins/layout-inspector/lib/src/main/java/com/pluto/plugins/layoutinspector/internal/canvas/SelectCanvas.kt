@@ -73,5 +73,4 @@ internal class SelectCanvas(private val view: View) {
         canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
         canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
     }
-
 }

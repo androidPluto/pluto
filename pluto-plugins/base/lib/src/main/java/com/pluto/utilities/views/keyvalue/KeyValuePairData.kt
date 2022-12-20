@@ -11,7 +11,7 @@ data class KeyValuePairData(
     val iconStart: Int? = null,
     val showClickIndicator: Boolean = false,
     val onClick: (() -> Unit)? = null
-)
+) : ListItem()
 
 @Keep
 data class KeyValuePairEditRequest(

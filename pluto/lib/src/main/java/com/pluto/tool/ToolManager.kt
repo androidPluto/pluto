@@ -2,9 +2,9 @@ package com.pluto.tool
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.tool.modules.currentScreen.CurrentScreenTool
 import com.pluto.tool.modules.grid.GridViewTool
-import com.pluto.core.applifecycle.AppStateCallback
 
 internal class ToolManager(private val application: Application, state: MutableLiveData<AppStateCallback.State>) {
 

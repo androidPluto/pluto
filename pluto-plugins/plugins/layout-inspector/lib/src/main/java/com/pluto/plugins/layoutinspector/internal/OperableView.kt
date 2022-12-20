@@ -52,11 +52,11 @@ internal class OperableView : ElementHoldView {
         }
     }
     private val longPressCheck = Runnable {
-        state = OperableViewState.Dragging //State.DRAGGING
+        state = OperableViewState.Dragging // State.DRAGGING
         alpha = 1f
     }
     private val tapTimeoutCheck = Runnable {
-        state = OperableViewState.Pressing //State.PRESSING
+        state = OperableViewState.Pressing // State.PRESSING
         gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
             .setDuration((longPressTimeout - tapTimeout).toLong())
         gridAnimator?.addUpdateListener { animation ->
@@ -219,5 +219,4 @@ internal class OperableView : ElementHoldView {
     override fun setOnClickListener(l: OnClickListener?) {
         clickListener = l
     }
-
 }

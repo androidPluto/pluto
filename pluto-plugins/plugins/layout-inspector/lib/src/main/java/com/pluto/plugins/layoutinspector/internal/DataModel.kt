@@ -7,7 +7,7 @@ internal class CoordinatePair {
 
 internal sealed class OperableViewState {
     object Idle : OperableViewState()
-    object Pressing : OperableViewState()  // after tapTimeout and before longPressTimeout
-    object Touching : OperableViewState()  // trigger move before dragging
-    object Dragging : OperableViewState()  // since long press
+    object Pressing : OperableViewState() // after tapTimeout and before longPressTimeout
+    object Touching : OperableViewState() // trigger move before dragging
+    object Dragging : OperableViewState() // since long press
 }

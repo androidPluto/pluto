@@ -5,20 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.core.notch.Notch
 import com.pluto.core.notch.NotchStateCallback
 import com.pluto.core.notification.NotificationManager
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginManager
+import com.pluto.plugin.lib_interface.NotificationInterface.Companion.BUNDLE_LABEL
+import com.pluto.plugin.lib_interface.NotificationInterface.Companion.ID_LABEL
 import com.pluto.settings.ResetDataCallback
 import com.pluto.settings.SettingsPreferences
 import com.pluto.tool.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.ui.selector.SelectorStateCallback
-import com.pluto.core.applifecycle.AppStateCallback
-import com.pluto.plugin.lib_interface.NotificationInterface.Companion.BUNDLE_LABEL
-import com.pluto.plugin.lib_interface.NotificationInterface.Companion.ID_LABEL
 import com.pluto.utilities.extensions.toast
 
 object Pluto {

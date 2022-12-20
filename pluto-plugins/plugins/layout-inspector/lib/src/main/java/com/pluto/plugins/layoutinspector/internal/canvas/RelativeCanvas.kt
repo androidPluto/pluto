@@ -145,7 +145,9 @@ internal class RelativeCanvas(private val container: View) {
     }
 
     private fun drawNestedAreaLine(canvas: Canvas, firstRect: Rect, secondRect: Rect) {
-        if (secondRect.left >= firstRect.left && secondRect.right <= firstRect.right && secondRect.top >= firstRect.top && secondRect.bottom <= firstRect.bottom) {
+        if (secondRect.left >= firstRect.left && secondRect.right <= firstRect.right && secondRect.top >= firstRect.top &&
+            secondRect.bottom <= firstRect.bottom
+        ) {
             drawLineWithText(
                 canvas, secondRect.left, secondRect.top + secondRect.height() / 2, firstRect.left, secondRect.top + secondRect.height() / 2
             )

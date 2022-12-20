@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import com.pluto.utilities.DebugLog
 
 /**
  * https://github.com/eleme/UETool/
@@ -72,8 +71,8 @@ internal open class ElementHoldView : View {
         if (parent == null) {
             return false
         }
-        return if (parent.rect.left >= measuredWidth
-            || parent.rect.top >= measuredHeight
+        return if (parent.rect.left >= measuredWidth ||
+            parent.rect.top >= measuredHeight
         ) {
             true
         } else {
