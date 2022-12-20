@@ -2,11 +2,15 @@ package com.pluto.plugins.layoutinspector.internal
 
 import android.app.Activity
 import android.content.ContextWrapper
+import android.content.res.Resources
 import android.os.Build
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import com.pluto.plugin.R
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.spannable.createSpan
 import java.lang.reflect.Field
 
 object ViewUtils {
@@ -105,4 +109,34 @@ object ViewUtils {
         }
         return targetView
     }
+
+    fun View.getIdString(): CharSequence {
+        val resources = this.resources
+        return context?.createSpan {
+            if (id != View.NO_ID && !isViewIdGenerated(id)) {
+                try {
+                    val pkgName: String = when (id and -0x1000000) {
+                        0x7f000000 -> "app"
+                        0x01000000 -> "android"
+                        else -> resources.getResourcePackageName(id)
+                    }
+                    val typename: String = resources.getResourceTypeName(id)
+                    val entryName: String = resources.getResourceEntryName(id)
+
+                    append(semiBold(fontColor(pkgName, context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor(":", context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor(typename, context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor("/", context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor(entryName, context.color(R.color.pluto___text_dark_80))))
+                } catch (e: Resources.NotFoundException) {
+                    append(semiBold(fontColor(Integer.toHexString(id), context.color(R.color.pluto___text_dark_80))))
+                }
+            } else {
+                append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_60)))))
+            }
+        } ?: run {
+            "NO_ID"
+        }
+    }
+
 }

@@ -42,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/pluto___margin_xsmall"
         android:layout_marginTop="@dimen/pluto___margin_small"
-        android:fontFamily="@font/muli_semibold"
         android:textColor="@color/pluto___text_dark_80"
         android:textSize="@dimen/pluto___text_small"
         app:layout_constraintEnd_toStartOf="@+id/viewDimens"

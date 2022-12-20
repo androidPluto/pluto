@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiParamsPreviewPanelBinding
-import com.pluto.utilities.extensions.getIdString
+import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
