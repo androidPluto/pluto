@@ -67,7 +67,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
                 dismiss()
             }
             binding.share.setOnDebounceClickListener {
-                contentSharer.share(Shareable(title = "Sharing View Attributes", content = "view attribute 123", fileName = "View Attributes generated via Pluto"))
+                contentSharer.share(Shareable(title = "Sharing View Attributes", content = "view attribute", fileName = "View Attributes generated via Pluto"))
             }
             convertArguments(arguments).apply {
 
