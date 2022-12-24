@@ -2,7 +2,6 @@ package com.pluto.plugins.layoutinspector.internal
 
 import android.graphics.Rect
 import android.view.View
-import com.pluto.utilities.DebugLog
 
 internal class Element(val view: View) {
 
@@ -26,7 +25,6 @@ internal class Element(val view: View) {
 
     fun reset() {
         view.getLocationOnScreen(location)
-        DebugLog.e("prateek", "${location[0]}, ${location[1]}")
         val width = view.width
         val height = view.height
 

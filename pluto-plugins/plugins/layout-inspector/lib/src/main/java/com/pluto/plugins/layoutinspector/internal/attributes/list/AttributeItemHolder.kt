@@ -3,6 +3,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes.list
 import android.view.ViewGroup
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiItemViewAttrBinding
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -15,8 +16,13 @@ internal class AttributeItemHolder(parent: ViewGroup, actionListener: DiffAwareA
     private val binding = PlutoLiItemViewAttrBinding.bind(itemView)
 
     override fun onBind(item: ListItem) {
-        if (item is KeyValuePairData) {
-            binding.content.set(item)
+        if (item is Attribute) {
+            binding.content.set(
+                KeyValuePairData(
+                    key = item.attrName,
+                    value = item.attrValue
+                )
+            )
         }
     }
 }

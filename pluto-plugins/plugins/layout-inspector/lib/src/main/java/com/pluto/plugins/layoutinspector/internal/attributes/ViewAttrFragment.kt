@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -13,9 +15,9 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.ViewUtils
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
-import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.utilities.DebugLog
 import com.pluto.utilities.device.Device
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -26,7 +28,6 @@ import com.pluto.utilities.sharing.Shareable
 import com.pluto.utilities.sharing.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
-import com.pluto.utilities.views.keyvalue.KeyValuePairData
 
 class ViewAttrFragment : BottomSheetDialogFragment() {
 
@@ -34,6 +35,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
     private val contentSharer: ContentShareViewModel by lazyContentSharer()
     private var targetView: View? = null
     private lateinit var attributeAdapter: BaseAdapter
+    private val viewModel: ViewAttrViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_li___fragment_view_attr, container, false)
@@ -85,45 +87,15 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
                 adapter = attributeAdapter
             }
 
-            attributeAdapter.list = arrayListOf<ListItem>().apply {
-                add(AttributeTitle("Basic details"))
-                add(
-                    KeyValuePairData(
-                        key = "temp key",
-                        value = "temp value",
-                        isClickable = true,
-                        onClick = {
-                            context?.toast("clicked")
-                        }
-                    )
-                )
-                add(
-                    KeyValuePairData(
-                        key = "temp key",
-                        value = null,
-                        isClickable = false
-                    )
-                )
-                add(AttributeTitle("Basic details 12"))
-                add(
-                    KeyValuePairData(
-                        key = "temp key 12",
-                        value = "temp value",
-                        isClickable = true,
-                        onClick = {
-                            context?.toast("clicked")
-                        }
-                    )
-                )
-                add(
-                    KeyValuePairData(
-                        key = "temp key 34",
-                        value = null,
-                        isClickable = false
-                    )
-                )
-            }
+            viewModel.list.removeObserver(parsedAttrObserver)
+            viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
+            viewModel.parse(target)
         }
+    }
+
+    private val parsedAttrObserver = Observer<List<Attribute>> {
+        DebugLog.e("prateek", it.size.toString())
+        attributeAdapter.list = it
     }
 
     private fun findViewByDefaultTag(root: View): View? {

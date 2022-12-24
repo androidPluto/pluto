@@ -1,15 +1,15 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.list
 
 import android.view.ViewGroup
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
-import com.pluto.utilities.views.keyvalue.KeyValuePairData
 
 internal class AttributeAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is KeyValuePairData -> ITEM_TYPE_ATTRIBUTE
+            is Attribute -> ITEM_TYPE_ATTRIBUTE
             is AttributeTitle -> ITEM_TYPE_TITLE
             else -> null
         }
