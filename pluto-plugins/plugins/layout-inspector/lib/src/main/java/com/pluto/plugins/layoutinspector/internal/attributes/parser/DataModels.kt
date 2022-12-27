@@ -2,13 +2,12 @@ package com.pluto.plugins.layoutinspector.internal.attributes.parser
 
 import com.pluto.utilities.list.ListItem
 
-internal class Attribute(val key: String, val value: CharSequence?, @AttrEditMode val editMode: Int = AttrEditMode.NORMAL) : ListItem() {
+internal class Attribute(val key: String, val value: CharSequence?, @AttrEditMode val editMode: Int? = null) : ListItem() {
     var category: String? = null
 }
 
 internal annotation class AttrEditMode {
     companion object {
-        var NORMAL = 0x00
         var LAYOUT_WIDTH = 0x01
         var LAYOUT_HEIGHT = 0x02
         var VISIBILITY = 0x03

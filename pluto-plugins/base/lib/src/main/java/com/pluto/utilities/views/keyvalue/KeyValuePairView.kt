@@ -24,12 +24,11 @@ class KeyValuePairView : ConstraintLayout {
             data.value?.let {
                 append(it)
             } ?: run {
-                append(italic(fontColor("~ null", context.color(R.color.pluto___text_dark_40))))
+                append(italic(fontColor("~ null ~", context.color(R.color.pluto___text_dark_40))))
             }
         }
-        if (data.showClickIndicator) {
-            binding.value.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.pluto___ic_chevron_right, 0)
-        }
+
+        binding.value.setCompoundDrawablesWithIntrinsicBounds(0, 0, if (data.showClickIndicator) R.drawable.pluto___ic_chevron_right else 0, 0)
         data.onClick?.let {
             binding.root.isClickable = true
             binding.root.setOnDebounceClickListener { data.onClick.invoke() }

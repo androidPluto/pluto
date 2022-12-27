@@ -15,16 +15,18 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.ViewUtils
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.ContentShareViewModel
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.ContentShareViewModel
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 
@@ -117,6 +119,9 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+            if(data is Attribute) {
+                context?.toast("frag ${data.key} clicked")
+            }
         }
     }
 
