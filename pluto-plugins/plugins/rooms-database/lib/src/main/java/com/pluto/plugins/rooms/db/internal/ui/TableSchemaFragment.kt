@@ -19,9 +19,9 @@ import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.setList
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.ContentShareViewModel
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.ContentShareViewModel
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
 class TableSchemaFragment : BottomSheetDialogFragment() {
