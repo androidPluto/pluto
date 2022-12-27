@@ -16,6 +16,7 @@ import com.pluto.plugins.layoutinspector.internal.ViewUtils
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
 import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -79,7 +80,11 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
             binding.title.setSpan {
                 append(semiBold(target.javaClass.simpleName))
                 append("\n")
-                append(regular(fontSize(target.getIdString(), 12)))
+                target.getIdString()?.let {
+                    append(regular(fontSize(it, 12)))
+                } ?: run {
+                    append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_60)))))
+                }
             }
             binding.attrList.apply {
                 adapter = attributeAdapter

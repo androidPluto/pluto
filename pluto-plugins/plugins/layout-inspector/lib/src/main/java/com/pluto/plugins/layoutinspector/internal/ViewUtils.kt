@@ -110,10 +110,10 @@ object ViewUtils {
         return targetView
     }
 
-    fun View.getIdString(): CharSequence {
+    fun View.getIdString(): CharSequence? {
         val resources = this.resources
-        return context?.createSpan {
-            if (id != View.NO_ID && !isViewIdGenerated(id)) {
+        return if (id != View.NO_ID && !isViewIdGenerated(id)) {
+            context?.createSpan {
                 try {
                     val pkgName: String = when (id and -0x1000000) {
                         0x7f000000 -> "app"
@@ -131,11 +131,11 @@ object ViewUtils {
                 } catch (e: Resources.NotFoundException) {
                     append(semiBold(fontColor(Integer.toHexString(id), context.color(R.color.pluto___text_dark_80))))
                 }
-            } else {
-                append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_60)))))
+            } ?: run {
+                null
             }
-        } ?: run {
-            "NO_ID"
+        } else {
+            null
         }
     }
 }

@@ -28,9 +28,9 @@ internal class AttributeItemHolder(parent: ViewGroup, actionListener: DiffAwareA
         }
     }
 
-    private fun getFormattedValue(value: String?): CharSequence {
+    private fun getFormattedValue(value: CharSequence?): CharSequence {
         return value?.let {
-            if (it.lowercase() != "null") {
+            if (it.toString().lowercase() != "null") {
                 it
             } else {
                 getFormattedNullValue()

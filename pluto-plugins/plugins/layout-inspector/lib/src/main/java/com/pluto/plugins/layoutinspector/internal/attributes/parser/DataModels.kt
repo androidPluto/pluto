@@ -2,7 +2,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes.parser
 
 import com.pluto.utilities.list.ListItem
 
-internal class Attribute(val key: String, val value: String?, @AttrEditMode val editMode: Int = AttrEditMode.NORMAL) : ListItem() {
+internal class Attribute(val key: String, val value: CharSequence?, @AttrEditMode val editMode: Int = AttrEditMode.NORMAL) : ListItem() {
     var category: String? = null
 }
 
