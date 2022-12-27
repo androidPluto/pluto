@@ -30,7 +30,7 @@ internal class AttrParser {
                     val result = parser.getAttrs(v)
                     if (result.isNotEmpty()) {
                         for (i in result.indices) {
-                            result[i].category = actualTypeArguments.toString()
+                            result[i].category = actualTypeArguments.toString().replace("class", "", true).trim()
                         }
                         attributes.addAll(result)
                     }

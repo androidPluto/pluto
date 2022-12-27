@@ -15,8 +15,6 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.ViewUtils
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
-import com.pluto.utilities.DebugLog
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -93,8 +91,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private val parsedAttrObserver = Observer<List<Attribute>> {
-        DebugLog.e("prateek", it.size.toString())
+    private val parsedAttrObserver = Observer<List<ListItem>> {
         attributeAdapter.list = it
     }
 
