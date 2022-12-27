@@ -59,7 +59,7 @@ internal class ViewParser : IParser<View> {
         attributes.add(longClickableAttribute)
         val focusAttribute = Attribute("focusable", view.isFocusable.toString())
         attributes.add(focusAttribute)
-        val contentDescriptionAttribute = Attribute("content_description", view.contentDescription?.toString())
+        val contentDescriptionAttribute = Attribute("content_dscrptn", view.contentDescription?.toString())
         attributes.add(contentDescriptionAttribute)
         return attributes
     }
