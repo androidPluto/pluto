@@ -67,6 +67,7 @@
                         android:layout_height="0dp"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:paddingHorizontal="@dimen/pluto___margin_small"
+                        android:visibility="gone"
                         android:src="@drawable/pluto_li___ic_share"
                         app:layout_constraintBottom_toBottomOf="@+id/title"
                         app:layout_constraintEnd_toEndOf="parent"

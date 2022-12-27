@@ -22,26 +22,50 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
         get() = _list
     private val _list = MutableLiveData<ArrayList<ListItem>>()
 
+    val shareableAttr: LiveData<String>
+        get() = _shareableAttr
+    private val _shareableAttr = MutableLiveData<String>()
+
     fun parse(v: View) {
         viewModelScope.launch {
-            val attrList = arrayListOf<ListItem>()
-            v.getIdString()?.let {
-                attrList.add(Attribute("id", it))
-            }
-            attrList.add(Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view"))
-            attrList.add(Attribute("view_class", v.javaClass.canonicalName))
-            val parsedList = parser.parse(v)
-            if (parsedList.isNotEmpty()) {
-                var category: String? = null
-                for (attr in parsedList) {
-                    if (category != attr.category) {
-                        category = attr.category
-                        attrList.add(AttributeTitle(attr.category))
-                    }
-                    attrList.add(attr)
-                }
-            }
+            val attrList = generateAttributes(v)
             _list.postValue(attrList)
+
+            val shareableAttr = generateAttributeShareable(attrList)
+            _shareableAttr.postValue(shareableAttr)
         }
+    }
+
+    private fun generateAttributeShareable(attrList: ArrayList<ListItem>): String {
+        val text = StringBuilder()
+        text.append("View Attributes")
+        for(attr in attrList) {
+            when(attr) {
+                is AttributeTitle -> text.append("\n\n*** attributes from: ${attr.title}")
+                is Attribute -> text.append("\n\t${attr.key}: ${attr.value}")
+            }
+        }
+        return text.toString()
+    }
+
+    private fun generateAttributes(v: View): ArrayList<ListItem> {
+        val attrList = arrayListOf<ListItem>()
+        v.getIdString()?.let {
+            attrList.add(Attribute("id", it))
+        }
+        attrList.add(Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view"))
+        attrList.add(Attribute("view_class", v.javaClass.canonicalName))
+        val parsedList = parser.parse(v)
+        if (parsedList.isNotEmpty()) {
+            var category: String? = null
+            for (attr in parsedList) {
+                if (category != attr.category) {
+                    category = attr.category
+                    attrList.add(AttributeTitle(attr.category))
+                }
+                attrList.add(attr)
+            }
+        }
+        return attrList
     }
 }

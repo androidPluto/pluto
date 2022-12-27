@@ -3,6 +3,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -77,7 +78,15 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
                 dismiss()
             }
             binding.share.setOnDebounceClickListener {
-                contentSharer.share(Shareable(title = "Sharing View Attributes", content = "view attribute", fileName = "View Attributes generated via Pluto"))
+                viewModel.shareableAttr.value?.let {
+                    contentSharer.share(
+                        Shareable(
+                            title = "Sharing View Attributes",
+                            content = it,
+                            fileName = "View Attributes generated via Pluto"
+                        )
+                    )
+                }
             }
             binding.title.setSpan {
                 append(semiBold(target.javaClass.simpleName))
@@ -99,6 +108,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
     }
 
     private val parsedAttrObserver = Observer<List<ListItem>> {
+        binding.share.visibility = VISIBLE
         attributeAdapter.list = it
     }
 
@@ -119,7 +129,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if(data is Attribute) {
+            if (data is Attribute) {
                 context?.toast("frag ${data.key} clicked")
             }
         }
