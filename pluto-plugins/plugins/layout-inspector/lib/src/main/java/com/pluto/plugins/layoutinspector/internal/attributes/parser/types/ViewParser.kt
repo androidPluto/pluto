@@ -6,40 +6,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttrEditMode
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
 import com.pluto.utilities.extensions.px2dp
 
-class ViewParser : IParser<View> {
+internal class ViewParser : IParser<View> {
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
         val classAttribute = Attribute("class", view.javaClass.name.toString())
         attributes.add(classAttribute)
         val params: ViewGroup.LayoutParams = view.layoutParams
-        val paramsAttribute = Attribute("LayoutParams", params.javaClass.name)
+        val paramsAttribute = Attribute("layout_params", params.javaClass.name)
         attributes.add(paramsAttribute)
-        val widthAttribute = Attribute("layout_width", formatLayoutParam(params.width, view.width), Attribute.Edit.LAYOUT_WIDTH)
+        val widthAttribute = Attribute("layout_width", formatLayoutParam(params.width, view.width), AttrEditMode.LAYOUT_WIDTH)
         attributes.add(widthAttribute)
-        val heightAttribute = Attribute("layout_height", formatLayoutParam(params.height, view.height), Attribute.Edit.LAYOUT_HEIGHT)
+        val heightAttribute = Attribute("layout_height", formatLayoutParam(params.height, view.height), AttrEditMode.LAYOUT_HEIGHT)
         attributes.add(heightAttribute)
-        val visibilityAttribute = Attribute("visibility", formatVisibility(view.visibility), Attribute.Edit.VISIBILITY)
+        val visibilityAttribute = Attribute("visibility", formatVisibility(view.visibility), AttrEditMode.VISIBILITY)
         attributes.add(visibilityAttribute)
-        val paddingLeftAttribute = Attribute("paddingLeft", "${view.paddingLeft.toFloat().px2dp} dp", Attribute.Edit.PADDING_LEFT)
+        val paddingLeftAttribute = Attribute("padding_left", "${view.paddingLeft.toFloat().px2dp} dp", AttrEditMode.PADDING_LEFT)
         attributes.add(paddingLeftAttribute)
-        val paddingTopAttribute = Attribute("paddingTop", "${view.paddingTop.toFloat().px2dp} dp", Attribute.Edit.PADDING_TOP)
+        val paddingTopAttribute = Attribute("padding_top", "${view.paddingTop.toFloat().px2dp} dp", AttrEditMode.PADDING_TOP)
         attributes.add(paddingTopAttribute)
-        val paddingRightAttribute = Attribute("paddingRight", "${view.paddingRight.toFloat().px2dp} dp", Attribute.Edit.PADDING_RIGHT)
+        val paddingRightAttribute = Attribute("padding_right", "${view.paddingRight.toFloat().px2dp} dp", AttrEditMode.PADDING_RIGHT)
         attributes.add(paddingRightAttribute)
-        val paddingBottomAttribute = Attribute("paddingBottom", "${view.paddingBottom.toFloat().px2dp} dp", Attribute.Edit.PADDING_BOTTOM)
+        val paddingBottomAttribute = Attribute("padding_bottom", "${view.paddingBottom.toFloat().px2dp} dp", AttrEditMode.PADDING_BOTTOM)
         attributes.add(paddingBottomAttribute)
         if (view.layoutParams != null && view.layoutParams is MarginLayoutParams) {
             val marginLayoutParams: MarginLayoutParams = view.layoutParams as MarginLayoutParams
-            val marginLeftAttribute = Attribute("marginLeft", "${marginLayoutParams.leftMargin.toFloat().px2dp} dp", Attribute.Edit.MARGIN_LEFT)
+            val marginLeftAttribute = Attribute("margin_left", "${marginLayoutParams.leftMargin.toFloat().px2dp} dp", AttrEditMode.MARGIN_LEFT)
             attributes.add(marginLeftAttribute)
-            val marginTopAttribute = Attribute("marginTop", "${marginLayoutParams.topMargin.toFloat().px2dp} dp", Attribute.Edit.MARGIN_TOP)
+            val marginTopAttribute = Attribute("margin_top", "${marginLayoutParams.topMargin.toFloat().px2dp} dp", AttrEditMode.MARGIN_TOP)
             attributes.add(marginTopAttribute)
-            val marginRightAttribute = Attribute("marginRight", "${marginLayoutParams.rightMargin.toFloat().px2dp} dp", Attribute.Edit.MARGIN_RIGHT)
+            val marginRightAttribute = Attribute("margin_right", "${marginLayoutParams.rightMargin.toFloat().px2dp} dp", AttrEditMode.MARGIN_RIGHT)
             attributes.add(marginRightAttribute)
-            val marginBottomAttribute = Attribute("marginBottom", "${marginLayoutParams.bottomMargin.toFloat().px2dp} dp", Attribute.Edit.MARGIN_BOTTOM)
+            val marginBottomAttribute = Attribute("margin_bottom", "${marginLayoutParams.bottomMargin.toFloat().px2dp} dp", AttrEditMode.MARGIN_BOTTOM)
             attributes.add(marginBottomAttribute)
         }
         val translationXAttribute = Attribute("translationX", "${view.translationX.px2dp} dp")
@@ -48,9 +49,9 @@ class ViewParser : IParser<View> {
         attributes.add(translationYAttribute)
         val backgroundAttribute = Attribute("background", formatDrawable(view.background))
         attributes.add(backgroundAttribute)
-        val alphaAttribute = Attribute("alpha", view.alpha.toString(), Attribute.Edit.ALPHA)
+        val alphaAttribute = Attribute("alpha", view.alpha.toString(), AttrEditMode.ALPHA)
         attributes.add(alphaAttribute)
-        val tagAttribute = Attribute("tag", view.tag?.toString() ?: "")
+        val tagAttribute = Attribute("tag", view.tag?.toString())
         attributes.add(tagAttribute)
         val enableAttribute = Attribute("enable", view.isEnabled.toString())
         attributes.add(enableAttribute)
@@ -60,7 +61,7 @@ class ViewParser : IParser<View> {
         attributes.add(longClickableAttribute)
         val focusAttribute = Attribute("focusable", view.isFocusable.toString())
         attributes.add(focusAttribute)
-        val contentDescriptionAttribute = Attribute("contentDescription", view.contentDescription?.toString() ?: "")
+        val contentDescriptionAttribute = Attribute("contentDescription", view.contentDescription?.toString())
         attributes.add(contentDescriptionAttribute)
         return attributes
     }

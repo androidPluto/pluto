@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
 
-class ViewGroupParser : IParser<ViewGroup> {
+internal class ViewGroupParser : IParser<ViewGroup> {
 
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()

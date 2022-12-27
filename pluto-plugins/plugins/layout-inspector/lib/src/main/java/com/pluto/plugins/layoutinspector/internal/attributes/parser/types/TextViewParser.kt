@@ -4,21 +4,21 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttrEditMode
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
 import com.pluto.utilities.extensions.px2dp
 
-
-class TextViewParser : IParser<TextView> {
+internal class TextViewParser : IParser<TextView> {
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
         (view as TextView).apply {
-            val textAttribute = Attribute("text", text.toString(), Attribute.Edit.TEXT)
+            val textAttribute = Attribute("text", text.toString(), AttrEditMode.TEXT)
             attributes.add(textAttribute)
-            val textColorAttribute = Attribute("textColor", "#" + intToHex(currentTextColor), Attribute.Edit.TEXT_COLOR)
+            val textColorAttribute = Attribute("textColor", "#" + intToHex(currentTextColor), AttrEditMode.TEXT_COLOR)
             attributes.add(textColorAttribute)
             val textHintColorAttribute = Attribute("textHintColor", "#" + intToHex(currentHintTextColor))
             attributes.add(textHintColorAttribute)
-            val textSizeAttribute = Attribute("textSize", "${textSize.px2dp} dp", Attribute.Edit.TEXT_SIZE)
+            val textSizeAttribute = Attribute("textSize", "${textSize.px2dp} dp", AttrEditMode.TEXT_SIZE)
             attributes.add(textSizeAttribute)
             val gravityAttribute = Attribute("gravity", gravityToStr(gravity))
             attributes.add(gravityAttribute)

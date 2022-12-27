@@ -8,7 +8,7 @@ import com.pluto.plugins.layoutinspector.internal.attributes.parser.types.ViewPa
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class AttrParser {
+internal class AttrParser {
     private val parsers = arrayListOf<IParser<*>>().apply {
         add(ImageViewParser())
         add(TextViewParser())
