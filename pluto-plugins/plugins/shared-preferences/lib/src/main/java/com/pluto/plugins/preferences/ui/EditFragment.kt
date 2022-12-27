@@ -20,8 +20,8 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.utilities.extensions.showKeyboard
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
 class EditFragment : BottomSheetDialogFragment() {

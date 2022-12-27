@@ -37,11 +37,11 @@ import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.showMoreOptions
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.ContentShareViewModel
-import com.pluto.utilities.sharing.ShareAction
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.csv.CSVFormatter
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.ContentShareViewModel
+import com.pluto.utilities.share.ShareAction
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.csv.CSVFormatter
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import java.lang.Exception

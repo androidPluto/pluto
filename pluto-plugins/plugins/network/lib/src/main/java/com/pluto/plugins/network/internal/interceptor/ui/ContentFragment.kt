@@ -15,8 +15,8 @@ import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.showKeyboard
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import kotlinx.parcelize.Parcelize

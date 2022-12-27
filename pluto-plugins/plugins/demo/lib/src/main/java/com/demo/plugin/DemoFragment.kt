@@ -7,8 +7,8 @@ import com.demo.plugin.databinding.DemoFragmentDemoBinding
 import com.pluto.utilities.extensions.showMoreOptions
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
 class DemoFragment : Fragment(R.layout.demo___fragment_demo) {
