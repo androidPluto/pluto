@@ -4,27 +4,28 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttrEditMode
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeTag
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
 import com.pluto.utilities.extensions.px2dp
 
-internal class TextViewParser : IParser<TextView> {
-    override fun getAttrs(view: View): List<Attribute> {
+internal class TextViewParser : IParser<TextView>() {
+
+    override fun getTypeAttributes(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
         (view as TextView).apply {
-            val textAttribute = Attribute("text", text.toString(), AttrEditMode.TEXT)
+            val textAttribute = Attribute("text", text.toString(), parameterizedTypeString, AttributeTag.Text)
             attributes.add(textAttribute)
-            val textColorAttribute = Attribute("text_color", "#" + intToHex(currentTextColor), AttrEditMode.TEXT_COLOR)
+            val textColorAttribute = Attribute("text_color", "#" + intToHex(currentTextColor), parameterizedTypeString, AttributeTag.TextColor)
             attributes.add(textColorAttribute)
-            val textHintColorAttribute = Attribute("text_hint_color", "#" + intToHex(currentHintTextColor))
+            val textHintColorAttribute = Attribute("text_hint_color", "#" + intToHex(currentHintTextColor), parameterizedTypeString)
             attributes.add(textHintColorAttribute)
-            val textSizeAttribute = Attribute("text_size", "${textSize.px2dp} dp", AttrEditMode.TEXT_SIZE)
+            val textSizeAttribute = Attribute("text_size", "${textSize.px2dp} dp", parameterizedTypeString, AttributeTag.TextSize)
             attributes.add(textSizeAttribute)
-            val gravityAttribute = Attribute("gravity", gravityToStr(gravity))
+            val gravityAttribute = Attribute("gravity", gravityToStr(gravity), parameterizedTypeString)
             attributes.add(gravityAttribute)
-            val lineCountAttribute = Attribute("line_count", lineCount.toString())
+            val lineCountAttribute = Attribute("line_count", lineCount.toString(), parameterizedTypeString)
             attributes.add(lineCountAttribute)
-            val lineHeightAttribute = Attribute("line_height", "${lineHeight.toFloat().px2dp} dp")
+            val lineHeightAttribute = Attribute("line_height", "${lineHeight.toFloat().px2dp} dp", parameterizedTypeString)
             attributes.add(lineHeightAttribute)
         }
         return attributes

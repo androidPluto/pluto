@@ -21,8 +21,8 @@ internal class AttributeItemHolder(parent: ViewGroup, actionListener: DiffAwareA
                 KeyValuePairData(
                     key = item.key,
                     value = item.value,
-                    showClickIndicator = item.editMode != null,
-                    onClick = item.editMode?.let {
+                    showClickIndicator = item.tag != null,
+                    onClick = item.tag?.let {
                         { onAction("click") }
                     }
                 )

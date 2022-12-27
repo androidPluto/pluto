@@ -39,8 +39,8 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributeShareable(attrList: ArrayList<ListItem>): String {
         val text = StringBuilder()
         text.append("View Attributes")
-        for(attr in attrList) {
-            when(attr) {
+        for (attr in attrList) {
+            when (attr) {
                 is AttributeTitle -> text.append("\n\n*** attributes from: ${attr.title}")
                 is Attribute -> text.append("\n\t${attr.key}: ${attr.value}")
             }
@@ -51,17 +51,17 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributes(v: View): ArrayList<ListItem> {
         val attrList = arrayListOf<ListItem>()
         v.getIdString()?.let {
-            attrList.add(Attribute("id", it))
+            attrList.add(Attribute("id", it, ""))
         }
-        attrList.add(Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view"))
-        attrList.add(Attribute("view_class", v.javaClass.canonicalName))
+        attrList.add(Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view", ""))
+        attrList.add(Attribute("view_class", v.javaClass.canonicalName, ""))
         val parsedList = parser.parse(v)
         if (parsedList.isNotEmpty()) {
             var category: String? = null
             for (attr in parsedList) {
-                if (category != attr.category) {
-                    category = attr.category
-                    attrList.add(AttributeTitle(attr.category))
+                if (category != attr.parameterizedType) {
+                    category = attr.parameterizedType
+                    attrList.add(AttributeTitle(attr.parameterizedType))
                 }
                 attrList.add(attr)
             }
