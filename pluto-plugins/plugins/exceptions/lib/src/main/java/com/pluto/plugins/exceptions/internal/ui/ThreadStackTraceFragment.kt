@@ -22,8 +22,8 @@ import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.Shareable
-import com.pluto.utilities.sharing.lazyContentSharer
+import com.pluto.utilities.share.Shareable
+import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
 class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread_stack_trace) {

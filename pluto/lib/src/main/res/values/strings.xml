@@ -28,7 +28,6 @@
     <string name="pluto___open_pluto" translatable="false">Open</string>
     <string name="pluto___notch_label" translatable="false">Pluto.</string>
     <string name="pluto___no_plugins" translatable="false">No Plugins installed yet.</string>
-    <string name="pluto___share_as" translatable="false">Share As</string>
     <string name="pluto___plugin_details_name_hint" translatable="false">Plugin Name goes here</string>
     <string name="pluto___plugin_details_version_hint" translatable="false">plugin version goes here</string>
     <string name="pluto___plugin_details_website_hint" translatable="false">plugin website goes here</string>

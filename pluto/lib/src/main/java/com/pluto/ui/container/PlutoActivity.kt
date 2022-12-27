@@ -9,16 +9,16 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Observer
 import com.pluto.Pluto
 import com.pluto.R
-import com.pluto.core.share.ShareFragment
 import com.pluto.databinding.PlutoActivityPlutoBinding
 import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
 import com.pluto.utilities.extensions.toast
-import com.pluto.utilities.sharing.ContentShareViewModel
-import com.pluto.utilities.sharing.ShareAction
-import com.pluto.utilities.sharing.copyToClipboard
-import com.pluto.utilities.sharing.lazyContentSharer
-import com.pluto.utilities.sharing.share
-import com.pluto.utilities.sharing.shareFile
+import com.pluto.utilities.share.ContentShareViewModel
+import com.pluto.utilities.share.ShareAction
+import com.pluto.utilities.share.ShareFragment
+import com.pluto.utilities.share.copyToClipboard
+import com.pluto.utilities.share.lazyContentSharer
+import com.pluto.utilities.share.share
+import com.pluto.utilities.share.shareFile
 
 class PlutoActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.pluto.core.share
+package com.pluto.utilities.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.R
-import com.pluto.databinding.PlutoFragmentShareBinding
+import com.pluto.plugin.R
+import com.pluto.plugin.databinding.PlutoFragmentShareBinding
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.sharing.ContentShareViewModel
-import com.pluto.utilities.sharing.ShareAction
-import com.pluto.utilities.sharing.Shareable
 import com.pluto.utilities.viewBinding
 
-internal class ShareFragment : BottomSheetDialogFragment() {
+class ShareFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentShareBinding::bind)
     private val shareViewModel: ContentShareViewModel by activityViewModels()
