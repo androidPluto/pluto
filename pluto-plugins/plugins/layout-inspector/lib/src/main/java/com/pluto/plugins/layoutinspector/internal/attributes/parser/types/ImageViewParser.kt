@@ -13,7 +13,7 @@ internal class ImageViewParser : IParser<ImageView> {
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
         (view as ImageView).apply {
-            val scaleTypeAttribute = Attribute("scaleType", scaleTypeToStr(scaleType), AttrEditMode.SCALE_TYPE)
+            val scaleTypeAttribute = Attribute("scale_type", scaleTypeToStr(scaleType), AttrEditMode.SCALE_TYPE)
             attributes.add(scaleTypeAttribute)
         }
         return attributes

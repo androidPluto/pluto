@@ -13,8 +13,6 @@ import com.pluto.utilities.extensions.px2dp
 internal class ViewParser : IParser<View> {
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
-        val classAttribute = Attribute("class", view.javaClass.name.toString())
-        attributes.add(classAttribute)
         val params: ViewGroup.LayoutParams = view.layoutParams
         val paramsAttribute = Attribute("layout_params", params.javaClass.name)
         attributes.add(paramsAttribute)
@@ -57,11 +55,11 @@ internal class ViewParser : IParser<View> {
         attributes.add(enableAttribute)
         val clickAttribute = Attribute("clickable", view.isClickable.toString())
         attributes.add(clickAttribute)
-        val longClickableAttribute = Attribute("longClickable", view.isLongClickable.toString())
+        val longClickableAttribute = Attribute("long_clickable", view.isLongClickable.toString())
         attributes.add(longClickableAttribute)
         val focusAttribute = Attribute("focusable", view.isFocusable.toString())
         attributes.add(focusAttribute)
-        val contentDescriptionAttribute = Attribute("contentDescription", view.contentDescription?.toString())
+        val contentDescriptionAttribute = Attribute("content_description", view.contentDescription?.toString())
         attributes.add(contentDescriptionAttribute)
         return attributes
     }

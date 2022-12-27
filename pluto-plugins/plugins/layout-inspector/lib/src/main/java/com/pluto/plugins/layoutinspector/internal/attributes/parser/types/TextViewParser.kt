@@ -14,17 +14,17 @@ internal class TextViewParser : IParser<TextView> {
         (view as TextView).apply {
             val textAttribute = Attribute("text", text.toString(), AttrEditMode.TEXT)
             attributes.add(textAttribute)
-            val textColorAttribute = Attribute("textColor", "#" + intToHex(currentTextColor), AttrEditMode.TEXT_COLOR)
+            val textColorAttribute = Attribute("text_color", "#" + intToHex(currentTextColor), AttrEditMode.TEXT_COLOR)
             attributes.add(textColorAttribute)
-            val textHintColorAttribute = Attribute("textHintColor", "#" + intToHex(currentHintTextColor))
+            val textHintColorAttribute = Attribute("text_hint_color", "#" + intToHex(currentHintTextColor))
             attributes.add(textHintColorAttribute)
-            val textSizeAttribute = Attribute("textSize", "${textSize.px2dp} dp", AttrEditMode.TEXT_SIZE)
+            val textSizeAttribute = Attribute("text_size", "${textSize.px2dp} dp", AttrEditMode.TEXT_SIZE)
             attributes.add(textSizeAttribute)
             val gravityAttribute = Attribute("gravity", gravityToStr(gravity))
             attributes.add(gravityAttribute)
-            val lineCountAttribute = Attribute("lineCount", lineCount.toString())
+            val lineCountAttribute = Attribute("line_count", lineCount.toString())
             attributes.add(lineCountAttribute)
-            val lineHeightAttribute = Attribute("lineHeight", "${lineHeight.toFloat().px2dp} dp")
+            val lineHeightAttribute = Attribute("line_height", "${lineHeight.toFloat().px2dp} dp")
             attributes.add(lineHeightAttribute)
         }
         return attributes

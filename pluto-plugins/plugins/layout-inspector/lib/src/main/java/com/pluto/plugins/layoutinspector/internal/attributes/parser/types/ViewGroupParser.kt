@@ -10,7 +10,7 @@ internal class ViewGroupParser : IParser<ViewGroup> {
     override fun getAttrs(view: View): List<Attribute> {
         val attributes = arrayListOf<Attribute>()
         (view as ViewGroup).apply {
-            val childCountDrawAttribute = Attribute("childCount", childCount.toString())
+            val childCountDrawAttribute = Attribute("child_count", childCount.toString())
             attributes.add(childCountDrawAttribute)
             val willNotDrawAttribute = Attribute("willNotDraw", willNotDraw().toString())
             attributes.add(willNotDrawAttribute)
