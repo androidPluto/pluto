@@ -129,8 +129,8 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (data is Attribute) {
-                context?.toast("frag ${data.key} clicked")
+            if (data is Attribute<*>) {
+                context?.toast("frag ${data.type.title} clicked")
             }
         }
     }

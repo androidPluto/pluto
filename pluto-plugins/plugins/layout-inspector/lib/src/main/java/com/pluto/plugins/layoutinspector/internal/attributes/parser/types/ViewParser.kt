@@ -4,82 +4,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeTag
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.LayoutParamDimens
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatDrawable
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatLayoutParam
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatVisibility
-import com.pluto.utilities.extensions.px2dp
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeDimenDP
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeLayoutParams
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeVisibility
+import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
 
 internal class ViewParser : IParser<View>() {
 
-    override fun getTypeAttributes(view: View): List<Attribute> {
-        val attributes = arrayListOf<Attribute>()
+    override fun getTypeAttributes(view: View): List<Attribute<*>> {
+        val attributes = arrayListOf<Attribute<*>>()
         val params: ViewGroup.LayoutParams = view.layoutParams
-        val paramsAttribute = Attribute("layout_params", params.javaClass.name, parameterizedTypeString)
-        attributes.add(paramsAttribute)
-        val widthAttribute = Attribute("layout_width", formatLayoutParam(params.width, view.width), parameterizedTypeString, AttributeTag.LayoutWidth)
-        attributes.add(widthAttribute)
-        val heightAttribute = Attribute("layout_height", formatLayoutParam(params.height, view.height), parameterizedTypeString, AttributeTag.LayoutHeight)
-        attributes.add(heightAttribute)
-        val visibilityAttribute =
-            Attribute("visibility", formatVisibility(view.visibility), parameterizedTypeString, AttributeTag.Visibility)
-        attributes.add(visibilityAttribute)
-        val paddingLeftAttribute = Attribute(
-            "padding_left", "${view.paddingLeft.px2dp} dp", parameterizedTypeString, AttributeTag.PaddingLeft
-        )
-        attributes.add(paddingLeftAttribute)
-        val paddingTopAttribute = Attribute(
-            "padding_top", "${view.paddingTop.px2dp} dp", parameterizedTypeString, AttributeTag.PaddingTop
-        )
-        attributes.add(paddingTopAttribute)
-        val paddingRightAttribute = Attribute(
-            "padding_right", "${view.paddingRight.px2dp} dp", parameterizedTypeString, AttributeTag.PaddingRight
-        )
-        attributes.add(paddingRightAttribute)
-        val paddingBottomAttribute = Attribute(
-            "padding_bottom", "${view.paddingBottom.px2dp} dp", parameterizedTypeString, AttributeTag.PaddingBottom
-        )
-        attributes.add(paddingBottomAttribute)
+        attributes.add(Attribute(AttributeType("layout_params"), params.javaClass.name, parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeLayoutParams("layout_width", MutableAttributeTag.LayoutWidth), LayoutParamDimens(params.width, view.width), parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeLayoutParams("layout_height", MutableAttributeTag.LayoutHeight), LayoutParamDimens(params.height, view.height), parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeVisibility("visibility"), view.visibility, parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeDimenDP("padding_left", MutableAttributeTag.PaddingLeft), view.paddingLeft.toFloat(), parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeDimenDP("padding_top", MutableAttributeTag.PaddingTop), view.paddingTop.toFloat(), parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeDimenDP("padding_right", MutableAttributeTag.PaddingRight), view.paddingRight.toFloat(), parameterizedTypeString))
+        attributes.add(Attribute(AttributeTypeDimenDP("padding_bottom", MutableAttributeTag.PaddingBottom), view.paddingBottom.toFloat(), parameterizedTypeString))
         if (view.layoutParams != null && view.layoutParams is MarginLayoutParams) {
             val marginLayoutParams: MarginLayoutParams = view.layoutParams as MarginLayoutParams
-            val marginLeftAttribute = Attribute(
-                "margin_left", "${marginLayoutParams.leftMargin.px2dp} dp", parameterizedTypeString, AttributeTag.MarginLeft
-            )
-            attributes.add(marginLeftAttribute)
-            val marginTopAttribute = Attribute(
-                "margin_top", "${marginLayoutParams.topMargin.px2dp} dp", parameterizedTypeString, AttributeTag.MarginTop
-            )
-            attributes.add(marginTopAttribute)
-            val marginRightAttribute = Attribute(
-                "margin_right", "${marginLayoutParams.rightMargin.px2dp} dp", parameterizedTypeString, AttributeTag.MarginRight
-            )
-            attributes.add(marginRightAttribute)
-            val marginBottomAttribute = Attribute(
-                "margin_bottom", "${marginLayoutParams.bottomMargin.px2dp} dp", parameterizedTypeString, AttributeTag.MarginBottom
-            )
-            attributes.add(marginBottomAttribute)
+            attributes.add(Attribute(AttributeTypeDimenDP("margin_left", MutableAttributeTag.MarginLeft), marginLayoutParams.leftMargin.toFloat(), parameterizedTypeString))
+            attributes.add(Attribute(AttributeTypeDimenDP("margin_top", MutableAttributeTag.MarginTop), marginLayoutParams.topMargin.toFloat(), parameterizedTypeString))
+            attributes.add(Attribute(AttributeTypeDimenDP("margin_right", MutableAttributeTag.MarginRight), marginLayoutParams.rightMargin.toFloat(), parameterizedTypeString))
+            attributes.add(Attribute(AttributeTypeDimenDP("margin_bottom", MutableAttributeTag.MarginBottom), marginLayoutParams.bottomMargin.toFloat(), parameterizedTypeString))
         }
-        val translationXAttribute = Attribute("translationX", "${view.translationX.px2dp} dp", parameterizedTypeString)
-        attributes.add(translationXAttribute)
-        val translationYAttribute = Attribute("translationY", "${view.translationY.px2dp} dp", parameterizedTypeString)
-        attributes.add(translationYAttribute)
-        val backgroundAttribute = Attribute("background", formatDrawable(view.background), parameterizedTypeString)
-        attributes.add(backgroundAttribute)
-        val alphaAttribute = Attribute("alpha", view.alpha.toString(), parameterizedTypeString, AttributeTag.Alpha)
-        attributes.add(alphaAttribute)
-        val tagAttribute = Attribute("tag", view.tag?.toString(), parameterizedTypeString)
-        attributes.add(tagAttribute)
-        val enableAttribute = Attribute("enable", view.isEnabled.toString(), parameterizedTypeString)
-        attributes.add(enableAttribute)
-        val clickAttribute = Attribute("clickable", view.isClickable.toString(), parameterizedTypeString)
-        attributes.add(clickAttribute)
-        val longClickableAttribute = Attribute("long_clickable", view.isLongClickable.toString(), parameterizedTypeString)
-        attributes.add(longClickableAttribute)
-        val focusAttribute = Attribute("focusable", view.isFocusable.toString(), parameterizedTypeString)
-        attributes.add(focusAttribute)
-        val contentDescriptionAttribute = Attribute("content_dscrptn", view.contentDescription?.toString(), parameterizedTypeString)
-        attributes.add(contentDescriptionAttribute)
+        attributes.add(Attribute(AttributeType("translationX"), view.translationX, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("translationY"), view.translationY, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("background"), formatDrawable(view.background), parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("alpha", MutableAttributeTag.Alpha), view.alpha, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("tag"), view.tag?.toString(), parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("enabled"), view.isEnabled, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("clickable"), view.isClickable, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("long_clickable"), view.isLongClickable, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("focusable"), view.isFocusable, parameterizedTypeString))
+        attributes.add(Attribute(AttributeType("content_dscrptn"), view.contentDescription, parameterizedTypeString))
         return attributes
     }
 }

@@ -9,14 +9,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttrParser
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.launch
 
 internal class ViewAttrViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val parser = AttrParser()
+    private val parser = AttributeParser()
 
     val list: LiveData<ArrayList<ListItem>>
         get() = _list
@@ -42,7 +43,7 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
         for (attr in attrList) {
             when (attr) {
                 is AttributeTitle -> text.append("\n\n*** attributes from: ${attr.title}")
-                is Attribute -> text.append("\n\t${attr.key}: ${attr.value}")
+                is Attribute<*> -> text.append("\n\t${attr.type.title}: ${attr.value}")
             }
         }
         return text.toString()
@@ -51,10 +52,10 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributes(v: View): ArrayList<ListItem> {
         val attrList = arrayListOf<ListItem>()
         v.getIdString()?.let {
-            attrList.add(Attribute("id", it, ""))
+            attrList.add(Attribute(AttributeType("id"), it, ""))
         }
-        attrList.add(Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view", ""))
-        attrList.add(Attribute("view_class", v.javaClass.canonicalName, ""))
+        attrList.add(Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view", ""))
+        attrList.add(Attribute(AttributeType("view_class"), v.javaClass.canonicalName, ""))
         val parsedList = parser.parse(v)
         if (parsedList.isNotEmpty()) {
             var category: String? = null

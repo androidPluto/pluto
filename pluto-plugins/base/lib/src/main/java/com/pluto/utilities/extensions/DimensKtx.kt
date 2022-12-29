@@ -28,16 +28,10 @@ val Float.px2dp: Float
         return this / scale
     }
 
-val Int.dp2px: Int
+val Float.px2sp: Float
     get() {
-        val scale = Resources.getSystem().displayMetrics.density
-        return (this * scale + +0.5f).toInt()
-    }
-
-val Int.px2dp: Int
-    get() {
-        val scale = Resources.getSystem().displayMetrics.density
-        return (this / scale + 0.5f).toInt()
+        val scale = Resources.getSystem().displayMetrics.scaledDensity
+        return this / scale
     }
 
 val Int.twoDigit: String

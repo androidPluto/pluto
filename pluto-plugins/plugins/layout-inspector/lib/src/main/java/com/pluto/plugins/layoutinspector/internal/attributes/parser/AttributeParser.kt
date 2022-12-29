@@ -6,7 +6,7 @@ import com.pluto.plugins.layoutinspector.internal.attributes.parser.types.TextVi
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.types.ViewGroupParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.types.ViewParser
 
-internal class AttrParser {
+internal class AttributeParser {
     private val parsers = arrayListOf<IParser<*>>().apply {
         add(ImageViewParser())
         add(TextViewParser())
@@ -14,12 +14,10 @@ internal class AttrParser {
         add(ViewParser())
     }
 
-    fun parse(v: View): List<Attribute> {
-        val attributes: MutableList<Attribute> = ArrayList()
+    fun parse(view: View): List<Attribute<*>> {
+        val attributes = arrayListOf<Attribute<*>>()
         for (parser in parsers) {
-            parser.getAttributes(v)?.let {
-                attributes.addAll(it)
-            }
+            parser.getAttributes(view)?.let { attributes.addAll(it) }
         }
         return attributes
     }

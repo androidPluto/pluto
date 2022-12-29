@@ -19,12 +19,12 @@ internal abstract class IParser<T : View> {
         return false
     }
 
-    fun getAttributes(view: View): List<Attribute>? = try {
+    fun getAttributes(view: View): List<Attribute<*>>? = try {
         if (isValidType(view.javaClass)) getTypeAttributes(view) else null
     } catch (t: Throwable) {
         t.printStackTrace()
         null
     }
 
-    protected abstract fun getTypeAttributes(view: View): List<Attribute>
+    protected abstract fun getTypeAttributes(view: View): List<Attribute<*>>
 }

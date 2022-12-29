@@ -9,7 +9,7 @@ import com.pluto.utilities.list.ListItem
 internal class AttributeAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
         return when (item) {
-            is Attribute -> ITEM_TYPE_ATTRIBUTE
+            is Attribute<*> -> ITEM_TYPE_ATTRIBUTE
             is AttributeTitle -> ITEM_TYPE_TITLE
             else -> null
         }

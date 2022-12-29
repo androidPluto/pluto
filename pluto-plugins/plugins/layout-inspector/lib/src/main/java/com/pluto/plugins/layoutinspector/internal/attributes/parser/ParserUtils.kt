@@ -10,9 +10,9 @@ import com.pluto.utilities.extensions.px2dp
 
 internal class ParserUtils private constructor() {
     companion object {
-        fun formatLayoutParam(layoutParam: Int, size: Int): String {
-            val dp = "${size.px2dp} dp"
-            return when (layoutParam) {
+        fun formatLayoutParam(layoutParamDimen: LayoutParamDimens): String {
+            val dp = "${layoutParamDimen.size.toFloat().px2dp.toInt()} dp"
+            return when (layoutParamDimen.layoutParam) {
                 ViewGroup.LayoutParams.WRAP_CONTENT -> "wrap_content ($dp)"
                 ViewGroup.LayoutParams.MATCH_PARENT -> "match_parent ($dp)"
                 else -> dp
