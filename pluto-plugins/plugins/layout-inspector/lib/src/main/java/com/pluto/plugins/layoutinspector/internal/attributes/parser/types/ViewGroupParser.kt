@@ -11,8 +11,8 @@ internal class ViewGroupParser : IParser<ViewGroup>() {
     override fun getTypeAttributes(view: View): List<Attribute<*>> {
         val attributes = arrayListOf<Attribute<*>>()
         (view as ViewGroup).apply {
-            attributes.add(Attribute((AttributeType("child_count")), childCount, parameterizedTypeString))
-            attributes.add(Attribute(AttributeType("will_not_draw"), willNotDraw(), parameterizedTypeString))
+            attributes.add(Attribute((AttributeType("child_count")), childCount))
+            attributes.add(Attribute(AttributeType("will_not_draw"), willNotDraw()))
         }
         return attributes
     }

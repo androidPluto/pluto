@@ -3,7 +3,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes.parser
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.utilities.list.ListItem
 
-internal data class Attribute<T>(val type: AttributeType<T>, val value: T, val parameterizedType: String) : ListItem() {
+internal data class Attribute<T>(val type: AttributeType<T>, val value: T) : ListItem() {
     val valueString: CharSequence? = type.serialise(value)
 }
 

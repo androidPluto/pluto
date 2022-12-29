@@ -14,10 +14,13 @@ internal class AttributeParser {
         add(ViewParser())
     }
 
-    fun parse(view: View): List<Attribute<*>> {
-        val attributes = arrayListOf<Attribute<*>>()
+    fun parse(view: View): List<ParsedAttribute> {
+        val attributes = arrayListOf<ParsedAttribute>()
         for (parser in parsers) {
-            parser.getAttributes(view)?.let { attributes.addAll(it) }
+            val attributeList = parser.getAttributes(view)
+            if(!attributeList.isNullOrEmpty()) {
+                attributes.add(ParsedAttribute(parser.parameterizedType, attributeList))
+            }
         }
         return attributes
     }

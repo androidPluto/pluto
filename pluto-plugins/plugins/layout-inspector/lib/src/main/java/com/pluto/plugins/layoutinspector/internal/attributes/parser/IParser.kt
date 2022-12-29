@@ -5,13 +5,13 @@ import java.lang.reflect.ParameterizedType
 
 internal abstract class IParser<T : View> {
 
-    private val parameterizedType = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<*>
-    protected val parameterizedTypeString: String = parameterizedType.toString().replace("class", "", true).trim()
+    private val parameterizedTypeClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<*>
+    val parameterizedType: String = parameterizedTypeClass.toString().replace("class", "", true).trim()
 
     private fun isValidType(viewClazz: Class<*>): Boolean {
         var clazz: Class<*>? = viewClazz
         do {
-            if (parameterizedType === clazz) {
+            if (parameterizedTypeClass === clazz) {
                 return true
             }
             clazz = clazz!!.superclass

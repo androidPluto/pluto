@@ -11,7 +11,7 @@ internal class ImageViewParser : IParser<ImageView>() {
     override fun getTypeAttributes(view: View): List<Attribute<*>> {
         val attributes = arrayListOf<Attribute<*>>()
         (view as ImageView).apply {
-            attributes.add(Attribute(AttributeTypeScaleType("scale_type"), scaleType, parameterizedTypeString))
+            attributes.add(Attribute(AttributeTypeScaleType("scale_type"), scaleType))
         }
         return attributes
     }

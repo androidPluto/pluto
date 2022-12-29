@@ -52,19 +52,15 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributes(v: View): ArrayList<ListItem> {
         val attrList = arrayListOf<ListItem>()
         v.getIdString()?.let {
-            attrList.add(Attribute(AttributeType("id"), it, ""))
+            attrList.add(Attribute(AttributeType("id"), it))
         }
-        attrList.add(Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view", ""))
-        attrList.add(Attribute(AttributeType("view_class"), v.javaClass.canonicalName, ""))
+        attrList.add(Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view"))
+        attrList.add(Attribute(AttributeType("view_class"), v.javaClass.canonicalName))
         val parsedList = parser.parse(v)
         if (parsedList.isNotEmpty()) {
-            var category: String? = null
             for (attr in parsedList) {
-                if (category != attr.parameterizedType) {
-                    category = attr.parameterizedType
-                    attrList.add(AttributeTitle(attr.parameterizedType))
-                }
-                attrList.add(attr)
+                attrList.add(AttributeTitle(attr.parameterizedType))
+                attrList.addAll(attr.attributes)
             }
         }
         return attrList
