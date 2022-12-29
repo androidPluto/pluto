@@ -56,8 +56,11 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
         v.getIdString()?.let {
             attrList.add(Attribute(AttributeTypeCharSequence("id", MutableAttributeTag.Immutable), it))
         }
-        attrList.add(Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view"))
-        attrList.add(Attribute(AttributeType("view_class"), v.javaClass.canonicalName))
+        val tempAttrList = arrayListOf<Attribute<*>>(
+            Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view"),
+            Attribute(AttributeType("view_class"), v.javaClass.canonicalName)
+        )
+        attrList.addAll(tempAttrList.sortedBy { it.type.title })
         val parsedList = parser.parse(v)
         if (parsedList.isNotEmpty()) {
             for (attr in parsedList) {

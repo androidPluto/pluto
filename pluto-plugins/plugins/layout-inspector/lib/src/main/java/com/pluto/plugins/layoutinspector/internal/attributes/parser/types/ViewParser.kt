@@ -18,7 +18,7 @@ internal class ViewParser : IParser<View>() {
     override fun getTypeAttributes(view: View): List<Attribute<*>> {
         val attributes = arrayListOf<Attribute<*>>()
         val params: ViewGroup.LayoutParams = view.layoutParams
-        attributes.add(Attribute(AttributeType("layout_params"), params.javaClass.name))
+        attributes.add(Attribute(AttributeType("layoutParams"), params.javaClass.name))
         attributes.add(Attribute(AttributeTypeLayoutParams("layout_width", MutableAttributeTag.LayoutWidth), LayoutParamDimens(params.width, view.width)))
         attributes.add(Attribute(AttributeTypeLayoutParams("layout_height", MutableAttributeTag.LayoutHeight), LayoutParamDimens(params.height, view.height)))
         attributes.add(Attribute(AttributeTypeVisibility("visibility"), view.visibility))
