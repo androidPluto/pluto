@@ -8,47 +8,15 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.GravityInt
 import com.pluto.plugin.R
+import com.pluto.utilities.extensions.ViewIdInfo
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.getIdInfo
 import com.pluto.utilities.spannable.createSpan
 import java.lang.reflect.Field
 
 object ViewUtils {
-
-    // see View.java
-    // generateViewId(), isViewIdGenerated()
-    private fun isViewIdGenerated(id: Int): Boolean {
-        return id and -0x1000000 == 0 && id and 0x00FFFFFF != 0
-    }
-
-    fun formatGravity(value: String): Int {
-        val start = if (value.contains("start")) Gravity.START else 0
-        val top = if (value.contains("top")) Gravity.TOP else 0
-        val end = if (value.contains("end")) Gravity.END else 0
-        val bottom = if (value.contains("bottom")) Gravity.BOTTOM else 0
-        return start or top or end or bottom
-    }
-
-    fun parseGravity(value: Int): String {
-        val start = if (existGravity(value, Gravity.START)) "start" else null
-        val top = if (existGravity(value, Gravity.TOP)) "top" else null
-        val end = if (existGravity(value, Gravity.END)) "end" else null
-        val bottom = if (existGravity(value, Gravity.BOTTOM)) "bottom" else null
-        val sb = StringBuilder()
-        sb.append(if (!TextUtils.isEmpty(start)) "$start|" else "")
-        sb.append(if (!TextUtils.isEmpty(top)) "$top|" else "")
-        sb.append(if (!TextUtils.isEmpty(end)) "$end|" else "")
-        sb.append(if (!TextUtils.isEmpty(bottom)) "$bottom|" else "")
-        var result = sb.toString()
-        if (result.endsWith("|")) {
-            result = result.substring(0, result.lastIndexOf("|"))
-        }
-        return result
-    }
-
-    private fun existGravity(value: Int, attr: Int): Boolean {
-        return value and attr == attr
-    }
 
     fun tryGetTheFrontView(targetActivity: Activity): View {
         try {
@@ -111,30 +79,21 @@ object ViewUtils {
     }
 
     fun View.getIdString(): CharSequence? {
-        val resources = this.resources
-        return if (id != View.NO_ID && !isViewIdGenerated(id)) {
+        return getIdInfo()?.let {
             context?.createSpan {
                 try {
-                    val pkgName: String = when (id and -0x1000000) {
-                        0x7f000000 -> "app"
-                        0x01000000 -> "android"
-                        else -> resources.getResourcePackageName(id)
-                    }
-                    val typename: String = resources.getResourceTypeName(id)
-                    val entryName: String = resources.getResourceEntryName(id)
-
-                    append(semiBold(fontColor(pkgName, context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor(it.packageName, context.color(R.color.pluto___text_dark_60))))
                     append(semiBold(fontColor(":", context.color(R.color.pluto___text_dark_60))))
-                    append(semiBold(fontColor(typename, context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor(it.typeName, context.color(R.color.pluto___text_dark_60))))
                     append(semiBold(fontColor("/", context.color(R.color.pluto___text_dark_60))))
-                    append(semiBold(fontColor(entryName, context.color(R.color.pluto___text_dark_80))))
+                    append(semiBold(fontColor(it.entryName, context.color(R.color.pluto___text_dark_80))))
                 } catch (e: Resources.NotFoundException) {
                     append(semiBold(fontColor(Integer.toHexString(id), context.color(R.color.pluto___text_dark_80))))
                 }
             } ?: run {
                 null
             }
-        } else {
+        } ?: run {
             null
         }
     }

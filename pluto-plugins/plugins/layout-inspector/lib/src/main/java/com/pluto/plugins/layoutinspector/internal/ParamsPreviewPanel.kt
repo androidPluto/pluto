@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiParamsPreviewPanelBinding
 import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 
 internal class ParamsPreviewPanel : ConstraintLayout {
 
@@ -19,7 +22,13 @@ internal class ParamsPreviewPanel : ConstraintLayout {
     constructor(context: Context) : super(context, null, 0)
 
     fun refresh(view: View, listener: (String) -> Unit) {
-        binding.viewId.text = view.getIdString()
+        binding.viewId.setSpan {
+            view.getIdString()?.let {
+                append(it)
+            } ?: run {
+                append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40)))))
+            }
+        }
         binding.viewType.text = if (view is ViewGroup) "viewGroup" else "view"
         binding.viewClass.text = view.javaClass.canonicalName
         binding.viewDimens.text = "${view.width} x ${view.height} dp"

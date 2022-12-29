@@ -13,6 +13,10 @@ internal open class AttributeType<in T>(val title: String, val tag: MutableAttri
     open fun serialise(value: T): CharSequence? = value?.toString() ?: null //do not remove null check
 }
 
+internal class AttributeTypeCharSequence(title: String, mutableTag: MutableAttributeTag) : AttributeType<CharSequence?>(title, mutableTag) {
+    override fun serialise(value: CharSequence?): CharSequence? = value
+}
+
 internal class AttributeTypeScaleType(title: String) : AttributeType<ImageView.ScaleType>(title, MutableAttributeTag.ScaleType) {
     override fun serialise(value: ImageView.ScaleType): CharSequence? = value.name
 }

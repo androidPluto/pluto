@@ -94,7 +94,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
                 target.getIdString()?.let {
                     append(regular(fontSize(it, 12)))
                 } ?: run {
-                    append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_60)))))
+                    append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40)))))
                 }
             }
             binding.attrList.apply {

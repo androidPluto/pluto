@@ -12,6 +12,8 @@ import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeCharSequence
+import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.launch
 
@@ -52,7 +54,7 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributes(v: View): ArrayList<ListItem> {
         val attrList = arrayListOf<ListItem>()
         v.getIdString()?.let {
-            attrList.add(Attribute(AttributeType("id"), it))
+            attrList.add(Attribute(AttributeTypeCharSequence("id", MutableAttributeTag.Immutable), it))
         }
         attrList.add(Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view"))
         attrList.add(Attribute(AttributeType("view_class"), v.javaClass.canonicalName))
