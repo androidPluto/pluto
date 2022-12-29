@@ -13,27 +13,6 @@ internal open class AttributeType<in T>(val title: String, val tag: MutableAttri
     open fun serialise(value: T): CharSequence? = value?.toString() ?: null //do not remove null check
 }
 
-sealed class MutableAttributeTag {
-    object Immutable : MutableAttributeTag()
-    object LayoutWidth : MutableAttributeTag()
-    object LayoutHeight : MutableAttributeTag()
-    object Visibility : MutableAttributeTag()
-    object PaddingLeft : MutableAttributeTag()
-    object PaddingRight : MutableAttributeTag()
-    object PaddingTop : MutableAttributeTag()
-    object PaddingBottom : MutableAttributeTag()
-    object MarginLeft : MutableAttributeTag()
-    object MarginRight : MutableAttributeTag()
-    object MarginTop : MutableAttributeTag()
-    object MarginBottom : MutableAttributeTag()
-    object Alpha : MutableAttributeTag()
-    object LineHeight : MutableAttributeTag()
-    object TextSize : MutableAttributeTag()
-    object TextColor : MutableAttributeTag()
-    object Text : MutableAttributeTag()
-    object ScaleType : MutableAttributeTag()
-}
-
 internal class AttributeTypeScaleType(title: String) : AttributeType<ImageView.ScaleType>(title, MutableAttributeTag.ScaleType) {
     override fun serialise(value: ImageView.ScaleType): CharSequence? = value.name
 }
