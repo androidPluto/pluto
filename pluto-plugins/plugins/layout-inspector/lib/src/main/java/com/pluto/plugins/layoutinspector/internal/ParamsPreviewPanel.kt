@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiParamsPreviewPanelBinding
-import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
+import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan

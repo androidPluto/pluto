@@ -6,7 +6,7 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
-import com.pluto.plugins.layoutinspector.internal.Element
+import com.pluto.plugins.layoutinspector.internal.inspect.Element
 import com.pluto.utilities.extensions.dp2px
 
 internal class SelectCanvas(private val view: View) {

@@ -7,13 +7,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeCharSequence
 import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
+import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.launch
 

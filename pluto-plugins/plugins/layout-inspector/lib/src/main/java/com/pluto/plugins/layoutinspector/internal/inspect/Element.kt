@@ -1,4 +1,4 @@
-package com.pluto.plugins.layoutinspector.internal
+package com.pluto.plugins.layoutinspector.internal.inspect
 
 import android.graphics.Rect
 import android.view.View

@@ -10,7 +10,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
-import com.pluto.plugins.layoutinspector.internal.Element
+import com.pluto.plugins.layoutinspector.internal.inspect.Element
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 

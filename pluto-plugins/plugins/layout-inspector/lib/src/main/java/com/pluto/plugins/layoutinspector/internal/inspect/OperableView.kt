@@ -1,4 +1,4 @@
-package com.pluto.plugins.layoutinspector.internal
+package com.pluto.plugins.layoutinspector.internal.inspect
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -11,6 +11,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.Toast
+import com.pluto.plugins.layoutinspector.internal.CoordinatePair
+import com.pluto.plugins.layoutinspector.internal.OperableViewState
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.RelativeCanvas

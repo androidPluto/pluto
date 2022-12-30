@@ -13,10 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
-import com.pluto.plugins.layoutinspector.internal.ViewUtils
-import com.pluto.plugins.layoutinspector.internal.ViewUtils.getIdString
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
+import com.pluto.plugins.layoutinspector.internal.inspect.tryGetTheFrontView
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.toast
@@ -54,7 +54,7 @@ class ViewAttrFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityLifecycle.topActivity?.let {
-            findViewByDefaultTag(ViewUtils.tryGetTheFrontView(it))?.let { view ->
+            findViewByDefaultTag(it.tryGetTheFrontView())?.let { view ->
                 targetView = view
             } ?: run {
                 targetView?.setTag(R.id.pluto_li___unique_view_tag, null)

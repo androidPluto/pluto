@@ -1,4 +1,4 @@
-package com.pluto.plugins.layoutinspector.internal
+package com.pluto.plugins.layoutinspector.internal.inspect
 
 import android.app.Activity
 import android.content.Context
@@ -7,9 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 
-/**
- * https://github.com/eleme/UETool/
- */
 internal open class ElementHoldView : View {
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
@@ -86,7 +83,7 @@ internal open class ElementHoldView : View {
     }
 
     fun tryGetFrontView(targetActivity: Activity) {
-        traverse(ViewUtils.tryGetTheFrontView(targetActivity))
+        traverse(targetActivity.tryGetTheFrontView())
     }
 
     companion object {
