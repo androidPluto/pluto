@@ -12,7 +12,7 @@ import com.pluto.utilities.extensions.getIdInfo
 import com.pluto.utilities.spannable.createSpan
 import java.lang.reflect.Field
 
-fun Activity.tryGetTheFrontView(): View {
+internal fun Activity.tryGetTheFrontView(): View {
     try {
         val mGlobalField: Field = Reflect28Util.getDeclaredField(Reflect28Util.forName("android.view.WindowManagerImpl"), "mGlobal")
         mGlobalField.isAccessible = true
@@ -70,7 +70,7 @@ private fun Activity.getTargetDecorView(decorView: View): View? {
     return targetView
 }
 
-fun View.getIdString(): CharSequence? {
+internal fun View.getIdString(): CharSequence? {
     try {
         return getIdInfo()?.let {
             context?.createSpan {

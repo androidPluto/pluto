@@ -22,4 +22,4 @@ internal class AttributeTitleItemHolder(parent: ViewGroup, actionListener: DiffA
 }
 
 @Keep
-data class AttributeTitle(val title: String?) : ListItem()
+internal data class AttributeTitle(val title: String?) : ListItem()

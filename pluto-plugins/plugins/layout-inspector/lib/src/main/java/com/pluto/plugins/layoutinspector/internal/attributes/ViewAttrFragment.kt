@@ -31,7 +31,7 @@ import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 
-class ViewAttrFragment : BottomSheetDialogFragment() {
+internal class ViewAttrFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoLiFragmentViewAttrBinding::bind)
     private val contentSharer: ContentShareViewModel by lazyContentSharer()

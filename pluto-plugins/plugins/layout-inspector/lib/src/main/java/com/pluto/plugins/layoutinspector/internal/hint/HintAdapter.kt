@@ -25,6 +25,6 @@ internal class HintAdapter : BaseAdapter() {
     }
 }
 
-data class HintItem(
+internal data class HintItem(
     val text: String
 ) : ListItem()

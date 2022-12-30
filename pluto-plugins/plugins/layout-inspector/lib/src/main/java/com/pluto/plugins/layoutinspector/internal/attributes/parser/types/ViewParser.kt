@@ -9,7 +9,6 @@ import com.pluto.plugins.layoutinspector.internal.attributes.parser.LayoutParamD
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatDrawable
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeDimenDP
-import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeLayoutParams
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeVisibility
 import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
 
@@ -19,8 +18,8 @@ internal class ViewParser : IParser<View>() {
         val attributes = arrayListOf<Attribute<*>>()
         val params: ViewGroup.LayoutParams = view.layoutParams
         attributes.add(Attribute(AttributeType("layoutParams"), params.javaClass.name))
-        attributes.add(Attribute(AttributeTypeLayoutParams("layout_width", MutableAttributeTag.LayoutWidth), LayoutParamDimens(params.width, view.width)))
-        attributes.add(Attribute(AttributeTypeLayoutParams("layout_height", MutableAttributeTag.LayoutHeight), LayoutParamDimens(params.height, view.height)))
+        attributes.add(Attribute(AttributeType("layout_width", MutableAttributeTag.LayoutWidth), LayoutParamDimens(params.width, view.width)))
+        attributes.add(Attribute(AttributeType("layout_height", MutableAttributeTag.LayoutHeight), LayoutParamDimens(params.height, view.height)))
         attributes.add(Attribute(AttributeTypeVisibility("visibility"), view.visibility))
         attributes.add(Attribute(AttributeTypeDimenDP("padding_left", MutableAttributeTag.PaddingLeft), view.paddingLeft.toFloat()))
         attributes.add(Attribute(AttributeTypeDimenDP("padding_top", MutableAttributeTag.PaddingTop), view.paddingTop.toFloat()))

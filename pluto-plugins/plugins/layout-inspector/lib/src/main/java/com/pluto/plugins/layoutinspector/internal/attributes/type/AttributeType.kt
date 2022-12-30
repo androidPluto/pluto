@@ -40,7 +40,3 @@ internal class AttributeTypeGravity(title: String) : AttributeType<Int>(title) {
 internal class AttributeTypeVisibility(title: String) : AttributeType<Int>(title, MutableAttributeTag.Visibility) {
     override fun serialise(value: Int): CharSequence? = formatVisibility(value)
 }
-
-internal class AttributeTypeLayoutParams(title: String, mutableTag: MutableAttributeTag) : AttributeType<LayoutParamDimens>(title, mutableTag) {
-    override fun serialise(value: LayoutParamDimens): CharSequence? = formatLayoutParam(value)
-}
