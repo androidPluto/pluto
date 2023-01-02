@@ -4,20 +4,10 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.GravityInt
-import com.pluto.utilities.extensions.px2dp
 
 internal class ParserUtils private constructor() {
     companion object {
-        fun formatLayoutParam(layoutParamDimen: LayoutParamDimens): String {
-            val dp = "${layoutParamDimen.size.toFloat().px2dp.toInt()} dp"
-            return when (layoutParamDimen.layoutParam) {
-                ViewGroup.LayoutParams.WRAP_CONTENT -> "wrap_content ($dp)"
-                ViewGroup.LayoutParams.MATCH_PARENT -> "match_parent ($dp)"
-                else -> dp
-            }
-        }
 
         fun formatVisibility(value: Int): String = when (value) {
             View.VISIBLE -> "VISIBLE"
@@ -26,16 +16,18 @@ internal class ParserUtils private constructor() {
             else -> "NOT SET"
         }
 
-        fun formatDrawable(drawable: Drawable?): String? = drawable?.let {
-            when (it) {
-                is ColorDrawable -> formatColor(it.color)
-                else -> it.toString()
+        fun Drawable?.toString(): String? {
+            return this?.let {
+                when (it) {
+                    is ColorDrawable -> formatColor(it.color)
+                    else -> it.toString()
+                }
+            } ?: run {
+                null
             }
-        } ?: run {
-            null
         }
 
-        fun formatColor(value: Int): String = Integer.toHexString(value).uppercase()
+        fun formatColor(value: Int): String = "#${Integer.toHexString(value).uppercase()}"
 
         fun formatGravity(@GravityInt gravity: Int): String = when (gravity) {
             Gravity.NO_GRAVITY -> "NO_GRAVITY"

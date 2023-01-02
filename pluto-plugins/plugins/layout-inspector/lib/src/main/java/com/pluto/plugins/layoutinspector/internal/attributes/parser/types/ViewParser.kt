@@ -6,7 +6,6 @@ import android.view.ViewGroup.MarginLayoutParams
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.IParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.LayoutParamDimens
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatDrawable
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeDimenDP
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeVisibility
@@ -34,7 +33,7 @@ internal class ViewParser : IParser<View>() {
         }
         attributes.add(Attribute(AttributeType("translationX"), view.translationX))
         attributes.add(Attribute(AttributeType("translationY"), view.translationY))
-        attributes.add(Attribute(AttributeType("background"), formatDrawable(view.background)))
+        attributes.add(Attribute(AttributeType("background"), view.background.toString()))
         attributes.add(Attribute(AttributeType("alpha", MutableAttributeTag.Alpha), view.alpha))
         attributes.add(Attribute(AttributeType("tag"), view.tag?.toString()))
         attributes.add(Attribute(AttributeType("enabled"), view.isEnabled))

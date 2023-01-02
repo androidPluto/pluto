@@ -1,10 +1,8 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.type
 
 import android.widget.ImageView
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.LayoutParamDimens
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatGravity
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatLayoutParam
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.ParserUtils.Companion.formatVisibility
 import com.pluto.utilities.extensions.px2dp
 import com.pluto.utilities.extensions.px2sp
@@ -22,7 +20,7 @@ internal class AttributeTypeScaleType(title: String) : AttributeType<ImageView.S
 }
 
 internal class AttributeTypeColor(title: String, mutableTag: MutableAttributeTag) : AttributeType<Int>(title, mutableTag) {
-    override fun serialise(value: Int): CharSequence? = "#" + ParserUtils.formatColor(value)
+    override fun serialise(value: Int): CharSequence? = ParserUtils.formatColor(value)
 }
 
 internal class AttributeTypeDimenSP(title: String, mutableTag: MutableAttributeTag) : AttributeType<Float>(title, mutableTag) {
