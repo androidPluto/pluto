@@ -18,7 +18,8 @@ class SupportedPlugins private constructor() {
                 FunctionsModel(LOGGER, "Logger"),
                 FunctionsModel(SHARED_PREF, "Shared Preferences"),
                 FunctionsModel(ROOMS_DATABASE, "Rooms Database"),
-                FunctionsModel(DATASTORE_PREF, "Datastore Preferences")
+                FunctionsModel(DATASTORE_PREF, "Datastore Preferences"),
+                FunctionsModel(LAYOUT_INSPECTOR, "Layout Inspector")
             )
         }
 
