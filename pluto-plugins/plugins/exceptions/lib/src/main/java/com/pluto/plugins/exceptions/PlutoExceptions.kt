@@ -11,16 +11,10 @@ object PlutoExceptions {
 
     private var crashHandler: CrashHandler? = null
     private var anrHandler: AnrSupervisor? = null
-    lateinit var devIdentifier: String
+    internal lateinit var devIdentifier: String
         private set
     internal val session = Session()
     internal lateinit var appPackageName: String
-
-    /**
-     * The threshold for main thread response
-     * time before resulting in ANR.
-     */
-    var mainThreadResponseThreshold = DEFAULT_MAIN_THREAD_RESPONSE_THRESHOLD
 
     internal fun initialize(context: Context, identifier: String) {
         appPackageName = context.packageName
@@ -29,6 +23,12 @@ object PlutoExceptions {
         devIdentifier = identifier
         Thread.setDefaultUncaughtExceptionHandler(crashHandler)
     }
+
+    /**
+     * The threshold for main thread response
+     * time before resulting in ANR.
+     */
+    var mainThreadResponseThreshold = DEFAULT_MAIN_THREAD_RESPONSE_THRESHOLD
 
     fun setExceptionHandler(uncaughtExceptionHandler: Thread.UncaughtExceptionHandler) {
         this.crashHandler?.let {
