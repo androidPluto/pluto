@@ -61,8 +61,8 @@ dependencies {
      * no-op dependencies
      */
 //    implementation project(path: ':pluto:lib-no-op')
-//    implementation project(path: ':plugins:demo:lib-no-op')
-//    implementation project(path: ':plugin-bundle:core:lib-no-op')
+//    implementation project(path: ':pluto-plugins:plugins:demo:lib-no-op')
+//    implementation project(path: ':pluto-plugins:bundles:core:lib-no-op')
 //    implementation project(path: ':plugins:exceptions:lib-no-op')
 //    implementation project(path: ':plugins:logger:lib-no-op')
 //    implementation project(path: ':plugins:network:lib-no-op')
