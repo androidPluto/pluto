@@ -4,4 +4,8 @@
     <string name="pluto___share_as_file">Share as File</string>
     <string name="pluto___share_as_copy">Copy to Clipboard</string>
     <string name="pluto___share_as_file_hint">Prefer this option while sharing on Slack.</string>
+    <string name="pluto___key_value_editor_title">Edit Value</string>
+    <string name="pluto___key_value_editor_description">editing value of</string>
+    <string name="pluto___key_value_editor_hint">enter value here</string>
+    <string name="pluto___key_value_editor_candidate_option_description">or choose from these options</string>
 </resources>
