@@ -56,7 +56,8 @@
                 android:id="@+id/editValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginStart="@dimen/pluto___margin_medium"
+                android:layout_marginEnd="@dimen/pluto___margin_micro"
                 android:background="@color/pluto___dark_05"
                 android:drawablePadding="@dimen/pluto___margin_xsmall"
                 android:fontFamily="@font/muli_semibold"
@@ -67,9 +68,21 @@
                 android:textColor="@color/pluto___text_dark_80"
                 android:textColorHint="@color/pluto___text_dark_40"
                 android:textSize="@dimen/pluto___text_small"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editCta"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editKeyDescription" />
+
+            <ImageView
+                android:id="@+id/editCta"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___blue"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto___ic_check"
+                app:layout_constraintBottom_toBottomOf="@+id/editValue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editValue" />
 
             <TextView
                 android:id="@+id/candidateOptionDescription"
@@ -101,8 +114,8 @@
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/candidateOptionGroup"
                 android:layout_width="wrap_content"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:constraint_referenced_ids="candidateOptionDescription,candidateOptions" />
 
 
