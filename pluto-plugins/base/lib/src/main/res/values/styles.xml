@@ -41,7 +41,7 @@
     </style>
 
     <style name="PlutoBottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/pluto___bg_bottom_sheet</item>
+<!--        <item name="android:background">@drawable/pluto___bg_bottom_sheet</item>-->
     </style>
 
     <style name="PlutoBaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
@@ -62,5 +62,10 @@
         <item name="android:statusBarColor">@color/pluto___transparent</item>
         <!--        <item name="android:navigationBarColor">@color/app_bg</item>-->
         <!--        <item name="android:colorBackground">@color/app_bg</item>-->
+    </style>
+
+    <style name="PlutoChipTextStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">serif</item>
     </style>
 </resources>
