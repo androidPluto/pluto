@@ -49,7 +49,10 @@ class PlutoActivity : AppCompatActivity() {
             shareFragment.show(supportFragmentManager, "bottomSheetFragment")
         }
         keyValuePairEditor.data.observe(this) {
-            KeyValuePairEditDialog().show(supportFragmentManager, "keyValuePairEditor")
+            KeyValuePairEditDialog().apply {
+                arguments = Bundle().apply { putParcelable("data", it) }
+                show(supportFragmentManager, "keyValuePairEditor")
+            }
         }
 
         sharer.action.observe(this) {
