@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.pluto.plugin.R
 import com.pluto.plugin.databinding.PlutoFragmentKeyValuePairEditBinding
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditRequest
@@ -26,6 +26,10 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.close.setOnDebounceClickListener {
+            dismiss()
+        }
 
         arguments?.getParcelable<KeyValuePairEditRequest>("data")?.let { data ->
             binding.editKeyDescription.setSpan {
