@@ -36,6 +36,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto___ic_close"
+                app:tint="@color/pluto___dark_80"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
             <TextView
                 android:id="@+id/editKeyDescription"
                 android:layout_width="0dp"
