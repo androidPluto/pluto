@@ -14,10 +14,12 @@ import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditRequest
+import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
 
 class KeyValuePairEditDialog : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentKeyValuePairEditBinding::bind)
+    private val keyValuePairEditor: KeyValuePairEditViewModel by lazyKeyValuePairEditor()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto___fragment_key_value_pair_edit, container, false)
@@ -43,21 +45,29 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
             binding.editValue.isFocusableInTouchMode = true
             binding.editValue.isFocusable = true
             binding.editValue.hint = data.hint
-            binding.editValue.inputType = data.inputType.type
+            data.inputType.type?.let {
+                binding.editValue.inputType = it
+            }
 
             data.candidateOptions?.let { list ->
                 binding.candidateOptionGroup.visibility = VISIBLE
                 list.forEach {
-                    val chip1 = Chip(context).apply {
+                    binding.candidateOptions.addView(Chip(context).apply {
                         text = it
                         setTextAppearance(R.style.PlutoChipTextStyle)
                         textStartPadding = CHIP_PADDING
                         textEndPadding = CHIP_PADDING
-                        setOnClickListener {
+                        setOnDebounceClickListener { _ ->
+                            keyValuePairEditor.saveResult(KeyValuePairEditResult(data.key, it))
+                            dismiss()
                         }
-                    }
-                    binding.candidateOptions.addView(chip1)
+                    })
                 }
+            }
+
+            binding.saveCta.setOnDebounceClickListener {
+                keyValuePairEditor.saveResult(KeyValuePairEditResult(data.key, binding.editValue.text.toString()))
+                dismiss()
             }
         }
     }
