@@ -23,20 +23,22 @@ data class KeyValuePairEditRequest(
     val hint: String?,
     val candidateOptions: List<String>? = null,
     val allowFreeEdit: Boolean = true,
-    val inputType: KeyValuePairEditInputType
+    val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String
 ) : ListItem(), Parcelable
 
 @Keep
 data class KeyValuePairEditResult(
-    val data: KeyValuePairEditRequest,
-    val result: String?
+    val key: String,
+    val value: String?
 )
 
 @Keep
-sealed class KeyValuePairEditInputType(val type: Int) : Parcelable {
+sealed class KeyValuePairEditInputType(val type: Int? = null) : Parcelable {
     @Parcelize object Integer : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED)
 
     @Parcelize object Float : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL)
+
+    @Parcelize object Boolean: KeyValuePairEditInputType()
 
     @Parcelize object String : KeyValuePairEditInputType(InputType.TYPE_CLASS_TEXT)
 }
