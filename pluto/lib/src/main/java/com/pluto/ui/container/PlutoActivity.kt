@@ -20,13 +20,13 @@ import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.share.share
 import com.pluto.utilities.share.shareFile
 import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditDialog
-import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditViewModel
+import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditor
 import com.pluto.utilities.views.keyvalue.edit.lazyKeyValuePairEditor
 
 class PlutoActivity : AppCompatActivity() {
 
     private val sharer: ContentShareViewModel by lazyContentSharer()
-    private val keyValuePairEditor: KeyValuePairEditViewModel by lazyKeyValuePairEditor()
+    private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
