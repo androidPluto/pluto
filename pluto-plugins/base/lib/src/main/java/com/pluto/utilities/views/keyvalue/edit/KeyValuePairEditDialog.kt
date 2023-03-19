@@ -3,13 +3,20 @@ package com.pluto.utilities.views.keyvalue.edit
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.pluto.plugin.R
 import com.pluto.plugin.databinding.PlutoFragmentKeyValuePairEditBinding
+import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
@@ -28,51 +35,85 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.setOnShowListener {
+            val dialog = it as BottomSheetDialog
+            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheet?.let {
+                dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
+                dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+                arguments?.getParcelable<KeyValuePairEditRequest>("data")?.let { data ->
+                    handleUI(data)
+                }
+            }
+        }
 
         binding.close.setOnDebounceClickListener {
             dismiss()
         }
+    }
 
-        arguments?.getParcelable<KeyValuePairEditRequest>("data")?.let { data ->
-            binding.editKeyDescription.setSpan {
-                append(getString(R.string.pluto___key_value_editor_description))
-                append(" ")
-                append(bold(fontColor(data.key, context.color(R.color.pluto___text_dark_80))))
-            }
-            binding.editValue.requestFocus()
+    private fun handleUI(data: KeyValuePairEditRequest) {
+        binding.editKeyDescription.setSpan {
+            append(getString(R.string.pluto___key_value_editor_description))
+            append(" ")
+            append(bold(fontColor(data.key, context.color(R.color.pluto___text_dark_80))))
+        }
+        if (data.shouldAllowFreeEdit) {
+            binding.editGroup.visibility = VISIBLE
             binding.editValue.setText(data.value)
-            binding.editValue.setSelection(data.value.toString().length)
+            binding.editValue.hint = data.hint
+            binding.editValue.requestFocus()
             binding.editValue.isFocusableInTouchMode = true
             binding.editValue.isFocusable = true
-            binding.editValue.hint = data.hint
+            binding.editValue.setSelection(data.value?.length ?: 0)
             data.inputType.type?.let {
                 binding.editValue.inputType = it
             }
+            binding.editValue.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    saveResult(data.key, binding.editValue.text.toString())
+                    true
+                } else false
+            }
+        } else {
+            binding.editGroup.visibility = GONE
+        }
 
-            data.candidateOptions?.let { list ->
-                binding.candidateOptionGroup.visibility = VISIBLE
-                list.forEach {
-                    binding.candidateOptions.addView(Chip(context).apply {
-                        text = it
+        data.candidateOptions?.let { list ->
+            binding.candidateOptionDescription.visibility = if (data.shouldAllowFreeEdit) VISIBLE else GONE
+            binding.candidateOptions.visibility = VISIBLE
+            list.forEach {
+                binding.candidateOptions.addView(
+                    Chip(context).apply {
+                        text = it.trim()
                         setTextAppearance(R.style.PlutoChipTextStyle)
-                        textStartPadding = CHIP_PADDING
-                        textEndPadding = CHIP_PADDING
-                        setOnDebounceClickListener { _ ->
-                            keyValuePairEditor.saveResult(KeyValuePairEditResult(data.key, it))
-                            dismiss()
+                        if (it == data.value) {
+                            chipIcon = ContextCompat.getDrawable(context, R.drawable.pluto___ic_edit_option_selected)
+                            chipIconSize = 18f.dp
+                            iconStartPadding = CHIP_ICON_PADDING
+                            textStartPadding = CHIP_TEXT_PADDING
                         }
-                    })
-                }
+                        setOnDebounceClickListener { _ ->
+                            saveResult(data.key, it)
+                        }
+                    }
+                )
             }
+        }
 
-            binding.saveCta.setOnDebounceClickListener {
-                keyValuePairEditor.saveResult(KeyValuePairEditResult(data.key, binding.editValue.text.toString()))
-                dismiss()
-            }
+        binding.saveCta.setOnDebounceClickListener {
+            saveResult(data.key, binding.editValue.text.toString())
         }
     }
 
+    private fun saveResult(key: String, value: String) {
+        keyValuePairEditor.saveResult(KeyValuePairEditResult(key, value))
+        dismiss()
+    }
+
     companion object {
-        private const val CHIP_PADDING = 16f
+        private const val CHIP_TEXT_PADDING = 8f
+        private const val CHIP_ICON_PADDING = 10f
     }
 }

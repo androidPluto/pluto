@@ -23,5 +23,4 @@ class KeyValuePairEditViewModel : ViewModel() {
     fun saveResult(result: KeyValuePairEditResult) {
         _result.postValue(result)
     }
-
 }
