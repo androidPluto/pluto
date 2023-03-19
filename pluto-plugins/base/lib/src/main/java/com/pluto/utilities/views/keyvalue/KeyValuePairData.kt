@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.text.InputType
 import androidx.annotation.Keep
 import com.pluto.utilities.list.ListItem
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Keep
@@ -19,12 +20,15 @@ data class KeyValuePairData(
 @Parcelize
 data class KeyValuePairEditRequest(
     val key: String,
-    val value: String?,
+    val value: String? = null,
     val hint: String?,
     val candidateOptions: List<String>? = null,
-    val allowFreeEdit: Boolean = true,
+//    val allowFreeEdit: Boolean = true,
     val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String
-) : ListItem(), Parcelable
+) : ListItem(), Parcelable {
+    @IgnoredOnParcel
+    val shouldAllowFreeEdit: Boolean = inputType != KeyValuePairEditInputType.Selection || inputType != KeyValuePairEditInputType.Boolean
+}
 
 @Keep
 data class KeyValuePairEditResult(
@@ -34,11 +38,18 @@ data class KeyValuePairEditResult(
 
 @Keep
 sealed class KeyValuePairEditInputType(val type: Int? = null) : Parcelable {
-    @Parcelize object Integer : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED)
+    @Parcelize
+    object Integer : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED)
 
-    @Parcelize object Float : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL)
+    @Parcelize
+    object Float : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL)
 
-    @Parcelize object Boolean: KeyValuePairEditInputType()
+    @Parcelize
+    object Selection : KeyValuePairEditInputType()
 
-    @Parcelize object String : KeyValuePairEditInputType(InputType.TYPE_CLASS_TEXT)
+    @Parcelize
+    object Boolean : KeyValuePairEditInputType()
+
+    @Parcelize
+    object String : KeyValuePairEditInputType(InputType.TYPE_CLASS_TEXT)
 }

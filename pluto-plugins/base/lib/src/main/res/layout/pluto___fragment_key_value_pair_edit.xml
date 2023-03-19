@@ -42,10 +42,10 @@
                 android:layout_height="0dp"
                 android:paddingHorizontal="@dimen/pluto___margin_small"
                 android:src="@drawable/pluto___ic_close"
-                app:tint="@color/pluto___dark_80"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/title" />
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:tint="@color/pluto___dark_80" />
 
             <TextView
                 android:id="@+id/editKeyDescription"
@@ -74,6 +74,7 @@
                 android:fontFamily="@font/muli_semibold"
                 android:gravity="center_vertical"
                 android:hint="@string/pluto___key_value_editor_hint"
+                android:imeOptions="actionDone"
                 android:paddingHorizontal="@dimen/pluto___margin_medium"
                 android:paddingVertical="@dimen/pluto___margin_small"
                 android:textColor="@color/pluto___text_dark_80"
@@ -95,6 +96,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/editValue" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/editGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="editValue,saveCta" />
+
             <TextView
                 android:id="@+id/candidateOptionDescription"
                 android:layout_width="0dp"
@@ -103,9 +111,11 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/pluto___margin_medium"
                 android:paddingTop="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_mini"
                 android:text="@string/pluto___key_value_editor_candidate_option_description"
                 android:textColor="@color/pluto___text_dark_60"
                 android:textSize="@dimen/pluto___text_xsmall"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editValue" />
@@ -115,20 +125,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/pluto___margin_medium"
-                android:layout_marginTop="@dimen/pluto___margin_mini"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/candidateOptionDescription"
                 app:singleLine="false"
                 app:singleSelection="true" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/candidateOptionGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:constraint_referenced_ids="candidateOptionDescription,candidateOptions" />
-
+            <!--            <androidx.constraintlayout.widget.Group-->
+            <!--                android:id="@+id/candidateOptionGroup"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:constraint_referenced_ids="candidateOptionDescription,candidateOptions" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
