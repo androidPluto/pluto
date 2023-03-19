@@ -26,7 +26,7 @@ import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
 class KeyValuePairEditDialog : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentKeyValuePairEditBinding::bind)
-    private val keyValuePairEditor: KeyValuePairEditViewModel by lazyKeyValuePairEditor()
+    private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto___fragment_key_value_pair_edit, container, false)
