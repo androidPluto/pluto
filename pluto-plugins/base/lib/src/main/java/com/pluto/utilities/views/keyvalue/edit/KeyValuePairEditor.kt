@@ -10,7 +10,6 @@ fun Fragment.lazyKeyValuePairEditor(): Lazy<KeyValuePairEditViewModel> = activit
 
 fun ComponentActivity.lazyKeyValuePairEditor(): Lazy<KeyValuePairEditViewModel> = viewModels()
 
-
 sealed class ValueType(keyboardInputType: Int? = null, selectionOptions: List<String>? = null) {
     class Number(selectionOptions: List<String>? = null) : ValueType(
         keyboardInputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED,
