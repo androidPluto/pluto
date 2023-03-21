@@ -23,7 +23,6 @@ data class KeyValuePairEditRequest(
     val value: String? = null,
     val hint: String?,
     val candidateOptions: List<String>? = null,
-//    val allowFreeEdit: Boolean = true,
     val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String
 ) : ListItem(), Parcelable {
     @IgnoredOnParcel
