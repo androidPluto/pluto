@@ -132,13 +132,6 @@
                 app:singleLine="false"
                 app:singleSelection="true" />
 
-            <!--            <androidx.constraintlayout.widget.Group-->
-            <!--                android:id="@+id/candidateOptionGroup"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:constraint_referenced_ids="candidateOptionDescription,candidateOptions" />-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
