@@ -57,4 +57,6 @@
 
     <color name="pluto___notch_bg_dark">#11141c</color>
     <color name="pluto___notch_accent_dark">#ff9100</color>
+
+    <color name="pluto___disabled_cta">#a9a9a9</color>
 </resources>
