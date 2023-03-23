@@ -8,6 +8,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -41,8 +42,7 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
             bottomSheet?.let {
                 dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
-                arguments?.getParcelable<KeyValuePairEditRequest>("data")?.let { data ->
+                keyValuePairEditor.data.value?.let { data ->
                     handleUI(data)
                 }
             }
@@ -60,27 +60,18 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
             append(bold(fontColor(data.key, context.color(R.color.pluto___text_dark_80))))
         }
         if (data.shouldAllowFreeEdit) {
-            binding.editGroup.visibility = VISIBLE
-            binding.editValue.setText(data.value)
-            binding.editValue.hint = data.hint
-            binding.editValue.requestFocus()
-            binding.editValue.isFocusableInTouchMode = true
-            binding.editValue.isFocusable = true
-            binding.editValue.setSelection(data.value?.length ?: 0)
-            data.inputType.type?.let {
-                binding.editValue.inputType = it
-            }
-            binding.editValue.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    saveResult(data.key, binding.editValue.text.toString())
-                    true
-                } else false
-            }
+            handleInputType(data)
         } else {
             binding.editGroup.visibility = GONE
         }
+        handleCandidateOptions(data)
+        binding.saveCta.setOnDebounceClickListener {
+            saveResult(data.key, binding.editValue.text.toString())
+        }
+    }
 
-        data.candidateOptions?.let { list ->
+    private fun handleCandidateOptions(data: KeyValuePairEditRequest) {
+        data.processedCandidateOptions?.let { list ->
             binding.candidateOptionDescription.visibility = if (data.shouldAllowFreeEdit) VISIBLE else GONE
             binding.candidateOptions.visibility = VISIBLE
             list.forEach {
@@ -101,14 +92,40 @@ class KeyValuePairEditDialog : BottomSheetDialogFragment() {
                 )
             }
         }
+    }
 
-        binding.saveCta.setOnDebounceClickListener {
-            saveResult(data.key, binding.editValue.text.toString())
+    private fun handleInputType(data: KeyValuePairEditRequest) {
+        binding.editGroup.visibility = VISIBLE
+        binding.editValue.setText(data.value)
+        binding.editValue.hint = data.hint
+        binding.editValue.requestFocus()
+        binding.editValue.isFocusableInTouchMode = true
+        binding.editValue.isFocusable = true
+        binding.editValue.post {
+            binding.editValue.setSelection(data.value?.length ?: 0)
+        }
+        data.inputType.type?.let {
+            binding.editValue.inputType = it
+        }
+        binding.editValue.doOnTextChanged { text, _, _, _ ->
+            val isValid = data.isValidValue(text?.toString())
+            binding.saveCta.isEnabled = isValid
+            binding.saveCtaIcon.setBackgroundColor(
+                requireContext().color(if (isValid) R.color.pluto___emerald else R.color.pluto___disabled_cta)
+            )
+        }
+        binding.editValue.setOnEditorActionListener { _, actionId, _ ->
+            if (data.isValidValue(binding.editValue.text?.toString()) && actionId == EditorInfo.IME_ACTION_DONE) {
+                saveResult(data.key, binding.editValue.text.toString())
+                true
+            } else false
         }
     }
 
     private fun saveResult(key: String, value: String) {
-        keyValuePairEditor.saveResult(KeyValuePairEditResult(key, value))
+        keyValuePairEditor.data.value?.let { data ->
+            keyValuePairEditor.saveResult(KeyValuePairEditResult(key, value, data.metaData))
+        }
         dismiss()
     }
 

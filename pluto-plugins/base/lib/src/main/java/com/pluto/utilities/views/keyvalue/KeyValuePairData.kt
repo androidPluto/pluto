@@ -1,11 +1,8 @@
 package com.pluto.utilities.views.keyvalue
 
-import android.os.Parcelable
 import android.text.InputType
 import androidx.annotation.Keep
 import com.pluto.utilities.list.ListItem
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
 
 @Keep
 data class KeyValuePairData(
@@ -17,38 +14,40 @@ data class KeyValuePairData(
 )
 
 @Keep
-@Parcelize
 data class KeyValuePairEditRequest(
     val key: String,
     val value: String? = null,
     val hint: String?,
-    val candidateOptions: List<String>? = null,
-    val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String
-) : ListItem(), Parcelable {
-    @IgnoredOnParcel
-    val shouldAllowFreeEdit: Boolean = inputType != KeyValuePairEditInputType.Selection || inputType != KeyValuePairEditInputType.Boolean
+    private val candidateOptions: List<String>? = null,
+    val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String,
+    val metaData: KeyValuePairEditMetaData
+) : ListItem() {
+    val shouldAllowFreeEdit: Boolean = inputType != KeyValuePairEditInputType.Selection && inputType != KeyValuePairEditInputType.Boolean
+    val processedCandidateOptions: List<String>? = if (inputType == KeyValuePairEditInputType.Boolean) listOf("true", "false") else candidateOptions
+    fun isValidValue(text: String?) = when (inputType) {
+        is KeyValuePairEditInputType.Integer, is KeyValuePairEditInputType.Float -> !text.isNullOrEmpty()
+        else -> true
+    }
 }
 
 @Keep
 data class KeyValuePairEditResult(
     val key: String,
-    val value: String?
+    val value: String?,
+    val metaData: KeyValuePairEditMetaData
 )
 
+interface KeyValuePairEditMetaData
+
 @Keep
-sealed class KeyValuePairEditInputType(val type: Int? = null) : Parcelable {
-    @Parcelize
+sealed class KeyValuePairEditInputType(val type: Int? = null) {
     object Integer : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED)
 
-    @Parcelize
     object Float : KeyValuePairEditInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL)
 
-    @Parcelize
     object Selection : KeyValuePairEditInputType()
 
-    @Parcelize
     object Boolean : KeyValuePairEditInputType()
 
-    @Parcelize
     object String : KeyValuePairEditInputType(InputType.TYPE_CLASS_TEXT)
 }

@@ -50,7 +50,6 @@ class PlutoActivity : AppCompatActivity() {
         }
         keyValuePairEditor.data.observe(this) {
             KeyValuePairEditDialog().apply {
-                arguments = Bundle().apply { putParcelable("data", it) }
                 show(supportFragmentManager, "keyValuePairEditor")
             }
         }
