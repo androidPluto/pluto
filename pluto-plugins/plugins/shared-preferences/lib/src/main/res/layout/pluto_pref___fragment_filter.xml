@@ -75,19 +75,37 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/pluto_pref___item_filter" />
 
-        <TextView
+        <View
             android:id="@+id/note"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/pluto___dark_05"
+            android:layout_height="0dp"
+            android:background="@color/pluto___app_bg"
             android:fontFamily="@font/muli"
-            android:gravity="center"
-            android:padding="@dimen/pluto___margin_medium"
-            android:text="@string/pluto_pref___preference_filter_note"
-            android:textColor="@color/pluto___text_dark_60"
-            android:textSize="@dimen/pluto___text_xxsmall"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toTopOf="@+id/bottomDivider" />
+
+        <View
+            android:id="@+id/bottomDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pluto___dp_1"
+            app:layout_constraintBottom_toTopOf="@+id/doneCta"
+            android:layout_marginBottom="@dimen/pluto___margin_mini"
+            android:background="@color/pluto___divider_bg"/>
+
+        <Button
+            android:id="@+id/doneCta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/pluto___dark"
+            android:text="Done"
+            android:fontFamily="@font/muli_bold"
+            android:textSize="@dimen/pluto___text_xmedium"
+            android:textColor="@color/pluto___white_80"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+            android:layout_marginVertical="@dimen/pluto___margin_mini"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

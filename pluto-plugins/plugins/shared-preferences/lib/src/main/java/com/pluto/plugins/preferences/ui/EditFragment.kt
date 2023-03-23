@@ -24,6 +24,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
+@Deprecated(message = "use KeyValuePairEditor instead")
 class EditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoPrefFragmentEditBinding::bind)

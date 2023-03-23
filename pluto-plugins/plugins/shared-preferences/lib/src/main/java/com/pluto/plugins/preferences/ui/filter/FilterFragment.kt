@@ -40,6 +40,9 @@ internal class FilterFragment : Fragment(R.layout.pluto_pref___fragment_filter) 
         binding.back.setOnDebounceClickListener {
             findNavController().navigateUp()
         }
+        binding.doneCta.setOnDebounceClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.clear.setOnDebounceClickListener {
             SharedPrefRepo.deSelectAll()
