@@ -44,6 +44,10 @@ internal class KeyValueItemHolder(
             itemView.setOnDebounceClickListener {
                 onAction("click")
             }
+            itemView.setOnLongClickListener {
+                onAction("long_click")
+                return@setOnLongClickListener true
+            }
         }
     }
 
