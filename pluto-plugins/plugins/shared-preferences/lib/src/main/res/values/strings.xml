@@ -11,4 +11,5 @@
     <string name="pluto_pref___shared_pref_edit_file_label">showing preference from</string>
     <string name="pluto_pref___save_preference">Update Value</string>
     <string name="pluto_pref___unsupported_preference">updating StringSet preferences is not supported.</string>
+    <string name="pluto_pref___shared_pref_filter_done_cta">Done</string>
 </resources>
