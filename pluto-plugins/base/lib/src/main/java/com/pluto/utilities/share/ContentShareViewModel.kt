@@ -1,4 +1,4 @@
-package com.pluto.utilities.sharing
+package com.pluto.utilities.share
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
