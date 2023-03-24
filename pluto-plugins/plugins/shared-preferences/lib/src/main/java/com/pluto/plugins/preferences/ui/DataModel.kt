@@ -2,6 +2,7 @@ package com.pluto.plugins.preferences.ui
 
 import androidx.annotation.Keep
 import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.views.keyvalue.KeyValuePairEditMetaData
 import com.squareup.moshi.JsonClass
 
 @Keep
@@ -20,4 +21,4 @@ internal data class SharedPrefKeyValuePair(
     val value: Any?,
     val prefLabel: String?,
     val isDefault: Boolean = false
-) : ListItem()
+) : ListItem(), KeyValuePairEditMetaData
