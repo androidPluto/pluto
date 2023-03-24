@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___app_bg"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/pluto___margin_medium">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/pluto___section_color"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto___key_value_editor_title"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
+                android:src="@drawable/pluto___ic_close"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:tint="@color/pluto___dark_80" />
+
+            <TextView
+                android:id="@+id/editKeyDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/pluto___margin_xsmall"
+                android:fontFamily="@font/muli"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto___key_value_editor_description"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <View
+                android:id="@+id/editGroupBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:background="@drawable/pluto___bg_key_value_pair_input"
+                app:layout_constraintBottom_toBottomOf="@+id/editValue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editValue" />
+
+            <EditText
+                android:id="@+id/editValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawablePadding="@dimen/pluto___margin_xsmall"
+                android:fontFamily="@font/muli_semibold"
+                android:gravity="center_vertical"
+                android:hint="@string/pluto___key_value_editor_hint"
+                android:imeOptions="actionDone"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textColorHint="@color/pluto___text_dark_40"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toStartOf="@+id/saveCta"
+                app:layout_constraintStart_toStartOf="@+id/editGroupBg"
+                app:layout_constraintTop_toBottomOf="@+id/editKeyDescription" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/saveCta"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:cardCornerRadius="@dimen/pluto___margin_mini"
+                android:layout_marginVertical="@dimen/pluto___margin_mini"
+                android:layout_marginEnd="@dimen/pluto___margin_mini"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/editValue"
+                app:layout_constraintEnd_toEndOf="@+id/editGroupBg"
+                app:layout_constraintTop_toTopOf="@+id/editValue">
+
+                <ImageView
+                    android:id="@+id/saveCtaIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/pluto___emerald"
+                    android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                    android:src="@drawable/pluto___ic_check" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/editGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="editValue,saveCta"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/candidateOptionDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingTop="@dimen/pluto___margin_medium"
+                android:paddingBottom="@dimen/pluto___margin_mini"
+                android:text="@string/pluto___key_value_editor_candidate_option_description"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_xsmall"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editValue" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/candidateOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/candidateOptionDescription"
+                app:singleLine="false"
+                app:singleSelection="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

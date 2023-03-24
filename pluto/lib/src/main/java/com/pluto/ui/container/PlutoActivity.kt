@@ -19,10 +19,14 @@ import com.pluto.utilities.share.copyToClipboard
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.share.share
 import com.pluto.utilities.share.shareFile
+import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditDialog
+import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditor
+import com.pluto.utilities.views.keyvalue.edit.lazyKeyValuePairEditor
 
 class PlutoActivity : AppCompatActivity() {
 
     private val sharer: ContentShareViewModel by lazyContentSharer()
+    private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,11 @@ class PlutoActivity : AppCompatActivity() {
                 putString("fileName", it.fileName)
             }
             shareFragment.show(supportFragmentManager, "bottomSheetFragment")
+        }
+        keyValuePairEditor.data.observe(this) {
+            KeyValuePairEditDialog().apply {
+                show(supportFragmentManager, "keyValuePairEditor")
+            }
         }
 
         sharer.action.observe(this) {
