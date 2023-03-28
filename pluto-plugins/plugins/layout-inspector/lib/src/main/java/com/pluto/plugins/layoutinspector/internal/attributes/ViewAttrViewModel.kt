@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeCharSequence
 import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag

@@ -18,7 +18,7 @@ internal class AttributeParser {
         val attributes = arrayListOf<ParsedAttribute>()
         for (parser in parsers) {
             val attributeList = parser.getAttributes(view)
-            if(!attributeList.isNullOrEmpty()) {
+            if (!attributeList.isNullOrEmpty()) {
                 attributes.add(ParsedAttribute(parser.parameterizedType, attributeList.sortedBy { it.type.title }))
             }
         }

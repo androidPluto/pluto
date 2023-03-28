@@ -8,7 +8,7 @@ import com.pluto.utilities.extensions.px2dp
 import com.pluto.utilities.extensions.px2sp
 
 internal open class AttributeType<in T>(val title: String, val tag: MutableAttributeTag = MutableAttributeTag.Immutable) {
-    open fun serialise(value: T): CharSequence? = value?.toString() ?: null //do not remove null check
+    open fun serialise(value: T): CharSequence? = value?.toString() ?: null // do not remove null check
 }
 
 internal class AttributeTypeCharSequence(title: String, mutableTag: MutableAttributeTag) : AttributeType<CharSequence?>(title, mutableTag) {
