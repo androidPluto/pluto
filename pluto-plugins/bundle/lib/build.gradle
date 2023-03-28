@@ -49,5 +49,4 @@ dependencies {
     api project(path: ':pluto-plugins:plugins:datastore:lib')
     api project(path: ':pluto-plugins:plugins:rooms-database:lib')
     api project(path: ':pluto-plugins:plugins:layout-inspector:lib')
-    api project(path: ':pluto-plugins:plugins:ruler:lib')
 }

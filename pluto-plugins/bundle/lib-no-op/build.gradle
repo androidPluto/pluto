@@ -49,5 +49,4 @@ dependencies {
     api project(path: ':pluto-plugins:plugins:datastore:lib-no-op')
     api project(path: ':pluto-plugins:plugins:rooms-database:lib-no-op')
     api project(path: ':pluto-plugins:plugins:layout-inspector:lib-no-op')
-    api project(path: ':pluto-plugins:plugins:ruler:lib-no-op')
 }

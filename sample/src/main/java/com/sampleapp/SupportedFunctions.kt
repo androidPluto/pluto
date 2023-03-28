@@ -43,7 +43,6 @@ class SupportedPlugins private constructor() {
         const val ROOMS_DATABASE: String = "rooms-database"
         const val DATASTORE_PREF: String = "datastore-preferences"
         const val LAYOUT_INSPECTOR: String = "layout-inspector"
-        const val RULER: String = "ruler"
     }
 }
 
