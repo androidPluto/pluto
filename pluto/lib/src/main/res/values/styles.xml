@@ -7,7 +7,7 @@
         <item name="colorAccent">@color/pluto___colorAccent</item>
     </style>
 
-    <style name="PlutoContainerTheme">
+    <style name="PlutoContainerTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/pluto___dark</item>
         <item name="colorPrimaryDark">@color/pluto___dark</item>
         <item name="colorAccent">@color/pluto___dark</item>
