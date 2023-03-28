@@ -14,4 +14,5 @@
     <string name="ask_permission_title">Enable Draw over apps permission</string>
     <string name="ask_permission_description">Need Draw over other apps permission to show notch to open the Pluto UI.</string>
     <string name="clear_all_logs">Clear All Logs</string>
+    <string name="demo_layout_inspector_title">Layout Inspector Demo</string>
 </resources>

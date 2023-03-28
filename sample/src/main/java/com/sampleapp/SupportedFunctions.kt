@@ -18,7 +18,8 @@ class SupportedPlugins private constructor() {
                 FunctionsModel(LOGGER, "Logger"),
                 FunctionsModel(SHARED_PREF, "Shared Preferences"),
                 FunctionsModel(ROOMS_DATABASE, "Rooms Database"),
-                FunctionsModel(DATASTORE_PREF, "Datastore Preferences")
+                FunctionsModel(DATASTORE_PREF, "Datastore Preferences"),
+                FunctionsModel(LAYOUT_INSPECTOR, "Layout Inspector")
             )
         }
 
@@ -41,6 +42,7 @@ class SupportedPlugins private constructor() {
         const val LOGGER: String = "logger"
         const val ROOMS_DATABASE: String = "rooms-database"
         const val DATASTORE_PREF: String = "datastore-preferences"
+        const val LAYOUT_INSPECTOR: String = "layout-inspector"
     }
 }
 

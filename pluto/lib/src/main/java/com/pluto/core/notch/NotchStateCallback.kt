@@ -2,9 +2,9 @@ package com.pluto.core.notch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.pluto.utilities.AppState
+import com.pluto.core.applifecycle.AppStateCallback
 
-internal class NotchStateCallback(appState: LiveData<AppState>, selectorState: LiveData<Boolean>) {
+internal class NotchStateCallback(appState: LiveData<AppStateCallback.State>, selectorState: LiveData<Boolean>) {
     val state = MediatorLiveData<Boolean>()
 
     init {
@@ -16,9 +16,9 @@ internal class NotchStateCallback(appState: LiveData<AppState>, selectorState: L
         }
     }
 
-    private fun getState(state: AppState?, showing: Boolean?): Boolean {
+    private fun getState(state: AppStateCallback.State?, showing: Boolean?): Boolean {
         state?.let {
-            return if (it is AppState.Background) {
+            return if (it is AppStateCallback.State.Background) {
                 false
             } else {
                 !(showing ?: false)

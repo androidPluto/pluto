@@ -1,5 +1,6 @@
 package com.sampleapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
@@ -7,6 +8,7 @@ import com.pluto.Pluto
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_ID
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_LABEL
 import com.sampleapp.databinding.ActivityMainBinding
+import com.sampleapp.functions.layoutinspector.DemoLayoutInspectorActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,12 +26,16 @@ class MainActivity : AppCompatActivity() {
                 textStartPadding = CHIP_PADDING
                 textEndPadding = CHIP_PADDING
                 setOnClickListener { _ ->
-                    ContainerFragment().apply {
-                        arguments = Bundle().apply {
-                            putString(FUNCTION_ID, it.id)
-                            putString(FUNCTION_LABEL, it.label)
+                    if (it.id == SupportedPlugins.LAYOUT_INSPECTOR) {
+                        startActivity(Intent(this@MainActivity, DemoLayoutInspectorActivity::class.java))
+                    } else {
+                        ContainerFragment().apply {
+                            arguments = Bundle().apply {
+                                putString(FUNCTION_ID, it.id)
+                                putString(FUNCTION_LABEL, it.label)
+                            }
+                            show(supportFragmentManager, "container")
                         }
-                        show(supportFragmentManager, "container")
                     }
                 }
             }

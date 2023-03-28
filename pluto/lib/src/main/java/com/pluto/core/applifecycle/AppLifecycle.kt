@@ -3,8 +3,6 @@ package com.pluto.core.applifecycle
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import com.pluto.utilities.AppState
-import com.pluto.utilities.AppStateCallback
 
 internal class AppLifecycle(private val appStateCallback: AppStateCallback) : ActivityLifecycleCallbacks {
 
@@ -13,14 +11,14 @@ internal class AppLifecycle(private val appStateCallback: AppStateCallback) : Ac
     override fun onActivityStarted(activity: Activity) {
         activityCount++
         if (activityCount == 1) {
-            appStateCallback.state.postValue(AppState.Foreground)
+            appStateCallback.state.postValue(AppStateCallback.State.Foreground)
         }
     }
 
     override fun onActivityStopped(activity: Activity) {
         activityCount--
         if (activityCount == 0) {
-            appStateCallback.state.postValue(AppState.Background)
+            appStateCallback.state.postValue(AppStateCallback.State.Background)
         }
     }
 

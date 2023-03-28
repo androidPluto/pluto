@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pluto.Pluto
 import com.pluto.R
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginsViewModel
@@ -22,7 +23,6 @@ import com.pluto.settings.SettingsViewModel
 import com.pluto.tool.PlutoTool
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
-import com.pluto.utilities.AppState
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings
@@ -103,8 +103,8 @@ class SelectorActivity : FragmentActivity() {
         toolAdapter.list = it
     }
 
-    private val appStateListener = Observer<AppState> {
-        if (it is AppState.Background) {
+    private val appStateListener = Observer<AppStateCallback.State> {
+        if (it is AppStateCallback.State.Background) {
             finish()
         }
     }

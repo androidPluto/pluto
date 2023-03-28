@@ -19,13 +19,19 @@ val Float.sp: Float
 val Float.dp2px: Float
     get() {
         val scale = Resources.getSystem().displayMetrics.density
-        return this * scale + 0.5f
+        return this * scale
     }
 
 val Float.px2dp: Float
     get() {
         val scale = Resources.getSystem().displayMetrics.density
-        return this / scale + 0.5f
+        return this / scale
+    }
+
+val Float.px2sp: Float
+    get() {
+        val scale = Resources.getSystem().displayMetrics.scaledDensity
+        return this / scale
     }
 
 val Int.twoDigit: String

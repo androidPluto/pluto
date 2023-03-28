@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.databinding.PlutoActivityPlutoBinding
-import com.pluto.plugin.PluginHelper.Companion.ID_LABEL
+import com.pluto.plugin.libinterface.NotificationInterface.Companion.ID_LABEL
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.share.ContentShareViewModel
 import com.pluto.utilities.share.ShareAction

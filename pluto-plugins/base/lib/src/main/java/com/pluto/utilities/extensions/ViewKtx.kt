@@ -1,6 +1,7 @@
 package com.pluto.utilities.extensions
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import android.view.WindowManager
 import com.pluto.utilities.DebugLog
@@ -31,3 +32,23 @@ fun Context.addViewToWindow(v: View, params: WindowManager.LayoutParams): Boolea
         false
     }
 }
+
+@Throws(Resources.NotFoundException::class)
+fun View.getIdInfo(): ViewIdInfo? {
+    val isViewIdGenerated: Boolean = (id and -0x1000000 == 0 && id and 0x00FFFFFF != 0)
+    return if (id != View.NO_ID && !isViewIdGenerated) {
+        ViewIdInfo(
+            packageName = when (id and -0x1000000) {
+                0x7f000000 -> "app"
+                0x01000000 -> "android"
+                else -> resources.getResourcePackageName(id)
+            },
+            typeName = resources.getResourceTypeName(id),
+            entryName = resources.getResourceEntryName(id)
+        )
+    } else {
+        null
+    }
+}
+
+data class ViewIdInfo(val packageName: String, val typeName: String, val entryName: String)

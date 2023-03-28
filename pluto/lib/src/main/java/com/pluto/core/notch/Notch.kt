@@ -5,7 +5,7 @@ import android.app.Service
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import com.pluto.Pluto
-import com.pluto.utilities.AppState
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.utilities.extensions.canDrawOverlays
 
 internal class Notch(private val application: Application, shouldShowNotch: LiveData<Boolean>) {
@@ -51,7 +51,7 @@ internal class Notch(private val application: Application, shouldShowNotch: Live
 
     internal fun enable(state: Boolean) {
         enabled = state
-        if (enabled && Pluto.appStateCallback.state.value is AppState.Foreground) {
+        if (enabled && Pluto.appStateCallback.state.value is AppStateCallback.State.Foreground) {
             add()
         } else {
             remove()
