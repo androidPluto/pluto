@@ -9,20 +9,20 @@ import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeC
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeDimenDP
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeDimenSP
 import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeGravity
-import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeEditTag
 
 internal class TextViewParser : IParser<TextView>() {
 
     override fun getTypeAttributes(view: View): List<Attribute<*>> {
         val attributes = arrayListOf<Attribute<*>>()
         (view as TextView).apply {
-            attributes.add(Attribute(AttributeType("text", MutableAttributeTag.Text), text))
-            attributes.add(Attribute(AttributeTypeColor("text_color", MutableAttributeTag.TextColor), currentTextColor))
-            attributes.add(Attribute(AttributeTypeColor("text_hint_color", MutableAttributeTag.TextColor), currentHintTextColor))
-            attributes.add(Attribute(AttributeTypeDimenSP("text_size", MutableAttributeTag.TextSize), textSize))
+            attributes.add(Attribute(AttributeType("text", AttributeEditTag.Text), text))
+            attributes.add(Attribute(AttributeTypeColor("text_color", AttributeEditTag.TextColor), currentTextColor))
+            attributes.add(Attribute(AttributeTypeColor("text_hint_color", AttributeEditTag.TextColor), currentHintTextColor))
+            attributes.add(Attribute(AttributeTypeDimenSP("text_size", AttributeEditTag.TextSize), textSize))
             attributes.add(Attribute(AttributeTypeGravity("gravity"), gravity))
             attributes.add(Attribute(AttributeType("line_count"), lineCount))
-            attributes.add(Attribute(AttributeTypeDimenDP("line_height", MutableAttributeTag.LineHeight), lineHeight.toFloat()))
+            attributes.add(Attribute(AttributeTypeDimenDP("line_height", AttributeEditTag.LineHeight), lineHeight.toFloat()))
         }
         return attributes
     }

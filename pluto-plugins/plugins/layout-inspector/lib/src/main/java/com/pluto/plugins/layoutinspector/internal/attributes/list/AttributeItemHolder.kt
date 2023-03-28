@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiItemViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.type.MutableAttributeTag
+import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeEditTag
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -22,14 +22,14 @@ internal class AttributeItemHolder(parent: ViewGroup, actionListener: DiffAwareA
                 KeyValuePairData(
                     key = item.type.title,
                     value = item.valueString,
-                    showClickIndicator = item.type.tag != MutableAttributeTag.Immutable,
+                    showClickIndicator = item.type.tag != AttributeEditTag.Immutable,
                     onClick = getAction(item)
                 )
             )
         }
     }
 
-    private fun getAction(item: Attribute<*>): (() -> Unit)? = if (item.type.tag != MutableAttributeTag.Immutable) {
+    private fun getAction(item: Attribute<*>): (() -> Unit)? = if (item.type.tag != AttributeEditTag.Immutable) {
         { onAction("click") }
     } else {
         null
