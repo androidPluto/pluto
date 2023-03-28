@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="pluto_ruler___plugin_name">Ruler</string>
-    <string name="pluto_ruler___hint_label" translatable="false">How to use</string>
-    <string name="pluto_ruler___hint_reset_position" translatable="false">Click on the screen to set start position.</string>
-    <string name="pluto_ruler___hint_measure" translatable="false">Drag your finger to measure the distance.</string>
-</resources>
