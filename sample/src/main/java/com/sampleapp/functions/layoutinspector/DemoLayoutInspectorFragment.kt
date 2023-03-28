@@ -1,4 +1,4 @@
-package com.sampleapp.functions.layoutinspector.ui.main
+package com.sampleapp.functions.layoutinspector
 
 import androidx.fragment.app.Fragment
 import com.sampleapp.R

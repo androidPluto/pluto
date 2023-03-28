@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sampleapp.R
 import com.sampleapp.databinding.ActivityDemoLayoutInspectorBinding
-import com.sampleapp.functions.layoutinspector.ui.main.DemoLayoutInspectorFragment
 
 class DemoLayoutInspectorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
