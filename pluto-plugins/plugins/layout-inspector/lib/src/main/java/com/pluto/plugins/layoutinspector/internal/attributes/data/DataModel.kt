@@ -1,13 +1,7 @@
-package com.pluto.plugins.layoutinspector.internal.attributes.parser
+package com.pluto.plugins.layoutinspector.internal.attributes.data
 
 import android.view.ViewGroup
-import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
 import com.pluto.utilities.extensions.px2dp
-import com.pluto.utilities.list.ListItem
-
-internal data class Attribute<T>(val type: AttributeType<T>, val value: T) : ListItem() {
-    val valueString: CharSequence? = type.serialise(value)
-}
 
 internal data class ParsedAttribute(
     val parameterizedType: String,

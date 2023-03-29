@@ -1,6 +1,7 @@
-package com.pluto.plugins.layoutinspector.internal.attributes.parser
+package com.pluto.plugins.layoutinspector.internal.attributes.data.parser
 
 import android.view.View
+import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import java.lang.reflect.ParameterizedType
 
 internal abstract class IParser<T : View> {
@@ -9,13 +10,13 @@ internal abstract class IParser<T : View> {
     val parameterizedType: String = parameterizedTypeClass.toString().replace("class", "", true).trim()
 
     private fun isValidType(viewClazz: Class<*>): Boolean {
-        var clazz: Class<*>? = viewClazz
+        var clazz: Class<*> = viewClazz
         do {
             if (parameterizedTypeClass === clazz) {
                 return true
             }
-            clazz = clazz!!.superclass
-        } while (clazz != null && clazz != Any::class.java)
+            clazz = clazz.superclass
+        } while (clazz != Any::class.java)
         return false
     }
 

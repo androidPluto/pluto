@@ -1,7 +1,7 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.list
 
 import android.view.ViewGroup
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem

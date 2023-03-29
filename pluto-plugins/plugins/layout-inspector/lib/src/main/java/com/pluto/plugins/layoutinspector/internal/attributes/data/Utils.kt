@@ -1,4 +1,4 @@
-package com.pluto.plugins.layoutinspector.internal.attributes.parser
+package com.pluto.plugins.layoutinspector.internal.attributes.data
 
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import androidx.annotation.GravityInt
 
-internal class ParserUtils private constructor() {
+internal class Utils private constructor() {
     companion object {
 
         fun formatVisibility(value: Int): String = when (value) {

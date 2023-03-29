@@ -7,12 +7,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.parser.AttributeParser
-import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeType
-import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeTypeCharSequence
-import com.pluto.plugins.layoutinspector.internal.attributes.type.AttributeEditTag
+import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.AttributeParser
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.launch
@@ -45,7 +42,7 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
         for (attr in attrList) {
             when (attr) {
                 is AttributeTitle -> text.append("\n\n*** attributes from: ${attr.title}")
-                is Attribute<*> -> text.append("\n\t${attr.type.title}: ${attr.value}")
+                is Attribute<*> -> text.append("\n\t${attr.title}: ${attr.value}")
             }
         }
         return text.toString()
@@ -54,13 +51,13 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributes(v: View): ArrayList<ListItem> {
         val attrList = arrayListOf<ListItem>()
         v.getIdString()?.let {
-            attrList.add(Attribute(AttributeTypeCharSequence("id", AttributeEditTag.Immutable), it))
+            attrList.add(Attribute("id", it))
         }
         val tempAttrList = arrayListOf<Attribute<*>>(
-            Attribute(AttributeType("view_type"), if (v is ViewGroup) "viewGroup" else "view"),
-            Attribute(AttributeType("view_class"), v.javaClass.canonicalName)
+            Attribute("view_type", if (v is ViewGroup) "viewGroup" else "view"),
+            Attribute("view_class", v.javaClass.canonicalName)
         )
-        attrList.addAll(tempAttrList.sortedBy { it.type.title })
+        attrList.addAll(tempAttrList.sortedBy { it.title })
         val parsedList = parser.parse(v)
         if (parsedList.isNotEmpty()) {
             for (attr in parsedList) {
