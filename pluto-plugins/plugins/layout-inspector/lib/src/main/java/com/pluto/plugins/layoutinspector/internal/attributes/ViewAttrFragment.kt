@@ -14,12 +14,12 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.data.AttributeTag
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.plugins.layoutinspector.internal.inspect.tryGetTheFrontView
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -30,6 +30,9 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
+import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
+import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditor
+import com.pluto.utilities.views.keyvalue.edit.lazyKeyValuePairEditor
 
 internal class ViewAttrFragment : BottomSheetDialogFragment() {
 
@@ -38,6 +41,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     private var targetView: View? = null
     private lateinit var attributeAdapter: BaseAdapter
     private val viewModel: ViewAttrViewModel by viewModels()
+    private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_li___fragment_view_attr, container, false)
@@ -81,9 +85,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
                 viewModel.shareableAttr.value?.let {
                     contentSharer.share(
                         Shareable(
-                            title = "Sharing View Attributes",
-                            content = it,
-                            fileName = "View Attributes generated via Pluto"
+                            title = "Sharing View Attributes", content = it, fileName = "View Attributes generated via Pluto"
                         )
                     )
                 }
@@ -100,6 +102,9 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
             binding.attrList.apply {
                 adapter = attributeAdapter
             }
+
+            keyValuePairEditor.result.removeObserver(keyValuePairEditObserver)
+            keyValuePairEditor.result.observe(viewLifecycleOwner, keyValuePairEditObserver)
 
             viewModel.list.removeObserver(parsedAttrObserver)
             viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
@@ -127,10 +132,20 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
         return null
     }
 
+    private val keyValuePairEditObserver = Observer<KeyValuePairEditResult> {
+        targetView?.let { view ->
+            it.value?.let { value ->
+                if (it.metaData is AttributeTag) {
+                    viewModel.updateAttributeValue(view, it.metaData as AttributeTag, value)
+                }
+            }
+        }
+    }
+
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is Attribute<*>) {
-                context?.toast("frag ${data.title} clicked")
+                data.editorRequestData?.let { keyValuePairEditor.edit(it) }
             }
         }
     }

@@ -17,15 +17,15 @@ internal class ViewParser : IParser<View>() {
         attributes.add(Attribute("layout_width", LayoutParamDimens(params.width, view.width), AttributeTag.LayoutParams.Width))
         attributes.add(Attribute("layout_height", LayoutParamDimens(params.height, view.height), AttributeTag.LayoutParams.Height))
         attributes.add(Attribute("visibility", view.visibility, AttributeTag.Visibility))
-        attributes.add(Attribute("padding_left", view.paddingLeft.toFloat(), AttributeTag.Dimension.PaddingLeft))
+        attributes.add(Attribute("padding_start", view.paddingStart.toFloat(), AttributeTag.Dimension.PaddingStart))
         attributes.add(Attribute("padding_top", view.paddingTop.toFloat(), AttributeTag.Dimension.PaddingTop))
-        attributes.add(Attribute("padding_right", view.paddingRight.toFloat(), AttributeTag.Dimension.PaddingRight))
+        attributes.add(Attribute("padding_end", view.paddingEnd.toFloat(), AttributeTag.Dimension.PaddingEnd))
         attributes.add(Attribute("padding_bottom", view.paddingBottom.toFloat(), AttributeTag.Dimension.PaddingBottom))
         if (view.layoutParams != null && view.layoutParams is MarginLayoutParams) {
             val marginLayoutParams: MarginLayoutParams = view.layoutParams as MarginLayoutParams
-            attributes.add(Attribute("margin_left", marginLayoutParams.leftMargin.toFloat(), AttributeTag.Dimension.MarginLeft))
+            attributes.add(Attribute("margin_start", marginLayoutParams.marginStart.toFloat(), AttributeTag.Dimension.MarginStart))
             attributes.add(Attribute("margin_top", marginLayoutParams.topMargin.toFloat(), AttributeTag.Dimension.MarginTop))
-            attributes.add(Attribute("margin_right", marginLayoutParams.rightMargin.toFloat(), AttributeTag.Dimension.MarginRight))
+            attributes.add(Attribute("margin_end", marginLayoutParams.marginEnd.toFloat(), AttributeTag.Dimension.MarginEnd))
             attributes.add(Attribute("margin_bottom", marginLayoutParams.bottomMargin.toFloat(), AttributeTag.Dimension.MarginBottom))
         }
         attributes.add(Attribute("translationX", view.translationX))

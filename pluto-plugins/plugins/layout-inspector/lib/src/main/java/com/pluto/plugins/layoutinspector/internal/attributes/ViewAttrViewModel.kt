@@ -8,8 +8,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
+import com.pluto.plugins.layoutinspector.internal.attributes.data.AttributeTag
 import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.AttributeParser
+import com.pluto.plugins.layoutinspector.internal.attributes.data.updateValue
+import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeTitle
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.launch
@@ -66,5 +68,13 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
             }
         }
         return attrList
+    }
+
+    fun updateAttributeValue(view: View, it: AttributeTag, value: String) {
+        viewModelScope.launch {
+            it.updateValue(view, value)
+            view.requestLayout()
+            view.post { parse(view) }
+        }
     }
 }

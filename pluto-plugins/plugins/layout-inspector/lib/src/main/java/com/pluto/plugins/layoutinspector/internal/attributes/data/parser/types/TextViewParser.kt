@@ -13,7 +13,8 @@ internal class TextViewParser : IParser<TextView>() {
         (view as TextView).apply {
             attributes.add(Attribute("text", text, AttributeTag.Text))
             attributes.add(Attribute("text_color", currentTextColor, AttributeTag.Color.Text))
-            attributes.add(Attribute("text_hint_color", currentHintTextColor, AttributeTag.Color.Text))
+            attributes.add(Attribute("hint", hint, AttributeTag.Hint))
+            attributes.add(Attribute("text_hint_color", currentHintTextColor, AttributeTag.Color.Hint))
             attributes.add(Attribute("text_size", textSize, AttributeTag.TextSize))
             attributes.add(Attribute("gravity", gravity, AttributeTag.Immutable.Gravity))
             attributes.add(Attribute("line_count", lineCount))

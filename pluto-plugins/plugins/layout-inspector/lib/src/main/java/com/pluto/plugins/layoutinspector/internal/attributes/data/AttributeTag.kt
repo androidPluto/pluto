@@ -1,6 +1,8 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.data
 
-internal sealed class AttributeTag {
+import com.pluto.utilities.views.keyvalue.KeyValuePairEditMetaData
+
+internal sealed class AttributeTag: KeyValuePairEditMetaData {
     open class Immutable : AttributeTag() {
         object Gravity: Immutable()
     }
@@ -11,12 +13,12 @@ internal sealed class AttributeTag {
     }
 
     open class Dimension : AttributeTag() {
-        object PaddingLeft : Dimension()
-        object PaddingRight : Dimension()
+        object PaddingStart : Dimension()
+        object PaddingEnd : Dimension()
         object PaddingTop : Dimension()
         object PaddingBottom : Dimension()
-        object MarginLeft : Dimension()
-        object MarginRight : Dimension()
+        object MarginStart : Dimension()
+        object MarginEnd : Dimension()
         object MarginTop : Dimension()
         object MarginBottom : Dimension()
         object LineHeight : AttributeTag()
@@ -26,7 +28,9 @@ internal sealed class AttributeTag {
     object TextSize : AttributeTag()
     open class Color: AttributeTag() {
         object Text : Color()
+        object Hint : Color()
     }
     object Text : AttributeTag()
+    object Hint : AttributeTag()
     object ScaleType : AttributeTag()
 }
