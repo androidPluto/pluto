@@ -3,9 +3,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes.data
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditMetaData
 
 internal sealed class AttributeTag: KeyValuePairEditMetaData {
-    open class Immutable : AttributeTag() {
-        object Gravity: Immutable()
-    }
+    object Immutable : AttributeTag()
     object Visibility : AttributeTag()
     open class LayoutParams : AttributeTag() {
         object Width : LayoutParams()

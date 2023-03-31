@@ -21,7 +21,6 @@ internal fun <T> AttributeTag.toDisplayText(value: T?): CharSequence? {
         is AttributeTag.Color -> Utils.formatColor(value as Int)
         AttributeTag.ScaleType -> (value as ImageView.ScaleType).name
         AttributeTag.Visibility -> Utils.formatVisibility(value as Int)
-        AttributeTag.Immutable.Gravity -> Utils.formatGravity(value as Int)
         AttributeTag.TextSize -> "${(value as Float).px2sp.toInt()} sp"
         else -> value?.toString()
     }
