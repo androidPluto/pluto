@@ -3,10 +3,12 @@ package com.pluto.plugins.layoutinspector.internal.attributes.data.parser.types
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
-import com.pluto.plugins.layoutinspector.internal.attributes.data.AttributeTag
 import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
+import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeAlpha
+import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeDimenDP
+import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeLayoutParam
+import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeVisibility
 import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.IParser
-import com.pluto.plugins.layoutinspector.internal.attributes.data.LayoutParamDimens
 
 internal class ViewParser : IParser<View>() {
 
@@ -14,24 +16,24 @@ internal class ViewParser : IParser<View>() {
         val attributes = arrayListOf<Attribute<*>>()
         val params: ViewGroup.LayoutParams = view.layoutParams
         attributes.add(Attribute("layoutParams", params.javaClass.name))
-        attributes.add(Attribute("layout_width", LayoutParamDimens(params.width, view.width), AttributeTag.LayoutParams.Width))
-        attributes.add(Attribute("layout_height", LayoutParamDimens(params.height, view.height), AttributeTag.LayoutParams.Height))
-        attributes.add(Attribute("visibility", view.visibility, AttributeTag.Visibility))
-        attributes.add(Attribute("padding_start", view.paddingStart.toFloat(), AttributeTag.Dimension.PaddingStart))
-        attributes.add(Attribute("padding_top", view.paddingTop.toFloat(), AttributeTag.Dimension.PaddingTop))
-        attributes.add(Attribute("padding_end", view.paddingEnd.toFloat(), AttributeTag.Dimension.PaddingEnd))
-        attributes.add(Attribute("padding_bottom", view.paddingBottom.toFloat(), AttributeTag.Dimension.PaddingBottom))
+        attributes.add(AttributeLayoutParam.Width("layout_width", AttributeLayoutParam.Data(params.width, view.width)))
+        attributes.add(AttributeLayoutParam.Height("layout_height", AttributeLayoutParam.Data(params.height, view.height)))
+        attributes.add(AttributeVisibility("visibility", view.visibility))
+        attributes.add(AttributeDimenDP.PaddingStart("padding_start", view.paddingStart.toFloat()))
+        attributes.add(AttributeDimenDP.PaddingTop("padding_top", view.paddingTop.toFloat()))
+        attributes.add(AttributeDimenDP.PaddingEnd("padding_end", view.paddingEnd.toFloat()))
+        attributes.add(AttributeDimenDP.PaddingBottom("padding_bottom", view.paddingBottom.toFloat()))
         if (view.layoutParams != null && view.layoutParams is MarginLayoutParams) {
             val marginLayoutParams: MarginLayoutParams = view.layoutParams as MarginLayoutParams
-            attributes.add(Attribute("margin_start", marginLayoutParams.marginStart.toFloat(), AttributeTag.Dimension.MarginStart))
-            attributes.add(Attribute("margin_top", marginLayoutParams.topMargin.toFloat(), AttributeTag.Dimension.MarginTop))
-            attributes.add(Attribute("margin_end", marginLayoutParams.marginEnd.toFloat(), AttributeTag.Dimension.MarginEnd))
-            attributes.add(Attribute("margin_bottom", marginLayoutParams.bottomMargin.toFloat(), AttributeTag.Dimension.MarginBottom))
+            attributes.add(AttributeDimenDP.MarginStart("margin_start", marginLayoutParams.marginStart.toFloat()))
+            attributes.add(AttributeDimenDP.MarginTop("margin_top", marginLayoutParams.topMargin.toFloat()))
+            attributes.add(AttributeDimenDP.MarginEnd("margin_end", marginLayoutParams.marginEnd.toFloat()))
+            attributes.add(AttributeDimenDP.MarginBottom("margin_bottom", marginLayoutParams.bottomMargin.toFloat()))
         }
         attributes.add(Attribute("translationX", view.translationX))
         attributes.add(Attribute("translationY", view.translationY))
         attributes.add(Attribute("background", view.background))
-        attributes.add(Attribute("alpha", view.alpha, AttributeTag.Alpha))
+        attributes.add(AttributeAlpha("alpha", view.alpha))
         attributes.add(Attribute("tag", view.tag))
         attributes.add(Attribute("enabled", view.isEnabled))
         attributes.add(Attribute("clickable", view.isClickable))

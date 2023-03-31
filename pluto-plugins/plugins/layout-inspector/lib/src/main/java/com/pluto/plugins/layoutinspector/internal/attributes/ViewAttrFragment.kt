@@ -14,7 +14,7 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
-import com.pluto.plugins.layoutinspector.internal.attributes.data.AttributeTag
+import com.pluto.plugins.layoutinspector.internal.attributes.data.MutableAttribute
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.plugins.layoutinspector.internal.inspect.tryGetTheFrontView
@@ -135,8 +135,8 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     private val keyValuePairEditObserver = Observer<KeyValuePairEditResult> {
         targetView?.let { view ->
             it.value?.let { value ->
-                if (it.metaData is AttributeTag) {
-                    viewModel.updateAttributeValue(view, it.metaData as AttributeTag, value)
+                if (it.metaData is MutableAttribute) {
+                    viewModel.updateAttributeValue(view, it.metaData as MutableAttribute, value)
                 }
             }
         }
@@ -144,8 +144,8 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if (data is Attribute<*>) {
-                data.editorRequestData?.let { keyValuePairEditor.edit(it) }
+            if (data is MutableAttribute) {
+                keyValuePairEditor.edit(data.requestEdit())
             }
         }
     }

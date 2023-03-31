@@ -1,9 +1,13 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.data
 
 import com.pluto.utilities.list.ListItem
-import com.pluto.utilities.views.keyvalue.KeyValuePairEditRequest
+import com.pluto.utilities.views.keyvalue.KeyValuePairEditMetaData
 
-internal data class Attribute<T>(val title: String, val value: T?, val tag: AttributeTag = AttributeTag.Immutable()) : ListItem() {
-    val displayText: CharSequence? = tag.toDisplayText(value)
-    val editorRequestData: KeyValuePairEditRequest? = toEditorRequestData(title, value)
+internal open class Attribute<T>(val title: String, val value: T) : ListItem(),
+    KeyValuePairEditMetaData {
+    open fun displayText(): CharSequence? = if(value is CharSequence) value else value?.toString()
+
+    override fun isSame(other: Any): Boolean {
+        return other is Attribute<*> && other.title == title
+    }
 }

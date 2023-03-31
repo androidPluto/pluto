@@ -3,18 +3,10 @@ package com.pluto.plugins.layoutinspector.internal.attributes.data
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.Gravity
-import android.view.View
 import androidx.annotation.GravityInt
 
 internal class Utils private constructor() {
     companion object {
-
-        fun formatVisibility(value: Int): String = when (value) {
-            View.VISIBLE -> "VISIBLE"
-            View.INVISIBLE -> "INVISIBLE"
-            View.GONE -> "GONE"
-            else -> "NOT SET"
-        }
 
         fun Drawable?.toString(): String? {
             return this?.let {
@@ -27,7 +19,7 @@ internal class Utils private constructor() {
             }
         }
 
-        fun formatColor(value: Int): String = "#${Integer.toHexString(value).uppercase()}"
+        private fun formatColor(value: Int): String = "#${Integer.toHexString(value).uppercase()}"
 
         fun formatGravity(@GravityInt gravity: Int): String = when (gravity) {
             Gravity.NO_GRAVITY -> "NO_GRAVITY"
