@@ -3,6 +3,7 @@ package com.pluto.plugins.layoutinspector.internal.attributes.data
 import android.graphics.Color
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
 import android.widget.TextView
@@ -81,6 +82,23 @@ internal fun <T> Attribute<T>.toEditorRequestData(title: String, value: T?): Key
             )
         )
 
+        is AttributeTag.LayoutParams -> KeyValuePairEditRequest(
+            key = "$title (dp)",
+            value = if ((value as LayoutParamDimens).actualValue() != "wrap_content" && (value as LayoutParamDimens).actualValue() != "match_parent") {
+                (value as LayoutParamDimens).actualValue()
+            } else {
+                null
+            },
+            hint = "enter value (in dp)",
+            metaData = tag,
+            inputType = KeyValuePairEditInputType.Integer,
+            candidateOptions = listOf(
+                "wrap_content".uppercase(),
+                "match_parent".uppercase()
+            )
+
+        )
+
         else -> null
     }
 }
@@ -144,6 +162,23 @@ internal fun AttributeTag.updateValue(view: View, updatedValue: String) {
                 (view as ImageView).scaleType = scaleType
             } else {
                 Log.e("layout-inspector", "improper scale type value, should be between 0f to 1f")
+            }
+        }
+
+        /* layout params */
+        AttributeTag.LayoutParams.Height -> {
+            view.layoutParams.height = when (updatedValue.lowercase()) {
+                "wrap_content" -> ViewGroup.LayoutParams.WRAP_CONTENT
+                "match_parent" -> ViewGroup.LayoutParams.MATCH_PARENT
+                else -> updatedValue.toFloat().dp2px.toInt()
+            }
+        }
+
+        AttributeTag.LayoutParams.Width -> {
+            view.layoutParams.width = when (updatedValue.lowercase()) {
+                "wrap_content" -> ViewGroup.LayoutParams.WRAP_CONTENT
+                "match_parent" -> ViewGroup.LayoutParams.MATCH_PARENT
+                else -> updatedValue.toFloat().dp2px.toInt()
             }
         }
 

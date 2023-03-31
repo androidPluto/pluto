@@ -20,4 +20,10 @@ internal data class LayoutParamDimens(
             else -> dp
         }
     }
+
+    fun actualValue(): String = when (layoutParam) {
+        ViewGroup.LayoutParams.WRAP_CONTENT -> "wrap_content"
+        ViewGroup.LayoutParams.MATCH_PARENT -> "match_parent"
+        else -> "${size.toFloat().px2dp.toInt()}"
+    }
 }
