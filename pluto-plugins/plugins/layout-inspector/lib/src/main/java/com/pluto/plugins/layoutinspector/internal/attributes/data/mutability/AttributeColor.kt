@@ -30,5 +30,11 @@ internal abstract class AttributeColor(title: String, value: Int) : Attribute<In
         }
     }
 
+    class Background(title: String, value: Int) : AttributeColor(title, value) {
+        override fun handleEdit(view: View, updatedValue: String) {
+            view.setBackgroundColor(Color.parseColor(updatedValue))
+        }
+    }
+
     private fun formatColor(value: Int): String = "#${Integer.toHexString(value).uppercase()}"
 }

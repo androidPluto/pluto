@@ -1,10 +1,12 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.data.parser.types
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeAlpha
+import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeColor
 import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeDimenDP
 import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeLayoutParam
 import com.pluto.plugins.layoutinspector.internal.attributes.data.mutability.AttributeVisibility
@@ -32,7 +34,12 @@ internal class ViewParser : IParser<View>() {
         }
         attributes.add(Attribute("translationX", view.translationX))
         attributes.add(Attribute("translationY", view.translationY))
-        attributes.add(Attribute("background", view.background))
+        attributes.add(
+            when (view.background) {
+                is ColorDrawable -> AttributeColor.Background("background", (view.background as ColorDrawable).color)
+                else -> Attribute("background", view.background)
+            }
+        )
         attributes.add(AttributeAlpha("alpha", view.alpha))
         attributes.add(Attribute("tag", view.tag))
         attributes.add(Attribute("enabled", view.isEnabled))
