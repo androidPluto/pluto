@@ -25,6 +25,7 @@ internal open class ElementHoldView : View {
         }
     }
 
+    @SuppressWarnings("LoopWithTooManyJumpStatements")
     fun getTargetElement(x: Float, y: Float): Element? {
         var target: Element? = null
         for (i in elements.indices.reversed()) {

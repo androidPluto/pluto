@@ -144,6 +144,7 @@ internal class RelativeCanvas(private val container: View) {
         canvas.drawText(text, left + textBgFillingSpace, bottom - textBgFillingSpace, textPaint)
     }
 
+    @SuppressWarnings("ComplexCondition")
     private fun drawNestedAreaLine(canvas: Canvas, firstRect: Rect, secondRect: Rect) {
         if (secondRect.left >= firstRect.left && secondRect.right <= firstRect.right && secondRect.top >= firstRect.top &&
             secondRect.bottom <= firstRect.bottom
@@ -163,13 +164,13 @@ internal class RelativeCanvas(private val container: View) {
         }
     }
 
-    fun getTextHeight(paint: Paint, text: String): Float {
+    private fun getTextHeight(paint: Paint, text: String): Float {
         val rect = Rect()
         paint.getTextBounds(text, 0, text.length, rect)
         return rect.height().toFloat()
     }
 
-    fun getTextWidth(paint: Paint, text: String?): Float {
+    private fun getTextWidth(paint: Paint, text: String?): Float {
         return paint.measureText(text)
     }
 }

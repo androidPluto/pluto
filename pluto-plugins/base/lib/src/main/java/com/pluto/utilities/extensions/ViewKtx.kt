@@ -33,9 +33,10 @@ fun Context.addViewToWindow(v: View, params: WindowManager.LayoutParams): Boolea
     }
 }
 
+@SuppressWarnings("MagicNumber")
 @Throws(Resources.NotFoundException::class)
 fun View.getIdInfo(): ViewIdInfo? {
-    val isViewIdGenerated: Boolean = (id and -0x1000000 == 0 && id and 0x00FFFFFF != 0)
+    val isViewIdGenerated: Boolean = id and -0x1000000 == 0 && id and 0x00FFFFFF != 0
     return if (id != View.NO_ID && !isViewIdGenerated) {
         ViewIdInfo(
             packageName = when (id and -0x1000000) {

@@ -14,7 +14,7 @@ internal abstract class AttributeText(title: String, value: CharSequence?) : Att
 
     class Text(title: String, value: CharSequence?) : AttributeText(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
-            if(view is TextView) {
+            if (view is TextView) {
                 view.text = updatedValue
             }
         }
@@ -22,7 +22,7 @@ internal abstract class AttributeText(title: String, value: CharSequence?) : Att
 
     class Hint(title: String, value: CharSequence?) : AttributeText(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
-            if(view is TextView) {
+            if (view is TextView) {
                 view.hint = updatedValue
             }
         }

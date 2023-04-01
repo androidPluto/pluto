@@ -71,60 +71,67 @@ internal class OperableView : ElementHoldView {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event!!.action) {
             MotionEvent.ACTION_DOWN -> {
-                run {
-                    prevCoordinate.x = event.x
-                    downCoordinate.x = event.x
-                }
-                run {
-                    prevCoordinate.y = event.y
-                    downCoordinate.y = event.y
-                }
-                tryStartCheckTask()
+                handleActionDown(event)
                 return true
             }
 
-            MotionEvent.ACTION_MOVE -> {
-                when (state) {
-                    is OperableViewState.Dragging -> targetElement?.let {
-                        val dx: Float = event.x - prevCoordinate.x
-                        val dy: Float = event.y - prevCoordinate.y
-                        it.offset(dx, dy)
-                        for (e in relativeElements) {
-                            e?.reset()
-                        }
-                        invalidate()
-                    }
-
-                    is OperableViewState.Touching -> {}
-                    else -> {
-                        val dx: Float = event.x - downCoordinate.x
-                        val dy: Float = event.y - downCoordinate.y
-                        if (dx * dx + dy * dy > touchSlop * touchSlop) {
-                            if (state is OperableViewState.Pressing) {
-                                Toast.makeText(context, "CANCEL", Toast.LENGTH_SHORT).show()
-                            }
-                            state = OperableViewState.Touching
-                            cancelCheckTask()
-                            invalidate()
-                        }
-                    }
-                }
-                prevCoordinate.x = event.x
-                prevCoordinate.y = event.y
-            }
-
-            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
-                cancelCheckTask()
-                when (state) {
-                    is OperableViewState.Idle -> handleClick(event.x, event.y)
-                    is OperableViewState.Dragging -> resetAll()
-                    else -> {}
-                }
-                state = OperableViewState.Idle
-                invalidate()
-            }
+            MotionEvent.ACTION_MOVE -> handleActionMove(event)
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> handleActionCancel(event)
         }
         return super.onTouchEvent(event)
+    }
+
+    private fun handleActionCancel(event: MotionEvent) {
+        cancelCheckTask()
+        when (state) {
+            is OperableViewState.Idle -> handleClick(event.x, event.y)
+            is OperableViewState.Dragging -> resetAll()
+            else -> {}
+        }
+        state = OperableViewState.Idle
+        invalidate()
+    }
+
+    private fun handleActionMove(event: MotionEvent) {
+        when (state) {
+            is OperableViewState.Dragging -> targetElement?.let {
+                val dx: Float = event.x - prevCoordinate.x
+                val dy: Float = event.y - prevCoordinate.y
+                it.offset(dx, dy)
+                for (e in relativeElements) {
+                    e?.reset()
+                }
+                invalidate()
+            }
+
+            is OperableViewState.Touching -> {}
+            else -> {
+                val dx: Float = event.x - downCoordinate.x
+                val dy: Float = event.y - downCoordinate.y
+                if (dx * dx + dy * dy > touchSlop * touchSlop) {
+                    if (state is OperableViewState.Pressing) {
+                        Toast.makeText(context, "CANCEL", Toast.LENGTH_SHORT).show()
+                    }
+                    state = OperableViewState.Touching
+                    cancelCheckTask()
+                    invalidate()
+                }
+            }
+        }
+        prevCoordinate.x = event.x
+        prevCoordinate.y = event.y
+    }
+
+    private fun handleActionDown(event: MotionEvent) {
+        run {
+            prevCoordinate.x = event.x
+            downCoordinate.x = event.x
+        }
+        run {
+            prevCoordinate.y = event.y
+            downCoordinate.y = event.y
+        }
+        tryStartCheckTask()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -180,11 +187,12 @@ internal class OperableView : ElementHoldView {
         }
     }
 
+    @SuppressWarnings("NestedBlockDepth")
     private fun handleElementSelected(element: Element, cancelIfSelected: Boolean) {
         targetElement = element
         var bothNull = true
         for (i in relativeElements.indices) {
-            if (relativeElements[i] != null) {
+            relativeElements[i]?.let {
                 if (relativeElements[i] === element) {
                     if (cancelIfSelected) {
                         // cancel selected

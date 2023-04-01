@@ -16,7 +16,7 @@ internal abstract class AttributeDimenSP(title: String, value: Float) : Attribut
 
     class TextSize(title: String, value: Float) : AttributeDimenSP(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
-            if(view is TextView) {
+            if (view is TextView) {
                 view.textSize = updatedValue.toFloat()
             }
         }

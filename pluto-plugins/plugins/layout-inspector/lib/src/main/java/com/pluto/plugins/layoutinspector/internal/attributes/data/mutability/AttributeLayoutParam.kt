@@ -27,7 +27,7 @@ internal abstract class AttributeLayoutParam(title: String, value: Data) : Attri
         )
     )
 
-    class Height(title: String, value: Data): AttributeLayoutParam(title, value) {
+    class Height(title: String, value: Data) : AttributeLayoutParam(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
             view.layoutParams.height = when (updatedValue) {
                 LABEL_WRAP_CONTENT -> ViewGroup.LayoutParams.WRAP_CONTENT
@@ -37,7 +37,7 @@ internal abstract class AttributeLayoutParam(title: String, value: Data) : Attri
         }
     }
 
-    class Width(title: String, value: Data): AttributeLayoutParam(title, value) {
+    class Width(title: String, value: Data) : AttributeLayoutParam(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
             view.layoutParams.width = when (updatedValue) {
                 LABEL_WRAP_CONTENT -> ViewGroup.LayoutParams.WRAP_CONTENT

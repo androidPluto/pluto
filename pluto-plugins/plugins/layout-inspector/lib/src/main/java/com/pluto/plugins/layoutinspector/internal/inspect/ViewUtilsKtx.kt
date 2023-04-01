@@ -12,6 +12,7 @@ import com.pluto.utilities.extensions.getIdInfo
 import com.pluto.utilities.spannable.createSpan
 import java.lang.reflect.Field
 
+@SuppressWarnings("TooGenericExceptionCaught", "NestedBlockDepth")
 internal fun Activity.tryGetTheFrontView(): View {
     try {
         val mGlobalField: Field = Reflect28Util.getDeclaredField(Reflect28Util.forName("android.view.WindowManagerImpl"), "mGlobal")
@@ -32,13 +33,13 @@ internal fun Activity.tryGetTheFrontView(): View {
                 mRootsField[mGlobalField[windowManager]] as List<*>
             for (i in viewRootImpls.indices.reversed()) {
                 val clazz: Class<*> = Reflect28Util.forName("android.view.ViewRootImpl")
-                val `object` = viewRootImpls[i]!!
+                val rootImpl = viewRootImpls[i]!!
                 val mWindowAttributesField: Field = Reflect28Util.getDeclaredField(clazz, "mWindowAttributes")
                 mWindowAttributesField.isAccessible = true
                 val mViewField: Field = Reflect28Util.getDeclaredField(clazz, "mView")
                 mViewField.isAccessible = true
-                val decorView = mViewField[`object`] as View
-                val layoutParams = mWindowAttributesField[`object`] as WindowManager.LayoutParams
+                val decorView = mViewField[rootImpl] as View
+                val layoutParams = mWindowAttributesField[rootImpl] as WindowManager.LayoutParams
                 if (layoutParams.title.toString().contains(javaClass.name) ||
                     getTargetDecorView(decorView) != null
                 ) {
@@ -52,6 +53,7 @@ internal fun Activity.tryGetTheFrontView(): View {
     return window.peekDecorView()
 }
 
+@SuppressWarnings("LoopWithTooManyJumpStatements")
 private fun Activity.getTargetDecorView(decorView: View): View? {
     var targetView: View? = null
     var context = decorView.context
@@ -86,6 +88,7 @@ internal fun View.getIdString(): CharSequence? {
             null
         }
     } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
         return Integer.toHexString(id)
     }
 }

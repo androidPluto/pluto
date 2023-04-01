@@ -57,13 +57,14 @@ internal class AttributeGravity(title: String, value: Int) : Attribute<Int>(titl
 //            Log.d("prateek")
 //            view.gravity = Gravity.LEFT
 //        }
-////        if (scaleType != null) {
-////            (view as ImageView).scaleType = scaleType
-////        } else {
-////            Log.e("layout-inspector", "improper scale type value, should be between 0f to 1f")
-////        }
+//        if (scaleType != null) {
+//            (view as ImageView).scaleType = scaleType
+//        } else {
+//            Log.e("layout-inspector", "improper scale type value, should be between 0f to 1f")
+//        }
 //    }
 
+    @SuppressWarnings("ComplexMethod")
     private fun formatGravity(@GravityInt gravity: Int): String = when (gravity) {
         Gravity.NO_GRAVITY -> LABEL_NO_GRAVITY
         Gravity.LEFT -> LABEL_LEFT

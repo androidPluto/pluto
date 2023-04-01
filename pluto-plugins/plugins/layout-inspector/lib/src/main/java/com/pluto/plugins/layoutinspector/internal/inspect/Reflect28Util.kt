@@ -4,6 +4,7 @@ import android.os.Build
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
+@SuppressWarnings("TooGenericExceptionCaught")
 internal object Reflect28Util {
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

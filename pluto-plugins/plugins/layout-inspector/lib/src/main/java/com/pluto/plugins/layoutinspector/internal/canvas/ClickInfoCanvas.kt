@@ -52,7 +52,7 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
             infoAnimator?.removeAllUpdateListeners()
             infoAnimator?.cancel()
         }
-        infoAnimator = ObjectAnimator.ofInt(255, 0).setDuration(1400)
+        infoAnimator = ObjectAnimator.ofInt(ANIMATION_START_OFFSET, ANIMATION_END_OFFSET).setDuration(ANIMATION_DURATION)
         infoAnimator?.addUpdateListener { container.invalidate() }
         infoAnimator?.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -72,7 +72,7 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
             show = infoAnimator?.isRunning ?: false
         }
         if (show) {
-            val alpha: Int = if (showInfoAlways) 255 else (infoAnimator?.animatedValue ?: 0) as Int
+            val alpha: Int = if (showInfoAlways) ALPHA_MAX else (infoAnimator?.animatedValue ?: 0) as Int
             cornerPaint.alpha = alpha
             textPaint.alpha = alpha
             val rect: Rect = infoElement!!.rect
@@ -122,5 +122,10 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
         return paint.measureText(text)
     }
 
-    private companion object
+    private companion object {
+        const val ALPHA_MAX = 255
+        const val ANIMATION_DURATION = 1400L
+        const val ANIMATION_START_OFFSET = 255
+        const val ANIMATION_END_OFFSET = 0
+    }
 }

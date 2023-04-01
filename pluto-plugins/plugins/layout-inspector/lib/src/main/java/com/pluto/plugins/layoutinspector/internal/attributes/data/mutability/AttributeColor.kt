@@ -16,7 +16,7 @@ internal abstract class AttributeColor(title: String, value: Int) : Attribute<In
 
     class Text(title: String, value: Int) : AttributeColor(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
-            if(view is TextView) {
+            if (view is TextView) {
                 view.setTextColor(Color.parseColor(updatedValue))
             }
         }
@@ -24,7 +24,7 @@ internal abstract class AttributeColor(title: String, value: Int) : Attribute<In
 
     class Hint(title: String, value: Int) : AttributeColor(title, value) {
         override fun handleEdit(view: View, updatedValue: String) {
-            if(view is TextView) {
+            if (view is TextView) {
                 view.setHintTextColor(Color.parseColor(updatedValue))
             }
         }

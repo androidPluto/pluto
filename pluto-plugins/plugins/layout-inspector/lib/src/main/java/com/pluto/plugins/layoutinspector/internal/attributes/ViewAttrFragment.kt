@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
-import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.data.MutableAttribute
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
@@ -94,9 +93,9 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
                 append(semiBold(target.javaClass.simpleName))
                 append("\n")
                 target.getIdString()?.let {
-                    append(regular(fontSize(it, 12)))
+                    append(regular(fontSize(it, SUBTITLE_TEXT_SIZE_IN_SP)))
                 } ?: run {
-                    append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40)))))
+                    append(regular(fontSize(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40))), SUBTITLE_TEXT_SIZE_IN_SP)))
                 }
             }
             binding.attrList.apply {
@@ -153,5 +152,9 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+    }
+
+    private companion object {
+        const val SUBTITLE_TEXT_SIZE_IN_SP = 12
     }
 }

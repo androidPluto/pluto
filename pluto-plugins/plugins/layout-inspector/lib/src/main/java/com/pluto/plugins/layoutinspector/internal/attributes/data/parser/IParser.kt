@@ -20,6 +20,7 @@ internal abstract class IParser<T : View> {
         return false
     }
 
+    @SuppressWarnings("TooGenericExceptionCaught")
     fun getAttributes(view: View): List<Attribute<*>>? = try {
         if (isValidType(view.javaClass)) getTypeAttributes(view) else null
     } catch (t: Throwable) {
