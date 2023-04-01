@@ -1,7 +1,7 @@
 package com.pluto.plugins.layoutinspector.internal.attributes.data.parser
 
 import android.view.View
-import com.pluto.plugins.layoutinspector.internal.attributes.data.ParsedAttribute
+import com.pluto.plugins.layoutinspector.internal.attributes.data.Attribute
 import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.types.ImageViewParser
 import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.types.TextViewParser
 import com.pluto.plugins.layoutinspector.internal.attributes.data.parser.types.ViewGroupParser
@@ -25,4 +25,9 @@ internal class AttributeParser {
         }
         return attributes
     }
+
+    data class ParsedAttribute(
+        val parameterizedType: String,
+        val attributes: List<Attribute<*>>
+    )
 }

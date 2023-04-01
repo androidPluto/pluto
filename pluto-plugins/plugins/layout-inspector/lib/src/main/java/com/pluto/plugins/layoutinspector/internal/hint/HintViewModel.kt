@@ -20,8 +20,8 @@ internal class HintViewModel(application: Application) : AndroidViewModel(applic
     private fun generate(context: Context?) {
         context?.apply {
             val list = arrayListOf<HintItem>()
-            list.add(HintItem(getString(R.string.pluto_li___hint_reset_position)))
-            list.add(HintItem(getString(R.string.pluto_li___hint_measure)))
+            list.add(HintItem(getString(R.string.pluto_li___hint_select_view)))
+            list.add(HintItem(getString(R.string.pluto_li___hint_move_view)))
             _list.postValue(list)
         }
     }
