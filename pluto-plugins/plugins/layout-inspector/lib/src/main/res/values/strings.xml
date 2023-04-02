@@ -3,7 +3,7 @@
     <string name="pluto_li___plugin_name">Layout Inspector</string>
     <string name="pluto_li___hint_label">How to use</string>
     <string name="pluto_li___hint_select_view">Click on view to select, click again to cancel selection.</string>
-    <string name="pluto_li___hint_move_view">Long press to move the selected view</string>
+    <string name="pluto_li___hint_move_view">Select a view, then long press anywhere to start moving the selected view</string>
     <string name="pluto_li___view_attr_cta">View Attributes</string>
     <string name="pluto_li___view_hierarchy_cta">View Hierarchy</string>
 </resources>

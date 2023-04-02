@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import android.widget.Toast
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.RelativeCanvas
@@ -27,7 +26,6 @@ internal class OperableView : ElementHoldView {
     private var clickInfoCanvas: ClickInfoCanvas = ClickInfoCanvas(this)
     private var relativeCanvas: RelativeCanvas = RelativeCanvas(this)
     private var selectCanvas: SelectCanvas = SelectCanvas(this)
-    private var tapTimeout: Int = ViewConfiguration.getTapTimeout()
     private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
 
     private var prevCoordinate = CoordinatePair()
@@ -37,7 +35,7 @@ internal class OperableView : ElementHoldView {
     private var searchCount = 0
 
     // max selectable count
-    private val elementsNum = 2
+    private val elementsNum = 1
     private var relativeElements = arrayOfNulls<Element>(elementsNum)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
@@ -54,11 +52,8 @@ internal class OperableView : ElementHoldView {
     private val longPressCheck = Runnable {
         state = State.Dragging
         alpha = 1f
-    }
-    private val tapTimeoutCheck = Runnable {
-        state = State.Pressing // State.PRESSING
         gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
-            .setDuration((longPressTimeout - tapTimeout).toLong())
+            .setDuration(longPressTimeout.toLong())
         gridAnimator?.addUpdateListener { animation ->
             alpha = animation.animatedValue as Float
             invalidate()
@@ -102,14 +97,13 @@ internal class OperableView : ElementHoldView {
                 invalidate()
             }
 
-            is State.Touching -> {}
+            is State.Touching -> {
+            }
+
             else -> {
                 val dx: Float = event.x - downCoordinate.x
                 val dy: Float = event.y - downCoordinate.y
                 if (dx * dx + dy * dy > touchSlop * touchSlop) {
-                    if (state is State.Pressing) {
-                        Toast.makeText(context, "CANCEL", Toast.LENGTH_SHORT).show()
-                    }
                     state = State.Touching
                     cancelCheckTask()
                     invalidate()
@@ -120,10 +114,8 @@ internal class OperableView : ElementHoldView {
     }
 
     private fun handleActionDown(event: MotionEvent) {
-        run {
-            prevCoordinate = CoordinatePair(event.x, event.y)
-            downCoordinate = CoordinatePair(event.x, event.y)
-        }
+        prevCoordinate = CoordinatePair(event.x, event.y)
+        downCoordinate = CoordinatePair(event.x, event.y)
         tryStartCheckTask()
     }
 
@@ -132,7 +124,6 @@ internal class OperableView : ElementHoldView {
         canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
         when (state) {
             is State.Dragging -> gridCanvas.draw(canvas, 1f)
-            is State.Pressing -> gridCanvas.draw(canvas, alpha)
             else -> {}
         }
         selectCanvas.draw(canvas, *relativeElements)
@@ -148,7 +139,6 @@ internal class OperableView : ElementHoldView {
 
     private fun cancelCheckTask() {
         removeCallbacks(longPressCheck)
-        removeCallbacks(tapTimeoutCheck)
         gridAnimator?.cancel()
         gridAnimator = null
     }
@@ -157,7 +147,6 @@ internal class OperableView : ElementHoldView {
         cancelCheckTask()
         targetElement?.let {
             postDelayed(longPressCheck, longPressTimeout.toLong())
-            postDelayed(tapTimeoutCheck, tapTimeout.toLong())
         }
     }
 
@@ -224,7 +213,6 @@ internal class OperableView : ElementHoldView {
 
     private sealed class State {
         object Idle : State()
-        object Pressing : State() // after tapTimeout and before longPressTimeout
         object Touching : State() // trigger move before dragging
         object Dragging : State() // since long press
     }
