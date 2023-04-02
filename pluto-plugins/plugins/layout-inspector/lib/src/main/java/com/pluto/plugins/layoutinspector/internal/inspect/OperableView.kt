@@ -11,8 +11,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.Toast
-import com.pluto.plugins.layoutinspector.internal.CoordinatePair
-import com.pluto.plugins.layoutinspector.internal.OperableViewState
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.RelativeCanvas
@@ -35,7 +33,7 @@ internal class OperableView : ElementHoldView {
     private var prevCoordinate = CoordinatePair()
     private var downCoordinate = CoordinatePair()
 
-    private var state: OperableViewState = OperableViewState.Idle
+    private var state: State = State.Idle
     private var searchCount = 0
 
     // max selectable count
@@ -54,11 +52,11 @@ internal class OperableView : ElementHoldView {
         }
     }
     private val longPressCheck = Runnable {
-        state = OperableViewState.Dragging // State.DRAGGING
+        state = State.Dragging
         alpha = 1f
     }
     private val tapTimeoutCheck = Runnable {
-        state = OperableViewState.Pressing // State.PRESSING
+        state = State.Pressing // State.PRESSING
         gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
             .setDuration((longPressTimeout - tapTimeout).toLong())
         gridAnimator?.addUpdateListener { animation ->
@@ -84,17 +82,17 @@ internal class OperableView : ElementHoldView {
     private fun handleActionCancel(event: MotionEvent) {
         cancelCheckTask()
         when (state) {
-            is OperableViewState.Idle -> handleClick(event.x, event.y)
-            is OperableViewState.Dragging -> resetAll()
+            is State.Idle -> handleClick(event.x, event.y)
+            is State.Dragging -> resetAll()
             else -> {}
         }
-        state = OperableViewState.Idle
+        state = State.Idle
         invalidate()
     }
 
     private fun handleActionMove(event: MotionEvent) {
         when (state) {
-            is OperableViewState.Dragging -> targetElement?.let {
+            is State.Dragging -> targetElement?.let {
                 val dx: Float = event.x - prevCoordinate.x
                 val dy: Float = event.y - prevCoordinate.y
                 it.offset(dx, dy)
@@ -104,32 +102,27 @@ internal class OperableView : ElementHoldView {
                 invalidate()
             }
 
-            is OperableViewState.Touching -> {}
+            is State.Touching -> {}
             else -> {
                 val dx: Float = event.x - downCoordinate.x
                 val dy: Float = event.y - downCoordinate.y
                 if (dx * dx + dy * dy > touchSlop * touchSlop) {
-                    if (state is OperableViewState.Pressing) {
+                    if (state is State.Pressing) {
                         Toast.makeText(context, "CANCEL", Toast.LENGTH_SHORT).show()
                     }
-                    state = OperableViewState.Touching
+                    state = State.Touching
                     cancelCheckTask()
                     invalidate()
                 }
             }
         }
-        prevCoordinate.x = event.x
-        prevCoordinate.y = event.y
+        prevCoordinate = CoordinatePair(event.x, event.y)
     }
 
     private fun handleActionDown(event: MotionEvent) {
         run {
-            prevCoordinate.x = event.x
-            downCoordinate.x = event.x
-        }
-        run {
-            prevCoordinate.y = event.y
-            downCoordinate.y = event.y
+            prevCoordinate = CoordinatePair(event.x, event.y)
+            downCoordinate = CoordinatePair(event.x, event.y)
         }
         tryStartCheckTask()
     }
@@ -138,15 +131,12 @@ internal class OperableView : ElementHoldView {
         super.onDraw(canvas)
         canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
         when (state) {
-            is OperableViewState.Dragging -> gridCanvas.draw(canvas, 1f)
-            is OperableViewState.Pressing -> gridCanvas.draw(canvas, alpha)
+            is State.Dragging -> gridCanvas.draw(canvas, 1f)
+            is State.Pressing -> gridCanvas.draw(canvas, alpha)
             else -> {}
         }
         selectCanvas.draw(canvas, *relativeElements)
-        relativeCanvas.draw(
-            canvas, relativeElements[searchCount % elementsNum],
-            relativeElements[abs(searchCount - 1) % elementsNum]
-        )
+        relativeCanvas.draw(canvas, relativeElements[searchCount % elementsNum], relativeElements[abs(searchCount - 1) % elementsNum])
         clickInfoCanvas.draw(canvas)
     }
 
@@ -228,5 +218,14 @@ internal class OperableView : ElementHoldView {
     private var clickListener: OnClickListener? = null
     override fun setOnClickListener(l: OnClickListener?) {
         clickListener = l
+    }
+
+    private data class CoordinatePair(val x: Float = 0f, val y: Float = 0f)
+
+    private sealed class State {
+        object Idle : State()
+        object Pressing : State() // after tapTimeout and before longPressTimeout
+        object Touching : State() // trigger move before dragging
+        object Dragging : State() // since long press
     }
 }
