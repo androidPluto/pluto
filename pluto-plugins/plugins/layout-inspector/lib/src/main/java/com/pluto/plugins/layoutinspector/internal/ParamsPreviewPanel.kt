@@ -10,6 +10,7 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiParamsPreviewPanelBinding
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.px2dp
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 
@@ -31,7 +32,7 @@ internal class ParamsPreviewPanel : ConstraintLayout {
         }
         binding.viewType.text = if (view is ViewGroup) "viewGroup" else "view"
         binding.viewClass.text = view.javaClass.canonicalName
-        binding.viewDimens.text = "${view.width} x ${view.height} dp"
+        binding.viewDimens.text = "${view.width.toFloat().px2dp.toInt()} x ${view.height.toFloat().px2dp.toInt()} dp"
 
         binding.viewAttrCta.setOnDebounceClickListener {
             listener.invoke("view_attr")
