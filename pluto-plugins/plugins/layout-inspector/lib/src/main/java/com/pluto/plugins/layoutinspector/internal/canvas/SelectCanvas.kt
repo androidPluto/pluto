@@ -45,11 +45,9 @@ internal class SelectCanvas(private val view: View) {
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
-    fun draw(canvas: Canvas, vararg elements: Element?) {
+    fun draw(canvas: Canvas, element: Element?) {
         canvas.save()
-        for (element in elements) {
-            element?.let { drawSelected(canvas, it) }
-        }
+        element?.let { drawSelected(canvas, it) }
         canvas.restore()
     }
 

@@ -12,31 +12,24 @@ import android.view.View
 import android.view.ViewConfiguration
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.RelativeCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
-import kotlin.math.abs
 
 internal class OperableView : ElementHoldView {
 
     private var gridAnimator: ValueAnimator? = null
     private var targetElement: Element? = null
     private var touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
+    private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
+
     private var gridCanvas: GridCanvas = GridCanvas(this)
     private var clickInfoCanvas: ClickInfoCanvas = ClickInfoCanvas(this)
-    private var relativeCanvas: RelativeCanvas = RelativeCanvas(this)
     private var selectCanvas: SelectCanvas = SelectCanvas(this)
-    private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
 
     private var prevCoordinate = CoordinatePair()
     private var downCoordinate = CoordinatePair()
 
     private var state: State = State.Idle
-    private var searchCount = 0
-
-    // max selectable count
-    private val elementsNum = 1
-    private var relativeElements = arrayOfNulls<Element>(elementsNum)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
@@ -91,9 +84,7 @@ internal class OperableView : ElementHoldView {
                 val dx: Float = event.x - prevCoordinate.x
                 val dy: Float = event.y - prevCoordinate.y
                 it.offset(dx, dy)
-                for (e in relativeElements) {
-                    e?.reset()
-                }
+                targetElement?.reset()
                 invalidate()
             }
 
@@ -126,15 +117,14 @@ internal class OperableView : ElementHoldView {
             is State.Dragging -> gridCanvas.draw(canvas, 1f)
             else -> {}
         }
-        selectCanvas.draw(canvas, *relativeElements)
-        relativeCanvas.draw(canvas, relativeElements[searchCount % elementsNum], relativeElements[abs(searchCount - 1) % elementsNum])
-        clickInfoCanvas.draw(canvas)
+        selectCanvas.draw(canvas, targetElement)
+        clickInfoCanvas.draw(canvas, targetElement)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         cancelCheckTask()
-        relativeElements = emptyArray()
+        targetElement = null
     }
 
     private fun cancelCheckTask() {
@@ -166,44 +156,17 @@ internal class OperableView : ElementHoldView {
         }
     }
 
-    @SuppressWarnings("NestedBlockDepth")
     private fun handleElementSelected(element: Element, cancelIfSelected: Boolean) {
-        targetElement = element
-        var bothNull = true
-        for (i in relativeElements.indices) {
-            relativeElements[i]?.let {
-                if (relativeElements[i] === element) {
-                    if (cancelIfSelected) {
-                        // cancel selected
-                        targetElement = null
-                        relativeElements[i] = null
-                        searchCount = i
-                    }
-                    clickListener?.onClick(element.view)
-                    return
-                }
-                bothNull = false
-            }
+        targetElement = if (targetElement == element && cancelIfSelected) {
+            null
+        } else {
+            element
         }
-        if (bothNull) {
-            // If only one is selected, show info
-            clickInfoCanvas.setInfoElement(element)
-        }
-        relativeElements[searchCount % elementsNum] = element
-        searchCount++
+        clickInfoCanvas.targetElement = targetElement
         clickListener?.onClick(element.view)
     }
 
-    fun isSelectedEmpty(): Boolean {
-        var empty = true
-        for (i in 0 until elementsNum) {
-            if (relativeElements[i] != null) {
-                empty = false
-                break
-            }
-        }
-        return empty
-    }
+    fun isSelectedEmpty(): Boolean = targetElement == null
 
     private var clickListener: OnClickListener? = null
     override fun setOnClickListener(l: OnClickListener?) {

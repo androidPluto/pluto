@@ -1,9 +1,5 @@
 package com.pluto.plugins.layoutinspector.internal.canvas
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -14,7 +10,7 @@ import com.pluto.plugins.layoutinspector.internal.inspect.Element
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 
-internal class ClickInfoCanvas(private val container: View, private val showInfoAlways: Boolean = false) {
+internal class ClickInfoCanvas(private val container: View) {
 
     private val cornerRadius = 1.5f.dp2px
     private val textBgFillingSpace = 3f.dp2px
@@ -37,50 +33,24 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
             style = Style.FILL
         }
     }
-    private val tmpRectF: RectF = RectF()
-    private var infoElement: Element? = null
-    private var infoAnimator: ValueAnimator? = null
-    fun setInfoElement(infoElement: Element?) {
-        this.infoElement = infoElement
-        if (!showInfoAlways) {
-            animInfo()
-        }
-    }
 
-    private fun animInfo() {
-        if (infoAnimator != null) {
-            infoAnimator?.removeAllUpdateListeners()
-            infoAnimator?.cancel()
-        }
-        infoAnimator = ObjectAnimator.ofInt(ANIMATION_START_OFFSET, ANIMATION_END_OFFSET).setDuration(ANIMATION_DURATION)
-        infoAnimator?.addUpdateListener { container.invalidate() }
-        infoAnimator?.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                infoElement = null
+    var targetElement: Element? = null
+
+    fun draw(canvas: Canvas, element: Element?) {
+        canvas.save()
+        element?.let {
+            targetElement?.let {
+                val rect: Rect = it.rect
+                val widthText = "${rect.width().toFloat().px2dp.toInt()} dp"
+                drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - textLineDistance)
+                val heightText = "${rect.height().toFloat().px2dp.toInt()} dp"
+                drawText(canvas, heightText, rect.right + textLineDistance, rect.centerY().toFloat())
+            } ?: run {
                 container.invalidate()
+                return
             }
-        })
-        infoAnimator?.start()
-    }
-
-    fun draw(canvas: Canvas) {
-        if (infoElement == null) {
-            return
         }
-        var show = showInfoAlways
-        if (!show) {
-            show = infoAnimator?.isRunning ?: false
-        }
-        if (show) {
-            val alpha: Int = if (showInfoAlways) ALPHA_MAX else (infoAnimator?.animatedValue ?: 0) as Int
-            cornerPaint.alpha = alpha
-            textPaint.alpha = alpha
-            val rect: Rect = infoElement!!.rect
-            val widthText = "${rect.width().toFloat().px2dp} dp"
-            drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - textLineDistance)
-            val heightText = "${rect.height().toFloat().px2dp} dp"
-            drawText(canvas, heightText, rect.right + textLineDistance, rect.centerY().toFloat())
-        }
+        canvas.restore()
     }
 
     private fun drawText(canvas: Canvas, text: String, x: Float, y: Float) {
@@ -107,7 +77,9 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
             right = canvas.width.toFloat()
             left = right + diff
         }
-        tmpRectF.set(left, top, right, bottom)
+        val tmpRectF = RectF().apply {
+            set(left, top, right, bottom)
+        }
         canvas.drawRoundRect(tmpRectF, cornerRadius, cornerRadius, cornerPaint)
         canvas.drawText(text, left + textBgFillingSpace, bottom - textBgFillingSpace, textPaint)
     }
@@ -120,12 +92,5 @@ internal class ClickInfoCanvas(private val container: View, private val showInfo
 
     private fun getTextWidth(paint: Paint, text: String?): Float {
         return paint.measureText(text)
-    }
-
-    private companion object {
-        const val ALPHA_MAX = 255
-        const val ANIMATION_DURATION = 1400L
-        const val ANIMATION_START_OFFSET = 255
-        const val ANIMATION_END_OFFSET = 0
     }
 }
