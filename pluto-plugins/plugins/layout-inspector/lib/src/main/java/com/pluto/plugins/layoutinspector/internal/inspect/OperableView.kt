@@ -146,9 +146,9 @@ internal class OperableView : ElementHoldView {
         }
     }
 
-    fun handleClick(v: View): Boolean {
+    fun handleClick(v: View, cancelIfSelected: Boolean): Boolean {
         return getTargetElement(v)?.let {
-            handleElementSelected(it, false)
+            handleElementSelected(it, cancelIfSelected)
             invalidate()
             true
         } ?: run {

@@ -18,7 +18,6 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
     private var targetView: View? = null
     private val binding by viewBinding(PlutoLiFragmentViewInfoBinding::bind)
-//    private val activityLifecycle = ActivityLifecycle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,12 +42,10 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
         )
         binding.leftControls.visibility = View.GONE
         setupPreviewPanel()
-
-//        binding.paramPanelContainer.setBehavior(behavior = BottomSheetBehavior())
     }
 
     private fun setupPreviewPanel() {
-        behavior = BottomSheetBehavior.from(binding.bsContainer.bottomSheet)
+        behavior = BottomSheetBehavior.from(binding.bsContainer.previewPanelBottomSheet)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
@@ -65,10 +62,17 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     }
 
     private fun refreshViewDetails(view: View) {
-        binding.bsContainer.previewPanel.refresh(view) {
-            targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
-            findNavController().navigate(R.id.openAttrView)
-        }
+        binding.bsContainer.previewPanel.refresh(
+            view = view,
+            onViewAttrRequested = {
+                targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
+                findNavController().navigate(R.id.openAttrView)
+            },
+            onViewHierarchyRequested = {},
+            onCloseRequested = {
+                binding.operableView.handleClick(view, true)
+            }
+        )
     }
 
     private val onControlCtaListener = object : ControlsWidget.OnClickListener {

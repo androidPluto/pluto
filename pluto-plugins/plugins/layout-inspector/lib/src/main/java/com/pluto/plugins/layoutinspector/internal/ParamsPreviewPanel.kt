@@ -10,7 +10,6 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiParamsPreviewPanelBinding
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.extensions.color
-import com.pluto.utilities.extensions.px2dp
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 
@@ -22,7 +21,7 @@ internal class ParamsPreviewPanel : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun refresh(view: View, listener: (String) -> Unit) {
+    fun refresh(view: View, onViewAttrRequested: () -> Unit, onViewHierarchyRequested: () -> Unit, onCloseRequested: () -> Unit) {
         binding.viewId.setSpan {
             view.getIdString()?.let {
                 append(it)
@@ -32,13 +31,15 @@ internal class ParamsPreviewPanel : ConstraintLayout {
         }
         binding.viewType.text = if (view is ViewGroup) "viewGroup" else "view"
         binding.viewClass.text = view.javaClass.canonicalName
-        binding.viewDimens.text = "${view.width.toFloat().px2dp.toInt()} x ${view.height.toFloat().px2dp.toInt()} dp"
 
         binding.viewAttrCta.setOnDebounceClickListener {
-            listener.invoke("view_attr")
+            onViewAttrRequested.invoke()
         }
         binding.viewHierarchyCta.setOnDebounceClickListener {
-            listener.invoke("view_hierarchy")
+            onViewHierarchyRequested.invoke()
+        }
+        binding.close.setOnDebounceClickListener {
+            onCloseRequested.invoke()
         }
     }
 }

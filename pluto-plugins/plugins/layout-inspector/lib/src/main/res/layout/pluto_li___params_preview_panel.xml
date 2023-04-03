@@ -49,21 +49,18 @@
         app:layout_constraintTop_toBottomOf="@+id/topBorder"
         tools:text="param panel" />
 
-    <TextView
-        android:id="@+id/viewDimens"
+    <ImageView
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/pluto___margin_medium"
-        android:background="@color/pluto___dark_10"
-        android:fontFamily="@font/muli_bold"
+        android:layout_marginEnd="@dimen/pluto___margin_xsmall"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:paddingHorizontal="@dimen/pluto___margin_mini"
         android:paddingVertical="@dimen/pluto___margin_micro"
-        android:textColor="@color/pluto___blue"
-        android:textSize="@dimen/pluto___text_mini"
+        android:src="@drawable/pluto_li___ic_close"
         app:layout_constraintBottom_toBottomOf="@+id/viewId"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewId"
-        tools:text="172 x 40 dp" />
+        app:layout_constraintTop_toTopOf="@+id/viewId" />
 
     <TextView
         android:id="@+id/viewClass"
@@ -77,7 +74,7 @@
         android:singleLine="true"
         android:textColor="@color/pluto___text_dark_60"
         android:textSize="@dimen/pluto___text_xsmall"
-        app:layout_constraintEnd_toEndOf="@+id/viewDimens"
+        app:layout_constraintEnd_toEndOf="@+id/close"
         app:layout_constraintStart_toStartOf="@+id/viewType"
         app:layout_constraintTop_toBottomOf="@+id/viewId"
         tools:text="view type class" />
@@ -86,10 +83,10 @@
         android:id="@+id/actionsGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_xsmall"
         android:layout_marginTop="@dimen/pluto___margin_mini"
+        android:layout_marginBottom="@dimen/pluto___margin_xsmall"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/viewDimens"
+        app:layout_constraintEnd_toEndOf="@+id/close"
         app:layout_constraintStart_toStartOf="@+id/viewType"
         app:layout_constraintTop_toBottomOf="@+id/viewClass"
         app:singleLine="false"
@@ -107,10 +104,10 @@
             android:id="@+id/viewHierarchyCta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:text="@string/pluto_li___view_hierarchy_cta"
             android:textAppearance="@style/PlutoLIChipTextStyle"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:visibility="gone" />
 
     </com.google.android.material.chip.ChipGroup>
 
