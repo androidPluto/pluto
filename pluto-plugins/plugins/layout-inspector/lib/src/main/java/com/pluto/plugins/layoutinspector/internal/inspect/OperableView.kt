@@ -175,6 +175,7 @@ internal class OperableView : ElementHoldView {
                 if (relativeElements[i] === element) {
                     if (cancelIfSelected) {
                         // cancel selected
+                        targetElement = null
                         relativeElements[i] = null
                         searchCount = i
                     }
