@@ -25,14 +25,10 @@ internal class InspectedView(val view: View) {
 
     fun reset() {
         view.getLocationOnScreen(location)
-        val width = view.width
-        val height = view.height
-
         val left = location[0]
-        val right = left + width
+        val right = left + view.width
         val top = location[1]
-        val bottom = top + height
-
+        val bottom = top + view.height
         rect.set(left, top, right, bottom)
     }
 
@@ -41,14 +37,12 @@ internal class InspectedView(val view: View) {
         view.translationY = view.translationY + dy
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val element = o as InspectedView
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val element = other as InspectedView
         return view == element.view
     }
 
-    override fun hashCode(): Int {
-        return view.hashCode()
-    }
+    override fun hashCode(): Int = view.hashCode()
 }
