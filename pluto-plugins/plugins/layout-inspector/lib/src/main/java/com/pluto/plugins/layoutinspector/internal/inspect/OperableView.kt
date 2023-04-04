@@ -2,20 +2,23 @@ package com.pluto.plugins.layoutinspector.internal.inspect
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import android.view.ViewGroup
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
 
-internal class OperableView : ElementHoldView {
+internal class OperableView : View {
 
     private var gridAnimator: ValueAnimator? = null
     private var targetElement: Element? = null
@@ -30,6 +33,10 @@ internal class OperableView : ElementHoldView {
     private var downCoordinate = CoordinatePair()
 
     private var state: State = State.Idle
+
+    private val elements = arrayListOf<Element>()
+
+    private var clickListener: OnClickListener? = null
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
@@ -54,6 +61,10 @@ internal class OperableView : ElementHoldView {
         gridAnimator?.start()
     }
 
+    fun tryGetFrontView(targetActivity: Activity) {
+        traverse(targetActivity.tryGetTheFrontView())
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event!!.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -65,6 +76,17 @@ internal class OperableView : ElementHoldView {
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> handleActionCancel(event)
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
+        when (state) {
+            is State.Dragging -> gridCanvas.draw(canvas, 1f)
+            else -> {}
+        }
+        selectCanvas.draw(canvas, targetElement)
+        clickInfoCanvas.draw(canvas, targetElement)
     }
 
     private fun handleActionCancel(event: MotionEvent) {
@@ -110,19 +132,9 @@ internal class OperableView : ElementHoldView {
         tryStartCheckTask()
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
-        when (state) {
-            is State.Dragging -> gridCanvas.draw(canvas, 1f)
-            else -> {}
-        }
-        selectCanvas.draw(canvas, targetElement)
-        clickInfoCanvas.draw(canvas, targetElement)
-    }
-
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        elements.clear()
         cancelCheckTask()
         targetElement = null
     }
@@ -156,6 +168,52 @@ internal class OperableView : ElementHoldView {
         }
     }
 
+    @SuppressWarnings("LoopWithTooManyJumpStatements")
+    fun getTargetElement(x: Float, y: Float): Element? {
+        var target: Element? = null
+        for (i in elements.indices.reversed()) {
+            val element = elements[i]
+            if (element.rect.contains(x.toInt(), y.toInt())) {
+                if (isParentNotVisible(element.parentElement)) {
+                    continue
+                }
+                target = element
+                break
+            }
+        }
+        if (target == null) {
+            Log.w(TAG, "getTargetElement: not find")
+        }
+        return target
+    }
+
+    private fun getTargetElement(v: View): Element? {
+        var target: Element? = null
+        for (i in elements.indices.reversed()) {
+            val element = elements[i]
+            if (element.view === v) {
+                target = element
+                break
+            }
+        }
+        if (target == null) {
+            Log.w(TAG, "getTargetElement: not find")
+        }
+        return target
+    }
+
+    private fun isParentNotVisible(parent: Element?): Boolean {
+        if (parent == null) {
+            return false
+        }
+        return if (parent.rect.left >= measuredWidth ||
+            parent.rect.top >= measuredHeight
+        ) {
+            true
+        } else {
+            isParentNotVisible(parent.parentElement)
+        }
+    }
     private fun handleElementSelected(element: Element, cancelIfSelected: Boolean) {
         targetElement = if (targetElement == element && cancelIfSelected) {
             null
@@ -168,9 +226,12 @@ internal class OperableView : ElementHoldView {
 
     fun isSelectedEmpty(): Boolean = targetElement == null
 
-    private var clickListener: OnClickListener? = null
     override fun setOnClickListener(l: OnClickListener?) {
         clickListener = l
+    }
+
+    companion object {
+        private const val TAG = "ElementHoldView"
     }
 
     private data class CoordinatePair(val x: Float = 0f, val y: Float = 0f)
@@ -179,5 +240,22 @@ internal class OperableView : ElementHoldView {
         object Idle : State()
         object Touching : State() // trigger move before dragging
         object Dragging : State() // since long press
+    }
+
+    private fun traverse(view: View) {
+        if (view.alpha == 0f || view.visibility != VISIBLE) return
+        elements.add(Element(view))
+        if (view is ViewGroup) {
+            val parent: ViewGroup = view
+            for (i in 0 until parent.childCount) {
+                traverse(parent.getChildAt(i))
+            }
+        }
+    }
+
+    private fun resetAll() {
+        for (e in elements) {
+            e.reset()
+        }
     }
 }
