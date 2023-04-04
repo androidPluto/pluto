@@ -1,35 +1,40 @@
 package com.pluto.plugins.layoutinspector.internal.canvas
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
+import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 
 internal class ClickInfoCanvas(private val container: View) {
 
-    private val cornerRadius = 1.5f.dp2px
-    private val textBgFillingSpace = 3f.dp2px
-    private val textLineDistance = 6f.dp2px
+    private val cornerRadius = 3f.dp2px
+    private val textBgTopPadding = 4f.dp2px
+    private val textBgBottomPadding = 1f.dp2px
+    private val textBgHorizontalPadding = 4f.dp2px
+    private val distanceBtwTextAndBorder = 7f.dp2px
+
     private val textPaint: Paint = object : Paint() {
         init {
-            isAntiAlias = true
-            textSize = 10f.dp2px
-            color = Color.RED
+            color = container.context.color(R.color.pluto___red_dark)
             style = Style.FILL
             strokeWidth = 1f.dp2px
+            textSize = 12f.dp2px
+            typeface = ResourcesCompat.getFont(container.context, R.font.muli_semibold)
             flags = FAKE_BOLD_TEXT_FLAG
         }
     }
-    private val cornerPaint: Paint = object : Paint() {
+    private val textBgPaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
             strokeWidth = 1f.dp2px
-            color = Color.WHITE
+            color = container.context.color(R.color.pluto___white)
             style = Style.FILL
         }
     }
@@ -42,9 +47,9 @@ internal class ClickInfoCanvas(private val container: View) {
             targetElement?.let {
                 val rect: Rect = it.rect
                 val widthText = "${rect.width().toFloat().px2dp.toInt()} dp"
-                drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - textLineDistance)
+                drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - distanceBtwTextAndBorder + 3f.dp2px)
                 val heightText = "${rect.height().toFloat().px2dp.toInt()} dp"
-                drawText(canvas, heightText, rect.right + textLineDistance, rect.centerY().toFloat())
+                drawText(canvas, heightText, rect.right + distanceBtwTextAndBorder, rect.centerY() + getTextHeight(textPaint, heightText) / 2)
             } ?: run {
                 container.invalidate()
                 return
@@ -54,10 +59,10 @@ internal class ClickInfoCanvas(private val container: View) {
     }
 
     private fun drawText(canvas: Canvas, text: String, x: Float, y: Float) {
-        var left = x - textBgFillingSpace
-        var top: Float = y - getTextHeight(textPaint, text)
-        var right: Float = x + getTextWidth(textPaint, text) + textBgFillingSpace
-        var bottom = y + textBgFillingSpace
+        var left = x - textBgHorizontalPadding
+        var top: Float = y - getTextHeight(textPaint, text) - textBgTopPadding
+        var right: Float = x + getTextWidth(textPaint, text) + textBgHorizontalPadding
+        var bottom = y + textBgBottomPadding
         // ensure text in screen bound
         if (left < 0) {
             right -= left
@@ -80,8 +85,8 @@ internal class ClickInfoCanvas(private val container: View) {
         val tmpRectF = RectF().apply {
             set(left, top, right, bottom)
         }
-        canvas.drawRoundRect(tmpRectF, cornerRadius, cornerRadius, cornerPaint)
-        canvas.drawText(text, left + textBgFillingSpace, bottom - textBgFillingSpace, textPaint)
+        canvas.drawRoundRect(tmpRectF, cornerRadius, cornerRadius, textBgPaint)
+        canvas.drawText(text, left + textBgTopPadding, bottom - textBgTopPadding, textPaint)
     }
 
     private fun getTextHeight(paint: Paint, text: String): Float {

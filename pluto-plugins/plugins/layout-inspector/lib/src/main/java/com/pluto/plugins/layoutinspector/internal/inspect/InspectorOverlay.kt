@@ -81,7 +81,7 @@ internal class InspectorOverlay : View {
         super.onDraw(canvas)
         canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
         when (state) {
-            is State.Dragging -> gridCanvas.draw(canvas, 1f)
+            is State.Dragging -> gridCanvas.draw(canvas)
             else -> {}
         }
         selectCanvas.draw(canvas, targetInspectedView)

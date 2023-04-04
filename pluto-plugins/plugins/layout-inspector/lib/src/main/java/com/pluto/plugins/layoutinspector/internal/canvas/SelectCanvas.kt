@@ -1,26 +1,27 @@
 package com.pluto.plugins.layoutinspector.internal.canvas
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
+import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
 
-internal class SelectCanvas(private val view: View) {
+internal class SelectCanvas(private val container: View) {
 
-    private val cornerPaint: Paint = object : Paint() {
+    private val cornerCirclePaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
             strokeWidth = 1f.dp2px
         }
     }
-    private val areaPaint: Paint = object : Paint() {
+    private val captureBoxPaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = Color.BLUE
+            color = container.context.color(R.color.pluto___blue)
             style = Style.STROKE
             strokeWidth = 1f.dp2px
         }
@@ -28,21 +29,22 @@ internal class SelectCanvas(private val view: View) {
     private val dashLinePaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = Color.GREEN
+            color = container.context.color(R.color.pluto___emerald)
             style = Style.STROKE
+            strokeWidth = 1f
             pathEffect = DashPathEffect(floatArrayOf(3f.dp2px, 3f.dp2px), 0f)
         }
     }
-    private val cornerRadius: Float = 1.5f.dp2px
+    private val cornerRadius: Float = 1f.dp2px
 
     private val measuredHeight: Float
-        get() = view.measuredHeight.toFloat()
+        get() = container.measuredHeight.toFloat()
 
     private val measuredWidth: Float
-        get() = view.measuredWidth.toFloat()
+        get() = container.measuredWidth.toFloat()
 
     init {
-        view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        container.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
     fun draw(canvas: Canvas, element: InspectedView?) {
@@ -57,18 +59,18 @@ internal class SelectCanvas(private val view: View) {
         canvas.drawLine(0f, rect.bottom.toFloat(), measuredWidth, rect.bottom.toFloat(), dashLinePaint)
         canvas.drawLine(rect.left.toFloat(), 0f, rect.left.toFloat(), measuredHeight, dashLinePaint)
         canvas.drawLine(rect.right.toFloat(), 0f, rect.right.toFloat(), measuredHeight, dashLinePaint)
-        canvas.drawRect(rect, areaPaint)
-        cornerPaint.color = Color.WHITE
-        cornerPaint.style = Paint.Style.FILL
-        canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
-        cornerPaint.color = Color.RED
-        cornerPaint.style = Paint.Style.STROKE
-        canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
-        canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerPaint)
+        canvas.drawRect(rect, captureBoxPaint)
+        cornerCirclePaint.color = container.context.color(R.color.pluto___transparent)
+        cornerCirclePaint.style = Paint.Style.FILL
+        canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
+        cornerCirclePaint.color = container.context.color(R.color.pluto___red)
+        cornerCirclePaint.style = Paint.Style.STROKE
+        canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
+        canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
     }
 }
