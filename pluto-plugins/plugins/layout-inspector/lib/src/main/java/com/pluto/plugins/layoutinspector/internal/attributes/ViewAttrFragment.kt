@@ -15,8 +15,8 @@ import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBind
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.attributes.data.MutableAttribute
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
+import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
-import com.pluto.plugins.layoutinspector.internal.inspect.tryGetTheFrontView
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.BaseAdapter
@@ -57,7 +57,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityLifecycle.topActivity?.let {
-            findViewByDefaultTag(it.tryGetTheFrontView())?.let { view ->
+            findViewByDefaultTag(it.getFrontView())?.let { view ->
                 targetView = view
             } ?: run {
                 targetView?.setTag(R.id.pluto_li___unique_view_tag, null)

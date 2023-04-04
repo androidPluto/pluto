@@ -61,7 +61,7 @@ internal class InspectorOverlay : View {
     }
 
     fun tryGetFrontView(targetActivity: Activity) {
-        traverse(targetActivity.tryGetTheFrontView())
+        traverse(targetActivity.getFrontView())
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
