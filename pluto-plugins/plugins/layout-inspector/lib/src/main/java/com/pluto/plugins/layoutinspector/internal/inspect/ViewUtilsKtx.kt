@@ -1,5 +1,6 @@
 package com.pluto.plugins.layoutinspector.internal.inspect
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContextWrapper
 import android.content.res.Resources
@@ -12,13 +13,18 @@ import com.pluto.utilities.extensions.getIdInfo
 import com.pluto.utilities.spannable.createSpan
 import java.lang.reflect.Field
 
+@SuppressLint("SoonBlockedPrivateApi", "DiscouragedPrivateApi", "PrivateApi")
 @SuppressWarnings("TooGenericExceptionCaught", "NestedBlockDepth")
 internal fun Activity.tryGetTheFrontView(): View {
     try {
-        val mGlobalField: Field = Reflect28Util.getDeclaredField(Reflect28Util.forName("android.view.WindowManagerImpl"), "mGlobal")
-        mGlobalField.isAccessible = true
+        val windowManagerImplClazz: Class<*> = Class.forName("android.view.WindowManagerImpl")
+        val windowManagerGlobalClazz: Class<*> = Class.forName("android.view.WindowManagerGlobal")
+        val viewRootImplClazz: Class<*> = Class.forName("android.view.ViewRootImpl")
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-            val mViewsField = Class.forName("android.view.WindowManagerGlobal").getDeclaredField("mViews")
+            val mGlobalField: Field = windowManagerImplClazz.getDeclaredField("mGlobal")
+            mGlobalField.isAccessible = true
+            val mViewsField = windowManagerGlobalClazz.getDeclaredField("mViews")
             mViewsField.isAccessible = true
             val views = mViewsField[mGlobalField[windowManager]] as List<View>
             for (i in views.indices.reversed()) {
@@ -27,22 +33,20 @@ internal fun Activity.tryGetTheFrontView(): View {
                 }
             }
         } else {
-            val mRootsField: Field = Reflect28Util.getDeclaredField(Reflect28Util.forName("android.view.WindowManagerGlobal"), "mRoots")
+            val mGlobalField: Field = windowManagerImplClazz.getDeclaredField("mGlobal")
+            mGlobalField.isAccessible = true
+            val mRootsField: Field = windowManagerGlobalClazz.getDeclaredField("mRoots")
             mRootsField.isAccessible = true
-            val viewRootImpls: List<*> =
-                mRootsField[mGlobalField[windowManager]] as List<*>
+            val viewRootImpls: List<*> = mRootsField[mGlobalField[windowManager]] as List<*>
             for (i in viewRootImpls.indices.reversed()) {
-                val clazz: Class<*> = Reflect28Util.forName("android.view.ViewRootImpl")
                 val rootImpl = viewRootImpls[i]!!
-                val mWindowAttributesField: Field = Reflect28Util.getDeclaredField(clazz, "mWindowAttributes")
+                val mWindowAttributesField: Field = viewRootImplClazz.getDeclaredField("mWindowAttributes")
                 mWindowAttributesField.isAccessible = true
-                val mViewField: Field = Reflect28Util.getDeclaredField(clazz, "mView")
+                val mViewField: Field = viewRootImplClazz.getDeclaredField("mView")
                 mViewField.isAccessible = true
                 val decorView = mViewField[rootImpl] as View
                 val layoutParams = mWindowAttributesField[rootImpl] as WindowManager.LayoutParams
-                if (layoutParams.title.toString().contains(javaClass.name) ||
-                    getTargetDecorView(decorView) != null
-                ) {
+                if (layoutParams.title.toString().contains(javaClass.name) || getTargetDecorView(decorView) != null) {
                     return decorView
                 }
             }
