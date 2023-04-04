@@ -6,7 +6,7 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
-import com.pluto.plugins.layoutinspector.internal.inspect.Element
+import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
 import com.pluto.utilities.extensions.dp2px
 
 internal class SelectCanvas(private val view: View) {
@@ -45,13 +45,13 @@ internal class SelectCanvas(private val view: View) {
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
-    fun draw(canvas: Canvas, element: Element?) {
+    fun draw(canvas: Canvas, element: InspectedView?) {
         canvas.save()
         element?.let { drawSelected(canvas, it) }
         canvas.restore()
     }
 
-    private fun drawSelected(canvas: Canvas, element: Element) {
+    private fun drawSelected(canvas: Canvas, element: InspectedView) {
         val rect: Rect = element.rect
         canvas.drawLine(0f, rect.top.toFloat(), measuredWidth, rect.top.toFloat(), dashLinePaint)
         canvas.drawLine(0f, rect.bottom.toFloat(), measuredWidth, rect.bottom.toFloat(), dashLinePaint)

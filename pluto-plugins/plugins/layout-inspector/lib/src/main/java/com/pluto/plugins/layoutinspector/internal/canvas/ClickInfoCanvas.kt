@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
-import com.pluto.plugins.layoutinspector.internal.inspect.Element
+import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 
@@ -34,9 +34,9 @@ internal class ClickInfoCanvas(private val container: View) {
         }
     }
 
-    var targetElement: Element? = null
+    var targetElement: InspectedView? = null
 
-    fun draw(canvas: Canvas, element: Element?) {
+    fun draw(canvas: Canvas, element: InspectedView?) {
         canvas.save()
         element?.let {
             targetElement?.let {

@@ -3,16 +3,16 @@ package com.pluto.plugins.layoutinspector.internal.inspect
 import android.graphics.Rect
 import android.view.View
 
-internal class Element(val view: View) {
+internal class InspectedView(val view: View) {
 
     private val originRect: Rect = Rect()
     val rect: Rect = Rect()
     private val location = IntArray(2)
-    val parentElement: Element?
+    val parentElement: InspectedView?
         get() {
             val parentView: Any = view.parent
             return if (parentView is View) {
-                Element(parentView)
+                InspectedView(parentView)
             } else {
                 null
             }
@@ -44,7 +44,7 @@ internal class Element(val view: View) {
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
-        val element = o as Element
+        val element = o as InspectedView
         return view == element.view
     }
 

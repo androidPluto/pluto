@@ -18,10 +18,9 @@ import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
 
-internal class OperableView : View {
+internal class InspectorOverlay : View {
 
     private var gridAnimator: ValueAnimator? = null
-    private var targetElement: Element? = null
     private var touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
     private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
 
@@ -34,7 +33,8 @@ internal class OperableView : View {
 
     private var state: State = State.Idle
 
-    private val elements = arrayListOf<Element>()
+    private val inspectedViews = arrayListOf<InspectedView>()
+    private var targetInspectedView: InspectedView? = null
 
     private var clickListener: OnClickListener? = null
 
@@ -52,8 +52,7 @@ internal class OperableView : View {
     private val longPressCheck = Runnable {
         state = State.Dragging
         alpha = 1f
-        gridAnimator = ObjectAnimator.ofFloat(0f, 1f)
-            .setDuration(longPressTimeout.toLong())
+        gridAnimator = ObjectAnimator.ofFloat(0f, 1f).setDuration(longPressTimeout.toLong())
         gridAnimator?.addUpdateListener { animation ->
             alpha = animation.animatedValue as Float
             invalidate()
@@ -85,8 +84,8 @@ internal class OperableView : View {
             is State.Dragging -> gridCanvas.draw(canvas, 1f)
             else -> {}
         }
-        selectCanvas.draw(canvas, targetElement)
-        clickInfoCanvas.draw(canvas, targetElement)
+        selectCanvas.draw(canvas, targetInspectedView)
+        clickInfoCanvas.draw(canvas, targetInspectedView)
     }
 
     private fun handleActionCancel(event: MotionEvent) {
@@ -102,11 +101,11 @@ internal class OperableView : View {
 
     private fun handleActionMove(event: MotionEvent) {
         when (state) {
-            is State.Dragging -> targetElement?.let {
+            is State.Dragging -> targetInspectedView?.let {
                 val dx: Float = event.x - prevCoordinate.x
                 val dy: Float = event.y - prevCoordinate.y
                 it.offset(dx, dy)
-                targetElement?.reset()
+                targetInspectedView?.reset()
                 invalidate()
             }
 
@@ -134,9 +133,9 @@ internal class OperableView : View {
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        elements.clear()
+        inspectedViews.clear()
         cancelCheckTask()
-        targetElement = null
+        targetInspectedView = null
     }
 
     private fun cancelCheckTask() {
@@ -147,15 +146,13 @@ internal class OperableView : View {
 
     private fun tryStartCheckTask() {
         cancelCheckTask()
-        targetElement?.let {
+        targetInspectedView?.let {
             postDelayed(longPressCheck, longPressTimeout.toLong())
         }
     }
 
     private fun handleClick(x: Float, y: Float) {
-        getTargetElement(x, y)?.let {
-            handleElementSelected(it, true)
-        }
+        getTargetElement(x, y)?.let { handleElementSelected(it, true) }
     }
 
     fun handleClick(v: View, cancelIfSelected: Boolean): Boolean {
@@ -169,10 +166,10 @@ internal class OperableView : View {
     }
 
     @SuppressWarnings("LoopWithTooManyJumpStatements")
-    fun getTargetElement(x: Float, y: Float): Element? {
-        var target: Element? = null
-        for (i in elements.indices.reversed()) {
-            val element = elements[i]
+    fun getTargetElement(x: Float, y: Float): InspectedView? {
+        var target: InspectedView? = null
+        for (i in inspectedViews.indices.reversed()) {
+            val element = inspectedViews[i]
             if (element.rect.contains(x.toInt(), y.toInt())) {
                 if (isParentNotVisible(element.parentElement)) {
                     continue
@@ -187,10 +184,10 @@ internal class OperableView : View {
         return target
     }
 
-    private fun getTargetElement(v: View): Element? {
-        var target: Element? = null
-        for (i in elements.indices.reversed()) {
-            val element = elements[i]
+    private fun getTargetElement(v: View): InspectedView? {
+        var target: InspectedView? = null
+        for (i in inspectedViews.indices.reversed()) {
+            val element = inspectedViews[i]
             if (element.view === v) {
                 target = element
                 break
@@ -202,29 +199,28 @@ internal class OperableView : View {
         return target
     }
 
-    private fun isParentNotVisible(parent: Element?): Boolean {
+    private fun isParentNotVisible(parent: InspectedView?): Boolean {
         if (parent == null) {
             return false
         }
-        return if (parent.rect.left >= measuredWidth ||
-            parent.rect.top >= measuredHeight
-        ) {
+        return if (parent.rect.left >= measuredWidth || parent.rect.top >= measuredHeight) {
             true
         } else {
             isParentNotVisible(parent.parentElement)
         }
     }
-    private fun handleElementSelected(element: Element, cancelIfSelected: Boolean) {
-        targetElement = if (targetElement == element && cancelIfSelected) {
+
+    private fun handleElementSelected(element: InspectedView, cancelIfSelected: Boolean) {
+        targetInspectedView = if (targetInspectedView == element && cancelIfSelected) {
             null
         } else {
             element
         }
-        clickInfoCanvas.targetElement = targetElement
+        clickInfoCanvas.targetElement = targetInspectedView
         clickListener?.onClick(element.view)
     }
 
-    fun isSelectedEmpty(): Boolean = targetElement == null
+    fun isSelectedEmpty(): Boolean = targetInspectedView == null
 
     override fun setOnClickListener(l: OnClickListener?) {
         clickListener = l
@@ -244,7 +240,7 @@ internal class OperableView : View {
 
     private fun traverse(view: View) {
         if (view.alpha == 0f || view.visibility != VISIBLE) return
-        elements.add(Element(view))
+        inspectedViews.add(InspectedView(view))
         if (view is ViewGroup) {
             val parent: ViewGroup = view
             for (i in 0 until parent.childCount) {
@@ -254,7 +250,7 @@ internal class OperableView : View {
     }
 
     private fun resetAll() {
-        for (e in elements) {
+        for (e in inspectedViews) {
             e.reset()
         }
     }

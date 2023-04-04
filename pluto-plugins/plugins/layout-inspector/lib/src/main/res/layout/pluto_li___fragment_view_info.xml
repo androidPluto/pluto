@@ -7,7 +7,7 @@
     android:background="@color/pluto___red_20"
     tools:context=".ViewInfoFragment">
 
-    <com.pluto.plugins.layoutinspector.internal.inspect.OperableView
+    <com.pluto.plugins.layoutinspector.internal.inspect.InspectorOverlay
         android:id="@+id/operableView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
