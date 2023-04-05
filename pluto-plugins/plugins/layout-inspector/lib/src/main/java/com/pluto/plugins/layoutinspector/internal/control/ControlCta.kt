@@ -6,4 +6,5 @@ import com.pluto.utilities.list.ListItem
 internal data class ControlCta(
     val id: String,
     @DrawableRes val icon: Int,
+    val hint: String
 ) : ListItem()

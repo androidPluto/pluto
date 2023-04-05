@@ -22,7 +22,7 @@ internal class ControlCtaItemHolder(parent: ViewGroup, actionListener: DiffAware
                 onAction(item.id)
             }
             binding.root.setOnLongClickListener {
-                context.toast(item.id)
+                context.toast(item.hint)
                 true
             }
         }

@@ -25,18 +25,20 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
         binding.operableView.setOnClickListener(this)
         binding.leftControls.initialise(
             listOf(
-                ControlCta(ID_CLOSE, R.drawable.pluto_li___ic_control_close),
-                ControlCta(ID_HINT, R.drawable.pluto_li___ic_control_hint),
-                ControlCta(ID_MOVE_RIGHT, R.drawable.pluto_li___ic_control_move_right)
+                ControlCta(ID_CLOSE, R.drawable.pluto_li___ic_control_close, getString(R.string.pluto_li___cntrl_title_close)),
+                ControlCta(ID_HINT, R.drawable.pluto_li___ic_control_hint, getString(R.string.pluto_li___cntrl_title_hint)),
+                ControlCta(ID_HIERARCHY, R.drawable.pluto_li___ic_view_hierarchy, getString(R.string.pluto_li___cntrl_title_hierarchy)),
+                ControlCta(ID_MOVE_RIGHT, R.drawable.pluto_li___ic_control_move_right, getString(R.string.pluto_li___cntrl_title_move_to_right))
             ),
             onControlCtaListener
         )
 
         binding.rightControls.initialise(
             listOf(
-                ControlCta(ID_MOVE_LEFT, R.drawable.pluto_li___ic_control_move_left),
-                ControlCta(ID_HINT, R.drawable.pluto_li___ic_control_hint),
-                ControlCta(ID_CLOSE, R.drawable.pluto_li___ic_control_close)
+                ControlCta(ID_MOVE_LEFT, R.drawable.pluto_li___ic_control_move_left, getString(R.string.pluto_li___cntrl_title_move_to_left)),
+                ControlCta(ID_HIERARCHY, R.drawable.pluto_li___ic_view_hierarchy, getString(R.string.pluto_li___cntrl_title_hierarchy)),
+                ControlCta(ID_HINT, R.drawable.pluto_li___ic_control_hint, getString(R.string.pluto_li___cntrl_title_hint)),
+                ControlCta(ID_CLOSE, R.drawable.pluto_li___ic_control_close, getString(R.string.pluto_li___cntrl_title_close))
             ),
             onControlCtaListener
         )
@@ -68,7 +70,9 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
                 targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
                 findNavController().navigate(R.id.openAttrView)
             },
-            onViewHierarchyRequested = {},
+            onViewHierarchyRequested = {
+                findNavController().navigate(R.id.openHierarchyView)
+            },
             onCloseRequested = {
                 binding.operableView.handleClick(view, true)
             }
@@ -88,6 +92,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
                     binding.rightControls.visibility = View.GONE
                 }
 
+                ID_HIERARCHY -> findNavController().navigate(R.id.openHierarchyView)
                 ID_CLOSE -> requireActivity().finish()
                 ID_HINT -> HintFragment().show(requireActivity().supportFragmentManager, "hint")
             }
@@ -97,6 +102,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     private companion object {
         const val ID_CLOSE = "close"
         const val ID_HINT = "hint"
+        const val ID_HIERARCHY = "hierarchy"
         const val ID_MOVE_LEFT = "moveToLeft"
         const val ID_MOVE_RIGHT = "moveToRight"
     }
