@@ -25,7 +25,7 @@
         android:id="@+id/attrView"
         android:name="com.pluto.plugins.layoutinspector.internal.attributes.ViewAttrFragment" />
 
-    <fragment
+    <dialog
         android:id="@+id/hierarchyView"
         android:name="com.pluto.plugins.layoutinspector.internal.hierarchy.ViewHierarchyFragment"
         android:label="hierarchyView"

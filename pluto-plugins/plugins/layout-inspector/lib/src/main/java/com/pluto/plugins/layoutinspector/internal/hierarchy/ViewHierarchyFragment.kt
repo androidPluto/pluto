@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -21,7 +21,7 @@ import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 
-class ViewHierarchyFragment : Fragment() {
+class ViewHierarchyFragment : DialogFragment() {
 
     private var sysLayerCount: Int = 0
     private var rootView: View? = null
@@ -34,7 +34,7 @@ class ViewHierarchyFragment : Fragment() {
         return inflater.inflate(R.layout.pluto_li___fragment_view_hierarchy, container, false)
     }
 
-//    override fun getTheme(): Int = R.style.PlutoLIBottomSheetDialog
+    override fun getTheme(): Int = R.style.PlutoLIFullScreenDialogStyle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
