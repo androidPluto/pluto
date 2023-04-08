@@ -12,8 +12,11 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewHierarchyBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyAdapter
+import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_ATTRIBUTE
+import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_EXPAND_COLLAPSE
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -21,7 +24,7 @@ import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 
-class ViewHierarchyFragment : DialogFragment() {
+internal class ViewHierarchyFragment : DialogFragment() {
 
     private var sysLayerCount: Int = 0
     private var rootView: View? = null
@@ -102,6 +105,12 @@ class ViewHierarchyFragment : DialogFragment() {
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+            if(data is Hierarchy) {
+                when(action) {
+                    ACTION_ATTRIBUTE -> toast("attribute")
+                    ACTION_EXPAND_COLLAPSE -> toast("expand")
+                }
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ class TreeNodeLayout : ConstraintLayout {
         invalidate()
     }
 
-    private val interval: Int = 8f.dp2px.toInt()
+    private val interval: Int = 10f.dp2px.toInt()
     private val paint: Paint = object : Paint() {
         init {
             color = Color.GRAY

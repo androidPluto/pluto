@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.pluto.plugins.layoutinspector.internal.hierarchy.TreeNodeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_name_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minWidth="100dp"
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/name"
-        android:padding="@dimen/pluto___margin_medium"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/pluto___margin_mini">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/expandStateIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/pluto_li___ic_hierarchy_show_more"
+            app:layout_constraintBottom_toBottomOf="@+id/viewSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewTitle" />
+
+        <TextView
+            android:id="@+id/viewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_semibold"
+            android:maxLines="3"
+            android:paddingTop="@dimen/pluto___margin_mini"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_xsmall"
+            app:layout_constraintEnd_toStartOf="@+id/viewAttrCta"
+            app:layout_constraintStart_toEndOf="@+id/expandStateIndicator"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/viewSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:ellipsize="start"
+            android:paddingBottom="@dimen/pluto___margin_mini"
+            android:singleLine="true"
+            android:textColor="@color/pluto___text_dark_40"
+            android:textSize="@dimen/pluto___text_xxsmall"
+            app:layout_constraintEnd_toEndOf="@+id/viewTitle"
+            app:layout_constraintStart_toStartOf="@+id/viewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/viewTitle" />
+
+        <ImageView
+            android:id="@+id/viewAttrCta"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:foregroundGravity="center"
+            android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+            android:src="@drawable/pluto_li___ic_hierarchy_attr"
+            app:layout_constraintBottom_toBottomOf="@+id/viewSubtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.pluto.plugins.layoutinspector.internal.hierarchy.TreeNodeLayout>

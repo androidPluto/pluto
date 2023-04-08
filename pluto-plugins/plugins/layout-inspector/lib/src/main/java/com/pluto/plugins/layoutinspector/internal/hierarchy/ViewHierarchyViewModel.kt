@@ -19,7 +19,11 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
             val list = arrayListOf(
                 Hierarchy(v, 0),
                 Hierarchy(v, 1),
-                Hierarchy(v, 2)
+                Hierarchy(v, 2),
+                Hierarchy(v, 3),
+                Hierarchy(v, 4),
+                Hierarchy(v, 5),
+                Hierarchy(v, 6)
             )
             _list.postValue(list)
         }
