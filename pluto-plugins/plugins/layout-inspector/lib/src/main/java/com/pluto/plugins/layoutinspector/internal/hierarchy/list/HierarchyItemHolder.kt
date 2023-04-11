@@ -24,7 +24,12 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
 
     override fun onBind(item: ListItem) {
         if (item is Hierarchy) {
-            binding.viewTitle.text = item.view.javaClass.simpleName
+            binding.viewTitle.setSpan {
+                append(item.view.javaClass.simpleName)
+                if(item.view is ViewGroup) {
+                    append(regular(fontColor(" (${item.view.childCount})", context.color(R.color.pluto___text_dark_40))))
+                }
+            }
             binding.viewSubtitle.setSpan {
                 item.view.getIdString()?.let {
                     append(it)

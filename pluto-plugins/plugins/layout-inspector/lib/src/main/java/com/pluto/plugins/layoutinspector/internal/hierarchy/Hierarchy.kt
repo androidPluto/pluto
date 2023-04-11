@@ -11,15 +11,6 @@ class Hierarchy(
     var isExpanded: Boolean = false,
     var sysLayerCount: Int = 0,
 ) : ListItem() {
-    val childCount: Int
-        get() = if (view is ViewGroup) view.childCount else 0
-    val isVisible: Boolean
-        get() = view.visibility == View.VISIBLE
-
-//    override fun isSame(other: Any): Boolean {
-//        return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
-//    }
-
     override fun isEqual(other: Any): Boolean {
         return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
     }

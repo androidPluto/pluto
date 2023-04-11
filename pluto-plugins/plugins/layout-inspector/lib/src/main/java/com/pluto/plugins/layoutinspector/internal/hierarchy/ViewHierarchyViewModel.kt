@@ -15,12 +15,7 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
     private val _list = MutableLiveData<ArrayList<Hierarchy>>()
 
     fun parseInit(v: View) {
-        viewModelScope.launch {
-            val list = arrayListOf(
-                Hierarchy(v, 0)
-            )
-            _list.postValue(list)
-        }
+        collapseAll(v)
     }
 
     fun expandAll(rootView: View?) {
@@ -28,24 +23,44 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
     }
 
     fun collapseAll(rootView: View) {
-
+        viewModelScope.launch {
+            val list = arrayListOf(
+                Hierarchy(rootView, 0)
+            )
+            _list.postValue(list)
+        }
     }
 
     fun removeChildren(data: Hierarchy, layoutPosition: Int) {
-//        val children = data.assembleChildren()
-//        _list.value?.addAll(layoutPosition+1, children)
+        viewModelScope.launch {
+            val newList = (_list.value ?: arrayListOf()).filterIndexed { index, value ->
+                if (index <= layoutPosition) true
+                else value.layerCount <= data.layerCount
+            }
+            val list = arrayListOf<Hierarchy>().apply {
+                addAll(newList)
+            }
+            list[layoutPosition] = Hierarchy(
+                view = data.view,
+                layerCount = data.layerCount,
+                isExpanded = false
+            )
+            _list.postValue(list)
+        }
     }
 
     fun addChildren(data: Hierarchy, layoutPosition: Int) {
-        val children = data.assembleChildren()
-        val list = _list.value ?: arrayListOf()
+        viewModelScope.launch {
+            val children = data.assembleChildren()
+            val list = _list.value ?: arrayListOf()
 
-        list[layoutPosition] = Hierarchy(
-            view = data.view,
-            layerCount = data.layerCount,
-            isExpanded = true
-        )
-        list.addAll(layoutPosition + 1, children)
-        _list.postValue(list)
+            list[layoutPosition] = Hierarchy(
+                view = data.view,
+                layerCount = data.layerCount,
+                isExpanded = true
+            )
+            list.addAll(layoutPosition + 1, children)
+            _list.postValue(list)
+        }
     }
 }

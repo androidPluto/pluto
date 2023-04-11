@@ -116,10 +116,8 @@ internal class ViewHierarchyFragment : DialogFragment() {
                     ACTION_ATTRIBUTE -> toast("attribute")
                     ACTION_EXPAND_COLLAPSE -> {
                         if(data.isExpanded) {
-                            toast("remove")
                             viewModel.removeChildren(data, holder.layoutPosition)
                         } else {
-                            toast("add")
                             viewModel.addChildren(data, holder.layoutPosition)
                         }
                     }
