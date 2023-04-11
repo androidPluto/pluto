@@ -2,18 +2,21 @@ package com.pluto.plugins.layoutinspector.internal.hierarchy
 
 import android.view.View
 import android.view.ViewGroup
+import com.pluto.plugins.layoutinspector.R
 import com.pluto.utilities.list.ListItem
 
 class Hierarchy(
     val view: View,
     val layerCount: Int,
-    var isTarget: Boolean = false,
     var isExpanded: Boolean = false,
     var sysLayerCount: Int = 0,
 ) : ListItem() {
     override fun isEqual(other: Any): Boolean {
         return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
     }
+
+    val isTargetView: Boolean
+        get() = view.getTag(R.id.pluto_li___unique_view_tag) != null
 
     fun assembleChildren(): List<Hierarchy> {
         val result = arrayListOf<Hierarchy>()

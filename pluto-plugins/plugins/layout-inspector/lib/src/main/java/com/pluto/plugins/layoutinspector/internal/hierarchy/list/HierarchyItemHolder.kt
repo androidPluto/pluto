@@ -4,6 +4,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiItemViewHierarchyBinding
 import com.pluto.plugins.layoutinspector.internal.hierarchy.Hierarchy
@@ -24,9 +25,14 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
 
     override fun onBind(item: ListItem) {
         if (item is Hierarchy) {
+            if (item.isTargetView) {
+                binding.contentWrapper.background = ContextCompat.getDrawable(context, R.drawable.pluto_li___ic_hierarchy_target_view_indicator)
+            } else {
+                binding.contentWrapper.background = null
+            }
             binding.viewTitle.setSpan {
                 append(item.view.javaClass.simpleName)
-                if(item.view is ViewGroup) {
+                if (item.view is ViewGroup) {
                     append(regular(fontColor(" (${item.view.childCount})", context.color(R.color.pluto___text_dark_40))))
                 }
             }

@@ -52,28 +52,30 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     }
 
     override fun onClick(view: View) {
+        targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+        targetView = null
         if (binding.operableView.isSelectedEmpty()) {
             behavior.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
-            if (behavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
+            targetView = view
+            targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            refreshViewDetails(view)
         }
-        targetView = view
-        refreshViewDetails(view)
     }
 
     private fun refreshViewDetails(view: View) {
         binding.bsContainer.previewPanel.refresh(
             view = view,
             onViewAttrRequested = {
-                targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
                 findNavController().navigate(R.id.openAttrView)
             },
             onViewHierarchyRequested = {
                 findNavController().navigate(R.id.openHierarchyView)
             },
             onCloseRequested = {
+                targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+                targetView = null
                 binding.operableView.handleClick(view, true)
             }
         )
