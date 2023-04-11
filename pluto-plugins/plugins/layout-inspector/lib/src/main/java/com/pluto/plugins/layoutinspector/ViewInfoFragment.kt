@@ -52,8 +52,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     }
 
     override fun onClick(view: View) {
-        targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
-        targetView = null
+        clearPreviousSelection()
         if (binding.operableView.isSelectedEmpty()) {
             behavior.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
@@ -62,6 +61,11 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             refreshViewDetails(view)
         }
+    }
+
+    private fun clearPreviousSelection() {
+        targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+        targetView = null
     }
 
     private fun refreshViewDetails(view: View) {
@@ -74,8 +78,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
                 findNavController().navigate(R.id.openHierarchyView)
             },
             onCloseRequested = {
-                targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
-                targetView = null
+                clearPreviousSelection()
                 binding.operableView.handleClick(view, true)
             }
         )
