@@ -24,7 +24,8 @@
             android:src="@drawable/pluto_li___ic_hierarchy_show_more"
             app:layout_constraintBottom_toBottomOf="@+id/viewSubtitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewTitle" />
+            app:layout_constraintTop_toTopOf="@+id/viewTitle"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/viewTitle"
@@ -43,8 +44,8 @@
             android:id="@+id/viewSubtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/muli"
             android:ellipsize="start"
+            android:fontFamily="@font/muli"
             android:paddingBottom="@dimen/pluto___margin_mini"
             android:singleLine="true"
             android:textColor="@color/pluto___text_dark_40"

@@ -7,14 +7,29 @@ import com.pluto.utilities.list.ListItem
 class Hierarchy(
     val view: View,
     val layerCount: Int,
-    val isTarget: Boolean = false,
-    val isExpanded: Boolean = false,
-    val sysLayerCount: Int = 0,
+    var isTarget: Boolean = false,
+    var isExpanded: Boolean = false,
+    var sysLayerCount: Int = 0,
 ) : ListItem() {
-    val isGroup: Boolean
-        get() = view is ViewGroup
     val childCount: Int
         get() = if (view is ViewGroup) view.childCount else 0
     val isVisible: Boolean
         get() = view.visibility == View.VISIBLE
+
+    override fun isSame(other: Any): Boolean {
+        return other is Hierarchy && other.view.hashCode() == view.hashCode() && other.isExpanded == isExpanded
+    }
+
+    fun assembleChildren(): List<Hierarchy> {
+        val result = arrayListOf<Hierarchy>()
+        if (view is ViewGroup) {
+            val newLayerCount = layerCount + 1
+            for (i in 0 until view.childCount) {
+                val item = Hierarchy(view.getChildAt(i), newLayerCount)
+                item.sysLayerCount = sysLayerCount
+                result.add(item)
+            }
+        }
+        return result
+    }
 }

@@ -1,11 +1,15 @@
 package com.pluto.plugins.layoutinspector.internal.hierarchy.list
 
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiItemViewHierarchyBinding
 import com.pluto.plugins.layoutinspector.internal.hierarchy.Hierarchy
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -32,9 +36,19 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
             binding.viewAttrCta.setOnDebounceClickListener {
                 onAction(ACTION_ATTRIBUTE)
             }
-            binding.contentWrapper.setOnDebounceClickListener {
-                onAction(ACTION_EXPAND_COLLAPSE)
+            binding.expandStateIndicator.setImageResource(
+                if (item.isExpanded) R.drawable.pluto_li___ic_hierarchy_show_less
+                else R.drawable.pluto_li___ic_hierarchy_show_more
+            )
+            binding.expandStateIndicator.visibility = if (item.view is ViewGroup) VISIBLE else GONE
+            if (item.view is ViewGroup) {
+                binding.contentWrapper.setOnDebounceClickListener { onAction(ACTION_EXPAND_COLLAPSE) }
+            } else {
+                binding.contentWrapper.setOnDebounceClickListener(action = null)
             }
+            val layoutParams: ConstraintLayout.LayoutParams = binding.viewTitle.layoutParams as ConstraintLayout.LayoutParams
+            layoutParams.marginStart = if (item.view !is ViewGroup) 8f.dp.toInt() else 0
+            binding.viewTitle.layoutParams = layoutParams
             binding.root.setLayerCount(item.layerCount, item.sysLayerCount);
         }
     }

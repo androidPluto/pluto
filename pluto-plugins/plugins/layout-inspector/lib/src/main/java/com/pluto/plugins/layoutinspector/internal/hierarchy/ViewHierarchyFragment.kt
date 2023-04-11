@@ -27,7 +27,6 @@ import com.pluto.utilities.viewBinding
 internal class ViewHierarchyFragment : DialogFragment() {
 
     private var sysLayerCount: Int = 0
-    private var rootView: View? = null
     private var targetView: View? = null
     private lateinit var hierarchyAdapter: BaseAdapter
     private val viewModel: ViewHierarchyViewModel by viewModels()
@@ -44,18 +43,7 @@ internal class ViewHierarchyFragment : DialogFragment() {
         if (savedInstanceState != null) {
             return
         }
-        rootView = ActivityLifecycle.topActivity?.getFrontView()
 
-        rootView?.let {
-            rootView = it.findViewById(android.R.id.content)
-        }
-        sysLayerCount = 0
-
-        findViewByDefaultTag(rootView!!)?.let { view ->
-            targetView = view
-        } ?: run {
-            targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
-        }
 
 //        targetView = findViewByDefaultTag(rootView!!)
 //        if (targetView != null) {
@@ -70,22 +58,40 @@ internal class ViewHierarchyFragment : DialogFragment() {
         binding.close.setOnDebounceClickListener {
             findNavController().navigateUp()
         }
-        binding.expandCta.setOnDebounceClickListener {
-        }
-        binding.collapseCta.setOnDebounceClickListener {
-        }
-        hierarchyAdapter = HierarchyAdapter(onActionListener)
-        binding.list.apply {
-            adapter = hierarchyAdapter
-        }
 
-        viewModel.list.removeObserver(parsedAttrObserver)
-        viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
-        viewModel.parse(rootView!!)
+        ActivityLifecycle.topActivity?.getFrontView()?.let { it ->
+            val rootView: View = it.findViewById(android.R.id.content)
+            sysLayerCount = 0
+
+            findViewByDefaultTag(rootView)?.let { view ->
+                targetView = view
+            } ?: run {
+                targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+            }
+
+            binding.expandCta.setOnDebounceClickListener {
+                viewModel.expandAll(rootView)
+            }
+            binding.collapseCta.setOnDebounceClickListener {
+                viewModel.collapseAll(rootView)
+            }
+            hierarchyAdapter = HierarchyAdapter(onActionListener)
+            binding.list.apply {
+                adapter = hierarchyAdapter
+            }
+
+            viewModel.list.removeObserver(parsedAttrObserver)
+            viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
+            viewModel.parseInit(rootView)
+        } ?: run {
+            toast("root view not found, go back & try again")
+        }
     }
 
     private val parsedAttrObserver = Observer<List<Hierarchy>> {
-        hierarchyAdapter.list = it
+        val list = arrayListOf<Hierarchy>()
+        list.addAll(it)
+        hierarchyAdapter.list = list
     }
 
     private fun findViewByDefaultTag(root: View): View? {
@@ -104,11 +110,19 @@ internal class ViewHierarchyFragment : DialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
-            if(data is Hierarchy) {
-                when(action) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
+            if (data is Hierarchy) {
+                when (action) {
                     ACTION_ATTRIBUTE -> toast("attribute")
-                    ACTION_EXPAND_COLLAPSE -> toast("expand")
+                    ACTION_EXPAND_COLLAPSE -> {
+                        if(data.isExpanded) {
+                            toast("remove")
+                            viewModel.removeChildren(data, holder.layoutPosition)
+                        } else {
+                            toast("add")
+                            viewModel.addChildren(data, holder.layoutPosition)
+                        }
+                    }
                 }
             }
         }
