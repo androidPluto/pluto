@@ -18,14 +18,17 @@ class Hierarchy(
     val isTargetView: Boolean
         get() = view.getTag(R.id.pluto_li___unique_view_tag) != null
 
-    fun assembleChildren(): List<Hierarchy> {
+    fun assembleChildren(recursive: Boolean = false): List<Hierarchy> {
         val result = arrayListOf<Hierarchy>()
         if (view is ViewGroup) {
             val newLayerCount = layerCount + 1
             for (i in 0 until view.childCount) {
-                val item = Hierarchy(view.getChildAt(i), newLayerCount)
+                val item = Hierarchy(view.getChildAt(i), newLayerCount, isExpanded = recursive)
                 item.sysLayerCount = sysLayerCount
                 result.add(item)
+                if (recursive) {
+                    result.addAll(item.assembleChildren(true))
+                }
             }
         }
         return result

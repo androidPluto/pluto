@@ -15,11 +15,19 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
     private val _list = MutableLiveData<ArrayList<Hierarchy>>()
 
     fun parseInit(v: View) {
-        collapseAll(v)
+        expandAll(v)
     }
 
-    fun expandAll(rootView: View?) {
-
+    fun expandAll(rootView: View) {
+        viewModelScope.launch {
+            val root = Hierarchy(rootView, 0, isExpanded = true)
+            val children = root.assembleChildren(true)
+            val list = arrayListOf<Hierarchy>().apply {
+                add(root)
+                addAll(children)
+            }
+            _list.postValue(list)
+        }
     }
 
     fun collapseAll(rootView: View) {
@@ -51,7 +59,7 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
 
     fun addChildren(data: Hierarchy, layoutPosition: Int) {
         viewModelScope.launch {
-            val children = data.assembleChildren()
+            val children = data.assembleChildren(false)
             val list = _list.value ?: arrayListOf()
 
             list[layoutPosition] = Hierarchy(
