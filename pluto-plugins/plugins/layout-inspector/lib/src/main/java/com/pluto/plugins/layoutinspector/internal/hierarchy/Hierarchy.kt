@@ -16,8 +16,12 @@ class Hierarchy(
     val isVisible: Boolean
         get() = view.visibility == View.VISIBLE
 
-    override fun isSame(other: Any): Boolean {
-        return other is Hierarchy && other.view.hashCode() == view.hashCode() && other.isExpanded == isExpanded
+//    override fun isSame(other: Any): Boolean {
+//        return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
+//    }
+
+    override fun isEqual(other: Any): Boolean {
+        return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
     }
 
     fun assembleChildren(): List<Hierarchy> {

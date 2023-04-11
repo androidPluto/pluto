@@ -49,7 +49,7 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
             val layoutParams: ConstraintLayout.LayoutParams = binding.viewTitle.layoutParams as ConstraintLayout.LayoutParams
             layoutParams.marginStart = if (item.view !is ViewGroup) 8f.dp.toInt() else 0
             binding.viewTitle.layoutParams = layoutParams
-            binding.root.setLayerCount(item.layerCount, item.sysLayerCount);
+            binding.root.setLayerCount(item.layerCount, item.sysLayerCount)
         }
     }
 

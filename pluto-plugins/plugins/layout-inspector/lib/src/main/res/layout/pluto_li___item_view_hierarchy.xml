@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/pluto___margin_mini">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/expandStateIndicator"
@@ -27,13 +26,20 @@
             app:layout_constraintTop_toTopOf="@+id/viewTitle"
             tools:visibility="visible" />
 
+        <View
+            android:layout_width="@dimen/pluto___margin_vlarge"
+            android:layout_height="@dimen/pluto___dp_1"
+            android:background="@drawable/pluto_li___ic_hierarchy_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/viewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_semibold"
             android:maxLines="3"
-            android:paddingTop="@dimen/pluto___margin_mini"
+            android:paddingTop="@dimen/pluto___margin_xsmall"
             android:textColor="@color/pluto___text_dark_80"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintEnd_toStartOf="@+id/viewAttrCta"
@@ -46,10 +52,10 @@
             android:layout_height="wrap_content"
             android:ellipsize="start"
             android:fontFamily="@font/muli"
-            android:paddingBottom="@dimen/pluto___margin_mini"
+            android:paddingBottom="@dimen/pluto___margin_xsmall"
             android:singleLine="true"
             android:textColor="@color/pluto___text_dark_40"
-            android:textSize="@dimen/pluto___text_xxsmall"
+            android:textSize="@dimen/pluto___text_mini"
             app:layout_constraintEnd_toEndOf="@+id/viewTitle"
             app:layout_constraintStart_toStartOf="@+id/viewTitle"
             app:layout_constraintTop_toBottomOf="@+id/viewTitle" />

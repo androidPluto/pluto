@@ -39,7 +39,12 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
     fun addChildren(data: Hierarchy, layoutPosition: Int) {
         val children = data.assembleChildren()
         val list = _list.value ?: arrayListOf()
-        list[layoutPosition].isExpanded = true
+
+        list[layoutPosition] = Hierarchy(
+            view = data.view,
+            layerCount = data.layerCount,
+            isExpanded = true
+        )
         list.addAll(layoutPosition + 1, children)
         _list.postValue(list)
     }
