@@ -3,6 +3,6 @@
     <gradient
         android:type="linear"
         android:angle="0"
-        android:startColor="@color/pluto___dark_05"
+        android:startColor="@color/pluto___dark_10"
         android:endColor="@color/pluto___transparent" />
 </shape>

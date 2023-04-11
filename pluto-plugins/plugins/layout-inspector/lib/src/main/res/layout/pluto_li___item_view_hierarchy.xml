@@ -27,7 +27,7 @@
             tools:visibility="visible" />
 
         <View
-            android:layout_width="@dimen/pluto___margin_vlarge"
+            android:layout_width="@dimen/pluto___margin_vxlarge"
             android:layout_height="@dimen/pluto___dp_1"
             android:background="@drawable/pluto_li___ic_hierarchy_separator"
             app:layout_constraintStart_toStartOf="parent"
