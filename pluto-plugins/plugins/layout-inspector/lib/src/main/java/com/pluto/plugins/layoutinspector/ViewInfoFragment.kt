@@ -11,6 +11,8 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.control.ControlCta
 import com.pluto.plugins.layoutinspector.internal.control.ControlsWidget
 import com.pluto.plugins.layoutinspector.internal.hint.HintFragment
+import com.pluto.plugins.layoutinspector.internal.inspect.assignTargetTag
+import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
 import com.pluto.utilities.viewBinding
 
 internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_info), View.OnClickListener {
@@ -57,14 +59,14 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
             behavior.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
             targetView = view
-            targetView?.setTag(R.id.pluto_li___unique_view_tag, Any())
+            targetView?.assignTargetTag()
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             refreshViewDetails(view)
         }
     }
 
     private fun clearPreviousSelection() {
-        targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+        targetView?.clearTargetTag()
         targetView = null
     }
 

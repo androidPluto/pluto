@@ -2,7 +2,7 @@ package com.pluto.plugins.layoutinspector.internal.hierarchy
 
 import android.view.View
 import android.view.ViewGroup
-import com.pluto.plugins.layoutinspector.R
+import com.pluto.plugins.layoutinspector.internal.inspect.verifyTargetTag
 import com.pluto.utilities.list.ListItem
 
 class Hierarchy(
@@ -16,7 +16,7 @@ class Hierarchy(
     }
 
     val isTargetView: Boolean
-        get() = view.getTag(R.id.pluto_li___unique_view_tag) != null
+        get() = view.verifyTargetTag()
 
     fun assembleChildren(recursive: Boolean = false): List<Hierarchy> {
         val result = arrayListOf<Hierarchy>()

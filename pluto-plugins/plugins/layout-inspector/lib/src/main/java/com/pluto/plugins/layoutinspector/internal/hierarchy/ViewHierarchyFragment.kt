@@ -14,6 +14,8 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyAdapter
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_ATTRIBUTE
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_EXPAND_COLLAPSE
+import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
+import com.pluto.plugins.layoutinspector.internal.inspect.findViewByTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.toast
@@ -59,14 +61,14 @@ internal class ViewHierarchyFragment : DialogFragment() {
             findNavController().navigateUp()
         }
 
-        ActivityLifecycle.topActivity?.getFrontView()?.let { it ->
+        ActivityLifecycle.topActivity?.getFrontView()?.let {
             val rootView: View = it.findViewById(android.R.id.content)
             sysLayerCount = 0
 
-            findViewByDefaultTag(rootView)?.let { view ->
+            rootView.findViewByTargetTag()?.let { view ->
                 targetView = view
             } ?: run {
-                targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+                targetView?.clearTargetTag()
             }
 
             binding.expandCta.setOnDebounceClickListener {
@@ -92,21 +94,6 @@ internal class ViewHierarchyFragment : DialogFragment() {
         val list = arrayListOf<Hierarchy>()
         list.addAll(it)
         hierarchyAdapter.list = list
-    }
-
-    private fun findViewByDefaultTag(root: View): View? {
-        if (root.getTag(R.id.pluto_li___unique_view_tag) != null) {
-            return root
-        }
-        if (root is ViewGroup) {
-            for (i in 0 until root.childCount) {
-                val view = findViewByDefaultTag(root.getChildAt(i))
-                if (view != null) {
-                    return view
-                }
-            }
-        }
-        return null
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {

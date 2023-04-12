@@ -15,6 +15,8 @@ import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBind
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.attributes.data.MutableAttribute
 import com.pluto.plugins.layoutinspector.internal.attributes.list.AttributeAdapter
+import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
+import com.pluto.plugins.layoutinspector.internal.inspect.findViewByTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.device.Device
@@ -57,10 +59,10 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityLifecycle.topActivity?.let {
-            findViewByDefaultTag(it.getFrontView())?.let { view ->
+            it.getFrontView().findViewByTargetTag()?.let { view ->
                 targetView = view
             } ?: run {
-                targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+                targetView?.clearTargetTag()
             }
         }
     }
@@ -116,21 +118,6 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
         attributeAdapter.list = it
     }
 
-    private fun findViewByDefaultTag(root: View): View? {
-        if (root.getTag(R.id.pluto_li___unique_view_tag) != null) {
-            return root
-        }
-        if (root is ViewGroup) {
-            for (i in 0 until root.childCount) {
-                val view = findViewByDefaultTag(root.getChildAt(i))
-                if (view != null) {
-                    return view
-                }
-            }
-        }
-        return null
-    }
-
     private val keyValuePairEditObserver = Observer<KeyValuePairEditResult> {
         targetView?.let { view ->
             it.value?.let { value ->
@@ -151,7 +138,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        targetView?.setTag(R.id.pluto_li___unique_view_tag, null)
+        targetView?.clearTargetTag()
     }
 
     private companion object {
