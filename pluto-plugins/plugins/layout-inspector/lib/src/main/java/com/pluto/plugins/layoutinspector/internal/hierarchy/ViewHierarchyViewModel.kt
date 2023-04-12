@@ -41,9 +41,16 @@ internal class ViewHierarchyViewModel(application: Application) : AndroidViewMod
 
     fun removeChildren(data: Hierarchy, layoutPosition: Int) {
         viewModelScope.launch {
+            var isNotValidChild = false
             val newList = (_list.value ?: arrayListOf()).filterIndexed { index, value ->
-                if (index <= layoutPosition) true
-                else value.layerCount <= data.layerCount
+                if (index <= layoutPosition) {
+                    true
+                } else {
+                    if (value.layerCount == data.layerCount) {
+                        isNotValidChild = true
+                    }
+                    isNotValidChild || value.layerCount <= data.layerCount
+                }
             }
             val list = arrayListOf<Hierarchy>().apply {
                 addAll(newList)
