@@ -16,8 +16,6 @@ import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyAdapte
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_ATTRIBUTE
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_EXPAND_COLLAPSE
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
-import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
-import com.pluto.plugins.layoutinspector.internal.inspect.findViewByTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.toast
@@ -30,12 +28,13 @@ import com.pluto.utilities.viewBinding
 
 internal class ViewHierarchyFragment : DialogFragment() {
 
-    private var sysLayerCount: Int = 0
-    private var targetView: View? = null
     private lateinit var hierarchyAdapter: BaseAdapter
     private val viewModel: ViewHierarchyViewModel by viewModels()
     private val inspectViewModel: InspectViewModel by activityViewModels()
     private val binding by viewBinding(PlutoLiFragmentViewHierarchyBinding::bind)
+    private var hasAlreadyScrolled: Boolean = false
+    private val shouldScrollToInspectedView: Boolean
+        get() = arguments?.getBoolean(SCROLL_TO_TARGET) ?: false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.pluto_li___fragment_view_hierarchy, container, false)
@@ -52,13 +51,6 @@ internal class ViewHierarchyFragment : DialogFragment() {
 
         ActivityLifecycle.topActivity?.getFrontView()?.let {
             val rootView: View = it.findViewById(android.R.id.content)
-            sysLayerCount = 0
-
-            rootView.findViewByTargetTag()?.let { view ->
-                targetView = view
-            } ?: run {
-                targetView?.clearTargetTag()
-            }
 
             binding.expandCta.setOnDebounceClickListener {
                 viewModel.expandAll(rootView)
@@ -79,10 +71,23 @@ internal class ViewHierarchyFragment : DialogFragment() {
         }
     }
 
+    private fun scrollToInspectedView(list: List<Hierarchy>) {
+        var inspectedViewIndex = list.indexOfFirst { it.isTargetView }
+        if (inspectedViewIndex > -1) {
+            if (inspectedViewIndex < list.size - 1) inspectedViewIndex++
+            binding.list.smoothScrollToPosition(inspectedViewIndex)
+        }
+    }
+
     private val parsedAttrObserver = Observer<List<Hierarchy>> {
-        val list = arrayListOf<Hierarchy>()
-        list.addAll(it)
-        hierarchyAdapter.list = list
+        hierarchyAdapter.list = arrayListOf<Hierarchy>().apply {
+            addAll(it)
+        }
+
+        if (shouldScrollToInspectedView && !hasAlreadyScrolled) {
+            scrollToInspectedView(it)
+            hasAlreadyScrolled = true
+        }
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
@@ -104,5 +109,9 @@ internal class ViewHierarchyFragment : DialogFragment() {
                 }
             }
         }
+    }
+
+    companion object {
+        const val SCROLL_TO_TARGET = "scroll_to_target"
     }
 }

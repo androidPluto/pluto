@@ -3,6 +3,7 @@ package com.pluto.plugins.layoutinspector
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewInfoBind
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.control.ControlCta
 import com.pluto.plugins.layoutinspector.internal.control.ControlsWidget
+import com.pluto.plugins.layoutinspector.internal.hierarchy.ViewHierarchyFragment.Companion.SCROLL_TO_TARGET
 import com.pluto.plugins.layoutinspector.internal.hint.HintFragment
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
 import com.pluto.plugins.layoutinspector.internal.inspect.assignTargetTag
@@ -84,7 +86,8 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
                 findNavController().navigate(R.id.openAttrView)
             },
             onViewHierarchyRequested = {
-                findNavController().navigate(R.id.openHierarchyView)
+                val bundle = bundleOf(SCROLL_TO_TARGET to true)
+                findNavController().navigate(R.id.openHierarchyView, bundle)
             },
             onCloseRequested = {
                 clearPreviousSelection()
