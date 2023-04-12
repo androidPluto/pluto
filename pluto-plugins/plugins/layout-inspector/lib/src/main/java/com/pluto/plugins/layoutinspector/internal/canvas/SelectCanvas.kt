@@ -47,14 +47,14 @@ internal class SelectCanvas(private val container: View) {
         container.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
     }
 
-    fun draw(canvas: Canvas, element: InspectedView?) {
+    fun draw(canvas: Canvas, inspectedView: InspectedView?) {
         canvas.save()
-        element?.let { drawSelected(canvas, it) }
+        inspectedView?.let { drawSelected(canvas, it) }
         canvas.restore()
     }
 
-    private fun drawSelected(canvas: Canvas, element: InspectedView) {
-        val rect: Rect = element.rect
+    private fun drawSelected(canvas: Canvas, inspectedView: InspectedView) {
+        val rect: Rect = inspectedView.rect
         canvas.drawLine(0f, rect.top.toFloat(), measuredWidth, rect.top.toFloat(), dashLinePaint)
         canvas.drawLine(0f, rect.bottom.toFloat(), measuredWidth, rect.bottom.toFloat(), dashLinePaint)
         canvas.drawLine(rect.left.toFloat(), 0f, rect.left.toFloat(), measuredHeight, dashLinePaint)

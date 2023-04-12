@@ -19,7 +19,7 @@ import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
 
-internal class InspectorOverlay : View {
+internal class InspectOverlay : View {
 
     private var gridAnimator: ValueAnimator? = null
     private var touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
@@ -153,12 +153,12 @@ internal class InspectorOverlay : View {
     }
 
     private fun handleClick(x: Float, y: Float) {
-        getTargetElement(x, y)?.let { handleElementSelected(it, true) }
+        getInspectedView(x, y)?.let { processViewInspection(it, true) }
     }
 
     fun handleClick(v: View, cancelIfSelected: Boolean): Boolean {
-        return getTargetElement(v)?.let {
-            handleElementSelected(it, cancelIfSelected)
+        return getInspectedView(v)?.let {
+            processViewInspection(it, cancelIfSelected)
             invalidate()
             true
         } ?: run {
@@ -167,35 +167,35 @@ internal class InspectorOverlay : View {
     }
 
     @SuppressWarnings("LoopWithTooManyJumpStatements")
-    fun getTargetElement(x: Float, y: Float): InspectedView? {
+    fun getInspectedView(x: Float, y: Float): InspectedView? {
         var target: InspectedView? = null
         for (i in inspectedViews.indices.reversed()) {
-            val element = inspectedViews[i]
-            if (element.rect.contains(x.toInt(), y.toInt())) {
-                if (isParentNotVisible(element.parentElement)) {
+            val inspectedView = inspectedViews[i]
+            if (inspectedView.rect.contains(x.toInt(), y.toInt())) {
+                if (isParentNotVisible(inspectedView.parent)) {
                     continue
                 }
-                target = element
+                target = inspectedView
                 break
             }
         }
         if (target == null) {
-            Log.w(TAG, "getTargetElement: not find")
+            Log.w(TAG, "getInspectedView: not find")
         }
         return target
     }
 
-    private fun getTargetElement(v: View): InspectedView? {
+    private fun getInspectedView(v: View): InspectedView? {
         var target: InspectedView? = null
         for (i in inspectedViews.indices.reversed()) {
-            val element = inspectedViews[i]
-            if (element.view === v) {
-                target = element
+            val inspectedView = inspectedViews[i]
+            if (inspectedView.view === v) {
+                target = inspectedView
                 break
             }
         }
         if (target == null) {
-            Log.w(TAG, "getTargetElement: not find")
+            Log.w(TAG, "getInspectedView: not find")
         }
         return target
     }
@@ -207,18 +207,18 @@ internal class InspectorOverlay : View {
         return if (parent.rect.left >= measuredWidth || parent.rect.top >= measuredHeight) {
             true
         } else {
-            isParentNotVisible(parent.parentElement)
+            isParentNotVisible(parent.parent)
         }
     }
 
-    private fun handleElementSelected(element: InspectedView, cancelIfSelected: Boolean) {
-        targetInspectedView = if (targetInspectedView == element && cancelIfSelected) {
+    private fun processViewInspection(inspectedView: InspectedView, cancelIfSelected: Boolean) {
+        targetInspectedView = if (targetInspectedView == inspectedView && cancelIfSelected) {
             null
         } else {
-            element
+            inspectedView
         }
-        clickInfoCanvas.targetElement = targetInspectedView
-        clickListener?.onClick(element.view)
+        clickInfoCanvas.inspectedView = targetInspectedView
+        clickListener?.onClick(inspectedView.view)
     }
 
     fun isSelectedEmpty(): Boolean = targetInspectedView == null
@@ -228,7 +228,7 @@ internal class InspectorOverlay : View {
     }
 
     companion object {
-        private const val TAG = "ElementHoldView"
+        private const val TAG = "InspectOverlay"
     }
 
     private data class CoordinatePair(val x: Float = 0f, val y: Float = 0f)
