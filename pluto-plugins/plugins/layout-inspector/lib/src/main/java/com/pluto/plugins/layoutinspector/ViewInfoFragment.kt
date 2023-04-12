@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewInfoBinding
@@ -11,6 +13,7 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.control.ControlCta
 import com.pluto.plugins.layoutinspector.internal.control.ControlsWidget
 import com.pluto.plugins.layoutinspector.internal.hint.HintFragment
+import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
 import com.pluto.plugins.layoutinspector.internal.inspect.assignTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
 import com.pluto.utilities.viewBinding
@@ -20,6 +23,7 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
     private var targetView: View? = null
     private val binding by viewBinding(PlutoLiFragmentViewInfoBinding::bind)
+    private val inspectViewModel: InspectViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +50,9 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
         )
         binding.leftControls.visibility = View.GONE
         setupPreviewPanel()
+
+        inspectViewModel.view.removeObserver(inspectRequestObserver)
+        inspectViewModel.view.observe(viewLifecycleOwner, inspectRequestObserver)
     }
 
     private fun setupPreviewPanel() {
@@ -84,6 +91,10 @@ internal class ViewInfoFragment : Fragment(R.layout.pluto_li___fragment_view_inf
                 binding.operableView.handleClick(view, true)
             }
         )
+    }
+
+    private val inspectRequestObserver = Observer<View> {
+        binding.operableView.handleClick(it, false)
     }
 
     private val onControlCtaListener = object : ControlsWidget.OnClickListener {

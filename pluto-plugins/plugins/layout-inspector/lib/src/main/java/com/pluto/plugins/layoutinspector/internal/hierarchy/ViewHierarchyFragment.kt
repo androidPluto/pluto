@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyAdapter
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_ATTRIBUTE
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_EXPAND_COLLAPSE
+import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
 import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.findViewByTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
@@ -32,6 +34,7 @@ internal class ViewHierarchyFragment : DialogFragment() {
     private var targetView: View? = null
     private lateinit var hierarchyAdapter: BaseAdapter
     private val viewModel: ViewHierarchyViewModel by viewModels()
+    private val inspectViewModel: InspectViewModel by activityViewModels()
     private val binding by viewBinding(PlutoLiFragmentViewHierarchyBinding::bind)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,20 +42,6 @@ internal class ViewHierarchyFragment : DialogFragment() {
     }
 
     override fun getTheme(): Int = R.style.PlutoLIFullScreenDialogStyle
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            return
-        }
-
-
-//        targetView = findViewByDefaultTag(rootView!!)
-//        if (targetView != null) {
-//            // clear flag
-//            targetView.setTag(R.id.pd_view_tag_for_unique, null)
-//        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,9 +89,13 @@ internal class ViewHierarchyFragment : DialogFragment() {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is Hierarchy) {
                 when (action) {
-                    ACTION_ATTRIBUTE -> toast("attribute")
+                    ACTION_ATTRIBUTE -> {
+                        inspectViewModel.select(data.view)
+                        dismiss()
+                    }
+
                     ACTION_EXPAND_COLLAPSE -> {
-                        if(data.isExpanded) {
+                        if (data.isExpanded) {
                             viewModel.removeChildren(data, holder.layoutPosition)
                         } else {
                             viewModel.addChildren(data, holder.layoutPosition)
