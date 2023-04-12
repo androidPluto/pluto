@@ -136,11 +136,6 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        targetView?.clearTargetTag()
-    }
-
     private companion object {
         const val SUBTITLE_TEXT_SIZE_IN_SP = 12
     }
