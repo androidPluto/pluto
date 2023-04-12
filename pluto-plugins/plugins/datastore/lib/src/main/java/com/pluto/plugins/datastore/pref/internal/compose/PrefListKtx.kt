@@ -1,9 +1,6 @@
 package com.pluto.plugins.datastore.pref.internal.compose
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,7 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -53,6 +50,7 @@ internal fun LazyListScope.dataStorePrefItems(
                 .clickable {
                     data.isExpanded.value = !data.isExpanded.value
                 }
+                .animateItemPlacement()
                 .background(colorResource(id = R.color.pluto___section_color))
         ) {
             Row(
@@ -63,7 +61,6 @@ internal fun LazyListScope.dataStorePrefItems(
                     .padding(top = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                val degrees = remember { Animatable(1f) }
                 Text(
                     text = data.name,
                     modifier = Modifier.padding(
@@ -77,6 +74,8 @@ internal fun LazyListScope.dataStorePrefItems(
                     )
                 )
 
+                val degrees = remember { Animatable(1f) }
+
                 LaunchedEffect(data.isExpanded.value) {
                     degrees.animateTo(if (data.isExpanded.value) FlipDegree else 0f)
                 }
@@ -85,26 +84,26 @@ internal fun LazyListScope.dataStorePrefItems(
                     painter = painterResource(id = R.drawable.pluto_dts___ic_expand),
                     contentDescription = "expand",
                     Modifier
-                        .rotate(degrees.value)
+                        .graphicsLayer {
+                            rotationZ = degrees.value
+                        }
                 )
             }
             Divider(Modifier.padding(top = 4.dp), color = colorResource(id = R.color.pluto___dark_05))
         }
     }
-    data.data.forEach { element ->
-        item(data.name + element.key) {
-            AnimatedVisibility(
-                visible = data.isExpanded.value,
-                enter = expandVertically(expandFrom = Alignment.CenterVertically),
-                exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically) // change with animateItemPlacement() when updating compose to latest
-            ) {
+    if (data.isExpanded.value) {
+        data.data.forEach { element ->
+            item(data.name + element.key) {
                 PrefListItem(
                     element = element,
                     editableItem = editableItem,
                     updateValue = updateValue,
                     onFocus = {
                         onFocus(data.name + element.key)
-                    }
+                    },
+                    modifier = Modifier
+                        .animateItemPlacement()
                 )
             }
         }
@@ -117,7 +116,6 @@ private fun DataStorePrefItemPreview() {
     val prefName = "Preferences"
     LazyColumn(
         modifier = Modifier
-//            .animateItemPlacement()       enable when updating compose to latest
             .wrapContentHeight(Alignment.Top)
             .background(colorResource(id = R.color.pluto___white))
     ) {
