@@ -29,8 +29,7 @@ internal fun Activity.getFrontView(): View {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
             val viewField = windowManagerGlobalClazz.getDeclaredField("mViews")
             viewField.isAccessible = true
-            val views = viewField[globalField[windowManager]] as List<View>
-            for (view in views.reversed()) {
+            (viewField[globalField[windowManager]] as List<View>).reversed().forEach { view ->
                 getDecorView(view)?.let {
                     return it
                 }
@@ -39,7 +38,7 @@ internal fun Activity.getFrontView(): View {
             val rootsField: Field = windowManagerGlobalClazz.getDeclaredField("mRoots")
             rootsField.isAccessible = true
             val viewRootImplList: List<*> = rootsField[globalField[windowManager]] as List<*>
-            for (rootImpl in viewRootImplList.reversed()) {
+            viewRootImplList.reversed().forEach { rootImpl ->
                 val windowAttributesField: Field = viewRootImplClazz.getDeclaredField("mWindowAttributes")
                 windowAttributesField.isAccessible = true
                 val viewField: Field = viewRootImplClazz.getDeclaredField("mView")

@@ -2,6 +2,7 @@ package com.pluto.plugins.layoutinspector.internal.hierarchy
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import com.pluto.plugins.layoutinspector.internal.inspect.verifyTargetTag
 import com.pluto.utilities.list.ListItem
 
@@ -22,8 +23,8 @@ class Hierarchy(
         val result = arrayListOf<Hierarchy>()
         if (view is ViewGroup) {
             val newLayerCount = layerCount + 1
-            for (i in 0 until view.childCount) {
-                val item = Hierarchy(view.getChildAt(i), newLayerCount, isExpanded = recursive)
+            view.children.forEach {
+                val item = Hierarchy(it, newLayerCount, isExpanded = recursive)
                 item.sysLayerCount = sysLayerCount
                 result.add(item)
                 if (recursive) {

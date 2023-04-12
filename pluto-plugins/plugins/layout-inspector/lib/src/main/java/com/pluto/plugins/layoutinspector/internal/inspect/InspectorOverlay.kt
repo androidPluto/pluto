@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
+import androidx.core.view.children
 import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
@@ -242,16 +243,13 @@ internal class InspectorOverlay : View {
         if (view.alpha == 0f || view.visibility != VISIBLE) return
         inspectedViews.add(InspectedView(view))
         if (view is ViewGroup) {
-            val parent: ViewGroup = view
-            for (i in 0 until parent.childCount) {
-                traverse(parent.getChildAt(i))
+            view.children.forEach {
+                traverse(it)
             }
         }
     }
 
     private fun resetAll() {
-        for (e in inspectedViews) {
-            e.reset()
-        }
+        inspectedViews.forEach { it.reset() }
     }
 }
