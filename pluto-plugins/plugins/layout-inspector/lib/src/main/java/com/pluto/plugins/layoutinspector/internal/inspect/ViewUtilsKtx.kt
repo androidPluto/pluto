@@ -8,6 +8,7 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.view.children
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.getIdInfo
@@ -91,15 +92,12 @@ internal fun View.getIdString(): CharSequence? = try {
 }
 
 internal fun View.findViewByTargetTag(): View? {
-    if (getTag(R.id.pluto_li___unique_view_tag) != null) {
+    if (verifyTargetTag()) {
         return this
     }
-    if (this is ViewGroup) {
-        for (i in 0 until this.childCount) {
-            val view = this.getChildAt(i).findViewByTargetTag()
-            if (view != null) {
-                return view
-            }
+    if (this is ViewGroup) children.forEach { child ->
+        child.findViewByTargetTag()?.let {
+            return it
         }
     }
     return null
