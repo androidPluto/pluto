@@ -8,7 +8,7 @@ internal class InspectedView(val view: View) {
     private val originRect: Rect = Rect()
     val rect: Rect = Rect()
     private val location = IntArray(2)
-    val parentElement: InspectedView?
+    val parent: InspectedView?
         get() {
             val parentView: Any = view.parent
             return if (parentView is View) {
@@ -38,10 +38,9 @@ internal class InspectedView(val view: View) {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || javaClass != other.javaClass) return false
-        val element = other as InspectedView
-        return view == element.view
+//        if (this === other) return true
+//        if (other == null || javaClass != other.javaClass) return false
+        return other is InspectedView && view == other.view
     }
 
     override fun hashCode(): Int = view.hashCode()

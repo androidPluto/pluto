@@ -40,7 +40,7 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
     private fun generateAttributeShareable(attrList: ArrayList<ListItem>): String {
         val text = StringBuilder()
         text.append("View Attributes")
-        for (attr in attrList) {
+        attrList.forEach { attr ->
             when (attr) {
                 is AttributeTitle -> text.append("\n\n*** attributes from: ${attr.title}")
                 is Attribute<*> -> text.append("\n\t${attr.title}: ${attr.value}")
@@ -59,12 +59,9 @@ internal class ViewAttrViewModel(application: Application) : AndroidViewModel(ap
             Attribute("view_class", v.javaClass.canonicalName)
         )
         attrList.addAll(tempAttrList.sortedBy { it.title })
-        val parsedList = parser.parse(v)
-        if (parsedList.isNotEmpty()) {
-            for (attr in parsedList) {
-                attrList.add(AttributeTitle(attr.parameterizedType))
-                attrList.addAll(attr.attributes)
-            }
+        parser.parse(v).forEach { attr ->
+            attrList.add(AttributeTitle(attr.parameterizedType))
+            attrList.addAll(attr.attributes)
         }
         return attrList
     }

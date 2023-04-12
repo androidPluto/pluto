@@ -106,8 +106,7 @@
             android:layout_height="wrap_content"
             android:text="@string/pluto_li___view_hierarchy_cta"
             android:textAppearance="@style/PlutoLIChipTextStyle"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            android:visibility="gone" />
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
     </com.google.android.material.chip.ChipGroup>
 

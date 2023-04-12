@@ -39,12 +39,12 @@ internal class ClickInfoCanvas(private val container: View) {
         }
     }
 
-    var targetElement: InspectedView? = null
+    var inspectedView: InspectedView? = null
 
-    fun draw(canvas: Canvas, element: InspectedView?) {
+    fun draw(canvas: Canvas, inspectedView: InspectedView?) {
         canvas.save()
-        element?.let {
-            targetElement?.let {
+        inspectedView?.let {
+            this.inspectedView?.let {
                 val rect: Rect = it.rect
                 val widthText = "${rect.width().toFloat().px2dp.toInt()} dp"
                 drawText(canvas, widthText, rect.centerX() - getTextWidth(textPaint, widthText) / 2, rect.top - distanceBtwTextAndBorder + 3f.dp2px)

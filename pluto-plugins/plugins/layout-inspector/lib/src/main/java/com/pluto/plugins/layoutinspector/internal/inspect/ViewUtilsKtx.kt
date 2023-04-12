@@ -6,8 +6,10 @@ import android.content.ContextWrapper
 import android.content.res.Resources
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
-import com.pluto.plugin.R
+import androidx.core.view.children
+import com.pluto.plugins.layoutinspector.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.getIdInfo
 import com.pluto.utilities.spannable.createSpan
@@ -27,8 +29,7 @@ internal fun Activity.getFrontView(): View {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
             val viewField = windowManagerGlobalClazz.getDeclaredField("mViews")
             viewField.isAccessible = true
-            val views = viewField[globalField[windowManager]] as List<View>
-            for (view in views.reversed()) {
+            (viewField[globalField[windowManager]] as List<View>).reversed().forEach { view ->
                 getDecorView(view)?.let {
                     return it
                 }
@@ -37,7 +38,7 @@ internal fun Activity.getFrontView(): View {
             val rootsField: Field = windowManagerGlobalClazz.getDeclaredField("mRoots")
             rootsField.isAccessible = true
             val viewRootImplList: List<*> = rootsField[globalField[windowManager]] as List<*>
-            for (rootImpl in viewRootImplList.reversed()) {
+            viewRootImplList.reversed().forEach { rootImpl ->
                 val windowAttributesField: Field = viewRootImplClazz.getDeclaredField("mWindowAttributes")
                 windowAttributesField.isAccessible = true
                 val viewField: Field = viewRootImplClazz.getDeclaredField("mView")
@@ -88,3 +89,29 @@ internal fun View.getIdString(): CharSequence? = try {
     e.printStackTrace()
     Integer.toHexString(id)
 }
+
+internal fun View.findViewByTargetTag(): View? {
+    if (verifyTargetTag()) {
+        return this
+    }
+    if (this is ViewGroup) children.forEach { child ->
+        child.findViewByTargetTag()?.let {
+            return it
+        }
+    }
+    return null
+}
+
+internal fun View.clearTargetTag() {
+    setTag(TARGET_VIEW_TAG_LABEL, null)
+}
+
+internal fun View.assignTargetTag() {
+    setTag(TARGET_VIEW_TAG_LABEL, Any())
+}
+
+internal fun View.verifyTargetTag(): Boolean {
+    return getTag(TARGET_VIEW_TAG_LABEL) != null
+}
+
+private val TARGET_VIEW_TAG_LABEL = R.id.pluto_li___unique_view_tag
