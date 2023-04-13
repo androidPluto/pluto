@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.utilities.extensions.dp2px
 
-class TreeNodeLayout : ConstraintLayout {
+class NestedView : ConstraintLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)

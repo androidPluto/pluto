@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.pluto.plugins.layoutinspector.internal.hierarchy.TreeNodeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.pluto.plugins.layoutinspector.internal.hierarchy.NestedView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_name_wrapper"
@@ -70,4 +70,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/viewTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.pluto.plugins.layoutinspector.internal.hierarchy.TreeNodeLayout>
+</com.pluto.plugins.layoutinspector.internal.hierarchy.NestedView>
