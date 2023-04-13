@@ -62,6 +62,7 @@ But, if you want to use individual plugins, here is the list of some plugins pro
 - **[Shared Preferences Plugin](pluto-plugins/plugins/shared-preferences)**
 - **[Rooms Database Plugin](pluto-plugins/plugins/rooms-database)**
 - **[Datastore Preferences Plugin](pluto-plugins/plugins/datastore)**
+- **[Layout Inspector Plugin](pluto-plugins/plugins/layout-inspector)**
 
 We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
