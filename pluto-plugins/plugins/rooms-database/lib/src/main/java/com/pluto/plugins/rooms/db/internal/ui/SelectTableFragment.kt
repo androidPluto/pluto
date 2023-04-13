@@ -65,7 +65,7 @@ class SelectTableFragment : BottomSheetDialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is TableModel) {
                 viewModel.selectTable(data)
                 dismiss()

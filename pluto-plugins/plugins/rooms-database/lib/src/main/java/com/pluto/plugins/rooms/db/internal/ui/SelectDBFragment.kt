@@ -75,7 +75,7 @@ class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is DatabaseModel) {
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {

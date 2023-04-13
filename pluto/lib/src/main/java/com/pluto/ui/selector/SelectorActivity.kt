@@ -110,7 +110,7 @@ class SelectorActivity : FragmentActivity() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
                 is Plugin -> when (action) {
                     "click" -> {

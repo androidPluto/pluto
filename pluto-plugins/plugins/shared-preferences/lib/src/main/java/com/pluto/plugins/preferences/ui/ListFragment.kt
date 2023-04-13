@@ -101,7 +101,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is SharedPrefKeyValuePair) {
                 when (action) {
                     "click" -> activity?.let {

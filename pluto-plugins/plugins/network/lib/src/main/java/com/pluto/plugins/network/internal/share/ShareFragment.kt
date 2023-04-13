@@ -60,7 +60,7 @@ class ShareFragment : BottomSheetDialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is ShareOptionType) {
                 detailsViewModel.detailContentLiveData.value?.let {
                     val shareContent: String? = when (data) {
