@@ -48,8 +48,11 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
                 onAction(ACTION_ATTRIBUTE)
             }
             binding.expandStateIndicator.setImageResource(
-                if (item.isExpanded) R.drawable.pluto_li___ic_hierarchy_show_less
-                else R.drawable.pluto_li___ic_hierarchy_show_more
+                if (item.isExpanded) {
+                    R.drawable.pluto_li___ic_hierarchy_show_less
+                } else {
+                    R.drawable.pluto_li___ic_hierarchy_show_more
+                }
             )
             binding.expandStateIndicator.visibility = if (item.view is ViewGroup) VISIBLE else GONE
             if (item.view is ViewGroup) {
@@ -60,7 +63,7 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
             val layoutParams: ConstraintLayout.LayoutParams = binding.viewTitle.layoutParams as ConstraintLayout.LayoutParams
             layoutParams.marginStart = if (item.view !is ViewGroup) 8f.dp.toInt() else 0
             binding.viewTitle.layoutParams = layoutParams
-            binding.root.setLayerCount(item.layerCount, item.sysLayerCount)
+            binding.root.setLayerCount(item.layerCount)
         }
     }
 

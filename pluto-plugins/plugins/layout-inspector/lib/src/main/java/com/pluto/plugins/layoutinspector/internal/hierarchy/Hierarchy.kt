@@ -9,8 +9,7 @@ import com.pluto.utilities.list.ListItem
 class Hierarchy(
     val view: View,
     val layerCount: Int,
-    var isExpanded: Boolean = false,
-    var sysLayerCount: Int = 0,
+    var isExpanded: Boolean = false
 ) : ListItem() {
     override fun isEqual(other: Any): Boolean {
         return other is Hierarchy && other.view.javaClass.name == view.javaClass.name && other.isExpanded == isExpanded
@@ -22,10 +21,8 @@ class Hierarchy(
     fun assembleChildren(recursive: Boolean = false): List<Hierarchy> {
         val result = arrayListOf<Hierarchy>()
         if (view is ViewGroup) {
-            val newLayerCount = layerCount + 1
             view.children.forEach {
-                val item = Hierarchy(it, newLayerCount, isExpanded = recursive)
-                item.sysLayerCount = sysLayerCount
+                val item = Hierarchy(it, layerCount + 1, isExpanded = recursive)
                 result.add(item)
                 if (recursive) {
                     result.addAll(item.assembleChildren(true))

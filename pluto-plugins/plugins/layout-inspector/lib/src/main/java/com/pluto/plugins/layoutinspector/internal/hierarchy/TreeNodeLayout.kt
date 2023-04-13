@@ -14,12 +14,10 @@ class TreeNodeLayout : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    private var sysLayoutCount = 0
     private var layerCount = 0
 
-    fun setLayerCount(layerCount: Int, sysLayoutCount: Int) {
+    fun setLayerCount(layerCount: Int) {
         this.layerCount = layerCount
-        this.sysLayoutCount = sysLayoutCount
         setPadding(interval * layerCount + 2f.dp2px.toInt(), paddingTop, paddingRight, paddingBottom)
         invalidate()
     }
@@ -32,18 +30,18 @@ class TreeNodeLayout : ConstraintLayout {
             strokeWidth = 0.5f.dp2px
         }
     }
-    private val color0x = Color.GRAY
-    private val color1x = -0x3d2728
-    private val color2x = -0x843e3c
-    private val color3x = -0x8f3531
-    private val color4x = -0x6f2e3f
-    private val color5x = -0x632daf
-    private val color6x = -0x122d97
-    private val color7x = -0x1e5e99
-    private val color8x = -0x136e88
-    private val color9x = -0x1587ab
-    private val color10x = -0x85c6dd
-    private val color11x = Color.BLACK
+    private val colorList: List<Int> = arrayListOf(
+        Color.BLACK,
+        Color.parseColor("#546E7A"),
+        Color.parseColor("#FF1744"),
+        Color.parseColor("#FFA000"),
+        Color.parseColor("#1DE9B6"),
+        Color.parseColor("#03A9F4"),
+        Color.parseColor("#00E5FF"),
+        Color.parseColor("#388E3C"),
+        Color.parseColor("#76FF03"),
+        Color.parseColor("#EEFF41")
+    )
 
     init {
         setWillNotDraw(false)
@@ -52,35 +50,8 @@ class TreeNodeLayout : ConstraintLayout {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         for (i in 1..layerCount) {
-            if (i > sysLayoutCount) {
-                if (i >= 11 + sysLayoutCount) {
-                    paint.color = color11x
-                } else if (i >= 10 + sysLayoutCount) {
-                    paint.color = color10x
-                } else if (i >= 9 + sysLayoutCount) {
-                    paint.color = color9x
-                } else if (i >= 8 + sysLayoutCount) {
-                    paint.color = color8x
-                } else if (i == 7 + sysLayoutCount) {
-                    paint.color = color7x
-                } else if (i == 6 + sysLayoutCount) {
-                    paint.color = color6x
-                } else if (i == 5 + sysLayoutCount) {
-                    paint.color = color5x
-                } else if (i == 4 + sysLayoutCount) {
-                    paint.color = color4x
-                } else if (i == 3 + sysLayoutCount) {
-                    paint.color = color3x
-                } else if (i == 2 + sysLayoutCount) {
-                    paint.color = color2x
-                } else if (i == 1 + sysLayoutCount) {
-                    paint.color = color1x
-                }
-                paint.strokeWidth = 1f.dp2px
-            } else {
-                paint.strokeWidth = 0.5f.dp2px
-                paint.color = color0x
-            }
+            paint.color = colorList[i % colorList.size]
+            paint.strokeWidth = 1f.dp2px
             canvas.drawLine((i * interval).toFloat(), 0f, (i * interval).toFloat(), measuredHeight.toFloat(), paint)
         }
     }

@@ -94,9 +94,11 @@ internal fun View.findViewByTargetTag(): View? {
     if (verifyTargetTag()) {
         return this
     }
-    if (this is ViewGroup) children.forEach { child ->
-        child.findViewByTargetTag()?.let {
-            return it
+    if (this is ViewGroup) {
+        children.forEach { child ->
+            child.findViewByTargetTag()?.let {
+                return it
+            }
         }
     }
     return null
