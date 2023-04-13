@@ -10,7 +10,7 @@ import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
 
-internal class SelectCanvas(private val container: View) {
+internal class CaptureCanvas(private val container: View) {
 
     private val cornerCirclePaint: Paint = object : Paint() {
         init {

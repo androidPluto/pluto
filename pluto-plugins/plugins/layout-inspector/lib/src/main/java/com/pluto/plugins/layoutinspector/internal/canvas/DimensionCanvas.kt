@@ -12,7 +12,7 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
 
-internal class ClickInfoCanvas(private val container: View) {
+internal class DimensionCanvas(private val container: View) {
 
     private val cornerRadius = 3f.dp2px
     private val textBgTopPadding = 4f.dp2px

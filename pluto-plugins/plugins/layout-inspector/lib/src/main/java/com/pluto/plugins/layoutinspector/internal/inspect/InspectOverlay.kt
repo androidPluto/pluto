@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.core.view.children
-import com.pluto.plugins.layoutinspector.internal.canvas.ClickInfoCanvas
+import com.pluto.plugins.layoutinspector.internal.canvas.CaptureCanvas
+import com.pluto.plugins.layoutinspector.internal.canvas.DimensionCanvas
 import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.SelectCanvas
 import com.pluto.utilities.extensions.dp2px
 
 internal class InspectOverlay : View {
@@ -26,8 +26,8 @@ internal class InspectOverlay : View {
     private var longPressTimeout: Int = ViewConfiguration.getLongPressTimeout()
 
     private var gridCanvas: GridCanvas = GridCanvas(this)
-    private var clickInfoCanvas: ClickInfoCanvas = ClickInfoCanvas(this)
-    private var selectCanvas: SelectCanvas = SelectCanvas(this)
+    private var dimenCanvas: DimensionCanvas = DimensionCanvas(this)
+    private var captureCanvas: CaptureCanvas = CaptureCanvas(this)
 
     private var prevCoordinate = CoordinatePair()
     private var downCoordinate = CoordinatePair()
@@ -85,8 +85,8 @@ internal class InspectOverlay : View {
             is State.Dragging -> gridCanvas.draw(canvas)
             else -> {}
         }
-        selectCanvas.draw(canvas, targetInspectedView)
-        clickInfoCanvas.draw(canvas, targetInspectedView)
+        captureCanvas.draw(canvas, targetInspectedView)
+        dimenCanvas.draw(canvas, targetInspectedView)
     }
 
     private fun handleActionCancel(event: MotionEvent) {
@@ -217,7 +217,7 @@ internal class InspectOverlay : View {
         } else {
             inspectedView
         }
-        clickInfoCanvas.inspectedView = targetInspectedView
+        dimenCanvas.inspectedView = targetInspectedView
         clickListener?.onClick(inspectedView.view)
     }
 
