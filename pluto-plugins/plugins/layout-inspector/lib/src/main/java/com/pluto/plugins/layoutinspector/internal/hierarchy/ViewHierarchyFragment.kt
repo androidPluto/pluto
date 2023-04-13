@@ -91,7 +91,7 @@ internal class ViewHierarchyFragment : DialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
             if (data is Hierarchy) {
                 when (action) {
                     ACTION_ATTRIBUTE -> {
@@ -99,13 +99,12 @@ internal class ViewHierarchyFragment : DialogFragment() {
                         dismiss()
                     }
 
-                    ACTION_EXPAND_COLLAPSE -> {
+                    ACTION_EXPAND_COLLAPSE ->
                         if (data.isExpanded) {
-                            viewModel.removeChildren(data, holder.layoutPosition)
+                            viewModel.removeChildren(data, holder?.layoutPosition ?: 0)
                         } else {
-                            viewModel.addChildren(data, holder.layoutPosition)
+                            viewModel.addChildren(data, holder?.layoutPosition ?: 0)
                         }
-                    }
                 }
             }
         }
