@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pluto_li___navigation.xml"
+    app:startDestination="@id/infoView">
+
+    <fragment
+        android:id="@+id/infoView"
+        android:name="com.pluto.plugins.layoutinspector.ViewInfoFragment"
+        android:label="detail"
+        tools:layout="@layout/pluto_li___fragment_view_info">
+
+        <action
+            android:id="@+id/openAttrView"
+            app:destination="@id/attrView" />
+
+        <action
+            android:id="@+id/openHierarchyView"
+            app:destination="@id/hierarchyView" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/attrView"
+        android:name="com.pluto.plugins.layoutinspector.internal.attributes.ViewAttrFragment" />
+
+    <dialog
+        android:id="@+id/hierarchyView"
+        android:name="com.pluto.plugins.layoutinspector.internal.hierarchy.ViewHierarchyFragment"
+        android:label="hierarchyView"
+        tools:layout="@layout/pluto_li___fragment_view_hierarchy"/>
+</navigation>

@@ -58,7 +58,7 @@ abstract class DiffAwareAdapter<VH : DiffAwareHolder> : RecyclerView.Adapter<Dif
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
 
     interface OnActionListener {
-        fun onAction(action: String, data: ListItem, holder: DiffAwareHolder? = null)
+        fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?)
     }
 }
 

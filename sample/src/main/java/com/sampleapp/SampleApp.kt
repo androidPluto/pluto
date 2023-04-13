@@ -11,6 +11,7 @@ import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
+import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
@@ -20,6 +21,7 @@ import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 import com.sampleapp.SupportedPlugins.Companion.DATASTORE_PREF
 import com.sampleapp.SupportedPlugins.Companion.DEMO
 import com.sampleapp.SupportedPlugins.Companion.EXCEPTIONS
+import com.sampleapp.SupportedPlugins.Companion.LAYOUT_INSPECTOR
 import com.sampleapp.SupportedPlugins.Companion.LOGGER
 import com.sampleapp.SupportedPlugins.Companion.NETWORK
 import com.sampleapp.SupportedPlugins.Companion.ROOMS_DATABASE
@@ -46,6 +48,7 @@ class SampleApp : Application() {
             .addPlugin(PlutoLoggerPlugin(LOGGER))
             .addPlugin(PlutoSharePreferencesPlugin(SHARED_PREF))
             .addPlugin(PlutoRoomsDatabasePlugin(ROOMS_DATABASE))
+            .addPlugin(PlutoLayoutInspectorPlugin(LAYOUT_INSPECTOR))
             .install()
         Pluto.showNotch(true)
 

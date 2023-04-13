@@ -61,7 +61,7 @@ dependencies {
     api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     api 'androidx.recyclerview:recyclerview:1.2.1'
 
-    api 'com.google.android.material:material:1.4.0'
+    api 'com.google.android.material:material:1.6.1'
 
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'

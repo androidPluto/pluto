@@ -6,7 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.pluto.plugin.PluginHelper
+import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.utilities.device.Device
@@ -28,7 +28,7 @@ internal class CrashNotification(private val context: Context) {
             .setContentTitle(context.getString(R.string.pluto_excep___notification_title, device.app.name))
             .setContentText(context.getString(R.string.pluto_excep___notification_subtitle))
             .setSmallIcon(R.drawable.pluto_excep___ic_plugin_logo)
-            .setContentIntent(PluginHelper.generatePendingIntent(context, PlutoExceptions.devIdentifier))
+            .setContentIntent(PlutoInterface.notification.getPendingIntent(PlutoExceptions.devIdentifier))
             .setOngoing(false)
             .setOnlyAlertOnce(true)
             .setAutoCancel(true)

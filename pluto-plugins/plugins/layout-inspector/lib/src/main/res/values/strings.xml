@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pluto_li___plugin_name">Layout Inspector</string>
+    <string name="pluto_li___hint_label">How to use</string>
+    <string name="pluto_li___hint_select_view">Click on view to select, click again to cancel selection.</string>
+    <string name="pluto_li___hint_move_view">Select a view, then long press anywhere to start moving the selected view</string>
+    <string name="pluto_li___view_attr_cta">View Attributes</string>
+    <string name="pluto_li___view_hierarchy_cta">See in View Hierarchy</string>
+    <string name="pluto_li___view_hierarchy_title">View Hierarchy</string>
+    <string name="pluto_li___cntrl_title_close">Close</string>
+    <string name="pluto_li___cntrl_title_hint">See Hint</string>
+    <string name="pluto_li___cntrl_title_hierarchy">Open Screen Hierarchy</string>
+    <string name="pluto_li___cntrl_title_move_to_right">Move Controls to Right</string>
+    <string name="pluto_li___cntrl_title_move_to_left">Move Controls to Left</string>
+</resources>

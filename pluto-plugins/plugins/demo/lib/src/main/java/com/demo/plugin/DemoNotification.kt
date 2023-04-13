@@ -6,7 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.pluto.plugin.PluginHelper
+import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.utilities.device.Device
 
 internal class DemoNotification(private val context: Context) {
@@ -27,7 +27,7 @@ internal class DemoNotification(private val context: Context) {
                 .setContentTitle(context.getString(R.string.demo___notification_title, device.app.name))
                 .setContentText(context.getString(R.string.demo___notification_subtitle))
                 .setSmallIcon(R.drawable.demo___ic_plugin_icon)
-                .setContentIntent(PluginHelper.generatePendingIntent(context, it))
+                .setContentIntent(PlutoInterface.notification.getPendingIntent(it))
                 .setOngoing(false)
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(true)

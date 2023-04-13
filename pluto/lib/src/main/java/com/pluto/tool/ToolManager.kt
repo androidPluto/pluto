@@ -2,12 +2,12 @@ package com.pluto.tool
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.tool.modules.currentScreen.CurrentScreenTool
 import com.pluto.tool.modules.grid.GridViewTool
 import com.pluto.tool.modules.ruler.RulerTool
-import com.pluto.utilities.AppState
 
-internal class ToolManager(private val application: Application, state: MutableLiveData<AppState>) {
+internal class ToolManager(private val application: Application, state: MutableLiveData<AppStateCallback.State>) {
 
     val tools: LinkedHashSet<PlutoTool> = linkedSetOf<PlutoTool>().apply {
         add(RulerTool())
@@ -18,7 +18,7 @@ internal class ToolManager(private val application: Application, state: MutableL
 
     init {
         state.observeForever {
-            if (it is AppState.Background) {
+            if (it is AppStateCallback.State.Background) {
                 tools.forEach { tool ->
                     tool.onToolUnselected()
                 }

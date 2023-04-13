@@ -17,7 +17,7 @@ data class KeyValuePairData(
 data class KeyValuePairEditRequest(
     val key: String,
     val value: String? = null,
-    val hint: String?,
+    val hint: String = "enter value",
     private val candidateOptions: List<String>? = null,
     val inputType: KeyValuePairEditInputType = KeyValuePairEditInputType.String,
     val metaData: KeyValuePairEditMetaData

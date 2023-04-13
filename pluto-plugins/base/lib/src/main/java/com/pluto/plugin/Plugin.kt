@@ -14,10 +14,20 @@ abstract class Plugin(val devIdentifier: String) : ListItem() {
 
     val context: Context
         get() = returnContext()
+    val application: Application
+        get() = returnApplication()
+
     private var _application: Application? = null
     private fun returnContext(): Context {
         _application?.let {
             return it.applicationContext
+        }
+        throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
+    }
+
+    private fun returnApplication(): Application {
+        _application?.let {
+            return it
         }
         throw IllegalStateException("${this.javaClass.name} plugin is not installed yet.")
     }
