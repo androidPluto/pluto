@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import com.pluto.R
 import com.pluto.databinding.PlutoItemSettingsEasyAccessAppearanceBinding
 import com.pluto.settings.SettingsEasyAccessPopupAppearanceEntity
-import com.pluto.settings.SettingsPreferences
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.settings.SettingsPreferences
 
 internal class SettingsEasyAccessPopupAppearanceHolder(parent: ViewGroup, listener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_settings_easy_access_appearance), listener) {

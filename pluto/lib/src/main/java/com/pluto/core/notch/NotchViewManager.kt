@@ -9,11 +9,11 @@ import android.view.View
 import android.view.WindowManager
 import com.pluto.R
 import com.pluto.databinding.PlutoLayoutNotchBinding
-import com.pluto.settings.SettingsPreferences
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.hapticFeedback
+import com.pluto.utilities.settings.SettingsPreferences
 import com.pluto.utilities.soundFeedback
 import kotlin.math.abs
 

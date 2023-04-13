@@ -1,14 +1,14 @@
-package com.pluto.settings
+package com.pluto.utilities.settings
 
 import android.content.Context
 import android.content.SharedPreferences
 
-internal object SettingsPreferences {
+object SettingsPreferences {
 
     private val settingsPrefs: SharedPreferences
-        get() = returnContext()
+        get() = returnSettings()
     private var _settingsPrefs: SharedPreferences? = null
-    private fun returnContext(): SharedPreferences {
+    private fun returnSettings(): SharedPreferences {
         _settingsPrefs?.let { return it }
         throw IllegalStateException("Settings preferences is not initialised yet.")
     }
@@ -17,11 +17,11 @@ internal object SettingsPreferences {
         this._settingsPrefs = context.preferences("settings")
     }
 
-    internal var isDarkAccessPopup: Boolean
+    var isDarkAccessPopup: Boolean
         get() = settingsPrefs.getBoolean(IS_DARK_ACCESS_POPUP, true)
         set(value) = settingsPrefs.edit().putBoolean(IS_DARK_ACCESS_POPUP, value).apply()
 
-    internal var isRightHandedAccessPopup: Boolean
+    var isRightHandedAccessPopup: Boolean
         get() = settingsPrefs.getBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, true)
         set(value) = settingsPrefs.edit().putBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, value).apply()
 
