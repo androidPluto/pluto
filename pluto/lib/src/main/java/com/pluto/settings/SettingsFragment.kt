@@ -46,7 +46,7 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
                 is SettingsEasyAccessEntity -> context?.openOverlaySettings()
                 is SettingsEasyAccessPopupAppearanceEntity -> {
@@ -65,7 +65,7 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
                             "unsupported appearance type"
                         }
                     }
-                    settingsAdapter.notifyItemChanged(holder?.adapterPosition ?: 0)
+                    settingsAdapter.notifyItemChanged(holder.layoutPosition)
                 }
                 is SettingsResetAllEntity -> {
                     viewModel.resetAll()

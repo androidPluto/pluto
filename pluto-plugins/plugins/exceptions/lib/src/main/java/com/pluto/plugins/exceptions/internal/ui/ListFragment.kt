@@ -95,7 +95,7 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is ExceptionEntity) {
                 requireActivity().hideKeyboard()
                 if (data.id != null) {

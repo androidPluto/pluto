@@ -93,7 +93,7 @@ internal class MockSettingsListFragment : Fragment(R.layout.pluto_network___frag
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
                 is MockSettingsEntity -> {
                     val bundle = bundleOf("url" to data.requestUrl, "method" to data.requestMethod)

@@ -72,10 +72,10 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is SharedPrefFile) {
                 SharedPrefRepo.updateSelectedPreferenceFile(data)
-                holder?.adapterPosition?.let { prefAdapter.notifyItemChanged(it) }
+                prefAdapter.notifyItemChanged(holder.layoutPosition)
             }
         }
     }

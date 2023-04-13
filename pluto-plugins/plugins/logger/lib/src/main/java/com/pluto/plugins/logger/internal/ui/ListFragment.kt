@@ -109,7 +109,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is LogData) {
                 activity?.let {
                     it.hideKeyboard(viewLifecycleOwner.lifecycleScope) {

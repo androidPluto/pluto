@@ -129,7 +129,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
-        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder?) {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is MutableAttribute) {
                 keyValuePairEditor.edit(data.requestEdit())
             }
