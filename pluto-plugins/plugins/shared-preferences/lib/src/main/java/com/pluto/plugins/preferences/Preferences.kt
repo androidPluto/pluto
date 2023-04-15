@@ -4,7 +4,7 @@ import android.content.Context
 
 internal class Preferences(context: Context) {
 
-    private val settingsPrefs by lazy { context.preferences("settings") }
+    private val settingsPrefs by lazy { context.preferences("_pluto_pref_settings") }
 
     internal var selectedPreferenceFiles: String?
         get() = settingsPrefs.getString(SELECTED_PREF_FILE, null)
