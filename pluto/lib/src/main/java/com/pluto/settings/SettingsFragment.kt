@@ -53,8 +53,8 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
                 is SettingsEasyAccessPopupAppearanceEntity -> {
                     when (data.type) {
                         "mode" -> {
-                            val current = SettingsPreferences.isDarkAccessPopup
-                            SettingsPreferences.isDarkAccessPopup = !current
+                            val current = SettingsPreferences.isDarkThemeEnabled
+                            SettingsPreferences.isDarkThemeEnabled = !current
                             context?.toast(context!!.getString(R.string.pluto___notch_settings_updated))
                         }
                         "handed" -> {

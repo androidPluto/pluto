@@ -9,6 +9,7 @@ import android.view.ViewConfiguration
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
+import com.pluto.utilities.settings.SettingsPreferences
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -23,17 +24,7 @@ internal class RulerScaleView(context: Context) : View(context) {
     private var screen = ScreenMeasurement()
     private val paintType = PaintType(context)
 
-    @Direction
-    private var direction = 0
-
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    annotation class Direction {
-        companion object {
-            var NONE = 0x00
-            var HORIZONTAL = 0x01
-            var VERTICAL = 0x02
-        }
-    }
+    private var direction: Direction = Direction.Idle
 
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
@@ -82,12 +73,12 @@ internal class RulerScaleView(context: Context) : View(context) {
         var i = 0
         while (i < screen.height) {
             canvas.drawLine(clickCoordinate.x, i.toFloat().dp2px, clickCoordinate.x + getMarkerHeight(i), i.toFloat().dp2px, paintType.scaleMarker)
-            i += SCALE_GAP
+            i += SettingsPreferences.gridSize
         }
         var j = 0
         while (j < screen.width) {
             canvas.drawLine(j.toFloat().dp2px, clickCoordinate.y, j.toFloat().dp2px, clickCoordinate.y + getMarkerHeight(j), paintType.scaleMarker)
-            j += SCALE_GAP
+            j += SettingsPreferences.gridSize
         }
     }
 
@@ -101,7 +92,7 @@ internal class RulerScaleView(context: Context) : View(context) {
     }
 
     private fun drawScroll(canvas: Canvas) {
-        if (direction == Direction.HORIZONTAL) {
+        if (direction == Direction.Horizontal) {
             canvas.drawLine(
                 clickCoordinate.x + lastTouchCoordinate.x - moveStartCoordinate.x,
                 0f,
@@ -113,7 +104,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
             paintType.measurement.textAlign = Paint.Align.CENTER
             canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
-        } else if (direction == Direction.VERTICAL) {
+        } else if (direction == Direction.Vertical) {
             canvas.drawLine(
                 0f,
                 clickCoordinate.y + lastTouchCoordinate.y - moveStartCoordinate.y,
@@ -129,20 +120,20 @@ internal class RulerScaleView(context: Context) : View(context) {
     }
 
     private fun handleActionUp(event: MotionEvent) {
-        if (direction == Direction.NONE) {
+        if (direction == Direction.Idle) {
             prevCoordinate.y = 0f
             prevCoordinate.x = prevCoordinate.y
             clickCoordinate.x = event.x
             clickCoordinate.y = event.y
         } else {
-            if (direction == Direction.HORIZONTAL) {
+            if (direction == Direction.Horizontal) {
                 prevCoordinate.x = clickCoordinate.x
                 clickCoordinate.x += event.x - moveStartCoordinate.x
-            } else if (direction == Direction.VERTICAL) {
+            } else if (direction == Direction.Vertical) {
                 prevCoordinate.y = clickCoordinate.y
                 clickCoordinate.y += event.y - moveStartCoordinate.y
             }
-            direction = Direction.NONE
+            direction = Direction.Idle
         }
         invalidate()
     }
@@ -152,16 +143,16 @@ internal class RulerScaleView(context: Context) : View(context) {
         lastTouchCoordinate.y = event.y
         val dx = lastTouchCoordinate.x - downCoordinate.x
         val dy = lastTouchCoordinate.y - downCoordinate.y
-        if (direction == Direction.NONE) {
+        if (direction == Direction.Idle) {
             if (abs(dx) > touchSlop) {
-                direction = Direction.HORIZONTAL
+                direction = Direction.Horizontal
                 moveStartCoordinate.x = lastTouchCoordinate.x
                 prevCoordinate.x = clickCoordinate.x
                 if (clickCoordinate.y <= 0) {
                     clickCoordinate.y = lastTouchCoordinate.y
                 }
             } else if (abs(dy) > touchSlop) {
-                direction = Direction.VERTICAL
+                direction = Direction.Vertical
                 moveStartCoordinate.y = lastTouchCoordinate.y
                 prevCoordinate.y = clickCoordinate.y
                 if (clickCoordinate.x <= 0) {
@@ -169,7 +160,7 @@ internal class RulerScaleView(context: Context) : View(context) {
                 }
             }
         }
-        if (direction != Direction.NONE) {
+        if (direction != Direction.Idle) {
             invalidate()
         }
     }
@@ -183,15 +174,20 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     private fun getMarkerHeight(position: Int): Int {
         return when {
-            position / SCALE_GAP % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
-            position / SCALE_GAP % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
+            position / SettingsPreferences.gridSize % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
+            position / SettingsPreferences.gridSize % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
             else -> MARKER_HEIGHT.roundToInt()
         }
     }
 
+    private sealed class Direction {
+        object Idle : Direction()
+        object Horizontal : Direction()
+        object Vertical : Direction()
+    }
+
     private companion object {
         const val MARKER_SPIKE_INDICATOR_INDEX = 5
-        const val SCALE_GAP = 5
         val MARKER_HEIGHT = 4f.dp2px
         val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
         val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2

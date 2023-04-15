@@ -6,36 +6,29 @@ import android.view.View
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
+import com.pluto.utilities.settings.SettingsPreferences
 
 internal class GridCanvas(private val container: View) {
     private val gridPaint: Paint = object : Paint() {
         init {
-            isAntiAlias = true
             color = container.context.color(R.color.pluto___blue_40)
-            strokeWidth = 1f
+            style = Style.FILL
+            strokeWidth = 1f.dp2px
         }
     }
-    private val measuredWidth: Int
-        get() = container.measuredWidth
-    private val measuredHeight: Int
-        get() = container.measuredHeight
 
     fun draw(canvas: Canvas) {
         canvas.save()
         var startX = 0
-        while (startX < measuredWidth) {
-            canvas.drawLine(startX.toFloat(), 0f, startX.toFloat(), measuredHeight.toFloat(), gridPaint)
-            startX += GRID_DIMEN
+        while (startX < container.measuredWidth) {
+            canvas.drawLine(startX.toFloat().dp2px, 0f, startX.toFloat().dp2px, container.measuredHeight.toFloat(), gridPaint)
+            startX += SettingsPreferences.gridSize
         }
         var startY = 0
-        while (startY < measuredHeight) {
-            canvas.drawLine(0f, startY.toFloat(), measuredWidth.toFloat(), startY.toFloat(), gridPaint)
-            startY += GRID_DIMEN
+        while (startY < container.measuredHeight) {
+            canvas.drawLine(0f, startY.toFloat().dp2px, container.measuredWidth.toFloat(), startY.toFloat().dp2px, gridPaint)
+            startY += SettingsPreferences.gridSize
         }
         canvas.restore()
-    }
-
-    companion object {
-        private val GRID_DIMEN: Int = 5f.dp2px.toInt()
     }
 }

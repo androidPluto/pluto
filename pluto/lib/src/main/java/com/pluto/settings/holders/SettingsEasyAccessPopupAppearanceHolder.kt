@@ -34,7 +34,7 @@ internal class SettingsEasyAccessPopupAppearanceHolder(parent: ViewGroup, listen
             )
             checkbox.isSelected =
                 when (item.type) {
-                    "mode" -> SettingsPreferences.isDarkAccessPopup
+                    "mode" -> SettingsPreferences.isDarkThemeEnabled
                     "handed" -> SettingsPreferences.isRightHandedAccessPopup
                     else -> error("unsupported appearance type")
                 }

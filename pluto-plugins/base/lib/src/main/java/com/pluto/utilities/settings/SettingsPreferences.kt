@@ -14,19 +14,24 @@ object SettingsPreferences {
     }
 
     fun init(context: Context) {
-        this._settingsPrefs = context.preferences("settings")
+        this._settingsPrefs = context.preferences("_pluto_settings")
     }
 
-    var isDarkAccessPopup: Boolean
-        get() = settingsPrefs.getBoolean(IS_DARK_ACCESS_POPUP, true)
-        set(value) = settingsPrefs.edit().putBoolean(IS_DARK_ACCESS_POPUP, value).apply()
+    var isDarkThemeEnabled: Boolean
+        get() = settingsPrefs.getBoolean(IS_DARK_THEME_ENABLED, true)
+        set(value) = settingsPrefs.edit().putBoolean(IS_DARK_THEME_ENABLED, value).apply()
 
     var isRightHandedAccessPopup: Boolean
         get() = settingsPrefs.getBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, true)
         set(value) = settingsPrefs.edit().putBoolean(IS_RIGHT_HANDED_ACCESS_POPUP, value).apply()
 
-    private const val IS_DARK_ACCESS_POPUP = "is_dark_access_popup"
+    var gridSize: Int
+        get() = settingsPrefs.getInt(GRID_SIZE, 5)
+        set(value) = settingsPrefs.edit().putInt(GRID_SIZE, value).apply()
+
+    private const val IS_DARK_THEME_ENABLED = "is_dark_theme_enabled"
     private const val IS_RIGHT_HANDED_ACCESS_POPUP = "is_right_handed_access_popup"
+    private const val GRID_SIZE = "grid_size"
 }
 
 private fun Context.preferences(name: String, mode: Int = Context.MODE_PRIVATE) = getSharedPreferences(name, mode)
