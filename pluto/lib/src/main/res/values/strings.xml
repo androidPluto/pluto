@@ -12,7 +12,6 @@
     <string name="pluto___plugin_details">Plugin Details</string>
     <string name="pluto___website_url_hint">your website url goes here</string>
     <string name="pluto___vcs_url_hint">your vcs url goes here</string>
-    <string name="pluto___settings_easy_access_appearance_mode_title">Set Dark mode for Access popup</string>
     <string name="pluto___settings_easy_access_appearance_handed_title">Enable Right handed mode for Access popup</string>
     <string name="pluto___reset_all_requested">Plugin data reset requested</string>
     <string name="pluto___settings_easy_access_title">Enable Notch</string>
