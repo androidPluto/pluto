@@ -9,6 +9,7 @@ import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
+import com.pluto.utilities.settings.SettingsPreferences
 
 internal class CaptureCanvas(private val container: View) {
 
@@ -66,7 +67,13 @@ internal class CaptureCanvas(private val container: View) {
         canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
         canvas.drawCircle(rect.left.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
         canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
-        cornerCirclePaint.color = container.context.color(R.color.pluto___red)
+        cornerCirclePaint.color = container.context.color(
+            if (SettingsPreferences.isDarkThemeEnabled) {
+                R.color.pluto___red
+            } else {
+                R.color.pluto___yellow
+            }
+        )
         cornerCirclePaint.style = Paint.Style.STROKE
         canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
         canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)

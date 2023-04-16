@@ -11,7 +11,13 @@ import com.pluto.utilities.settings.SettingsPreferences
 internal class GridCanvas(private val container: View) {
     private val gridPaint: Paint = object : Paint() {
         init {
-            color = container.context.color(R.color.pluto___blue_40)
+            color = container.context.color(
+                if (SettingsPreferences.isDarkThemeEnabled) {
+                    R.color.pluto___red_40
+                } else {
+                    R.color.pluto___yellow_40
+                }
+            )
             style = Style.FILL
             strokeWidth = 1f.dp2px
         }
