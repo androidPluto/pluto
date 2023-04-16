@@ -9,7 +9,6 @@ import android.view.ViewConfiguration
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
-import com.pluto.utilities.settings.SettingsPreferences
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -73,12 +72,12 @@ internal class RulerScaleView(context: Context) : View(context) {
         var i = 0
         while (i < screen.height) {
             canvas.drawLine(clickCoordinate.x, i.toFloat().dp2px, clickCoordinate.x + getMarkerHeight(i), i.toFloat().dp2px, paintType.scaleMarker)
-            i += SettingsPreferences.gridSize
+            i += SCALE_GAP
         }
         var j = 0
         while (j < screen.width) {
             canvas.drawLine(j.toFloat().dp2px, clickCoordinate.y, j.toFloat().dp2px, clickCoordinate.y + getMarkerHeight(j), paintType.scaleMarker)
-            j += SettingsPreferences.gridSize
+            j += SCALE_GAP
         }
     }
 
@@ -174,8 +173,8 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     private fun getMarkerHeight(position: Int): Int {
         return when {
-            position / SettingsPreferences.gridSize % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
-            position / SettingsPreferences.gridSize % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
+            position / SCALE_GAP % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
+            position / SCALE_GAP % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
             else -> MARKER_HEIGHT.roundToInt()
         }
     }
@@ -186,10 +185,11 @@ internal class RulerScaleView(context: Context) : View(context) {
         object Vertical : Direction()
     }
 
-    private companion object {
-        const val MARKER_SPIKE_INDICATOR_INDEX = 5
-        val MARKER_HEIGHT = 4f.dp2px
-        val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
-        val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2
+    companion object {
+        private const val MARKER_SPIKE_INDICATOR_INDEX = 5
+        const val SCALE_GAP = 5
+        private val MARKER_HEIGHT = 4f.dp2px
+        private val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
+        private val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2
     }
 }

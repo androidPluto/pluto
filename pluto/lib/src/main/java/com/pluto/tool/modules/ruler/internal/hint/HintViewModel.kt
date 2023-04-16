@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pluto.R
+import com.pluto.tool.modules.ruler.internal.RulerScaleView.Companion.SCALE_GAP
 
 internal class HintViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,6 +23,7 @@ internal class HintViewModel(application: Application) : AndroidViewModel(applic
             val list = arrayListOf<HintItem>()
             list.add(HintItem(getString(R.string.pluto___tool_ruler_hint_reset_position)))
             list.add(HintItem(getString(R.string.pluto___tool_ruler_hint_measure)))
+            list.add(HintItem(getString(R.string.pluto___tool_ruler_hint_scale_gap, SCALE_GAP)))
             _list.postValue(list)
         }
     }
