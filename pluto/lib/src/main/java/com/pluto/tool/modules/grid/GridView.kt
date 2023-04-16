@@ -12,7 +12,13 @@ import com.pluto.utilities.settings.SettingsPreferences
 internal class GridView(context: Context) : View(context) {
     private val gridPaint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
-            color = context.color(R.color.pluto___red_40)
+            color = context.color(
+                if (SettingsPreferences.isDarkThemeEnabled) {
+                    R.color.pluto___red_40
+                } else {
+                    R.color.pluto___yellow_40
+                }
+            )
             style = Style.FILL
             strokeWidth = 1f.dp2px
         }

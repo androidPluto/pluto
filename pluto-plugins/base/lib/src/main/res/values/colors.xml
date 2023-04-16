@@ -36,6 +36,10 @@
     <color name="pluto___red_40">#66ff5733</color>
     <color name="pluto___red_60">#99ff5733</color>
     <color name="pluto___red_80">#ccff5733</color>
+    <color name="pluto___yellow">#ffff00</color>
+    <color name="pluto___yellow_80">#ccffff00</color>
+    <color name="pluto___yellow_60">#99ffff00</color>
+    <color name="pluto___yellow_40">#66ffff00</color>
     <color name="pluto___orange">#ff9100</color>
     <color name="pluto___orange_05">#0Dff9100</color>
     <color name="pluto___emerald">#009463</color>
