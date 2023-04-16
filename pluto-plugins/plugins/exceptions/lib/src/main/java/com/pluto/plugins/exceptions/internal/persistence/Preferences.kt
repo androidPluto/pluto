@@ -7,7 +7,7 @@ import android.content.SharedPreferences
 @SuppressWarnings("UseDataClass")
 internal class Preferences(context: Context) {
 
-    private val statePrefs: SharedPreferences = context.getSharedPreferences("_pluto_exception", Context.MODE_PRIVATE)
+    private val statePrefs: SharedPreferences = context.getSharedPreferences("_pluto_pref_exception", Context.MODE_PRIVATE)
 
     internal var lastSessionCrash: String?
         get() = statePrefs.getString(LAST_SESSION_CRASH, null)
