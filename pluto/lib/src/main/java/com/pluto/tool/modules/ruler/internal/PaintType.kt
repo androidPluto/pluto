@@ -18,7 +18,7 @@ internal data class PaintType(val context: Context) {
                 if (SettingsPreferences.isDarkThemeEnabled) {
                     R.color.pluto___red_dark
                 } else {
-                    R.color.pluto___yellow
+                    R.color.pluto___orange
                 }
             )
             style = Style.FILL
@@ -32,7 +32,7 @@ internal data class PaintType(val context: Context) {
                 if (SettingsPreferences.isDarkThemeEnabled) {
                     R.color.pluto___red_80
                 } else {
-                    R.color.pluto___yellow_80
+                    R.color.pluto___orange_80
                 }
             )
             style = Style.FILL
@@ -46,7 +46,7 @@ internal data class PaintType(val context: Context) {
                 if (SettingsPreferences.isDarkThemeEnabled) {
                     R.color.pluto___red_60
                 } else {
-                    R.color.pluto___yellow_60
+                    R.color.pluto___orange_60
                 }
             )
             style = Style.STROKE

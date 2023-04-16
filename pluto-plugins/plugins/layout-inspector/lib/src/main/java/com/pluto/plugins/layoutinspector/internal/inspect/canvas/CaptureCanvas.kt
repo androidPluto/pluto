@@ -71,7 +71,7 @@ internal class CaptureCanvas(private val container: View) {
             if (SettingsPreferences.isDarkThemeEnabled) {
                 R.color.pluto___red
             } else {
-                R.color.pluto___yellow
+                R.color.pluto___orange
             }
         )
         cornerCirclePaint.style = Paint.Style.STROKE
