@@ -31,6 +31,7 @@ internal class SettingsViewModel(application: Application) : AndroidViewModel(ap
             }
             list.add(SettingsEasyAccessPopupAppearanceEntity("handed"))
             list.add(SettingsThemeEntity())
+            list.add(SettingsGridSizeEntity())
             list.add(SettingsResetAllEntity())
             _list.postValue(list)
         }

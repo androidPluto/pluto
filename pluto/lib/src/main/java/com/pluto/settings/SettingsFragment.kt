@@ -10,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.BuildConfig
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
+import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.DEC_SIZE
+import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.INC_SIZE
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.extensions.toast
@@ -53,6 +55,7 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
                     context?.openOverlaySettings()
                     requireActivity().finish()
                 }
+
                 is SettingsEasyAccessPopupAppearanceEntity -> {
                     when (data.type) {
                         "handed" -> {
@@ -60,18 +63,29 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
                             SettingsPreferences.isRightHandedAccessPopup = !current
                             context?.toast(context!!.getString(R.string.pluto___notch_settings_updated))
                         }
+
                         else -> check(!BuildConfig.DEBUG) {
                             "unsupported appearance type"
                         }
                     }
                     settingsAdapter.notifyItemChanged(holder.layoutPosition)
                 }
+
+                is SettingsGridSizeEntity -> {
+                    when (action) {
+                        INC_SIZE -> SettingsPreferences.gridSize++
+                        DEC_SIZE -> SettingsPreferences.gridSize--
+                    }
+                    settingsAdapter.notifyItemChanged(holder.layoutPosition)
+                }
+
                 is SettingsThemeEntity -> {
                     val current = SettingsPreferences.isDarkThemeEnabled
                     SettingsPreferences.isDarkThemeEnabled = !current
                     context?.toast(context!!.getString(R.string.pluto___setting_theme_updated))
                     settingsAdapter.notifyItemChanged(holder.layoutPosition)
                 }
+
                 is SettingsResetAllEntity -> {
                     viewModel.resetAll()
                     context?.toast(context!!.getString(R.string.pluto___reset_all_requested))
