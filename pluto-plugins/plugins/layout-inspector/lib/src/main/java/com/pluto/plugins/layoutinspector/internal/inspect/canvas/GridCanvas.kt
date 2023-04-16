@@ -1,4 +1,4 @@
-package com.pluto.plugins.layoutinspector.internal.canvas
+package com.pluto.plugins.layoutinspector.internal.inspect.canvas
 
 import android.graphics.Canvas
 import android.graphics.Paint

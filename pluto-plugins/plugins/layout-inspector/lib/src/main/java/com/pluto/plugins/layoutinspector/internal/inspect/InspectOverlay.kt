@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.core.view.children
-import com.pluto.plugins.layoutinspector.internal.canvas.CaptureCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.DimensionCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.CaptureCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.DimensionCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.GridCanvas
 import com.pluto.utilities.extensions.dp2px
 
 internal class InspectOverlay : View {
