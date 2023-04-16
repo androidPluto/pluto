@@ -27,14 +27,12 @@ internal class SettingsEasyAccessPopupAppearanceHolder(parent: ViewGroup, listen
             disableOverlay.visibility = if (itemView.context.canDrawOverlays()) GONE else VISIBLE
             title.text = context.getString(
                 when (item.type) {
-                    "mode" -> R.string.pluto___settings_easy_access_appearance_mode_title
                     "handed" -> R.string.pluto___settings_easy_access_appearance_handed_title
                     else -> error("unsupported appearance type")
                 }
             )
             checkbox.isSelected =
                 when (item.type) {
-                    "mode" -> SettingsPreferences.isDarkThemeEnabled
                     "handed" -> SettingsPreferences.isRightHandedAccessPopup
                     else -> error("unsupported appearance type")
                 }

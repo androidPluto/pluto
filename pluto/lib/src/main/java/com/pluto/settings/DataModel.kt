@@ -10,6 +10,10 @@ internal data class SettingsEasyAccessPopupAppearanceEntity(
     val type: String
 ) : ListItem()
 
+internal data class SettingsThemeEntity(
+    val label: String = "theme"
+) : ListItem()
+
 internal data class SettingsResetAllEntity(
     val type: String = "rest all"
 ) : ListItem()
