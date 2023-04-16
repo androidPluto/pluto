@@ -9,11 +9,11 @@ import android.view.View
 import android.view.WindowManager
 import com.pluto.R
 import com.pluto.databinding.PlutoLayoutNotchBinding
-import com.pluto.settings.SettingsPreferences
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.hapticFeedback
+import com.pluto.utilities.settings.SettingsPreferences
 import com.pluto.utilities.soundFeedback
 import kotlin.math.abs
 
@@ -85,16 +85,16 @@ internal class NotchViewManager(
                 v?.let {
                     PlutoLayoutNotchBinding.bind(it).apply {
                         card.setCardBackgroundColor(
-                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
+                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
                         )
                         left.setTextColor(
-                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
                         )
                         right.setTextColor(
-                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
                         )
                         bottom.setBackgroundColor(
-                            context.color(if (SettingsPreferences.isDarkAccessPopup) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
+                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
                         )
                     }
                 }

@@ -29,8 +29,9 @@ internal class SettingsViewModel(application: Application) : AndroidViewModel(ap
             if (isOSAboveM) {
                 list.add(SettingsEasyAccessEntity())
             }
-            list.add(SettingsEasyAccessPopupAppearanceEntity("mode"))
             list.add(SettingsEasyAccessPopupAppearanceEntity("handed"))
+            list.add(SettingsThemeEntity())
+            list.add(SettingsGridSizeEntity())
             list.add(SettingsResetAllEntity())
             _list.postValue(list)
         }

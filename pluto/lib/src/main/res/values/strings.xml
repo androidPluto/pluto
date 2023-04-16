@@ -12,7 +12,6 @@
     <string name="pluto___plugin_details">Plugin Details</string>
     <string name="pluto___website_url_hint">your website url goes here</string>
     <string name="pluto___vcs_url_hint">your vcs url goes here</string>
-    <string name="pluto___settings_easy_access_appearance_mode_title">Set Dark mode for Access popup</string>
     <string name="pluto___settings_easy_access_appearance_handed_title">Enable Right handed mode for Access popup</string>
     <string name="pluto___reset_all_requested">Plugin data reset requested</string>
     <string name="pluto___settings_easy_access_title">Enable Notch</string>
@@ -43,4 +42,9 @@
     <string name="pluto___tool_ruler_hint_label" translatable="false">How to use</string>
     <string name="pluto___tool_ruler_hint_reset_position" translatable="false">Click on the screen to set start position.</string>
     <string name="pluto___tool_ruler_hint_measure" translatable="false">Drag your finger to measure the distance.</string>
+    <string name="pluto___settings_theme_title">Enable Dark theme</string>
+    <string name="pluto___settings_theme_description">Choose Pluto theme to control color schema.</string>
+    <string name="pluto___setting_theme_updated">Pluto theme updated</string>
+    <string name="pluto___settings_grid_size_title">Modify Grid dimensions</string>
+    <string name="pluto___settings_grid_size_description">Manage the size of grid blocks of Ruler, GridView &amp; other layout plugins.</string>
 </resources>

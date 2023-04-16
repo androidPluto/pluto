@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.core.view.children
-import com.pluto.plugins.layoutinspector.internal.canvas.CaptureCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.DimensionCanvas
-import com.pluto.plugins.layoutinspector.internal.canvas.GridCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.CaptureCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.DimensionCanvas
+import com.pluto.plugins.layoutinspector.internal.inspect.canvas.GridCanvas
 import com.pluto.utilities.extensions.dp2px
 
 internal class InspectOverlay : View {
@@ -43,7 +43,7 @@ internal class InspectOverlay : View {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    private val defPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
+    private val boundaryPaint: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = Color.YELLOW
             strokeWidth = 2f.dp2px
@@ -80,7 +80,7 @@ internal class InspectOverlay : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), defPaint)
+        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), boundaryPaint)
         when (state) {
             is State.Dragging -> gridCanvas.draw(canvas)
             else -> {}

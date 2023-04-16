@@ -10,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.BuildConfig
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
+import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.DEC_SIZE
+import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.INC_SIZE
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.extensions.toast
@@ -18,6 +20,7 @@ import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.settings.SettingsPreferences
 import com.pluto.utilities.viewBinding
 
 internal class SettingsFragment : BottomSheetDialogFragment() {
@@ -48,25 +51,41 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
-                is SettingsEasyAccessEntity -> context?.openOverlaySettings()
+                is SettingsEasyAccessEntity -> {
+                    context?.openOverlaySettings()
+                    requireActivity().finish()
+                }
+
                 is SettingsEasyAccessPopupAppearanceEntity -> {
                     when (data.type) {
-                        "mode" -> {
-                            val current = SettingsPreferences.isDarkAccessPopup
-                            SettingsPreferences.isDarkAccessPopup = !current
-                            context?.toast(context!!.getString(R.string.pluto___notch_settings_updated))
-                        }
                         "handed" -> {
                             val current = SettingsPreferences.isRightHandedAccessPopup
                             SettingsPreferences.isRightHandedAccessPopup = !current
                             context?.toast(context!!.getString(R.string.pluto___notch_settings_updated))
                         }
+
                         else -> check(!BuildConfig.DEBUG) {
                             "unsupported appearance type"
                         }
                     }
                     settingsAdapter.notifyItemChanged(holder.layoutPosition)
                 }
+
+                is SettingsGridSizeEntity -> {
+                    when (action) {
+                        INC_SIZE -> SettingsPreferences.gridSize++
+                        DEC_SIZE -> SettingsPreferences.gridSize--
+                    }
+                    settingsAdapter.notifyItemChanged(holder.layoutPosition)
+                }
+
+                is SettingsThemeEntity -> {
+                    val current = SettingsPreferences.isDarkThemeEnabled
+                    SettingsPreferences.isDarkThemeEnabled = !current
+                    context?.toast(context!!.getString(R.string.pluto___setting_theme_updated))
+                    settingsAdapter.notifyItemChanged(holder.layoutPosition)
+                }
+
                 is SettingsResetAllEntity -> {
                     viewModel.resetAll()
                     context?.toast(context!!.getString(R.string.pluto___reset_all_requested))
