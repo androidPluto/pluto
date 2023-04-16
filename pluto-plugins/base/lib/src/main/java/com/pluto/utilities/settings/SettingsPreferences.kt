@@ -14,7 +14,7 @@ object SettingsPreferences {
     }
 
     fun init(context: Context) {
-        this._settingsPrefs = context.preferences("_pluto_perf_lib_settings")
+        this._settingsPrefs = context.preferences("_pluto_pref_lib_settings")
     }
 
     var isDarkThemeEnabled: Boolean
