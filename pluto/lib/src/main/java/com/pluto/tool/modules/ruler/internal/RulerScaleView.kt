@@ -9,7 +9,7 @@ import android.view.ViewConfiguration
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
-import com.pluto.utilities.settings.SettingsPreferences
+import com.pluto.utilities.extensions.twoDecimal
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -73,12 +73,12 @@ internal class RulerScaleView(context: Context) : View(context) {
         var i = 0
         while (i < screen.height) {
             canvas.drawLine(clickCoordinate.x, i.toFloat().dp2px, clickCoordinate.x + getMarkerHeight(i), i.toFloat().dp2px, paintType.scaleMarker)
-            i += SettingsPreferences.gridSize
+            i += SCALE_GAP
         }
         var j = 0
         while (j < screen.width) {
             canvas.drawLine(j.toFloat().dp2px, clickCoordinate.y, j.toFloat().dp2px, clickCoordinate.y + getMarkerHeight(j), paintType.scaleMarker)
-            j += SettingsPreferences.gridSize
+            j += SCALE_GAP
         }
     }
 
@@ -103,7 +103,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             val dis = lastTouchCoordinate.x - moveStartCoordinate.x
             canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
             paintType.measurement.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
+            canvas.drawText("${dis.px2dp.twoDecimal} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
         } else if (direction == Direction.Vertical) {
             canvas.drawLine(
                 0f,
@@ -115,7 +115,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             val dis = lastTouchCoordinate.y - moveStartCoordinate.y
             canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, paintType.measurement)
             paintType.measurement.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
+            canvas.drawText("${dis.px2dp.twoDecimal} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
         }
     }
 
@@ -174,8 +174,8 @@ internal class RulerScaleView(context: Context) : View(context) {
 
     private fun getMarkerHeight(position: Int): Int {
         return when {
-            position / SettingsPreferences.gridSize % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
-            position / SettingsPreferences.gridSize % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
+            position / SCALE_GAP % (MARKER_SPIKE_INDICATOR_INDEX * 2) == 0 -> MID_MARKER_HEIGHT.roundToInt()
+            position / SCALE_GAP % MARKER_SPIKE_INDICATOR_INDEX == 0 -> LARGE_MARKER_HEIGHT.roundToInt()
             else -> MARKER_HEIGHT.roundToInt()
         }
     }
@@ -186,10 +186,11 @@ internal class RulerScaleView(context: Context) : View(context) {
         object Vertical : Direction()
     }
 
-    private companion object {
-        const val MARKER_SPIKE_INDICATOR_INDEX = 5
-        val MARKER_HEIGHT = 4f.dp2px
-        val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
-        val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2
+    companion object {
+        private const val MARKER_SPIKE_INDICATOR_INDEX = 5
+        const val SCALE_GAP = 5
+        private val MARKER_HEIGHT = 4f.dp2px
+        private val MID_MARKER_HEIGHT = MARKER_HEIGHT * 1.6
+        private val LARGE_MARKER_HEIGHT = MARKER_HEIGHT * 2.2
     }
 }

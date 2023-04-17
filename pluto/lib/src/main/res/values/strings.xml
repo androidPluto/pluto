@@ -42,6 +42,7 @@
     <string name="pluto___tool_ruler_hint_label" translatable="false">How to use</string>
     <string name="pluto___tool_ruler_hint_reset_position" translatable="false">Click on the screen to set start position.</string>
     <string name="pluto___tool_ruler_hint_measure" translatable="false">Drag your finger to measure the distance.</string>
+    <string name="pluto___tool_ruler_hint_scale_gap">Scales are %d dp apart.</string>
     <string name="pluto___settings_theme_title">Enable Dark theme</string>
     <string name="pluto___settings_theme_description">Choose Pluto theme to control color schema.</string>
     <string name="pluto___setting_theme_updated">Pluto theme updated</string>
