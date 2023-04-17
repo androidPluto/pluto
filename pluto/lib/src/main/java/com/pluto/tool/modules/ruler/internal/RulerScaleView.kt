@@ -9,6 +9,7 @@ import android.view.ViewConfiguration
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 import com.pluto.utilities.extensions.px2dp
+import com.pluto.utilities.extensions.twoDecimal
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -102,7 +103,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             val dis = lastTouchCoordinate.x - moveStartCoordinate.x
             canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x + dis, clickCoordinate.y, paintType.measurement)
             paintType.measurement.textAlign = Paint.Align.CENTER
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
+            canvas.drawText("${dis.px2dp.twoDecimal} dp", clickCoordinate.x + dis / 2, clickCoordinate.y - 12f.dp, paintType.measurement)
         } else if (direction == Direction.Vertical) {
             canvas.drawLine(
                 0f,
@@ -114,7 +115,7 @@ internal class RulerScaleView(context: Context) : View(context) {
             val dis = lastTouchCoordinate.y - moveStartCoordinate.y
             canvas.drawLine(clickCoordinate.x, clickCoordinate.y, clickCoordinate.x, clickCoordinate.y + dis, paintType.measurement)
             paintType.measurement.textAlign = Paint.Align.LEFT
-            canvas.drawText("${dis.px2dp} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
+            canvas.drawText("${dis.px2dp.twoDecimal} dp", clickCoordinate.x + 12f.dp, clickCoordinate.y + dis / 2, paintType.measurement)
         }
     }
 

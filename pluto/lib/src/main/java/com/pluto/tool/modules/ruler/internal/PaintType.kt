@@ -57,7 +57,13 @@ internal data class PaintType(val context: Context) {
 
     val measurement: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
-            color = context.color(R.color.pluto___blue)
+            color = context.color(
+                if (SettingsPreferences.isDarkThemeEnabled) {
+                    R.color.pluto___blue
+                } else {
+                    R.color.pluto___teal
+                }
+            )
             style = Style.FILL
             strokeWidth = 4f.dp2px
             textSize = 14f.dp2px

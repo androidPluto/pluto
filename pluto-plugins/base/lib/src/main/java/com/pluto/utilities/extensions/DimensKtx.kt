@@ -2,6 +2,7 @@ package com.pluto.utilities.extensions
 
 import android.content.res.Resources
 import android.util.TypedValue
+import java.text.DecimalFormat
 import java.util.Locale
 
 val Float.dp: Float
@@ -37,4 +38,9 @@ val Float.px2sp: Float
 val Int.twoDigit: String
     get() {
         return String.format(Locale.ENGLISH, "%02d", this)
+    }
+
+val Float.twoDecimal: String
+    get() {
+        return DecimalFormat("#.##").format(this)
     }
