@@ -132,10 +132,10 @@ internal class OverviewStub : ConstraintLayout {
         return api.exception?.let {
             context.createSpan { append(fontColor(context.getString(R.string.pluto_network___na), context.color(R.color.pluto___text_dark_40))) }
         } ?: run {
-            api.response?.let {
+            api.response?.protocol?.let {
                 context.createSpan {
-                    append(semiBold(fontColor("${it.protocol}", context.color(R.color.pluto___text_dark_80))))
-                    append(regular(fontColor(" (${it.protocol.name})", context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor("$it", context.color(R.color.pluto___text_dark_80))))
+                    append(regular(fontColor(" (${it.name})", context.color(R.color.pluto___text_dark_60))))
                 }
             }
         }

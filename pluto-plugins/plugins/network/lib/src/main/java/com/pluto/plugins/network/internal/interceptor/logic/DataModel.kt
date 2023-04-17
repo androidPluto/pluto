@@ -21,15 +21,14 @@ internal data class ResponseData(
     val status: Status,
     val isSuccessful: Boolean,
     val body: ProcessedBody?,
-    val protocol: Protocol,
+    val protocol: Protocol?,
     val fromDiskCache: Boolean,
     val headers: Map<String, String?>,
     val sendTimeMillis: Long,
     val receiveTimeMillis: Long,
     val isGzipped: Boolean,
 )
-
-internal data class Status(
+data class Status(
     val code: Int,
     val message: String,
 )
@@ -41,6 +40,7 @@ internal class ApiCallData(
     var response: ResponseData? = null,
     var exception: ExceptionData? = null,
     var mock: MockConfig? = null,
+    val isCustomTrace: Boolean = false
 ) : ListItem() {
     val curl: String
         get() = request.getCurl()
