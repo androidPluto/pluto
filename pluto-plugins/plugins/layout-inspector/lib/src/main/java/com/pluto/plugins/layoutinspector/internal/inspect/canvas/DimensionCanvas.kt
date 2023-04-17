@@ -86,7 +86,7 @@ internal class DimensionCanvas(private val container: View) {
             set(left, top, right, bottom)
         }
         canvas.drawRoundRect(tmpRectF, cornerRadius, cornerRadius, textBgPaint)
-        canvas.drawText(text, left + textBgTopPadding, bottom - textBgTopPadding, textPaint)
+        canvas.drawText(text, left + textBgHorizontalPadding, bottom - textBgTopPadding, textPaint)
     }
 
     private fun getTextHeight(paint: Paint, text: String): Float {
