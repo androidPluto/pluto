@@ -32,6 +32,8 @@ internal class OverviewStub : ConstraintLayout {
         binding.settingStub.copyCurl.setOnDebounceClickListener {
             onAction.invoke(ACTION_SHARE_CURL)
         }
+        binding.settingStub.dividerTop.visibility = if (api.isCustomTrace) GONE else VISIBLE
+        binding.settingStub.proxyRoot.visibility = if (api.isCustomTrace) GONE else VISIBLE
     }
 
     private fun handleMockSettings(onAction: (String) -> Unit) {
@@ -100,12 +102,14 @@ internal class OverviewStub : ConstraintLayout {
                         value = context.createSpan { append(bold(api.request.url.isHttps.toString())) }
                     )
                 )
-                add(
-                    KeyValuePairData(
-                        key = context.getString(R.string.pluto_network___protocol_label),
-                        value = generateProtocol(api) ?: waitingText
+                if (!api.isCustomTrace) {
+                    add(
+                        KeyValuePairData(
+                            key = context.getString(R.string.pluto_network___protocol_label),
+                            value = generateProtocol(api) ?: waitingText
+                        )
                     )
-                )
+                }
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___request_time_label),
