@@ -40,7 +40,7 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
         binding.xmlCall.setOnClickListener { networkViewModel.xml() }
         binding.formEncodedCall.setOnClickListener { networkViewModel.form() }
         binding.customTrace.setOnClickListener {
-            PlutoNetwork.insertCustomTrace(
+            PlutoNetwork.logCustomTrace(
                 request = CustomRequest(
                     url = "https://google.com",
                     method = "GET",

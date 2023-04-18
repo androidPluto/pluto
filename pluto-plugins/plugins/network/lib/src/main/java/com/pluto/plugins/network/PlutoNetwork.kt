@@ -16,7 +16,7 @@ object PlutoNetwork {
     }
 
     @JvmOverloads
-    fun insertCustomTrace(request: CustomRequest, response: CustomResponse? = null, exception: Throwable? = null) {
+    fun logCustomTrace(request: CustomRequest, response: CustomResponse? = null, exception: Throwable? = null) {
         val apiCallData = ApiCallData(
             id = UUID.nameUUIDFromBytes("${System.currentTimeMillis()}::${request.url}".toByteArray()).toString(),
             request = request.toRequestData(),
