@@ -33,7 +33,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
                 android:background="#ffff00"
-                android:src="@drawable/pluto___ic_chevron_right"
+                android:src="@drawable/ic_chevron_right"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text" />
 
@@ -45,7 +45,7 @@
                 android:contentDescription="edit text"
                 android:hint="edit text hint"
                 android:padding="8dp"
-                android:src="@drawable/pluto___ic_chevron_right"
+                android:src="@drawable/ic_chevron_right"
                 app:layout_constraintBottom_toBottomOf="@+id/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"

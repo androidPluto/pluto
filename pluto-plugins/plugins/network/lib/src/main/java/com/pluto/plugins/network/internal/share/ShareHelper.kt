@@ -14,7 +14,9 @@ internal fun ApiCallData.toShareText(): String {
             "\nReceived at : ${it.receiveTimeMillis.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
         )
         text.append("\nDelay : ${it.receiveTimeMillis - it.sendTimeMillis} ms")
-        text.append("\nProtocol : ${it.protocol.name}")
+        it.protocol?.let { protocol ->
+            text.append("\nProtocol : ${protocol.name}")
+        }
     }
     text.append("\n\n==================\n\n")
     text.append("REQUEST")

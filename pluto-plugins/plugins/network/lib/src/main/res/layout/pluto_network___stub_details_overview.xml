@@ -32,8 +32,6 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:drawableStart="@drawable/pluto_network___ic_error"
-            tools:drawableLeft="@drawable/pluto_network___ic_error"
             android:drawablePadding="@dimen/pluto___margin_xsmall"
             android:fontFamily="@font/muli"
             android:gravity="center_vertical"
@@ -41,7 +39,9 @@
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:drawableLeft="@drawable/pluto_network___ic_error"
+            tools:drawableStart="@drawable/pluto_network___ic_error" />
 
     </LinearLayout>
 
@@ -51,6 +51,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/pluto___margin_medium"
         app:layout_constraintTop_toBottomOf="@+id/statusView" />
+
+    <TextView
+        android:id="@+id/customTraceTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/muli_light"
+        android:lineSpacingExtra="6sp"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:paddingVertical="@dimen/pluto___margin_small"
+        android:text="@string/pluto_network___custom_trace_tag"
+        android:textColor="@color/pluto___text_dark_60"
+        android:textSize="@dimen/pluto___text_small"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/table" />
 
     <include
         android:id="@+id/settingStub"

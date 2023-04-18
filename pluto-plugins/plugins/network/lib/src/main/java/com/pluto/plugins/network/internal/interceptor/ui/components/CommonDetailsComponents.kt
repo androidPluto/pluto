@@ -59,7 +59,7 @@ internal fun getHeadersData(context: Context, headers: Map<String, String?>, onC
             append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
         }
     },
-    showClickIndicator = true,
+    showClickIndicator = headers.isNotEmpty(),
     onClick = if (headers.isNotEmpty()) {
         { onClick.invoke() }
     } else null
