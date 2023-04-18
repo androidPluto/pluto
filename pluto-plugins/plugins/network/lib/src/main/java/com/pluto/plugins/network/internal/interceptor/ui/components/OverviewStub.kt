@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_CUSTOM_TRACE_INFO
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_SHARE_CURL
 import com.pluto.utilities.extensions.asFormattedDate
@@ -29,11 +30,22 @@ internal class OverviewStub : ConstraintLayout {
         setupStatusView(api)
         setupOverview(api, waitingText(context))
         handleMockSettings(onAction)
+        handleCustomTraceInfo(api, onAction)
         binding.settingStub.copyCurl.setOnDebounceClickListener {
             onAction.invoke(ACTION_SHARE_CURL)
         }
         binding.settingStub.dividerTop.visibility = if (api.isCustomTrace) GONE else VISIBLE
         binding.settingStub.proxyRoot.visibility = if (api.isCustomTrace) GONE else VISIBLE
+    }
+
+    private fun handleCustomTraceInfo(api: ApiCallData, onAction: (String) -> Unit) {
+        binding.customTraceTag.visibility = if (api.isCustomTrace) VISIBLE else GONE
+        binding.customTraceTag.setSpan {
+            append(underline(italic(context.getString(R.string.pluto_network___custom_trace_tag))))
+        }
+        binding.customTraceTag.setOnDebounceClickListener {
+            onAction.invoke(ACTION_CUSTOM_TRACE_INFO)
+        }
     }
 
     private fun handleMockSettings(onAction: (String) -> Unit) {
