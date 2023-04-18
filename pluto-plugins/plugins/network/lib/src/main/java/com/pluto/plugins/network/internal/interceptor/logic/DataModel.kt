@@ -28,7 +28,7 @@ internal data class ResponseData(
     val receiveTimeMillis: Long,
     val isGzipped: Boolean,
 )
-data class Status(
+internal data class Status(
     val code: Int,
     val message: String,
 )
