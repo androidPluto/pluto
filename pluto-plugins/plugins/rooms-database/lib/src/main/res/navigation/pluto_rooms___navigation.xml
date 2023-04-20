@@ -47,17 +47,25 @@
 
     <dialog
         android:id="@+id/dataEditView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.EditFragment" />
+        android:name="com.pluto.plugins.rooms.db.internal.ui.EditFragment">
+        <action
+            android:id="@+id/openQueryErrorDialog"
+            app:destination="@id/queryErrorDialog" />
+    </dialog>
 
     <dialog
         android:id="@+id/actionsView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.ActionsFragment"/>
+        android:name="com.pluto.plugins.rooms.db.internal.ui.ActionsFragment" />
 
     <dialog
         android:id="@+id/columnDetailsView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment"/>
+        android:name="com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment" />
+
+    <dialog
+        android:id="@+id/queryErrorDialog"
+        android:name="com.pluto.plugins.rooms.db.internal.ui.QueryErrorFragment" />
 
     <dialog
         android:id="@+id/tableSchemaView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSchemaFragment"/>
+        android:name="com.pluto.plugins.rooms.db.internal.ui.TableSchemaFragment" />
 </navigation>

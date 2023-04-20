@@ -17,7 +17,7 @@ import com.pluto.utilities.device.Device
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 
-class ActionsFragment : BottomSheetDialogFragment() {
+internal class ActionsFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentRowActionsBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()

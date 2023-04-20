@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -13,7 +12,6 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentTableSchemaBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
-import com.pluto.plugins.rooms.db.internal.ProcessedTableContents
 import com.pluto.plugins.rooms.db.internal.ui.list.column.ColumnListAdapter
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.setList
@@ -24,7 +22,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
-class TableSchemaFragment : BottomSheetDialogFragment() {
+internal class TableSchemaFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSchemaBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
@@ -61,12 +59,9 @@ class TableSchemaFragment : BottomSheetDialogFragment() {
             }
         }
 
-        viewModel.processedTableContent.removeObserver(tableContentObserver)
-        viewModel.processedTableContent.observe(viewLifecycleOwner, tableContentObserver)
-    }
-
-    private val tableContentObserver = Observer<ProcessedTableContents> {
-        binding.list.setList(it.first)
+        viewModel.processedTableContent.value?.first?.let {
+            binding.list.setList(it)
+        }
     }
 }
 

@@ -8,10 +8,12 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,6 +28,7 @@ import com.pluto.plugins.rooms.db.internal.UIViewModel
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.widgets.DataEditWidget
+import com.pluto.plugins.rooms.db.internal.ui.QueryErrorFragment.Companion.ERROR_MESSAGE
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.forEachIndexed
@@ -36,7 +39,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
-class EditFragment : BottomSheetDialogFragment() {
+internal class EditFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentDataEditorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
@@ -151,7 +154,10 @@ class EditFragment : BottomSheetDialogFragment() {
     private fun handleError(error: String, exception: Exception) {
         when (error) {
             ERROR_ADD_UPDATE -> {
-                toast("Error (see logs):\n${exception.message}")
+                findNavController().navigate(
+                    R.id.openQueryErrorDialog,
+                    bundleOf(ERROR_MESSAGE to exception.message)
+                )
                 DebugLog.e(LOG_TAG, "error while editing the table", exception)
             }
         }

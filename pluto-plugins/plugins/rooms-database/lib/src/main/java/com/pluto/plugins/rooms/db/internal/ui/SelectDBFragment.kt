@@ -27,7 +27,7 @@ import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 
-class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
+internal class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
     private val viewModel: RoomsDBViewModel by activityViewModels()
 
