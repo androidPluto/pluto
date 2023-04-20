@@ -23,7 +23,7 @@ import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.viewBinding
 import java.lang.Exception
 
-class SelectTableFragment : BottomSheetDialogFragment() {
+internal class SelectTableFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSelectorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()

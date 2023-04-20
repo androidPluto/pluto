@@ -24,7 +24,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
-class TableSchemaFragment : BottomSheetDialogFragment() {
+internal class TableSchemaFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSchemaBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
