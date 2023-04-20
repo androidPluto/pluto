@@ -85,7 +85,7 @@ dependencies {
 //    implementation "com.plutolib.plugins:rooms-database:$plutoVersion"
 //    implementation "com.plutolib.plugins:datastore:$plutoVersion"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

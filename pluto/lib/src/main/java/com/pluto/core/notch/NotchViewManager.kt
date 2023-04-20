@@ -81,22 +81,20 @@ internal class NotchViewManager(
         })
 
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View?) {
-                v?.let {
-                    PlutoLayoutNotchBinding.bind(it).apply {
-                        card.setCardBackgroundColor(
-                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
-                        )
-                        left.setTextColor(
-                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
-                        )
-                        right.setTextColor(
-                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
-                        )
-                        bottom.setBackgroundColor(
-                            context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
-                        )
-                    }
+            override fun onViewAttachedToWindow(v: View) {
+                PlutoLayoutNotchBinding.bind(v).apply {
+                    card.setCardBackgroundColor(
+                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
+                    )
+                    left.setTextColor(
+                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                    )
+                    right.setTextColor(
+                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                    )
+                    bottom.setBackgroundColor(
+                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
+                    )
                 }
                 val gravityHorizontal =
                     if (SettingsPreferences.isRightHandedAccessPopup) Gravity.END else Gravity.START
@@ -104,7 +102,7 @@ internal class NotchViewManager(
                 listener.onLayoutParamsUpdated(layoutParams)
             }
 
-            override fun onViewDetachedFromWindow(v: View?) {
+            override fun onViewDetachedFromWindow(v: View) {
             }
         })
     }

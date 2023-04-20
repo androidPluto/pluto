@@ -37,13 +37,22 @@ private fun Context.applyFontToMenu(m: Menu) {
 }
 
 private fun Context.applyFontToMenuItem(mi: MenuItem) {
-    if (mi.hasSubMenu()) {
-        for (i in 0 until mi.subMenu.size()) {
-            applyFontToMenuItem(mi.subMenu.getItem(i))
+    val subMenu = mi.subMenu
+    if (mi.hasSubMenu() && subMenu != null) {
+        for (i in 0 until subMenu.size()) {
+            applyFontToMenuItem(subMenu.getItem(i))
         }
     }
-    mi.title = createSpan {
-        append(fontColor(fontSize(semiBold(mi.title), MENU_FONT_SIZE), color(R.color.pluto___text_dark_80)))
+
+    mi.title?.let { title ->
+        mi.title = createSpan {
+            append(
+                fontColor(
+                    fontSize(semiBold(title), MENU_FONT_SIZE),
+                    color(R.color.pluto___text_dark_80)
+                )
+            )
+        }
     }
 }
 

@@ -64,13 +64,12 @@ android {
 dependencies {
     implementation project(path: ':pluto-plugins:base:lib')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
-    implementation "androidx.compose.compiler:compiler:$composeCompileVersion"
-    implementation "androidx.compose.material3:material3:1.0.0-alpha12"
-    implementation "androidx.compose.foundation:foundation:$composeCompileVersion"
-    implementation "androidx.compose.runtime:runtime:$composeCompileVersion"
-    implementation "androidx.compose.ui:ui:$composeCompileVersion"
-    implementation "androidx.compose.ui:ui-tooling-preview:$composeCompileVersion"
-    implementation "androidx.compose.ui:ui-tooling:$composeCompileVersion"
+    implementation "androidx.compose.material3:material3:$composeMaterial3Version"
+    implementation "androidx.compose.foundation:foundation:$composeVersion"
+    implementation "androidx.compose.runtime:runtime:$composeVersion"
+    implementation "androidx.compose.ui:ui:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling:$composeVersion"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
