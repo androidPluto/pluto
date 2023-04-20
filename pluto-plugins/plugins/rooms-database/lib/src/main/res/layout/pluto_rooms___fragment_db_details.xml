@@ -154,7 +154,8 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nsv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fillViewport="true" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <View
@@ -176,11 +177,11 @@
             android:id="@+id/applyFilter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:drawableStart="@drawable/pluto_rooms___ic_no_filter"
             android:drawableLeft="@drawable/pluto_rooms___ic_no_filter"
             android:drawablePadding="@dimen/pluto___margin_mini"
             android:fontFamily="@font/muli_semibold"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center_vertical"
             android:padding="@dimen/pluto___margin_small"
             android:text="@string/pluto_rooms___apply_filter"
