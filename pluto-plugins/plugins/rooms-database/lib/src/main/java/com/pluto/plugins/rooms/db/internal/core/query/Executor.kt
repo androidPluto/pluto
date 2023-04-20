@@ -53,7 +53,7 @@ internal class Executor private constructor(private val dbOpenHelper: SupportSQL
     @SuppressWarnings("TooGenericExceptionCaught", "TooGenericExceptionThrown", "SwallowedException")
     internal fun query(query: String) = flow {
         try {
-            val c = database.query(query, null)
+            val c = database.query(query)
             c?.let {
                 val columnNames = arrayListOf<String>()
                 for (i in 0 until c.columnCount) columnNames.add(c.getColumnName(i))

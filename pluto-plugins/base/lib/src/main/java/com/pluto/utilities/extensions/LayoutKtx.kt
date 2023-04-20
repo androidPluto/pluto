@@ -21,18 +21,18 @@ fun View.fadeInAndOut(lifecycleScope: LifecycleCoroutineScope) {
     fadeOut.duration = SMOOTH_TRANSITION_DELAY
 
     fadeIn.addListener(object : AnimatorListenerAdapter() {
-        override fun onAnimationStart(animation: Animator?) {
+        override fun onAnimationStart(animation: Animator) {
             visibility = View.VISIBLE
         }
 
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(animation: Animator) {
             lifecycleScope.delayedLaunchWhenResumed(FADE_IN_OUT_ANIMATION_DURATION) {
                 fadeOut.start()
             }
         }
     })
     fadeOut.addListener(object : AnimatorListenerAdapter() {
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(animation: Animator) {
             visibility = View.GONE
         }
     })
