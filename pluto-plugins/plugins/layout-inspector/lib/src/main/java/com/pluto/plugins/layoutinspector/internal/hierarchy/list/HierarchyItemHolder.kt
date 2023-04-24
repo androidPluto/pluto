@@ -54,8 +54,8 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
                     R.drawable.pluto_li___ic_hierarchy_show_more
                 }
             )
-            binding.expandStateIndicator.visibility = if (item.view is ViewGroup) VISIBLE else GONE
-            if (item.view is ViewGroup) {
+            binding.expandStateIndicator.visibility = if (item.view is ViewGroup && item.view.childCount > 0) VISIBLE else GONE
+            if (item.view is ViewGroup && item.view.childCount > 0) {
                 binding.contentWrapper.setOnDebounceClickListener { onAction(ACTION_EXPAND_COLLAPSE) }
             } else {
                 binding.contentWrapper.setOnDebounceClickListener(action = null)
