@@ -40,7 +40,7 @@
             android:paddingTop="@dimen/pluto___margin_xsmall"
             android:textColor="@color/pluto___text_dark_80"
             android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toStartOf="@+id/viewAttrCta"
+            app:layout_constraintEnd_toStartOf="@+id/viewActionCta"
             app:layout_constraintStart_toEndOf="@+id/expandStateIndicator"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/viewTitle" />
 
         <ImageView
-            android:id="@+id/viewAttrCta"
+            android:id="@+id/viewActionCta"
             android:layout_width="wrap_content"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_height="0dp"

@@ -1,5 +1,6 @@
 package com.pluto.plugins.layoutinspector.internal.hierarchy.list
 
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.extensions.showMoreOptions
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
@@ -44,8 +46,8 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
                 }
                 append(" {(${item.view.left},${item.view.top}),(${item.view.right},${item.view.bottom})}")
             }
-            binding.viewAttrCta.setOnDebounceClickListener {
-                onAction(ACTION_ATTRIBUTE)
+            binding.viewActionCta.setOnDebounceClickListener {
+                showActionOptions(it)
             }
             binding.expandStateIndicator.setImageResource(
                 if (item.isExpanded) {
@@ -67,7 +69,17 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
         }
     }
 
+    private fun showActionOptions(view: View) {
+        context.showMoreOptions(view, R.menu.pluto_li___menu_hierarchy_options) { item ->
+            when (item.itemId) {
+                R.id.select -> onAction(ACTION_INSPECT_VIEW)
+                R.id.attribute -> onAction(ACTION_ATTRIBUTE)
+            }
+        }
+    }
+
     companion object {
+        const val ACTION_INSPECT_VIEW = "inspect"
         const val ACTION_ATTRIBUTE = "attribute"
         const val ACTION_EXPAND_COLLAPSE = "expand_collapse"
     }

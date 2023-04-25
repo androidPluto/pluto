@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/select"
+        android:title="@string/pluto_li___inspect_view" />
+    <item
+        android:id="@+id/attribute"
+        android:title="@string/pluto_li___show_attributes" />
+</menu>
