@@ -14,6 +14,7 @@ import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentListBinding
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
+import com.pluto.utilities.autoCleared
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
 import com.pluto.utilities.extensions.showMoreOptions
@@ -30,11 +31,12 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
 
     private val binding by viewBinding(PlutoExcepFragmentListBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
-    private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
+    private var crashAdapter by autoCleared<BaseAdapter>()
     private var isFetchingInProgress: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        crashAdapter = CrashesAdapter(onActionListener)
         binding.crashList.apply {
             adapter = crashAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))

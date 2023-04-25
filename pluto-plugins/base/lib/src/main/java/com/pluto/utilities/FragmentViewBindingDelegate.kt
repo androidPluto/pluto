@@ -13,10 +13,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment, val viewBindingFactory: (View) -> T) : ReadOnlyProperty<Fragment, T> {
-    private var binding: T? = null
+internal open class AutoClearedValue<T : Any>(protected val fragment: Fragment) : ReadWriteProperty<Fragment, T> {
+    protected var value: T? = null
 
     init {
         fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -26,7 +27,7 @@ class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment, val v
 
                     viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
                         override fun onDestroy(owner: LifecycleOwner) {
-                            binding = null
+                            value = null
                         }
                     })
                 }
@@ -41,16 +42,28 @@ class FragmentViewBindingDelegate<T : ViewBinding>(val fragment: Fragment, val v
         })
     }
 
-    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
 
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        return value ?: throw IllegalStateException("should never call auto-cleared-value get when it might not be available")
+    }
+
+    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
+        this.value = value
+    }
+}
+
+private class FragmentViewBindingDelegate<T : ViewBinding>(fragment: Fragment, private val viewBindingFactory: (View) -> T) : AutoClearedValue<T>(fragment)
+{
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
         val lifecycle = fragment.viewLifecycleOwner.lifecycle
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
             "Should not attempt to get bindings when Fragment views are destroyed."
         }
-
-        return binding ?: viewBindingFactory(thisRef.requireView()).also { this.binding = it }
+        return value ?: viewBindingFactory(thisRef.requireView()).also { this.value = it }
     }
 }
 
+fun <T : Any> Fragment.autoCleared() = AutoClearedValue<T>(this) as ReadWriteProperty<Fragment, T>
+
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
-    FragmentViewBindingDelegate(this, viewBindingFactory)
+    FragmentViewBindingDelegate(this, viewBindingFactory) as ReadOnlyProperty<Fragment, T>
