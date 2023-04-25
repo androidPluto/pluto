@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_CUSTOM_TRACE_INFO
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_SHARE_CURL
 import com.pluto.utilities.extensions.asFormattedDate
@@ -29,8 +30,21 @@ internal class OverviewStub : ConstraintLayout {
         setupStatusView(api)
         setupOverview(api, waitingText(context))
         handleMockSettings(onAction)
+        handleCustomTraceInfo(api, onAction)
         binding.settingStub.copyCurl.setOnDebounceClickListener {
             onAction.invoke(ACTION_SHARE_CURL)
+        }
+        binding.settingStub.dividerTop.visibility = if (api.isCustomTrace) GONE else VISIBLE
+        binding.settingStub.proxyRoot.visibility = if (api.isCustomTrace) GONE else VISIBLE
+    }
+
+    private fun handleCustomTraceInfo(api: ApiCallData, onAction: (String) -> Unit) {
+        binding.customTraceTag.visibility = if (api.isCustomTrace) VISIBLE else GONE
+        binding.customTraceTag.setSpan {
+            append(underline(italic(context.getString(R.string.pluto_network___custom_trace_tag))))
+        }
+        binding.customTraceTag.setOnDebounceClickListener {
+            onAction.invoke(ACTION_CUSTOM_TRACE_INFO)
         }
     }
 
@@ -100,12 +114,14 @@ internal class OverviewStub : ConstraintLayout {
                         value = context.createSpan { append(bold(api.request.url.isHttps.toString())) }
                     )
                 )
-                add(
-                    KeyValuePairData(
-                        key = context.getString(R.string.pluto_network___protocol_label),
-                        value = generateProtocol(api) ?: waitingText
+                if (!api.isCustomTrace) {
+                    add(
+                        KeyValuePairData(
+                            key = context.getString(R.string.pluto_network___protocol_label),
+                            value = generateProtocol(api) ?: waitingText
+                        )
                     )
-                )
+                }
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___request_time_label),
@@ -132,10 +148,10 @@ internal class OverviewStub : ConstraintLayout {
         return api.exception?.let {
             context.createSpan { append(fontColor(context.getString(R.string.pluto_network___na), context.color(R.color.pluto___text_dark_40))) }
         } ?: run {
-            api.response?.let {
+            api.response?.protocol?.let {
                 context.createSpan {
-                    append(semiBold(fontColor("${it.protocol}", context.color(R.color.pluto___text_dark_80))))
-                    append(regular(fontColor(" (${it.protocol.name})", context.color(R.color.pluto___text_dark_60))))
+                    append(semiBold(fontColor("$it", context.color(R.color.pluto___text_dark_80))))
+                    append(regular(fontColor(" (${it.name})", context.color(R.color.pluto___text_dark_60))))
                 }
             }
         }

@@ -36,6 +36,9 @@
         <action
             android:id="@+id/openContentFormatter"
             app:destination="@id/contentFormatterView" />
+        <action
+            android:id="@+id/openCustomTraceInfo"
+            app:destination="@id/customTraceInfo" />
     </fragment>
 
     <fragment
@@ -73,4 +76,8 @@
         android:id="@+id/shareView"
         android:name="com.pluto.plugins.network.internal.share.ShareFragment"
         tools:layout="@layout/pluto_network___fragment_share"/>
+
+    <dialog
+        android:id="@+id/customTraceInfo"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.components.CustomTraceInfoFragment"/>
 </navigation>

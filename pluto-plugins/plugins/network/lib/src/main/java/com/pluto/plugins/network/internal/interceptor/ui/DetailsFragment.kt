@@ -94,6 +94,7 @@ class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
                     isTreeViewAllowed = true
                 )
             }
+            ACTION_CUSTOM_TRACE_INFO -> findNavController().navigate(R.id.openCustomTraceInfo)
         }
     }
 
@@ -150,5 +151,6 @@ class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
         internal const val ACTION_OPEN_REQ_BODY = "open_request_body"
         internal const val ACTION_OPEN_RES_HEADERS = "open_response_headers"
         internal const val ACTION_OPEN_RES_BODY = "open_response_body"
+        internal const val ACTION_CUSTOM_TRACE_INFO = "custom_trace_info"
     }
 }

@@ -7,8 +7,8 @@ Pluto Network is distributed through [***mavenCentral***](https://search.maven.o
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:network:2.0.5'
-  releaseImplementation 'com.plutolib.plugins:network-no-op:2.0.5'
+  debugImplementation 'com.plutolib.plugins:network:2.1.2'
+  releaseImplementation 'com.plutolib.plugins:network-no-op:2.1.2'
 }
 ```
 <br>
@@ -36,3 +36,16 @@ val client = OkHttpClient.Builder()
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Network plugin installed.
+
+<br>
+
+
+### Log Custom Network traces
+PlutoInterceptor works with OkHttp based interceptors, but to allow non-OkHttp based interceptors to track network calls Pluto provides utility to log network calls manually.
+```kotlin
+PlutoNetwork.logCustomTrace(
+    request = CustomRequest(),
+    response = CustomResponse()
+)
+```
+Once logged successfully, the network call trace will appear in the network call list.

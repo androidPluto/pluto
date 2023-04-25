@@ -7,14 +7,13 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.spannable.createSpan
 
-internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
+internal fun Throwable.asExceptionData(): ExceptionData {
     return ExceptionData(
         name = this.toString().replace(": $message", "", true),
         message = message,
         stackTrace = stackTrace.asStringArray(),
         file = stackTrace.getOrNull(0)?.fileName,
-        lineNumber = stackTrace.getOrNull(0)?.lineNumber ?: Int.MIN_VALUE,
-        isANRException = isANR
+        lineNumber = stackTrace.getOrNull(0)?.lineNumber ?: Int.MIN_VALUE
     )
 }
 
@@ -25,8 +24,7 @@ internal data class ExceptionData(
     val file: String?,
     val lineNumber: Int,
     val stackTrace: ArrayList<String>,
-    val timeStamp: Long = System.currentTimeMillis(),
-    val isANRException: Boolean = false
+    val timeStamp: Long = System.currentTimeMillis()
 ) : ListItem()
 
 internal fun Array<StackTraceElement>.asStringArray(): ArrayList<String> {

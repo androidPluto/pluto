@@ -7,8 +7,8 @@ Pluto Logger is distributed through [***mavenCentral***](https://search.maven.or
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:logger:2.0.5'
-  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.0.5'
+  debugImplementation 'com.plutolib.plugins:logger:2.1.2'
+  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.1.2'
 }
 ```
 <br>
@@ -31,7 +31,7 @@ Pluto allows you to log and persist the user journey through the app, and help d
 ```kotlin
 PlutoLog.event("analytics", eventName, HashMap(attributes))
 PlutoLog.d("debug_log", "button clicked")
-PlutoLog.e("error_log", "api call falied with http_status 400")
+PlutoLog.e("error_log", "api call failed with http_status 400")
 PlutoLog.w("warning_log", "warning log")
 PlutoLog.i("info_log", "api call completed")
 ```
@@ -40,7 +40,7 @@ PlutoLog.i("info_log", "api call completed")
 ```kotlin
 Timber.tag("analytics").event(eventName, HashMap(attributes))
 Timber.tag("debug_log").d("button clicked")
-Timber.tag("error_log").e(NullPointerException("demo"), "api call falied with http_status 400")
+Timber.tag("error_log").e(NullPointerException("demo"), "api call failed with http_status 400")
 Timber.tag("warning_log").w(NullPointerException("demo"), "warning log")
 Timber.i("api call completed")
 ```

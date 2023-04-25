@@ -15,4 +15,9 @@
         <item name="bottomSheetStyle">@style/PlutoBottomSheet</item>
         <item name="dialogTheme">@style/PlutoBottomSheetDialogTheme</item>
     </style>
+
+    <style name="PlutoRoomsDBChipTextStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
 </resources>

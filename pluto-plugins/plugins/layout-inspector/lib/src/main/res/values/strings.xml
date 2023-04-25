@@ -12,4 +12,6 @@
     <string name="pluto_li___cntrl_title_hierarchy">Open Screen Hierarchy</string>
     <string name="pluto_li___cntrl_title_move_to_right">Move Controls to Right</string>
     <string name="pluto_li___cntrl_title_move_to_left">Move Controls to Left</string>
+    <string name="pluto_li___inspect_view">Inspect View</string>
+    <string name="pluto_li___show_attributes">Show Attributes</string>
 </resources>

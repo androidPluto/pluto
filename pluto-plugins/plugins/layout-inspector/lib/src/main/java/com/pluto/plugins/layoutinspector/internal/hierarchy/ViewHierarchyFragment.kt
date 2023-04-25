@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,7 +16,9 @@ import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyAdapter
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_ATTRIBUTE
 import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_EXPAND_COLLAPSE
+import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHolder.Companion.ACTION_INSPECT_VIEW
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
+import com.pluto.plugins.layoutinspector.internal.inspect.assignTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.toast
@@ -28,6 +31,7 @@ import com.pluto.utilities.viewBinding
 
 internal class ViewHierarchyFragment : DialogFragment() {
 
+    private var rootView: View? = null
     private lateinit var hierarchyAdapter: BaseAdapter
     private val viewModel: ViewHierarchyViewModel by viewModels()
     private val inspectViewModel: InspectViewModel by activityViewModels()
@@ -50,13 +54,17 @@ internal class ViewHierarchyFragment : DialogFragment() {
         }
 
         ActivityLifecycle.topActivity?.getFrontView()?.let {
-            val rootView: View = it.findViewById(android.R.id.content)
+            rootView = it.findViewById(android.R.id.content)
+        } ?: run {
+            toast("root view not found, go back & try again")
+        }
 
+        rootView?.let {
             binding.expandCta.setOnDebounceClickListener {
-                viewModel.expandAll(rootView)
+                viewModel.expandAll(it)
             }
             binding.collapseCta.setOnDebounceClickListener {
-                viewModel.collapseAll(rootView)
+                viewModel.collapseAll(it)
             }
             hierarchyAdapter = HierarchyAdapter(onActionListener)
             binding.list.apply {
@@ -65,9 +73,7 @@ internal class ViewHierarchyFragment : DialogFragment() {
 
             viewModel.list.removeObserver(parsedAttrObserver)
             viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
-            viewModel.parseInit(rootView)
-        } ?: run {
-            toast("root view not found, go back & try again")
+            viewModel.parseInit(it)
         }
     }
 
@@ -94,19 +100,39 @@ internal class ViewHierarchyFragment : DialogFragment() {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is Hierarchy) {
                 when (action) {
-                    ACTION_ATTRIBUTE -> {
-                        inspectViewModel.select(data.view)
-                        dismiss()
-                    }
-
-                    ACTION_EXPAND_COLLAPSE ->
-                        if (data.isExpanded) {
-                            viewModel.removeChildren(data, holder.layoutPosition)
-                        } else {
-                            viewModel.addChildren(data, holder.layoutPosition)
-                        }
+                    ACTION_INSPECT_VIEW -> inspectView(data.view)
+                    ACTION_ATTRIBUTE -> showViewAttribute(data.view)
+                    ACTION_EXPAND_COLLAPSE -> collapseExpandView(data, holder)
                 }
             }
+        }
+    }
+
+    private fun inspectView(view: View) {
+        if (view.isVisible) {
+            inspectViewModel.select(view)
+            dismiss()
+        } else {
+            context?.toast("View is not visible")
+        }
+    }
+
+    private fun showViewAttribute(view: View) {
+        if (view.isVisible) {
+            inspectViewModel.select(view)
+            rootView?.let { viewModel.parseInit(it) }
+            findNavController().navigate(R.id.openAttrView)
+        } else {
+            view.assignTargetTag()
+            findNavController().navigate(R.id.openAttrView)
+        }
+    }
+
+    private fun collapseExpandView(data: Hierarchy, holder: DiffAwareHolder) {
+        if (data.isExpanded) {
+            viewModel.removeChildren(data, holder.layoutPosition)
+        } else {
+            viewModel.addChildren(data, holder.layoutPosition)
         }
     }
 
