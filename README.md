@@ -17,7 +17,7 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your app module.
+Pluto is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your app module.
 
 > Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
@@ -64,7 +64,7 @@ But, if you want to use individual plugins, here is the list of some plugins pro
 - **[Datastore Preferences Plugin](pluto-plugins/plugins/datastore)**
 - **[Layout Inspector Plugin](pluto-plugins/plugins/layout-inspector)**
 
-We will be adding more to the [list](https://search.maven.org/search?q=com.plutolib.plugins). So please stay tuned.<br>
+We will be adding more to the [list](https://central.sonatype.com/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
 <br><br>
 > You can also help us expand the Pluto ecosystem now. <br>Pluto now allows to develop custom debuggers as plugin. Read [Develop Custom Plugins](https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)).

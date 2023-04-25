@@ -2,7 +2,7 @@
 
 
 ### Add Gradle Dependencies
-Pluto Exceptions is distributed through [***mavenCentral***](https://search.maven.org/artifact/com.plutolib.plugins/exceptions). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto Exceptions is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.plutolib.plugins/exceptions). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
 
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
