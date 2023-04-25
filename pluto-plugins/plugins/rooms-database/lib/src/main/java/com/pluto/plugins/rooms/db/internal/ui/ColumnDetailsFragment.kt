@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentColumnDetailsBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -18,8 +19,11 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.SortBy
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
+import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 
 internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
@@ -54,13 +58,26 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
             if (data.second.name.lowercase() == it.first.lowercase()) {
                 when (it.second) {
                     is SortBy.Asc ->
-                        binding.sortAscLabel.background =
-                            ContextCompat.getDrawable(requireContext(), R.drawable.pluto_rooms___bg_sort_option_badge_selected)
+                        binding.sortAscLabel.select()
+
                     is SortBy.Desc ->
-                        binding.sortDescLabel.background =
-                            ContextCompat.getDrawable(requireContext(), R.drawable.pluto_rooms___bg_sort_option_badge_selected)
+                        binding.sortDescLabel.select()
                 }
             }
+        }
+        binding.type.setSpan {
+            append("Data type: ")
+            append(semiBold(fontColor("${data.second.type}, ", context.color(R.color.pluto___text_dark_80))))
+            append(semiBold(fontColor(if (data.second.isNotNull) "NOT_NULL" else "NULL", context.color(R.color.pluto___text_dark_80))))
+        }
+        data.second.defaultValue?.let {
+            binding.defaultValue.visibility = VISIBLE
+            binding.defaultValue.setSpan {
+                append("Default value: ")
+                append(semiBold(fontColor(it, context.color(R.color.pluto___text_dark_80))))
+            }
+        } ?: run {
+            binding.defaultValue.visibility = GONE
         }
         binding.sortAscLabel.setOnDebounceClickListener(haptic = true) {
             applySort(data, SortBy.Asc())
@@ -97,5 +114,16 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
     companion object {
         const val ATTR_COLUMN = "column"
         const val ATTR_TABLE = " table"
+        const val CHIP_TEXT_PADDING = 8f
+        const val CHIP_ICON_PADDING = 10f
+    }
+}
+
+private fun Chip.select() {
+    apply {
+        chipIcon = ContextCompat.getDrawable(context, R.drawable.pluto_rooms___ic_sort_option_selected)
+        chipIconSize = 18f.dp
+        iconStartPadding = ColumnDetailsFragment.CHIP_ICON_PADDING
+        textStartPadding = ColumnDetailsFragment.CHIP_TEXT_PADDING
     }
 }
