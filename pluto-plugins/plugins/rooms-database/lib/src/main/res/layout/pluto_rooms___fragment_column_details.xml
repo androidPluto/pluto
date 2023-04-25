@@ -57,25 +57,67 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/muli"
+                android:maxLines="2"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_mini"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="log tag" />
+
+            <TextView
+                android:id="@+id/defaultValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/muli"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_mini"
+                android:maxLines="2"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/type"
+                tools:text="log tag" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_xsmall"
+                android:background="@color/pluto___dark_05"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/defaultValue" />
+
+            <TextView
                 android:id="@+id/sort_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_semibold"
+                android:fontFamily="@font/muli"
                 android:paddingHorizontal="@dimen/pluto___margin_medium"
-                android:paddingVertical="@dimen/pluto___margin_large"
+                android:paddingVertical="@dimen/pluto___margin_medium"
                 android:text="@string/pluto_rooms___sort_by"
                 android:textColor="@color/pluto___text_dark_60"
                 android:textSize="@dimen/pluto___text_xmedium"
                 app:layout_constraintEnd_toStartOf="@+id/ctaGroup"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/ctaGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/sortClear"
                 app:layout_constraintBottom_toBottomOf="@+id/sort_label"
+                app:layout_constraintEnd_toStartOf="@+id/sortClear"
                 app:layout_constraintTop_toTopOf="@+id/sort_label"
                 app:singleLine="false"
                 app:singleSelection="true">

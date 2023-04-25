@@ -19,9 +19,11 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.SortBy
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 
 internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
@@ -62,6 +64,20 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
                         binding.sortDescLabel.select()
                 }
             }
+        }
+        binding.type.setSpan {
+            append("Data type: ")
+            append(semiBold(fontColor("${data.second.type}, ", context.color(R.color.pluto___text_dark_80))))
+            append(semiBold(fontColor(if (data.second.isNotNull) "NOT_NULL" else "NULL", context.color(R.color.pluto___text_dark_80))))
+        }
+        data.second.defaultValue?.let {
+            binding.defaultValue.visibility = VISIBLE
+            binding.defaultValue.setSpan {
+                append("Default value: ")
+                append(semiBold(fontColor(it, context.color(R.color.pluto___text_dark_80))))
+            }
+        } ?: run {
+            binding.defaultValue.visibility = GONE
         }
         binding.sortAscLabel.setOnDebounceClickListener(haptic = true) {
             applySort(data, SortBy.Asc())
