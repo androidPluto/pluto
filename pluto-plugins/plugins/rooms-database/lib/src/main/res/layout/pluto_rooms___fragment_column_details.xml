@@ -56,19 +56,6 @@
                 app:layout_constraintStart_toEndOf="@+id/title"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/type"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:fontFamily="@font/muli"-->
-            <!--                android:paddingHorizontal="@dimen/pluto___margin_medium"-->
-            <!--                android:paddingBottom="@dimen/pluto___margin_small"-->
-            <!--                android:textColor="@color/pluto___text_dark_40"-->
-            <!--                android:textSize="@dimen/pluto___text_xmedium"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/title"-->
-            <!--                tools:text="id" />-->
-
             <TextView
                 android:id="@+id/sort_label"
                 android:layout_width="0dp"
@@ -79,47 +66,35 @@
                 android:text="@string/pluto_rooms___sort_by"
                 android:textColor="@color/pluto___text_dark_60"
                 android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintEnd_toStartOf="@+id/sortAscLabel"
+                app:layout_constraintEnd_toStartOf="@+id/ctaGroup"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
-            <TextView
-                android:id="@+id/sortAscLabel"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/ctaGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/pluto___margin_xxlarge"
-                android:clickable="true"
-                android:layout_marginEnd="@dimen/pluto___margin_xsmall"
-                android:background="@drawable/pluto_rooms___bg_sort_option_badge_unselected"
-                android:drawableStart="@drawable/pluto_rooms___ic_sort_asc"
-                android:drawableLeft="@drawable/pluto_rooms___ic_sort_asc"
-                android:drawablePadding="@dimen/pluto___margin_mini"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/pluto___margin_medium"
-                android:text="@string/pluto_rooms___sort_asc"
-                android:textColor="@color/pluto___text_dark_60"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintBottom_toBottomOf="@+id/sort_label"
-                app:layout_constraintEnd_toStartOf="@+id/sortDescLabel"
-                app:layout_constraintTop_toTopOf="@+id/sort_label" />
-
-            <TextView
-                android:id="@+id/sortDescLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/pluto___margin_xxlarge"
-                android:background="@drawable/pluto_rooms___bg_sort_option_badge_unselected"
-                android:drawableStart="@drawable/pluto_rooms___ic_sort_desc"
-                android:drawableLeft="@drawable/pluto_rooms___ic_sort_desc"
-                android:drawablePadding="@dimen/pluto___margin_mini"
-                android:fontFamily="@font/muli_bold"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/pluto___margin_medium"
-                android:text="@string/pluto_rooms___sort_desc"
-                android:textColor="@color/pluto___text_dark_60"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintBottom_toBottomOf="@+id/sort_label"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@+id/sortClear"
-                app:layout_constraintTop_toTopOf="@+id/sort_label" />
+                app:layout_constraintBottom_toBottomOf="@+id/sort_label"
+                app:layout_constraintTop_toTopOf="@+id/sort_label"
+                app:singleLine="false"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sortAscLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pluto_rooms___sort_asc"
+                    android:textAppearance="@style/PlutoRoomsDBChipTextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sortDescLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pluto_rooms___sort_desc"
+                    android:textAppearance="@style/PlutoRoomsDBChipTextStyle" />
+
+            </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:id="@+id/sortClear"
