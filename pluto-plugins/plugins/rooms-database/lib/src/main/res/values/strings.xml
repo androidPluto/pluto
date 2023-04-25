@@ -36,4 +36,6 @@
     <string name="pluto_rooms___sort_clear">Clear</string>
     <string name="pluto_rooms___table_schema">Table schema</string>
     <string name="pluto_rooms___query_error">Error</string>
+    <string name="pluto_rooms___create_filter_title">Create Filter</string>
+    <string name="pluto_rooms___apply_filter_cta_text">Apply Filter</string>
 </resources>

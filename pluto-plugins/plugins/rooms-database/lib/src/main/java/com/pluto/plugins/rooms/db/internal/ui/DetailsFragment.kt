@@ -198,7 +198,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
             }
         }
         binding.applyFilter.setOnDebounceClickListener(haptic = true) {
-            toast("Filters coming soon!")
+            findNavController().navigate(R.id.openFilterView)
         }
     }
 
