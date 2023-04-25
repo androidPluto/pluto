@@ -7,8 +7,8 @@ Pluto Network is distributed through [***mavenCentral***](https://search.maven.o
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:network:2.1.1'
-  releaseImplementation 'com.plutolib.plugins:network-no-op:2.1.1'
+  debugImplementation 'com.plutolib.plugins:network:2.1.2'
+  releaseImplementation 'com.plutolib.plugins:network-no-op:2.1.2'
 }
 ```
 <br>
