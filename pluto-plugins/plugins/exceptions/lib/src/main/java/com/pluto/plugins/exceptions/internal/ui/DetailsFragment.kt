@@ -16,6 +16,7 @@ import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentDetailsBinding
 import com.pluto.plugins.exceptions.internal.ReportData
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.capitalizeText
 import com.pluto.utilities.extensions.delayedLaunchWhenResumed
 import com.pluto.utilities.extensions.onBackPressed
@@ -36,7 +37,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
 
     private val binding by viewBinding(PlutoExcepFragmentDetailsBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
-    private val crashAdapter: BaseAdapter by lazy { CrashesAdapter(onActionListener) }
+    private val crashAdapter: BaseAdapter by autoClearInitializer { CrashesAdapter(onActionListener) }
     private val exceptionCipher by lazy { getCipheredException() }
     private val contentSharer by lazyContentSharer()
 

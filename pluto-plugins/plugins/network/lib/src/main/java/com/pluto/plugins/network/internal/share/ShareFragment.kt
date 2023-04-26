@@ -14,6 +14,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.responseToText
 import com.pluto.plugins.network.internal.interceptor.logic.toShareText
 import com.pluto.plugins.network.internal.interceptor.ui.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.ui.NetworkViewModel
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -28,7 +29,7 @@ class ShareFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoNetworkFragmentShareBinding::bind)
     private val detailsViewModel: NetworkViewModel by activityViewModels()
     private val shareViewModel: ShareOptionsViewModel by viewModels()
-    private lateinit var optionAdapter: BaseAdapter
+    private val optionAdapter: BaseAdapter by autoClearInitializer { ShareOptionsAdapter(onActionListener) }
     private val contentSharer by lazyContentSharer()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -38,7 +39,6 @@ class ShareFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        optionAdapter = ShareOptionsAdapter(onActionListener)
         binding.shareOptionsList.apply {
             adapter = optionAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))

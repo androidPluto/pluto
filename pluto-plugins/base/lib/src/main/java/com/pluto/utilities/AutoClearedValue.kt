@@ -75,7 +75,7 @@ private class AutoClearedInitializedValue<T:Any>(fragment: Fragment, private val
     }
 }
 
-fun <T : Any> Fragment.autoCleared(initializerFactory: () -> T) = AutoClearedInitializedValue(this, initializerFactory) as ReadOnlyProperty<Fragment, T>
+fun <T : Any> Fragment.autoClearInitializer(initializerFactory: () -> T) = AutoClearedInitializedValue(this, initializerFactory) as ReadOnlyProperty<Fragment, T>
 
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
     FragmentViewBindingDelegate(this, viewBindingFactory) as ReadOnlyProperty<Fragment, T>

@@ -15,6 +15,7 @@ import com.pluto.plugins.logger.internal.LogsRepo
 import com.pluto.plugins.logger.internal.LogsViewModel
 import com.pluto.plugins.logger.internal.Session
 import com.pluto.plugins.logger.internal.ui.list.LogsAdapter
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
 import com.pluto.utilities.extensions.showMoreOptions
@@ -33,7 +34,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
 
     private val binding by viewBinding(PlutoLoggerFragmentListBinding::bind)
     private val viewModel: LogsViewModel by activityViewModels()
-    private val logsAdapter: BaseAdapter by lazy { LogsAdapter(onActionListener) }
+    private val logsAdapter: BaseAdapter by autoClearInitializer { LogsAdapter(onActionListener) }
     private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +69,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
                 when (item.itemId) {
                     R.id.clear -> LogsRepo.deleteAll()
                     R.id.shareAll ->
-                        if (viewModel.logs.value?.size ?: 0 > 0) {
+                        if ((viewModel.logs.value?.size ?: 0) > 0) {
                             viewModel.serializeLogs()
                         } else {
                             context?.toast("No logs to share")

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.pluto.plugins.network.BodyMediaSubType
 import com.pluto.plugins.network.BodyMediaType
 import com.pluto.plugins.network.CustomBody
@@ -23,7 +23,7 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
     private val binding
         get() = _binding!!
 
-    private val networkViewModel by lazy { ViewModelProvider(this)[NetworkViewModel::class.java] }
+    private val networkViewModel : NetworkViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDemoNetworkBinding.inflate(inflater, container, false)

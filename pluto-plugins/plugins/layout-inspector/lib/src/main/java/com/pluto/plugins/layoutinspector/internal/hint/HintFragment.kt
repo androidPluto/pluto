@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiHintFragmentBinding
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
@@ -17,7 +18,7 @@ import com.pluto.utilities.viewBinding
 internal class HintFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoLiHintFragmentBinding::bind)
-    private val settingsAdapter: BaseAdapter by lazy { HintAdapter() }
+    private val settingsAdapter: BaseAdapter by autoClearInitializer { HintAdapter() }
     private val viewModel: HintViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =

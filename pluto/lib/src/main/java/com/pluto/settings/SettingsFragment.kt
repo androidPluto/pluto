@@ -12,6 +12,7 @@ import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
 import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.DEC_SIZE
 import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.INC_SIZE
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.openOverlaySettings
 import com.pluto.utilities.extensions.toast
@@ -26,7 +27,7 @@ import com.pluto.utilities.viewBinding
 internal class SettingsFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentSettingsBinding::bind)
-    private val settingsAdapter: BaseAdapter by lazy { SettingsAdapter(onActionListener) }
+    private val settingsAdapter: BaseAdapter by autoClearInitializer { SettingsAdapter(onActionListener) }
     private val viewModel: SettingsViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =

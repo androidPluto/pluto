@@ -20,6 +20,7 @@ import com.pluto.plugins.layoutinspector.internal.hierarchy.list.HierarchyItemHo
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectViewModel
 import com.pluto.plugins.layoutinspector.internal.inspect.assignTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
@@ -32,7 +33,9 @@ import com.pluto.utilities.viewBinding
 internal class ViewHierarchyFragment : DialogFragment() {
 
     private var rootView: View? = null
-    private lateinit var hierarchyAdapter: BaseAdapter
+    private val hierarchyAdapter: BaseAdapter by autoClearInitializer {
+        HierarchyAdapter(onActionListener)
+    }
     private val viewModel: ViewHierarchyViewModel by viewModels()
     private val inspectViewModel: InspectViewModel by activityViewModels()
     private val binding by viewBinding(PlutoLiFragmentViewHierarchyBinding::bind)
@@ -66,7 +69,6 @@ internal class ViewHierarchyFragment : DialogFragment() {
             binding.collapseCta.setOnDebounceClickListener {
                 viewModel.collapseAll(it)
             }
-            hierarchyAdapter = HierarchyAdapter(onActionListener)
             binding.list.apply {
                 adapter = hierarchyAdapter
             }
