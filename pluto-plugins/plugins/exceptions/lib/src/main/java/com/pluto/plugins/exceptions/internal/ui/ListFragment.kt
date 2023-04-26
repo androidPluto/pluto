@@ -31,12 +31,13 @@ class ListFragment : Fragment(R.layout.pluto_excep___fragment_list) {
 
     private val binding by viewBinding(PlutoExcepFragmentListBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
-    private var crashAdapter by autoCleared<BaseAdapter>()
+    private val crashAdapter by autoCleared<BaseAdapter>{
+        CrashesAdapter(onActionListener)
+    }
     private var isFetchingInProgress: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        crashAdapter = CrashesAdapter(onActionListener)
         binding.crashList.apply {
             adapter = crashAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
