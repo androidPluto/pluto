@@ -16,32 +16,38 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-private open class AutoClearedValue<T : Any>(protected val fragment: Fragment) : ReadWriteProperty<Fragment, T> {
+private open class AutoClearedValue<T : Any>(protected val fragment: Fragment) :
+    ReadWriteProperty<Fragment, T> {
     protected var value: T? = null
 
     init {
         fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
             val viewLifecycleOwnerLiveDataObserver = Observer<LifecycleOwner?> {
-                    it?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
-                        override fun onDestroy(owner: LifecycleOwner) {
-                            value = null
-                        }
-                    })
-                }
+                it?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
+                    override fun onDestroy(owner: LifecycleOwner) {
+                        value = null
+                    }
+                })
+            }
 
             override fun onCreate(owner: LifecycleOwner) {
-                fragment.viewLifecycleOwnerLiveData.observeForever(viewLifecycleOwnerLiveDataObserver)
+                fragment.viewLifecycleOwnerLiveData.observeForever(
+                    viewLifecycleOwnerLiveDataObserver
+                )
             }
 
             override fun onDestroy(owner: LifecycleOwner) {
-                fragment.viewLifecycleOwnerLiveData.removeObserver(viewLifecycleOwnerLiveDataObserver)
+                fragment.viewLifecycleOwnerLiveData.removeObserver(
+                    viewLifecycleOwnerLiveDataObserver
+                )
             }
         })
     }
 
 
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-        return value ?: throw IllegalStateException("should never call auto-cleared-value get when it might not be available")
+        return value
+            ?: throw IllegalStateException("should never call auto-cleared-value get when it might not be available")
     }
 
     override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
@@ -49,8 +55,8 @@ private open class AutoClearedValue<T : Any>(protected val fragment: Fragment) :
     }
 }
 
-private abstract class BaseAutoClearedInitializedValue<T : Any>(fragment: Fragment) : AutoClearedValue<T>(fragment)
-{
+private abstract class BaseAutoClearedInitializedValue<T : Any>(fragment: Fragment) :
+    AutoClearedValue<T>(fragment) {
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
         val lifecycle = fragment.viewLifecycleOwner.lifecycle
         check(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
@@ -58,24 +64,30 @@ private abstract class BaseAutoClearedInitializedValue<T : Any>(fragment: Fragme
         }
         return value ?: initialize().also { this.value = it }
     }
-    protected abstract fun initialize() : T
+
+    protected abstract fun initialize(): T
 }
 
-private class FragmentViewBindingDelegate<T:ViewBinding>(fragment: Fragment, private val viewBindingInitializerFactory: (View) -> T) : BaseAutoClearedInitializedValue<T>(fragment)
-{
-    override fun initialize() : T {
+private class FragmentViewBindingDelegate<T : ViewBinding>(
+    fragment: Fragment,
+    private val viewBindingInitializerFactory: (View) -> T
+) : BaseAutoClearedInitializedValue<T>(fragment) {
+    override fun initialize(): T {
         return viewBindingInitializerFactory(fragment.requireView())
     }
 }
 
-private class AutoClearedInitializedValue<T:Any>(fragment: Fragment, private val initializerFactory: () -> T) : BaseAutoClearedInitializedValue<T>(fragment)
-{
-    override fun initialize() : T {
+private class AutoClearedInitializedValue<T : Any>(
+    fragment: Fragment,
+    private val initializerFactory: () -> T
+) : BaseAutoClearedInitializedValue<T>(fragment) {
+    override fun initialize(): T {
         return initializerFactory.invoke()
     }
 }
 
-fun <T : Any> Fragment.autoClearInitializer(initializerFactory: () -> T) = AutoClearedInitializedValue(this, initializerFactory) as ReadOnlyProperty<Fragment, T>
+fun <T : Any> Fragment.autoClearInitializer(initializerFactory: () -> T) =
+    AutoClearedInitializedValue(this, initializerFactory) as ReadOnlyProperty<Fragment, T>
 
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
     FragmentViewBindingDelegate(this, viewBindingFactory) as ReadOnlyProperty<Fragment, T>
