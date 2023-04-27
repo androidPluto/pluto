@@ -14,6 +14,7 @@ import com.pluto.plugins.exceptions.internal.ProcessThread
 import com.pluto.plugins.exceptions.internal.ThreadStates
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
 import com.pluto.plugins.exceptions.internal.ui.holder.StackTraceListItemHolder
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.showMoreOptions
 import com.pluto.utilities.list.BaseAdapter
@@ -29,7 +30,7 @@ import com.pluto.utilities.viewBinding
 class ThreadStackTraceFragment : Fragment(R.layout.pluto_excep___fragment_thread_stack_trace) {
     private val binding by viewBinding(PlutoExcepFragmentThreadStackTraceBinding::bind)
     private val viewModel: CrashesViewModel by activityViewModels()
-    private val threadAdapter: BaseAdapter by lazy { StackTracesAdapter(onActionListener) }
+    private val threadAdapter: BaseAdapter by autoClearInitializer { StackTracesAdapter(onActionListener) }
     private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     private val contentSharer by lazyContentSharer()
     private var filterValue: String? = null

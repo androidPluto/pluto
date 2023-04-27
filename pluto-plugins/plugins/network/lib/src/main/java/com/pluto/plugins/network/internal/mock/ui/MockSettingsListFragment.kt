@@ -14,6 +14,7 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentMockSettingsListBinding
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 import com.pluto.plugins.network.internal.mock.ui.list.MockSettingsItemAdapter
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.onBackPressed
@@ -30,12 +31,13 @@ internal class MockSettingsListFragment : Fragment(R.layout.pluto_network___frag
 
     private val binding by viewBinding(PlutoNetworkFragmentMockSettingsListBinding::bind)
     private val viewModel: MockSettingsViewModel by activityViewModels()
-    private lateinit var mockSettingsAdapter: BaseAdapter
+    private val mockSettingsAdapter: BaseAdapter by autoClearInitializer {
+        MockSettingsItemAdapter(onActionListener)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onBackPressed { handleBackPress() }
-        mockSettingsAdapter = MockSettingsItemAdapter(onActionListener)
         binding.apiList.apply {
             adapter = mockSettingsAdapter
             addItemDecoration(CustomItemDecorator(context, DECORATOR_DIVIDER_PADDING))

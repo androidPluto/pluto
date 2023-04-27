@@ -14,6 +14,7 @@ import com.pluto.plugins.preferences.SharedPrefRepo
 import com.pluto.plugins.preferences.databinding.PlutoPrefFragmentListBinding
 import com.pluto.plugins.preferences.ui.EditProcessor.Companion.fromEditorData
 import com.pluto.plugins.preferences.ui.EditProcessor.Companion.toEditorData
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
 import com.pluto.utilities.extensions.showMoreOptions
@@ -34,7 +35,7 @@ internal class ListFragment : Fragment(R.layout.pluto_pref___fragment_list) {
     private val binding by viewBinding(PlutoPrefFragmentListBinding::bind)
     private val viewModel: SharedPrefViewModel by activityViewModels()
     private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
-    private val prefAdapter: BaseAdapter by lazy { SharedPrefAdapter(onActionListener) }
+    private val prefAdapter: BaseAdapter by autoClearInitializer { SharedPrefAdapter(onActionListener) }
     private val contentSharer by lazyContentSharer()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

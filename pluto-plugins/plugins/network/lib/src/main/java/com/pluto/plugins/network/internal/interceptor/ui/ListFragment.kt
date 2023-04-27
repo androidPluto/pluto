@@ -16,6 +16,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.API_CALL_ID
 import com.pluto.plugins.network.internal.interceptor.ui.list.NetworkAdapter
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
 import com.pluto.utilities.extensions.showMoreOptions
@@ -31,11 +32,12 @@ internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {
 
     private val binding by viewBinding(PlutoNetworkFragmentListBinding::bind)
     private val viewModel: NetworkViewModel by activityViewModels()
-    private lateinit var networkAdapter: BaseAdapter
+    private val networkAdapter: BaseAdapter by autoClearInitializer {
+        NetworkAdapter(onActionListener)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        networkAdapter = NetworkAdapter(onActionListener)
         binding.apiList.apply {
             adapter = networkAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))

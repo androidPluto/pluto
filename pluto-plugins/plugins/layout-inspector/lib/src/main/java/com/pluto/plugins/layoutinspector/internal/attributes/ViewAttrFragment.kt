@@ -19,6 +19,7 @@ import com.pluto.plugins.layoutinspector.internal.inspect.clearTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.findViewByTargetTag
 import com.pluto.plugins.layoutinspector.internal.inspect.getFrontView
 import com.pluto.plugins.layoutinspector.internal.inspect.getIdString
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.BaseAdapter
@@ -40,7 +41,9 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoLiFragmentViewAttrBinding::bind)
     private val contentSharer: ContentShareViewModel by lazyContentSharer()
     private var targetView: View? = null
-    private lateinit var attributeAdapter: BaseAdapter
+    private val attributeAdapter: BaseAdapter by autoClearInitializer {
+        AttributeAdapter(onActionListener)
+    }
     private val viewModel: ViewAttrViewModel by viewModels()
     private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
 
@@ -78,7 +81,6 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
             }
         }
         targetView?.let { target ->
-            attributeAdapter = AttributeAdapter(onActionListener)
             binding.close.setOnDebounceClickListener {
                 dismiss()
             }

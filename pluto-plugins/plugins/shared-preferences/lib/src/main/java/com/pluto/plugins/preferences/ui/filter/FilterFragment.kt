@@ -16,6 +16,7 @@ import com.pluto.plugins.preferences.getSharePreferencesFiles
 import com.pluto.plugins.preferences.ui.SharedPrefAdapter
 import com.pluto.plugins.preferences.ui.SharedPrefFile
 import com.pluto.plugins.preferences.ui.SharedPrefViewModel
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.toast
@@ -32,7 +33,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoPrefFragmentFilterBinding::bind)
     private val viewModel: SharedPrefViewModel by activityViewModels()
 
-    private val prefAdapter: BaseAdapter by lazy { SharedPrefAdapter(onActionListener) }
+    private val prefAdapter: BaseAdapter by autoClearInitializer { SharedPrefAdapter(onActionListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_pref___fragment_filter, container, false)
