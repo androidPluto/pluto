@@ -69,7 +69,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
                 when (item.itemId) {
                     R.id.clear -> LogsRepo.deleteAll()
                     R.id.shareAll ->
-                        if ((viewModel.logs.value?.size ?: 0) > 0) {
+                        if (viewModel.logs.value?.size ?: 0 > 0) {
                             viewModel.serializeLogs()
                         } else {
                             context?.toast("No logs to share")

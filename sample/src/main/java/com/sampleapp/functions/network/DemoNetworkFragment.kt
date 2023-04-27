@@ -23,7 +23,7 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
     private val binding
         get() = _binding!!
 
-    private val networkViewModel : NetworkViewModel by viewModels()
+    private val networkViewModel: NetworkViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDemoNetworkBinding.inflate(inflater, container, false)
