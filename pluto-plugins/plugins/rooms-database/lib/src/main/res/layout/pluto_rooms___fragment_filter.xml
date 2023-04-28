@@ -68,39 +68,26 @@
                 android:layout_marginBottom="44dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/nsv"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:paddingHorizontal="@dimen/pluto___margin_medium"
                     app:layout_constraintBottom_toTopOf="@+id/cta_section"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/loader"
+                <TextView
+                    android:id="@+id/noItemText"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:gravity="center"
+                    android:text="@string/pluto_rooms___no_data_filter_condition_applied"
+                    android:textSize="@dimen/pluto___text_xsmall"
+                    android:fontFamily="@font/muli"
+                    android:textColor="@color/pluto___text_dark_60"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/nsv"
-                    app:layout_constraintTop_toTopOf="@+id/nsv">
-
-                    <ProgressBar
-                        android:layout_width="@dimen/pluto___margin_vvlarge"
-                        android:layout_height="@dimen/pluto___margin_vvlarge"
-                        android:backgroundTint="@color/pluto___dark_40"
-                        android:indeterminate="true"
-                        android:indeterminateTint="@color/pluto___dark_40" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/muli"
-                        android:textColor="@color/pluto___text_dark_60"
-                        android:layout_marginTop="@dimen/pluto___margin_mini"
-                        android:text="@string/pluto_rooms___loading_editor" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    app:layout_constraintBottom_toBottomOf="@+id/list"
+                    app:layout_constraintTop_toTopOf="@+id/list"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cta_section"

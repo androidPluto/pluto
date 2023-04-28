@@ -174,7 +174,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
             append(" rows")
         }
 
-        if (viewModel.filterConfig.isNotEmpty()) {
+        if (viewModel.filterConfig.value.isNullOrEmpty()) {
+            binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
+            binding.applyFilter.setSpan {
+                append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(R.color.pluto___text_dark_40)))
+                append(" ${bold(getString(R.string.pluto_rooms___apply_filter))}")
+            }
+        } else {
             binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_filter, 0, 0, 0)
             binding.applyFilter.setSpan {
                 append(
@@ -182,19 +188,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                         String.format(
                             resources.getQuantityString(
                                 R.plurals.pluto_rooms___applied_filters,
-                                viewModel.filterConfig.size,
-                                viewModel.filterConfig.size
+                                viewModel.filterConfig.value?.size ?: 0,
+                                viewModel.filterConfig.value?.size ?: 0
                             )
                         ),
                         context.color(R.color.pluto___blue)
                     )
                 )
-            }
-        } else {
-            binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
-            binding.applyFilter.setSpan {
-                append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(R.color.pluto___text_dark_40)))
-                append(" ${bold(getString(R.string.pluto_rooms___apply_filter))}")
             }
         }
         binding.applyFilter.setOnDebounceClickListener(haptic = true) {

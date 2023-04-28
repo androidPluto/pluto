@@ -4,22 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentFilterBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
-import com.pluto.plugins.rooms.db.internal.RowDetailsData
-import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
-import com.pluto.utilities.DebugLog
+import com.pluto.plugins.rooms.db.internal.FilterModel
+import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListAdapter
+import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListItemHolder.Companion.ACTION_DELETE
+import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListItemHolder.Companion.ACTION_EDIT
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.device.Device
-import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.extensions.setList
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.CustomItemDecorator
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 
@@ -27,6 +31,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentFilterBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
+    private val filterAdapter: BaseAdapter by autoClearInitializer { FilterListAdapter(onActionListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_filter, container, false)
@@ -43,47 +48,37 @@ internal class FilterFragment : BottomSheetDialogFragment() {
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
-        convertArguments(arguments).apply {
-            convertArguments(arguments).second?.let {
-            }
+        binding.list.apply {
+            adapter = filterAdapter
+            addItemDecoration(CustomItemDecorator(requireContext()))
+        }
+        binding.noItemText.setOnDebounceClickListener {
+            addCondition()
         }
         binding.add.setOnDebounceClickListener {
+            addCondition()
         }
 
-        viewModel.editEventState.removeObserver(editStateObserver)
-        viewModel.editEventState.observe(viewLifecycleOwner, editStateObserver)
-
-        viewModel.editError.removeObserver(errorObserver)
-        viewModel.editError.observe(viewLifecycleOwner, errorObserver)
+        viewModel.filterConfig.removeObserver(filterConfigObserver)
+        viewModel.filterConfig.observe(viewLifecycleOwner, filterConfigObserver)
     }
 
-    private val editStateObserver = Observer<ExecuteResult.Success> {
-        when (it) {
-            is ExecuteResult.Success.Insert -> toast("item id ${it.id} inserted!")
-            is ExecuteResult.Success.Update -> toast("${it.numberOfRows} row updated!")
-            else -> { /*ignore*/
+    private fun addCondition() {
+        // todo open add condition bs
+    }
+
+    private val filterConfigObserver = Observer<List<FilterModel>> {
+        binding.list.setList(it)
+    }
+
+    private val onActionListener = object : DiffAwareAdapter.OnActionListener {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
+            if (data is FilterModel) {
+                when (action) {
+                    ACTION_DELETE -> {}
+                    ACTION_EDIT -> {}
+                }
             }
         }
-        dismiss()
-    }
-
-    private val errorObserver = Observer<Pair<String, Exception>> {
-        handleError(it.first, it.second)
-    }
-
-    private fun handleError(error: String, exception: Exception) {
-        when (error) {
-            ContentViewModel.ERROR_ADD_UPDATE -> {
-                findNavController().navigate(
-                    R.id.openQueryErrorDialog,
-                    bundleOf(QueryErrorFragment.ERROR_MESSAGE to exception.message)
-                )
-                DebugLog.e(PlutoRoomsDBWatcher.LOG_TAG, "error while editing the table", exception)
-            }
-        }
-    }
-
-    private fun convertArguments(arguments: Bundle?): Pair<Boolean, RowDetailsData?> {
-        return Pair(arguments?.getBoolean("isInsert") ?: true, arguments?.getParcelable("data"))
     }
 }

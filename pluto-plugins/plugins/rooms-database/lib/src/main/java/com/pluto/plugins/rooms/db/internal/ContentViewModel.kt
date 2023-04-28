@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher.LOG_TAG
+import com.pluto.plugins.rooms.db.internal.core.FilterConfig
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
@@ -15,7 +16,6 @@ import com.pluto.plugins.rooms.db.internal.core.query.Query
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 internal class ContentViewModel(application: Application) : AndroidViewModel(application) {
@@ -52,8 +52,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _rowCounts
     private val _rowCounts = SingleLiveEvent<Pair<Int, Int?>>()
 
-    var filterConfig: List<FilterModel> = arrayListOf()
-        private set
+    val filterConfig: LiveData<List<FilterModel>>
+        get() = _filterConfig
+    private val _filterConfig = SingleLiveEvent<List<FilterModel>>()
 
     var sortBy: Pair<String, SortBy>? = null
         private set
@@ -100,6 +101,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         }
                         _tables.postValue(processedTableList.plus(processedSystemTableList))
                     }
+
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_TABLES, it.exception))
                     else -> DebugLog.e(LOG_TAG, "fetchTables: invalid result")
                 }
@@ -110,7 +112,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     fun selectTable(table: TableModel) {
         if (table.name != _currentTable.value?.name) {
             sortBy = null
-            filterConfig = emptyList()
+            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, table.name))
         }
         _currentTable.postValue(table)
     }
@@ -132,21 +134,23 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                             )
                         }
 
-                        Executor.instance.query(Query.Tables.values(table, filterConfig, sortBy)).collect { valueResult ->
+                        Executor.instance.query(Query.Tables.values(table, filterConfig.value, sortBy)).collect { valueResult ->
                             when (valueResult) {
                                 is ExecuteResult.Success.Query -> {
-                                    if (filterConfig.isNotEmpty()) {
-                                        fetchRowCount(table, valueResult.data.second.size)
-                                    } else {
+                                    if (filterConfig.value.isNullOrEmpty()) {
                                         _rowCounts.postValue(Pair(valueResult.data.second.size, valueResult.data.second.size))
+                                    } else {
+                                        fetchRowCount(table, valueResult.data.second.size)
                                     }
                                     _tableContent.postValue(ProcessedTableContents(columns, valueResult.data.second))
                                 }
+
                                 is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, valueResult.exception))
                                 else -> DebugLog.e(LOG_TAG, "fetch values: invalid result")
                             }
                         }
                     }
+
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, columnResult.exception))
                     else -> DebugLog.e(LOG_TAG, "fetch column: invalid result")
                 }
@@ -189,6 +193,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         )
                         performAction(RowAction.Click(isInsertEvent), eventData)
                     }
+
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
                     else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
                 }
@@ -218,6 +223,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         )
                         performAction(RowAction.LongClick, eventData)
                     }
+
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
                     else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
                 }
@@ -237,6 +243,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(it)
                     }
+
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                     else -> DebugLog.e(LOG_TAG, "addNewRow: invalid result")
                 }
@@ -252,6 +259,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(it)
                     }
+
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                     else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
                 }
@@ -267,6 +275,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(it)
                     }
+
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                     else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
                 }
@@ -282,6 +291,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         fetchData(table)
                         _editEventState.postValue(it)
                     }
+
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
                     else -> DebugLog.e(LOG_TAG, "clearTable: invalid result")
                 }

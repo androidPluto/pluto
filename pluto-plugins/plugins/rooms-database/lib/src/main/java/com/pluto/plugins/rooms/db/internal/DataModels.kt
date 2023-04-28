@@ -53,7 +53,7 @@ internal data class FilterModel(
     val column: String,
     val value: String?,
     val relation: FilterRelation
-)
+) : ListItem()
 
 internal sealed class RowAction {
     class Click(val isInsert: Boolean) : RowAction()
@@ -62,9 +62,16 @@ internal sealed class RowAction {
     object Duplicate : RowAction()
 }
 
-internal sealed class FilterRelation {
-    object Equals : FilterRelation()
-    object Like : FilterRelation()
+internal sealed class FilterRelation(val symbol: String) {
+    object Equals : FilterRelation("=")
+    object NotEquals : FilterRelation("!=")
+    object Like : FilterRelation("%")
+    object Between : FilterRelation("BTW")
+    object In : FilterRelation("IN")
+    object LessThan : FilterRelation("<")
+    object LessThanOrEquals : FilterRelation("<=")
+    object GreaterThan : FilterRelation(">")
+    object GreaterThanOrEquals : FilterRelation(">=")
 }
 
 internal sealed class SortBy(val label: String, @DrawableRes val indicator: Int) {

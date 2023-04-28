@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/pluto___margin_small"
+    tools:background="@color/pluto___app_bg">
+
+    <TextView
+        android:id="@+id/column"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="3"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:autoSizeMaxTextSize="@dimen/pluto___text_small"
+        app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+    <TextView
+        android:id="@+id/relation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_mini"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="3"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:autoSizeMaxTextSize="@dimen/pluto___text_small"
+        app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/column"
+        tools:text="log tag" />
+
+    <TextView
+        android:id="@+id/values"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pluto___margin_mini"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="3"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:autoSizeMaxTextSize="@dimen/pluto___text_small"
+        app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/relation"
+        app:layout_constraintTop_toBottomOf="@+id/column"
+        tools:text="log tag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

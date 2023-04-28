@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-internal class Executor private constructor(private val dbOpenHelper: SupportSQLiteOpenHelper) {
+internal class Executor private constructor(private val dbOpenHelper: SupportSQLiteOpenHelper, val databaseName: String) {
 
     private val database: SupportSQLiteDatabase
         get() = dbOpenHelper.writableDatabase
@@ -39,7 +39,7 @@ internal class Executor private constructor(private val dbOpenHelper: SupportSQL
                 throw IllegalStateException("session already initialised")
             } ?: run {
                 val roomDatabase = Room.databaseBuilder(context, databaseClass, databaseName).build()
-                _instance = Executor(roomDatabase.openHelper)
+                _instance = Executor(roomDatabase.openHelper, databaseName)
                 return _instance as Executor
             }
         }
