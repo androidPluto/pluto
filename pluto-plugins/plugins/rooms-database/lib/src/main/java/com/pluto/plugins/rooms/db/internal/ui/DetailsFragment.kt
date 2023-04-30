@@ -22,6 +22,7 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_ADD_
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_CONTENT
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.DatabaseModel
+import com.pluto.plugins.rooms.db.internal.FilterModel
 import com.pluto.plugins.rooms.db.internal.ProcessedTableContents
 import com.pluto.plugins.rooms.db.internal.RowAction
 import com.pluto.plugins.rooms.db.internal.RowDetailsData
@@ -107,6 +108,9 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
 
             uiViewModel.tableGridView.removeObserver(tableUIObserver)
             uiViewModel.tableGridView.observe(viewLifecycleOwner, tableUIObserver)
+
+            viewModel.filterConfig.removeObserver(filterConfigObserver)
+            viewModel.filterConfig.observe(viewLifecycleOwner, filterConfigObserver)
         } ?: requireActivity().onBackPressed()
     }
 
@@ -141,14 +145,17 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 val bundle = bundleOf("data" to it.second, "isInsert" to (it.first as RowAction.Click).isInsert)
                 findNavController().navigate(R.id.openDataEditor, bundle)
             }
+
             is RowAction.LongClick -> {
                 val bundle = bundleOf("data" to it.second)
                 findNavController().navigate(R.id.openActionsView, bundle)
             }
+
             RowAction.Duplicate -> viewLifecycleOwner.lifecycleScope.delayedLaunchWhenResumed(100L) {
                 val bundle = bundleOf("data" to it.second, "isInsert" to true)
                 findNavController().navigate(R.id.openDataEditor, bundle)
             }
+
             RowAction.Delete -> it.second.values?.let { values ->
                 val values1 = arrayListOf<Pair<ColumnModel, String?>>().apply {
                     Pair(it.second.columns, values).forEachIndexed { _, column, row ->
@@ -164,17 +171,8 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
         handleError(it.first, it.second)
     }
 
-    private val rowCountObserver = Observer<Pair<Int, Int?>> {
-        binding.count.setSpan {
-            append("Showing")
-            append(bold(" ${it.first}"))
-            it.second?.let {
-                append("/$it")
-            }
-            append(" rows")
-        }
-
-        if (viewModel.filterConfig.value.isNullOrEmpty()) {
+    private val filterConfigObserver = Observer<List<FilterModel>> {
+        if (it.isNullOrEmpty()) {
             binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
             binding.applyFilter.setSpan {
                 append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(R.color.pluto___text_dark_40)))
@@ -188,14 +186,28 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                         String.format(
                             resources.getQuantityString(
                                 R.plurals.pluto_rooms___applied_filters,
-                                viewModel.filterConfig.value?.size ?: 0,
-                                viewModel.filterConfig.value?.size ?: 0
+                                it.size,
+                                it.size
                             )
                         ),
                         context.color(R.color.pluto___blue)
                     )
                 )
             }
+        }
+        viewModel.currentTable.value?.name?.let {
+            viewModel.fetchData(it)
+        }
+    }
+
+    private val rowCountObserver = Observer<Pair<Int, Int?>> {
+        binding.count.setSpan {
+            append("Showing")
+            append(bold(" ${it.first}"))
+            it.second?.let {
+                append("/$it")
+            }
+            append(" rows")
         }
         binding.applyFilter.setOnDebounceClickListener(haptic = true) {
             findNavController().navigate(R.id.openFilterView)

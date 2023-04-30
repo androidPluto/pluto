@@ -58,6 +58,8 @@ internal class FilterFragment : BottomSheetDialogFragment() {
         binding.add.setOnDebounceClickListener {
             addCondition()
         }
+        binding.applyFilter.setOnDebounceClickListener {
+        }
 
         viewModel.filterConfig.removeObserver(filterConfigObserver)
         viewModel.filterConfig.observe(viewLifecycleOwner, filterConfigObserver)

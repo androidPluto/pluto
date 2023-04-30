@@ -15,6 +15,7 @@ import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.SingleLiveEvent
+import com.pluto.utilities.extensions.add
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -54,7 +55,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 
     val filterConfig: LiveData<List<FilterModel>>
         get() = _filterConfig
-    private val _filterConfig = SingleLiveEvent<List<FilterModel>>()
+    private val _filterConfig = MutableLiveData<List<FilterModel>>()
 
     var sortBy: Pair<String, SortBy>? = null
         private set
@@ -96,6 +97,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         }
                         if (processedTableList.size == 1) {
                             _currentTable.postValue(processedTableList.first())
+                            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, processedTableList.first().name))
                         } else {
                             _currentTable.postValue(null)
                         }
@@ -112,7 +114,6 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     fun selectTable(table: TableModel) {
         if (table.name != _currentTable.value?.name) {
             sortBy = null
-            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, table.name))
         }
         _currentTable.postValue(table)
     }
@@ -305,6 +306,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 
     fun clearSortBy() {
         sortBy = null
+    }
+
+    fun addFilter(filterModel: FilterModel) {
+        currentTable.value?.name?.let {
+            _filterConfig.add(filterModel)
+            FilterConfig.add(Executor.instance.databaseName, it, filterModel)
+        }
     }
 
     companion object {
