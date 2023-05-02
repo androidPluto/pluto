@@ -59,7 +59,7 @@
 
     <dialog
         android:id="@+id/filterView"
-        android:name="com.pluto.plugins.rooms.db.internal.ui.FilterFragment" />
+        android:name="com.pluto.plugins.rooms.db.internal.ui.filter.FilterFragment" />
 
     <dialog
         android:id="@+id/actionsView"

@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.ui
+package com.pluto.plugins.rooms.db.internal.ui.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,12 +13,11 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentFilterBinding
 import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.FilterModel
-import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListAdapter
-import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListItemHolder.Companion.ACTION_DELETE
-import com.pluto.plugins.rooms.db.internal.ui.list.filter.FilterListItemHolder.Companion.ACTION_EDIT
+import com.pluto.plugins.rooms.db.internal.ui.filter.list.filter.FilterListAdapter
+import com.pluto.plugins.rooms.db.internal.ui.filter.list.filter.FilterListItemHolder.Companion.ACTION_DELETE
+import com.pluto.plugins.rooms.db.internal.ui.filter.list.filter.FilterListItemHolder.Companion.ACTION_EDIT
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.device.Device
-import com.pluto.utilities.extensions.setList
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -32,6 +31,12 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoRoomsFragmentFilterBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
     private val filterAdapter: BaseAdapter by autoClearInitializer { FilterListAdapter(onActionListener) }
+    private val addFilterConditionDialog: AddFilterConditionDialog by autoClearInitializer {
+        AddFilterConditionDialog(requireContext()) {
+            addCondition(it)
+        }
+    }
+    private val filterList = arrayListOf<FilterModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_filter, container, false)
@@ -53,34 +58,50 @@ internal class FilterFragment : BottomSheetDialogFragment() {
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
         binding.noItemText.setOnDebounceClickListener {
-            addCondition()
+            openColumnChooser()
         }
         binding.add.setOnDebounceClickListener {
-            addCondition()
+            openColumnChooser()
         }
         binding.applyFilter.setOnDebounceClickListener {
+            viewModel.updateFilter(filterList)
+            dismiss()
         }
+        filterAdapter.list = filterList
 
         viewModel.filterConfig.removeObserver(filterConfigObserver)
         viewModel.filterConfig.observe(viewLifecycleOwner, filterConfigObserver)
     }
 
-    private fun addCondition() {
-        // todo open add condition bs
+    private fun openColumnChooser() {
+        ChooseColumnForFilterDialog(this, viewModel.processedTableContent, viewModel.filterConfig.value) {
+            addFilterConditionDialog.show(FilterModel(it, null))
+        }.show()
     }
 
     private val filterConfigObserver = Observer<List<FilterModel>> {
-        binding.list.setList(it)
+        filterList.addAll(it)
+        filterAdapter.notifyDataSetChanged()
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             if (data is FilterModel) {
                 when (action) {
-                    ACTION_DELETE -> {}
-                    ACTION_EDIT -> {}
+                    ACTION_DELETE -> deleteCondition(data)
+                    ACTION_EDIT -> addFilterConditionDialog.show(data)
                 }
             }
         }
+    }
+
+    private fun addCondition(data: FilterModel) {
+        filterList.add(data)
+        filterAdapter.notifyDataSetChanged()
+    }
+
+    private fun deleteCondition(data: FilterModel) {
+        filterList.remove(data)
+        filterAdapter.notifyDataSetChanged()
     }
 }

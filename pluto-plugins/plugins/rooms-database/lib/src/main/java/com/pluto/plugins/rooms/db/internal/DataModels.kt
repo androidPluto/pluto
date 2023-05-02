@@ -34,7 +34,11 @@ internal data class ColumnModel(
     val isNotNull: Boolean,
     val defaultValue: String?,
     val isPrimaryKey: Boolean
-) : Parcelable, ListItem()
+) : Parcelable, ListItem() {
+    override fun equals(other: Any?): Boolean {
+        return other is ColumnModel && other.columnId == columnId
+    }
+}
 
 internal typealias RawTableContents = Pair<List<String>, List<List<String>>>
 
@@ -50,10 +54,25 @@ internal data class RowDetailsData(
 ) : Parcelable
 
 internal data class FilterModel(
-    val column: String,
+    val column: ColumnModel,
     val value: String?,
-    val relation: FilterRelation
-) : ListItem()
+    val relation: FilterRelation = FilterRelation.Equals
+) : ListItem(), Comparable<FilterModel> {
+    override fun compareTo(other: FilterModel): Int {
+        return column.name.compareTo(other.column.name)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is FilterModel && other.column == column
+    }
+
+    override fun isSame(other: Any): Boolean {
+        return other is FilterModel &&
+            other.column == column &&
+            other.value == value &&
+            other.relation.symbol == relation.symbol
+    }
+}
 
 internal sealed class RowAction {
     class Click(val isInsert: Boolean) : RowAction()

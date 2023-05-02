@@ -40,7 +40,7 @@ internal class Query private constructor() {
                 if (!filters.isNullOrEmpty()) {
                     stringBuilder.append(" WHERE")
                     filters.filter { it.value != null }.forEachIndexed { index, filter ->
-                        stringBuilder.append(" ${filter.column}")
+                        stringBuilder.append(" ${filter.column.name}")
                         when (filter.relation) {
                             FilterRelation.Equals -> stringBuilder.append(" = '${filter.value}'")
                             FilterRelation.NotEquals -> stringBuilder.append(" != '${filter.value}'")

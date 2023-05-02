@@ -15,7 +15,6 @@ import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.SingleLiveEvent
-import com.pluto.utilities.extensions.add
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -308,10 +307,10 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         sortBy = null
     }
 
-    fun addFilter(filterModel: FilterModel) {
+    fun updateFilter(filterList: List<FilterModel>) {
         currentTable.value?.name?.let {
-            _filterConfig.add(filterModel)
-            FilterConfig.add(Executor.instance.databaseName, it, filterModel)
+            _filterConfig.postValue(filterList)
+            FilterConfig.set(Executor.instance.databaseName, it, filterList)
         }
     }
 

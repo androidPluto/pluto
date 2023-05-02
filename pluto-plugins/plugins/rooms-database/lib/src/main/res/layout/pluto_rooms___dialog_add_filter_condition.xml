@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/pluto___margin_medium"
+        android:background="@color/pluto___app_bg"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/pluto___section_color"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingHorizontal="@dimen/pluto___margin_medium"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto_rooms___filter_condition_title"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/column"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="column name"
+                android:fontFamily="@font/muli_semibold"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_medium"
+                android:padding="@dimen/pluto___margin_small"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/relation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginVertical="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___dark"
+                android:fontFamily="@font/muli_bold"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text=">="
+                android:gravity="center"
+                app:layout_constraintDimensionRatio="1"
+                android:textColor="@color/pluto___white_80"
+                android:textSize="@dimen/pluto___text_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/column" />
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="0dp"
+                android:hint="enter value"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/pluto___margin_xsmall"
+                android:layout_marginEnd="@dimen/pluto___margin_medium"
+                android:background="@color/pluto___dark_05"
+                android:fontFamily="@font/muli_semibold"
+                android:padding="@dimen/pluto___margin_small"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/relation"
+                app:layout_constraintTop_toBottomOf="@+id/column" />
+
+            <Button
+                android:id="@+id/cta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/relation"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="apply"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

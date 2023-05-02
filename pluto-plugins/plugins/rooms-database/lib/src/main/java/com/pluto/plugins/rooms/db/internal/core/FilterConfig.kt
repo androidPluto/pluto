@@ -13,10 +13,10 @@ internal object FilterConfig {
         filterConfigsMap.remove(generateKey(databaseName, name))
     }
 
-    fun add(databaseName: String, name: String, configs: List<FilterModel>) {
+    fun set(databaseName: String, name: String, configs: List<FilterModel>) {
         val key = generateKey(databaseName, name)
         val list = arrayListOf<FilterModel>().apply {
-            filterConfigsMap[key]?.let { addAll(it) }
+//            filterConfigsMap[key]?.let { addAll(it) }
             addAll(configs)
         }
         filterConfigsMap[key] = list

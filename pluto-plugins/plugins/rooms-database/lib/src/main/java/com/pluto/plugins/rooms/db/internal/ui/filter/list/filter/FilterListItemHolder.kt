@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.ui.list.filter
+package com.pluto.plugins.rooms.db.internal.ui.filter.list.filter
 
 import android.view.ViewGroup
 import com.pluto.plugins.rooms.db.R
@@ -19,7 +19,7 @@ internal class FilterListItemHolder(
 
     override fun onBind(item: ListItem) {
         if (item is FilterModel) {
-            binding.column.text = item.column
+            binding.column.text = item.column.name
             binding.relation.text = item.relation.symbol
             binding.values.text = item.value
             binding.root.setOnDebounceClickListener {
