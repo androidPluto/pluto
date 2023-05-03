@@ -52,9 +52,8 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
         get() = _rowCounts
     private val _rowCounts = SingleLiveEvent<Pair<Int, Int?>>()
 
-    val filterConfig: LiveData<List<FilterModel>>
-        get() = _filterConfig
-    private val _filterConfig = MutableLiveData<List<FilterModel>>()
+    var filters: List<FilterModel> = emptyList()
+        private set
 
     var sortBy: Pair<String, SortBy>? = null
         private set
@@ -95,8 +94,9 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                             }
                         }
                         if (processedTableList.size == 1) {
-                            _currentTable.postValue(processedTableList.first())
-                            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, processedTableList.first().name))
+                            selectTable(processedTableList.first())
+//                            _currentTable.postValue(processedTableList.first())
+//                            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, processedTableList.first().name))
                         } else {
                             _currentTable.postValue(null)
                         }
@@ -113,6 +113,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     fun selectTable(table: TableModel) {
         if (table.name != _currentTable.value?.name) {
             sortBy = null
+            filters = FilterConfig.get(Executor.instance.databaseName, table.name)
         }
         _currentTable.postValue(table)
     }
@@ -134,10 +135,10 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                             )
                         }
 
-                        Executor.instance.query(Query.Tables.values(table, filterConfig.value, sortBy)).collect { valueResult ->
+                        Executor.instance.query(Query.Tables.values(table, filters, sortBy)).collect { valueResult ->
                             when (valueResult) {
                                 is ExecuteResult.Success.Query -> {
-                                    if (filterConfig.value.isNullOrEmpty()) {
+                                    if (filters.isEmpty()) {
                                         _rowCounts.postValue(Pair(valueResult.data.second.size, valueResult.data.second.size))
                                     } else {
                                         fetchRowCount(table, valueResult.data.second.size)
@@ -308,9 +309,10 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
     }
 
     fun updateFilter(filterList: List<FilterModel>) {
-        currentTable.value?.name?.let {
-            _filterConfig.postValue(filterList)
-            FilterConfig.set(Executor.instance.databaseName, it, filterList)
+        currentTable.value?.let {
+            filters = filterList
+            FilterConfig.set(Executor.instance.databaseName, it.name, filterList)
+            selectTable(it)
         }
     }
 

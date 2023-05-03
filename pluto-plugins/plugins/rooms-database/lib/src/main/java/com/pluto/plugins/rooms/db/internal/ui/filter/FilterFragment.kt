@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -67,21 +66,14 @@ internal class FilterFragment : BottomSheetDialogFragment() {
             viewModel.updateFilter(filterList)
             dismiss()
         }
+        filterList.addAll(viewModel.filters)
         filterAdapter.list = filterList
-
-        viewModel.filterConfig.removeObserver(filterConfigObserver)
-        viewModel.filterConfig.observe(viewLifecycleOwner, filterConfigObserver)
     }
 
     private fun openColumnChooser() {
-        ChooseColumnForFilterDialog(this, viewModel.processedTableContent, viewModel.filterConfig.value) {
+        ChooseColumnForFilterDialog(this, viewModel.processedTableContent, viewModel.filters) {
             addFilterConditionDialog.show(FilterModel(it, null))
         }.show()
-    }
-
-    private val filterConfigObserver = Observer<List<FilterModel>> {
-        filterList.addAll(it)
-        filterAdapter.notifyDataSetChanged()
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
