@@ -41,4 +41,5 @@
     <string name="pluto_rooms___no_data_filter_condition_applied">No condition added</string>
     <string name="pluto_rooms___filter_condition_title">Filter Condition</string>
     <string name="pluto_rooms___select_column">Choose Column for Filter</string>
+    <string name="pluto_rooms___select_relation">Choose Relation</string>
 </resources>

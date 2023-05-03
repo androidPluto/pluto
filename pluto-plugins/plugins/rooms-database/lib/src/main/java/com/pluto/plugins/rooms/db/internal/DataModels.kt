@@ -81,11 +81,11 @@ internal sealed class RowAction {
     object Duplicate : RowAction()
 }
 
-internal sealed class FilterRelation(val symbol: String) {
+internal sealed class FilterRelation(val symbol: String) : ListItem() {
     object Equals : FilterRelation("=")
     object NotEquals : FilterRelation("!=")
     object Like : FilterRelation("%")
-    object Between : FilterRelation("BTW")
+    object Between : FilterRelation("BETWEEN")
     object In : FilterRelation("IN")
     object LessThan : FilterRelation("<")
     object LessThanOrEquals : FilterRelation("<=")
