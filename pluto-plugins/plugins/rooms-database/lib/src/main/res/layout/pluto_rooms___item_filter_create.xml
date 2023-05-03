@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/pluto___margin_small"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingVertical="@dimen/pluto___margin_small"
+    android:paddingHorizontal="@dimen/pluto___margin_medium"
     tools:background="@color/pluto___app_bg">
 
     <TextView

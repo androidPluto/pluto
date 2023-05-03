@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,6 +18,7 @@ import com.pluto.plugins.rooms.db.internal.ui.filter.list.filter.FilterListItemH
 import com.pluto.plugins.rooms.db.internal.ui.filter.list.filter.FilterListItemHolder.Companion.ACTION_EDIT
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -54,7 +56,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
         }
         binding.list.apply {
             adapter = filterAdapter
-            addItemDecoration(CustomItemDecorator(requireContext()))
+            addItemDecoration(CustomItemDecorator(requireContext(), 16f.dp.toInt()))
         }
         binding.noItemText.setOnDebounceClickListener {
             openColumnChooser()
@@ -68,6 +70,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
         }
         filterList.addAll(viewModel.filters)
         filterAdapter.list = filterList
+        binding.noItemText.isVisible = filterList.isEmpty()
     }
 
     private fun openColumnChooser() {
@@ -90,10 +93,12 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     private fun addCondition(data: FilterModel) {
         filterList.add(data)
         filterAdapter.notifyDataSetChanged()
+        binding.noItemText.isVisible = filterList.isEmpty()
     }
 
     private fun deleteCondition(data: FilterModel) {
         filterList.remove(data)
         filterAdapter.notifyDataSetChanged()
+        binding.noItemText.isVisible = filterList.isEmpty()
     }
 }
