@@ -91,6 +91,9 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun addCondition(data: FilterModel) {
+        if (filterList.contains(data)) {
+            filterList.remove(data)
+        }
         filterList.add(data)
         filterAdapter.notifyDataSetChanged()
         binding.noItemText.isVisible = filterList.isEmpty()
