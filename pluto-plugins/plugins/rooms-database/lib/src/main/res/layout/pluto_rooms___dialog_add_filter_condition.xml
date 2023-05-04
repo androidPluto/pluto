@@ -38,11 +38,11 @@
                 android:id="@+id/column"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="column name"
-                android:fontFamily="@font/muli_semibold"
                 android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_marginTop="@dimen/pluto___margin_medium"
+                android:fontFamily="@font/muli_semibold"
                 android:padding="@dimen/pluto___margin_small"
+                android:text="column name"
                 android:textColor="@color/pluto___text_dark_80"
                 android:textSize="@dimen/pluto___text_xmedium"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,46 +54,55 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_marginVertical="@dimen/pluto___margin_medium"
-                android:background="@color/pluto___dark"
-                android:fontFamily="@font/muli_bold"
+                android:background="@drawable/pluto_rooms___bg_edittext_round"
+                android:drawableEnd="@drawable/pluto_rooms___ic_chevron_right"
+                android:drawablePadding="@dimen/pluto___margin_small"
+                android:fontFamily="@font/muli"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/pluto___margin_small"
                 android:paddingVertical="@dimen/pluto___margin_small"
                 android:text=">="
-                android:gravity="center"
-                app:layout_constraintDimensionRatio="1"
-                android:textColor="@color/pluto___white_80"
-                android:textSize="@dimen/pluto___text_medium"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/pluto___text_dark_60"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/column" />
 
-            <EditText
-                android:id="@+id/value"
+            <FrameLayout
+                android:id="@+id/valueStub"
                 android:layout_width="0dp"
-                android:hint="enter value"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/pluto___margin_xsmall"
-                android:layout_marginEnd="@dimen/pluto___margin_medium"
-                android:background="@color/pluto___dark_05"
+                android:layout_marginTop="@dimen/pluto___margin_xsmall"
                 android:fontFamily="@font/muli_semibold"
-                android:padding="@dimen/pluto___margin_small"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/pluto___text_dark_80"
-                android:textSize="@dimen/pluto___text_xmedium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/relation"
-                app:layout_constraintTop_toBottomOf="@+id/column" />
+                app:layout_constraintEnd_toEndOf="@+id/relation"
+                app:layout_constraintStart_toStartOf="@+id/relation"
+                app:layout_constraintTop_toBottomOf="@+id/relation" />
 
-            <Button
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/relation"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="apply"
+                android:layout_marginHorizontal="@dimen/pluto___margin_small"
+                android:layout_marginTop="@dimen/pluto___margin_xsmall"
+                android:layout_marginBottom="@dimen/pluto___margin_medium"
+                app:cardBackgroundColor="@color/pluto___dark"
+                app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/pluto___margin_medium"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/valueStub">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_semibold"
+                    android:gravity="center"
+                    android:padding="@dimen/pluto___margin_small"
+                    android:text="@string/pluto_rooms___apply_condition"
+                    android:textColor="@color/pluto___white"
+                    android:textSize="@dimen/pluto___text_xmedium" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,15 +9,20 @@ import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDialogAddFilterConditionBinding
 import com.pluto.plugins.rooms.db.internal.FilterModel
 import com.pluto.plugins.rooms.db.internal.FilterRelation
+import com.pluto.plugins.rooms.db.internal.ui.filter.value.ValueStubFactory
+import com.pluto.plugins.rooms.db.internal.ui.filter.value.components.BaseValueStub
 import com.pluto.utilities.device.Device
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.setSpan
 
 internal class AddFilterConditionDialog(
     context: Context,
     onAction: (FilterModel) -> Unit
 ) : BottomSheetDialog(context, R.style.PlutoRoomsDBBottomSheetDialog) {
 
+    private var valueStub: BaseValueStub? = null
     private val sheetView: View = context.inflate(R.layout.pluto_rooms___dialog_add_filter_condition)
     private val binding = PlutoRoomsDialogAddFilterConditionBinding.bind(sheetView)
     private var data: FilterModel? = null
@@ -39,27 +44,41 @@ internal class AddFilterConditionDialog(
             }
             data?.let { filter ->
                 binding.column.text = filter.column.name
-                relation = filter.relation
-                binding.relation.text = filter.relation.symbol
-                binding.value.setText(data?.value)
+                updateUi(filter.relation, data?.value)
                 binding.cta.setOnDebounceClickListener {
                     onAction.invoke(
                         FilterModel(
                             column = filter.column,
                             relation = relation,
-                            value = binding.value.text.toString()
+                            value = valueStub?.getValue()
                         )
                     )
                     dismiss()
                 }
                 binding.relation.setOnDebounceClickListener {
                     ChooseRelationDialog(context, filter.column) {
-                        relation = it
-                        binding.relation.text = it.symbol
+                        updateUi(it, valueStub?.getValue())
                     }.show()
                 }
             }
         }
+    }
+
+    private fun updateUi(relation: FilterRelation, value: String?) {
+        this.relation = relation
+        binding.relation.setSpan {
+            append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
+            append(italic(light("\t\t(${relation.javaClass.simpleName})")))
+        }
+        refreshValueView(relation, value)
+    }
+
+    private fun refreshValueView(relation: FilterRelation, value: String?) {
+        binding.valueStub.getChildAt(0)?.let { binding.valueStub.removeView(it) }
+        valueStub = ValueStubFactory.getStub(context, relation).apply {
+            setValue(value)
+        }
+        binding.valueStub.addView(valueStub)
     }
 
     fun show(data: FilterModel) {
