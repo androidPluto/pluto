@@ -56,9 +56,9 @@ internal class ChooseRelationDialog(
                         add(FilterRelation.GreaterThanOrEquals)
                         add(FilterRelation.LessThan)
                         add(FilterRelation.LessThanOrEquals)
+                        add(FilterRelation.Between)
                     }
                     add(FilterRelation.In)
-                    add(FilterRelation.Between)
                 }
             )
         }

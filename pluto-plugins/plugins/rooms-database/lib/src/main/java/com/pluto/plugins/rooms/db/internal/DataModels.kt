@@ -85,7 +85,7 @@ internal sealed class FilterRelation(val symbol: String) : ListItem() {
     object Equals : FilterRelation("=")
     object NotEquals : FilterRelation("!=")
     object Like : FilterRelation("%")
-    object Between : FilterRelation("BETWEEN")
+    object Between : FilterRelation("BTW")
     object In : FilterRelation("IN")
     object LessThan : FilterRelation("<")
     object LessThanOrEquals : FilterRelation("<=")

@@ -23,9 +23,7 @@ internal class FilterRelationListItemHolder(
         if (item is FilterRelation) {
             binding.name.setSpan {
                 append(bold(fontColor(item.symbol, context.color(R.color.pluto___text_dark_80))))
-                if (item.symbol.lowercase() != item.javaClass.simpleName.lowercase()) {
-                    append(italic("\t\t(${item.javaClass.simpleName})"))
-                }
+                append(italic("\t\t(${item.javaClass.simpleName})"))
             }
             binding.root.setOnDebounceClickListener {
                 onAction("click")
