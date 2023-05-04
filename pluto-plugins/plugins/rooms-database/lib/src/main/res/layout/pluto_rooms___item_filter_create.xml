@@ -22,7 +22,7 @@
         app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="log tag" />
@@ -59,9 +59,21 @@
         app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/column"
         app:layout_constraintStart_toEndOf="@+id/relation"
         app:layout_constraintTop_toBottomOf="@+id/column"
         tools:text="log tag" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="0dp"
+        android:padding="@dimen/pluto___margin_small"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        android:src="@drawable/pluto_rooms___ic_filter_item_delete"
+        android:background="@drawable/pluto_rooms___bg_filter_item_delete"
+        app:layout_constraintTop_toTopOf="@+id/column"
+        app:layout_constraintBottom_toBottomOf="@+id/values"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

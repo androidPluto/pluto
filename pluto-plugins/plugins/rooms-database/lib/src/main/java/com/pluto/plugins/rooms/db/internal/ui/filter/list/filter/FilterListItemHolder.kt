@@ -25,6 +25,9 @@ internal class FilterListItemHolder(
             binding.root.setOnDebounceClickListener {
                 onAction(ACTION_EDIT)
             }
+            binding.delete.setOnDebounceClickListener {
+                onAction(ACTION_DELETE)
+            }
         }
     }
 

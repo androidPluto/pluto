@@ -68,6 +68,12 @@ internal class FilterFragment : BottomSheetDialogFragment() {
             viewModel.updateFilter(filterList)
             dismiss()
         }
+        binding.clearFilter.setOnDebounceClickListener {
+            filterList.clear()
+            viewModel.updateFilter(filterList)
+            dismiss()
+        }
+        binding.clearFilter.isVisible = viewModel.filters.isNotEmpty()
         filterList.addAll(viewModel.filters)
         filterAdapter.list = filterList
         binding.noItemText.isVisible = filterList.isEmpty()

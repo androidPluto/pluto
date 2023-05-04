@@ -37,9 +37,10 @@
     <string name="pluto_rooms___table_schema">Table schema</string>
     <string name="pluto_rooms___query_error">Error</string>
     <string name="pluto_rooms___create_filter_title">Create Filter</string>
-    <string name="pluto_rooms___apply_filter_cta_text">Apply Filter</string>
+    <string name="pluto_rooms___apply_filter_cta_text">Save Filter</string>
     <string name="pluto_rooms___no_data_filter_condition_applied">No condition added</string>
     <string name="pluto_rooms___filter_condition_title">Filter Condition</string>
     <string name="pluto_rooms___select_column">Choose Column for Filter</string>
     <string name="pluto_rooms___select_relation">Choose Relation</string>
+    <string name="pluto_rooms___clear_filter_cta_text">Clear All</string>
 </resources>

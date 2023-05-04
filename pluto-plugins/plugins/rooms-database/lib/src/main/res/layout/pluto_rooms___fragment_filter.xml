@@ -117,18 +117,18 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:id="@+id/applyFilter"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/pluto___margin_small"
                         app:cardBackgroundColor="@color/pluto___dark"
                         app:cardCornerRadius="@dimen/pluto___margin_xsmall"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/clearFilter"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/warning">
 
                         <TextView
-                            android:id="@+id/applyFilter"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/muli_semibold"
@@ -138,6 +138,30 @@
                             android:textColor="@color/pluto___white"
                             android:textSize="@dimen/pluto___text_xmedium" />
 
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/clearFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/pluto___margin_small"
+                        app:cardBackgroundColor="#eeecec"
+                        android:backgroundTint="#eeecec"
+                        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/warning">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/muli_semibold"
+                            android:gravity="center"
+                            android:padding="@dimen/pluto___margin_small"
+                            android:text="@string/pluto_rooms___clear_filter_cta_text"
+                            android:textColor="@color/pluto___dark_60"
+                            android:textSize="@dimen/pluto___text_xmedium" />
 
                     </androidx.cardview.widget.CardView>
 
