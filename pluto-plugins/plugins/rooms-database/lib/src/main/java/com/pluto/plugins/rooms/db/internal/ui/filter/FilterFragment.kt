@@ -74,7 +74,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun openColumnChooser() {
-        ChooseColumnForFilterDialog(this, viewModel.processedTableContent, viewModel.filters) {
+        ChooseColumnForFilterDialog(this, viewModel.processedTableContent, filterList) {
             addFilterConditionDialog.show(FilterModel(it, null))
         }.show()
     }

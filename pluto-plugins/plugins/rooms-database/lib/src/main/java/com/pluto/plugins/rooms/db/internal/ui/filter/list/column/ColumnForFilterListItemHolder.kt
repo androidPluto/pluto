@@ -24,16 +24,19 @@ internal class ColumnForFilterListItemHolder(
 
     override fun onBind(item: ListItem) {
         if (item is ColumnModel) {
-            binding.value.setSpan {
-                if (alreadyUsedColumns.contains(item)) {
-                    append(fontColor(item.name, context.color(R.color.pluto___text_dark_40)))
-                } else {
+            if (alreadyUsedColumns.contains(item)) {
+                binding.value.setSpan {
+                    append(semiBold(fontColor(item.name, context.color(R.color.pluto___text_dark_40))))
+                    append(italic(light(fontColor("\t(already applied)", context.color(R.color.pluto___text_dark_40)))))
+                }
+                binding.root.setOnDebounceClickListener {}
+            } else {
+                binding.value.setSpan {
                     append(semiBold(fontColor(item.name, context.color(R.color.pluto___text_dark_80))))
                 }
-            }
-            binding.value.text = item.name
-            binding.root.setOnDebounceClickListener {
-                onAction("click")
+                binding.root.setOnDebounceClickListener {
+                    onAction("click")
+                }
             }
         }
     }
