@@ -1,4 +1,4 @@
-package com.pluto.plugins.rooms.db.internal.core
+package com.pluto.plugins.rooms.db.internal.ui.filter
 
 import com.pluto.plugins.rooms.db.internal.FilterModel
 

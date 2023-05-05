@@ -1,8 +1,8 @@
 package com.pluto.plugins.rooms.db.internal.core.query
 
 import com.pluto.plugins.rooms.db.internal.FilterModel
-import com.pluto.plugins.rooms.db.internal.FilterRelation
 import com.pluto.plugins.rooms.db.internal.SortBy
+import com.pluto.plugins.rooms.db.internal.ui.filter.FilterQueryTransformer
 import java.lang.StringBuilder
 
 internal class Query private constructor() {
@@ -41,17 +41,7 @@ internal class Query private constructor() {
                     stringBuilder.append(" WHERE")
                     filters.filter { it.value != null }.forEachIndexed { index, filter ->
                         stringBuilder.append(" ${filter.column.name}")
-                        when (filter.relation) {
-                            FilterRelation.Equals -> stringBuilder.append(" = '${filter.value}'")
-                            FilterRelation.NotEquals -> stringBuilder.append(" != '${filter.value}'")
-                            FilterRelation.Like -> stringBuilder.append(" LIKE '%${filter.value}%'")
-                            FilterRelation.GreaterThan -> stringBuilder.append(" > ${filter.value}")
-                            FilterRelation.GreaterThanOrEquals -> stringBuilder.append(" >= ${filter.value}")
-                            FilterRelation.LessThan -> stringBuilder.append(" < ${filter.value}")
-                            FilterRelation.LessThanOrEquals -> stringBuilder.append(" <= ${filter.value}")
-                            FilterRelation.Between -> stringBuilder.append(" BETWEEN ${filter.value} AND ${filter.value}")
-                            FilterRelation.In -> stringBuilder.append(" IN (${filter.value})")
-                        }
+                        stringBuilder.append(FilterQueryTransformer.transform(filter.value, filter.relation))
                         if (index < filters.lastIndex) {
                             stringBuilder.append(" AND")
                         }

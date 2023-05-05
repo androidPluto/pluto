@@ -2,11 +2,13 @@ package com.pluto.plugins.rooms.db.internal.ui.filter
 
 import android.content.Context
 import android.view.View
+import android.view.WindowManager
 import android.widget.FrameLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsDialogAddFilterConditionBinding
+import com.pluto.plugins.rooms.db.internal.ColumnModel
 import com.pluto.plugins.rooms.db.internal.FilterModel
 import com.pluto.plugins.rooms.db.internal.FilterRelation
 import com.pluto.plugins.rooms.db.internal.ui.filter.value.ValueStubFactory
@@ -41,10 +43,11 @@ internal class AddFilterConditionDialog(
                     skipCollapsed = true
                     peekHeight = deviceInfo.screen.heightPx
                 }
+                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             }
             data?.let { filter ->
                 binding.column.text = filter.column.name
-                updateUi(filter.relation, data?.value)
+                updateUi(filter.relation, filter.column, data?.value)
                 binding.cta.setOnDebounceClickListener {
                     onAction.invoke(
                         FilterModel(
@@ -57,25 +60,25 @@ internal class AddFilterConditionDialog(
                 }
                 binding.relation.setOnDebounceClickListener {
                     ChooseRelationDialog(context, filter.column) {
-                        updateUi(it, valueStub?.getValue())
+                        updateUi(it, filter.column, valueStub?.getValue())
                     }.show()
                 }
             }
         }
     }
 
-    private fun updateUi(relation: FilterRelation, value: String?) {
+    private fun updateUi(relation: FilterRelation, column: ColumnModel, value: String?) {
         this.relation = relation
         binding.relation.setSpan {
             append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
             append(italic(light("\t\t(${relation.javaClass.simpleName})")))
         }
-        refreshValueView(relation, value)
+        refreshValueView(relation, column, value)
     }
 
-    private fun refreshValueView(relation: FilterRelation, value: String?) {
+    private fun refreshValueView(relation: FilterRelation, column: ColumnModel, value: String?) {
         binding.valueStub.getChildAt(0)?.let { binding.valueStub.removeView(it) }
-        valueStub = ValueStubFactory.getStub(context, relation).apply {
+        valueStub = ValueStubFactory.getStub(context, relation, column).apply {
             setValue(value)
         }
         binding.valueStub.addView(valueStub)

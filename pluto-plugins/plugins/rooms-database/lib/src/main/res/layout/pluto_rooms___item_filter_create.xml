@@ -80,7 +80,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/muli"
         android:maxLines="1"
-        android:textColor="@color/pluto___text_dark_60"
+        android:textColor="@color/pluto___text_dark_80"
         android:textSize="@dimen/pluto___text_small"
         app:layout_constraintEnd_toEndOf="@+id/column"
         app:layout_constraintStart_toStartOf="@+id/column"

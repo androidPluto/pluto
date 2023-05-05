@@ -1,14 +1,19 @@
 package com.pluto.plugins.rooms.db.internal.ui.filter.list.filter
 
+import android.content.Context
 import android.view.ViewGroup
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsItemFilterCreateBinding
 import com.pluto.plugins.rooms.db.internal.FilterModel
+import com.pluto.plugins.rooms.db.internal.FilterRelation
+import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.spannable.createSpan
+import com.pluto.utilities.spannable.setSpan
 
 internal class FilterListItemHolder(
     parent: ViewGroup,
@@ -21,7 +26,7 @@ internal class FilterListItemHolder(
         if (item is FilterModel) {
             binding.column.text = item.column.name
             binding.relation.text = item.relation.symbol
-            binding.values.text = item.value
+            binding.values.setSpan { append(getFormattedValue(context, item)) }
             binding.root.setOnDebounceClickListener {
                 onAction(ACTION_EDIT)
             }
@@ -34,5 +39,40 @@ internal class FilterListItemHolder(
     companion object {
         const val ACTION_DELETE = "delete"
         const val ACTION_EDIT = "edit"
+    }
+
+    private fun getFormattedValue(context: Context, item: FilterModel): CharSequence {
+        return when (item.relation) {
+            is FilterRelation.Between -> {
+                val split = item.value?.split(",")
+                if (!split.isNullOrEmpty()) {
+                    context.createSpan {
+                        append(regular(split[0].trim()))
+                        append(light(fontColor(" & ", context.color(R.color.pluto___text_dark_40))))
+                        append(regular(split[1].trim()))
+                    }
+                } else {
+                    item.value ?: ""
+                }
+            }
+
+            is FilterRelation.In -> {
+                val split = item.value?.split(",")
+                if (!split.isNullOrEmpty()) {
+                    context.createSpan {
+                        split.forEachIndexed { index, value ->
+                            append(regular(value.trim()))
+                            if (index < split.lastIndex) {
+                                append(light(fontColor(" , ", context.color(R.color.pluto___text_dark_40))))
+                            }
+                        }
+                    }
+                } else {
+                    item.value ?: ""
+                }
+            }
+
+            else -> item.value ?: ""
+        }
     }
 }

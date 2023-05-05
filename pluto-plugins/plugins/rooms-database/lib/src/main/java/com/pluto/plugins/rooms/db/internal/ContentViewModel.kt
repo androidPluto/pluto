@@ -8,11 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher.LOG_TAG
-import com.pluto.plugins.rooms.db.internal.core.FilterConfig
 import com.pluto.plugins.rooms.db.internal.core.isSystemTable
 import com.pluto.plugins.rooms.db.internal.core.query.ExecuteResult
 import com.pluto.plugins.rooms.db.internal.core.query.Executor
 import com.pluto.plugins.rooms.db.internal.core.query.Query
+import com.pluto.plugins.rooms.db.internal.ui.filter.FilterConfig
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
