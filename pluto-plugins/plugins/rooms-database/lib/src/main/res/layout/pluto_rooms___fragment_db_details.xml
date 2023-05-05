@@ -204,14 +204,6 @@
             app:layout_constraintTop_toTopOf="@+id/applyFilter"
             tools:text="Showing 103/5003" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/footerGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="footer,footerBorder,applyFilter,count"
-            tools:visibility="visible" />
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/loader"
             android:layout_width="match_parent"

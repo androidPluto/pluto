@@ -43,6 +43,10 @@
         <action
             android:id="@+id/openFilterView"
             app:destination="@id/filterView" />
+
+        <action
+            android:id="@+id/openQueryErrorDialog"
+            app:destination="@id/queryErrorDialog" />
     </fragment>
 
     <dialog

@@ -90,6 +90,10 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 binding.pullToRefresh.isRefreshing = false
             }
 
+            binding.applyFilter.setOnDebounceClickListener(haptic = true) {
+                findNavController().navigate(R.id.openFilterView)
+            }
+
             viewModel.currentTable.removeObserver(currentTableObserver)
             viewModel.currentTable.observe(viewLifecycleOwner, currentTableObserver)
 
@@ -176,6 +180,10 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
             }
             append(" rows")
         }
+        setupFilterUi()
+    }
+
+    private fun setupFilterUi() {
         if (viewModel.filters.isEmpty()) {
             binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
             binding.applyFilter.setSpan {
@@ -199,18 +207,19 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 )
             }
         }
-        binding.applyFilter.setOnDebounceClickListener(haptic = true) {
-            findNavController().navigate(R.id.openFilterView)
-        }
     }
 
     private fun handleError(error: String, exception: Exception) {
         when (error) {
             ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
-                toast("Error (see logs):\n${exception.message}")
+                findNavController().navigate(
+                    R.id.openQueryErrorDialog,
+                    bundleOf(QueryErrorFragment.ERROR_MESSAGE to exception.message)
+                )
                 DebugLog.e(LOG_TAG, "error while fetching from table", exception)
             }
         }
+        setupFilterUi()
     }
 
     private val currentTableObserver = Observer<TableModel?> { table ->
@@ -264,7 +273,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
     private val tableUIObserver = Observer<HorizontalScrollView> {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             binding.loader.visibility = GONE
-            binding.footerGroup.visibility = VISIBLE
+            binding.count.visibility = VISIBLE
             binding.nsv.removeAllViews()
             binding.nsv.addView(it)
         }
@@ -273,7 +282,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
     private fun resetTableGrid() {
         binding.nsv.scrollTo(0, 0)
         binding.nsv.removeAllViews()
-        binding.footerGroup.visibility = GONE
+        binding.count.visibility = GONE
     }
 
     private fun convertArguments(arguments: Bundle?): DatabaseModel? {
