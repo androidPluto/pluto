@@ -50,13 +50,13 @@
 
             <TextView
                 android:id="@+id/relation"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_marginVertical="@dimen/pluto___margin_medium"
-                android:background="@drawable/pluto_rooms___bg_edittext_round"
+                android:background="@drawable/pluto_rooms___bg_filter_relation_editor"
                 android:drawableEnd="@drawable/pluto_rooms___ic_chevron_right"
-                android:drawablePadding="@dimen/pluto___margin_small"
+                android:drawablePadding="@dimen/pluto___margin_medium"
                 android:fontFamily="@font/muli"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/pluto___margin_small"
@@ -64,18 +64,18 @@
                 android:text=">="
                 android:textColor="@color/pluto___text_dark_60"
                 android:textSize="@dimen/pluto___text_small"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/column" />
 
             <FrameLayout
                 android:id="@+id/valueStub"
                 android:layout_width="0dp"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pluto___margin_xsmall"
                 android:fontFamily="@font/muli_semibold"
-                app:layout_constraintEnd_toEndOf="@+id/relation"
-                app:layout_constraintStart_toStartOf="@+id/relation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relation" />
 
             <androidx.cardview.widget.CardView

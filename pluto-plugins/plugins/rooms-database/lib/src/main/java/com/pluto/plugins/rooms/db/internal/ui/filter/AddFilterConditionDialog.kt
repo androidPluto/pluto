@@ -30,6 +30,7 @@ internal class AddFilterConditionDialog(
     private var data: FilterModel? = null
     private var deviceInfo = Device(context)
     private var relation: FilterRelation = FilterRelation.Equals
+    private var isFirstRefresh: Boolean = false
 
     init {
         setContentView(sheetView)
@@ -46,6 +47,7 @@ internal class AddFilterConditionDialog(
                 dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             }
             data?.let { filter ->
+                isFirstRefresh = true
                 binding.column.text = filter.column.name
                 updateUi(filter.relation, filter.column, data?.value)
                 binding.cta.setOnDebounceClickListener {
@@ -68,18 +70,23 @@ internal class AddFilterConditionDialog(
     }
 
     private fun updateUi(relation: FilterRelation, column: ColumnModel, value: String?) {
-        this.relation = relation
-        binding.relation.setSpan {
-            append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
-            append(italic(light("\t\t(${relation.javaClass.simpleName})")))
+        if (isFirstRefresh || this.relation != relation) {
+            this.relation = relation
+            binding.relation.setSpan {
+                append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
+                append(italic(light("\t\t(${relation.javaClass.simpleName})")))
+            }
+            refreshValueView(relation, column, value)
+            isFirstRefresh = false
         }
-        refreshValueView(relation, column, value)
     }
 
     private fun refreshValueView(relation: FilterRelation, column: ColumnModel, value: String?) {
         binding.valueStub.getChildAt(0)?.let { binding.valueStub.removeView(it) }
         valueStub = ValueStubFactory.getStub(context, relation, column).apply {
-            setValue(value)
+            if (isFirstRefresh) {
+                setValue(value)
+            }
         }
         binding.valueStub.addView(valueStub)
     }

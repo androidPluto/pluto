@@ -19,6 +19,10 @@ internal class BetweenValueStub(context: Context) : BaseValueStub(context) {
     }
 
     override fun setValue(value: String?) {
-        binding.value1.setText(value)
+        val split = value?.split(",")
+        if (!split.isNullOrEmpty()) {
+            binding.value1.setText(split[0].trim())
+            binding.value2.setText(split[1].trim())
+        }
     }
 }

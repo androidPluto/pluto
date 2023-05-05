@@ -91,6 +91,14 @@ internal sealed class FilterRelation(val symbol: String) : ListItem() {
     object LessThanOrEquals : FilterRelation("<=")
     object GreaterThan : FilterRelation(">")
     object GreaterThanOrEquals : FilterRelation(">=")
+
+    override fun equals(other: Any?): Boolean {
+        return other is FilterRelation && other.symbol == symbol
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
 }
 
 internal sealed class SortBy(val label: String, @DrawableRes val indicator: Int) {
