@@ -20,17 +20,17 @@ internal class FilterQueryTransformer private constructor() {
 
         private fun transformEquals(value: String?): String {
             return value?.let {
-                " != '$it'"
+                " = '$it'"
             } ?: run {
-                " IS NOT NULL"
+                " IS NULL"
             }
         }
 
         private fun transformNotEquals(value: String?): String {
             return value?.let {
-                " = '$it'"
+                " != '$it'"
             } ?: run {
-                " IS NULL"
+                " IS NOT NULL"
             }
         }
 
