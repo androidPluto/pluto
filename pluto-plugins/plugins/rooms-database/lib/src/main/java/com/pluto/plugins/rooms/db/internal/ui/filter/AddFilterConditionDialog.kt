@@ -51,7 +51,15 @@ internal class AddFilterConditionDialog(
             }
             data?.let { filter ->
                 isFirstRefresh = true
-                binding.column.text = filter.column.name
+                binding.column.setSpan {
+                    append(semiBold(filter.column.name))
+                    append(italic(regular(fontColor("\t(${filter.column.type}, ", context.color(R.color.pluto___text_dark_40)))))
+                    if (filter.column.isNotNull) {
+                        append(italic(regular(fontColor("NOT_NULL)", context.color(R.color.pluto___text_dark_40)))))
+                    } else {
+                        append(italic(regular(fontColor("NULL)", context.color(R.color.pluto___text_dark_40)))))
+                    }
+                }
                 updateUi(filter.relation, filter.column, data?.value)
                 binding.cta.setOnDebounceClickListener {
                     try {
