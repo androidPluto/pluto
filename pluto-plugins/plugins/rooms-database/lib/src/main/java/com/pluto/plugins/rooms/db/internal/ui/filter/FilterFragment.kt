@@ -81,7 +81,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
 
     private fun openColumnChooser() {
         ChooseColumnForFilterDialog(this, viewModel.processedTableContent, filterList) {
-            addFilterConditionDialog.show(FilterModel(it, null))
+            addFilterConditionDialog.add(FilterModel(it, null))
         }.show()
     }
 
@@ -90,7 +90,7 @@ internal class FilterFragment : BottomSheetDialogFragment() {
             if (data is FilterModel) {
                 when (action) {
                     ACTION_DELETE -> deleteCondition(data)
-                    ACTION_EDIT -> addFilterConditionDialog.show(data)
+                    ACTION_EDIT -> addFilterConditionDialog.edit(data)
                 }
             }
         }

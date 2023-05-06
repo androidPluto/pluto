@@ -16,8 +16,10 @@ import com.pluto.plugins.rooms.db.internal.ui.filter.value.components.BaseValueS
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
+import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
+import java.lang.IllegalStateException
 
 internal class AddFilterConditionDialog(
     context: Context,
@@ -31,6 +33,7 @@ internal class AddFilterConditionDialog(
     private var deviceInfo = Device(context)
     private var relation: FilterRelation = FilterRelation.Equals
     private var isFirstRefresh: Boolean = false
+    private var isEdit: Boolean = false
 
     init {
         setContentView(sheetView)
@@ -51,30 +54,34 @@ internal class AddFilterConditionDialog(
                 binding.column.text = filter.column.name
                 updateUi(filter.relation, filter.column, data?.value)
                 binding.cta.setOnDebounceClickListener {
-                    onAction.invoke(
-                        FilterModel(
-                            column = filter.column,
-                            relation = relation,
-                            value = valueStub?.getValue()
+                    try {
+                        onAction.invoke(
+                            FilterModel(
+                                column = filter.column,
+                                relation = relation,
+                                value = valueStub?.getValue()
+                            )
                         )
-                    )
-                    dismiss()
+                        dismiss()
+                    } catch (e: IllegalStateException) {
+                        context.toast(e.message ?: "")
+                    }
                 }
                 binding.relation.setOnDebounceClickListener {
                     ChooseRelationDialog(context, filter.column) {
-                        updateUi(it, filter.column, valueStub?.getValue())
+                        updateUi(it, filter.column)
                     }.show()
                 }
             }
         }
     }
 
-    private fun updateUi(relation: FilterRelation, column: ColumnModel, value: String?) {
+    private fun updateUi(relation: FilterRelation, column: ColumnModel, value: String? = null) {
         if (isFirstRefresh || this.relation != relation) {
             this.relation = relation
             binding.relation.setSpan {
                 append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
-                append(italic(light("\t\t(${relation.javaClass.simpleName})")))
+                append(italic(light("\t(${relation.javaClass.simpleName})")))
             }
             refreshValueView(relation, column, value)
             isFirstRefresh = false
@@ -84,15 +91,22 @@ internal class AddFilterConditionDialog(
     private fun refreshValueView(relation: FilterRelation, column: ColumnModel, value: String?) {
         binding.valueStub.getChildAt(0)?.let { binding.valueStub.removeView(it) }
         valueStub = ValueStubFactory.getStub(context, relation, column).apply {
-            if (isFirstRefresh) {
+            if (isFirstRefresh && isEdit) {
                 setValue(value)
             }
         }
         binding.valueStub.addView(valueStub)
     }
 
-    fun show(data: FilterModel) {
+    fun add(data: FilterModel) {
         this.data = data
+        this.isEdit = false
+        show()
+    }
+
+    fun edit(data: FilterModel) {
+        this.data = data
+        this.isEdit = true
         show()
     }
 }

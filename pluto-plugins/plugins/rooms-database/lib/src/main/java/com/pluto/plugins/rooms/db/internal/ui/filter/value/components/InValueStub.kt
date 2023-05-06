@@ -13,6 +13,7 @@ internal class InValueStub(context: Context, column: ColumnModel) : BaseValueStu
 
     private val binding = PlutoRoomsStubFilterValueInBinding.inflate(LayoutInflater.from(context), this, true)
 
+    @Throws(IllegalStateException::class)
     override fun getValue(): String? {
         return binding.value.text.toString()
     }

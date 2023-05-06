@@ -14,8 +14,12 @@ internal class BetweenValueStub(context: Context) : BaseValueStub(context) {
         binding.value2.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED or InputType.TYPE_NUMBER_FLAG_DECIMAL
     }
 
+    @Throws(IllegalStateException::class)
     override fun getValue(): String? {
-        return "${binding.value1.text},${binding.value2.text}"
+        if (binding.value1.text.trim().isEmpty() || binding.value2.text.trim().isEmpty()) {
+            throw IllegalStateException("values cannot be empty")
+        }
+        return "${binding.value1.text.trim()},${binding.value2.text}"
     }
 
     override fun setValue(value: String?) {

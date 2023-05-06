@@ -60,7 +60,7 @@
                 android:fontFamily="@font/muli"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="@dimen/pluto___margin_small"
-                android:paddingVertical="@dimen/pluto___margin_small"
+                android:paddingVertical="@dimen/pluto___margin_xsmall"
                 android:text=">="
                 android:textColor="@color/pluto___text_dark_60"
                 android:textSize="@dimen/pluto___text_small"

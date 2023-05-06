@@ -6,8 +6,8 @@ internal class FilterQueryTransformer private constructor() {
     companion object {
         fun transform(value: String?, relation: FilterRelation): String {
             return when (relation) {
-                FilterRelation.Equals -> " = '$value'"
-                FilterRelation.NotEquals -> " != '$value'"
+                FilterRelation.Equals -> transformEquals(value)
+                FilterRelation.NotEquals -> transformNotEquals(value)
                 FilterRelation.Like -> " LIKE '%$value%'"
                 FilterRelation.GreaterThan -> " > $value"
                 FilterRelation.GreaterThanOrEquals -> " >= $value"
@@ -15,6 +15,22 @@ internal class FilterQueryTransformer private constructor() {
                 FilterRelation.LessThanOrEquals -> " <= $value"
                 FilterRelation.Between -> transformBetween(value)
                 FilterRelation.In -> transformIn(value)
+            }
+        }
+
+        private fun transformEquals(value: String?): String {
+            return value?.let {
+                " != '$it'"
+            } ?: run {
+                " IS NOT NULL"
+            }
+        }
+
+        private fun transformNotEquals(value: String?): String {
+            return value?.let {
+                " = '$it'"
+            } ?: run {
+                " IS NULL"
             }
         }
 

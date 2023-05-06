@@ -39,7 +39,7 @@ internal class Query private constructor() {
                 stringBuilder.append("SELECT * FROM $table")
                 if (!filters.isNullOrEmpty()) {
                     stringBuilder.append(" WHERE")
-                    filters.filter { it.value != null }.forEachIndexed { index, filter ->
+                    filters.forEachIndexed { index, filter ->
                         stringBuilder.append(" ${filter.column.name}")
                         stringBuilder.append(FilterQueryTransformer.transform(filter.value, filter.relation))
                         if (index < filters.lastIndex) {

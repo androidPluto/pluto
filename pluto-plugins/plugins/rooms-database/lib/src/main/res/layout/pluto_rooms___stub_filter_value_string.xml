@@ -4,13 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/pluto_rooms___bg_edittext_round"
+        app:layout_constraintBottom_toBottomOf="@+id/value"
+        app:layout_constraintTop_toTopOf="@+id/value" />
+
     <EditText
         android:id="@+id/value"
         android:layout_width="0dp"
-        android:hint="enter value"
         android:layout_height="wrap_content"
-        android:background="@drawable/pluto_rooms___bg_edittext_round"
         android:fontFamily="@font/muli_semibold"
+        android:background="@null"
         android:padding="@dimen/pluto___margin_small"
         android:textColorHint="@color/pluto___text_dark_40"
         android:maxLines="1"
@@ -20,5 +26,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nullCta"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:layout_marginRight="@dimen/pluto___margin_mini"
+        android:background="@drawable/pluto_rooms___bg_edittext_nullable"
+        android:fontFamily="@font/muli_semibold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/pluto___margin_medium"
+        android:text="@string/pluto_rooms___null"
+        android:textAllCaps="false"
+        android:textColor="@color/pluto___text_dark_60"
+        app:layout_constraintBottom_toBottomOf="@+id/value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/value" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
