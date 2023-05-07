@@ -27,6 +27,7 @@ import com.pluto.plugins.rooms.db.internal.RowAction
 import com.pluto.plugins.rooms.db.internal.RowDetailsData
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.UIViewModel
+import com.pluto.plugins.rooms.db.internal.core.query.Query
 import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_COLUMN
 import com.pluto.plugins.rooms.db.internal.ui.ColumnDetailsFragment.Companion.ATTR_TABLE
 import com.pluto.utilities.DebugLog
@@ -63,15 +64,11 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 append(bold(" ${dbConfig.name}".uppercase()))
             }
 
-            binding.table.setOnDebounceClickListener {
-                openTableSelector()
-            }
+            binding.table.setOnDebounceClickListener { openTableSelector() }
             binding.alert.setOnDebounceClickListener {
                 context?.toast(getString(R.string.pluto_rooms___system_table_error))
             }
-            binding.close.setOnDebounceClickListener {
-                requireActivity().onBackPressed()
-            }
+            binding.close.setOnDebounceClickListener { requireActivity().onBackPressed() }
             binding.options.setOnDebounceClickListener {
                 viewModel.currentTable.value?.let { table ->
                     context?.showMoreOptions(it, R.menu.pluto_rooms___menu_table_options) { item ->
@@ -84,6 +81,15 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                         }
                     }
                 } ?: toast(getString(R.string.pluto_rooms___select_table_options))
+            }
+            binding.query.setOnDebounceClickListener {
+                viewModel.currentTable.value?.let {
+                    sharer.share(
+                        Shareable(
+                            title = "Share SQL Query", content = Query.Tables.values(it.name, viewModel.filters, viewModel.sortBy)
+                        )
+                    )
+                }
             }
             binding.pullToRefresh.setOnRefreshListener {
                 viewModel.currentTable.value?.let { viewModel.selectTable(it) }
@@ -119,9 +125,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
             sharer.performAction(
                 ShareAction.ShareAsFile(
                     Shareable(
-                        title = "Export $table Table",
-                        content = content.serialize(),
-                        fileName = "Export $table table"
+                        title = "Export $table Table", content = content.serialize(), fileName = "Export $table table"
                     ),
                     "text/csv"
                 )
@@ -173,7 +177,6 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
 
     private val rowCountObserver = Observer<Pair<Int, Int?>> {
         binding.count.setSpan {
-            append("Showing")
             append(bold(" ${it.first}"))
             it.second?.let {
                 append("/$it")
@@ -197,9 +200,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                     fontColor(
                         String.format(
                             resources.getQuantityString(
-                                R.plurals.pluto_rooms___applied_filters,
-                                viewModel.filters.size,
-                                viewModel.filters.size
+                                R.plurals.pluto_rooms___applied_filters, viewModel.filters.size, viewModel.filters.size
                             )
                         ),
                         context.color(R.color.pluto___blue)
@@ -213,8 +214,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
         when (error) {
             ERROR_FETCH_TABLES, ERROR_FETCH_CONTENT, ERROR_ADD_UPDATE_REQUEST -> {
                 findNavController().navigate(
-                    R.id.openQueryErrorDialog,
-                    bundleOf(QueryErrorFragment.ERROR_MESSAGE to exception.message)
+                    R.id.openQueryErrorDialog, bundleOf(QueryErrorFragment.ERROR_MESSAGE to exception.message)
                 )
                 DebugLog.e(LOG_TAG, "error while fetching from table", exception)
             }

@@ -45,4 +45,5 @@
     <string name="pluto_rooms___clear_filter_cta_text">Clear All</string>
     <string name="pluto_rooms___apply_condition">Apply</string>
     <string name="pluto_rooms___in_filter_value_note">Insert comma (,) separated list of values</string>
+    <string name="pluto_rooms___share_sql_query">&lt;SQL&gt;</string>
 </resources>
