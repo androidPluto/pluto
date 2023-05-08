@@ -16,17 +16,7 @@ internal object FilterConfig {
     fun set(databaseName: String, name: String, configs: List<FilterModel>) {
         val key = generateKey(databaseName, name)
         val list = arrayListOf<FilterModel>().apply {
-//            filterConfigsMap[key]?.let { addAll(it) }
             addAll(configs)
-        }
-        filterConfigsMap[key] = list
-    }
-
-    fun add(databaseName: String, name: String, config: FilterModel) {
-        val key = generateKey(databaseName, name)
-        val list = arrayListOf<FilterModel>().apply {
-            filterConfigsMap[key]?.let { addAll(it) }
-            add(config)
         }
         filterConfigsMap[key] = list
     }

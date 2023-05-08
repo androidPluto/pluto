@@ -13,10 +13,10 @@
         android:id="@+id/relationCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/pluto___blue"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
-        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
-        app:cardBackgroundColor="@color/pluto___blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,9 +27,9 @@
             android:ellipsize="end"
             android:fontFamily="@font/muli_bold"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/pluto___margin_mini"
             android:paddingVertical="@dimen/pluto___margin_xsmall"
-            android:maxLines="1"
             android:text=">="
             android:textColor="@color/pluto___white_80"
             android:textSize="@dimen/pluto___text_large"
@@ -54,24 +54,6 @@
         app:layout_constraintStart_toEndOf="@+id/relationCard"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="log tag" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/relation"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:fontFamily="@font/muli_semibold"-->
-    <!--        android:maxLines="1"-->
-    <!--        android:gravity="center"-->
-    <!--        android:paddingHorizontal="@dimen/pluto___margin_xsmall"-->
-    <!--        android:paddingVertical="@dimen/pluto___margin_micro"-->
-    <!--        android:background="@drawable/pluto_rooms___bg_filter_list_relation"-->
-    <!--        android:textColor="@color/pluto___white"-->
-    <!--        android:textSize="@dimen/pluto___text_xxsmall"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/column"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/values"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/values"-->
-    <!--        tools:text="=" />-->
 
     <TextView
         android:id="@+id/values"
