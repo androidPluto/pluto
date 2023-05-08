@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingHorizontal="@dimen/pluto___margin_medium"
+    android:paddingVertical="@dimen/pluto___margin_small"
+    tools:background="@color/pluto___app_bg">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/relationCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/pluto___blue"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/relation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:fontFamily="@font/muli_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/pluto___margin_mini"
+            android:paddingVertical="@dimen/pluto___margin_xsmall"
+            android:text=">="
+            android:textColor="@color/pluto___white_80"
+            android:textSize="@dimen/pluto___text_large"
+            app:autoSizeMaxTextSize="@dimen/pluto___text_large"
+            app:autoSizeMinTextSize="@dimen/pluto___text_xsmall"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/column"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli_semibold"
+        android:maxLines="1"
+        android:textColor="@color/pluto___text_dark"
+        android:textSize="@dimen/pluto___text_xmedium"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
+        app:layout_constraintStart_toEndOf="@+id/relationCard"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="log tag" />
+
+    <TextView
+        android:id="@+id/values"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/muli"
+        android:maxLines="1"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_small"
+        app:layout_constraintEnd_toEndOf="@+id/column"
+        app:layout_constraintStart_toStartOf="@+id/column"
+        app:layout_constraintTop_toBottomOf="@+id/column"
+        tools:text="log tag" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/pluto_rooms___bg_filter_item_delete"
+        android:padding="@dimen/pluto___margin_small"
+        android:src="@drawable/pluto_rooms___ic_filter_item_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/values"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/column" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

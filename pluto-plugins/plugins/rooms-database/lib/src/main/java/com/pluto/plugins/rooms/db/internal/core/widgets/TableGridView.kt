@@ -110,7 +110,11 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             setPadding(PADDING_HORIZONTAL, PADDING_VERTICAL, PADDING_HORIZONTAL, PADDING_VERTICAL)
             setSpan {
                 text?.let {
-                    append(it.truncateExcess(TEXT_OFFSET))
+                    if (it == "") {
+                        append(light(italic(fontColor("blank", context.color(R.color.pluto___text_dark_20)))))
+                    } else {
+                        append(it.truncateExcess(TEXT_OFFSET))
+                    }
                 } ?: run {
                     append(light(italic(fontColor("null", context.color(R.color.pluto___text_dark_20)))))
                 }

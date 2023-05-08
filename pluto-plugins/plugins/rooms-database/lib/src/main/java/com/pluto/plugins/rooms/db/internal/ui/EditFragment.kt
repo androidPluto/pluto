@@ -1,11 +1,13 @@
 package com.pluto.plugins.rooms.db.internal.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.os.bundleOf
@@ -45,6 +47,7 @@ internal class EditFragment : BottomSheetDialogFragment() {
     private val viewModel: ContentViewModel by activityViewModels()
     private val uiViewModel: UIViewModel by viewModels()
     private val sharer: ContentShareViewModel by lazyContentSharer()
+    private lateinit var deviceInfo: Device
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_data_editor, container, false)
@@ -57,6 +60,17 @@ internal class EditFragment : BottomSheetDialogFragment() {
     private val etList = mutableListOf<DataEditWidget>()
     private val fieldValues
         get() = etList.map { it.get() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        deviceInfo = Device(requireContext())
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return dialog
+    }
 
     override fun onStart() {
         super.onStart()
@@ -71,7 +85,7 @@ internal class EditFragment : BottomSheetDialogFragment() {
             val dialog = it as BottomSheetDialog
             val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.let {
-                dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
+                dialog.behavior.peekHeight = deviceInfo.screen.heightPx
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }

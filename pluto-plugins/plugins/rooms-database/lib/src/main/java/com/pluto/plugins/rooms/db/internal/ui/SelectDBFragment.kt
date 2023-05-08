@@ -17,9 +17,11 @@ import com.pluto.plugins.rooms.db.internal.RoomsDBViewModel
 import com.pluto.plugins.rooms.db.internal.ui.DetailsFragment.Companion.DB_CLASS
 import com.pluto.plugins.rooms.db.internal.ui.DetailsFragment.Companion.DB_NAME
 import com.pluto.plugins.rooms.db.internal.ui.list.database.DBListAdapter
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
 import com.pluto.utilities.extensions.setList
+import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -30,12 +32,13 @@ import com.pluto.utilities.viewBinding
 internal class SelectDBFragment : Fragment(R.layout.pluto_rooms___fragment_db_selector) {
     private val binding by viewBinding(PlutoRoomsFragmentDbSelectorBinding::bind)
     private val viewModel: RoomsDBViewModel by activityViewModels()
+    private val dbListAdapter by autoClearInitializer<BaseAdapter> { DBListAdapter(onActionListener) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetch()
         binding.list.apply {
-            adapter = DBListAdapter(onActionListener)
+            adapter = dbListAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
         }
 

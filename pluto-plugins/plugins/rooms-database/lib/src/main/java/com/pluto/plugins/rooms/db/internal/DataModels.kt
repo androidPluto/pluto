@@ -34,7 +34,11 @@ internal data class ColumnModel(
     val isNotNull: Boolean,
     val defaultValue: String?,
     val isPrimaryKey: Boolean
-) : Parcelable, ListItem()
+) : Parcelable, ListItem() {
+    override fun equals(other: Any?): Boolean {
+        return other is ColumnModel && other.columnId == columnId
+    }
+}
 
 internal typealias RawTableContents = Pair<List<String>, List<List<String>>>
 
@@ -50,10 +54,25 @@ internal data class RowDetailsData(
 ) : Parcelable
 
 internal data class FilterModel(
-    val column: String,
+    val column: ColumnModel,
     val value: String?,
-    val relation: FilterRelation
-)
+    val relation: FilterRelation = FilterRelation.Equals
+) : ListItem(), Comparable<FilterModel> {
+    override fun compareTo(other: FilterModel): Int {
+        return column.name.compareTo(other.column.name)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is FilterModel && other.column == column
+    }
+
+    override fun isSame(other: Any): Boolean {
+        return other is FilterModel &&
+            other.column == column &&
+            other.value == value &&
+            other.relation.symbol == relation.symbol
+    }
+}
 
 internal sealed class RowAction {
     class Click(val isInsert: Boolean) : RowAction()
@@ -62,9 +81,24 @@ internal sealed class RowAction {
     object Duplicate : RowAction()
 }
 
-internal sealed class FilterRelation {
-    object Equals : FilterRelation()
-    object Like : FilterRelation()
+internal sealed class FilterRelation(val symbol: String) : ListItem() {
+    object Equals : FilterRelation("=")
+    object NotEquals : FilterRelation("!=")
+    object Like : FilterRelation("%")
+    object Between : FilterRelation("BTW")
+    object In : FilterRelation("IN")
+    object LessThan : FilterRelation("<")
+    object LessThanOrEquals : FilterRelation("<=")
+    object GreaterThan : FilterRelation(">")
+    object GreaterThanOrEquals : FilterRelation(">=")
+
+    override fun equals(other: Any?): Boolean {
+        return other is FilterRelation && other.symbol == symbol
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
 }
 
 internal sealed class SortBy(val label: String, @DrawableRes val indicator: Int) {

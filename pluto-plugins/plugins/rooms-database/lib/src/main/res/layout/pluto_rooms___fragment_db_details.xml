@@ -200,17 +200,34 @@
             android:textColor="@color/pluto___text_dark_60"
             android:textSize="@dimen/pluto___text_xsmall"
             app:layout_constraintBottom_toBottomOf="@+id/applyFilter"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/divider1"
             app:layout_constraintTop_toTopOf="@+id/applyFilter"
-            tools:text="Showing 103/5003" />
+            tools:text="103/5003" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/footerGroup"
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="@dimen/pluto___dp_1"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/pluto___margin_xsmall"
+            android:background="@color/pluto___dark_10"
+            app:layout_constraintBottom_toBottomOf="@+id/query"
+            app:layout_constraintEnd_toStartOf="@+id/query"
+            app:layout_constraintTop_toTopOf="@+id/query" />
+
+        <TextView
+            android:id="@+id/query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="footer,footerBorder,applyFilter,count"
-            tools:visibility="visible" />
+            android:fontFamily="@font/muli_bold"
+            android:padding="@dimen/pluto___margin_small"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/pluto___text_dark_80"
+            android:textSize="@dimen/pluto___text_xsmall"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/applyFilter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/applyFilter"
+            android:text="@string/pluto_rooms___share_sql_query" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/loader"

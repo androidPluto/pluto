@@ -1,8 +1,8 @@
 package com.pluto.plugins.rooms.db.internal.core.query
 
 import com.pluto.plugins.rooms.db.internal.FilterModel
-import com.pluto.plugins.rooms.db.internal.FilterRelation
 import com.pluto.plugins.rooms.db.internal.SortBy
+import com.pluto.plugins.rooms.db.internal.ui.filter.FilterQueryTransformer
 import java.lang.StringBuilder
 
 internal class Query private constructor() {
@@ -39,12 +39,9 @@ internal class Query private constructor() {
                 stringBuilder.append("SELECT * FROM $table")
                 if (!filters.isNullOrEmpty()) {
                     stringBuilder.append(" WHERE")
-                    filters.filter { it.value != null }.forEachIndexed { index, filter ->
-                        stringBuilder.append(" ${filter.column}")
-                        when (filter.relation) {
-                            is FilterRelation.Equals -> stringBuilder.append("=${filter.value}")
-                            is FilterRelation.Like -> stringBuilder.append("%${filter.value}%")
-                        }
+                    filters.forEachIndexed { index, filter ->
+                        stringBuilder.append(" ${filter.column.name}")
+                        stringBuilder.append(FilterQueryTransformer.transform(filter.value, filter.relation))
                         if (index < filters.lastIndex) {
                             stringBuilder.append(" AND")
                         }

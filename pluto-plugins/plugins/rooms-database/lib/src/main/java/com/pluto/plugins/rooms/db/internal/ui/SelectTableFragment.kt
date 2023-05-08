@@ -13,9 +13,11 @@ import com.pluto.plugins.rooms.db.internal.ContentViewModel
 import com.pluto.plugins.rooms.db.internal.ContentViewModel.Companion.ERROR_FETCH_TABLES
 import com.pluto.plugins.rooms.db.internal.TableModel
 import com.pluto.plugins.rooms.db.internal.ui.list.table.TableListAdapter
+import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.setList
 import com.pluto.utilities.extensions.toast
+import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -27,6 +29,7 @@ internal class SelectTableFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoRoomsFragmentTableSelectorBinding::bind)
     private val viewModel: ContentViewModel by activityViewModels()
+    private val tableListAdapter: BaseAdapter by autoClearInitializer { TableListAdapter(onActionListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_rooms___fragment_table_selector, container, false)
@@ -36,7 +39,7 @@ internal class SelectTableFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.list.apply {
-            adapter = TableListAdapter(onActionListener)
+            adapter = tableListAdapter
             addItemDecoration(CustomItemDecorator(requireContext(), 16f.dp.toInt()))
         }
 

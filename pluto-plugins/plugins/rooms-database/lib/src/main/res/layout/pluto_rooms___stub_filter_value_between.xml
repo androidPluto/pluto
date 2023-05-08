@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/value1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pluto_rooms___bg_edittext_round"
+        android:fontFamily="@font/muli_semibold"
+        android:hint="value from"
+        android:textColorHint="@color/pluto___text_dark_40"
+        android:maxLines="1"
+        android:padding="@dimen/pluto___margin_small"
+        android:singleLine="true"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xmedium"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="&amp;"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/pluto___margin_mini"
+        android:fontFamily="@font/muli_semibold"
+        android:textSize="@dimen/pluto___text_xmedium"
+        android:textColor="@color/pluto___text_dark_60"
+        app:layout_constraintBottom_toBottomOf="@+id/value1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/value1" />
+
+    <EditText
+        android:id="@+id/value2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pluto_rooms___bg_edittext_round"
+        android:fontFamily="@font/muli_semibold"
+        android:hint="value to"
+        android:textColorHint="@color/pluto___text_dark_40"
+        android:maxLines="1"
+        android:padding="@dimen/pluto___margin_small"
+        android:singleLine="true"
+        android:textColor="@color/pluto___text_dark_80"
+        android:textSize="@dimen/pluto___text_xmedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
