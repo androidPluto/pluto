@@ -32,4 +32,7 @@ internal object FilterConfig {
     }
 
     private fun generateKey(databaseName: String, name: String) = "$databaseName::$name"
+    fun clear() {
+        filterConfigsMap.clear()
+    }
 }

@@ -95,14 +95,11 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         }
                         if (processedTableList.size == 1) {
                             selectTable(processedTableList.first())
-//                            _currentTable.postValue(processedTableList.first())
-//                            _filterConfig.postValue(FilterConfig.get(Executor.instance.databaseName, processedTableList.first().name))
                         } else {
                             _currentTable.postValue(null)
                         }
                         _tables.postValue(processedTableList.plus(processedSystemTableList))
                     }
-
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_TABLES, it.exception))
                     else -> DebugLog.e(LOG_TAG, "fetchTables: invalid result")
                 }
