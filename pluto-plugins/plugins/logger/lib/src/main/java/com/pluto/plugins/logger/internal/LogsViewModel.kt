@@ -1,15 +1,20 @@
 package com.pluto.plugins.logger.internal
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 import com.pluto.utilities.extensions.asFormattedDate
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-internal class LogsViewModel : ViewModel() {
+internal class LogsViewModel(application: Application) : AndroidViewModel(application) {
+
     val logs: LiveData<List<LogData>>
-        get() = LogsRepo.logs
+        get() = _logs
+    private val _logs = MutableLiveData<List<LogData>>()
 
     val current: LiveData<LogData>
         get() = _current
@@ -18,6 +23,20 @@ internal class LogsViewModel : ViewModel() {
     val serializedLogs: LiveData<String>
         get() = _serializedLogs
     private val _serializedLogs = MutableLiveData<String>()
+
+    fun fetchAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = LogDBHandler.fetchAll()?.map { it.data } ?: arrayListOf()
+            _logs.postValue(list)
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            LogDBHandler.flush()
+            _logs.postValue(arrayListOf())
+        }
+    }
 
     internal fun updateCurrentLog(data: LogData) {
         _current.postValue(data)

@@ -28,8 +28,7 @@ internal class LogItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
                 append(fontColor(semiBold(item.tag.trim()), context.color(R.color.pluto___text_dark_40)))
                 append(
                     fontColor(
-                        " | ${item.stackTraceElement.fileName}:${item.stackTraceElement.lineNumber}",
-                        context.color(R.color.pluto___text_dark_40)
+                        " | ${item.stackTrace.fileName}:${item.stackTrace.lineNumber}", context.color(R.color.pluto___text_dark_40)
                     )
                 )
             }
