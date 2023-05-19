@@ -13,7 +13,6 @@ import com.pluto.plugins.logger.R
 import com.pluto.plugins.logger.databinding.PlutoLoggerFragmentDetailsBinding
 import com.pluto.plugins.logger.internal.LogData
 import com.pluto.plugins.logger.internal.LogsViewModel
-import com.pluto.plugins.logger.internal.asExceptionData
 import com.pluto.plugins.logger.internal.beautifyAttributes
 import com.pluto.plugins.logger.internal.ui.DetailsFragment.Companion.MAX_STACK_TRACE_LINES
 import com.pluto.utilities.extensions.color
@@ -58,16 +57,16 @@ internal class DetailsFragment : BottomSheetDialogFragment() {
         binding.tag.text = data.tag
         binding.filename.setSpan {
             append(fontColor("called from\n", context.color(R.color.pluto___text_dark_40)))
-            append(data.stackTraceElement.methodName)
+            append(data.stackTrace.methodName)
             append(fontColor(" (", context.color(R.color.pluto___text_dark_40)))
-            append(data.stackTraceElement.fileName)
+            append(data.stackTrace.fileName)
             append(fontColor(", line:", context.color(R.color.pluto___text_dark_60)))
-            append(fontColor("${data.stackTraceElement.lineNumber}", context.color(R.color.pluto___text_dark_80)))
+            append(fontColor("${data.stackTrace.lineNumber}", context.color(R.color.pluto___text_dark_80)))
             append(fontColor(")", context.color(R.color.pluto___text_dark_40)))
         }
         binding.message.text = data.message
         binding.stackTraceContainer.visibility = View.GONE
-        data.tr?.asExceptionData()?.let {
+        data.tr?.let {
             binding.stackTraceContainer.visibility = View.VISIBLE
             binding.stackTrace.setSpan {
                 append(fontColor("${it.name}: ${it.message}", context.color(R.color.pluto___text_dark_80)))
@@ -86,7 +85,6 @@ internal class DetailsFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-
         if (!data.eventAttributes.isNullOrEmpty()) {
             binding.stackTraceContainer.visibility = View.VISIBLE
             binding.stackTraceTitle.setSpan {
@@ -106,7 +104,7 @@ private fun LogData.toShareText(context: Context): String {
     val text = StringBuilder()
     text.append("$tag : $message\n")
 
-    tr?.asExceptionData()?.let {
+    tr?.let {
         text.append("\n${it.name}: ${it.message}\n")
         it.stackTrace.take(MAX_STACK_TRACE_LINES).forEach { trace ->
             text.append("\t at $trace\n")

@@ -5,7 +5,7 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.logger.internal.LogsFragment
-import com.pluto.plugins.logger.internal.LogsRepo
+import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 
 class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
 
@@ -26,9 +26,10 @@ class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
     }
 
     override fun onPluginInstalled() {
+        LogDBHandler.initialize(context)
     }
 
     override fun onPluginDataCleared() {
-        LogsRepo.deleteAll()
+        LogDBHandler.flush()
     }
 }

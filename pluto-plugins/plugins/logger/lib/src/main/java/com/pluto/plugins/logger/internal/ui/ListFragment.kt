@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.logger.R
 import com.pluto.plugins.logger.databinding.PlutoLoggerFragmentListBinding
 import com.pluto.plugins.logger.internal.LogData
-import com.pluto.plugins.logger.internal.LogsRepo
 import com.pluto.plugins.logger.internal.LogsViewModel
 import com.pluto.plugins.logger.internal.Session
 import com.pluto.plugins.logger.internal.ui.list.LogsAdapter
@@ -58,6 +57,8 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         viewModel.logs.removeObserver(logsObserver)
         viewModel.logs.observe(viewLifecycleOwner, logsObserver)
 
+        viewModel.fetchAll()
+
         viewModel.serializedLogs.removeObserver(serializedLogsObserver)
         viewModel.serializedLogs.observe(viewLifecycleOwner, serializedLogsObserver)
 
@@ -67,7 +68,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         binding.options.setOnDebounceClickListener {
             context?.showMoreOptions(it, R.menu.pluto_logger___menu_more_options) { item ->
                 when (item.itemId) {
-                    R.id.clear -> LogsRepo.deleteAll()
+                    R.id.clear -> viewModel.deleteAll()
                     R.id.shareAll ->
                         if (viewModel.logs.value?.size ?: 0 > 0) {
                             viewModel.serializeLogs()
@@ -88,7 +89,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             .filter { log ->
                 log.tag.contains(search, true) ||
                     log.message.contains(search, true) ||
-                    log.stackTraceElement.fileName.contains(search, true)
+                    log.stackTrace.fileName.contains(search, true)
             }
         binding.noItemText.text = getString(
             if (search.isNotEmpty()) {

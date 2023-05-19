@@ -3,6 +3,7 @@ package com.pluto.plugins.logger.internal
 import android.util.Log
 import androidx.annotation.Keep
 import com.pluto.plugins.logger.BuildConfig
+import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -11,16 +12,16 @@ internal class LogsProcessor private constructor() {
 
     companion object {
 
-        fun process(priority: Int, tag: String, message: String, tr: Throwable?, stackTrace: StackTraceElement) {
-            LogsRepo.save(priority2Level(priority), tag, message, tr, stackTrace)
-            consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
+        fun process(priority: Int, tag: String, message: String, tr: Throwable?, stackTraceElement: StackTraceElement) {
+            LogDBHandler.persist(priority2Level(priority), tag, message, tr, stackTraceElement.stackTrace())
+            consolePrint(priority2Level(priority), tag, message, tr, stackTraceElement.stackTrace())
         }
 
-        fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTrace: StackTraceElement) {
+        fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTraceElement: StackTraceElement) {
             val moshi = Moshi.Builder().build()
             val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-            LogsRepo.saveEvent(Level.Event, tag, event, attr, stackTrace)
-            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
+            LogDBHandler.persist(Level.Event, tag, event, attr, stackTraceElement.stackTrace())
+            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTraceElement.stackTrace())
         }
 
         @SuppressWarnings("ComplexCondition")
@@ -37,6 +38,10 @@ internal class LogsProcessor private constructor() {
             return stackTrace[index]
         }
 
+        private fun StackTraceElement.stackTrace(): StackTrace {
+            return StackTrace(this.fileName, this.fileName, this.lineNumber)
+        }
+
         private fun priority2Level(priority: Int): Level {
             return when (priority) {
                 Log.DEBUG -> Level.Debug
@@ -50,7 +55,7 @@ internal class LogsProcessor private constructor() {
             }
         }
 
-        private fun consolePrint(level: Level, tag: String, message: String, tr: Throwable?, trace: StackTraceElement) {
+        private fun consolePrint(level: Level, tag: String, message: String, tr: Throwable?, trace: StackTrace) {
             val logTag = "${trace.formattedStack()} | $tag"
             when (level) {
                 is Level.Debug -> Log.v(logTag, message, tr)
@@ -64,7 +69,7 @@ internal class LogsProcessor private constructor() {
         }
 
         @Keep
-        fun StackTraceElement.formattedStack(): String = "$methodName($fileName:$lineNumber)"
+        fun StackTrace.formattedStack(): String = "$methodName($fileName:$lineNumber)"
 
         const val LOG_EVENT_PRIORITY = 101
     }
