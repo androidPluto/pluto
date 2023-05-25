@@ -11,66 +11,64 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import java.io.File
 
-internal class SharedPrefRepo private constructor() {
+internal object SharedPrefRepo {
 
-    companion object {
-        private lateinit var preferences: Preferences
-        private val moshi: Moshi = Moshi.Builder().build()
-        private val moshiAdapter: JsonAdapter<HashSet<SharedPrefFile>?> = moshi.adapter(Types.newParameterizedType(Set::class.java, SharedPrefFile::class.java))
-        private var selectedPreferenceFiles: HashSet<SharedPrefFile>? = null
-            get() = preferences.selectedPreferenceFiles?.let { moshiAdapter.fromJson(it) }
-            set(value) {
-                preferences.selectedPreferenceFiles = moshiAdapter.toJson(value)
-                field = value
+    private lateinit var preferences: Preferences
+    private val moshi: Moshi = Moshi.Builder().build()
+    private val moshiAdapter: JsonAdapter<HashSet<SharedPrefFile>?> = moshi.adapter(Types.newParameterizedType(Set::class.java, SharedPrefFile::class.java))
+    private var selectedPreferenceFiles: HashSet<SharedPrefFile>? = null
+        get() = preferences.selectedPreferenceFiles?.let { moshiAdapter.fromJson(it) }
+        set(value) {
+            preferences.selectedPreferenceFiles = moshiAdapter.toJson(value)
+            field = value
+        }
+
+    fun init(context: Context) {
+        preferences = Preferences(context)
+    }
+
+    fun get(context: Context): List<SharedPrefKeyValuePair> {
+        val list = arrayListOf<SharedPrefKeyValuePair>()
+        val prefFilesList = getSelectedPreferenceFiles(context)
+        prefFilesList.forEach {
+            val data = context.getPrefKeyValueMap(it)
+            list.addAll(data.second)
+        }
+        list.sortBy { it.key }
+        return list
+    }
+
+    fun set(context: Context, pair: SharedPrefKeyValuePair, value: Any) {
+        val prefFile = context.getPrefFile(pair.prefLabel ?: Preferences.DEFAULT)
+        val editor = context.getPrefManager(prefFile).edit()
+        when (value) {
+            is Int -> editor.putInt(pair.key, value).apply()
+            is Long -> editor.putLong(pair.key, value).apply()
+            is Float -> editor.putFloat(pair.key, value).apply()
+            is Boolean -> editor.putBoolean(pair.key, value).apply()
+            else -> editor.putString(pair.key, value.toString()).apply()
+        }
+    }
+
+    fun getSelectedPreferenceFiles(context: Context): HashSet<SharedPrefFile> {
+        if (selectedPreferenceFiles == null) {
+            selectedPreferenceFiles = hashSetOf<SharedPrefFile>().apply {
+                addAll(context.getSharePreferencesFiles())
             }
-
-        fun init(context: Context) {
-            preferences = Preferences(context)
         }
+        return selectedPreferenceFiles as HashSet<SharedPrefFile>
+    }
 
-        fun get(context: Context): List<SharedPrefKeyValuePair> {
-            val list = arrayListOf<SharedPrefKeyValuePair>()
-            val prefFilesList = getSelectedPreferenceFiles(context)
-            prefFilesList.forEach {
-                val data = context.getPrefKeyValueMap(it)
-                list.addAll(data.second)
-            }
-            list.sortBy { it.key }
-            return list
+    fun updateSelectedPreferenceFile(file: SharedPrefFile) {
+        val selectedFiles: HashSet<SharedPrefFile> = selectedPreferenceFiles ?: hashSetOf()
+        if (!selectedFiles.add(file)) {
+            selectedFiles.remove(file)
         }
+        selectedPreferenceFiles = selectedFiles
+    }
 
-        fun set(context: Context, pair: SharedPrefKeyValuePair, value: Any) {
-            val prefFile = context.getPrefFile(pair.prefLabel ?: Preferences.DEFAULT)
-            val editor = context.getPrefManager(prefFile).edit()
-            when (value) {
-                is Int -> editor.putInt(pair.key, value).apply()
-                is Long -> editor.putLong(pair.key, value).apply()
-                is Float -> editor.putFloat(pair.key, value).apply()
-                is Boolean -> editor.putBoolean(pair.key, value).apply()
-                else -> editor.putString(pair.key, value.toString()).apply()
-            }
-        }
-
-        fun getSelectedPreferenceFiles(context: Context): HashSet<SharedPrefFile> {
-            if (selectedPreferenceFiles == null) {
-                selectedPreferenceFiles = hashSetOf<SharedPrefFile>().apply {
-                    addAll(context.getSharePreferencesFiles())
-                }
-            }
-            return selectedPreferenceFiles as HashSet<SharedPrefFile>
-        }
-
-        fun updateSelectedPreferenceFile(file: SharedPrefFile) {
-            val selectedFiles: HashSet<SharedPrefFile> = selectedPreferenceFiles ?: hashSetOf()
-            if (!selectedFiles.add(file)) {
-                selectedFiles.remove(file)
-            }
-            selectedPreferenceFiles = selectedFiles
-        }
-
-        fun deSelectAll() {
-            selectedPreferenceFiles = hashSetOf()
-        }
+    fun deSelectAll() {
+        selectedPreferenceFiles = hashSetOf()
     }
 }
 
