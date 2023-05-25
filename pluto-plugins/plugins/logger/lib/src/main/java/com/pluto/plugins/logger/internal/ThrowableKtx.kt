@@ -6,6 +6,7 @@ import com.pluto.plugins.logger.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.spannable.createSpan
+import com.squareup.moshi.JsonClass
 
 internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
     return ExceptionData(
@@ -19,12 +20,13 @@ internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
 }
 
 @Keep
+@JsonClass(generateAdapter = true)
 internal data class ExceptionData(
     val message: String?,
     val name: String?,
     val file: String?,
     val lineNumber: Int,
-    val stackTrace: ArrayList<String>,
+    val stackTrace: List<String>,
     val timeStamp: Long = System.currentTimeMillis(),
     val isANRException: Boolean = false
 ) : ListItem()

@@ -4,8 +4,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import com.pluto.plugins.logger.R
 import com.pluto.utilities.list.ListItem
+import com.squareup.moshi.JsonClass
 
-internal sealed class Level(
+@Keep
+@JsonClass(generateAdapter = true)
+internal open class Level(
     val label: String,
     val color: Int = R.color.pluto___transparent,
     val textColor: Int = R.color.pluto___text_dark_60,
@@ -21,12 +24,21 @@ internal sealed class Level(
 }
 
 @Keep
+@JsonClass(generateAdapter = true)
 internal data class LogData(
     val level: Level,
     val tag: String,
     val message: String,
-    val tr: Throwable? = null,
-    val stackTraceElement: StackTraceElement,
-    val eventAttributes: HashMap<String, Any?>? = null,
+    val tr: ExceptionData? = null,
+    val stackTrace: StackTrace,
+    val eventAttributes: Map<String, Any?>? = null,
     val timeStamp: Long = System.currentTimeMillis()
 ) : ListItem()
+
+@Keep
+@JsonClass(generateAdapter = true)
+internal data class StackTrace(
+    val methodName: String,
+    val fileName: String,
+    val lineNumber: Int,
+)
