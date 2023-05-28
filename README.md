@@ -2,8 +2,8 @@
 <a href="https://www.producthunt.com/posts/pluto-0265aff1-a022-48a7-bea2-85d33cf1f15a?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pluto&#0045;0265aff1&#0045;a022&#0045;48a7&#0045;bea2&#0045;85d33cf1f15a" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=349545&theme=light" alt="Pluto - Open&#0045;sourced&#0032;On&#0045;device&#0032;debug&#0032;framework&#0032;for&#0032;Android&#0032;apps | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
-[![CLA assistant](https://cla-assistant.io/readme/badge/plutolib/pluto)](https://cla-assistant.io/plutolib/pluto)
-[![Daily Builds](https://github.com/plutolib/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/plutolib/pluto/actions/workflows/daily_builds.yml)
+[![CLA assistant](https://cla-assistant.io/readme/badge/androidPluto/pluto)](https://cla-assistant.io/androidPluto/pluto)
+[![Daily Builds](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml)
 
 Pluto is an on-device debugging framework for Android applications, which helps in the inspection of HTTP requests/responses, captures Crashes, and ANRs, and manipulates application data on the go.
 
@@ -23,8 +23,8 @@ Pluto is distributed through [***mavenCentral***](https://central.sonatype.com/a
 ```groovy
 dependencies {
   ....
-  debugImplementation 'com.plutolib:pluto:2.1.2'
-  releaseImplementation 'com.plutolib:pluto-no-op:2.1.2'
+  debugImplementation 'com.plutolib:pluto:2.1.3'
+  releaseImplementation 'com.plutolib:pluto-no-op:2.1.3'
   ....
 }
 ```
@@ -42,14 +42,14 @@ Pluto.Installer(this)
 
 ### Install plugins
 
-Unlike [version 1.x.x](https://github.com/plutolib/pluto/wiki/Integrating-Pluto-1.x.x), Pluto now allows developers to add debuggers as plugin bundle or individual plugins based on their need.
+Unlike [version 1.x.x](https://github.com/androidPluto/pluto/wiki/Integrating-Pluto-1.x.x), Pluto now allows developers to add debuggers as plugin bundle or individual plugins based on their need.
 
 Plugin bundle comes with all the basic plugins bundled together as single dependency.
 ```groovy
 dependencies {
   ....
-  debugImplementation 'com.plutolib.plugins:bundle-core:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:bundle-core-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:bundle-core:2.1.3'
+  releaseImplementation 'com.plutolib.plugins:bundle-core-no-op:2.1.3'
   ....
 }
 ```
@@ -67,7 +67,7 @@ But, if you want to use individual plugins, here is the list of some plugins pro
 We will be adding more to the [list](https://central.sonatype.com/search?q=com.plutolib.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
 <br><br>
-> You can also help us expand the Pluto ecosystem now. <br>Pluto now allows to develop custom debuggers as plugin. Read [Develop Custom Plugins](https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)).
+> You can also help us expand the Pluto ecosystem now. <br>Pluto now allows to develop custom debuggers as plugin. Read [Develop Custom Plugins](https://github.com/androidPluto/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)).
 
 <br>
 
