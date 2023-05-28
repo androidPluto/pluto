@@ -73,4 +73,5 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     implementation 'androidx.browser:browser:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
 }
