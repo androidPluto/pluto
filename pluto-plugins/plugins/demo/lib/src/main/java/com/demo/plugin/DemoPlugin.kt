@@ -20,9 +20,9 @@ class DemoPlugin(devIdentifier: String) : Plugin(devIdentifier) {
 
     override fun getDeveloperDetails(): DeveloperDetails {
         return DeveloperDetails(
-            vcsLink = "https://github.com/plutolib/pluto",
-            website = "https://plutolib.com",
-            twitter = "https://twitter.com/pluto_lib"
+            website = "https://androidpluto.com",
+            vcsLink = "https://github.com/androidPluto/pluto",
+            twitter = "https://twitter.com/android_pluto"
         )
     }
 

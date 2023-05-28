@@ -48,7 +48,7 @@ afterEvaluate {
                 pom {
                     name = PUBLISH_ARTIFACT_ID
                     description = 'Pluto is a on-device debugger for Android applications, which helps in inspection of HTTP requests/responses, capture Crashes and ANRs and manipulating application data on-the-go.'
-                    url = 'https://plutolib.com'
+                    url = 'https://androidpluto.com'
                     licenses {
                         license {
                             name = 'The Apache Software License, Version 2.0'
@@ -63,9 +63,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'https://github.com/plutolib/pluto'
+                        connection = 'https://github.com/androidPluto/pluto'
                         developerConnection = 'https://github.com/srtvprateek'
-                        url = 'https://github.com/plutolib/pluto'
+                        url = 'https://github.com/androidPluto/pluto'
                     }
                 }
             }

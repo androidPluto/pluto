@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
                 AskPermissionFragment().show(supportFragmentManager, "permission")
             }
         }
-        binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@pluto_lib") }
-        binding.developCta.setOnClickListener { openBrowser("https://github.com/plutolib/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)") }
+        binding.suggestCta.setOnClickListener { openBrowser("https://twitter.com/intent/tweet?text=@srtv_prateek+@android_pluto") }
+        binding.developCta.setOnClickListener { openBrowser("https://github.com/androidPluto/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)") }
     }
 
     companion object {

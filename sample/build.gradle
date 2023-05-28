@@ -8,8 +8,8 @@ def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion 33
+    buildToolsVersion "33.0.0"
 
     buildFeatures {
         viewBinding true
@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId "com.sampleapp"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode verCode
         versionName verPublish
 
