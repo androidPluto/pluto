@@ -13,8 +13,8 @@ internal class JsonTransformer : BaseTransformer {
     @SuppressWarnings("TooGenericExceptionCaught")
     override fun beautify(plain: CharSequence): CharSequence {
         return try {
-                val jsonObject = moshiAnyAdapter.fromJson(plain.toString())
-                moshiAnyAdapter.indent(INDENTATION_TEXT).toJson(jsonObject)
+            val jsonObject = moshiAnyAdapter.fromJson(plain.toString())
+            moshiAnyAdapter.indent(INDENTATION_TEXT).toJson(jsonObject)
         } catch (e: Exception) {
             DebugLog.e(LOGTAG, "json parsing failed", e)
             plain

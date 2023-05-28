@@ -32,7 +32,6 @@ internal class AnyJsonAdapter(
         }
     }
 
-
     private fun JsonReader.nextNumber(): Number {
         try {
             return nextInt()
@@ -61,7 +60,6 @@ internal class AnyJsonAdapter(
         return if (Collection::class.java.isAssignableFrom(valueClass)) Collection::class.java else valueClass
     }
 
-
     /**
      * copied from JsonReader.readJsonValue()
      * updated JsonReader.Token.NUMBER case to try parsing as int, long, and double sequentially
@@ -88,14 +86,14 @@ internal class AnyJsonAdapter(
                     val replaced = map.put(name, value)
                     if (replaced != null) {
                         throw JsonDataException(
-                            "Map key '"
-                                    + name
-                                    + "' has multiple values at path "
-                                    + getPath()
-                                    + ": "
-                                    + replaced
-                                    + " and "
-                                    + value
+                            "Map key '" +
+                                name +
+                                "' has multiple values at path " +
+                                getPath() +
+                                ": " +
+                                replaced +
+                                " and " +
+                                value
                         )
                     }
                 }
