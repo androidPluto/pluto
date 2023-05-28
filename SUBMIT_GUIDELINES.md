@@ -2,7 +2,7 @@
 
 We are looking for contributors to add new & exciting Plugins for the Android developers out there. But at the same time we need to made the uniformity and standard through out the plugins.
 
-To start with a new plugins, start a discussion for [Plugin Suggestions](https://github.com/plutolib/pluto/discussions/categories/plugin-suggestions). This will help you gather valuable feedback and insights even before putting any dev effort.
+To start with a new plugins, start a discussion for [Plugin Suggestions](https://github.com/androidPluto/pluto/discussions/categories/plugin-suggestions). This will help you gather valuable feedback and insights even before putting any dev effort.
 
 Once you have enough information, lets jump into development.
 

@@ -19,7 +19,7 @@ object PlutoNetwork {
     /**
      * Log a custom network trace to Pluto.
      * Allows to connect non-OkHttp based systems to track network calls.
-     * @see <a href="https://github.com/plutolib/pluto/issues/8">https://github.com/plutolib/pluto/issues/8</a>
+     * @see <a href="https://github.com/androidPluto/pluto/issues/8">https://github.com/plutolib/pluto/issues/8</a>
      *
      * @param request custom request data
      * @param response custom response data
