@@ -1,0 +1,82 @@
+name: Release notes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get Latest Release Tag
+        id: latest_release
+        run: |
+          git fetch --tags
+          LATEST_TAG=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$LATEST_TAG"
+
+      - name: Get Pull Requests
+        id: pull_requests
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls?state=closed&base=main&sort=created&direction=desc
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Closed Issues
+        id: closed_issues
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/issues?state=closed&sort=created&direction=desc
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Contributors
+        id: contributors
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/contributors
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          echo "## Release Notes - ${{ steps.latest_release.outputs.tag }}"
+          echo ""
+          echo "### Pull Requests:"
+          echo ""
+          for pull_request in ${{ steps.pull_requests.outputs.data }}; do
+            echo "- ${{ pull_request.title }} (#${{ pull_request.number }}) by ${{ pull_request.user.login }}"
+          done
+          echo ""
+          echo "### Closed Issues:"
+          echo ""
+          for issue in ${{ steps.closed_issues.outputs.data }}; do
+            echo "- ${{ issue.title }} (#${{ issue.number }})"
+          done
+          echo ""
+          echo "### New Contributors:"
+          echo ""
+          for contributor in ${{ steps.contributors.outputs.data }}; do
+            echo "- ${{ contributor.login }}"
+          done
+          echo ""
+
+#       - name: Save Release Notes
+#         id: save_release_notes
+#         run: |
+#           echo "${{ steps.release_notes.outputs.stdout }}" > ./release_notes.md
+
+#       - name: Commit Release Notes
+#         run: |
+#           git config user.name "${{ github.actor }}"
+#           git config user.email "${{ github.actor }}@users.noreply.github.com"
+#           git add ./release_notes.md
+#           git commit -m "Update release notes"
+#           git push
