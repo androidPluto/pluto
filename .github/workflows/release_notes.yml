@@ -57,9 +57,10 @@ jobs:
           echo "### Pull Requests:"
           echo ""
           for pull_request in "${{ steps.pull_requests.outputs.data }}"; do
-            pr_title=$(echo "$pull_request" | jq -r '.title')
-            echo "- $pr_title"
+            echo "pull"
           done
+# pr_title=$(echo "$pull_request" | jq -r '.title')
+# echo "- $pr_title"
 # pr_number=$(echo "$pull_request" | jq -r '.number')
 # echo "- $pr_number"
 # pr_user=$(echo "$pull_request" | jq -r '.user.login')
