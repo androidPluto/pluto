@@ -46,6 +46,7 @@ jobs:
       - name: Commit version.properties changes
         run: |
           git branch
+          git fetch --all
           git checkout develop
           echo "major=${{ env.versionMajor }}" > version.properties
           echo "minor=${{ env.versionMinor }}" >> version.properties
