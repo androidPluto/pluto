@@ -53,19 +53,11 @@ jobs:
           echo "channel=release" >> version.properties
           echo "build=0" >> version.properties
           
-          git config --local user.email "srtv.prateek@gmail.com"
-          git config --local user.name "srtvprateek"
+          git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --local user.name "${GITHUB_ACTOR}"
           git add version.properties
-          git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
+          
+          commitTitle="ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
+          commitBody="see release details https://github.com/androidPluto/pluto/releases/tag/${{ github.event.release.tag_name }}"
+          git commit -m $commitTitle -m $commitBody
           git push
-        env:
-          PAT_TOKEN: ${{ secrets.COMMIT_PAT }}
-  
-#       - name: Create Pull Request
-#         run: |
-#           currentBranch=$(git rev-parse --abbrev-ref HEAD)
-#           prTitle="ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
-#           prBody="see release details https://github.com/androidPluto/pluto/releases/tag/${{ github.event.release.tag_name }}"
-#           gh pr create --title "$prTitle" --body "$prBody" --base develop --head $currentBranch
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
