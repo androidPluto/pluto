@@ -51,8 +51,8 @@ jobs:
           echo "channel=release" >> version.properties
           echo "build=0" >> version.properties
           
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --local user.email "srtv.prateek@gmail.com"
+          git config --local user.name "srtvprateek"
           git add version.properties
           git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
           git push origin HEAD:develop
