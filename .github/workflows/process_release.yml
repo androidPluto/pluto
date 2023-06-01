@@ -45,6 +45,7 @@ jobs:
           
       - name: Commit version.properties changes
         run: |
+          git checkout develop
           echo "major=${{ env.versionMajor }}" > version.properties
           echo "minor=${{ env.versionMinor }}" >> version.properties
           echo "patch=${{ env.versionPatch }}" >> version.properties
@@ -55,4 +56,4 @@ jobs:
           git config --local user.name "srtvprateek"
           git add version.properties
           git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
-          git push origin HEAD:develop
+          git push
