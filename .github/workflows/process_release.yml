@@ -38,3 +38,15 @@ jobs:
           echo "versionMajor : ${versionStubs[0]}"
           echo "versionMinor : ${versionStubs[1]}"
           echo "versionPatch : ${versionStubs[2]}"
+          
+          echo "versionMajor=${versionStubs[0]}" >> $GITHUB_ENV
+          echo "versionMinor=${versionStubs[1]}" >> $GITHUB_ENV
+          echo "versionPatch=${versionStubs[2]}" >> $GITHUB_ENV
+          
+      - name: Commit version.properties changes
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add version.properties
+          git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
+          git push
