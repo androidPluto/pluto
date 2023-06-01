@@ -33,5 +33,5 @@ jobs:
           echo "release name: $releaseName"
           versionName=${releaseName:1}
           echo "version name: $versionName"
-          IFS=',' read -ra array <<< "$versionName"
+          IFS='.' read -ra array <<< "$versionName"
           echo "split : split_array::${array[*]}"
