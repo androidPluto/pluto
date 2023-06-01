@@ -34,7 +34,6 @@ jobs:
           versionName=${releaseName:1}
           echo "version name: $versionName"
           IFS='.' read -ra versionStubs <<< "$versionName"
-          echo "split : split_array::${versionStubs[*]}"
           echo "versionMajor : ${versionStubs[0]}"
           echo "versionMinor : ${versionStubs[1]}"
           echo "versionPatch : ${versionStubs[2]}"
