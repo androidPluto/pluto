@@ -61,8 +61,8 @@ jobs:
           git commit -m "$commitTitle" -m "$commitBody"
           
       - name: Publish artifacts to MavenCentral
-        run: ./gradlew publish
-#         run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
+#        run: ./gradlew publish
+        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
@@ -76,5 +76,3 @@ jobs:
           git fetch --all
           git checkout develop
           git push
-          
-            
