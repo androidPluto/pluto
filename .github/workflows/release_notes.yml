@@ -57,14 +57,19 @@ jobs:
           echo ""
           echo "### Closed Issues:"
           echo ""
-          for issue in ${{ steps.closed_issues.outputs.data }}; do
-            echo "- ${{ issue.title }} (#${{ issue.number }})"
+          for issue in "${{ steps.closed_issues.outputs.data }}"; do
+            issue_title=$(echo "$issue" | jq -r '.title')
+            issue_number=$(echo "$issue" | jq -r '.number')
+            issue_user=$(echo "$issue" | jq -r '.user.login')
+            echo "- $issue_number: $issue_title by $issue_user"
           done
           echo ""
           echo "### New Contributors:"
           echo ""
-          for contributor in ${{ steps.contributors.outputs.data }}; do
-            echo "- ${{ contributor.login }}"
+          for contributor in "${{ steps.contributors.outputs.data }}"; do
+            contributor_name=$(echo "$contributor" | jq -r '.login')
+            contributor_commits=$(echo "$contributor" | jq -r '.contributions')
+            echo "- $contributor_name ($contributor_commits contributions)"
           done
           echo ""
 
