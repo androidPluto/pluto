@@ -5,11 +5,11 @@ on:
     inputs:
       build-type:
         type: choice
-        description: Type of release
+        description: Scope of change for the release
         options:
-        - Major
-        - Minor
         - Patch
+        - Minor
+        - Major
 
 jobs:
   publish:
@@ -33,83 +33,64 @@ jobs:
           echo "versionMajor=$major" >> $GITHUB_ENV
           echo "versionMinor=$minor" >> $GITHUB_ENV
           echo "versionPatch=$patch" >> $GITHUB_ENV
-#       - name: Get Last Release
-#         id: last_release
-#         run: |
-#           response=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-#             "https://api.github.com/repos/${{ github.repository }}/releases/latest")
-#           echo "TAG_NAME=$(echo $response | jq -r '.tag_name')"
           
-#           responsePR=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-#             "https://api.github.com/repos/${{ github.repository }}/pulls?state=closed&base=${{ github.ref }}&sort=updated&direction=desc")
-#           prs=$(echo $responsePR | jq --arg last_release "$last_release" '.[] | select(.merged_at != null and .merged_at > $last_release) | .number')
-#           echo "MERGED_PRS=$prs"
+#################################
+### get tag & build changelog ###
+#################################
           
-      - name: Evaluating change delta
+      - name: Update version.properties
         run: |
-          lastReleaseTag="v${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
-          git fetch --tags
-          LATEST_TAG=$(git tag | sort -rV | head -n 1)
-          echo "Latest Release Tag: $LATEST_TAG"
-          commits=$(git log --pretty=format:"%h - %s (%an))
-          echo "commits: $commits"
-          echo "commitsSinceLastRelease=$commits" >> $GITHUB_ENV
+          if [[ "$buildType" == "Major" ]]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          fi
+          if [[ "$buildType" == "Minor" ]]; then
+            minor=$((minor + 1))
+            patch=0
+          fi
+          if [[ "$buildType" == "Patch" ]]; then
+            patch=$((patch + 1))
+          fi
+          echo "versionMajor=$major" >> $GITHUB_ENV
+          echo "versionMinor=$minor" >> $GITHUB_ENV
+          echo "versionPatch=$patch" >> $GITHUB_ENV
           
+          echo "major=${{ env.versionMajor }}" > version.properties
+          echo "minor=${{ env.versionMinor }}" >> version.properties
+          echo "patch=${{ env.versionPatch }}" >> version.properties
+          echo "channel=release" >> version.properties
+          echo "build=0" >> version.properties
           
-#commits=$(git log "${lastReleaseTag}..HEAD" --pretty=format:"%h - %s (%an)") 
-          
-#       - name: Update version.properties
-#         run: |
-#           if [[ "$buildType" == "Major" ]]; then
-#             major=$((major + 1))
-#           fi
-#           if [[ "$buildType" == "Minor" ]]; then
-#             minor=$((minor + 1))
-#           fi
-#           if [[ "$buildType" == "Patch" ]]; then
-#             patch=$((patch + 1))
-#           fi
-#           echo "versionMajor=$major" >> $GITHUB_ENV
-#           echo "versionMinor=$minor" >> $GITHUB_ENV
-#           echo "versionPatch=$patch" >> $GITHUB_ENV
-          
-#           echo "major=${{ env.versionMajor }}" > version.properties
-#           echo "minor=${{ env.versionMinor }}" >> version.properties
-#           echo "patch=${{ env.versionPatch }}" >> version.properties
-#           echo "channel=release" >> version.properties
-#           echo "build=0" >> version.properties
-          
-#       - name: Commit version.properties changes
-#         run: |
-#           git config --local user.email "srtv.prateek@gmail.com"
-#           git config --local user.name "GitHub Actions"
-#           git add version.properties
-#           git commit -m "version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
-#           git push
+      - name: Commit version.properties changes
+        run: |
+          git config --local user.email "srtv.prateek@gmail.com"
+          git config --local user.name "GitHub Actions"
+          git add version.properties
+          git commit -m "version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
+          git push
 
-#       - name: Publish to MavenCentral
-# #         run: ./gradlew publish
-#         run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
-#         env:
-#           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-#           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-#           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
-#           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-#           SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
-#           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
+      - name: Publish to MavenCentral
+#         run: ./gradlew publish
+        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
+          SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
 
-#       - name: Create Release
-#         id: create_release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         with:
-#           tag_name: v${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
-#           release_name: v${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
-#           body: |
-#             ### Changelog
-            
-#             ${{ env.commitsSinceLastRelease }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
+          release_name: v${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
+          body: |
+            ### Changelog
 
-#           draft: false
-#           prerelease: true
+          draft: true
+          prerelease: false
