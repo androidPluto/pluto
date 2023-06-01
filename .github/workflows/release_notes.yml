@@ -22,8 +22,6 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: GET /repos/${{ github.repository }}/pulls?state=closed&base=develop&sort=created&direction=desc
-          mediaType: | # The | is significant!
-            format: raw
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
