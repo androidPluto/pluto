@@ -48,8 +48,11 @@ jobs:
           echo ""
           echo "### Pull Requests:"
           echo ""
-          for pull_request in ${{ steps.pull_requests.outputs.data }}; do
-            echo "- ${{ pull_request.head.ref }}: ${{ pull_request.title }} (#${{ pull_request.number }}) by ${{ pull_request.user.login }}"
+          for pull_request in "${{ steps.pull_requests.outputs.data }}"; do
+            pr_title=$(echo "$pull_request" | jq -r '.title')
+            pr_number=$(echo "$pull_request" | jq -r '.number')
+            pr_user=$(echo "$pull_request" | jq -r '.user.login')
+            echo "- $pr_title by $pr_user in $pr_number"
           done
           echo ""
           echo "### Closed Issues:"
