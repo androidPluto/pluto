@@ -61,6 +61,6 @@ jobs:
       - name: Create Pull Request
         run: |
           currentBranch=$(git rev-parse --abbrev-ref HEAD)
-          gh pr create --title "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}" --base develop --head $currentBranch
+          gh pr create --title "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}" --body "" --base develop --head $currentBranch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
