@@ -14,7 +14,7 @@ jobs:
         id: latest_release
         run: |
           git fetch --tags
-          LATEST_TAG=$(git describe --tags --abbrev=0)
+          LATEST_TAG=$(git tag | sort -rV | head -n 1)
           echo "::set-output name=tag::$LATEST_TAG"
 
       - name: Get Pull Requests
