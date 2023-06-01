@@ -7,3 +7,4 @@
 .externalNativeBuild
 .cxx
 /.idea/*
+/scripts/publish/publish.properties
