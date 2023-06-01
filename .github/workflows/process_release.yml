@@ -29,6 +29,7 @@ jobs:
           
       - name: Extract Version details
         run: |
-          releaseName=${{ github.event.release.name }}"
+          releaseName="${{ github.event.release.name }}"
+          echo "release name: $releaseName"
           versionName=${releaseName:1}
           echo "version name: $versionName"
