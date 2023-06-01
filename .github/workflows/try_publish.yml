@@ -40,6 +40,10 @@ jobs:
           
       - name: Update version.properties
         run: |
+          major=${{ env.versionMajor }}
+          minor=${{ env.versionMinor }}
+          patch=${{ env.versionPatch }}
+          
           if [[ "$buildType" == "Major" ]]; then
             major=$((major + 1))
             minor=0
