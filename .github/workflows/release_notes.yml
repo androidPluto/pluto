@@ -49,7 +49,7 @@ jobs:
           echo "### Pull Requests:"
           echo ""
           for pull_request in ${{ steps.pull_requests.outputs.data }}; do
-            echo "- ${{ pull_request.title }} (#${{ pull_request.number }}) by ${{ pull_request.user.login }}"
+            echo "- ${{ pull_request.head.ref }}: ${{ pull_request.title }} (#${{ pull_request.number }}) by ${{ pull_request.user.login }}"
           done
           echo ""
           echo "### Closed Issues:"
