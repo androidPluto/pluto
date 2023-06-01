@@ -11,15 +11,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         
-      - uses: actions/github-script@v5
-        with:
-          script: |
-            const workflowName = "Releasing ${{ github.event.release.name }}";
-            const actionName = "Deloying ${{ github.event.release.name }}";
-
-            github.context.payload.workflow = workflowName;
-            github.context.payload.action = actionName;
-      
       - name: Run on New Release
         run: |
           echo "A new release was created."
