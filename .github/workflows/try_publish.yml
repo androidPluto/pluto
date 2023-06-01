@@ -51,9 +51,9 @@ jobs:
           git fetch --tags
           LATEST_TAG=$(git tag | sort -rV | head -n 1)
           echo "Latest Release Tag: $LATEST_TAG"
-# commits=$(git log --pretty=format:"%h - %s (%an))
-# echo "commits: $commits"
-# echo "commitsSinceLastRelease=$commits" >> $GITHUB_ENV
+          commits=$(git log --pretty=format:"%h - %s (%an))
+          echo "commits: $commits"
+          echo "commitsSinceLastRelease=$commits" >> $GITHUB_ENV
           
           
 #commits=$(git log "${lastReleaseTag}..HEAD" --pretty=format:"%h - %s (%an)") 
