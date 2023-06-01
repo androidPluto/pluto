@@ -45,9 +45,6 @@ jobs:
           
       - name: Commit version.properties changes
         run: |
-          git branch
-          git fetch --all
-          git checkout develop
           echo "major=${{ env.versionMajor }}" > version.properties
           echo "minor=${{ env.versionMinor }}" >> version.properties
           echo "patch=${{ env.versionPatch }}" >> version.properties
@@ -58,6 +55,12 @@ jobs:
           git config --local user.name "srtvprateek"
           git add version.properties
           git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
-          git push
         env:
           PAT_TOKEN: ${{ secrets.COMMIT_PAT }}
+  
+      - name: Create Pull Request
+        run: |
+          currentBranch=$(git rev-parse --abbrev-ref HEAD)
+          gh pr create --title "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}" --base develop --head ${{ currentBranch }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
