@@ -61,6 +61,8 @@ jobs:
       - name: Create Pull Request
         run: |
           currentBranch=$(git rev-parse --abbrev-ref HEAD)
-          gh pr create --title "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}" --body "" --base develop --head $currentBranch
+          prTitle="ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
+          prBody="see release details https://github.com/androidPluto/pluto/releases/tag/${{ github.event.release.tag_name }}"
+          gh pr create --title "$prTitle" --body "$prBody" --base develop --head $currentBranch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
