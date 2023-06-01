@@ -52,36 +52,28 @@ jobs:
         run: |
           echo "## Release Notes - ${{ steps.latest_release.outputs.tag }}"
           echo ""
+          echo "### Closed Issues:"
+          echo ""
+          for issue in "${{ steps.closed_issues.outputs.data }}"; do
+            issue_title=$(echo "$issue" | jq -r '.title')
+            issue_number=$(echo "$issue" | jq -r '.number')
+            issue_user=$(echo "$issue" | jq -r '.user.login')
+            echo "- $issue_number: $issue_title by $issue_user"
+          done
+          echo ""
+          echo "### New Contributors:"
+          echo ""
+          for contributor in "${{ steps.contributors.outputs.data }}"; do
+            contributor_name=$(echo "$contributor" | jq -r '.login')
+            contributor_commits=$(echo "$contributor" | jq -r '.contributions')
+            echo "- $contributor_name ($contributor_commits contributions)"
+          done
+          echo ""
           echo "### Pull Requests:"
           echo ""
           pull_requests="${{ steps.pull_requests.outputs.data }}"
           echo "$pull_requests" | jq -r '.[] | "- \(.number): \(.title | @sh) by \(.user.login)"'
-# pr_title=$(echo "$pull_request" | jq -r '.title')
-# echo "- $pr_title"
-# pr_number=$(echo "$pull_request" | jq -r '.number')
-# echo "- $pr_number"
-# pr_user=$(echo "$pull_request" | jq -r '.user.login')
-# echo "- $pr_user"
-# echo "- $pr_title by $pr_user in $pr_number"
-#done
-# echo ""
-# echo "### Closed Issues:"
-# echo ""
-# for issue in "${{ steps.closed_issues.outputs.data }}"; do
-#   issue_title=$(echo "$issue" | jq -r '.title')
-#   issue_number=$(echo "$issue" | jq -r '.number')
-#   issue_user=$(echo "$issue" | jq -r '.user.login')
-#   echo "- $issue_number: $issue_title by $issue_user"
-# done
-# echo ""
-# echo "### New Contributors:"
-# echo ""
-# for contributor in "${{ steps.contributors.outputs.data }}"; do
-#   contributor_name=$(echo "$contributor" | jq -r '.login')
-#   contributor_commits=$(echo "$contributor" | jq -r '.contributions')
-#   echo "- $contributor_name ($contributor_commits contributions)"
-# done
-# echo ""
+          echo ""
 
 #       - name: Save Release Notes
 #         id: save_release_notes
