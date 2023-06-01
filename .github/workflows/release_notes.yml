@@ -21,17 +21,17 @@ jobs:
         id: pull_requests
         uses: octokit/request-action@v2.x
         with:
-          route: GET /repos/${{ github.repository }}/pulls?state=closed&base=main&sort=created&direction=desc
-# headers: |
-#   Authorization: ${{ secrets.GITHUB_TOKEN }}
+          route: GET /repos/${{ github.repository }}/pulls?state=closed&base=develop&sort=created&direction=desc
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get Closed Issues
         id: closed_issues
         uses: octokit/request-action@v2.x
         with:
           route: GET /repos/${{ github.repository }}/issues?state=closed&sort=created&direction=desc
-# headers: |
-#   Authorization: ${{ secrets.GITHUB_TOKEN }}
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get Contributors
         id: contributors
