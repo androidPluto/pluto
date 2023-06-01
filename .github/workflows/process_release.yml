@@ -60,7 +60,6 @@ jobs:
           commitTitle="ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
           commitBody="see release details https://github.com/androidPluto/pluto/releases/tag/${{ github.event.release.tag_name }}"
           git commit -m "$commitTitle" -m "$commitBody"
-          git push
           
       - name: Publish artifacts to MavenCentral
         run: ./gradlew publish
@@ -72,3 +71,11 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
+          
+      - name: Pushing changes to version.properties post deployment
+        run: |
+          git fetch --all
+          git checkout develop
+          git push
+          
+            
