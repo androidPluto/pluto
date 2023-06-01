@@ -44,8 +44,6 @@ jobs:
           echo "versionPatch=${versionStubs[2]}" >> $GITHUB_ENV
           
       - name: Commit version.properties changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.COMMIT_PAT }}
         run: |
           git branch
           git fetch --all
@@ -61,3 +59,5 @@ jobs:
           git add version.properties
           git commit -m "ci(release): version bump ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}"
           git push
+        env:
+          PAT_TOKEN: ${{ secrets.COMMIT_PAT }}
