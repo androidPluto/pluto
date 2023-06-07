@@ -13,15 +13,17 @@ internal class LogsProcessor private constructor() {
     companion object {
 
         fun process(priority: Int, tag: String, message: String, tr: Throwable?, stackTraceElement: StackTraceElement) {
-            LogDBHandler.persist(priority2Level(priority), tag, message, tr, stackTraceElement.stackTrace())
-            consolePrint(priority2Level(priority), tag, message, tr, stackTraceElement.stackTrace())
+            val stackTrace = stackTraceElement.stackTrace()
+            LogDBHandler.persist(priority2Level(priority), tag, message, tr, stackTrace)
+            consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
         }
 
         fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTraceElement: StackTraceElement) {
             val moshi = Moshi.Builder().build()
             val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-            LogDBHandler.persist(Level.Event, tag, event, attr, stackTraceElement.stackTrace())
-            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTraceElement.stackTrace())
+            val stackTrace = stackTraceElement.stackTrace()
+            LogDBHandler.persist(Level.Event, tag, event, attr, stackTrace)
+            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
         }
 
         @SuppressWarnings("ComplexCondition")
@@ -39,7 +41,7 @@ internal class LogsProcessor private constructor() {
         }
 
         private fun StackTraceElement.stackTrace(): StackTrace {
-            return StackTrace(this.fileName, this.fileName, this.lineNumber)
+            return StackTrace(this.methodName, this.fileName ?: "Unknown Source", this.lineNumber)
         }
 
         private fun priority2Level(priority: Int): Level {
