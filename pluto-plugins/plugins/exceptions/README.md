@@ -38,6 +38,11 @@ PlutoExceptions.setANRHandler { thread, exception ->
     Log.d("anr_demo", "potential ANR detected on thread: " + thread.name, exception)
 }
 ```
+
+You can also modify the Main thread response time, after which the above callback will be triggered.
+```kotlin
+PlutoExceptions.mainThreadResponseThreshold = 10_000
+```
 <br>
 
 🎉 &nbsp;You are all done!
