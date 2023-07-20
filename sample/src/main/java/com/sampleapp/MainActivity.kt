@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
+import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_ID
 import com.sampleapp.ContainerFragment.Companion.FUNCTION_LABEL
 import com.sampleapp.databinding.ActivityMainBinding
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 textStartPadding = CHIP_PADDING
                 textEndPadding = CHIP_PADDING
                 setOnClickListener { _ ->
-                    if (it.id == SupportedPlugins.LAYOUT_INSPECTOR) {
+                    if (it.id == PlutoLayoutInspectorPlugin.ID) {
                         startActivity(Intent(this@MainActivity, DemoLayoutInspectorActivity::class.java))
                     } else {
                         ContainerFragment().apply {

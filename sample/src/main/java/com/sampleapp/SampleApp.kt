@@ -18,14 +18,6 @@ import com.pluto.plugins.network.PlutoNetworkPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
-import com.sampleapp.SupportedPlugins.Companion.DATASTORE_PREF
-import com.sampleapp.SupportedPlugins.Companion.DEMO
-import com.sampleapp.SupportedPlugins.Companion.EXCEPTIONS
-import com.sampleapp.SupportedPlugins.Companion.LAYOUT_INSPECTOR
-import com.sampleapp.SupportedPlugins.Companion.LOGGER
-import com.sampleapp.SupportedPlugins.Companion.NETWORK
-import com.sampleapp.SupportedPlugins.Companion.ROOMS_DATABASE
-import com.sampleapp.SupportedPlugins.Companion.SHARED_PREF
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.APP_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.USER_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.appStateDatastore
@@ -41,14 +33,14 @@ class SampleApp : Application() {
         initializeStrictMode()
         super.onCreate()
         Pluto.Installer(this)
-            .addPlugin(DemoPlugin(DEMO))
-            .addPlugin(PlutoExceptionsPlugin(EXCEPTIONS))
-            .addPlugin(PlutoDatastorePreferencesPlugin(DATASTORE_PREF))
-            .addPlugin(PlutoNetworkPlugin(NETWORK))
-            .addPlugin(PlutoLoggerPlugin(LOGGER))
-            .addPlugin(PlutoSharePreferencesPlugin(SHARED_PREF))
-            .addPlugin(PlutoRoomsDatabasePlugin(ROOMS_DATABASE))
-            .addPlugin(PlutoLayoutInspectorPlugin(LAYOUT_INSPECTOR))
+            .addPlugin(DemoPlugin())
+            .addPlugin(PlutoExceptionsPlugin())
+            .addPlugin(PlutoDatastorePreferencesPlugin())
+            .addPlugin(PlutoNetworkPlugin())
+            .addPlugin(PlutoLoggerPlugin())
+            .addPlugin(PlutoSharePreferencesPlugin())
+            .addPlugin(PlutoRoomsDatabasePlugin())
+            .addPlugin(PlutoLayoutInspectorPlugin())
             .install()
         Pluto.showNotch(true)
 

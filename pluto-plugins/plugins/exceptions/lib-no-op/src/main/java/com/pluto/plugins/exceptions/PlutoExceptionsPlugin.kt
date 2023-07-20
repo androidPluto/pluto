@@ -1,4 +1,8 @@
 package com.pluto.plugins.exceptions
 
 @SuppressWarnings("UnusedPrivateMember")
-class PlutoExceptionsPlugin(identifier: String)
+class PlutoExceptionsPlugin @JvmOverloads constructor(identifier: String = ID) {
+    companion object {
+        const val ID = "exceptions"
+    }
+}

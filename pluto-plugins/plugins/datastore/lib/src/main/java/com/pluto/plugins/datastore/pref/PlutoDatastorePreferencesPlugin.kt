@@ -6,7 +6,11 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.datastore.pref.internal.BaseFragment
 
-class PlutoDatastorePreferencesPlugin(identifier: String) : Plugin(identifier) {
+class PlutoDatastorePreferencesPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoDatastorePreferencesPlugin() instead.")
+    constructor(identifier: String) : this()
 
     override fun getConfig() = PluginConfiguration(
         name = "DataStore Preferences",
@@ -29,4 +33,8 @@ class PlutoDatastorePreferencesPlugin(identifier: String) : Plugin(identifier) {
     override fun onPluginInstalled() {}
 
     override fun onPluginDataCleared() {}
+
+    companion object {
+        const val ID = "datastore-preferences"
+    }
 }

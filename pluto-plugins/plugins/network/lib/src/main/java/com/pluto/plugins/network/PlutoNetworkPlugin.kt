@@ -8,7 +8,12 @@ import com.pluto.plugins.network.internal.NetworkFragment
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.mock.logic.MockSettingsRepo
 
-class PlutoNetworkPlugin(devIdentifier: String) : Plugin(devIdentifier) {
+class PlutoNetworkPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoNetworkPlugin() instead.")
+    constructor(identifier: String) : this()
+
     override fun getConfig(): PluginConfiguration {
         return PluginConfiguration(
             name = context.getString(R.string.pluto_network___plugin_name),
@@ -33,5 +38,9 @@ class PlutoNetworkPlugin(devIdentifier: String) : Plugin(devIdentifier) {
     override fun onPluginInstalled() {
         PlutoNetwork.initialize(context)
         MockSettingsRepo.init(context)
+    }
+
+    companion object {
+        const val ID = "network"
     }
 }

@@ -6,7 +6,11 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.utilities.DebugLog
 
-class DemoPlugin(devIdentifier: String) : Plugin(devIdentifier) {
+class DemoPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor DemoPlugin() instead.")
+    constructor(identifier: String) : this()
 
     init {
         Session.devIdentifier = devIdentifier
@@ -33,5 +37,9 @@ class DemoPlugin(devIdentifier: String) : Plugin(devIdentifier) {
     }
 
     override fun onPluginDataCleared() {
+    }
+
+    companion object {
+        const val ID = "demo"
     }
 }
