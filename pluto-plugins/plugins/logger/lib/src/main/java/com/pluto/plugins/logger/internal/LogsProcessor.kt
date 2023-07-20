@@ -14,7 +14,7 @@ internal class LogsProcessor private constructor() {
 
         fun process(priority: Int, tag: String, message: String, tr: Throwable?, stackTraceElement: StackTraceElement) {
             val stackTrace = stackTraceElement.stackTrace()
-            LogDBHandler.persist(priority2Level(priority), tag, message, tr, stackTrace)
+            LogDBHandler.persistLog(priority2Level(priority), tag, message, tr, stackTrace)
             consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
         }
 
@@ -22,7 +22,7 @@ internal class LogsProcessor private constructor() {
             val moshi = Moshi.Builder().build()
             val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
             val stackTrace = stackTraceElement.stackTrace()
-            LogDBHandler.persist(Level.Event, tag, event, attr, stackTrace)
+            LogDBHandler.persistEvent(Level.Event, tag, event, attr, stackTrace)
             consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
         }
 

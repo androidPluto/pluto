@@ -13,42 +13,57 @@ import kotlinx.coroutines.launch
 
 internal object LogDBHandler {
 
-    private lateinit var logDao: LogDao
+    private var logDao: LogDao? = null
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+    /**
+     * Store log temporarily till the LogDBHandler is not initialised.
+     */
+    private val tempList = arrayListOf<LogEntity>()
 
     fun initialize(context: Context) {
         logDao = DatabaseManager(context).db.exceptionDao()
+        processTempList()
     }
 
-    fun persist(level: Level, tag: String, message: String?, tr: Throwable?, ele: StackTrace) {
+    fun persistLog(level: Level, tag: String, message: String?, tr: Throwable?, ele: StackTrace) {
         coroutineScope.launch {
-            logDao.save(
-                LogEntity(
-                    timestamp = System.currentTimeMillis(),
-                    data = LogData(level, tag, message ?: "", tr?.asExceptionData(), ele)
-                ),
+            val logEntity = LogEntity(
+                timestamp = System.currentTimeMillis(),
+                data = LogData(level, tag, message ?: "", tr?.asExceptionData(), ele)
             )
+            logDao?.save(logEntity) ?: run { pushToTempList(logEntity) }
         }
     }
 
-    fun persist(level: Level, tag: String, event: String, attr: HashMap<String, Any?>?, ele: StackTrace) {
+    fun persistEvent(level: Level, tag: String, event: String, attr: HashMap<String, Any?>?, ele: StackTrace) {
         coroutineScope.launch {
-            logDao.save(
-                LogEntity(
-                    timestamp = System.currentTimeMillis(),
-                    data = LogData(level, tag, event ?: "", null, ele, attr)
-                ),
+            val logEntity = LogEntity(
+                timestamp = System.currentTimeMillis(),
+                data = LogData(level, tag, event, null, ele, attr)
             )
+            logDao?.save(logEntity) ?: run { pushToTempList(logEntity) }
         }
     }
 
     suspend fun fetchAll(): List<LogEntity>? {
-        return logDao.fetchAll()
+        return logDao?.fetchAll()
     }
 
     fun flush() {
         coroutineScope.launch {
-            logDao.deleteAll()
+            logDao?.deleteAll()
+        }
+    }
+
+    private fun pushToTempList(logEntity: LogEntity) {
+        tempList.add(logEntity)
+    }
+
+    private fun processTempList() {
+        coroutineScope.launch {
+            logDao?.saveAll(tempList)
+            tempList.clear()
         }
     }
 }
