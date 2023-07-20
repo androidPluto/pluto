@@ -40,7 +40,7 @@ internal object LogDBHandler {
         coroutineScope.launch {
             val logEntity = LogEntity(
                 timestamp = System.currentTimeMillis(),
-                data = LogData(level, tag, event ?: "", null, ele, attr)
+                data = LogData(level, tag, event, null, ele, attr)
             )
             logDao?.save(logEntity) ?: run { pushToTempList(logEntity) }
         }
