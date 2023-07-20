@@ -11,6 +11,9 @@ internal interface LogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(entity: LogEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAll(entities: List<LogEntity>)
+
     @Query("SELECT * FROM logs where id is :id")
     suspend fun fetch(id: Int): LogEntity?
 
