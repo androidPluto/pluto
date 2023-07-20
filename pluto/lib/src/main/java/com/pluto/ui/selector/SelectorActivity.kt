@@ -114,7 +114,7 @@ class SelectorActivity : FragmentActivity() {
             when (data) {
                 is Plugin -> when (action) {
                     "click" -> {
-                        Pluto.open(data.devIdentifier)
+                        Pluto.open(data.identifier)
                         finish()
                     }
                     "long_click" -> {

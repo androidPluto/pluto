@@ -1,5 +1,8 @@
 package com.pluto.plugin
 
-import com.pluto.utilities.list.ListItem
+abstract class PluginGroup(identifier: String) : PluginEntity(identifier) {
 
-class PluginGroup : ListItem()
+    abstract fun getConfig(): PluginGroupConfiguration
+
+    abstract fun getPlugins(): List<Plugin>
+}

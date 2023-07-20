@@ -4,7 +4,6 @@ import android.app.Application
 import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
-import com.pluto.utilities.DebugLog
 
 internal class PluginManager(private val application: Application) {
 
@@ -24,20 +23,20 @@ internal class PluginManager(private val application: Application) {
         )
     }
 
-    fun install(plugins: LinkedHashSet<Plugin>) {
+    fun install(plugins: LinkedHashSet<PluginEntity>) {
         plugins.forEach {
-            if (it.shouldInstallPlugin()) {
-                it.install(application)
-                this.plugins.add(it)
-            } else {
-                DebugLog.e("pluto_plugin", "${it.getConfig().name} not installed (reason: condition mismatch).")
+            when (it) {
+                is Plugin -> {
+                    it.install(application)
+                    this.plugins.add(it)
+                }
             }
         }
     }
 
     fun get(identifier: String): Plugin? {
         return plugins.firstOrNull {
-            it.devIdentifier == identifier
+            it.identifier == identifier
         }
     }
 }
