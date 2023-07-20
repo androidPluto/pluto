@@ -12,37 +12,44 @@ class PlutoLog private constructor() {
     companion object {
 
         @JvmStatic
+        @JvmOverloads
         fun v(tag: String, message: String, tr: Throwable? = null) {
             process(Log.VERBOSE, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
+        @JvmOverloads
         fun d(tag: String, message: String, tr: Throwable? = null) {
             process(Log.DEBUG, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
+        @JvmOverloads
         fun i(tag: String, message: String, tr: Throwable? = null) {
             process(Log.INFO, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
+        @JvmOverloads
         fun w(tag: String, message: String, tr: Throwable? = null) {
             process(Log.WARN, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
+        @JvmOverloads
         fun e(tag: String, message: String, tr: Throwable? = null) {
             process(Log.ERROR, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
+        @JvmOverloads
         fun wtf(tag: String, message: String, tr: Throwable? = null) {
             process(Log.ASSERT, tag, message, tr, Thread.currentThread().getStackTraceElement())
         }
 
         @JvmStatic
-        fun event(tag: String, event: String, attributes: HashMap<String, Any?>?) {
+        @JvmOverloads
+        fun event(tag: String, event: String, attributes: HashMap<String, Any?>? = null) {
             processEvent(tag, event, attributes, Thread.currentThread().getStackTraceElement())
         }
 
