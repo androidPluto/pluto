@@ -46,7 +46,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let {
                     Session.loggerSearchText = it
-                    logsAdapter.list = filteredLogs(it)
+                    viewModel.fetch(it)
                     if (it.isEmpty()) {
                         binding.logList.linearLayoutManager()?.scrollToPositionWithOffset(0, 0)
                     }
@@ -57,7 +57,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         viewModel.logs.removeObserver(logsObserver)
         viewModel.logs.observe(viewLifecycleOwner, logsObserver)
 
-        viewModel.fetchAll()
+        viewModel.fetch()
 
         viewModel.serializedLogs.removeObserver(serializedLogsObserver)
         viewModel.serializedLogs.observe(viewLifecycleOwner, serializedLogsObserver)
@@ -80,32 +80,16 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         }
     }
 
-    @Synchronized
-    private fun filteredLogs(search: String): List<ListItem> {
-        val list = arrayListOf<ListItem>()
-            .apply {
-                viewModel.logs.value?.let { addAll(it) }
-            }
-            .filter { log ->
-                if (log is LogData) {
-                    log.tag.contains(search, true) ||
-                        log.message.contains(search, true) ||
-                        log.stackTrace.fileName.contains(search, true)
-                } else true
-            }
+    private val logsObserver = Observer<List<ListItem>> {
+        logsAdapter.list = it
         binding.noItemText.text = getString(
-            if (search.isNotEmpty()) {
+            if (binding.search.text.toString().isNotEmpty()) {
                 R.string.pluto_logger___no_search_result
             } else {
                 R.string.pluto_logger___no_logs_text
             }
         )
-        binding.noItemText.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-        return list
-    }
-
-    private val logsObserver = Observer<List<ListItem>> {
-        logsAdapter.list = filteredLogs(binding.search.text.toString())
+        binding.noItemText.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private val serializedLogsObserver = Observer<String> {

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.logger.internal.persistence.LogDBHandler
+import com.pluto.plugins.logger.internal.persistence.LogEntity
 import com.pluto.utilities.extensions.asFormattedDate
 import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 
 internal class LogsViewModel(application: Application) : AndroidViewModel(application) {
 
+    private var rawLogs: List<LogEntity>? = null
     val logs: LiveData<List<ListItem>>
         get() = _logs
     private val _logs = MutableLiveData<List<ListItem>>()
@@ -25,11 +27,13 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
         get() = _serializedLogs
     private val _serializedLogs = MutableLiveData<String>()
 
-    fun fetchAll() {
+    fun fetch(search: String = "") {
         viewModelScope.launch(Dispatchers.IO) {
-            val allLogs = LogDBHandler.fetchAll() ?: arrayListOf()
-            val currentSessionLogs = allLogs.filter { it.sessionId == Session.id }.map { it.data }
-            val previousSessionLogs = allLogs.filter { it.sessionId != Session.id }.map { it.data }
+            if (rawLogs == null) {
+                rawLogs = LogDBHandler.fetchAll()
+            }
+            val currentSessionLogs = (rawLogs ?: arrayListOf()).filter { it.sessionId == Session.id && it.data.isValidSearch(search) }.map { it.data }
+            val previousSessionLogs = (rawLogs ?: arrayListOf()).filter { it.sessionId != Session.id && it.data.isValidSearch(search) }.map { it.data }
 
             val list = arrayListOf<ListItem>()
             list.addAll(currentSessionLogs)
@@ -88,3 +92,6 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
         const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS"
     }
 }
+
+private fun LogData.isValidSearch(search: String): Boolean =
+    search.isEmpty() || tag.contains(search, true) || message.contains(search, true) || stackTrace.fileName.contains(search, true)
