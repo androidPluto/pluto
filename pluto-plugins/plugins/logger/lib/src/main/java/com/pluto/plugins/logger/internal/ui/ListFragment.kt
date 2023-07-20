@@ -70,7 +70,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
                 when (item.itemId) {
                     R.id.clear -> viewModel.deleteAll()
                     R.id.shareAll ->
-                        if (viewModel.logs.value?.size ?: 0 > 0) {
+                        if (!viewModel.logs.value.isNullOrEmpty()) {
                             viewModel.serializeLogs()
                         } else {
                             context?.toast("No logs to share")
@@ -81,15 +81,17 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
     }
 
     @Synchronized
-    private fun filteredLogs(search: String): List<LogData> {
-        val list = arrayListOf<LogData>()
+    private fun filteredLogs(search: String): List<ListItem> {
+        val list = arrayListOf<ListItem>()
             .apply {
                 viewModel.logs.value?.let { addAll(it) }
             }
             .filter { log ->
-                log.tag.contains(search, true) ||
-                    log.message.contains(search, true) ||
-                    log.stackTrace.fileName.contains(search, true)
+                if (log is LogData) {
+                    log.tag.contains(search, true) ||
+                        log.message.contains(search, true) ||
+                        log.stackTrace.fileName.contains(search, true)
+                } else true
             }
         binding.noItemText.text = getString(
             if (search.isNotEmpty()) {
@@ -102,7 +104,7 @@ internal class ListFragment : Fragment(R.layout.pluto_logger___fragment_list) {
         return list
     }
 
-    private val logsObserver = Observer<List<LogData>> {
+    private val logsObserver = Observer<List<ListItem>> {
         logsAdapter.list = filteredLogs(binding.search.text.toString())
     }
 

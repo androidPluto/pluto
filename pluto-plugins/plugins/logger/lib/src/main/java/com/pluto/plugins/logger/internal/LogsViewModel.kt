@@ -7,14 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 import com.pluto.utilities.extensions.asFormattedDate
+import com.pluto.utilities.list.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 internal class LogsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val logs: LiveData<List<LogData>>
+    val logs: LiveData<List<ListItem>>
         get() = _logs
-    private val _logs = MutableLiveData<List<LogData>>()
+    private val _logs = MutableLiveData<List<ListItem>>()
 
     val current: LiveData<LogData>
         get() = _current
@@ -26,7 +27,16 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
 
     fun fetchAll() {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = LogDBHandler.fetchAll()?.map { it.data } ?: arrayListOf()
+            val allLogs = LogDBHandler.fetchAll() ?: arrayListOf()
+            val currentSessionLogs = allLogs.filter { it.sessionId == Session.id }.map { it.data }
+            val previousSessionLogs = allLogs.filter { it.sessionId != Session.id }.map { it.data }
+
+            val list = arrayListOf<ListItem>()
+            list.addAll(currentSessionLogs)
+            if (previousSessionLogs.isNotEmpty()) {
+                list.add(LogPreviousSessionHeader())
+                list.addAll(previousSessionLogs)
+            }
             _logs.postValue(list)
         }
     }
@@ -47,22 +57,24 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
             val text = StringBuilder()
             text.append("Pluto Log Trace")
             logs.value?.forEach {
-                text.append("\n----------\n")
-                text.append("${it.timeStamp.asFormattedDate(DATE_FORMAT)} ${it.level.label.uppercase()} | ${it.tag}: ${it.message}")
-                it.tr?.let { tr ->
-                    text.append("\n\tException: ${tr}\n")
-                    tr.stackTrace.take(MAX_STACK_TRACE_LINES).forEach { trace ->
-                        text.append("\t\t at $trace\n")
+                if (it is LogData) {
+                    text.append("\n----------\n")
+                    text.append("${it.timeStamp.asFormattedDate(DATE_FORMAT)} ${it.level.label.uppercase()} | ${it.tag}: ${it.message}")
+                    it.tr?.let { tr ->
+                        text.append("\n\tException: ${tr}\n")
+                        tr.stackTrace.take(MAX_STACK_TRACE_LINES).forEach { trace ->
+                            text.append("\t\t at $trace\n")
+                        }
+                        if (tr.stackTrace.size - MAX_STACK_TRACE_LINES > 0) {
+                            text.append("\t\t + ${tr.stackTrace.size - MAX_STACK_TRACE_LINES} more lines")
+                        }
                     }
-                    if (tr.stackTrace.size - MAX_STACK_TRACE_LINES > 0) {
-                        text.append("\t\t + ${tr.stackTrace.size - MAX_STACK_TRACE_LINES} more lines")
-                    }
-                }
-                it.eventAttributes?.let { attr ->
-                    if (attr.isNotEmpty()) {
-                        text.append("\n\tEvent Attributes (${attr.size}):")
-                        attr.forEach { entry ->
-                            text.append("\n\t\t${entry.key}: ${entry.value}")
+                    it.eventAttributes?.let { attr ->
+                        if (attr.isNotEmpty()) {
+                            text.append("\n\tEvent Attributes (${attr.size}):")
+                            attr.forEach { entry ->
+                                text.append("\n\t\t${entry.key}: ${entry.value}")
+                            }
                         }
                     }
                 }

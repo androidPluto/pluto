@@ -28,20 +28,14 @@ internal object LogDBHandler {
 
     fun persistLog(level: Level, tag: String, message: String?, tr: Throwable?, ele: StackTrace) {
         coroutineScope.launch {
-            val logEntity = LogEntity(
-                timestamp = System.currentTimeMillis(),
-                data = LogData(level, tag, message ?: "", tr?.asExceptionData(), ele)
-            )
+            val logEntity = LogEntity(data = LogData(level, tag, message ?: "", tr?.asExceptionData(), ele))
             logDao?.save(logEntity) ?: run { pushToTempList(logEntity) }
         }
     }
 
     fun persistEvent(level: Level, tag: String, event: String, attr: HashMap<String, Any?>?, ele: StackTrace) {
         coroutineScope.launch {
-            val logEntity = LogEntity(
-                timestamp = System.currentTimeMillis(),
-                data = LogData(level, tag, event, null, ele, attr)
-            )
+            val logEntity = LogEntity(data = LogData(level, tag, event, null, ele, attr))
             logDao?.save(logEntity) ?: run { pushToTempList(logEntity) }
         }
     }

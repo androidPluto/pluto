@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.pluto.plugins.logger.internal.LogData
-import com.pluto.utilities.list.ListItem
+import com.pluto.plugins.logger.internal.Session
 import com.squareup.moshi.JsonClass
 
 @Keep
@@ -17,8 +17,10 @@ internal data class LogEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int? = null,
+    @ColumnInfo(name = "session_id")
+    val sessionId: String = Session.id,
     @ColumnInfo(name = "timestamp")
-    val timestamp: Long,
+    val timestamp: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "data")
     val data: LogData,
-) : ListItem()
+)

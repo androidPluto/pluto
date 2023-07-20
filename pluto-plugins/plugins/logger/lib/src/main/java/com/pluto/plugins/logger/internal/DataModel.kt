@@ -36,6 +36,11 @@ internal data class LogData(
 ) : ListItem()
 
 @Keep
+internal data class LogPreviousSessionHeader(
+    val label: String = "header"
+) : ListItem()
+
+@Keep
 @JsonClass(generateAdapter = true)
 internal data class StackTrace(
     val methodName: String,
