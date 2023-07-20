@@ -1,4 +1,8 @@
 package com.pluto.plugins.network
 
 @SuppressWarnings("UnusedPrivateMember")
-class PlutoNetworkPlugin(devIdentifier: String)
+class PlutoNetworkPlugin @JvmOverloads constructor(identifier: String = ID) {
+    companion object {
+        const val ID = "network"
+    }
+}

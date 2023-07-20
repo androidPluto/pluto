@@ -7,7 +7,11 @@ import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.logger.internal.LogsFragment
 import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 
-class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
+class PlutoLoggerPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoLoggerPlugin() instead.")
+    constructor(identifier: String) : this()
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_logger___plugin_name),
@@ -31,5 +35,9 @@ class PlutoLoggerPlugin(identifier: String) : Plugin(identifier) {
 
     override fun onPluginDataCleared() {
         LogDBHandler.flush()
+    }
+
+    companion object {
+        const val ID = "logger"
     }
 }

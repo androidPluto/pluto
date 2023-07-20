@@ -6,7 +6,11 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.rooms.db.internal.ui.filter.FilterConfig
 
-class PlutoRoomsDatabasePlugin(identifier: String) : Plugin(identifier) {
+class PlutoRoomsDatabasePlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoRoomsDatabasePlugin() instead.")
+    constructor(identifier: String) : this()
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_rooms___plugin_name),
@@ -29,5 +33,9 @@ class PlutoRoomsDatabasePlugin(identifier: String) : Plugin(identifier) {
 
     override fun onPluginDataCleared() {
         FilterConfig.clear()
+    }
+
+    companion object {
+        const val ID = "rooms-database"
     }
 }

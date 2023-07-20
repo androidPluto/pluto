@@ -5,7 +5,11 @@ import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 
-class PlutoSharePreferencesPlugin(identifier: String) : Plugin(identifier) {
+class PlutoSharePreferencesPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoSharePreferencesPlugin() instead.")
+    constructor(identifier: String) : this()
 
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_pref___plugin_name),
@@ -28,5 +32,9 @@ class PlutoSharePreferencesPlugin(identifier: String) : Plugin(identifier) {
     }
 
     override fun onPluginDataCleared() {
+    }
+
+    companion object {
+        const val ID = "shared-preferences"
     }
 }
