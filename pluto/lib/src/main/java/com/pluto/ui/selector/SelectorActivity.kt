@@ -28,6 +28,7 @@ import com.pluto.tool.selector.ToolAdapter
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings
+import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -135,6 +136,7 @@ class SelectorActivity : FragmentActivity() {
                         devDetailsFragment.show(supportFragmentManager, "devDetails")
                     }
                 }
+                is PluginGroup -> toast("group clicked ${data.getPlugins().size}")
                 is PlutoTool -> {
                     Pluto.toolManager.select(data.id)
                     finish()

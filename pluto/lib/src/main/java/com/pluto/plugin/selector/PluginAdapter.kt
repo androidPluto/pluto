@@ -19,6 +19,7 @@ internal class PluginAdapter(private val listener: OnActionListener) : BaseAdapt
     override fun onViewHolderCreated(parent: ViewGroup, viewType: Int): DiffAwareHolder? {
         return when (viewType) {
             ITEM_TYPE_PLUGIN -> PluginItemHolder(parent, listener)
+            ITEM_TYPE_PLUGIN_GROUP -> PluginGroupItemHolder(parent, listener)
             else -> null
         }
     }
