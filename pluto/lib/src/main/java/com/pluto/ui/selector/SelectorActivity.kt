@@ -16,6 +16,8 @@ import com.pluto.R
 import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginEntity
+import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.PluginsViewModel
 import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
@@ -86,13 +88,16 @@ class SelectorActivity : FragmentActivity() {
 
         settingsViewModel.resetAll.observe(this) {
             Pluto.pluginManager.installedPlugins.forEach {
-                it.onPluginDataCleared()
+                when (it) {
+                    is Plugin -> it.onPluginDataCleared()
+                    is PluginGroup -> it.getPlugins().forEach { plugin -> plugin.onPluginDataCleared() }
+                }
             }
             Pluto.resetDataCallback.state.postValue(true)
         }
     }
 
-    private val pluginListObserver = Observer<List<Plugin>> {
+    private val pluginListObserver = Observer<List<PluginEntity>> {
         pluginAdapter.list = it
         if (it.isNullOrEmpty()) {
             binding.noPluginView.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
