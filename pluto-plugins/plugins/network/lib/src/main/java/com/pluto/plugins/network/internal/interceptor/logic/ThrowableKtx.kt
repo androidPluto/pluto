@@ -7,7 +7,7 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.spannable.createSpan
 
-internal fun Throwable.asExceptionData(): ExceptionData {
+fun Throwable.asExceptionData(): ExceptionData {
     return ExceptionData(
         name = this.toString().replace(": $message", "", true),
         message = message,
@@ -18,7 +18,7 @@ internal fun Throwable.asExceptionData(): ExceptionData {
 }
 
 @Keep
-internal data class ExceptionData(
+data class ExceptionData(
     val message: String?,
     val name: String?,
     val file: String?,

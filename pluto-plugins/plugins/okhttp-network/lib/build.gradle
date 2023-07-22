@@ -14,7 +14,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'logger'
+    PUBLISH_ARTIFACT_ID = 'network.okhttp'
 }
 
 android {
@@ -29,8 +29,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-
-        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
     buildTypes {
@@ -50,8 +48,8 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    resourcePrefix 'pluto_logger___'
-    namespace 'com.pluto.plugins.logger'
+    resourcePrefix 'pluto_network___'
+    namespace 'com.pluto.plugins.network.okhttp'
     lint {
         abortOnError false
     }
@@ -60,16 +58,16 @@ android {
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(path: ':pluto-plugins:base:lib')
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
-    api 'com.jakewharton.timber:timber:5.0.1'
+    implementation "androidx.core:core-ktx:$androidXCoreVersion"
+    implementation(project(":pluto-plugins:plugins:network:lib"))
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation 'com.squareup.okio:okio:2.10.0'
+    implementation "io.ktor:ktor-client-core-jvm:2.3.1"
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     implementation "com.squareup.moshi:moshi:$moshiVersion"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
-    implementation "androidx.room:room-ktx:$roomsVersion"
-    ksp "androidx.room:room-compiler:$roomsVersion"
-}
-
-task validateChanges {
-    dependsOn 'ktlintFormat'
-    dependsOn 'detekt'
+    implementation 'androidx.browser:browser:1.4.0'
 }

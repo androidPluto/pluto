@@ -1,11 +1,9 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
 import com.pluto.utilities.list.ListItem
-import okhttp3.HttpUrl
-import okhttp3.Protocol
 
-internal data class RequestData(
-    val url: HttpUrl,
+data class RequestData(
+    val url: String,
     val method: String,
     val body: ProcessedBody?,
     val headers: Map<String, String?>,
@@ -13,27 +11,28 @@ internal data class RequestData(
     val isGzipped: Boolean,
 )
 
-internal data class MockConfig(
+data class MockConfig(
     val url: String,
 )
 
-internal data class ResponseData(
+data class ResponseData(
     val status: Status,
     val isSuccessful: Boolean,
     val body: ProcessedBody?,
-    val protocol: Protocol?,
+    val protocol: String,
     val fromDiskCache: Boolean,
     val headers: Map<String, String?>,
     val sendTimeMillis: Long,
     val receiveTimeMillis: Long,
-    val isGzipped: Boolean,
+    val isGzipped: Boolean
 )
-internal data class Status(
+
+data class Status(
     val code: Int,
     val message: String,
 )
 
-internal class ApiCallData(
+class ApiCallData(
     val id: String,
     val request: RequestData,
     var hasResponseBody: Boolean = false,
@@ -55,7 +54,7 @@ internal class ApiCallData(
     }
 }
 
-internal data class ProcessedBody(
+data class ProcessedBody(
     val isValid: Boolean,
     val body: CharSequence,
     val mediaType: String,
@@ -67,3 +66,5 @@ internal data class ProcessedBody(
     val mediaTypeFull: String
         get() = "$mediaType/$mediaSubtype"
 }
+
+const val BINARY_MEDIA_TYPE = "binary"

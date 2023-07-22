@@ -1,10 +1,10 @@
-package com.pluto.plugins.network.internal.interceptor.logic.core
+package com.pluto.plugins.network.okhttp
 
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.processBody
+import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
 import com.pluto.utilities.DebugLog
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -19,7 +19,7 @@ import okio.IOException
 internal fun Request.convert(): RequestData {
     val body = this.body?.processBody(this.isGzipped)
     return RequestData(
-        url = this.url,
+        url = this.url.toString(),
         method = this.method,
         body = body,
         headers = this.headerMap(body?.sizeInBytes ?: 0L),
@@ -54,7 +54,7 @@ internal fun Response.convert(body: ProcessedBody?): ResponseData {
         status = Status(code, statusCodeMessage()),
         isSuccessful = isSuccessful,
         body = body,
-        protocol = protocol,
+        protocol = protocol.name,
         fromDiskCache = false,
         headers = headersMap(),
         sendTimeMillis = sentRequestAtMillis,

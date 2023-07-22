@@ -1,10 +1,8 @@
-package com.pluto.plugins.network.internal.interceptor.logic.core
+package com.pluto.plugins.network.okhttp
 
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.internal.interceptor.logic.processBody
-import java.io.File
-import java.io.IOException
+import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -14,9 +12,12 @@ import okio.GzipSource
 import okio.Source
 import okio.buffer
 import okio.source
+import java.io.File
+import java.io.IOException
 
-internal class ResponseBodyProcessor {
-    private val maxContentLength = MAX_CONTENT_LENGTH
+internal object ResponseBodyProcessor {
+    private const val MAX_CONTENT_LENGTH = 300_000L
+    val maxContentLength = MAX_CONTENT_LENGTH
 
     fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, apiCallData: ApiCallData): Response {
         apiCallData.response = response.convert(null)
@@ -45,7 +46,7 @@ internal class ResponseBodyProcessor {
             .build()
     }
 
-    private fun createTempTransactionFile(cacheDirectoryProvider: CacheDirectoryProvider): File? {
+    fun createTempTransactionFile(cacheDirectoryProvider: CacheDirectoryProvider): File? {
         val cache = cacheDirectoryProvider.provide()
         return if (cache == null) {
             IOException("Failed to obtain a valid cache directory for Pluto transaction file").printStackTrace()
@@ -55,7 +56,7 @@ internal class ResponseBodyProcessor {
         }
     }
 
-    private inner class ApiCallReportingSinkCallback(
+    private class ApiCallReportingSinkCallback(
         private val response: Response,
         private val apiCallData: ApiCallData
     ) : ReportingSink.Callback {
@@ -86,16 +87,11 @@ internal class ResponseBodyProcessor {
             IOException("Response payload couldn't be processed by Pluto", e).printStackTrace()
             null
         }
-    }
-
-    companion object {
-        private const val MAX_CONTENT_LENGTH = 300_000L
-//        private const val MAX_BLOB_SIZE = 1_000_000L
-    }
+    } //        private const val MAX_BLOB_SIZE = 1_000_000L
 }
 
 /** Returns a new response body that transmits this source. */
-fun BufferedSource.asResponseBody(contentType: MediaType? = null, contentLength: Long = -1L) = object : ResponseBody() {
+private fun BufferedSource.asResponseBody(contentType: MediaType? = null, contentLength: Long = -1L) = object : ResponseBody() {
     override fun contentType() = contentType
 
     override fun contentLength() = contentLength

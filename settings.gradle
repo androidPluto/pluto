@@ -25,7 +25,8 @@ include ':pluto-plugins:plugins:rooms-database:lib'
 include ':pluto-plugins:plugins:rooms-database:lib-no-op'
 include ':pluto-plugins:plugins:layout-inspector:lib'
 include ':pluto-plugins:plugins:layout-inspector:lib-no-op'
-
+include ':pluto-plugins:plugins:okhttp-network:lib'
+include ':pluto-plugins:plugins:ktor-network:lib'
 /* ui plugin modules */
 //include ':pluto-plugins:plugins-ui:bundle:lib'
 //include ':pluto-plugins:plugins-ui:bundle:lib-no-op'

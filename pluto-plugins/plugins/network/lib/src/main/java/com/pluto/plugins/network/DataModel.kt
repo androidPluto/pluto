@@ -5,7 +5,6 @@ import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.logic.Status
 import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
-import okhttp3.HttpUrl.Companion.toHttpUrl
 
 /**
  * Request class for Custom Network traces
@@ -26,7 +25,7 @@ data class CustomRequest(
     val isGzipped: Boolean
 ) {
     internal fun toRequestData(): RequestData = RequestData(
-        url = url.toHttpUrl(),
+        url = url,
         method = method.name,
         body = body?.toProcessBody(),
         headers = headers,
@@ -61,7 +60,7 @@ data class CustomResponse(
         headers = headers,
         sendTimeMillis = sendTimeMillis,
         receiveTimeMillis = receiveTimeMillis,
-        protocol = null,
+        protocol = "",
         fromDiskCache = false,
         isGzipped = isGzipped
     )

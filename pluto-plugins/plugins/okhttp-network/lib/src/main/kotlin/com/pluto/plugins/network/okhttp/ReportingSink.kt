@@ -2,7 +2,7 @@
  * Source: chucker - https://github.com/ChuckerTeam/chucker.git
  * License: https://github.com/ChuckerTeam/chucker/blob/develop/LICENSE.txt
  */
-package com.pluto.plugins.network.internal.interceptor.logic.core
+package com.pluto.plugins.network.okhttp
 
 import java.io.File
 import java.io.IOException

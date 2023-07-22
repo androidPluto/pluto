@@ -16,7 +16,7 @@ interface ApiService {
     suspend fun form(@Field("title") title: String, @Field("diff") diff: String): Any
 
     @Headers("Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a")
-    @POST("post")
+    @POST("post/new")
     suspend fun post(@Body hashMapOf: Any): Any
 
     @Headers("Authorization: Bearer e42ed4a6-f346-4f0b-ad49-02c66dcca91a")

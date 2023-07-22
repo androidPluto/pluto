@@ -24,6 +24,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
+import io.ktor.http.Url
 
 class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 
@@ -67,7 +68,7 @@ class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
             ACTION_OPEN_REQ_PARAMS -> openContentView(
                 title = getString(R.string.pluto_network___content_request_query_param),
                 content = requireContext().beautifyQueryParams(api.request.url),
-                sizeText = "${api.request.url.queryParameterNames.size} items"
+                sizeText = "${Url(api.request.url).parameters.names().count()} items"
             )
             ACTION_OPEN_REQ_BODY -> api.request.body?.let {
                 openContentView(
@@ -116,7 +117,7 @@ class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
     private val detailsObserver = Observer<DetailContentData> {
         binding.title.setSpan {
             append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
-            append(it.api.request.url.encodedPath)
+            append(Url(it.api.request.url).encodedPath)
         }
         binding.overview.apply {
             visibility = VISIBLE

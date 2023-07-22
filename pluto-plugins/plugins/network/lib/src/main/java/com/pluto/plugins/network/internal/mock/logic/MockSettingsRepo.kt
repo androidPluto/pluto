@@ -8,9 +8,8 @@ import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsDao
 import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.HttpUrl
 
-internal object MockSettingsRepo {
+object MockSettingsRepo {
     private var mockSettingsDao: MockSettingsDao? = null
     private var mockSettingsMap = linkedSetOf<MockSettingsEntity>()
 
@@ -28,10 +27,10 @@ internal object MockSettingsRepo {
         }
     }
 
-    fun get(url: HttpUrl, method: String): String? {
+    fun get(url: String, method: String): String? {
         val mockData =
             mockSettingsMap.singleOrNull { p ->
-                p.requestUrl == url.toString().pruneQueryParams() && p.requestMethod.lowercase() == method.lowercase()
+                p.requestUrl == url.pruneQueryParams() && p.requestMethod.lowercase() == method.lowercase()
             }?.mockData
         return mockData?.url // todo url before returning, like wildcards, response_status & delay
     }

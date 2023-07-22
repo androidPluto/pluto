@@ -8,7 +8,7 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemNetworkBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.hostUrl
+import com.pluto.plugins.network.internal.interceptor.logic.core.asUrl
 import com.pluto.utilities.extensions.asTimeElapsed
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
@@ -17,6 +17,7 @@ import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
+import io.ktor.http.Url
 
 internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto_network___item_network), actionListener) {
@@ -32,13 +33,13 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
 
     override fun onBind(item: ListItem) {
         if (item is ApiCallData) {
-            host.text = item.request.url.hostUrl()
+            host.text = Url(item.request.url).host
             timeElapsed.text = item.request.timestamp.asTimeElapsed()
             binding.root.setBackgroundColor(context.color(R.color.pluto___transparent))
 
             url.setSpan {
                 append(fontColor(item.request.method.uppercase(), context.color(R.color.pluto___text_dark_60)))
-                append("  ${item.request.url.encodedPath}")
+                append("  ${item.request.url.asUrl().encodedPath}")
             }
             progress.visibility = VISIBLE
             status.visibility = INVISIBLE

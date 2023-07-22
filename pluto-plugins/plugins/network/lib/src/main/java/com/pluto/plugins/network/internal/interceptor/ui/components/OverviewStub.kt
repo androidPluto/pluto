@@ -111,7 +111,7 @@ internal class OverviewStub : ConstraintLayout {
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___ssl_label),
-                        value = context.createSpan { append(bold(api.request.url.isHttps.toString())) }
+                        value = context.createSpan { append(bold(api.request.url.startsWith("https").toString())) }
                     )
                 )
                 if (!api.isCustomTrace) {
@@ -151,7 +151,7 @@ internal class OverviewStub : ConstraintLayout {
             api.response?.protocol?.let {
                 context.createSpan {
                     append(semiBold(fontColor("$it", context.color(R.color.pluto___text_dark_80))))
-                    append(regular(fontColor(" (${it.name})", context.color(R.color.pluto___text_dark_60))))
+                    append(regular(fontColor(" ($it)", context.color(R.color.pluto___text_dark_60))))
                 }
             }
         }

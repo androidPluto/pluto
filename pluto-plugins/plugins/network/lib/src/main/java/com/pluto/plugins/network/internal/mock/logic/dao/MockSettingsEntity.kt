@@ -12,7 +12,7 @@ import com.squareup.moshi.JsonClass
 @Keep
 @TypeConverters(MockSettingsConverters::class)
 @Entity(tableName = "network_mock", indices = [Index(value = ["request_url"], unique = true)])
-internal data class MockSettingsEntity(
+data class MockSettingsEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int? = null,
@@ -32,7 +32,7 @@ internal data class MockSettingsEntity(
 
 @Keep
 @JsonClass(generateAdapter = true)
-internal data class MockData(
+data class MockData(
     val url: String,
     val statusCode: Int? = null,
     val delay: Int? = null

@@ -3,11 +3,12 @@ package com.pluto.plugins.network.internal.interceptor.ui.components
 import android.content.Context
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.internal.interceptor.logic.core.asUrl
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.spannable.createSpan
 import com.pluto.utilities.views.keyvalue.KeyValuePairData
-import okhttp3.HttpUrl
+import io.ktor.http.Url
 
 internal fun waitingText(context: Context) = context.createSpan {
     append(
@@ -103,20 +104,38 @@ internal fun getBodyData(context: Context, body: ProcessedBody?, onClick: () -> 
     }
 )
 
-internal fun getQueryParamsData(context: Context, url: HttpUrl, onClick: () -> Unit) = KeyValuePairData(
-    key = context.getString(R.string.pluto_network___query_params_title),
-    value = context.createSpan {
-        if (url.querySize > 0) {
-            append(semiBold(context.resources.getQuantityString(R.plurals.pluto_network___query_params_value_text, url.querySize, url.querySize)))
-            append(tapIndicatorText(context))
+internal fun getQueryParamsData(
+    context: Context,
+    url: String,
+    onClick: () -> Unit
+): KeyValuePairData {
+    val url = url.asUrl()
+    return KeyValuePairData(
+        key = context.getString(R.string.pluto_network___query_params_title),
+        value = context.createSpan {
+            if (url.parameters.isEmpty()) {
+                append(
+                    semiBold(
+                        context.resources.getQuantityString(
+                            R.plurals.pluto_network___query_params_value_text,
+                            url.querySize,
+                            url.querySize
+                        )
+                    )
+                )
+                append(tapIndicatorText(context))
+            } else {
+                append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
+            }
+        },
+        showClickIndicator = url.querySize > 0,
+        onClick = if (url.querySize > 0) {
+            { onClick.invoke() }
         } else {
-            append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
+            null
         }
-    },
-    showClickIndicator = url.querySize > 0,
-    onClick = if (url.querySize > 0) {
-        { onClick.invoke() }
-    } else {
-        null
-    }
-)
+    )
+}
+
+private val Url.querySize: Int
+    get() = parameters.names().size

@@ -9,7 +9,7 @@ import com.pluto.utilities.DebugLog
 import java.util.UUID
 
 object PlutoNetwork {
-    internal var cacheDirectoryProvider: CacheDirectoryProvider? = null
+    var cacheDirectoryProvider: CacheDirectoryProvider? = null
         private set
 
     internal fun initialize(context: Context) {

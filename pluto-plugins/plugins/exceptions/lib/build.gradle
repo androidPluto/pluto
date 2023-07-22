@@ -2,7 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -65,8 +65,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
     implementation "com.squareup.moshi:moshi:$moshiVersion"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     implementation "androidx.room:room-ktx:$roomsVersion"
-    kapt "androidx.room:room-compiler:$roomsVersion"
+    ksp "androidx.room:room-compiler:$roomsVersion"
 }
