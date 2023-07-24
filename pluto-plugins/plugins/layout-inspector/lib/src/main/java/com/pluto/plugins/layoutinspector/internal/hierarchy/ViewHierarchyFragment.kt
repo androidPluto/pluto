@@ -62,12 +62,12 @@ internal class ViewHierarchyFragment : DialogFragment() {
             toast("root view not found, go back & try again")
         }
 
-        rootView?.let {
+        rootView?.let { root ->
             binding.expandCta.setOnDebounceClickListener {
-                viewModel.expandAll(it)
+                viewModel.expandAll(root)
             }
             binding.collapseCta.setOnDebounceClickListener {
-                viewModel.collapseAll(it)
+                viewModel.collapseAll(root)
             }
             binding.list.apply {
                 adapter = hierarchyAdapter
@@ -75,7 +75,7 @@ internal class ViewHierarchyFragment : DialogFragment() {
 
             viewModel.list.removeObserver(parsedAttrObserver)
             viewModel.list.observe(viewLifecycleOwner, parsedAttrObserver)
-            viewModel.parseInit(it)
+            viewModel.parseInit(root)
         }
     }
 
