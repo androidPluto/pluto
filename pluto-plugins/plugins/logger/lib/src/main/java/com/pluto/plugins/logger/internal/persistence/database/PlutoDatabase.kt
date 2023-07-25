@@ -8,7 +8,7 @@ import com.pluto.plugins.logger.internal.persistence.LogEntity
     entities = [
         LogEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 internal abstract class PlutoDatabase : RoomDatabase() {

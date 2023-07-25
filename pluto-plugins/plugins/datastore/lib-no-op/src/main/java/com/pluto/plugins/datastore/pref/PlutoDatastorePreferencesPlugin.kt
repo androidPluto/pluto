@@ -1,4 +1,8 @@
 package com.pluto.plugins.datastore.pref
 
 @SuppressWarnings("UnusedPrivateMember")
-class PlutoDatastorePreferencesPlugin(identifier: String)
+class PlutoDatastorePreferencesPlugin @JvmOverloads constructor(identifier: String = ID) {
+    companion object {
+        const val ID = "datastore-preferences"
+    }
+}

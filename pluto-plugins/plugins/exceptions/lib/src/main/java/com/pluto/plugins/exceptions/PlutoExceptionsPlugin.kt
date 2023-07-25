@@ -7,7 +7,12 @@ import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.exceptions.internal.BaseFragment
 import com.pluto.plugins.exceptions.internal.persistence.ExceptionDBHandler
 
-class PlutoExceptionsPlugin(private val identifier: String) : Plugin(identifier) {
+class PlutoExceptionsPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoExceptionsPlugin() instead.")
+    constructor(identifier: String) : this()
+
     override fun getConfig() = PluginConfiguration(
         name = context.getString(R.string.pluto_excep___plugin_name),
         icon = R.drawable.pluto_excep___ic_plugin_logo,
@@ -30,6 +35,10 @@ class PlutoExceptionsPlugin(private val identifier: String) : Plugin(identifier)
 
     override fun onPluginInstalled() {
         ExceptionDBHandler.initialize(context)
-        PlutoExceptions.initialize(context, identifier)
+        PlutoExceptions.initialize(context, ID)
+    }
+
+    companion object {
+        const val ID = "exceptions"
     }
 }

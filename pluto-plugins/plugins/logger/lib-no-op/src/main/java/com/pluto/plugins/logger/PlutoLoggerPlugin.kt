@@ -1,4 +1,8 @@
 package com.pluto.plugins.logger
 
 @SuppressWarnings("UnusedPrivateMember")
-class PlutoLoggerPlugin(identifier: String)
+class PlutoLoggerPlugin @JvmOverloads constructor(identifier: String = ID) {
+    companion object {
+        const val ID = "logger"
+    }
+}

@@ -6,7 +6,12 @@ import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginConfiguration
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
 
-class PlutoLayoutInspectorPlugin(identifier: String) : Plugin(identifier) {
+class PlutoLayoutInspectorPlugin() : Plugin(ID) {
+
+    @SuppressWarnings("UnusedPrivateMember")
+    @Deprecated("Use the default constructor PlutoLayoutInspectorPlugin() instead.")
+    constructor(identifier: String) : this()
+
     override fun getConfig() = PluginConfiguration(
         name = context.getString(R.string.pluto_li___plugin_name),
         icon = R.drawable.pluto_li___ic_plugin_logo,
@@ -28,5 +33,9 @@ class PlutoLayoutInspectorPlugin(identifier: String) : Plugin(identifier) {
 
     override fun onPluginInstalled() {
         application.registerActivityLifecycleCallbacks(ActivityLifecycle())
+    }
+
+    companion object {
+        const val ID = "layout-inspector"
     }
 }
