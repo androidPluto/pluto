@@ -1,0 +1,112 @@
+package com.pluto.plugins.network.base.internal.mock.ui
+
+import android.os.Bundle
+import android.view.View
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.pluto.plugins.network.base.R
+import com.pluto.plugins.network.base.databinding
+.PlutoNetworkFragmentMockSettingsListBinding
+import com.pluto.plugins.network.base.internal.mock.logic.dao.MockSettingsEntity
+import com.pluto.plugins.network.base.internal.mock.ui.list.MockSettingsItemAdapter
+import com.pluto.utilities.autoClearInitializer
+import com.pluto.utilities.extensions.dp
+import com.pluto.utilities.extensions.hideKeyboard
+import com.pluto.utilities.extensions.onBackPressed
+import com.pluto.utilities.extensions.showKeyboard
+import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.CustomItemDecorator
+import com.pluto.utilities.list.DiffAwareAdapter
+import com.pluto.utilities.list.DiffAwareHolder
+import com.pluto.utilities.list.ListItem
+import com.pluto.utilities.setOnDebounceClickListener
+import com.pluto.utilities.viewBinding
+
+internal class MockSettingsListFragment : Fragment(R.layout.pluto_network___fragment_mock_settings_list) {
+
+    private val binding by viewBinding(PlutoNetworkFragmentMockSettingsListBinding::bind)
+    private val viewModel: MockSettingsViewModel by activityViewModels()
+    private val mockSettingsAdapter: BaseAdapter by autoClearInitializer {
+        MockSettingsItemAdapter(onActionListener)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        onBackPressed { handleBackPress() }
+        binding.apiList.apply {
+            adapter = mockSettingsAdapter
+            addItemDecoration(CustomItemDecorator(context, DECORATOR_DIVIDER_PADDING))
+        }
+        binding.close.setOnDebounceClickListener {
+            handleBackPress()
+        }
+        binding.search.setOnDebounceClickListener {
+            binding.searchView.visibility = View.VISIBLE
+            binding.searchView.requestFocus()
+        }
+        binding.closeSearch.setOnDebounceClickListener {
+            exitSearch()
+        }
+        binding.clearSearch.setOnDebounceClickListener {
+            binding.editSearch.text = null
+        }
+        binding.editSearch.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                v.showKeyboard()
+            } else {
+                v.hideKeyboard()
+            }
+        }
+        binding.editSearch.doOnTextChanged { text, _, _, _ ->
+            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+                text?.toString()?.let {
+                    viewModel.fetchList(it)
+                }
+            }
+        }
+
+        viewModel.mockList.removeObserver(networkProxyObserver)
+        viewModel.mockList.observe(viewLifecycleOwner, networkProxyObserver)
+        viewModel.fetchList()
+    }
+
+    private val networkProxyObserver = Observer<List<MockSettingsEntity>> {
+        mockSettingsAdapter.list = it
+        binding.noItemText.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun exitSearch() {
+        binding.editSearch.text = null
+        binding.searchView.visibility = View.GONE
+        binding.editSearch.clearFocus()
+    }
+
+    private fun handleBackPress() {
+        if (binding.searchView.isVisible) {
+            exitSearch()
+        } else {
+            findNavController().navigateUp()
+        }
+    }
+
+    private val onActionListener = object : DiffAwareAdapter.OnActionListener {
+        override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
+            when (data) {
+                is MockSettingsEntity -> {
+                    val bundle = bundleOf("url" to data.requestUrl, "method" to data.requestMethod)
+                    findNavController().navigate(R.id.openMockSettingsEdit, bundle)
+                }
+            }
+        }
+    }
+
+    private companion object {
+        val DECORATOR_DIVIDER_PADDING = 16f.dp.toInt()
+    }
+}

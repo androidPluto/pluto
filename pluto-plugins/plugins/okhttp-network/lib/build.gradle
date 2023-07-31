@@ -49,7 +49,7 @@ android {
     }
 
     resourcePrefix 'pluto_network___'
-    namespace 'com.pluto.plugins.network.okhttp'
+    namespace 'com.pluto.plugins.network'
     lint {
         abortOnError false
     }
@@ -62,7 +62,6 @@ dependencies {
     implementation(project(":pluto-plugins:plugins:network:lib"))
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation 'com.squareup.okio:okio:2.10.0'
-    implementation "io.ktor:ktor-client-core-jvm:2.3.1"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 

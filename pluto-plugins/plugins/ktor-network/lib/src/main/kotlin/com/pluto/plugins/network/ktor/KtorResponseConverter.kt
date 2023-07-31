@@ -1,14 +1,12 @@
-package com.pluto.plugins.network.internal.interceptor.logic.core.ktor
+package com.pluto.plugins.network.ktor
 
-import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.core.ResponseConverter
-import com.pluto.utilities.DebugLog
+import com.pluto.plugins.network.base.internal.interceptor.logic.BINARY_MEDIA_TYPE
+import com.pluto.plugins.network.base.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.base.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.base.internal.interceptor.logic.Status
+import com.pluto.plugins.network.base.internal.interceptor.logic.core.ResponseConverter
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import io.ktor.client.utils.EmptyContent
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess

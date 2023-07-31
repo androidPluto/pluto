@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listView"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.ListFragment"
+        android:name="com.pluto.plugins.network.base.internal.interceptor.ui.ListFragment"
         android:label="list"
         tools:layout="@layout/pluto_network___fragment_list">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/detailsView"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment"
+        android:name="com.pluto.plugins.network.base.internal.interceptor.ui.DetailsFragment"
         android:label="details"
         tools:layout="@layout/pluto_network___fragment_details">
         <argument
@@ -43,13 +43,13 @@
 
     <fragment
         android:id="@+id/contentFormatterView"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.ContentFragment"
+        android:name="com.pluto.plugins.network.base.internal.interceptor.ui.ContentFragment"
         android:label="mockSettings"
         tools:layout="@layout/pluto_network___fragment_content"/>
 
     <fragment
         android:id="@+id/mockSettingsListView"
-        android:name="com.pluto.plugins.network.internal.mock.ui.MockSettingsListFragment"
+        android:name="com.pluto.plugins.network.base.internal.mock.ui.MockSettingsListFragment"
         android:label="mockSettings"
         tools:layout="@layout/pluto_network___fragment_mock_settings_list">
         <action
@@ -59,7 +59,7 @@
 
     <fragment
         android:id="@+id/mockSettingsEditView"
-        android:name="com.pluto.plugins.network.internal.mock.ui.MockSettingsFragment"
+        android:name="com.pluto.plugins.network.base.internal.mock.ui.MockSettingsFragment"
         android:label="mockSettingsEdit"
         tools:layout="@layout/pluto_network___fragment_mock_settings">
         <argument
@@ -74,10 +74,10 @@
 
     <dialog
         android:id="@+id/shareView"
-        android:name="com.pluto.plugins.network.internal.share.ShareFragment"
+        android:name="com.pluto.plugins.network.base.internal.share.ShareFragment"
         tools:layout="@layout/pluto_network___fragment_share"/>
 
     <dialog
         android:id="@+id/customTraceInfo"
-        android:name="com.pluto.plugins.network.internal.interceptor.ui.components.CustomTraceInfoFragment"/>
+        android:name="com.pluto.plugins.network.base.internal.interceptor.ui.components.CustomTraceInfoFragment"/>
 </navigation>
