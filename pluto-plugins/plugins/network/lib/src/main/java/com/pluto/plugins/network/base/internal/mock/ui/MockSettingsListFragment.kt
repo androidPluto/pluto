@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkFragmentMockSettingsListBinding
+    .PlutoNetworkFragmentMockSettingsListBinding
 import com.pluto.plugins.network.base.internal.mock.logic.dao.MockSettingsEntity
 import com.pluto.plugins.network.base.internal.mock.ui.list.MockSettingsItemAdapter
 import com.pluto.utilities.autoClearInitializer

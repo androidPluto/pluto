@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkFragmentShareBinding
-import com.pluto.plugins.network.internal.interceptor.logic.responseToText
-import com.pluto.plugins.network.internal.interceptor.logic.toShareText
+    .PlutoNetworkFragmentShareBinding
 import com.pluto.plugins.network.base.internal.interceptor.ui.DetailContentData
 import com.pluto.plugins.network.base.internal.interceptor.ui.NetworkViewModel
+import com.pluto.plugins.network.internal.interceptor.logic.responseToText
+import com.pluto.plugins.network.internal.interceptor.logic.toShareText
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator

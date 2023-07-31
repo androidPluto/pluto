@@ -3,7 +3,7 @@ package com.pluto.plugins.network.base.internal.mock.ui.list
 import android.view.ViewGroup
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkItemMockSettingsBinding
+    .PlutoNetworkItemMockSettingsBinding
 import com.pluto.plugins.network.base.internal.mock.logic.dao.MockSettingsEntity
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter

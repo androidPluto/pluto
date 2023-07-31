@@ -6,7 +6,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkItemShareOptionResponseBinding
+    .PlutoNetworkItemShareOptionResponseBinding
 import com.pluto.plugins.network.base.internal.share.ShareOptionType
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate

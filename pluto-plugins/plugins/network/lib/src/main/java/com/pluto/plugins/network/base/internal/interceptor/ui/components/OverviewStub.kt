@@ -7,7 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkStubDetailsOverviewBinding
+    .PlutoNetworkStubDetailsOverviewBinding
 import com.pluto.plugins.network.base.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.base.internal.interceptor.ui.DetailsFragment.Companion.ACTION_CUSTOM_TRACE_INFO
 import com.pluto.plugins.network.base.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS

@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkFragmentMockSettingsBinding
+    .PlutoNetworkFragmentMockSettingsBinding
 import com.pluto.plugins.network.base.internal.customTab
 import com.pluto.plugins.network.base.internal.interceptor.logic.pruneQueryParams
 import com.pluto.plugins.network.base.internal.mock.logic.dao.MockData

@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkFragmentListBinding
+    .PlutoNetworkFragmentListBinding
 import com.pluto.plugins.network.base.internal.Session
 import com.pluto.plugins.network.base.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.base.internal.interceptor.logic.NetworkCallsRepo

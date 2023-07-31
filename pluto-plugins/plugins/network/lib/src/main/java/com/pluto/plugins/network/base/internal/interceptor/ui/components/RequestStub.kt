@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkStubDetailsRequestBinding
+    .PlutoNetworkStubDetailsRequestBinding
 import com.pluto.plugins.network.base.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.base.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_BODY
 import com.pluto.plugins.network.base.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_HEADERS

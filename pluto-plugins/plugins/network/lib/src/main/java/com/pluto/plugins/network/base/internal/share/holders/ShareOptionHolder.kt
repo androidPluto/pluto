@@ -3,7 +3,7 @@ package com.pluto.plugins.network.base.internal.share.holders
 import android.view.ViewGroup
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkItemShareOptionBinding
+    .PlutoNetworkItemShareOptionBinding
 import com.pluto.plugins.network.base.internal.share.ShareOptionType
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter

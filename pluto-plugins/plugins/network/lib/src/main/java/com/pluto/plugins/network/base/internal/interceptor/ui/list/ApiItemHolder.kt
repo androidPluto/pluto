@@ -6,7 +6,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
-.PlutoNetworkItemNetworkBinding
+    .PlutoNetworkItemNetworkBinding
 import com.pluto.plugins.network.base.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.base.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.base.internal.interceptor.logic.core.asUrl
