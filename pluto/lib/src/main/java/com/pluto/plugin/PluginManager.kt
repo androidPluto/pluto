@@ -35,6 +35,8 @@ internal class PluginManager(private val application: Application) {
                     }
                     this.plugins.add(it)
                 }
+
+                else -> throw IllegalStateException("unknown PluginEntity type")
             }
         }
     }

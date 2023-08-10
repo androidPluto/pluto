@@ -28,7 +28,6 @@ import com.pluto.tool.selector.ToolAdapter
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -39,6 +38,7 @@ import com.pluto.utilities.spannable.setSpan
 class SelectorActivity : FragmentActivity() {
 
     private val pluginsViewModel by viewModels<PluginsViewModel>()
+    private val pluginsGroupViewModel by viewModels<PluginsGroupViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
     private val toolsViewModel by viewModels<ToolsViewModel>()
     private val toolAdapter: BaseAdapter by lazy { ToolAdapter(onActionListener) }
@@ -123,6 +123,7 @@ class SelectorActivity : FragmentActivity() {
                         Pluto.open(data.identifier)
                         finish()
                     }
+
                     "long_click" -> {
                         val devDetailsFragment = DevDetailsFragment()
                         devDetailsFragment.arguments = Bundle().apply {
@@ -136,7 +137,13 @@ class SelectorActivity : FragmentActivity() {
                         devDetailsFragment.show(supportFragmentManager, "devDetails")
                     }
                 }
-                is PluginGroup -> toast("group clicked ${data.getPlugins().size}")
+
+                is PluginGroup -> {
+                    pluginsGroupViewModel.set(data)
+                    val groupSelectorFragment = GroupSelectorFragment()
+                    groupSelectorFragment.show(supportFragmentManager, "groupSelector")
+                }
+
                 is PlutoTool -> {
                     Pluto.toolManager.select(data.id)
                     finish()

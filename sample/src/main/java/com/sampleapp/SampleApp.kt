@@ -21,7 +21,7 @@ import com.sampleapp.functions.datastore.appStateDatastore
 import com.sampleapp.functions.datastore.userStateDatastore
 import com.sampleapp.functions.roomsdatabase.db.SampleDatabase
 import com.sampleapp.functions.roomsdatabase.db2.Sample2Database
-import com.sampleapp.pluto.DataStorePluginGroup
+import com.sampleapp.pluto.DataSourcePluginGroup
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -39,7 +39,7 @@ class SampleApp : Application() {
 //            .addPlugin(PlutoSharePreferencesPlugin())
 //            .addPlugin(PlutoRoomsDatabasePlugin())
             .addPlugin(PlutoLayoutInspectorPlugin())
-            .addPluginGroup(DataStorePluginGroup())
+            .addPluginGroup(DataSourcePluginGroup())
             .install()
         Pluto.showNotch(true)
 

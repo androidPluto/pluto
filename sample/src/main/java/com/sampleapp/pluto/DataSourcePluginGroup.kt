@@ -7,14 +7,14 @@ import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 
-class DataStorePluginGroup : PluginGroup(ID) {
+class DataSourcePluginGroup : PluginGroup(ID) {
 
     companion object {
-        const val ID = "datastore-group"
+        const val ID = "datasource-group"
     }
 
     override fun getConfig(): PluginGroupConfiguration = PluginGroupConfiguration(
-        name = "Datastore Group"
+        name = "DataSource Group"
     )
 
     override fun getPlugins(): List<Plugin> = listOf(
