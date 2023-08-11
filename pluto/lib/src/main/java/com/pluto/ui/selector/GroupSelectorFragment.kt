@@ -13,7 +13,7 @@ import com.pluto.R
 import com.pluto.databinding.PlutoFragmentGroupSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginGroup
-import com.pluto.plugin.selector.PluginAdapter
+import com.pluto.plugin.selector.PluginGroupAdapter
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -24,7 +24,7 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentGroupSelectorBinding::bind)
     private val pluginsGroupViewModel by activityViewModels<PluginsGroupViewModel>()
-    private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
+    private val pluginAdapter: BaseAdapter by lazy { PluginGroupAdapter(onActionListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto___fragment_group_selector, container, false)

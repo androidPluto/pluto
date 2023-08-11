@@ -39,7 +39,6 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/pluto___margin_small"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
