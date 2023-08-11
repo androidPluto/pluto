@@ -25,6 +25,10 @@ internal class PluginGroupChildItemHolder(parent: ViewGroup, actionListener: Dif
             binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
+            binding.root.setOnLongClickListener {
+                onAction("long_click")
+                return@setOnLongClickListener true
+            }
         }
     }
 }
