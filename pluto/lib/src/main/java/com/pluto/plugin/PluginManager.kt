@@ -23,21 +23,8 @@ internal class PluginManager(private val application: Application) {
 
     fun install(plugins: LinkedHashSet<PluginEntity>) {
         plugins.forEach {
-            when (it) {
-                is Plugin -> {
-                    it.install(application)
-                    this.plugins.add(it)
-                }
-
-                is PluginGroup -> {
-                    it.getPlugins().forEach { plugin ->
-                        plugin.install(application)
-                    }
-                    this.plugins.add(it)
-                }
-
-                else -> throw IllegalStateException("unknown PluginEntity type")
-            }
+            it.install(application)
+            this.plugins.add(it)
         }
     }
 
@@ -45,7 +32,7 @@ internal class PluginManager(private val application: Application) {
         plugins.forEach {
             when (it) {
                 is Plugin -> if (it.identifier == identifier) return it
-                is PluginGroup -> return it.getPlugins().firstOrNull { plugin -> plugin.identifier == identifier }
+                is PluginGroup -> return it.installedPlugins.firstOrNull { plugin -> plugin.identifier == identifier }
             }
         }
         return null
@@ -59,7 +46,7 @@ internal class PluginManager(private val application: Application) {
         installedPlugins.forEach {
             when (it) {
                 is Plugin -> it.onPluginDataCleared()
-                is PluginGroup -> it.getPlugins().forEach { plugin -> plugin.onPluginDataCleared() }
+                is PluginGroup -> it.installedPlugins.forEach { plugin -> plugin.onPluginDataCleared() }
             }
         }
     }

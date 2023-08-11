@@ -14,7 +14,6 @@ import com.pluto.databinding.PlutoFragmentGroupSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.selector.PluginAdapter
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -45,9 +44,8 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
     }
 
     private val pluginGroupObserver = Observer<PluginGroup> {
-        toast("group clicked ${it.getPlugins().size}")
         binding.title.text = it.getConfig().name
-        pluginAdapter.list = it.getPlugins()
+        pluginAdapter.list = it.installedPlugins
     }
 
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {

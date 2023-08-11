@@ -34,7 +34,7 @@ abstract class Plugin(val identifier: String) : PluginEntity(identifier) {
     var savedInstance: Bundle = Bundle()
         private set
 
-    fun install(application: Application) {
+    final override fun install(application: Application) {
         this._application = application
         onPluginInstalled()
     }

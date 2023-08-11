@@ -91,7 +91,7 @@ class SelectorActivity : FragmentActivity() {
             Pluto.pluginManager.installedPlugins.forEach {
                 when (it) {
                     is Plugin -> it.onPluginDataCleared()
-                    is PluginGroup -> it.getPlugins().forEach { plugin -> plugin.onPluginDataCleared() }
+                    is PluginGroup -> it.installedPlugins.forEach { plugin -> plugin.onPluginDataCleared() }
                 }
             }
             Pluto.resetDataCallback.state.postValue(true)
