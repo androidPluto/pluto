@@ -14,7 +14,9 @@ import com.pluto.databinding.PlutoFragmentGroupSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.selector.PluginGroupAdapter
+import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.list.BaseAdapter
+import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
@@ -37,6 +39,7 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
         binding.list.apply {
             adapter = pluginAdapter
             layoutManager = LinearLayoutManager(context)
+            addItemDecoration(CustomItemDecorator(context, DECORATOR_DIVIDER_PADDING))
         }
 
         pluginsGroupViewModel.current.removeObserver(pluginGroupObserver)
@@ -71,5 +74,9 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+    }
+
+    private companion object {
+        val DECORATOR_DIVIDER_PADDING = 16f.dp.toInt()
     }
 }

@@ -28,7 +28,7 @@
         android:layout_marginStart="@dimen/pluto___margin_small"
         android:paddingVertical="@dimen/pluto___margin_mini"
         android:textColor="@color/pluto___text_dark_80"
-        android:textSize="@dimen/pluto___text_medium"
+        android:textSize="@dimen/pluto___text_xmedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
