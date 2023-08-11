@@ -15,7 +15,7 @@ import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
 
 internal class PluginGroupItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter.OnActionListener) :
-    DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin), actionListener) {
+    DiffAwareHolder(parent.inflate(R.layout.pluto___item_plugin_group), actionListener) {
 
     private val binding = PlutoItemPluginBinding.bind(itemView)
     private val name = binding.name
