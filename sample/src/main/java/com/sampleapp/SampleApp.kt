@@ -7,7 +7,6 @@ import android.os.StrictMode.VmPolicy
 import android.util.Log
 import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
-import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
@@ -15,15 +14,14 @@ import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
 import com.pluto.plugins.network.PlutoNetworkPlugin
-import com.pluto.plugins.preferences.PlutoSharePreferencesPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
-import com.pluto.plugins.rooms.db.PlutoRoomsDatabasePlugin
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.APP_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.USER_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.appStateDatastore
 import com.sampleapp.functions.datastore.userStateDatastore
 import com.sampleapp.functions.roomsdatabase.db.SampleDatabase
 import com.sampleapp.functions.roomsdatabase.db2.Sample2Database
+import com.sampleapp.pluto.DataSourcePluginGroup
 import kotlin.system.exitProcess
 import timber.log.Timber
 
@@ -35,12 +33,13 @@ class SampleApp : Application() {
         Pluto.Installer(this)
             .addPlugin(DemoPlugin())
             .addPlugin(PlutoExceptionsPlugin())
-            .addPlugin(PlutoDatastorePreferencesPlugin())
+//            .addPlugin(PlutoDatastorePreferencesPlugin())
             .addPlugin(PlutoNetworkPlugin())
             .addPlugin(PlutoLoggerPlugin())
-            .addPlugin(PlutoSharePreferencesPlugin())
-            .addPlugin(PlutoRoomsDatabasePlugin())
+//            .addPlugin(PlutoSharePreferencesPlugin())
+//            .addPlugin(PlutoRoomsDatabasePlugin())
             .addPlugin(PlutoLayoutInspectorPlugin())
+            .addPluginGroup(DataSourcePluginGroup())
             .install()
         Pluto.showNotch(true)
 

@@ -16,6 +16,8 @@ import com.pluto.R
 import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
 import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginEntity
+import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.PluginsViewModel
 import com.pluto.plugin.selector.PluginAdapter
 import com.pluto.settings.SettingsFragment
@@ -36,6 +38,7 @@ import com.pluto.utilities.spannable.setSpan
 class SelectorActivity : FragmentActivity() {
 
     private val pluginsViewModel by viewModels<PluginsViewModel>()
+    private val pluginsGroupViewModel by viewModels<PluginsGroupViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginAdapter(onActionListener) }
     private val toolsViewModel by viewModels<ToolsViewModel>()
     private val toolAdapter: BaseAdapter by lazy { ToolAdapter(onActionListener) }
@@ -86,13 +89,16 @@ class SelectorActivity : FragmentActivity() {
 
         settingsViewModel.resetAll.observe(this) {
             Pluto.pluginManager.installedPlugins.forEach {
-                it.onPluginDataCleared()
+                when (it) {
+                    is Plugin -> it.onPluginDataCleared()
+                    is PluginGroup -> it.installedPlugins.forEach { plugin -> plugin.onPluginDataCleared() }
+                }
             }
             Pluto.resetDataCallback.state.postValue(true)
         }
     }
 
-    private val pluginListObserver = Observer<List<Plugin>> {
+    private val pluginListObserver = Observer<List<PluginEntity>> {
         pluginAdapter.list = it
         if (it.isNullOrEmpty()) {
             binding.noPluginView.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
@@ -114,9 +120,10 @@ class SelectorActivity : FragmentActivity() {
             when (data) {
                 is Plugin -> when (action) {
                     "click" -> {
-                        Pluto.open(data.devIdentifier)
+                        Pluto.open(data.identifier)
                         finish()
                     }
+
                     "long_click" -> {
                         val devDetailsFragment = DevDetailsFragment()
                         devDetailsFragment.arguments = Bundle().apply {
@@ -130,6 +137,13 @@ class SelectorActivity : FragmentActivity() {
                         devDetailsFragment.show(supportFragmentManager, "devDetails")
                     }
                 }
+
+                is PluginGroup -> {
+                    pluginsGroupViewModel.set(data)
+                    val groupSelectorFragment = GroupSelectorFragment()
+                    groupSelectorFragment.show(supportFragmentManager, "groupSelector")
+                }
+
                 is PlutoTool -> {
                     Pluto.toolManager.select(data.id)
                     finish()

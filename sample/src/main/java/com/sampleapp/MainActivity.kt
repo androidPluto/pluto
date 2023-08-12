@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             }
             binding.functionGroup.addView(chip)
         }
-        binding.clearLogsCta.setOnClickListener { Pluto.clearAllLogs() }
+        binding.clearLogsCta.setOnClickListener { Pluto.clearLogs() }
         binding.openPlutoCta.setOnClickListener { Pluto.open() }
         binding.showNotchCta.setOnClickListener {
             if (canDrawOverlays()) {
