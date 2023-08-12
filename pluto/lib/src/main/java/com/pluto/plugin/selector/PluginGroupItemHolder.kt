@@ -16,12 +16,10 @@ internal class PluginGroupItemHolder(parent: ViewGroup, actionListener: DiffAwar
     private val binding = PlutoItemPluginGroupBinding.bind(itemView)
     private val name = binding.name
     private val icon = binding.icon
-    private val iconDummy = binding.iconDummy
 
     override fun onBind(item: ListItem) {
         if (item is PluginGroup) {
             icon.setImageResource(item.getConfig().icon)
-            iconDummy.setImageResource(item.getConfig().icon)
             name.text = item.getConfig().name
             binding.root.setOnDebounceClickListener {
                 onAction("click")

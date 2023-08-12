@@ -11,8 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/pluto___margin_small"
-        android:background="@color/pluto___white_80"
-        android:backgroundTint="@color/pluto___white_80"
+        android:background="@color/pluto___white_60"
+        android:backgroundTint="@color/pluto___white_60"
         android:clipToPadding="true"
         app:cardCornerRadius="31dp"
         app:layout_constraintBottom_toBottomOf="@+id/iconCard"
@@ -20,11 +20,21 @@
         app:layout_constraintStart_toStartOf="@+id/iconCard"
         app:layout_constraintTop_toTopOf="@+id/iconCard">
 
-        <ImageView
-            android:id="@+id/iconDummy"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="6dp"
+        android:background="@color/pluto___white_40"
+        android:backgroundTint="@color/pluto___white_40"
+        android:clipToPadding="true"
+        app:cardCornerRadius="31dp"
+        app:cardElevation="@dimen/pluto___margin_mini"
+        app:layout_constraintBottom_toBottomOf="@+id/iconCard"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@+id/iconCard"
+        app:layout_constraintTop_toTopOf="@+id/iconCard">
 
     </androidx.cardview.widget.CardView>
 
@@ -37,7 +47,7 @@
         android:clipToPadding="true"
         app:cardCornerRadius="31dp"
         app:layout_constraintHorizontal_bias="0.4"
-        app:cardElevation="@dimen/pluto___margin_mini"
+        app:cardElevation="@dimen/pluto___margin_xsmall"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +60,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center"
-            android:layout_margin="4dp" />
+            android:layout_margin="5dp" />
 
     </androidx.cardview.widget.CardView>
 
