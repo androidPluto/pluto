@@ -17,7 +17,9 @@ internal class PluginManager(private val application: Application) {
 
     init {
         PlutoInterface.create(
-            application = application, pluginActivityClass = PlutoActivity::class.java, selectorActivityClass = SelectorActivity::class.java
+            application = application,
+            pluginActivityClass = PlutoActivity::class.java,
+            selectorActivityClass = SelectorActivity::class.java
         )
     }
 
