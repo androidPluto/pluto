@@ -76,10 +76,10 @@ Now re-build and run your app, you will receive a notification from Pluto, use i
 
 <br>
 
-## Grouping Plugins ***(Optional)***
+## Grouping Plugins *(Optional)*
 Pluto now allows to group similar plugins together to have better readability & categorization.
 <br>
-To create a group, we need to override PluginGroup & attach Plugins to it.
+To create a group, we need to override PluginGroup & attach Plugins to it. *(We have taken the example of grouping datasource plugins together)*
 
 ```kotlin
 class DataSourcePluginGroup : PluginGroup("datasource-group") {
