@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/pluto___white"
     android:clickable="true"
-    android:fitsSystemWindows="true"
     android:focusable="true">
 
     <View
