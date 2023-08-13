@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentWrapper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/expandStateIndicator"
@@ -29,7 +30,7 @@
             android:layout_height="@dimen/pluto___dp_1"
             android:background="@drawable/pluto_li___ic_hierarchy_separator"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/viewTitle"
@@ -61,8 +62,8 @@
         <ImageView
             android:id="@+id/viewActionCta"
             android:layout_width="wrap_content"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:foregroundGravity="center"
             android:paddingHorizontal="@dimen/pluto___margin_xsmall"
             android:src="@drawable/pluto_li___ic_hierarchy_attr"
