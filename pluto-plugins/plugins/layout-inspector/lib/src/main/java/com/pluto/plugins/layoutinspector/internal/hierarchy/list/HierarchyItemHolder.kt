@@ -49,6 +49,10 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
             binding.viewActionCta.setOnDebounceClickListener {
                 showActionOptions(it)
             }
+            binding.contentWrapper.setOnLongClickListener {
+                showActionOptions(it)
+                true
+            }
             binding.expandStateIndicator.setImageResource(
                 if (item.isExpanded) {
                     R.drawable.pluto_li___ic_hierarchy_show_less
