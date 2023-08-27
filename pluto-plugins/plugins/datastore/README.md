@@ -42,7 +42,7 @@ Now re-build and run your app and open Pluto, you will see the Datastore Prefere
 <br>
 
 ### Open Plugin view programmatically
-To open Network plugin screen via code, use this
+To open Datastore plugin screen via code, use this
 ```kotlin
 Pluto.open(PlutoDatastorePreferencesPlugin.ID)
 ```
