@@ -7,8 +7,8 @@ Pluto Datastore Preferences is distributed through [***mavenCentral***](https://
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:datastore-pref:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:datastore-pref-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:datastore-pref:2.1.6'
+  releaseImplementation 'com.plutolib.plugins:datastore-pref-no-op:2.1.6'
 }
 ```
 <br>
@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoDatastorePreferencesPlugin("datastore"))
+  .addPlugin(PlutoDatastorePreferencesPlugin())
   .install()
 ```
 <br>
@@ -38,3 +38,12 @@ PlutoDatastoreWatcher.watch(PREF_NAME, appPreferences)
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Datastore Preferences plugin installed.
+
+<br>
+
+### Open Plugin view programmatically
+To open Network plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoDatastorePreferencesPlugin.ID)
+```
+
