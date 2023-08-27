@@ -7,8 +7,8 @@ Pluto Layout Inspector is distributed through [***mavenCentral***](https://centr
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:layout-inspector:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:layout-inspector-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:layout-inspector:2.1.6'
+  releaseImplementation 'com.plutolib.plugins:layout-inspector-no-op:2.1.6'
 }
 ```
 <br>
@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoLayoutInspectorPlugin("layout-inspector"))
+  .addPlugin(PlutoLayoutInspectorPlugin())
   .install()
 ```
 <br>
@@ -26,3 +26,12 @@ Pluto.Installer(this)
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Layout Inspector plugin installed.
+
+<br>
+
+
+### Open Plugin view programmatically
+To open Layout Inspector plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoLayoutInspectorPlugin.ID)
+```

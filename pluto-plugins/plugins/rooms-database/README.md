@@ -7,8 +7,8 @@ Pluto Rooms Database is distributed through [***mavenCentral***](https://central
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:rooms-db:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:rooms-db-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:rooms-db:2.1.6'
+  releaseImplementation 'com.plutolib.plugins:rooms-db-no-op:2.1.6'
 }
 ```
 <br>
@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoRoomsDatabasePlugin("rooms-db"))
+  .addPlugin(PlutoRoomsDatabasePlugin())
   .install()
 ```
 <br>
@@ -35,3 +35,11 @@ PlutoRoomsDBWatcher.watch(DB_NAME, SampleDatabase::class.java)
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Rooms Database plugin installed.
+
+<br>
+
+### Open Plugin view programmatically
+To open Rooms Database plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoRoomsDatabasePlugin.ID)
+```
