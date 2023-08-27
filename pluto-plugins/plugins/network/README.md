@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoNetworkPlugin("network"))
+  .addPlugin(PlutoNetworkPlugin())
   .install()
 ```
 <br>
@@ -39,6 +39,12 @@ Now re-build and run your app and open Pluto, you will see the Network plugin in
 
 <br>
 
+### Open Plugin view programmatically
+To open Network plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoNetworkPlugin.ID)
+```
+<br>
 
 ### Log Custom Network traces
 PlutoInterceptor works with OkHttp based interceptors, but to allow non-OkHttp based interceptors to track network calls Pluto provides utility to log network calls manually.
