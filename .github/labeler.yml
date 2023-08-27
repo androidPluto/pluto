@@ -1,0 +1,36 @@
+# Add 'pluto-core' label to any changes within 'pluto' or 'plugin' module
+core:
+- pluto/**
+- pluto-plugins/base/**
+- pluto-plugins/bundle/**
+- .github/**
+
+# Add 'script' label to any changes within 'scripts' folder
+script:
+- script/**
+
+# Add 'sample' label to any changes within 'sample' module
+sample:
+- sample/**
+
+# labels for plugin changes
+datastore:
+- pluto-plugins/plugins/datastore/**
+
+exceptions:
+- pluto-plugins/plugins/exceptions/**
+
+layout-inspector:
+- pluto-plugins/plugins/layout-inspector/**
+
+logger:
+- pluto-plugins/plugins/logger/**
+
+network:
+- pluto-plugins/plugins/network/**
+
+rooms-database:
+- pluto-plugins/plugins/rooms-database/**
+
+shared-preferences:
+- pluto-plugins/plugins/shared-preferences/**

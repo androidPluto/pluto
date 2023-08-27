@@ -7,8 +7,8 @@ Pluto Exceptions is distributed through [***mavenCentral***](https://central.son
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:exceptions:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:exceptions-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:exceptions:2.1.6'
+  releaseImplementation 'com.plutolib.plugins:exceptions-no-op:2.1.6'
 }
 ```
 <br>
@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoExceptionsPlugin("exceptions"))
+  .addPlugin(PlutoExceptionsPlugin())
   .install()
 ```
 <br>
@@ -48,3 +48,11 @@ PlutoExceptions.mainThreadResponseThreshold = 10_000
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Exceptions plugin installed.
+
+<br>
+
+### Open Plugin view programmatically
+To open Exceptions plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoExceptionsPlugin.ID)
+```
