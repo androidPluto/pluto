@@ -13,7 +13,7 @@ script:
 sample:
 - sample/**
 
-###### labels for plugin changes
+# labels for plugin changes
 datastore:
 - pluto-plugins/plugins/datastore/**
 
