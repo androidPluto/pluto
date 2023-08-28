@@ -11,7 +11,7 @@ internal object Network {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.mocklets.com/p68296/")
+            .baseUrl("https://api.mocklets.com")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
