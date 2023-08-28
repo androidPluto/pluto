@@ -15,6 +15,7 @@ import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
+import com.pluto.maven.MavenViewModel
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginEntity
 import com.pluto.plugin.PluginGroup
@@ -43,6 +44,7 @@ class SelectorActivity : FragmentActivity() {
     private val toolsViewModel by viewModels<ToolsViewModel>()
     private val toolAdapter: BaseAdapter by lazy { ToolAdapter(onActionListener) }
     private val settingsViewModel by viewModels<SettingsViewModel>()
+    private val mavenViewModel by viewModels<MavenViewModel>()
     private lateinit var binding: PlutoActivityPluginSelectorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,6 +98,8 @@ class SelectorActivity : FragmentActivity() {
             }
             Pluto.resetDataCallback.state.postValue(true)
         }
+
+        mavenViewModel.getLatestVersion()
     }
 
     private val pluginListObserver = Observer<List<PluginEntity>> {
