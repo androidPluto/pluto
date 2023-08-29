@@ -10,14 +10,12 @@ import com.sampleapp.functions.network.internal.core.PostNewBody
 import com.sampleapp.functions.network.internal.core.ResponseWrapper
 import com.sampleapp.functions.network.internal.core.enqueue
 import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import io.ktor.http.takeFrom
+import io.ktor.http.path
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -37,11 +35,12 @@ class NetworkViewModel : ViewModel() {
                 }
             )
         }
+    }
 
+    fun getKtor() {
         viewModelScope.launch {
             Client.get {
-                header("network-type", "ktor")
-                url.takeFrom("https://api.mocklets.com/p68296/get")
+                url.path("get")
             }
         }
     }
@@ -64,19 +63,18 @@ class NetworkViewModel : ViewModel() {
                 }
             )
         }
-
+    }
+    fun postKtor() {
         viewModelScope.launch {
             Client.post {
                 contentType(ContentType.Application.Json)
                 setBody(
                     PostNewBody("John Smith", "john.smith@gmail.com")
                 )
-                header("network-type", "ktor")
-                url.takeFrom("https://api.mocklets.com/p68296/post/new")
+                url.path("post", "new")
             }
         }
     }
-
     fun xml() {
         val label = "XML Response call"
         val requestBodyText =

@@ -40,6 +40,8 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
         super.onViewCreated(view, savedInstanceState)
         binding.postCall.setOnClickListener { networkViewModel.post() }
         binding.getCall.setOnClickListener { networkViewModel.get() }
+        binding.getCallKtor.setOnClickListener { networkViewModel.getKtor() }
+        binding.postCallKtor.setOnClickListener { networkViewModel.postKtor() }
         binding.xmlCall.setOnClickListener { networkViewModel.xml() }
         binding.formEncodedCall.setOnClickListener { networkViewModel.form() }
         binding.customTrace.setOnClickListener {
