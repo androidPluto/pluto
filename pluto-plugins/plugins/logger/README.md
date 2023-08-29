@@ -7,8 +7,8 @@ Pluto Logger is distributed through [***mavenCentral***](https://central.sonatyp
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:logger:2.1.2'
-  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.1.2'
+  debugImplementation 'com.plutolib.plugins:logger:2.1.6'
+  releaseImplementation 'com.plutolib.plugins:logger-no-op:2.1.6'
 }
 ```
 <br>
@@ -18,7 +18,7 @@ dependencies {
 Now to start using the plugin, add it to Pluto
 ```kotlin
 Pluto.Installer(this)
-  .addPlugin(PlutoLoggerPlugin("logger"))
+  .addPlugin(PlutoLoggerPlugin())
   .install()
 ```
 <br>
@@ -59,3 +59,11 @@ E/onFailure(NetworkManager.kt:17) | error_log: api call falied with http_status 
 🎉 &nbsp;You are all done!
 
 Now re-build and run your app and open Pluto, you will see the Logger plugin installed.
+
+<br>
+
+### Open Plugin view programmatically
+To open Logger plugin screen via code, use this
+```kotlin
+Pluto.open(PlutoLoggerPlugin.ID)
+```

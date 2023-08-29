@@ -20,22 +20,20 @@ internal class DemoNotification(private val context: Context) {
     private val device = Device(context)
 
     fun add() {
-        Session.devIdentifier?.let {
-            createChannel()
-            val notification: Notification = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentTitle(context.getString(R.string.demo___notification_title, device.app.name))
-                .setContentText(context.getString(R.string.demo___notification_subtitle))
-                .setSmallIcon(R.drawable.demo___ic_plugin_icon)
-                .setContentIntent(PlutoInterface.notification.getPendingIntent(it))
-                .setOngoing(false)
-                .setOnlyAlertOnce(true)
-                .setAutoCancel(true)
-                .setSilent(true)
-                .setSound(null)
-                .build()
-            manager?.notify(NOTIFICATION_ID, notification)
-        }
+        createChannel()
+        val notification: Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentTitle(context.getString(R.string.demo___notification_title, device.app.name))
+            .setContentText(context.getString(R.string.demo___notification_subtitle))
+            .setSmallIcon(R.drawable.demo___ic_plugin_icon)
+            .setContentIntent(PlutoInterface.notification.getPendingIntent(DemoPlugin.ID))
+            .setOngoing(false)
+            .setOnlyAlertOnce(true)
+            .setAutoCancel(true)
+            .setSilent(true)
+            .setSound(null)
+            .build()
+        manager?.notify(NOTIFICATION_ID, notification)
     }
 
     fun remove() {

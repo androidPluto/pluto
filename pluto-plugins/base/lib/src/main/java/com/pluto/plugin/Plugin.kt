@@ -7,10 +7,9 @@ import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.extensions.toast
-import com.pluto.utilities.list.ListItem
 
 @Keep
-abstract class Plugin(val devIdentifier: String) : ListItem() {
+abstract class Plugin(val identifier: String) : PluginEntity(identifier) {
 
     val context: Context
         get() = returnContext()
@@ -35,7 +34,7 @@ abstract class Plugin(val devIdentifier: String) : ListItem() {
     var savedInstance: Bundle = Bundle()
         private set
 
-    fun install(application: Application) {
+    final override fun install(application: Application) {
         this._application = application
         onPluginInstalled()
     }
@@ -43,7 +42,6 @@ abstract class Plugin(val devIdentifier: String) : ListItem() {
     abstract fun getConfig(): PluginConfiguration
     abstract fun getView(): Fragment
     open fun getDeveloperDetails(): DeveloperDetails? = null
-    open fun shouldInstallPlugin(): Boolean = true
 
     /**
      * plugin lifecycle methods
@@ -55,10 +53,4 @@ abstract class Plugin(val devIdentifier: String) : ListItem() {
         DebugLog.d("pluto_plugin", "view switched :: ${getConfig().name} : $savedInstanceState")
         context.toast("View switched to ${getConfig().name}")
     }
-
-    @Deprecated("global level plugin options are no longer supported")
-    fun getOptions(): List<PluginOption> = emptyList()
-
-    override fun equals(other: Any?): Boolean = other is Plugin && devIdentifier == other.devIdentifier
-    override fun hashCode(): Int = devIdentifier.hashCode()
 }

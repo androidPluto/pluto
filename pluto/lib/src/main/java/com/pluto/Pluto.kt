@@ -10,6 +10,8 @@ import com.pluto.core.notch.Notch
 import com.pluto.core.notch.NotchStateCallback
 import com.pluto.core.notification.NotificationManager
 import com.pluto.plugin.Plugin
+import com.pluto.plugin.PluginEntity
+import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.libinterface.NotificationInterface.Companion.BUNDLE_LABEL
 import com.pluto.plugin.libinterface.NotificationInterface.Companion.ID_LABEL
@@ -38,7 +40,7 @@ object Pluto {
     internal lateinit var selectorStateCallback: SelectorStateCallback
     private lateinit var notchStateCallback: NotchStateCallback
 
-    private fun init(application: Application, plugins: LinkedHashSet<Plugin>) {
+    private fun init(application: Application, plugins: LinkedHashSet<PluginEntity>) {
         initialiseCallbacks()
         this.application = application
         appLifecycle = AppLifecycle(appStateCallback)
@@ -79,14 +81,9 @@ object Pluto {
         notch?.enable(state)
     }
 
-    fun clearAllLogs() {
-        pluginManager.installedPlugins.forEach { it.onPluginDataCleared() }
-    }
-
-    fun clearLogs(plugin: Plugin) {
-        if (pluginManager.installedPlugins.contains(plugin)) {
-            plugin.onPluginDataCleared()
-        }
+    @JvmOverloads
+    fun clearLogs(identifier: String? = null) {
+        pluginManager.clearLogs(identifier)
     }
 
     private fun initialiseCallbacks() {
@@ -98,10 +95,15 @@ object Pluto {
 
     class Installer(private val application: Application) {
 
-        private val plugins = linkedSetOf<Plugin>()
+        private val plugins = linkedSetOf<PluginEntity>()
 
         fun addPlugin(plugin: Plugin): Installer {
             plugins.add(plugin)
+            return this
+        }
+
+        fun addPluginGroup(pluginGroup: PluginGroup): Installer {
+            plugins.add(pluginGroup)
             return this
         }
 
