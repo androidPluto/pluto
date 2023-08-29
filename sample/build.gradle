@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "1.8.21"
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -108,6 +109,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    def ktor_version = "2.3.2"
+    implementation "io.ktor:ktor-client-core-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-content-negotiation:$ktor_version"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+
+
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okio:okio:2.10.0'
 

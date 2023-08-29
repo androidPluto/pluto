@@ -4,9 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sampleapp.functions.network.internal.core.ApiService
+import com.sampleapp.functions.network.internal.core.Client
 import com.sampleapp.functions.network.internal.core.Network
+import com.sampleapp.functions.network.internal.core.PostNewBody
 import com.sampleapp.functions.network.internal.core.ResponseWrapper
 import com.sampleapp.functions.network.internal.core.enqueue
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.http.path
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -29,6 +37,14 @@ class NetworkViewModel : ViewModel() {
         }
     }
 
+    fun getKtor() {
+        viewModelScope.launch {
+            Client.get {
+                url.path("get")
+            }
+        }
+    }
+
     fun post() {
         val label = "POST call"
         viewModelScope.launch {
@@ -48,7 +64,17 @@ class NetworkViewModel : ViewModel() {
             )
         }
     }
-
+    fun postKtor() {
+        viewModelScope.launch {
+            Client.post {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    PostNewBody("John Smith", "john.smith@gmail.com")
+                )
+                url.path("post", "new")
+            }
+        }
+    }
     fun xml() {
         val label = "XML Response call"
         val requestBodyText =

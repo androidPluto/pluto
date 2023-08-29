@@ -14,7 +14,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'network'
+    PUBLISH_ARTIFACT_ID = 'network-base'
 }
 
 android {
@@ -29,7 +29,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
@@ -51,7 +50,7 @@ android {
     }
 
     resourcePrefix 'pluto_network___'
-    namespace 'com.pluto.plugins.network'
+    namespace 'com.pluto.plugins.network.base'
     lint {
         abortOnError false
     }
@@ -62,8 +61,9 @@ dependencies {
     implementation project(path: ':pluto-plugins:base:lib')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation 'com.squareup.okio:okio:2.10.0'
+    implementation "io.ktor:ktor-client-core-jvm:2.3.2"
+
 
     implementation "androidx.room:room-ktx:$roomsVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

@@ -13,7 +13,7 @@ import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
 import com.pluto.plugins.logger.PlutoTimberTree
-import com.pluto.plugins.network.PlutoNetworkPlugin
+import com.pluto.plugins.network.base.PlutoNetworkPlugin
 import com.pluto.plugins.rooms.db.PlutoRoomsDBWatcher
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.APP_STATE_PREF_NAME
 import com.sampleapp.functions.datastore.DemoDatastorePrefFragment.Companion.USER_STATE_PREF_NAME
