@@ -1,8 +1,8 @@
 package com.pluto.plugins.network
 
-import com.pluto.plugins.network.base.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.base.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.base.internal.interceptor.logic.core.CacheDirectoryProvider
+import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody

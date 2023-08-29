@@ -1,9 +1,9 @@
 package com.pluto.plugins.network.ktor
 
-import com.pluto.plugins.network.base.internal.interceptor.logic.MockConfig
-import com.pluto.plugins.network.base.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.base.internal.interceptor.logic.asExceptionData
-import com.pluto.plugins.network.base.internal.mock.logic.MockSettingsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.MockConfig
+import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
+import com.pluto.plugins.network.internal.mock.logic.MockSettingsRepo
 import com.pluto.plugins.network.ktor.KtorRequestConverter.save
 import com.pluto.plugins.network.ktor.KtorResponseConverter.save
 import com.pluto.utilities.DebugLog

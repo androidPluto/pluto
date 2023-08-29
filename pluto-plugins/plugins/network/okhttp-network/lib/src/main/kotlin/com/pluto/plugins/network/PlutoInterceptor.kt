@@ -2,13 +2,12 @@ package com.pluto.plugins.network
 
 import android.util.Log
 import androidx.annotation.Keep
-import com.pluto.plugins.network.base.PlutoNetwork
-import com.pluto.plugins.network.base.internal.mock.logic.MockSettingsRepo
-import com.pluto.plugins.network.base.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.base.internal.interceptor.logic.MockConfig
-import com.pluto.plugins.network.base.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.base.internal.interceptor.logic.asExceptionData
-import com.pluto.plugins.network.base.internal.interceptor.logic.core.getRequestID
+import com.pluto.plugins.network.internal.mock.logic.MockSettingsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.MockConfig
+import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
+import com.pluto.plugins.network.internal.interceptor.logic.core.getRequestID
 import com.pluto.utilities.DebugLog
 import okhttp3.Interceptor
 import okhttp3.Request

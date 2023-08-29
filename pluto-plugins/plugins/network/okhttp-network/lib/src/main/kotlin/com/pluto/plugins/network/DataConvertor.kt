@@ -1,10 +1,10 @@
 package com.pluto.plugins.network
 
-import com.pluto.plugins.network.base.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.base.internal.interceptor.logic.RequestData
-import com.pluto.plugins.network.base.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.base.internal.interceptor.logic.Status
-import com.pluto.plugins.network.base.internal.interceptor.logic.core.mapCode2Message
+import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.internal.interceptor.logic.RequestData
+import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.internal.interceptor.logic.Status
+import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
 import com.pluto.utilities.DebugLog
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream

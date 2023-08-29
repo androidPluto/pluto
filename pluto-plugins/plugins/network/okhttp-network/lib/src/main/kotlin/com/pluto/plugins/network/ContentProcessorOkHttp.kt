@@ -1,8 +1,8 @@
 package com.pluto.plugins.network
 
-import com.pluto.plugins.network.base.internal.interceptor.logic.BINARY_MEDIA_TYPE
-import com.pluto.plugins.network.base.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.base.internal.interceptor.logic.UTF8
+import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
+import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.internal.interceptor.logic.UTF8
 import com.pluto.utilities.DebugLog
 import okhttp3.HttpUrl
 import okhttp3.MediaType
