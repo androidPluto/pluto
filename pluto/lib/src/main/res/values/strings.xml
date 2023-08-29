@@ -48,4 +48,5 @@
     <string name="pluto___setting_theme_updated">Pluto theme updated</string>
     <string name="pluto___settings_grid_size_title">Modify Grid dimensions</string>
     <string name="pluto___settings_grid_size_description">Manage the size of grid blocks of Ruler, GridView &amp; other layout plugins.</string>
+    <string name="pluto___new_version_available_text">New version v%s available</string>
 </resources>

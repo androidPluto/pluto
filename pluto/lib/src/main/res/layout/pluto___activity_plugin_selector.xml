@@ -157,22 +157,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/pluto___dark_60"
-            android:paddingHorizontal="@dimen/pluto___margin_medium"
-            android:paddingVertical="@dimen/pluto___margin_medium">
+            android:background="@color/pluto___dark_60">
 
             <TextView
                 android:id="@+id/version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/pluto___margin_medium"
                 android:layout_marginStart="@dimen/pluto___margin_xsmall"
-                android:drawablePadding="@dimen/pluto___margin_mini"
+                android:layout_marginBottom="@dimen/pluto___margin_medium"
                 android:fontFamily="@font/muli"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                 android:textColor="@color/pluto___white_80"
                 android:textSize="@dimen/pluto___text_small"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/mavenVersion"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="version" />
@@ -193,6 +192,26 @@
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/version" />
+
+            <TextView
+                android:id="@+id/mavenVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFC107"
+                android:visibility="gone"
+                android:drawableEnd="@drawable/pluto___ic_chevron_right"
+                android:drawableRight="@drawable/pluto___ic_chevron_right"
+                android:ellipsize="end"
+                android:fontFamily="@font/muli_bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/pluto___margin_small"
+                android:singleLine="true"
+                android:text="@string/pluto___new_version_available_text"
+                android:textColor="@color/pluto___dark_80"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

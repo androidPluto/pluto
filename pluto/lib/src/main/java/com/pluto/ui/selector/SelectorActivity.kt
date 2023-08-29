@@ -1,6 +1,8 @@
 package com.pluto.ui.selector
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -8,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.annotation.AnimRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +18,7 @@ import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.core.applifecycle.AppStateCallback
 import com.pluto.databinding.PlutoActivityPluginSelectorBinding
+import com.pluto.maven.MavenSession
 import com.pluto.maven.MavenViewModel
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginEntity
@@ -80,6 +84,9 @@ class SelectorActivity : FragmentActivity() {
         binding.overlaySetting.setOnDebounceClickListener {
             openOverlaySettings()
         }
+        binding.mavenVersion.setOnDebounceClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(MavenSession.releaseUrl)))
+        }
 
         Pluto.appStateCallback.state.removeObserver(appStateListener)
         Pluto.appStateCallback.state.observe(this, appStateListener)
@@ -88,6 +95,8 @@ class SelectorActivity : FragmentActivity() {
         pluginsViewModel.plugins.observe(this, pluginListObserver)
         toolsViewModel.tools.removeObserver(toolListObserver)
         toolsViewModel.tools.observe(this, toolListObserver)
+        mavenViewModel.latestVersion.removeObserver(mavenVersionObserver)
+        mavenViewModel.latestVersion.observe(this, mavenVersionObserver)
 
         settingsViewModel.resetAll.observe(this) {
             Pluto.pluginManager.installedPlugins.forEach {
@@ -111,6 +120,11 @@ class SelectorActivity : FragmentActivity() {
 
     private val toolListObserver = Observer<List<PlutoTool>> {
         toolAdapter.list = it
+    }
+
+    private val mavenVersionObserver = Observer<String> {
+        binding.mavenVersion.isVisible = !it.isNullOrEmpty()
+        binding.mavenVersion.text = String.format(getString(R.string.pluto___new_version_available_text), it)
     }
 
     private val appStateListener = Observer<AppStateCallback.State> {
