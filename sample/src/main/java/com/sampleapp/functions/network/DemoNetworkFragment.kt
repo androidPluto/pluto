@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pluto.plugins.network.BodyMediaSubType
-import com.pluto.plugins.network.BodyMediaType
-import com.pluto.plugins.network.CustomBody
-import com.pluto.plugins.network.CustomRequest
-import com.pluto.plugins.network.CustomResponse
-import com.pluto.plugins.network.PlutoNetwork
-import com.pluto.plugins.network.RequestMethod
+import com.pluto.plugins.network.base.BodyMediaSubType
+import com.pluto.plugins.network.base.BodyMediaType
+import com.pluto.plugins.network.base.CustomBody
+import com.pluto.plugins.network.base.CustomRequest
+import com.pluto.plugins.network.base.CustomResponse
+import com.pluto.plugins.network.base.PlutoNetwork
+import com.pluto.plugins.network.base.RequestMethod
 import com.sampleapp.R
 import com.sampleapp.databinding.FragmentDemoNetworkBinding
 import com.sampleapp.functions.network.internal.NetworkViewModel
@@ -40,6 +40,8 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
         super.onViewCreated(view, savedInstanceState)
         binding.postCall.setOnClickListener { networkViewModel.post() }
         binding.getCall.setOnClickListener { networkViewModel.get() }
+        binding.getCallKtor.setOnClickListener { networkViewModel.getKtor() }
+        binding.postCallKtor.setOnClickListener { networkViewModel.postKtor() }
         binding.xmlCall.setOnClickListener { networkViewModel.xml() }
         binding.formEncodedCall.setOnClickListener { networkViewModel.form() }
         binding.customTrace.setOnClickListener {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/pluto___white"
     android:fitsSystemWindows="true"
-    tools:context=".internal.NetworkFragment">
+    tools:context=".base.internal.NetworkFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"

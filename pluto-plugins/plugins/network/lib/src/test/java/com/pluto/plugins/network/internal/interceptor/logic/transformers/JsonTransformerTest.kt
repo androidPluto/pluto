@@ -1,5 +1,6 @@
 package com.pluto.plugins.network.internal.interceptor.logic.transformers
 
+import com.pluto.plugins.network.base.internal.interceptor.logic.transformers.JsonTransformer
 import org.junit.Test
 
 class JsonTransformerTest {
