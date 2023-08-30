@@ -6,16 +6,16 @@ plugins {
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
-apply from: "$rootDir/scripts/publish/module.gradle"
+//apply from: "$rootDir/scripts/publish/module.gradle"
 
 def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
-ext {
-    PUBLISH_GROUP_ID = "com.plutolib.plugins"
-    PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = "network-ktor"
-}
+//ext {
+//    PUBLISH_GROUP_ID = "com.plutolib.plugins"
+//    PUBLISH_VERSION = verPublish
+//    PUBLISH_ARTIFACT_ID = 'network-base'
+//}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -25,10 +25,10 @@ android {
         viewBinding true
     }
 
-
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
+        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
     buildTypes {
@@ -49,7 +49,7 @@ android {
     }
 
     resourcePrefix 'pluto_network___'
-    namespace 'com.pluto.plugins.network.ktor'
+    namespace 'com.pluto.plugins.network.commons'
     lint {
         abortOnError false
     }
@@ -60,15 +60,17 @@ dependencies {
     implementation project(path: ':pluto-plugins:base:lib')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
+    implementation 'com.squareup.okio:okio:2.10.0'
     implementation "io.ktor:ktor-client-core-jvm:2.3.2"
-    api project(':pluto-plugins:plugins:network:_commons')
 
 
     implementation "androidx.room:room-ktx:$roomsVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    ksp "androidx.room:room-compiler:$roomsVersion"
 
     implementation "com.squareup.moshi:moshi:$moshiVersion"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     implementation 'androidx.browser:browser:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
 }
