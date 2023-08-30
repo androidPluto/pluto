@@ -2,7 +2,6 @@ package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -17,7 +16,7 @@ import java.io.IOException
 
 internal object ResponseBodyProcessor {
     private const val MAX_CONTENT_LENGTH = 300_000L
-    val maxContentLength = MAX_CONTENT_LENGTH
+    private const val maxContentLength = MAX_CONTENT_LENGTH
 
     fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, apiCallData: ApiCallData): Response {
         apiCallData.response = response.convert(null)
@@ -46,7 +45,7 @@ internal object ResponseBodyProcessor {
             .build()
     }
 
-    fun createTempTransactionFile(cacheDirectoryProvider: CacheDirectoryProvider): File? {
+    private fun createTempTransactionFile(cacheDirectoryProvider: CacheDirectoryProvider): File? {
         val cache = cacheDirectoryProvider.provide()
         return if (cache == null) {
             IOException("Failed to obtain a valid cache directory for Pluto transaction file").printStackTrace()

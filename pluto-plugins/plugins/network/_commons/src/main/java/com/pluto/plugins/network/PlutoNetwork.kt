@@ -4,16 +4,16 @@ import android.content.Context
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
-import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import com.pluto.utilities.DebugLog
 import java.util.UUID
 
 object PlutoNetwork {
-    var cacheDirectoryProvider: CacheDirectoryProvider? = null
+
+    var applicationContext: Context? = null
         private set
 
     internal fun initialize(context: Context) {
-        cacheDirectoryProvider = CacheDirectoryProvider { context.applicationContext.filesDir }
+        applicationContext = context.applicationContext
     }
 
     /**

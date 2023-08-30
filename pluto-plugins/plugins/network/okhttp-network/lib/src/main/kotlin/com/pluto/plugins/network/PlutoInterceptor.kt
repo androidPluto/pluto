@@ -9,6 +9,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.MockConfig
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
+import com.pluto.plugins.network.internal.CacheDirectoryProvider
 import com.pluto.plugins.network.internal.interceptor.logic.core.getRequestID
 import com.pluto.utilities.DebugLog
 import okhttp3.Interceptor
@@ -19,10 +20,12 @@ import java.io.IOException
 @Keep
 class PlutoInterceptor : Interceptor {
 
+    private var cacheDirectoryProvider: CacheDirectoryProvider? = null
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        PlutoNetwork.cacheDirectoryProvider?.let { provider ->
+        getCacheProvider()?.let { provider ->
             val id = getRequestID(request.url.toString())
             DebugLog.d("interceptor : ot", "$id ${request.url}")
             val requestData = request.convert()
@@ -53,5 +56,16 @@ class PlutoInterceptor : Interceptor {
         }
         Log.e("pluto", "API call not intercepted as Pluto Network is not installed.")
         return chain.proceed(request)
+    }
+
+    private fun getCacheProvider(): CacheDirectoryProvider? {
+        return PlutoNetwork.applicationContext?.let { context ->
+            if (cacheDirectoryProvider == null) {
+                cacheDirectoryProvider = CacheDirectoryProvider { context.filesDir }
+            }
+            cacheDirectoryProvider
+        } ?: run {
+            null
+        }
     }
 }
