@@ -1,10 +1,9 @@
-package com.pluto.plugins.network.ktor
+package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.core.ResponseConverter
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType

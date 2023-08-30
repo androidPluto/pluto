@@ -1,4 +1,4 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
@@ -10,7 +10,6 @@ import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import okio.Buffer
 import okio.IOException
-
 
 internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
     return contentType()?.let {

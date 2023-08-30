@@ -1,5 +1,6 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
+import com.pluto.plugins.network.internal.share.getCurl
 import com.pluto.utilities.list.ListItem
 
 data class RequestData(

@@ -1,8 +1,7 @@
-package com.pluto.plugins.network.ktor
+package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
-import com.pluto.plugins.network.internal.interceptor.logic.core.RequestConverter
 import io.ktor.client.request.HttpRequestData
 import io.ktor.http.content.OutgoingContent
 

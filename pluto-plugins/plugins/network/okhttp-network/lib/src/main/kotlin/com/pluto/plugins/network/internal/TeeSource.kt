@@ -2,7 +2,7 @@
  * Source: chucker - https://github.com/ChuckerTeam/chucker.git
  * License: https://github.com/ChuckerTeam/chucker/blob/develop/LICENSE.txt
  */
-package com.pluto.plugins.network
+package com.pluto.plugins.network.internal
 
 import java.io.IOException
 import okio.Buffer

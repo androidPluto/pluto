@@ -1,4 +1,4 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo

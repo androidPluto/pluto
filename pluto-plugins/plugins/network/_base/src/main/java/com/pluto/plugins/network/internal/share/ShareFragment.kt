@@ -11,8 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.network.base.R
 import com.pluto.plugins.network.base.databinding
     .PlutoNetworkFragmentShareBinding
-import com.pluto.plugins.network.internal.interceptor.logic.responseToText
-import com.pluto.plugins.network.internal.interceptor.logic.toShareText
 import com.pluto.plugins.network.internal.interceptor.ui.DetailContentData
 import com.pluto.plugins.network.internal.interceptor.ui.NetworkViewModel
 import com.pluto.utilities.autoClearInitializer
@@ -25,7 +23,7 @@ import com.pluto.utilities.share.Shareable
 import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
-class ShareFragment : BottomSheetDialogFragment() {
+internal class ShareFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoNetworkFragmentShareBinding::bind)
     private val detailsViewModel: NetworkViewModel by activityViewModels()
