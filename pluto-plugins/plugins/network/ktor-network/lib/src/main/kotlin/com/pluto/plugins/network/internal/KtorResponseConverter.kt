@@ -3,7 +3,6 @@ package com.pluto.plugins.network.internal
 import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.Status
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
@@ -13,7 +12,7 @@ import io.ktor.http.isSuccess
 internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
     override suspend fun HttpResponse.convert(): ResponseData {
         return ResponseData(
-            status = Status(status.value, statusCodeMessage()),
+            statusCode = status.value,
             isSuccessful = status.isSuccess(),
             body = extractBody(),
             protocol = version.name,

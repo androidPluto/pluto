@@ -3,8 +3,6 @@ package com.pluto.plugins.network
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
 
 /**
  * Request class for Custom Network traces
@@ -54,7 +52,7 @@ data class CustomResponse(
 ) {
     @SuppressWarnings("MagicNumber")
     internal fun toResponseData(): ResponseData = ResponseData(
-        status = Status(statusCode, mapCode2Message(statusCode)),
+        statusCode = statusCode,
         isSuccessful = statusCode in 200..299,
         body = body?.toProcessBody(),
         headers = headers,

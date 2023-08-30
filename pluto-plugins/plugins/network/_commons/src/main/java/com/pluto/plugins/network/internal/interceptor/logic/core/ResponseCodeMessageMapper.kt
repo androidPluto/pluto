@@ -1,7 +1,7 @@
 package com.pluto.plugins.network.internal.interceptor.logic.core
 
 @SuppressWarnings("MagicNumber", "ComplexMethod")
-fun mapCode2Message(code: Int): String {
+internal fun mapCode2Message(code: Int): String {
     return when (code) {
         100 -> "Continue"
         101 -> "Switching Protocols"

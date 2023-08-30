@@ -3,18 +3,16 @@ package com.pluto.plugins.network.internal
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.Status
-import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
 import com.pluto.utilities.DebugLog
+import okhttp3.Request
+import okhttp3.Response
+import okio.IOException
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.zip.GZIPInputStream
-import okhttp3.Request
-import okhttp3.Response
-import okio.IOException
 
 internal fun Request.convert(): RequestData {
     val body = this.body?.processBody(this.isGzipped)
@@ -51,7 +49,7 @@ internal fun Request.headerMap(contentLength: Long): Map<String, String?> {
 
 internal fun Response.convert(body: ProcessedBody?): ResponseData {
     return ResponseData(
-        status = Status(code, statusCodeMessage()),
+        statusCode = code,
         isSuccessful = isSuccessful,
         body = body,
         protocol = protocol.name,
@@ -61,10 +59,6 @@ internal fun Response.convert(body: ProcessedBody?): ResponseData {
         receiveTimeMillis = receivedResponseAtMillis,
         isGzipped = isGzipped
     )
-}
-
-private fun Response.statusCodeMessage(): String {
-    return message.ifEmpty { mapCode2Message(code) }
 }
 
 private fun Response.headersMap(): Map<String, String?> {
