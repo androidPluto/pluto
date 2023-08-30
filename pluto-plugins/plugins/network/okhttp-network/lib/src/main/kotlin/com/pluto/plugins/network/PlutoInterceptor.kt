@@ -16,7 +16,6 @@ class PlutoInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-
         getCacheProvider()?.let { provider ->
             val networkRecorder = NetworkRecorder(request.convert())
             val response: Response = try {

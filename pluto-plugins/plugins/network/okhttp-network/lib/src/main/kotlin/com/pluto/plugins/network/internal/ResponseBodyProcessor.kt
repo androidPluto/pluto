@@ -27,10 +27,6 @@ internal object ResponseBodyProcessor {
         val contentType = responseBody.contentType()
         val contentLength = responseBody.contentLength()
 
-//        todo check this, if hasResponseBody needed or not
-//        apiCallData.hasResponseBody = true
-//        NetworkCallsRepo.set(apiCallData)
-
         val sideStream = ReportingSink(
             createTempTransactionFile(cacheDirectoryProvider),
             ApiCallReportingSinkCallback(response, onComplete),
