@@ -10,6 +10,7 @@ import java.io.File
  * An interface that returns a reference to a cache directory where temporary files can be
  * saved.
  */
+// todo move this to okhttp-network module
 fun interface CacheDirectoryProvider {
     fun provide(): File?
 }

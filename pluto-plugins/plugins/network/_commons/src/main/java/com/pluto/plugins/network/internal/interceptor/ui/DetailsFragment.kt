@@ -26,7 +26,7 @@ import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import io.ktor.http.Url
 
-class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
+internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_details) {
 
     private val binding by viewBinding(PlutoNetworkFragmentDetailsBinding::bind)
     private val viewModel: NetworkViewModel by activityViewModels()

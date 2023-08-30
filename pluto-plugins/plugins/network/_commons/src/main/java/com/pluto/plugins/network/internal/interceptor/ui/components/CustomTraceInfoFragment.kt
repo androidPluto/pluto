@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugins.network.commons.R
 
-class CustomTraceInfoFragment : BottomSheetDialogFragment() {
+internal class CustomTraceInfoFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_network___dialog_custom_traces_info, container, false)
