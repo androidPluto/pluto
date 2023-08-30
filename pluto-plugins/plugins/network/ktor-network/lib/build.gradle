@@ -61,7 +61,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
     implementation "io.ktor:ktor-client-core-jvm:2.3.2"
-    implementation project(':pluto-plugins:plugins:network:_base')
+    api project(':pluto-plugins:plugins:network:_base')
 
 
     implementation "androidx.room:room-ktx:$roomsVersion"
