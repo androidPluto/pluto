@@ -1,7 +1,6 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -18,9 +17,8 @@ internal object ResponseBodyProcessor {
     private const val MAX_CONTENT_LENGTH = 300_000L
     private const val maxContentLength = MAX_CONTENT_LENGTH
 
-    fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, apiCallData: ApiCallData): Response {
-        apiCallData.response = response.convert(null)
-        NetworkCallsRepo.set(apiCallData)
+    fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, onComplete: (ResponseData) -> Unit): Response {
+        onComplete.invoke(response.convert(null))
         val responseBody = response.body
         if (!response.hasBody() || responseBody == null) {
             return response
@@ -29,12 +27,13 @@ internal object ResponseBodyProcessor {
         val contentType = responseBody.contentType()
         val contentLength = responseBody.contentLength()
 
-        apiCallData.hasResponseBody = true
-        NetworkCallsRepo.set(apiCallData)
+//        todo check this, if hasResponseBody needed or not
+//        apiCallData.hasResponseBody = true
+//        NetworkCallsRepo.set(apiCallData)
 
         val sideStream = ReportingSink(
             createTempTransactionFile(cacheDirectoryProvider),
-            ApiCallReportingSinkCallback(response, apiCallData),
+            ApiCallReportingSinkCallback(response, onComplete),
             maxContentLength
         )
         var upstream: Source = TeeSource(responseBody.source(), sideStream)
@@ -57,7 +56,7 @@ internal object ResponseBodyProcessor {
 
     private class ApiCallReportingSinkCallback(
         private val response: Response,
-        private val apiCallData: ApiCallData
+        private val onComplete: (ResponseData) -> Unit
     ) : ReportingSink.Callback {
 
         override fun onSuccess(file: File?, sourceByteCount: Long) {
@@ -65,8 +64,7 @@ internal object ResponseBodyProcessor {
                 readResponseBuffer(f, response.isGzipped)?.let {
                     val responseBody = response.body ?: return
                     val body = responseBody.processBody(it)
-                    apiCallData.response = response.convert(body)
-                    NetworkCallsRepo.set(apiCallData)
+                    onComplete.invoke(response.convert(body))
                 }
                 f.delete()
             }
