@@ -33,10 +33,9 @@ data class Status(
     val message: String,
 )
 
-class ApiCallData(
+internal class ApiCallData(
     val id: String,
     val request: RequestData,
-    var hasResponseBody: Boolean = false,
     var response: ResponseData? = null,
     var exception: ExceptionData? = null,
     var mock: MockConfig? = null,

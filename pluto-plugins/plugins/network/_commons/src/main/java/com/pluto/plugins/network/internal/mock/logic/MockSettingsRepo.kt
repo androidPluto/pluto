@@ -9,7 +9,7 @@ import com.pluto.plugins.network.internal.mock.logic.dao.MockSettingsEntity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-object MockSettingsRepo {
+internal object MockSettingsRepo {
     private var mockSettingsDao: MockSettingsDao? = null
     private var mockSettingsMap = linkedSetOf<MockSettingsEntity>()
 

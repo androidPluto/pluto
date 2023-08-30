@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.Collections
 
-object NetworkCallsRepo {
+internal object NetworkCallsRepo {
 
     val apiCalls: LiveData<List<ApiCallData>>
         get() = _apiCalls
