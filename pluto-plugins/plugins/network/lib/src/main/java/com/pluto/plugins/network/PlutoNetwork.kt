@@ -2,14 +2,14 @@ package com.pluto.plugins.network
 
 import android.content.Context
 import com.pluto.plugins.network.internal.bandwidth.core.BandwidthDefaults
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
-import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
-import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import com.pluto.plugins.network.internal.bandwidth.core.BandwidthLimitSocketFactory
 import com.pluto.plugins.network.internal.bandwidth.core.DnsDelay
 import com.pluto.plugins.network.internal.bandwidth.core.ThrottledInputStream
 import com.pluto.plugins.network.internal.bandwidth.core.ThrottledOutputStream
+import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
+import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
+import com.pluto.plugins.network.internal.interceptor.logic.core.CacheDirectoryProvider
 import com.pluto.utilities.DebugLog
 import com.pluto.utilities.settings.SettingsPreferences
 import java.math.BigInteger
@@ -49,12 +49,26 @@ object PlutoNetwork {
         }
     }
 
+    /**
+     * Enables okhttp to use custom dns and socket factory.
+     * @see [DnsDelay]
+     * @see [BandwidthLimitSocketFactory]
+     * @see [updateBandwidthLimitValues]
+     */
     fun OkHttpClient.Builder.enableBandwidthMonitor(): OkHttpClient.Builder {
         updateBandwidthLimitValues()
         return dns(dns)
             .socketFactory(BandwidthLimitSocketFactory())
     }
 
+    /**
+     * Updates - the DNS delay instance timeout value
+     *         - the throttled input stream singleton bandwidth value
+     *         - the throttled output stream singleton bandwidth value
+     * @see [DnsDelay]
+     * @see [ThrottledInputStream]
+     * @see [ThrottledOutputStream]
+     */
     fun updateBandwidthLimitValues() {
         if (SettingsPreferences.isBandwidthLimitEnabled) {
             ThrottledInputStream.maxBytesPerSecond =

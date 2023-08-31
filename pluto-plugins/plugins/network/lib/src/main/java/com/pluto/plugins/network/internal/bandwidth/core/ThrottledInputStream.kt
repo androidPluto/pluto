@@ -3,6 +3,12 @@ package com.pluto.plugins.network.internal.bandwidth.core
 import java.io.IOException
 import java.io.InputStream
 
+/**
+* A custom input stream that limits the rate at which data is read.
+* The limit is set in bytes per second
+*
+* @see [ThrottledOutputStream]
+*/
 class ThrottledInputStream constructor(
     inputStream: InputStream
 ) :

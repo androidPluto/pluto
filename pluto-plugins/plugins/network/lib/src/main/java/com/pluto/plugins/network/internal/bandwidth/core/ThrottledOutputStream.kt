@@ -3,6 +3,12 @@ package com.pluto.plugins.network.internal.bandwidth.core
 import java.io.IOException
 import java.io.OutputStream
 
+/**
+ * A custom output stream that limits the rate at which data is written to it.
+ * The limit is set in bytes per second
+ *
+ * @see [ThrottledInputStream]
+ */
 class ThrottledOutputStream constructor(
     outputStream: OutputStream
 ) :
