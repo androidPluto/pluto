@@ -29,9 +29,29 @@ object SettingsPreferences {
         get() = settingsPrefs.getInt(GRID_SIZE, 5)
         set(value) = settingsPrefs.edit().putInt(GRID_SIZE, value).apply()
 
+    var bandWidthLimitUploadMbps: Long
+        get() = settingsPrefs.getLong(BANDWIDTH_LIMIT_UPLOAD, Long.MAX_VALUE)
+        set(value) = settingsPrefs.edit().putLong(BANDWIDTH_LIMIT_UPLOAD, value).apply()
+
+    var bandWidthLimitDownloadMbps: Long
+        get() = settingsPrefs.getLong(BANDWIDTH_LIMIT_DOWNLOAD, Long.MAX_VALUE)
+        set(value) = settingsPrefs.edit().putLong(BANDWIDTH_LIMIT_DOWNLOAD, value).apply()
+
+    var bandWidthDnsResolutionDelay: Long
+        get() = settingsPrefs.getLong(BANDWIDTH_LIMIT_DNS_RESOLUTION_DELAY, 0)
+        set(value) = settingsPrefs.edit().putLong(BANDWIDTH_LIMIT_DNS_RESOLUTION_DELAY, value).apply()
+
+    var isBandwidthLimitEnabled: Boolean
+        get() = settingsPrefs.getBoolean(IS_BANDWIDTH_LIMIT_ENABLED, false)
+        set(value) = settingsPrefs.edit().putBoolean(IS_BANDWIDTH_LIMIT_ENABLED, value).apply()
+
     private const val IS_DARK_THEME_ENABLED = "is_dark_theme_enabled"
     private const val IS_RIGHT_HANDED_ACCESS_POPUP = "is_right_handed_access_popup"
     private const val GRID_SIZE = "grid_size"
+    private const val BANDWIDTH_LIMIT_UPLOAD = "bandwidth_limit_upload"
+    private const val BANDWIDTH_LIMIT_DOWNLOAD = "bandwidth_limit_download"
+    private const val BANDWIDTH_LIMIT_DNS_RESOLUTION_DELAY = "bandwidth_limit_dns_resolution_delay"
+    private const val IS_BANDWIDTH_LIMIT_ENABLED = "is_bandwidth_limit_enabled"
 }
 
 private fun Context.preferences(name: String, mode: Int = Context.MODE_PRIVATE) = getSharedPreferences(name, mode)

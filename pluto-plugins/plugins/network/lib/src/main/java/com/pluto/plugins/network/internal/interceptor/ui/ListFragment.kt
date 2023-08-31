@@ -65,7 +65,9 @@ internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {
                 }
             }
         }
-
+        binding.bandwidthButton.setOnDebounceClickListener {
+            findNavController().navigate(R.id.bandwidth)
+        }
         viewModel.apiCalls.removeObserver(listObserver)
         viewModel.apiCalls.observe(viewLifecycleOwner, listObserver)
     }
