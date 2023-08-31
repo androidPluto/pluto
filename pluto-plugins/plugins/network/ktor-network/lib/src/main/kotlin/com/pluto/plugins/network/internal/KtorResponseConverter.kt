@@ -7,13 +7,11 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import io.ktor.http.isSuccess
 
 internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
     override suspend fun HttpResponse.convert(): ResponseData {
         return ResponseData(
             statusCode = status.value,
-            isSuccessful = status.isSuccess(),
             body = extractBody(),
             protocol = version.name,
             fromDiskCache = false,

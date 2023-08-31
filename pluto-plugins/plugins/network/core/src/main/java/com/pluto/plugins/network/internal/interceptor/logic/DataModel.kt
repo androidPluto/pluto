@@ -14,10 +14,9 @@ data class RequestData(
 
 data class ResponseData(
     val statusCode: Int,
-    val isSuccessful: Boolean,
     val body: ProcessedBody?,
-    val protocol: String,
-    val fromDiskCache: Boolean,
+    val protocol: String = "", // todo make this nullable
+    val fromDiskCache: Boolean = false,
     val headers: Map<String, String?>,
     val sendTimeMillis: Long,
     val receiveTimeMillis: Long,
@@ -25,6 +24,8 @@ data class ResponseData(
 ) {
     internal val status: Status
         get() = Status(statusCode, mapCode2Message(statusCode))
+    val isSuccessful: Boolean
+        get() = statusCode in 200..299
 }
 
 internal data class MockConfig(

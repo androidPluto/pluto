@@ -50,7 +50,6 @@ internal fun Request.headerMap(contentLength: Long): Map<String, String?> {
 internal fun Response.convert(body: ProcessedBody?): ResponseData {
     return ResponseData(
         statusCode = code,
-        isSuccessful = isSuccessful,
         body = body,
         protocol = protocol.name,
         fromDiskCache = false,

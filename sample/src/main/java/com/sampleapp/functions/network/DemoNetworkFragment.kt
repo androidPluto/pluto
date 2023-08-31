@@ -6,13 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pluto.plugins.network.BodyMediaSubType
-import com.pluto.plugins.network.BodyMediaType
-import com.pluto.plugins.network.CustomBody
-import com.pluto.plugins.network.CustomRequest
-import com.pluto.plugins.network.CustomResponse
-import com.pluto.plugins.network.PlutoNetwork
-import com.pluto.plugins.network.RequestMethod
+import com.pluto.plugins.network.NetworkRecorder
+import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.internal.interceptor.logic.RequestData
+import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.sampleapp.R
 import com.sampleapp.databinding.FragmentDemoNetworkBinding
 import com.sampleapp.functions.network.internal.NetworkViewModel
@@ -45,25 +42,29 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
         binding.xmlCall.setOnClickListener { networkViewModel.xml() }
         binding.formEncodedCall.setOnClickListener { networkViewModel.form() }
         binding.customTrace.setOnClickListener {
-            PlutoNetwork.logCustomTrace(
-                request = CustomRequest(
+            val networkRecorder = NetworkRecorder(
+                RequestData(
                     url = "https://google.com",
-                    method = RequestMethod.GET,
-                    body = CustomBody(
-                        body = "hello request",
-                        mediaType = BodyMediaType.APPLICATION,
-                        mediaSubtype = BodyMediaSubType.PLAIN
+                    method = "GET",
+                    body = ProcessedBody(
+                        isValid = true,
+                        body = "body",
+                        mediaType = "mediaType.name.lowercase()", // todo fix this
+                        mediaSubtype = "mediaSubtype.name.lowercase()"
                     ),
                     headers = emptyMap(),
-                    sendTimeMillis = System.currentTimeMillis(),
+                    timestamp = System.currentTimeMillis(),
                     isGzipped = false
-                ),
-                response = CustomResponse(
+                )
+            )
+            networkRecorder.onResponse(
+                ResponseData(
                     statusCode = 200,
-                    body = CustomBody(
-                        body = "hello response",
-                        mediaType = BodyMediaType.TEXT,
-                        mediaSubtype = BodyMediaSubType.PLAIN
+                    body = ProcessedBody(
+                        isValid = true,
+                        body = "body",
+                        mediaType = "mediaType.name.lowercase()",
+                        mediaSubtype = "mediaSubtype.name.lowercase()"
                     ),
                     headers = hashMapOf(
                         "custom_header" to "custom header value"
