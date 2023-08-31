@@ -14,7 +14,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'network'
+    PUBLISH_ARTIFACT_ID = "network-okhttp"
 }
 
 android {
@@ -49,7 +49,7 @@ android {
     }
 
     resourcePrefix 'pluto_network___'
-    namespace 'com.pluto.plugins.network'
+    namespace 'com.pluto.plugins.network.okhttp'
     lint {
         abortOnError false
     }
