@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal.interceptor.logic.core
+package com.pluto.plugins.network.internal.interceptor.logic
 
 @SuppressWarnings("MagicNumber", "ComplexMethod")
 internal fun mapCode2Message(code: Int): String {

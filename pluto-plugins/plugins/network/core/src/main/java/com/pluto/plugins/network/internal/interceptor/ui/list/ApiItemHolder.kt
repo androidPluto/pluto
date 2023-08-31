@@ -8,7 +8,6 @@ import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkItemNetworkBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
-import com.pluto.plugins.network.internal.interceptor.logic.core.asUrl
 import com.pluto.utilities.extensions.asTimeElapsed
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
@@ -39,7 +38,7 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
 
             url.setSpan {
                 append(fontColor(item.request.method.uppercase(), context.color(R.color.pluto___text_dark_60)))
-                append("  ${item.request.url.asUrl().encodedPath}")
+                append("  ${Url(item.request.url).encodedPath}")
             }
             progress.visibility = VISIBLE
             status.visibility = INVISIBLE

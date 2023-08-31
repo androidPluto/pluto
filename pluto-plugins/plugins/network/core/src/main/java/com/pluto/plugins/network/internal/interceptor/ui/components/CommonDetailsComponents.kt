@@ -3,7 +3,6 @@ package com.pluto.plugins.network.internal.interceptor.ui.components
 import android.content.Context
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.internal.interceptor.logic.core.asUrl
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.spannable.createSpan
@@ -109,7 +108,7 @@ internal fun getQueryParamsData(
     url: String,
     onClick: () -> Unit
 ): KeyValuePairData {
-    val url = url.asUrl()
+    val url = Url(url)
     return KeyValuePairData(
         key = context.getString(R.string.pluto_network___query_params_title),
         value = context.createSpan {

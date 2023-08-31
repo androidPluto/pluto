@@ -1,6 +1,5 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
-import com.pluto.plugins.network.internal.interceptor.logic.core.mapCode2Message
 import com.pluto.plugins.network.internal.share.getCurl
 import com.pluto.utilities.list.ListItem
 
@@ -11,10 +10,6 @@ data class RequestData(
     val headers: Map<String, String?>,
     val timestamp: Long,
     val isGzipped: Boolean,
-)
-
-internal data class MockConfig(
-    val url: String,
 )
 
 data class ResponseData(
@@ -28,11 +23,15 @@ data class ResponseData(
     val receiveTimeMillis: Long,
     val isGzipped: Boolean
 ) {
-    val status: Status
+    internal val status: Status
         get() = Status(statusCode, mapCode2Message(statusCode))
 }
 
-data class Status(
+internal data class MockConfig(
+    val url: String,
+)
+
+internal data class Status(
     val code: Int,
     val message: String,
 )

@@ -79,7 +79,7 @@ internal fun formatSizeAsBytes(origin: Long): String {
     }
 }
 
-const val LOGTAG = "pluto_network"
+internal const val LOGTAG = "pluto_network"
 
 val UTF8: Charset = Charset.forName("UTF-8")
 private val KILO_BYTES = BigDecimal("1024")
