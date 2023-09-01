@@ -12,10 +12,6 @@ class DemoPlugin() : Plugin(ID) {
     @Deprecated("Use the default constructor DemoPlugin() instead.")
     constructor(identifier: String) : this()
 
-    init {
-        Session.devIdentifier = devIdentifier
-    }
-
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.demo___plugin_name),
         icon = R.drawable.demo___ic_plugin_icon,
@@ -33,7 +29,7 @@ class DemoPlugin() : Plugin(ID) {
     override fun getView(): Fragment = DemoFragment()
 
     override fun onPluginInstalled() {
-        DebugLog.d("demo_plugin", "$devIdentifier installed")
+        DebugLog.d("demo_plugin", "$ID installed")
     }
 
     override fun onPluginDataCleared() {
