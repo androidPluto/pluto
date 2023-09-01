@@ -8,9 +8,9 @@ import com.pluto.Pluto
 
 internal class PluginsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val plugins: LiveData<List<Plugin>>
+    val plugins: LiveData<List<PluginEntity>>
         get() = _plugins
-    private val _plugins = MutableLiveData<List<Plugin>>()
+    private val _plugins = MutableLiveData<List<PluginEntity>>()
 
     init {
         _plugins.postValue(Pluto.pluginManager.installedPlugins)
