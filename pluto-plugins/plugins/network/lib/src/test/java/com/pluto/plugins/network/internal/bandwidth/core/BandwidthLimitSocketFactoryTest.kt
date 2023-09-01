@@ -60,7 +60,8 @@ class BandwidthLimitSocketFactoryTest {
 
         val uploadTimeSeconds = (endTime - startTime) / 1000.0
         Assert.assertEquals(
-            dataSizeBytes / ThrottledOutputStream.maxBytesPerSecond, uploadTimeSeconds.toInt()
+            (dataSizeBytes / ThrottledOutputStream.maxBytesPerSecond).toInt(),
+            uploadTimeSeconds.toInt()
         )
     }
 
