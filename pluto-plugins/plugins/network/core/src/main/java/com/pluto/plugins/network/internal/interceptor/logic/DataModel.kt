@@ -8,24 +8,27 @@ data class RequestData(
     val method: String,
     val body: ProcessedBody?,
     val headers: Map<String, String?>,
-    val timestamp: Long,
-    val isGzipped: Boolean,
-)
+    val sentTimestamp: Long
+) {
+    internal val isGzipped: Boolean
+        get() = headers["Content-Encoding"].equals("gzip", ignoreCase = true)
+}
 
 data class ResponseData(
     val statusCode: Int,
     val body: ProcessedBody?,
-    val protocol: String = "", // todo make this nullable
-    val fromDiskCache: Boolean = false,
     val headers: Map<String, String?>,
-    val sendTimeMillis: Long,
-    val receiveTimeMillis: Long,
-    val isGzipped: Boolean
+    val sentTimestamp: Long,
+    val receiveTimestamp: Long,
+    val protocol: String = "",
+    val fromDiskCache: Boolean = false
 ) {
     internal val status: Status
         get() = Status(statusCode, mapCode2Message(statusCode))
     val isSuccessful: Boolean
         get() = statusCode in 200..299
+    internal val isGzipped: Boolean
+        get() = headers["Content-Encoding"].equals("gzip", ignoreCase = true)
 }
 
 internal data class MockConfig(
@@ -48,7 +51,7 @@ internal class ApiCallData(
     val curl: String
         get() = request.getCurl()
     val responseTime
-        get() = exception?.timeStamp ?: response?.receiveTimeMillis
+        get() = exception?.timeStamp ?: response?.receiveTimestamp
 
     override fun isEqual(other: Any): Boolean {
         if (other is ApiCallData) {

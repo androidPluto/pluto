@@ -33,7 +33,7 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
     override fun onBind(item: ListItem) {
         if (item is ApiCallData) {
             host.text = Url(item.request.url).host
-            timeElapsed.text = item.request.timestamp.asTimeElapsed()
+            timeElapsed.text = item.request.sentTimestamp.asTimeElapsed()
             binding.root.setBackgroundColor(context.color(R.color.pluto___transparent))
 
             url.setSpan {

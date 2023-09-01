@@ -16,9 +16,8 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
             protocol = version.name,
             fromDiskCache = false,
             headers = headersMap(),
-            sendTimeMillis = requestTime.timestamp,
-            receiveTimeMillis = responseTime.timestamp,
-            isGzipped = isGzipped
+            sentTimestamp = requestTime.timestamp,
+            receiveTimestamp = responseTime.timestamp
         )
     }
 

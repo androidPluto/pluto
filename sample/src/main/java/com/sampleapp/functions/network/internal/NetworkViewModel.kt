@@ -3,6 +3,10 @@ package com.sampleapp.functions.network.internal
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pluto.plugins.network.NetworkRecorder
+import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.internal.interceptor.logic.RequestData
+import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.sampleapp.functions.network.internal.core.ApiService
 import com.sampleapp.functions.network.internal.core.Client
 import com.sampleapp.functions.network.internal.core.Network
@@ -15,6 +19,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.path
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -106,6 +111,43 @@ class NetworkViewModel : ViewModel() {
                     is ResponseWrapper.Success -> Pair(label, auth.body)
                     is ResponseWrapper.Failure -> Pair(label, auth.error)
                 }
+            )
+        }
+    }
+
+    @SuppressWarnings("MagicNumber")
+    fun customTrace() {
+        viewModelScope.launch {
+            val networkRecorder = NetworkRecorder(
+                RequestData(
+                    url = "https://google.com",
+                    method = "GET",
+                    body = ProcessedBody(
+                        isValid = true,
+                        body = "body",
+                        mediaType = "mediaType.name.lowercase()", // todo fix this
+                        mediaSubtype = "mediaSubtype.name.lowercase()"
+                    ),
+                    headers = emptyMap(),
+                    sentTimestamp = System.currentTimeMillis()
+                )
+            )
+            delay(5_000)
+            networkRecorder.onResponse(
+                ResponseData(
+                    statusCode = 200,
+                    body = ProcessedBody(
+                        isValid = true,
+                        body = "body",
+                        mediaType = "mediaType.name.lowercase()",
+                        mediaSubtype = "mediaSubtype.name.lowercase()"
+                    ),
+                    headers = hashMapOf(
+                        "custom_header" to "custom header value"
+                    ),
+                    sentTimestamp = System.currentTimeMillis(),
+                    receiveTimestamp = System.currentTimeMillis() + 1000
+                )
             )
         }
     }

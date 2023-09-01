@@ -21,8 +21,7 @@ internal fun Request.convert(): RequestData {
         method = this.method,
         body = body,
         headers = this.headerMap(body?.sizeInBytes ?: 0L),
-        timestamp = System.currentTimeMillis(),
-        isGzipped = this.isGzipped
+        sentTimestamp = System.currentTimeMillis()
     )
 }
 
@@ -54,9 +53,8 @@ internal fun Response.convert(body: ProcessedBody?): ResponseData {
         protocol = protocol.name,
         fromDiskCache = false,
         headers = headersMap(),
-        sendTimeMillis = sentRequestAtMillis,
-        receiveTimeMillis = receivedResponseAtMillis,
-        isGzipped = isGzipped
+        sentTimestamp = sentRequestAtMillis,
+        receiveTimestamp = receivedResponseAtMillis
     )
 }
 

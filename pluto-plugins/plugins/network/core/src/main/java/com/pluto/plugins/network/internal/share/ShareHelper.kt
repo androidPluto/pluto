@@ -10,13 +10,13 @@ internal fun ApiCallData.toShareText(): String {
     val text = StringBuilder()
     text.append("${request.method.uppercase()}, ${request.url}  ")
     text.append(
-        "\n\nRequested at : ${request.timestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
+        "\n\nRequested at : ${request.sentTimestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
     )
     response?.let {
         text.append(
-            "\nReceived at : ${it.receiveTimeMillis.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
+            "\nReceived at : ${it.receiveTimestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
         )
-        text.append("\nDelay : ${it.receiveTimeMillis - it.sendTimeMillis} ms")
+        text.append("\nDelay : ${it.receiveTimestamp - it.sentTimestamp} ms")
         text.append("\nProtocol : ${it.protocol}")
     }
     text.append("\n\n==================\n\n")

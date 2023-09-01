@@ -12,8 +12,7 @@ internal object KtorRequestConverter : RequestConverter<HttpRequestData> {
             method.value,
             processBody(),
             headerMap(),
-            System.currentTimeMillis(),
-            isGzipped
+            System.currentTimeMillis()
         )
     }
 

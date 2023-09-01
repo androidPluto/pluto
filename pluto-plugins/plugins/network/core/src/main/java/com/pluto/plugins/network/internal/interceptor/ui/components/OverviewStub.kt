@@ -125,13 +125,13 @@ internal class OverviewStub : ConstraintLayout {
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___request_time_label),
-                        value = api.request.timestamp.asFormattedDate(DATE_FORMAT)
+                        value = api.request.sentTimestamp.asFormattedDate(DATE_FORMAT)
                     )
                 )
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___response_time_label),
-                        value = (api.exception?.timeStamp ?: api.response?.receiveTimeMillis)?.asFormattedDate(
+                        value = (api.exception?.timeStamp ?: api.response?.receiveTimestamp)?.asFormattedDate(
                             DATE_FORMAT
                         ) ?: waitingText
                     )
@@ -139,7 +139,7 @@ internal class OverviewStub : ConstraintLayout {
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___delay_label),
-                        value = api.responseTime?.let { "${it - api.request.timestamp} ms" } ?: waitingText
+                        value = api.responseTime?.let { "${it - api.request.sentTimestamp} ms" } ?: waitingText
                     )
                 )
             }
@@ -152,8 +152,11 @@ internal class OverviewStub : ConstraintLayout {
         } ?: run {
             api.response?.protocol?.let {
                 context.createSpan {
-                    append(semiBold(fontColor("$it", context.color(R.color.pluto___text_dark_80))))
-                    append(regular(fontColor(" ($it)", context.color(R.color.pluto___text_dark_60))))
+                    if (it.isBlank()) {
+                        append(fontColor(context.getString(R.string.pluto_network___na), context.color(R.color.pluto___text_dark_40)))
+                    } else {
+                        append(semiBold(fontColor(it, context.color(R.color.pluto___text_dark_80))))
+                    }
                 }
             }
         }
