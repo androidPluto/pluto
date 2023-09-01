@@ -85,6 +85,15 @@
     <string name="pluto_network___custom_trace_tag">Custom</string>
     <string name="pluto_network___custom_trace_title">Custom Network trace</string>
     <string name="pluto_network___custom_trace_description">This network trace was logged by client app, not PlutoInterceptor</string>
+    <string name="pluto_network___dns_resolution_delay_in_ms">Dns Resolution Delay in ms</string>
+    <string name="pluto_network___limit_bandwidth">Limit Bandwidth</string>
+    <string name="pluto_network___done">Done</string>
+    <string name="pluto_network___fetch_dns_timeout_in_milli_seconds">Fetch Dns Timeout In Milli Seconds</string>
+    <string name="pluto_network___download_speed_limit">Download Speed Limit In Mbps</string>
+    <string name="pluto_network___upload_speed_limit">Upload Speed Limit In Mbps</string>
+    <string name="pluto_network___enable_network_bandwidth_limit">Enable Network Bandwidth Limit</string>
+    <string name="pluto_network___close">Close</string>
+
     <plurals name="pluto_network___query_params_value_text">
         <item quantity="one">1 param</item>
         <item quantity="other">%d params</item>
