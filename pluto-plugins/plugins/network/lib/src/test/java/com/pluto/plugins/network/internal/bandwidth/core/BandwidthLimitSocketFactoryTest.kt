@@ -4,6 +4,9 @@ import com.pluto.plugins.network.internal.bandwidth.core.ThrottledInputStream
 import com.pluto.plugins.network.internal.bandwidth.core.ThrottledOutputStream
 import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.nio.charset.StandardCharsets
+import kotlin.math.ceil
+import kotlin.random.Random
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse
@@ -56,9 +59,9 @@ class BandwidthLimitSocketFactoryTest {
         val endTime = System.currentTimeMillis()
 
         val uploadTimeSeconds = (endTime - startTime) / 1000.0
-        val uploadSpeedMbps = dataSizeBytes * 8.0 / uploadTimeSeconds / 1024 / 1024
-        println("Upload Speed: $uploadSpeedMbps Mbps")
-        Assert.assertEquals(1024 / 512, uploadTimeSeconds.toInt())
+        Assert.assertEquals(
+            dataSizeBytes / ThrottledOutputStream.maxBytesPerSecond, uploadTimeSeconds.toInt()
+        )
     }
 
     @Test
@@ -66,23 +69,30 @@ class BandwidthLimitSocketFactoryTest {
         ThrottledOutputStream.maxBytesPerSecond = Long.MAX_VALUE
         ThrottledInputStream.maxBytesPerSecond = 1024 * 512
         val dataSizeBytes = 1024 * 1024
-
-        mockWebServer.enqueue(MockResponse())
+        mockWebServer.enqueue(
+            MockResponse().setHeader("Content-Length", dataSizeBytes).setResponseCode(200).setBody(
+                String(
+                    Random.nextBytes(ByteArray(dataSizeBytes)), StandardCharsets.UTF_8
+                )
+            )
+        )
 
         val request = Request.Builder()
             .url(mockWebServer.url("/"))
-            .put(MockRequestBody(dataSizeBytes.toLong()))
-            .header("Connection", "close")
+            .put(MockRequestBody(0))
             .build()
 
         val startTime = System.currentTimeMillis()
-        okHttpClient.newCall(request).execute()
+        val execute = okHttpClient.newCall(request).execute()
+        execute.body.string()
+        val byteCount = (execute.headers["Content-Length"])?.toInt() ?: 0
         val endTime = System.currentTimeMillis()
 
-        val uploadTimeSeconds = (endTime - startTime) / 1000.0
-        val uploadSpeedMbps = dataSizeBytes * 8.0 / uploadTimeSeconds / 1024 / 1024
-        println("Upload Speed: $uploadSpeedMbps Mbps")
-        Assert.assertEquals(1024 / 512, uploadTimeSeconds.toInt())
+        val downloadTimeSeconds = (endTime - startTime) / 1000.0
+        Assert.assertEquals(
+            ceil(byteCount * 1f / ThrottledInputStream.maxBytesPerSecond).toInt(),
+            downloadTimeSeconds.toInt()
+        )
     }
     // Similar test for download speed using mockWebServer.enqueue
 }
