@@ -1,8 +1,8 @@
 package com.pluto.plugins.network.internal.interceptor.ui.components
 
 import android.content.Context
+import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.commons.R
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.spannable.createSpan

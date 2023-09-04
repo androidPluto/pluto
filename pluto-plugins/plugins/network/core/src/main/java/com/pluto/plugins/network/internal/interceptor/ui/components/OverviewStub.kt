@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.pluto.plugins.network.ApiCallData
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkStubDetailsOverviewBinding
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_CUSTOM_TRACE_INFO
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_MOCK_SETTINGS
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_SHARE_CURL

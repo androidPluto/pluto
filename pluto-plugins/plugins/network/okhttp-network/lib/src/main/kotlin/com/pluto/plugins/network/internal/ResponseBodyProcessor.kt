@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.ResponseData
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody

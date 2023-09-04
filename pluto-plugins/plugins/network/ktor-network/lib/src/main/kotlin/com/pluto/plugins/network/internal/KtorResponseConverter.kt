@@ -1,11 +1,12 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.BINARY_MEDIA_TYPE
+import com.pluto.plugins.network.ProcessedBody
+import com.pluto.plugins.network.ResponseData
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
+import io.ktor.http.Headers
 import io.ktor.http.contentType
 
 internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
@@ -15,18 +16,18 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
             body = extractBody(),
             protocol = version.name,
             fromDiskCache = false,
-            headers = headersMap(),
+            headers = headersMap(headers),
             sentTimestamp = requestTime.timestamp,
             receiveTimestamp = responseTime.timestamp
         )
     }
 
 
-    private fun HttpResponse.statusCodeMessage(): String {
-        return status.description
-    }
+//    private fun HttpResponse.statusCodeMessage(): String {
+//        return status.description
+//    }
 
-    private fun HttpResponse.headersMap(): Map<String, String?> {
+    private fun headersMap(headers: Headers): Map<String, String?> {
         return headers.entries().associate {
             it.key to it.value.joinToString(",")
         }
@@ -37,14 +38,12 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
         val contentType = contentType()
         return if (isTextType()) {
             ProcessedBody(
-                isValid = true,
                 body = bodyAsText(),
                 mediaType = contentType?.contentType.orEmpty(),
                 mediaSubtype = contentType?.contentSubtype.orEmpty()
             )
         } else {
             ProcessedBody(
-                isValid = true,
                 body = "~binary",
                 mediaType = BINARY_MEDIA_TYPE,
                 mediaSubtype = BINARY_MEDIA_TYPE

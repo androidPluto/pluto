@@ -4,10 +4,10 @@ import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import com.pluto.plugins.network.ApiCallData
+import com.pluto.plugins.network.ResponseData
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkItemNetworkBinding
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.utilities.extensions.asTimeElapsed
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate

@@ -1,8 +1,8 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.internal.interceptor.logic.RequestData
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.ProcessedBody
+import com.pluto.plugins.network.RequestData
+import com.pluto.plugins.network.ResponseData
 import com.pluto.utilities.DebugLog
 import okhttp3.Request
 import okhttp3.Response
