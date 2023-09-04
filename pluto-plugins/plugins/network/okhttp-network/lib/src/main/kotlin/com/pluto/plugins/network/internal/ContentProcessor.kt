@@ -1,7 +1,7 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.internal.interceptor.logic.BINARY_MEDIA_TYPE
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
+import com.pluto.plugins.network.BINARY_MEDIA_TYPE
+import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8
 import com.pluto.utilities.DebugLog
 import okhttp3.HttpUrl
@@ -17,14 +17,12 @@ internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
         if (it.isText()) {
             val plainBody = extractBody(gzipped)
             ProcessedBody(
-                isValid = true,
                 body = plainBody,
                 mediaType = it.type,
                 mediaSubtype = it.subtype
             )
         } else {
             ProcessedBody(
-                isValid = true,
                 body = BINARY_BODY,
                 mediaType = BINARY_MEDIA_TYPE,
                 mediaSubtype = BINARY_MEDIA_TYPE
@@ -39,7 +37,6 @@ internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
         if (it.isText()) {
             val body = buffer.readString(it.charset(UTF8) ?: UTF8)
             ProcessedBody(
-                isValid = true,
                 body = body,
                 mediaType = it.type,
                 mediaSubtype = it.subtype
@@ -47,7 +44,6 @@ internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
         } else {
             // todo process image response
             ProcessedBody(
-                isValid = true,
                 body = BINARY_BODY,
                 mediaType = BINARY_MEDIA_TYPE,
                 mediaSubtype = BINARY_MEDIA_TYPE

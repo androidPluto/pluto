@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.network.NetworkRecorder
-import com.pluto.plugins.network.internal.interceptor.logic.ProcessedBody
-import com.pluto.plugins.network.internal.interceptor.logic.RequestData
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
+import com.pluto.plugins.network.ProcessedBody
+import com.pluto.plugins.network.RequestData
+import com.pluto.plugins.network.ResponseData
 import com.sampleapp.functions.network.internal.core.ApiService
 import com.sampleapp.functions.network.internal.core.Client
 import com.sampleapp.functions.network.internal.core.Network
@@ -123,7 +123,6 @@ class NetworkViewModel : ViewModel() {
                     url = "https://google.com",
                     method = "GET",
                     body = ProcessedBody(
-                        isValid = true,
                         body = "body",
                         mediaType = "mediaType.name.lowercase()", // todo fix this
                         mediaSubtype = "mediaSubtype.name.lowercase()"
@@ -137,7 +136,6 @@ class NetworkViewModel : ViewModel() {
                 ResponseData(
                     statusCode = 200,
                     body = ProcessedBody(
-                        isValid = true,
                         body = "body",
                         mediaType = "mediaType.name.lowercase()",
                         mediaSubtype = "mediaSubtype.name.lowercase()"

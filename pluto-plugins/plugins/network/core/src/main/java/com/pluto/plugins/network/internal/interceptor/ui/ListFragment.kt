@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugins.network.ApiCallData
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkFragmentListBinding
 import com.pluto.plugins.network.internal.Session
-import com.pluto.plugins.network.internal.interceptor.logic.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.API_CALL_ID
 import com.pluto.plugins.network.internal.interceptor.ui.list.NetworkAdapter

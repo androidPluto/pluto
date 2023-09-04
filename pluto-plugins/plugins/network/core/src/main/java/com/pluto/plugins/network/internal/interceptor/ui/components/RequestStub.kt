@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.pluto.plugins.network.RequestData
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkStubDetailsRequestBinding
-import com.pluto.plugins.network.internal.interceptor.logic.RequestData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_BODY
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_HEADERS
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_REQ_PARAMS

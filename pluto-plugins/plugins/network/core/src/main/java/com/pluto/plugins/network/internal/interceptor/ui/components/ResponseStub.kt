@@ -5,10 +5,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.pluto.plugins.network.ResponseData
 import com.pluto.plugins.network.commons.R
 import com.pluto.plugins.network.commons.databinding.PlutoNetworkStubDetailsResponseBinding
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
-import com.pluto.plugins.network.internal.interceptor.logic.ResponseData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_BODY
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_HEADERS
 import com.pluto.utilities.extensions.color
