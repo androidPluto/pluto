@@ -1,4 +1,4 @@
-package com.sampleapp.functions.network.internal.core
+package com.sampleapp.functions.network.internal.ktor
 
 import com.pluto.plugins.network.addPlutoKtorPlugin
 import io.ktor.client.HttpClient

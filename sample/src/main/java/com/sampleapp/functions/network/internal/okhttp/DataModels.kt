@@ -1,7 +1,6 @@
-package com.sampleapp.functions.network.internal.core
+package com.sampleapp.functions.network.internal.okhttp
 
 import com.squareup.moshi.JsonClass
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 sealed class ResponseWrapper<out T> {
@@ -13,15 +12,3 @@ sealed class ResponseWrapper<out T> {
 @Serializable
 @JsonClass(generateAdapter = true)
 data class ErrorResponse(val reason: String?, val error: String)
-
-@Serializable
-@JsonClass(generateAdapter = true)
-data class StatusResponse(val status: Boolean)
-
-@Serializable
-data class PostNewBody(
-    @SerialName("user")
-    val user: String,
-    @SerialName("email")
-    val email: String,
-)

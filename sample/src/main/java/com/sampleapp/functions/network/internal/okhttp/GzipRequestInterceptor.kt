@@ -1,4 +1,4 @@
-package com.sampleapp.functions.network.internal.core
+package com.sampleapp.functions.network.internal.okhttp
 
 import okhttp3.Interceptor
 import okhttp3.MediaType

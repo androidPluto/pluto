@@ -1,4 +1,4 @@
-package com.sampleapp.functions.network.internal.core
+package com.sampleapp.functions.network.internal.okhttp
 
 import com.pluto.plugins.network.PlutoInterceptor
 import java.util.concurrent.TimeUnit
