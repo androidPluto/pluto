@@ -123,9 +123,8 @@ class NetworkViewModel : ViewModel() {
                     url = "https://google.com",
                     method = "GET",
                     body = ProcessedBody(
-                        body = "body",
-                        mediaType = "mediaType.name.lowercase()", // todo fix this
-                        mediaSubtype = "mediaSubtype.name.lowercase()"
+                        body = "{\"message\": \"body\"}",
+                        contentType = "application/json",
                     ),
                     headers = emptyMap(),
                     sentTimestamp = System.currentTimeMillis()
@@ -137,8 +136,7 @@ class NetworkViewModel : ViewModel() {
                     statusCode = 200,
                     body = ProcessedBody(
                         body = "body",
-                        mediaType = "mediaType.name.lowercase()",
-                        mediaSubtype = "mediaSubtype.name.lowercase()"
+                        contentType = "text/plain",
                     ),
                     headers = hashMapOf(
                         "custom_header" to "custom header value"

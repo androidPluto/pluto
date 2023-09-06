@@ -26,12 +26,15 @@ internal object KtorRequestConverter : RequestConverter<HttpRequestData> {
     private val HttpRequestData.isGzipped: Boolean
         get() = headers.contains("content-Encoding", "gzip")
 
-    private fun processBody(body: OutgoingContent, isGzipped: Boolean): ProcessedBody {
-        return ProcessedBody(
-            body = extractBody(body, isGzipped),
-            mediaType = body.contentType.toString(),
-            mediaSubtype = body.contentType?.contentSubtype.toString()
-        )
+    private fun processBody(body: OutgoingContent, isGzipped: Boolean): ProcessedBody? {
+        return body.contentType?.let {
+            ProcessedBody(
+                body = extractBody(body, isGzipped),
+                contentType = it.toString()
+            )
+        } ?: run {
+            null
+        }
     }
 
     // TODO handle gzip

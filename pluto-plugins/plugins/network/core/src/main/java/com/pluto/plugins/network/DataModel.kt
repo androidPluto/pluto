@@ -4,6 +4,7 @@ import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.logic.mapCode2Message
 import com.pluto.plugins.network.internal.share.getCurl
 import com.pluto.utilities.list.ListItem
+import io.ktor.http.ContentType
 
 data class RequestData(
     val url: String,
@@ -65,14 +66,14 @@ internal class ApiCallData(
 
 data class ProcessedBody(
     val body: CharSequence,
-    val mediaType: String,
-    val mediaSubtype: String,
+    val contentType: String
 ) {
-    val isBinary: Boolean = mediaType == BINARY_MEDIA_TYPE
-    val sizeInBytes: Long
-        get() = body.length.toLong()
-    val mediaTypeFull: String
-        get() = "$mediaType/$mediaSubtype"
+    private val contentTypeInternal: ContentType = ContentType.parse(contentType)
+    private val mediaType: String = contentTypeInternal.contentType
+    internal val mediaSubtype: String = contentTypeInternal.contentSubtype
+    val isBinary: Boolean = BINARY_MEDIA_TYPES.contains(mediaType)
+    val sizeInBytes: Long = body.length.toLong()
+    val mediaTypeFull: String = "$mediaType/$mediaSubtype"
 }
 
-const val BINARY_MEDIA_TYPE = "binary"
+val BINARY_MEDIA_TYPES = listOf("audio", "video", "image", "font")
