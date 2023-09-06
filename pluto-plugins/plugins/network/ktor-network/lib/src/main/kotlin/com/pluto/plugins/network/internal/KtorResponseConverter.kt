@@ -1,6 +1,5 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.BINARY_MEDIA_TYPE
 import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.ResponseData
 import io.ktor.client.statement.HttpResponse
@@ -34,38 +33,26 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
     }
 
     // TODO handle gzip
-    private suspend fun HttpResponse.extractBody(): ProcessedBody {
-        val contentType = contentType()
-        return if (isTextType()) {
-            ProcessedBody(
-                body = bodyAsText(),
-                mediaType = contentType?.contentType.orEmpty(),
-                mediaSubtype = contentType?.contentSubtype.orEmpty()
-            )
-        } else {
-            ProcessedBody(
-                body = "~binary",
-                mediaType = BINARY_MEDIA_TYPE,
-                mediaSubtype = BINARY_MEDIA_TYPE
-            )
-        }
-    }
+    private suspend fun HttpResponse.extractBody() = ProcessedBody(
+        body = bodyAsText(),
+        contentType = contentType().toString()
+    )
 
-    private fun HttpResponse.isTextType(): Boolean {
-        return contentType()?.run {
-            return when {
-                match(ContentType.Application.Json) -> true
-                match(ContentType.Application.Xml) -> true
-                match(ContentType.Application.FormUrlEncoded) -> true
-                match(ContentType.Text.Any) -> true
-                else -> false
-            }
-        } ?: false
-
-    }
-
-    private val HttpResponse.isGzipped: Boolean
-        get() = headers.contains("Content-Encoding", "gzip")
+//    private fun HttpResponse.isTextType(): Boolean {
+//        return contentType()?.run {
+//            return when {
+//                match(ContentType.Application.Json) -> true
+//                match(ContentType.Application.Xml) -> true
+//                match(ContentType.Application.FormUrlEncoded) -> true
+//                match(ContentType.Text.Any) -> true
+//                else -> false
+//            }
+//        } ?: false
+//
+//    }
+//
+//    private val HttpResponse.isGzipped: Boolean
+//        get() = headers.contains("Content-Encoding", "gzip")
 
 
 }

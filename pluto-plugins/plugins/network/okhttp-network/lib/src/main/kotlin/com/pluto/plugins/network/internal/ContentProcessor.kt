@@ -1,6 +1,5 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.BINARY_MEDIA_TYPE
 import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8
 import com.pluto.utilities.DebugLog
@@ -14,41 +13,20 @@ import okio.IOException
 internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
     return contentType()?.let {
         DebugLog.e(LOGTAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
-        if (it.isText()) {
-            val plainBody = extractBody(gzipped)
-            ProcessedBody(
-                body = plainBody,
-                mediaType = it.type,
-                mediaSubtype = it.subtype
-            )
-        } else {
-            ProcessedBody(
-                body = BINARY_BODY,
-                mediaType = BINARY_MEDIA_TYPE,
-                mediaSubtype = BINARY_MEDIA_TYPE
-            )
-        }
+        ProcessedBody(
+            body = if (it.isText()) extractBody(gzipped) else BINARY_BODY,
+            contentType = it.toString()
+        )
     }
 }
 
 internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
     return this?.contentType()?.let {
         DebugLog.e(LOGTAG, "response  : ${it.type}, ${it.subtype}, ${it.charset()}")
-        if (it.isText()) {
-            val body = buffer.readString(it.charset(UTF8) ?: UTF8)
-            ProcessedBody(
-                body = body,
-                mediaType = it.type,
-                mediaSubtype = it.subtype
-            )
-        } else {
-            // todo process image response
-            ProcessedBody(
-                body = BINARY_BODY,
-                mediaType = BINARY_MEDIA_TYPE,
-                mediaSubtype = BINARY_MEDIA_TYPE
-            )
-        }
+        ProcessedBody(
+            body = if (it.isText()) buffer.readString(it.charset(UTF8) ?: UTF8) else BINARY_BODY,
+            contentType = it.toString()
+        )
     }
 }
 
