@@ -112,7 +112,7 @@ internal fun getQueryParamsData(
     return KeyValuePairData(
         key = context.getString(R.string.pluto_network___query_params_title),
         value = context.createSpan {
-            if (url.parameters.isEmpty()) {
+            if (url.areQueryParamsAvailable) {
                 append(
                     semiBold(
                         context.resources.getQuantityString(
@@ -127,8 +127,8 @@ internal fun getQueryParamsData(
                 append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
             }
         },
-        showClickIndicator = url.querySize > 0,
-        onClick = if (url.querySize > 0) {
+        showClickIndicator = url.areQueryParamsAvailable,
+        onClick = if (url.areQueryParamsAvailable) {
             { onClick.invoke() }
         } else {
             null
@@ -138,3 +138,6 @@ internal fun getQueryParamsData(
 
 private val Url.querySize: Int
     get() = parameters.names().size
+
+private val Url.areQueryParamsAvailable: Boolean
+    get() = querySize > 0
