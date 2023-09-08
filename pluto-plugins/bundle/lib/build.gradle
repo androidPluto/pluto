@@ -44,8 +44,8 @@ android {
 dependencies {
     api project(path: ':pluto-plugins:plugins:exceptions:lib')
     api project(path: ':pluto-plugins:plugins:network:core:lib')
-    api project(path: ':pluto-plugins:plugins:network:ktor-network:lib')
-    api project(path: ':pluto-plugins:plugins:network:okhttp-network:lib')
+    api project(path: ':pluto-plugins:plugins:network:interceptor-ktor:lib')
+    api project(path: ':pluto-plugins:plugins:network:interceptor-okhttp:lib')
     api project(path: ':pluto-plugins:plugins:shared-preferences:lib')
     api project(path: ':pluto-plugins:plugins:logger:lib')
     api project(path: ':pluto-plugins:plugins:datastore:lib')
