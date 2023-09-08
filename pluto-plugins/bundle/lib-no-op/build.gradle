@@ -43,6 +43,7 @@ android {
 
 dependencies {
     api project(path: ':pluto-plugins:plugins:exceptions:lib-no-op')
+    api project(path: ':pluto-plugins:plugins:network:core:lib-no-op')
     api project(path: ':pluto-plugins:plugins:network:okhttp-network:lib-no-op')
     api project(path: ':pluto-plugins:plugins:network:ktor-network:lib-no-op')
     api project(path: ':pluto-plugins:plugins:shared-preferences:lib-no-op')

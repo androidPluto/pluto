@@ -43,6 +43,7 @@ android {
 
 dependencies {
     api project(path: ':pluto-plugins:plugins:exceptions:lib')
+    api project(path: ':pluto-plugins:plugins:network:core:lib')
     api project(path: ':pluto-plugins:plugins:network:ktor-network:lib')
     api project(path: ':pluto-plugins:plugins:network:okhttp-network:lib')
     api project(path: ':pluto-plugins:plugins:shared-preferences:lib')

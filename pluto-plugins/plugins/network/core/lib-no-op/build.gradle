@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -14,17 +12,12 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = "network-okhttp"
+    PUBLISH_ARTIFACT_ID = 'network-no-op'
 }
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
-
-    buildFeatures {
-        viewBinding true
-    }
-
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
@@ -47,18 +40,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-
-    resourcePrefix 'pluto_network___'
-    namespace 'com.pluto.plugins.network.okhttp'
+    namespace 'com.pluto.plugins.network'
     lint {
         abortOnError false
     }
+
 }
 
 dependencies {
-//    implementation 'com.plutolib:plugin:2.0.0'
-    implementation project(':pluto-plugins:base:lib')
-    implementation project(':pluto-plugins:plugins:network:core:lib')
-
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 }
