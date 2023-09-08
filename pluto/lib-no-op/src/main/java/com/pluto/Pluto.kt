@@ -13,8 +13,6 @@ object Pluto {
     fun showNotch(state: Boolean) {
     }
 
-    fun clearAllLogs() {}
-
     @JvmOverloads
     fun clearLogs(identifier: String? = null) {}
 
