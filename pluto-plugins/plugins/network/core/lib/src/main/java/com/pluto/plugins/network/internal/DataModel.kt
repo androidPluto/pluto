@@ -1,6 +1,7 @@
 package com.pluto.plugins.network.internal
 
 import com.pluto.plugins.network.intercept.NetworkData
+import com.pluto.plugins.network.intercept.NetworkInterceptor
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.share.getCurl
 import com.pluto.utilities.list.ListItem
@@ -16,6 +17,7 @@ internal data class Status(
 
 internal class ApiCallData(
     val id: String,
+    val interceptorOption: NetworkInterceptor.Option,
     val request: NetworkData.Request,
     var response: NetworkData.Response? = null,
     var exception: ExceptionData? = null,

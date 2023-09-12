@@ -99,7 +99,7 @@ internal class OverviewStub : ConstraintLayout {
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___url_label),
-                        value = api.request.url.toString()
+                        value = api.request.url
                     )
                 )
                 add(
@@ -140,6 +140,12 @@ internal class OverviewStub : ConstraintLayout {
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___delay_label),
                         value = api.responseTime?.let { "${it - api.request.sentTimestamp} ms" } ?: waitingText
+                    )
+                )
+                add(
+                    KeyValuePairData(
+                        key = context.getString(R.string.pluto_network___interceptor_type_label),
+                        value = context.createSpan { append(semiBold(api.interceptorOption.name)) }
                     )
                 )
             }

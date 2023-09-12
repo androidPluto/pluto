@@ -18,7 +18,7 @@ class PlutoOkhttpInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         getCacheProvider()?.let { provider ->
-            val networkInterceptor = NetworkInterceptor.intercept(request.convert())
+            val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
             val response: Response = try {
                 val builder = request.newBuilder().url(networkInterceptor.requestUrlWithMockInfo)
                 chain.proceed(builder.build())
@@ -43,5 +43,9 @@ class PlutoOkhttpInterceptor : Interceptor {
         } ?: run {
             null
         }
+    }
+
+    companion object {
+        private const val NAME = "Okhttp"
     }
 }

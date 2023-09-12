@@ -12,7 +12,7 @@ import io.ktor.utils.io.errors.IOException
 fun HttpClient.addPlutoKtorPlugin() {
     plugin(HttpSend).intercept { requestUnBuilt ->
         val request = requestUnBuilt.build()
-        val networkInterceptor = NetworkInterceptor.intercept(request.convert())
+        val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
         val callResult = try {
             requestUnBuilt.url(networkInterceptor.requestUrlWithMockInfo)
             execute(requestUnBuilt)
@@ -24,4 +24,6 @@ fun HttpClient.addPlutoKtorPlugin() {
         callResult
     }
 }
+
+private const val NAME = "Ktor"
 
