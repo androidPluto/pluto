@@ -1,14 +1,14 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.ProcessedBody
-import com.pluto.plugins.network.RequestData
+import com.pluto.plugins.network.intercept.NetworkData.Body
+import com.pluto.plugins.network.intercept.NetworkData.Request
 import io.ktor.client.request.HttpRequestData
 import io.ktor.http.Headers
 import io.ktor.http.content.OutgoingContent
 
 internal object KtorRequestConverter : RequestConverter<HttpRequestData> {
-    override fun HttpRequestData.convert(): RequestData {
-        return RequestData(
+    override fun HttpRequestData.convert(): Request {
+        return Request(
             url.toString(),
             method.value,
             processBody(body, isGzipped),
@@ -26,9 +26,9 @@ internal object KtorRequestConverter : RequestConverter<HttpRequestData> {
     private val HttpRequestData.isGzipped: Boolean
         get() = headers.contains("content-Encoding", "gzip")
 
-    private fun processBody(body: OutgoingContent, isGzipped: Boolean): ProcessedBody? {
+    private fun processBody(body: OutgoingContent, isGzipped: Boolean): Body? {
         return body.contentType?.let {
-            ProcessedBody(
+            Body(
                 body = extractBody(body, isGzipped),
                 contentType = it.toString()
             )

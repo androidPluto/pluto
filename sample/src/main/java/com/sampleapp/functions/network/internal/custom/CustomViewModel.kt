@@ -2,10 +2,8 @@ package com.sampleapp.functions.network.internal.custom
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pluto.plugins.network.NetworkRecorder
-import com.pluto.plugins.network.ProcessedBody
-import com.pluto.plugins.network.RequestData
-import com.pluto.plugins.network.ResponseData
+import com.pluto.plugins.network.intercept.NetworkData
+import com.pluto.plugins.network.intercept.NetworkInterceptor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -14,11 +12,11 @@ class CustomViewModel : ViewModel() {
     @SuppressWarnings("MagicNumber")
     fun customTrace() {
         viewModelScope.launch {
-            val networkRecorder = NetworkRecorder(
-                RequestData(
+            val networkInterceptor = NetworkInterceptor.intercept(
+                NetworkData.Request(
                     url = "https://google.com",
                     method = "GET",
-                    body = ProcessedBody(
+                    body = NetworkData.Body(
                         body = "{\"message\": \"body\"}",
                         contentType = "application/json",
                     ),
@@ -27,10 +25,10 @@ class CustomViewModel : ViewModel() {
                 )
             )
             delay(5_000)
-            networkRecorder.onResponse(
-                ResponseData(
+            networkInterceptor.onResponse(
+                NetworkData.Response(
                     statusCode = 200,
-                    body = ProcessedBody(
+                    body = NetworkData.Body(
                         body = "body",
                         contentType = "text/plain",
                     ),

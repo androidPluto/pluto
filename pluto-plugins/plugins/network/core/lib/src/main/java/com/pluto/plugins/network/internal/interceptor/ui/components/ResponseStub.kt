@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pluto.plugins.network.R
-import com.pluto.plugins.network.ResponseData
 import com.pluto.plugins.network.databinding.PlutoNetworkStubDetailsResponseBinding
+import com.pluto.plugins.network.intercept.NetworkData.Response
 import com.pluto.plugins.network.internal.interceptor.logic.ExceptionData
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_BODY
 import com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment.Companion.ACTION_OPEN_RES_HEADERS
@@ -23,7 +23,7 @@ internal class ResponseStub : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs, 0)
     constructor(context: Context) : super(context, null, 0)
 
-    fun set(response: ResponseData?, exception: ExceptionData?, onAction: (String) -> Unit) {
+    fun set(response: Response?, exception: ExceptionData?, onAction: (String) -> Unit) {
         binding.loaderGroup.visibility = GONE
         binding.response.visibility = GONE
         binding.exceptionGroup.visibility = GONE
@@ -36,7 +36,7 @@ internal class ResponseStub : ConstraintLayout {
     }
 }
 
-private fun ResponseData.setup(context: Context, binding: PlutoNetworkStubDetailsResponseBinding, onAction: (String) -> Unit) {
+private fun Response.setup(context: Context, binding: PlutoNetworkStubDetailsResponseBinding, onAction: (String) -> Unit) {
     binding.response.visibility = VISIBLE
     binding.response.set(
         title = context.getString(R.string.pluto_network___tab_response),

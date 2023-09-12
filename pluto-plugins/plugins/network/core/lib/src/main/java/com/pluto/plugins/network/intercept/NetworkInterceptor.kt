@@ -1,5 +1,7 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.intercept
 
+import com.pluto.plugins.network.internal.ApiCallData
+import com.pluto.plugins.network.internal.MockConfig
 import com.pluto.plugins.network.internal.interceptor.logic.NetworkCallsRepo
 import com.pluto.plugins.network.internal.interceptor.logic.asExceptionData
 import com.pluto.plugins.network.internal.mock.logic.MockSettingsRepo
@@ -7,7 +9,7 @@ import com.pluto.utilities.DebugLog
 import java.io.IOException
 import java.util.UUID
 
-class NetworkRecorder(private val request: RequestData) {
+class NetworkInterceptor private constructor(private val request: NetworkData.Request) {
     private val getRequestId: String = UUID.nameUUIDFromBytes("${System.currentTimeMillis()}::${request.url}".toByteArray()).toString()
     private val apiCallData = ApiCallData(id = getRequestId, request = request)
     val requestUrlWithMockInfo: String = MockSettingsRepo.get(request.url, request.method)?.let {
@@ -16,6 +18,17 @@ class NetworkRecorder(private val request: RequestData) {
         it
     } ?: run {
         request.url
+    }
+
+    companion object {
+        private var instance: NetworkInterceptor? = null
+
+        fun intercept(request: NetworkData.Request): NetworkInterceptor {
+            if (instance == null) {
+                instance = NetworkInterceptor(request)
+            }
+            return instance as NetworkInterceptor
+        }
     }
 
     init {
@@ -28,7 +41,7 @@ class NetworkRecorder(private val request: RequestData) {
         NetworkCallsRepo.set(apiCallData)
     }
 
-    fun onResponse(response: ResponseData) {
+    fun onResponse(response: NetworkData.Response) {
         apiCallData.response = response
         NetworkCallsRepo.set(apiCallData)
     }

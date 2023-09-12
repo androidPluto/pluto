@@ -1,7 +1,7 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.RequestData
+import com.pluto.plugins.network.intercept.NetworkData.Request
 
 internal interface RequestConverter<T> {
-    fun T.convert(): RequestData
+    fun T.convert(): Request
 }

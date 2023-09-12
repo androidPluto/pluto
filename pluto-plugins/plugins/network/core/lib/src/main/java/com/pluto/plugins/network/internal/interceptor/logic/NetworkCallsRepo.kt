@@ -2,7 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.logic
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.pluto.plugins.network.ApiCallData
+import com.pluto.plugins.network.internal.ApiCallData
 import java.util.Collections
 
 internal object NetworkCallsRepo {

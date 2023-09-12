@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.ProcessedBody
+import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8
 import com.pluto.utilities.DebugLog
 import okhttp3.HttpUrl
@@ -10,20 +10,20 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import okio.IOException
 
-internal fun RequestBody.processBody(gzipped: Boolean): ProcessedBody? {
+internal fun RequestBody.processBody(gzipped: Boolean): Body? {
     return contentType()?.let {
         DebugLog.e(LOGTAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
-        ProcessedBody(
+        Body(
             body = if (it.isText()) extractBody(gzipped) else BINARY_BODY,
             contentType = it.toString()
         )
     }
 }
 
-internal fun ResponseBody?.processBody(buffer: Buffer): ProcessedBody? {
+internal fun ResponseBody?.processBody(buffer: Buffer): Body? {
     return this?.contentType()?.let {
         DebugLog.e(LOGTAG, "response  : ${it.type}, ${it.subtype}, ${it.charset()}")
-        ProcessedBody(
+        Body(
             body = if (it.isText()) buffer.readString(it.charset(UTF8) ?: UTF8) else BINARY_BODY,
             contentType = it.toString()
         )

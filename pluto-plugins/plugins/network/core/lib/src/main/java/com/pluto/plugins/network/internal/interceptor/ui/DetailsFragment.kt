@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.pluto.plugins.network.ApiCallData
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
+import com.pluto.plugins.network.internal.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.beautify
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams

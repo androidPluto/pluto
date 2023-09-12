@@ -1,8 +1,8 @@
 package com.pluto.plugins.network.internal.interceptor.ui.components
 
 import android.content.Context
-import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.R
+import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.spannable.createSpan
@@ -66,7 +66,7 @@ internal fun getHeadersData(context: Context, headers: Map<String, String?>, onC
 )
 
 @SuppressWarnings("UnnecessaryParentheses")
-internal fun getBodyData(context: Context, body: ProcessedBody?, onClick: () -> Unit) = KeyValuePairData(
+internal fun getBodyData(context: Context, body: Body?, onClick: () -> Unit) = KeyValuePairData(
     key = context.getString(R.string.pluto_network___body_title),
     value = context.createSpan {
         body?.let {

@@ -1,16 +1,15 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.ProcessedBody
-import com.pluto.plugins.network.ResponseData
+import com.pluto.plugins.network.intercept.NetworkData.Body
+import com.pluto.plugins.network.intercept.NetworkData.Response
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.contentType
 
 internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
-    override suspend fun HttpResponse.convert(): ResponseData {
-        return ResponseData(
+    override suspend fun HttpResponse.convert(): Response {
+        return Response(
             statusCode = status.value,
             body = extractBody(),
             protocol = version.name,
@@ -33,7 +32,7 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
     }
 
     // TODO handle gzip
-    private suspend fun HttpResponse.extractBody() = ProcessedBody(
+    private suspend fun HttpResponse.extractBody() = Body(
         body = bodyAsText(),
         contentType = contentType().toString()
     )

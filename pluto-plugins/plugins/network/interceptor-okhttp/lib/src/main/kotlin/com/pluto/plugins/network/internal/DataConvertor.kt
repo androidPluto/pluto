@@ -1,8 +1,6 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.ProcessedBody
-import com.pluto.plugins.network.RequestData
-import com.pluto.plugins.network.ResponseData
+import com.pluto.plugins.network.intercept.NetworkData
 import com.pluto.utilities.DebugLog
 import okhttp3.Request
 import okhttp3.Response
@@ -14,9 +12,9 @@ import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.zip.GZIPInputStream
 
-internal fun Request.convert(): RequestData {
+internal fun Request.convert(): NetworkData.Request {
     val body = this.body?.processBody(this.isGzipped)
-    return RequestData(
+    return NetworkData.Request(
         url = this.url.toString(),
         method = this.method,
         body = body,
@@ -46,8 +44,8 @@ internal fun Request.headerMap(contentLength: Long): Map<String, String?> {
     return map
 }
 
-internal fun Response.convert(body: ProcessedBody?): ResponseData {
-    return ResponseData(
+internal fun Response.convert(body: NetworkData.Body?): NetworkData.Response {
+    return NetworkData.Response(
         statusCode = code,
         body = body,
         protocol = protocol.name,

@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.internal
 
-import com.pluto.plugins.network.ResponseData
+import com.pluto.plugins.network.intercept.NetworkData
 import okhttp3.MediaType
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -17,7 +17,7 @@ internal object ResponseBodyProcessor {
     private const val MAX_CONTENT_LENGTH = 300_000L
     private const val maxContentLength = MAX_CONTENT_LENGTH
 
-    fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, onComplete: (ResponseData) -> Unit): Response {
+    fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, onComplete: (NetworkData.Response) -> Unit): Response {
         onComplete.invoke(response.convert(null))
         val responseBody = response.body
         if (!response.hasBody() || responseBody == null) {
@@ -52,7 +52,7 @@ internal object ResponseBodyProcessor {
 
     private class ApiCallReportingSinkCallback(
         private val response: Response,
-        private val onComplete: (ResponseData) -> Unit
+        private val onComplete: (NetworkData.Response) -> Unit
     ) : ReportingSink.Callback {
 
         override fun onSuccess(file: File?, sourceByteCount: Long) {

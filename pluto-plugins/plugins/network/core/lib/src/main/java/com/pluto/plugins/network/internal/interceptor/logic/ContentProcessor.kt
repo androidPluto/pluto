@@ -1,8 +1,8 @@
 package com.pluto.plugins.network.internal.interceptor.logic
 
 import android.content.Context
-import com.pluto.plugins.network.ProcessedBody
 import com.pluto.plugins.network.R
+import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.FormEncodedTransformer
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.JsonTransformer
 import com.pluto.plugins.network.internal.interceptor.logic.transformers.XmlTransformer
@@ -55,7 +55,7 @@ internal fun Context.beautifyQueryParams(url: String): CharSequence {
 //    }
 // }
 
-internal fun ProcessedBody.beautify(): CharSequence {
+internal fun Body.beautify(): CharSequence {
     return when {
         mediaSubtype.endsWith("json") -> JsonTransformer().beautify(body)
         mediaSubtype == "xml" || mediaSubtype == "html" -> XmlTransformer().beautify(body)

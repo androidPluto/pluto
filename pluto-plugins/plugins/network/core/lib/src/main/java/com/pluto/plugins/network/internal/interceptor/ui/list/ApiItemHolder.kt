@@ -4,10 +4,10 @@ import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import com.pluto.plugins.network.ApiCallData
 import com.pluto.plugins.network.R
-import com.pluto.plugins.network.ResponseData
 import com.pluto.plugins.network.databinding.PlutoNetworkItemNetworkBinding
+import com.pluto.plugins.network.intercept.NetworkData.Response
+import com.pluto.plugins.network.internal.ApiCallData
 import com.pluto.utilities.extensions.asTimeElapsed
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
@@ -62,7 +62,7 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
         }
     }
 
-    private fun handleResponseUI(it: ResponseData) {
+    private fun handleResponseUI(it: Response) {
         error.visibility = INVISIBLE
         progress.visibility = INVISIBLE
         status.visibility = VISIBLE

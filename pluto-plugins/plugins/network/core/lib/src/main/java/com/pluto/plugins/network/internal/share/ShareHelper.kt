@@ -1,7 +1,7 @@
 package com.pluto.plugins.network.internal.share
 
-import com.pluto.plugins.network.ApiCallData
-import com.pluto.plugins.network.RequestData
+import com.pluto.plugins.network.intercept.NetworkData.Request
+import com.pluto.plugins.network.internal.ApiCallData
 import com.pluto.plugins.network.internal.interceptor.logic.formatSizeAsBytes
 import com.pluto.utilities.extensions.asFormattedDate
 
@@ -44,7 +44,7 @@ internal fun ApiCallData.toShareText(): String {
     return text.toString()
 }
 
-internal fun RequestData.toShareText(): String {
+internal fun Request.toShareText(): String {
     val text = StringBuilder()
     text.append("${method.uppercase()}, $url")
     text.append("\n\n*** Headers (${headers.size} items) *** \n${headers.toShareText()}")
@@ -79,7 +79,7 @@ private fun Map<String, String?>.toShareText(): String {
     return text.toString()
 }
 
-internal fun RequestData.getCurl(): String {
+internal fun Request.getCurl(): String {
     val curlCommandBuilder = StringBuilder("")
     curlCommandBuilder.append("cURL")
     curlCommandBuilder.append(" -X")
