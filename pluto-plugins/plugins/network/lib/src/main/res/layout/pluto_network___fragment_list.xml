@@ -88,39 +88,52 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/pluto___app_bg"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <androidx.cardview.widget.CardView
+                android:id="@+id/bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/pluto___margin_small"
-                android:background="@color/pluto___white"
-                android:elevation="@dimen/pluto___margin_medium"
-                app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+                android:background="@color/pluto___app_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                    android:id="@+id/bandwidthButton"
+                    android:layout_width="@dimen/pluto___item_image_dimen"
+                    android:layout_height="@dimen/pluto___item_image_dimen"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/pluto_network___ic_bandwidth"
+                    app:layout_constraintBottom_toBottomOf="@+id/pluto_network___cardview"
+                    android:layout_marginEnd="@dimen/pluto___margin_small"
+                    app:layout_constraintTop_toTopOf="@+id/pluto_network___cardview" />
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/pluto___margin_small"
+                    android:background="@color/pluto___white"
+                    android:elevation="@dimen/pluto___margin_medium"
+                    app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/bandwidthButton"
+                    android:id="@+id/pluto_network___cardview">
 
                 <EditText
-                    android:id="@+id/search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableStart="@drawable/pluto___ic_search"
-                    android:drawableLeft="@drawable/pluto___ic_search"
-                    android:drawablePadding="@dimen/pluto___margin_xsmall"
-                    android:fontFamily="@font/muli_semibold"
-                    android:hint="@string/pluto_network___search_api"
-                    android:inputType="text"
-                    android:padding="@dimen/pluto___margin_small"
-                    android:textColor="@color/pluto___text_dark"
-                    android:textColorHint="@color/pluto___text_dark_40"
-                    android:textSize="@dimen/pluto___text_xmedium" />
+                        android:id="@+id/search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableStart="@drawable/pluto___ic_search"
+                        android:drawableLeft="@drawable/pluto___ic_search"
+                        android:drawablePadding="@dimen/pluto___margin_xsmall"
+                        android:fontFamily="@font/muli_semibold"
+                        android:hint="@string/pluto_network___search_api"
+                        android:inputType="text"
+                        android:padding="@dimen/pluto___margin_small"
+                        android:textColor="@color/pluto___text_dark"
+                        android:textColorHint="@color/pluto___text_dark_40"
+                        android:textSize="@dimen/pluto___text_xmedium" />
 
             </androidx.cardview.widget.CardView>
 

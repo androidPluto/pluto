@@ -16,6 +16,9 @@
         <action
             android:id="@+id/openMockSettingsList"
             app:destination="@id/mockSettingsListView" />
+        <action
+                android:id="@+id/pluto_network___action_listview_to_pluto_network___bandwidthfragment"
+                app:destination="@id/bandwidth" />
     </fragment>
 
     <fragment
@@ -80,4 +83,9 @@
     <dialog
         android:id="@+id/customTraceInfo"
         android:name="com.pluto.plugins.network.internal.interceptor.ui.components.CustomTraceInfoFragment"/>
+    <dialog
+            android:id="@+id/bandwidth"
+            android:name="com.pluto.plugins.network.internal.bandwidth.ui.BandwidthFragment"
+            android:label="BandwidthFragment"
+            tools:layout="@layout/pluto_network___fragment_bandwidth" />
 </navigation>

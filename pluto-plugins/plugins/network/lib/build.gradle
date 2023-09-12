@@ -23,6 +23,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
 
@@ -74,4 +75,5 @@ dependencies {
 
     implementation 'androidx.browser:browser:1.4.0'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.10")
 }

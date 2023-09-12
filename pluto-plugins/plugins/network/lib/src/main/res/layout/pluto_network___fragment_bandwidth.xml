@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="viewModel"
+                type="com.pluto.plugins.network.internal.bandwidth.ui.BandwidthViewModel" />
+        <import type="android.widget.EditText"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pluto___bg_bottom_sheet">
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/pluto___margin_large"
+                android:layout_marginLeft="@dimen/pluto___margin_large"
+                android:fontFamily="@font/muli_semibold"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto_network___limit_bandwidth"
+                android:textColor="@color/pluto___text_dark_80"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/cta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/pluto___margin_large"
+                android:layout_marginRight="@dimen/pluto___margin_large"
+                android:fontFamily="@font/muli_bold"
+                android:paddingVertical="@dimen/pluto___margin_small"
+                android:text="@string/pluto_network___close"
+                android:textColor="@color/pluto___text_dark"
+                android:textSize="@dimen/pluto___text_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pluto_network___bg_section_header"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintVertical_bias="0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.SwitchCompat
+                        android:text="@string/pluto_network___enable_network_bandwidth_limit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/pluto_network___switch"
+                        android:layout_margin="@dimen/pluto___margin_large"
+                        android:checked="@={viewModel.isBandwidthLimitEnabled()}"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                        android:id="@+id/dnsLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                        android:layout_marginTop="@dimen/pluto___margin_xlarge"
+                        android:fontFamily="@font/muli_light"
+                        android:text="@string/pluto_network___fetch_dns_timeout_in_milli_seconds"
+                        android:textColor="@color/pluto___text_dark_40"
+                        android:textSize="@dimen/pluto___text_xsmall"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/pluto_network___switch" />
+
+
+                <EditText
+                        android:id="@+id/valueDnsDelay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pluto___margin_micro"
+                        android:layout_marginEnd="@dimen/pluto___margin_vlarge"
+                        android:layout_marginRight="@dimen/pluto___margin_vlarge"
+                        android:background="@null"
+                        android:fontFamily="@font/muli_bold"
+                        android:inputType="number"
+                        android:textColor="@color/pluto___text_dark"
+                        android:textSize="@dimen/pluto___text_xxlarge"
+                        android:text="@={viewModel.dnsResolutionTimeout}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/dnsLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/dnsLabel" />
+
+                <TextView
+                        android:id="@+id/downloadLimit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                        android:layout_marginLeft="@dimen/pluto___margin_xlarge"
+                        android:layout_marginTop="@dimen/pluto___margin_large"
+                        android:layout_marginEnd="@dimen/pluto___margin_small"
+                        android:layout_marginRight="@dimen/pluto___margin_small"
+                        android:fontFamily="@font/muli_light"
+                        android:text="@string/pluto_network___download_speed_limit"
+                        android:textColor="@color/pluto___text_dark_40"
+                        android:textSize="@dimen/pluto___text_xsmall"
+                        app:layout_constraintStart_toStartOf="@+id/valueDnsDelay"
+                        app:layout_constraintTop_toBottomOf="@+id/valueDnsDelay" />
+
+
+                <EditText
+                        android:id="@+id/valueDownloadLimit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pluto___margin_micro"
+                        android:layout_marginEnd="@dimen/pluto___margin_vlarge"
+                        android:background="@null"
+                        android:fontFamily="@font/muli_bold"
+                        android:inputType="number"
+                        android:textColor="@color/pluto___text_dark"
+                        android:textSize="@dimen/pluto___text_xxlarge"
+                        android:text="@={viewModel.downloadSpeedInMbps}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/valueDnsDelay"
+                        app:layout_constraintTop_toBottomOf="@+id/downloadLimit"
+                        app:layout_constraintHorizontal_bias="0.0" />
+
+                <TextView
+                        android:id="@+id/uploadLimit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/pluto___margin_xlarge"
+                        android:layout_marginLeft="@dimen/pluto___margin_xlarge"
+                        android:layout_marginTop="@dimen/pluto___margin_large"
+                        android:layout_marginEnd="@dimen/pluto___margin_small"
+                        android:layout_marginRight="@dimen/pluto___margin_small"
+                        android:fontFamily="@font/muli_light"
+                        android:text="@string/pluto_network___upload_speed_limit"
+                        android:textColor="@color/pluto___text_dark_40"
+                        android:textSize="@dimen/pluto___text_xsmall"
+                        app:layout_constraintStart_toStartOf="@+id/valueDownloadLimit"
+                        app:layout_constraintTop_toBottomOf="@+id/valueDownloadLimit" />
+
+
+                <EditText
+                        android:id="@+id/valueUploadLimit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pluto___margin_micro"
+                        android:layout_marginEnd="@dimen/pluto___margin_vlarge"
+                        android:background="@null"
+                        android:fontFamily="@font/muli_bold"
+                        android:inputType="number"
+                        android:textColor="@color/pluto___text_dark"
+                        android:textSize="@dimen/pluto___text_xxlarge"
+                        android:text="@={viewModel.uploadSpeedInMbps}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/valueDnsDelay"
+                        app:layout_constraintTop_toBottomOf="@+id/uploadLimit" />
+                <TextView
+                        android:id="@+id/save"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pluto___margin_large"
+                        android:background="@color/pluto___dark"
+                        android:fontFamily="@font/muli_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/pluto___margin_medium"
+                        android:text="@string/pluto_network___save_settings"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pluto___white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/valueUploadLimit" />
+
+                <TextView
+                        android:id="@+id/disabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pluto___margin_vlarge"
+                        android:background="@color/pluto___dark_05"
+                        android:fontFamily="@font/muli"
+                        android:gravity="center"
+                        android:padding="@dimen/pluto___margin_medium"
+                        android:text="@string/pluto_network___save_settings"
+                        android:textColor="@color/pluto___text_dark_60"
+                        android:textSize="@dimen/pluto___text_xxsmall"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/valueUploadLimit"
+                        app:layout_constraintVertical_bias="1"
+                        tools:visibility="invisible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
