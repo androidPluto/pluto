@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -66,7 +66,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.0'
 
     implementation "com.squareup.moshi:moshi:$moshiVersion"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 }
 
 task validateChanges {
