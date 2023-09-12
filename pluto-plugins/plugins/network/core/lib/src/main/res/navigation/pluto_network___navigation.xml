@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pluto_logger___navigation"
+    app:startDestination="@id/listView">
+
+    <fragment
+        android:id="@+id/listView"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.ListFragment"
+        android:label="list"
+        tools:layout="@layout/pluto_network___fragment_list">
+        <action
+            android:id="@+id/openDetails"
+            app:destination="@id/detailsView" />
+        <action
+            android:id="@+id/openMockSettingsList"
+            app:destination="@id/mockSettingsListView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsView"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.DetailsFragment"
+        android:label="details"
+        tools:layout="@layout/pluto_network___fragment_details">
+        <argument
+            android:name="id"
+            android:defaultValue=""
+            app:argType="string" />
+        <action
+            android:id="@+id/openMockSettingsEdit"
+            app:destination="@id/mockSettingsEditView" />
+        <action
+            android:id="@+id/openShareView"
+            app:destination="@id/shareView" />
+        <action
+            android:id="@+id/openContentFormatter"
+            app:destination="@id/contentFormatterView" />
+        <action
+            android:id="@+id/openCustomTraceInfo"
+            app:destination="@id/customTraceInfo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contentFormatterView"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.ContentFragment"
+        android:label="mockSettings"
+        tools:layout="@layout/pluto_network___fragment_content"/>
+
+    <fragment
+        android:id="@+id/mockSettingsListView"
+        android:name="com.pluto.plugins.network.internal.mock.ui.MockSettingsListFragment"
+        android:label="mockSettings"
+        tools:layout="@layout/pluto_network___fragment_mock_settings_list">
+        <action
+            android:id="@+id/openMockSettingsEdit"
+            app:destination="@id/mockSettingsEditView" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mockSettingsEditView"
+        android:name="com.pluto.plugins.network.internal.mock.ui.MockSettingsFragment"
+        android:label="mockSettingsEdit"
+        tools:layout="@layout/pluto_network___fragment_mock_settings">
+        <argument
+            android:name="url"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="method"
+            android:defaultValue="get"
+            app:argType="string" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/shareView"
+        android:name="com.pluto.plugins.network.internal.share.ShareFragment"
+        tools:layout="@layout/pluto_network___fragment_share"/>
+
+    <dialog
+        android:id="@+id/customTraceInfo"
+        android:name="com.pluto.plugins.network.internal.interceptor.ui.components.CustomTraceInfoFragment"/>
+</navigation>
