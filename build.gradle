@@ -28,7 +28,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-
         // for testing Pluto staged repository
         maven { url "https://s01.oss.sonatype.org/content/groups/staging/" }
     }
