@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
-    android:paddingTop="24dp"
-    android:paddingBottom="16dp"
+    android:paddingBottom="8dp"
     tools:context=".functions.network.DemoNetworkFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -16,26 +14,39 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <TextView
+        android:id="@+id/okhttp_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appBg"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="OkHttp Calls"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <com.google.android.material.chip.Chip
         android:id="@+id/postCall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:text="Make POST Call"
+        android:text="POST"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
         app:layout_constraintEnd_toStartOf="@+id/center_guideline"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/okhttp_title" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/getCall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="Make GET Call"
+        android:text="GET"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
@@ -48,11 +59,13 @@
         android:id="@+id/xmlCall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make Call with XML Response"
+        android:layout_marginEnd="5dp"
+        android:text="POST (XML) Call"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getCall" />
 
@@ -60,37 +73,85 @@
         android:id="@+id/formEncodedCall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make FormURLEncoded Call"
+        android:layout_marginStart="5dp"
+        android:text="FormURLEncoded"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/xmlCall" />
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/center_guideline"
+        app:layout_constraintTop_toTopOf="@+id/xmlCall" />
 
-    <View
+    <TextView
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:background="#0D11141c"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/appBg"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Ktor Calls"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/formEncodedCall" />
 
     <com.google.android.material.chip.Chip
+        android:id="@+id/postCallKtor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="POST"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/getCallKtor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="GET"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/center_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/appBg"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="Custom Traces"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getCallKtor" />
+
+    <com.google.android.material.chip.Chip
         android:id="@+id/customTrace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Insert Custom Trace"
         android:textAppearance="@style/ChipTextStyle"
         app:chipEndPadding="16dp"
         app:chipStartPadding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider1"
         app:layout_constraintVertical_bias="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

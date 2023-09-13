@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
+}
+
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+ext {
+    PUBLISH_GROUP_ID = "com.plutolib.plugins"
+    PUBLISH_VERSION = verPublish
+    PUBLISH_ARTIFACT_ID = "network-ktor"
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    buildFeatures {
+        viewBinding true
+    }
+
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    resourcePrefix 'pluto_network___'
+    namespace 'com.pluto.plugins.network.ktor'
+    lint {
+        abortOnError false
+    }
+}
+
+dependencies {
+//    implementation 'com.plutolib:plugin:2.0.0'
+    implementation project(':pluto-plugins:base:lib')
+    implementation project(':pluto-plugins:plugins:network:core:lib')
+
+    implementation "io.ktor:ktor-client-core-jvm:2.3.2"
+}

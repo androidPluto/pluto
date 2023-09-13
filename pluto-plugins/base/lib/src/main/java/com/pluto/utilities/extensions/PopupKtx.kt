@@ -10,6 +10,7 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.forEach
 import com.pluto.plugin.R
 import com.pluto.utilities.spannable.createSpan
 
@@ -37,11 +38,9 @@ private fun Context.applyFontToMenu(m: Menu) {
 }
 
 private fun Context.applyFontToMenuItem(mi: MenuItem) {
-    val subMenu = mi.subMenu
-    if (mi.hasSubMenu() && subMenu != null) {
-        for (i in 0 until subMenu.size()) {
-            applyFontToMenuItem(subMenu.getItem(i))
-        }
+
+    mi.subMenu?.forEach {
+        applyFontToMenuItem(it)
     }
 
     mi.title?.let { title ->
