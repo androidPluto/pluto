@@ -18,7 +18,10 @@ Before your code can be accepted into the project you must also sign the [Indivi
 Hers's how you can help
   - Look for issues marked as [`help wanted`](https://github.com/androidPluto/pluto/labels/help%20wanted).
   - Submit a new Plugin, see the [guidelines](/SUBMIT_GUIDELINES.md).
-  - While submitting a new PR, make sure tests are all successful. If you think we need any new test, feel free to add new tests.
+  - While submitting a new PR,
+    - make sure tests are all successful
+    - if you think we need any new test, feel free to add new tests
+    - please attach a reference video or image for the change
 
 ### Prerequisite
 
