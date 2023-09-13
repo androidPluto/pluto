@@ -80,7 +80,7 @@ internal object ResponseBodyProcessor {
             IOException("Response payload couldn't be processed by Pluto", e).printStackTrace()
             null
         }
-    } //        private const val MAX_BLOB_SIZE = 1_000_000L
+    }
 }
 
 /** Returns a new response body that transmits this source. */
