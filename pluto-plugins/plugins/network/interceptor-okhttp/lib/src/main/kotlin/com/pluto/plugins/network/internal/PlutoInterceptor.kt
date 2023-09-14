@@ -1,17 +1,15 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.internal
 
-import android.util.Log
 import androidx.annotation.Keep
+import com.pluto.plugins.network.PlutoNetwork
 import com.pluto.plugins.network.intercept.NetworkInterceptor
-import com.pluto.plugins.network.internal.CacheDirectoryProvider
-import com.pluto.plugins.network.internal.ResponseBodyProcessor
-import com.pluto.plugins.network.internal.convert
+import com.pluto.utilities.DebugLog
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
 @Keep
-class PlutoOkhttpInterceptor : Interceptor {
+internal class PlutoInterceptor : Interceptor {
 
     private var cacheDirectoryProvider: CacheDirectoryProvider? = null
 
@@ -30,7 +28,7 @@ class PlutoOkhttpInterceptor : Interceptor {
                 networkInterceptor.onResponse(responseData)
             }
         }
-        Log.e("pluto", "API call not intercepted as Pluto Network is not installed.")
+        DebugLog.e("pluto", "API call not intercepted as Pluto Network is not installed.")
         return chain.proceed(request)
     }
 

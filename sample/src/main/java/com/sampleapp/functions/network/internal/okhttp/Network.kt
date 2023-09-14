@@ -1,6 +1,6 @@
 package com.sampleapp.functions.network.internal.okhttp
 
-import com.pluto.plugins.network.PlutoOkhttpInterceptor
+import com.pluto.plugins.network.addPlutoOkhttpInterceptor
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,6 +38,6 @@ object Network {
 private fun OkHttpClient.Builder.addInterceptors(): OkHttpClient.Builder {
 //    addInterceptor(GzipRequestInterceptor())
     addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-    addInterceptor(PlutoOkhttpInterceptor())
+    addPlutoOkhttpInterceptor()
     return this
 }

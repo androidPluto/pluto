@@ -9,7 +9,8 @@ import io.ktor.client.plugins.plugin
 import io.ktor.client.request.url
 import io.ktor.utils.io.errors.IOException
 
-fun HttpClient.addPlutoKtorPlugin() {
+fun HttpClient.addPlutoKtorInterceptor() {
+    // todo add ktor settings block here
     plugin(HttpSend).intercept { requestUnBuilt ->
         val request = requestUnBuilt.build()
         val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
