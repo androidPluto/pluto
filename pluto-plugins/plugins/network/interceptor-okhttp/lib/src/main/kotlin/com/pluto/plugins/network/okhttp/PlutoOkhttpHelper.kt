@@ -1,6 +1,6 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.okhttp
 
-import com.pluto.plugins.network.internal.PlutoInterceptor
+import com.pluto.plugins.network.okhttp.internal.PlutoInterceptor
 import okhttp3.OkHttpClient
 import javax.net.SocketFactory
 

@@ -1,8 +1,8 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.ktor
 
 import com.pluto.plugins.network.intercept.NetworkInterceptor
-import com.pluto.plugins.network.internal.KtorRequestConverter.convert
-import com.pluto.plugins.network.internal.KtorResponseConverter.convert
+import com.pluto.plugins.network.ktor.internal.KtorRequestConverter.convert
+import com.pluto.plugins.network.ktor.internal.KtorResponseConverter.convert
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpSend
 import io.ktor.client.plugins.plugin

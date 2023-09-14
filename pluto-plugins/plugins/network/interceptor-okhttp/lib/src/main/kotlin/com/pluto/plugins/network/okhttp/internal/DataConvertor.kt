@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal
+package com.pluto.plugins.network.okhttp.internal
 
 import com.pluto.plugins.network.intercept.NetworkData
 import com.pluto.utilities.DebugLog

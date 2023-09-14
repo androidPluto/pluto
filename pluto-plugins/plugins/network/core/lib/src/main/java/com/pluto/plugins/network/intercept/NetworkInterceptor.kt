@@ -9,9 +9,11 @@ import com.pluto.utilities.DebugLog
 import java.io.IOException
 import java.util.UUID
 
-class NetworkInterceptor private constructor(private val request: NetworkData.Request, val option: Option) {
+class NetworkInterceptor private constructor(private val request: NetworkData.Request, option: Option) {
     private val getRequestId: String = UUID.nameUUIDFromBytes("${System.currentTimeMillis()}::${request.url}".toByteArray()).toString()
     private val apiCallData = ApiCallData(id = getRequestId, interceptorOption = option, request = request)
+
+    // todo get better name
     val requestUrlWithMockInfo: String = MockSettingsRepo.get(request.url, request.method)?.let {
         apiCallData.mock = MockConfig(it)
         NetworkCallsRepo.set(apiCallData)

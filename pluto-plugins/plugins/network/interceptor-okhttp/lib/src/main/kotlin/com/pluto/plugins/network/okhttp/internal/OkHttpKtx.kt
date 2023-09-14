@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal
+package com.pluto.plugins.network.okhttp.internal
 
 import java.net.HttpURLConnection
 import okhttp3.Headers

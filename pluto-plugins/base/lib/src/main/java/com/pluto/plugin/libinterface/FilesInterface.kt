@@ -1,20 +1,16 @@
-/**
- * Source: chucker - https://github.com/ChuckerTeam/chucker.git
- * License: https://github.com/ChuckerTeam/chucker/blob/develop/LICENSE.txt
- */
-package com.pluto.plugins.network.internal
+package com.pluto.plugin.libinterface
 
+import android.app.Application
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicLong
 
-internal object FileFactory {
+class FilesInterface(application: Application) {
     private val uniqueIdGenerator = AtomicLong()
+    private val directory: File = application.applicationContext.filesDir
 
-    fun create(directory: File) = create(directory, fileName = "pluto-${uniqueIdGenerator.getAndIncrement()}")
-
-    private fun create(directory: File, fileName: String): File? = try {
-        File(directory, fileName).apply {
+    fun createFile(filename: String = "pluto-${uniqueIdGenerator.getAndIncrement()}"): File? = try {
+        File(directory, filename).apply {
             if (exists() && !delete()) {
                 throw IOException("Failed to delete file $this")
             }

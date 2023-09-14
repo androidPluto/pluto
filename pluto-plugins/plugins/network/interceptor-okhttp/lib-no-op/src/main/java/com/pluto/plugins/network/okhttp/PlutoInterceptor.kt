@@ -1,4 +1,4 @@
-package com.pluto.plugins.network
+package com.pluto.plugins.network.okhttp
 
 import androidx.annotation.Keep
 import okhttp3.Interceptor

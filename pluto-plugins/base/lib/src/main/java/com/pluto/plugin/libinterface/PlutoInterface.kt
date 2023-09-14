@@ -27,6 +27,9 @@ class PlutoInterface private constructor(
         val libInfo: LibraryInfoInterface
             get() = LibraryInfoInterface(get.pluginActivityClass, get.selectorActivityClass)
 
+        val files: FilesInterface
+            get() = FilesInterface(get.application)
+
         fun create(
             application: Application,
             pluginActivityClass: Class<out FragmentActivity>,

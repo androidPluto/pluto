@@ -1,53 +1,36 @@
-package com.pluto.plugins.network.internal
+package com.pluto.plugins.network.okhttp.internal
 
+import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.plugins.network.intercept.NetworkData
-import okhttp3.MediaType
+import com.pluto.plugins.network.okhttp.internal.utilities.DepletingSource
+import com.pluto.plugins.network.okhttp.internal.utilities.ReportingSink
+import com.pluto.plugins.network.okhttp.internal.utilities.TeeSource
 import okhttp3.Response
 import okhttp3.ResponseBody
 import okio.Buffer
 import okio.BufferedSource
 import okio.GzipSource
-import okio.Source
 import okio.buffer
 import okio.source
 import java.io.File
 import java.io.IOException
 
 internal object ResponseBodyProcessor {
-    private const val MAX_CONTENT_LENGTH = 300_000L
-    private const val maxContentLength = MAX_CONTENT_LENGTH
 
-    fun processBody(cacheDirectoryProvider: CacheDirectoryProvider, response: Response, onComplete: (NetworkData.Response) -> Unit): Response {
-        onComplete.invoke(response.convert(null))
+    fun processBody(response: Response, onComplete: (NetworkData.Response) -> Unit): Response {
         val responseBody = response.body
         if (!response.hasBody() || responseBody == null) {
+            onComplete.invoke(response.convert(null))
             return response
         }
-
-        val contentType = responseBody.contentType()
-        val contentLength = responseBody.contentLength()
-
-        val sideStream = ReportingSink(
-            createTempTransactionFile(cacheDirectoryProvider),
-            ApiCallReportingSinkCallback(response, onComplete),
-            maxContentLength
-        )
-        var upstream: Source = TeeSource(responseBody.source(), sideStream)
-        upstream = DepletingSource(upstream)
+        val sideStream = ReportingSink(PlutoInterface.files.createFile(), ApiCallReportingSinkCallback(response, onComplete))
+        val processedResponseBody: ResponseBody = DepletingSource(TeeSource(responseBody.source(), sideStream))
+            .buffer()
+            .asResponseBody(responseBody)
 
         return response.newBuilder()
-            .body(upstream.buffer().asResponseBody(contentType, contentLength))
+            .body(processedResponseBody)
             .build()
-    }
-
-    private fun createTempTransactionFile(cacheDirectoryProvider: CacheDirectoryProvider): File? {
-        val cache = cacheDirectoryProvider.provide()
-        return if (cache == null) {
-            IOException("Failed to obtain a valid cache directory for Pluto transaction file").printStackTrace()
-            null
-        } else {
-            FileFactory.create(cache)
-        }
     }
 
     private class ApiCallReportingSinkCallback(
@@ -84,10 +67,10 @@ internal object ResponseBodyProcessor {
 }
 
 /** Returns a new response body that transmits this source. */
-private fun BufferedSource.asResponseBody(contentType: MediaType? = null, contentLength: Long = -1L) = object : ResponseBody() {
-    override fun contentType() = contentType
+private fun BufferedSource.asResponseBody(referenceBody: ResponseBody) = object : ResponseBody() {
+    override fun contentType() = referenceBody.contentType()
 
-    override fun contentLength() = contentLength
+    override fun contentLength() = referenceBody.contentLength()
 
     override fun source() = this@asResponseBody
 }

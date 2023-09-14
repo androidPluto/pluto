@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.internal
+package com.pluto.plugins.network.okhttp.internal
 
 import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8

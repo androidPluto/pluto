@@ -1,6 +1,6 @@
 package com.sampleapp.functions.network.internal.okhttp
 
-import com.pluto.plugins.network.addPlutoOkhttpInterceptor
+import com.pluto.plugins.network.okhttp.addPlutoOkhttpInterceptor
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
