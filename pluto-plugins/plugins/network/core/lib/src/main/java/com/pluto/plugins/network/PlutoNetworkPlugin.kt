@@ -36,7 +36,6 @@ class PlutoNetworkPlugin() : Plugin(ID) {
     }
 
     override fun onPluginInstalled() {
-        PlutoNetwork.initialize(context)
         MockSettingsRepo.init(context)
     }
 

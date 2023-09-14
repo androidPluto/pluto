@@ -4,7 +4,7 @@ import com.pluto.plugins.network.internal.Status
 import com.pluto.plugins.network.internal.interceptor.logic.mapCode2Message
 import io.ktor.http.ContentType
 
-object NetworkData {
+class NetworkData {
 
     data class Request(
         val url: String,
@@ -46,5 +46,7 @@ object NetworkData {
         internal val mediaTypeFull: String = "$mediaType/$mediaSubtype"
     }
 
-    internal val BINARY_MEDIA_TYPES = listOf("audio", "video", "image", "font")
+    companion object {
+        internal val BINARY_MEDIA_TYPES = listOf("audio", "video", "image", "font")
+    }
 }
