@@ -29,10 +29,33 @@ android {
     }
 
     buildTypes {
+        /**
+         * build type with lib modules
+         */
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debugMaven {
+            initWith debug
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug']
+        }
+
+        /**
+         * build type with lib-no-op modules
+         */
+        debugNoOp {
+            initWith debug
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug']
+        }
+        debugNoOpMaven {
+            initWith debug
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug']
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -50,44 +73,28 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':pluto:lib')
-    implementation project(path: ':pluto-plugins:plugins:demo:lib')
-    implementation project(path: ':pluto-plugins:bundle:lib')
-//    implementation project(path: ':pluto-plugins:plugins-ui:bundle:lib')
-//    implementation project(path: ':pluto-plugins:plugins-ui:plugins:layout-inspector:lib')
-//    implementation project(path: ':plugins:exceptions:lib')
-//    implementation project(path: ':plugins:logger:lib')
-//    implementation project(path: ':plugins:network:lib')
-//    implementation project(path: ':plugins:shared-preferences:lib')
-//    implementation project(path: ':plugins:datastore:lib')
-//    implementation project(path: ':plugins:rooms-database:lib')
+    /* Local Op dependencies */
+    debugImplementation project(path: ':pluto:lib')
+    debugImplementation project(path: ':pluto-plugins:bundle:lib')
+
+    /* Maven Op dependencies */
+    debugMavenImplementation "com.plutolib:pluto:$verPublish"
+    debugMavenImplementation "com.plutolib.plugins:bundle-core:$verPublish"
+
+    /* Local NoOp dependencies */
+    debugNoOpImplementation project(path: ':pluto:lib-no-op')
+    debugNoOpImplementation project(path: ':pluto-plugins:bundle:lib-no-op')
+
+    /* Maven NoOp dependencies */
+    debugNoOpMavenImplementation "com.plutolib:pluto-no-op:$verPublish"
+    debugNoOpMavenImplementation "com.plutolib.plugins:bundle-core-no-op:$verPublish"
+
+    releaseImplementation "com.plutolib:pluto:$verPublish"
+    releaseImplementation "com.plutolib.plugins:bundle-core:$verPublish"
 
     /**
-     * no-op dependencies
+     * Other dependencies
      */
-//    implementation project(path: ':pluto:lib-no-op')
-//    implementation project(path: ':pluto-plugins:plugins:demo:lib-no-op')
-//    implementation project(path: ':pluto-plugins:bundle:lib-no-op')
-//    implementation project(path: ':plugins:exceptions:lib-no-op')
-//    implementation project(path: ':plugins:logger:lib-no-op')
-//    implementation project(path: ':plugins:network:lib-no-op')
-//    implementation project(path: ':plugins:shared-preferences:lib-no-op')
-//    implementation project(path: ':plugins:rooms-database:lib-no-op')
-//    implementation project(path: ':plugins:datastore:lib-no-op')
-
-    /**
-     * Maven dependencies
-     */
-//    implementation "com.plutolib:pluto:$plutoVersion"
-//    implementation project(path: ':plugins:demo:lib-no-op')
-//    implementation "com.plutolib.plugins:bundle-core:$plutoVersion"
-//    implementation "com.plutolib.plugins:network:$plutoVersion"
-//    implementation "com.plutolib.plugins:logger:$plutoVersion"
-//    implementation "com.plutolib.plugins:exceptions:$plutoVersion"
-//    implementation "com.plutolib.plugins:preferences:$plutoVersion"
-//    implementation "com.plutolib.plugins:rooms-database:$plutoVersion"
-//    implementation "com.plutolib.plugins:datastore:$plutoVersion"
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
