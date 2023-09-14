@@ -5,7 +5,6 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
 import android.util.Log
-import com.demo.plugin.DemoPlugin
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptions
@@ -31,7 +30,6 @@ class SampleApp : Application() {
         initializeStrictMode()
         super.onCreate()
         Pluto.Installer(this)
-            .addPlugin(DemoPlugin())
             .addPlugin(PlutoExceptionsPlugin())
 //            .addPlugin(PlutoDatastorePreferencesPlugin())
             .addPlugin(PlutoNetworkPlugin())
