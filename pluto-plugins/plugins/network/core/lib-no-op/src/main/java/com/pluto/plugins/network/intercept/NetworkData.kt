@@ -1,6 +1,6 @@
 package com.pluto.plugins.network.intercept
 
-object NetworkData {
+class NetworkData {
 
     data class Request(
         val url: String,
