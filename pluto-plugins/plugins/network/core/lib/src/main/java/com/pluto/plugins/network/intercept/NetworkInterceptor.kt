@@ -13,8 +13,14 @@ class NetworkInterceptor private constructor(private val request: NetworkData.Re
     private val getRequestId: String = UUID.nameUUIDFromBytes("${System.currentTimeMillis()}::${request.url}".toByteArray()).toString()
     private val apiCallData = ApiCallData(id = getRequestId, interceptorOption = option, request = request)
 
-    // todo get better name
-    val requestUrlWithMockInfo: String = MockSettingsRepo.get(request.url, request.method)?.let {
+    /**
+     * Returns updated request url
+     *
+     * if Mock setting is configured, returns mock url
+     *
+     * else returns actual request url
+     */
+    val actualOrMockRequestUrl: String = MockSettingsRepo.get(request.url, request.method)?.let {
         apiCallData.mock = MockConfig(it)
         NetworkCallsRepo.set(apiCallData)
         it

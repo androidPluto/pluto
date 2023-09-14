@@ -24,7 +24,7 @@ internal class PlutoInterceptor : Interceptor {
         val request = chain.request()
         val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
         val response: Response = try {
-            val builder = request.newBuilder().url(networkInterceptor.requestUrlWithMockInfo)
+            val builder = request.newBuilder().url(networkInterceptor.actualOrMockRequestUrl)
             chain.proceed(builder.build())
         } catch (e: IOException) {
             networkInterceptor.onError(e)
