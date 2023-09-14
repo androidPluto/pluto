@@ -23,15 +23,65 @@ Pluto.Installer(this)
 ```
 <br>
 
-###  Add interceptor
+###  Add interceptors
 
-To debug HTTP requests/responses, plug the PlutoInterceptor in your OkHttp Client Builder
+#### 1. Okhttp Interceptor
+Add okhttp-interceptor dependency
+```groovy
+dependencies {
+  debugImplementation "com.plutolib.plugins:network-interceptor-okhttp:$plutoVersion"
+  releaseImplementation "com.plutolib.plugins:network-interceptor-okhttp-no-op:$plutoVersion"
+}
+```
+
+Add interceptor in your OkHttp Client Builder
 ```kotlin
 val client = OkHttpClient.Builder()
-    .addInterceptor(PlutoInterceptor())
-    .build()
+  addPlutoOkhttpInterceptor()
+  .build()
 ```
 <br>
+
+#### 2. Ktor Interceptor
+Add ktor-interceptor dependency
+```groovy
+dependencies {
+  debugImplementation "com.plutolib.plugins:network-interceptor-ktor:$plutoVersion"
+  releaseImplementation "com.plutolib.plugins:network-interceptor-ktor-no-op:$plutoVersion"
+}
+```
+
+Add interceptor in your HttpClient
+```kotlin
+val client = HttpClient {
+...
+}.apply {
+  addPlutoKtorInterceptor()
+}
+```
+<br>
+
+#### 3. Custom Interceptor
+If you wish to use any interceptor, other than Okhttp or Ktor, Pluto provides way to capture network logs.
+```kotlin
+/* create interceptor */
+val networkInterceptor = NetworkInterceptor.intercept(
+  NetworkData.Request(....),
+  NetworkInterceptor.Option()
+)
+
+/**
+ * wait for the network call to complete
+**/
+
+/* if error */
+networkInterceptor.onError(exception)
+
+/* if success */
+networkInterceptor.onResponse(
+  NetworkData.Response(....)
+)
+```
 
 🎉 &nbsp;You are all done!
 
@@ -45,13 +95,3 @@ To open Network plugin screen via code, use this
 Pluto.open(PlutoNetworkPlugin.ID)
 ```
 <br>
-
-### Log Custom Network traces
-PlutoInterceptor works with OkHttp based interceptors, but to allow non-OkHttp based interceptors to track network calls Pluto provides utility to log network calls manually.
-```kotlin
-PlutoNetwork.logCustomTrace(
-    request = CustomRequest(),
-    response = CustomResponse()
-)
-```
-Once logged successfully, the network call trace will appear in the network call list.
