@@ -12,7 +12,7 @@ def verCode, verName, verBuild, verNameShort, verPublish
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
     PUBLISH_VERSION = verPublish
-    PUBLISH_ARTIFACT_ID = 'network-ktor-no-op'
+    PUBLISH_ARTIFACT_ID = 'network-interceptor-ktor-no-op'
 }
 
 android {
