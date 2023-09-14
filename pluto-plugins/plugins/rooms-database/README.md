@@ -7,8 +7,8 @@ Pluto Rooms Database is distributed through [***mavenCentral***](https://central
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:rooms-db:2.1.6'
-  releaseImplementation 'com.plutolib.plugins:rooms-db-no-op:2.1.6'
+  debugImplementation "com.plutolib.plugins:rooms-db:$plutoVersion"
+  releaseImplementation "com.plutolib.plugins:rooms-db-no-op:$plutoVersion"
 }
 ```
 <br>
