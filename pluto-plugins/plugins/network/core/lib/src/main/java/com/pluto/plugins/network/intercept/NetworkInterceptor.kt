@@ -23,6 +23,8 @@ class NetworkInterceptor private constructor(private val request: NetworkData.Re
     }
 
     companion object {
+
+        @JvmOverloads
         fun intercept(request: NetworkData.Request, option: Option = Option()): NetworkInterceptor {
             return NetworkInterceptor(request, option)
         }
