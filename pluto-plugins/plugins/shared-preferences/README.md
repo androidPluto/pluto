@@ -7,8 +7,8 @@ Pluto Shared Preferences is distributed through [***mavenCentral***](https://cen
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:preferences:2.1.6'
-  releaseImplementation 'com.plutolib.plugins:preferences-no-op:2.1.6'
+  debugImplementation "com.plutolib.plugins:preferences:$plutoVersion"
+  releaseImplementation "com.plutolib.plugins:preferences-no-op:$plutoVersion"
 }
 ```
 <br>
