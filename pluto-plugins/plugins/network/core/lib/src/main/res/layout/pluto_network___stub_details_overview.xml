@@ -1,78 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/statusView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/pluto___margin_medium"
-        android:paddingVertical="@dimen/pluto___margin_xsmall"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/pluto___dark_05">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/statusView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingHorizontal="@dimen/pluto___margin_medium"-->
+<!--        android:paddingVertical="@dimen/pluto___margin_xsmall"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:background="@color/pluto___dark_05">-->
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="@dimen/pluto___margin_xlarge"
-            android:layout_height="@dimen/pluto___margin_xlarge"
-            android:layout_marginEnd="@dimen/pluto___margin_mini"
-            android:layout_marginRight="@dimen/pluto___margin_mini"
-            android:backgroundTint="@color/pluto___dark_20"
-            android:padding="@dimen/pluto___margin_micro"
-            app:layout_constraintBottom_toBottomOf="@+id/status"
-            app:layout_constraintEnd_toStartOf="@+id/status"
-            app:layout_constraintTop_toTopOf="@+id/status" />
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progress"-->
+<!--            android:layout_width="@dimen/pluto___margin_xlarge"-->
+<!--            android:layout_height="@dimen/pluto___margin_xlarge"-->
+<!--            android:layout_marginEnd="@dimen/pluto___margin_mini"-->
+<!--            android:layout_marginRight="@dimen/pluto___margin_mini"-->
+<!--            android:backgroundTint="@color/pluto___dark_20"-->
+<!--            android:padding="@dimen/pluto___margin_micro"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/status"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/status"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/status" />-->
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:drawablePadding="@dimen/pluto___margin_xsmall"
-            android:fontFamily="@font/muli"
-            android:gravity="center_vertical"
-            android:text="@string/pluto_network___network_state_in_progress"
-            android:textSize="@dimen/pluto___text_xsmall"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:drawableLeft="@drawable/pluto_network___ic_error"
-            tools:drawableStart="@drawable/pluto_network___ic_error" />
+<!--        <TextView-->
+<!--            android:id="@+id/status"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:drawablePadding="@dimen/pluto___margin_xsmall"-->
+<!--            android:fontFamily="@font/muli"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:text="@string/pluto_network___network_state_in_progress"-->
+<!--            android:textSize="@dimen/pluto___text_xsmall"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:drawableLeft="@drawable/pluto_network___ic_error"-->
+<!--            tools:drawableStart="@drawable/pluto_network___ic_error" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <com.pluto.utilities.views.TabularDataView
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/pluto___margin_medium"
-        app:layout_constraintTop_toBottomOf="@+id/statusView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/customTraceTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/muli_light"
-        android:lineSpacingExtra="6sp"
-        android:paddingHorizontal="@dimen/pluto___margin_medium"
-        android:paddingVertical="@dimen/pluto___margin_small"
-        android:text="@string/pluto_network___custom_trace_tag"
-        android:textColor="@color/pluto___text_dark_60"
-        android:textSize="@dimen/pluto___text_small"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/table" />
-
-    <include
-        android:id="@+id/settingStub"
-        layout="@layout/pluto_network___stub_network_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/pluto___margin_small"
-        app:layout_constraintTop_toBottomOf="@+id/table" />
+<!--    <TextView-->
+<!--        android:id="@+id/customTraceTag"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/muli_light"-->
+<!--        android:lineSpacingExtra="6sp"-->
+<!--        android:paddingHorizontal="@dimen/pluto___margin_medium"-->
+<!--        android:paddingVertical="@dimen/pluto___margin_small"-->
+<!--        android:text="@string/pluto_network___custom_trace_tag"-->
+<!--        android:textColor="@color/pluto___text_dark_60"-->
+<!--        android:textSize="@dimen/pluto___text_small"-->
+<!--        android:textStyle="italic"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/table" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,16 +60,19 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                 R.id.openMockSettingsEdit,
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
             )
+
             ACTION_OPEN_REQ_HEADERS -> openContentView(
                 title = getString(R.string.pluto_network___content_request_headers),
                 content = requireContext().beautifyHeaders(api.request.headers),
                 sizeText = "${api.request.headers.size} items"
             )
+
             ACTION_OPEN_REQ_PARAMS -> openContentView(
                 title = getString(R.string.pluto_network___content_request_query_param),
                 content = requireContext().beautifyQueryParams(api.request.url),
                 sizeText = "${Url(api.request.url).parameters.names().count()} items"
             )
+
             ACTION_OPEN_REQ_BODY -> api.request.body?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_request_body),
@@ -79,6 +82,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     isTreeViewAllowed = true
                 )
             }
+
             ACTION_OPEN_RES_HEADERS -> api.response?.headers?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_response_headers),
@@ -86,6 +90,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     sizeText = "${it.size} items"
                 )
             }
+
             ACTION_OPEN_RES_BODY -> api.response?.body?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_response_body),
@@ -95,6 +100,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     isTreeViewAllowed = true
                 )
             }
+
             ACTION_CUSTOM_TRACE_INFO -> findNavController().navigate(R.id.openCustomTraceInfo)
         }
     }
@@ -116,13 +122,14 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
 
     private val detailsObserver = Observer<DetailContentData> {
         binding.title.setSpan {
-            append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
-            append(Url(it.api.request.url).encodedPath)
+            append(bold("${it.api.request.method.uppercase()}\t"))
+            append(fontColor(Url(it.api.request.url).encodedPath, requireContext().color(R.color.pluto___red)))
         }
         binding.overview.apply {
             visibility = VISIBLE
-            set(it.api) { action -> handleUserAction(action, it.api) }
+            set(it.api)
         }
+        handleCtas { action -> handleUserAction(action, it.api) }
         binding.request.apply {
             visibility = VISIBLE
             set(it.api.request) { action -> handleUserAction(action, it.api) }
@@ -131,6 +138,17 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
             visibility = VISIBLE
             set(it.api.response, it.api.exception) { action -> handleUserAction(action, it.api) }
         }
+    }
+
+    private fun handleCtas(onAction: (String) -> Unit) {
+        binding.settingStub.proxyRoot.setOnDebounceClickListener {
+            onAction.invoke(ACTION_OPEN_MOCK_SETTINGS)
+        }
+        binding.settingStub.copyCurl.setOnDebounceClickListener { _ ->
+            onAction.invoke(ACTION_SHARE_CURL)
+        }
+        binding.settingStub.dividerTop.visibility = VISIBLE
+        binding.settingStub.proxyRoot.visibility = VISIBLE
     }
 
     private val listUpdateObserver = Observer<List<ApiCallData>> {
