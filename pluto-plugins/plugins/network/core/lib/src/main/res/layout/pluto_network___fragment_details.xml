@@ -73,26 +73,6 @@
 
             </LinearLayout>
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/title"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:background="?android:attr/selectableItemBackgroundBorderless"-->
-            <!--                android:clickable="true"-->
-            <!--                android:ellipsize="end"-->
-            <!--                android:focusable="true"-->
-            <!--                android:fontFamily="@font/muli_semibold"-->
-            <!--                android:maxLines="1"-->
-            <!--                android:paddingVertical="@dimen/pluto___margin_medium"-->
-            <!--                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"-->
-            <!--                android:textColor="@color/pluto___white"-->
-            <!--                android:textSize="@dimen/pluto___text_small"-->
-            <!--                app:layout_constraintEnd_toStartOf="@+id/share"-->
-            <!--                app:layout_constraintHorizontal_bias="1"-->
-            <!--                app:layout_constraintStart_toEndOf="@+id/close"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:text="POST, /user/login/453368282/success/true/sdjkdsf" />-->
-
             <ImageView
                 android:id="@+id/share"
                 android:layout_width="wrap_content"

@@ -21,76 +21,13 @@ internal class OverviewStub : ConstraintLayout {
     constructor(context: Context) : super(context, null, 0)
 
     fun set(api: ApiCallData) {
-//        setupStatusView(api)
         setupOverview(api, waitingText(context))
-//        handleMockSettings(onAction)
-//        handleCustomTraceInfo(api, onAction)
     }
-
-//    private fun handleCustomTraceInfo(api: ApiCallData, onAction: (String) -> Unit) {
-//        binding.customTraceTag.visibility = if (api.isCustomTrace) VISIBLE else GONE
-//        binding.customTraceTag.setSpan {
-//            append(underline(italic(context.getString(R.string.pluto_network___custom_trace_tag))))
-//        }
-//        binding.customTraceTag.setOnDebounceClickListener {
-//            onAction.invoke(ACTION_CUSTOM_TRACE_INFO)
-//        }
-//    }
-
-//    private fun setupStatusView(data: ApiCallData) {
-//        binding.progress.visibility = View.VISIBLE
-//        binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-//        binding.status.text = context?.getString(R.string.pluto_network___network_state_in_progress)
-//        binding.statusView.setBackgroundColor(context.color(R.color.pluto___dark_05))
-//
-//        data.exception?.let {
-//            binding.progress.visibility = View.GONE
-//            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
-//            binding.status.setSpan {
-//                append(fontColor(it.name ?: context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red_dark)))
-//            }
-//            binding.statusView.setBackgroundColor(context.color(R.color.pluto___red_05))
-//        }
-//
-//        data.response?.let {
-//            binding.progress.visibility = View.GONE
-//            binding.status.setCompoundDrawablesWithIntrinsicBounds(
-//                if (it.isSuccessful) R.drawable.pluto_network___ic_success else R.drawable.pluto_network___ic_error, 0, 0, 0
-//            )
-//            binding.status.setSpan {
-//                append(
-//                    fontColor(
-//                        bold("${it.status.code} "),
-//                        context.color(if (it.isSuccessful) R.color.pluto___dull_green else R.color.pluto___red)
-//                    )
-//                )
-//                append(
-//                    fontColor(
-//                        it.status.message,
-//                        context.color(if (it.isSuccessful) R.color.pluto___dull_green else R.color.pluto___red)
-//                    )
-//                )
-//            }
-//            binding.statusView.setBackgroundColor(context.color(if (it.isSuccessful) R.color.pluto___dull_green_08 else R.color.pluto___red_05))
-//        }
-//    }
 
     private fun setupOverview(api: ApiCallData, waitingText: CharSequence) {
         binding.table.set(
             title = context.getString(R.string.pluto_network___tab_overview),
             keyValuePairs = arrayListOf<KeyValuePairData>().apply {
-//                add(
-//                    KeyValuePairData(
-//                        key = context.getString(R.string.pluto_network___url_label),
-//                        value = api.request.url
-//                    )
-//                )
-//                add(
-//                    KeyValuePairData(
-//                        key = context.getString(R.string.pluto_network___method_label),
-//                        value = api.request.method
-//                    )
-//                )
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___ssl_label),

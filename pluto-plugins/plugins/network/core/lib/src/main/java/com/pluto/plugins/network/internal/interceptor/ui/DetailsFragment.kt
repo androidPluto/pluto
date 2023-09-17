@@ -124,10 +124,6 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
     }
 
     private val detailsObserver = Observer<DetailContentData> {
-//        binding.title.setSpan {
-//            append(bold("${it.api.request.method.uppercase()}\t"))
-// //            append(fontColor(Url(it.api.request.url).encodedPath, requireContext().color(R.color.pluto___red)))
-//        }
         setupStatusView(it.api)
         binding.method.text = it.api.request.method.uppercase()
         binding.url.text = Url(it.api.request.url).toString()
@@ -173,8 +169,6 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         binding.status.setSpan {
             append(italic(fontColor(context.getString(R.string.pluto_network___network_state_in_progress), context.color(R.color.pluto___white_60))))
         }
-//        binding.status.text = context?.getString(R.string.pluto_network___network_state_in_progress)
-//        binding.statusView.setBackgroundColor(context?.color(R.color.pluto___dark_05))
 
         data.exception?.let {
             binding.progress.visibility = GONE
@@ -182,7 +176,6 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
             binding.status.setSpan {
                 append(bold(fontColor(context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red))))
             }
-//            binding.statusView.setBackgroundColor(context?.color(R.color.pluto___red_05))
         }
 
         data.response?.let {
@@ -194,7 +187,6 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                 append(fontColor(bold(it.status.code.toString()), context.color(getStatusTextColorId(it))))
                 append(italic(fontColor(" ${it.status.message} ", context.color(getStatusTextColorId(it)))))
             }
-//            binding.statusView.setBackgroundColor(context.color(if (it.isSuccessful) R.color.pluto___dull_green_08 else R.color.pluto___red_05))
         }
     }
 
