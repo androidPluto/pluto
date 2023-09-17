@@ -22,33 +22,56 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/pluto_network___exit_network_call_details"
                 android:paddingStart="@dimen/pluto___margin_medium"
-                android:paddingLeft="@dimen/pluto___margin_medium"
                 android:paddingEnd="@dimen/pluto___margin_small"
-                android:paddingRight="@dimen/pluto___margin_small"
                 android:src="@drawable/pluto_network___ic_arrow_back_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
+                android:id="@+id/statusView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:ellipsize="end"
-                android:focusable="true"
-                android:fontFamily="@font/muli_semibold"
-                android:maxLines="1"
+                android:orientation="horizontal"
                 android:paddingVertical="@dimen/pluto___margin_medium"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:textColor="@color/pluto___white"
-                android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintEnd_toStartOf="@+id/share"
-                app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@+id/close"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="POST, /user/login/453368282/success/true/sdjkdsf" />
+                tools:background="@color/pluto___dark_05">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="@dimen/pluto___margin_xlarge"
+                    android:layout_height="@dimen/pluto___margin_xlarge"
+                    android:layout_marginEnd="@dimen/pluto___margin_mini"
+                    android:layout_marginRight="@dimen/pluto___margin_mini"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/pluto___white_80"
+                    android:padding="@dimen/pluto___margin_micro"
+                    app:layout_constraintBottom_toBottomOf="@+id/status"
+                    app:layout_constraintEnd_toStartOf="@+id/status"
+                    app:layout_constraintTop_toTopOf="@+id/status" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/pluto___margin_xsmall"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/muli_light"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/pluto_network___network_state_in_progress"
+                    android:textSize="@dimen/pluto___text_xmedium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:drawableLeft="@drawable/pluto_network___ic_error"
+                    tools:drawableStart="@drawable/pluto_network___ic_error" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/share"
@@ -69,7 +92,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@+id/title"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -86,22 +108,29 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/pluto___margin_medium">
 
-            <com.pluto.plugins.network.internal.interceptor.ui.components.OverviewStub
-                android:id="@+id/overview"
+            <TextView
+                android:id="@+id/method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
-
-            <com.pluto.plugins.network.internal.interceptor.ui.components.RequestStub
-                android:id="@+id/request"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
                 android:layout_marginTop="@dimen/pluto___margin_medium"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/overview"
-                tools:visibility="visible" />
+                android:fontFamily="@font/muli_bold"
+                android:textColor="@color/pluto___dark"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="POST" />
+
+            <TextView
+                android:id="@+id/url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/pluto___margin_medium"
+                android:layout_marginTop="@dimen/pluto___margin_micro"
+                android:fontFamily="@font/muli"
+                android:textColor="@color/pluto___dark_60"
+                android:textSize="@dimen/pluto___text_xmedium"
+                app:layout_constraintTop_toBottomOf="@+id/method"
+                tools:text="POST" />
 
             <com.pluto.plugins.network.internal.interceptor.ui.components.ResponseStub
                 android:id="@+id/response"
@@ -109,7 +138,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/pluto___margin_medium"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/request"
+                app:layout_constraintTop_toBottomOf="@+id/url"
+                tools:visibility="visible" />
+
+            <com.pluto.plugins.network.internal.interceptor.ui.components.RequestStub
+                android:id="@+id/request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pluto___margin_small"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/response"
+                tools:visibility="visible" />
+
+            <include
+                android:id="@+id/settingStub"
+                layout="@layout/pluto_network___stub_network_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pluto___margin_small"
+                app:layout_constraintTop_toBottomOf="@+id/request" />
+
+            <com.pluto.plugins.network.internal.interceptor.ui.components.OverviewStub
+                android:id="@+id/overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pluto___margin_small"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/settingStub"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

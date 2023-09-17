@@ -21,8 +21,7 @@ internal class ApiCallData(
     val request: NetworkData.Request,
     var response: NetworkData.Response? = null,
     var exception: ExceptionData? = null,
-    var mock: MockConfig? = null,
-    val isCustomTrace: Boolean = false
+    var mock: MockConfig? = null
 ) : ListItem() {
     val curl: String
         get() = request.getCurl()

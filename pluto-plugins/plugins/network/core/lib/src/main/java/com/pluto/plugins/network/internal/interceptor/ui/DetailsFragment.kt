@@ -2,6 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -10,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
+import com.pluto.plugins.network.intercept.NetworkData
 import com.pluto.plugins.network.internal.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.RESPONSE_ERROR_STATUS_RANGE
 import com.pluto.plugins.network.internal.interceptor.logic.beautify
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
@@ -60,16 +63,19 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                 R.id.openMockSettingsEdit,
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
             )
+
             ACTION_OPEN_REQ_HEADERS -> openContentView(
                 title = getString(R.string.pluto_network___content_request_headers),
                 content = requireContext().beautifyHeaders(api.request.headers),
                 sizeText = "${api.request.headers.size} items"
             )
+
             ACTION_OPEN_REQ_PARAMS -> openContentView(
                 title = getString(R.string.pluto_network___content_request_query_param),
                 content = requireContext().beautifyQueryParams(api.request.url),
                 sizeText = "${Url(api.request.url).parameters.names().count()} items"
             )
+
             ACTION_OPEN_REQ_BODY -> api.request.body?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_request_body),
@@ -79,6 +85,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     isTreeViewAllowed = true
                 )
             }
+
             ACTION_OPEN_RES_HEADERS -> api.response?.headers?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_response_headers),
@@ -86,6 +93,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     sizeText = "${it.size} items"
                 )
             }
+
             ACTION_OPEN_RES_BODY -> api.response?.body?.let {
                 openContentView(
                     title = getString(R.string.pluto_network___content_response_body),
@@ -95,6 +103,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                     isTreeViewAllowed = true
                 )
             }
+
             ACTION_CUSTOM_TRACE_INFO -> findNavController().navigate(R.id.openCustomTraceInfo)
         }
     }
@@ -115,14 +124,14 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
     }
 
     private val detailsObserver = Observer<DetailContentData> {
-        binding.title.setSpan {
-            append(fontColor(bold("${it.api.request.method.uppercase()}\t"), requireContext().color(R.color.pluto___white_60)))
-            append(Url(it.api.request.url).encodedPath)
-        }
+        setupStatusView(it.api)
+        binding.method.text = it.api.request.method.uppercase()
+        binding.url.text = Url(it.api.request.url).toString()
         binding.overview.apply {
             visibility = VISIBLE
-            set(it.api) { action -> handleUserAction(action, it.api) }
+            set(it.api)
         }
+        handleCtas { action -> handleUserAction(action, it.api) }
         binding.request.apply {
             visibility = VISIBLE
             set(it.api.request) { action -> handleUserAction(action, it.api) }
@@ -133,6 +142,17 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         }
     }
 
+    private fun handleCtas(onAction: (String) -> Unit) {
+        binding.settingStub.proxyRoot.setOnDebounceClickListener {
+            onAction.invoke(ACTION_OPEN_MOCK_SETTINGS)
+        }
+        binding.settingStub.copyCurl.setOnDebounceClickListener { _ ->
+            onAction.invoke(ACTION_SHARE_CURL)
+        }
+        binding.settingStub.dividerTop.visibility = VISIBLE
+        binding.settingStub.proxyRoot.visibility = VISIBLE
+    }
+
     private val listUpdateObserver = Observer<List<ApiCallData>> {
         val id = requireArguments().getString(API_CALL_ID, null)
         if (!id.isNullOrEmpty()) {
@@ -140,6 +160,57 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         } else {
             requireContext().toast("invalid id")
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun setupStatusView(data: ApiCallData) {
+        binding.progress.visibility = VISIBLE
+        binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        binding.status.setSpan {
+            append(italic(fontColor(context.getString(R.string.pluto_network___network_state_in_progress), context.color(R.color.pluto___white_60))))
+        }
+
+        data.exception?.let {
+            binding.progress.visibility = GONE
+            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
+            binding.status.setSpan {
+                append(bold(fontColor(context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red))))
+            }
+        }
+
+        data.response?.let {
+            binding.progress.visibility = GONE
+            binding.status.setCompoundDrawablesWithIntrinsicBounds(
+                getErrorIcon(it), 0, 0, 0
+            )
+            binding.status.setSpan {
+                append(fontColor(bold(it.status.code.toString()), context.color(getStatusTextColorId(it))))
+                append(italic(fontColor(" ${it.status.message} ", context.color(getStatusTextColorId(it)))))
+            }
+        }
+    }
+
+    private fun getStatusTextColorId(it: NetworkData.Response): Int {
+        return if (it.isSuccessful) {
+            R.color.pluto___dull_green
+        } else {
+            if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
+                R.color.pluto___orange
+            } else {
+                R.color.pluto___red
+            }
+        }
+    }
+
+    private fun getErrorIcon(it: NetworkData.Response): Int {
+        return if (it.isSuccessful) {
+            R.drawable.pluto_network___ic_success
+        } else {
+            if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
+                R.drawable.pluto_network___ic_error_orange
+            } else {
+                R.drawable.pluto_network___ic_error
+            }
         }
     }
 

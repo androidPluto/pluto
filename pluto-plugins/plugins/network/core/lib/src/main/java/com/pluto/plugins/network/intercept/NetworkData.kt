@@ -18,7 +18,7 @@ class NetworkData {
     }
 
     data class Response(
-        val statusCode: Int,
+        private val statusCode: Int,
         val body: Body?,
         val headers: Map<String, String?>,
         val sentTimestamp: Long,
