@@ -8,6 +8,7 @@ import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemNetworkBinding
 import com.pluto.plugins.network.intercept.NetworkData.Response
 import com.pluto.plugins.network.internal.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.RESPONSE_ERROR_STATUS_RANGE
 import com.pluto.utilities.extensions.asTimeElapsed
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
@@ -104,6 +105,5 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
 
     private companion object {
         const val DEBOUNCE_DELAY = 1_000L
-        val RESPONSE_ERROR_STATUS_RANGE = 400..499
     }
 }

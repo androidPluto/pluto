@@ -9,8 +9,11 @@ import com.pluto.utilities.extensions.asFormattedDate
 internal fun ApiCallData.toShareText(): String {
     val text = StringBuilder()
     text.append("${request.method.uppercase()}, ${request.url}  ")
+    response?.let { response ->
+        text.append("\n\nStatus : ${response.status.code} (${response.status.message})")
+    }
     text.append(
-        "\n\nRequested at : ${request.sentTimestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
+        "\nRequested at : ${request.sentTimestamp.asFormattedDate("MMM dd, yyyy, HH:mm:ss.SSS")}"
     )
     response?.let {
         text.append(
@@ -56,6 +59,7 @@ internal fun Request.toShareText(): String {
 internal fun ApiCallData.responseToText(): String {
     val text = StringBuilder()
     response?.let { response ->
+        text.append("Status : ${response.status.code} (${response.status.message})\n")
         text.append("*** Headers (${response.headers.size} items) *** \n${response.headers.toShareText()}")
         text.append("\n*** Body (${formatSizeAsBytes(response.body?.sizeInBytes ?: 0L)}) *** \n${response.body?.body}")
     }
