@@ -2,6 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -10,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
+import com.pluto.plugins.network.intercept.NetworkData
 import com.pluto.plugins.network.internal.ApiCallData
+import com.pluto.plugins.network.internal.interceptor.logic.RESPONSE_ERROR_STATUS_RANGE
 import com.pluto.plugins.network.internal.interceptor.logic.beautify
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyHeaders
 import com.pluto.plugins.network.internal.interceptor.logic.beautifyQueryParams
@@ -121,10 +124,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
     }
 
     private val detailsObserver = Observer<DetailContentData> {
-        binding.title.setSpan {
-            append(bold("${it.api.request.method.uppercase()}\t"))
-            append(fontColor(Url(it.api.request.url).encodedPath, requireContext().color(R.color.pluto___red)))
-        }
+//        binding.title.setSpan {
+//            append(bold("${it.api.request.method.uppercase()}\t"))
+// //            append(fontColor(Url(it.api.request.url).encodedPath, requireContext().color(R.color.pluto___red)))
+//        }
+        setupStatusView(it.api)
+        binding.method.text = it.api.request.method.uppercase()
+        binding.url.text = Url(it.api.request.url).toString()
         binding.overview.apply {
             visibility = VISIBLE
             set(it.api)
@@ -158,6 +164,61 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         } else {
             requireContext().toast("invalid id")
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun setupStatusView(data: ApiCallData) {
+        binding.progress.visibility = VISIBLE
+        binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        binding.status.setSpan {
+            append(italic(fontColor(context.getString(R.string.pluto_network___network_state_in_progress), context.color(R.color.pluto___white_60))))
+        }
+//        binding.status.text = context?.getString(R.string.pluto_network___network_state_in_progress)
+//        binding.statusView.setBackgroundColor(context?.color(R.color.pluto___dark_05))
+
+        data.exception?.let {
+            binding.progress.visibility = GONE
+            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
+            binding.status.setSpan {
+                append(bold(fontColor(context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red))))
+            }
+//            binding.statusView.setBackgroundColor(context?.color(R.color.pluto___red_05))
+        }
+
+        data.response?.let {
+            binding.progress.visibility = GONE
+            binding.status.setCompoundDrawablesWithIntrinsicBounds(
+                getErrorIcon(it), 0, 0, 0
+            )
+            binding.status.setSpan {
+                append(fontColor(bold(it.status.code.toString()), context.color(getStatusTextColorId(it))))
+                append(italic(fontColor(" ${it.status.message} ", context.color(getStatusTextColorId(it)))))
+            }
+//            binding.statusView.setBackgroundColor(context.color(if (it.isSuccessful) R.color.pluto___dull_green_08 else R.color.pluto___red_05))
+        }
+    }
+
+    private fun getStatusTextColorId(it: NetworkData.Response): Int {
+        return if (it.isSuccessful) {
+            R.color.pluto___dull_green
+        } else {
+            if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
+                R.color.pluto___orange
+            } else {
+                R.color.pluto___red
+            }
+        }
+    }
+
+    private fun getErrorIcon(it: NetworkData.Response): Int {
+        return if (it.isSuccessful) {
+            R.drawable.pluto_network___ic_success
+        } else {
+            if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
+                R.drawable.pluto_network___ic_error_orange
+            } else {
+                R.drawable.pluto_network___ic_error
+            }
         }
     }
 

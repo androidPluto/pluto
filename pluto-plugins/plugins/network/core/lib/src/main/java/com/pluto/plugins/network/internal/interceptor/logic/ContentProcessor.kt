@@ -85,3 +85,4 @@ internal const val LOGTAG = "pluto_network"
 val UTF8: Charset = Charset.forName("UTF-8")
 private val KILO_BYTES = BigDecimal("1024")
 internal const val MAX_BLOB_LENGTH = 25_000
+internal val RESPONSE_ERROR_STATUS_RANGE = 400..499

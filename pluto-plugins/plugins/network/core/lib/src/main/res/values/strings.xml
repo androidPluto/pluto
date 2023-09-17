@@ -11,7 +11,7 @@
     <string name="pluto_network___exit_network_call_details_search">exit network call details search</string>
     <string name="pluto_network___search_api_content">Search API content</string>
     <string name="pluto_network___exit_network_call_details_search_clear">Clear API search</string>
-    <string name="pluto_network___tab_overview">Overview</string>
+    <string name="pluto_network___tab_overview">More Details</string>
     <string name="pluto_network___tab_request">Request</string>
     <string name="pluto_network___tab_response">Response</string>
     <string name="pluto_network___tab_error">Error Response</string>
@@ -29,7 +29,7 @@
     <string name="pluto_network___content_response_body">Response Body</string>
     <string name="pluto_network___no_headers">~ No Headers</string>
     <string name="pluto_network___network_state_in_progress">In Progress</string>
-    <string name="pluto_network___network_state_failed">Failed</string>
+    <string name="pluto_network___network_state_failed">Error</string>
     <string name="pluto_network___url_label">URL</string>
     <string name="pluto_network___waiting_for_response">~ Waiting for response</string>
     <string name="pluto_network___method_label">Method</string>

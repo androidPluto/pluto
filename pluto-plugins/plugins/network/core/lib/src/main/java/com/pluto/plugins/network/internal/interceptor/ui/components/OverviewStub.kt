@@ -79,18 +79,18 @@ internal class OverviewStub : ConstraintLayout {
         binding.table.set(
             title = context.getString(R.string.pluto_network___tab_overview),
             keyValuePairs = arrayListOf<KeyValuePairData>().apply {
-                add(
-                    KeyValuePairData(
-                        key = context.getString(R.string.pluto_network___url_label),
-                        value = api.request.url
-                    )
-                )
-                add(
-                    KeyValuePairData(
-                        key = context.getString(R.string.pluto_network___method_label),
-                        value = api.request.method
-                    )
-                )
+//                add(
+//                    KeyValuePairData(
+//                        key = context.getString(R.string.pluto_network___url_label),
+//                        value = api.request.url
+//                    )
+//                )
+//                add(
+//                    KeyValuePairData(
+//                        key = context.getString(R.string.pluto_network___method_label),
+//                        value = api.request.method
+//                    )
+//                )
                 add(
                     KeyValuePairData(
                         key = context.getString(R.string.pluto_network___ssl_label),

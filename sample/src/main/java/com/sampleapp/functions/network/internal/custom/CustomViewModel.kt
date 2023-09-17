@@ -27,7 +27,7 @@ class CustomViewModel : ViewModel() {
             delay(5_000)
             networkInterceptor.onResponse(
                 NetworkData.Response(
-                    statusCode = 200,
+                    statusCode = 503,
                     body = NetworkData.Body(
                         body = "body",
                         contentType = "text/plain",
