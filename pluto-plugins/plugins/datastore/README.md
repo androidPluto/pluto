@@ -7,8 +7,8 @@ Pluto Datastore Preferences is distributed through [***mavenCentral***](https://
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation 'com.plutolib.plugins:datastore-pref:2.1.6'
-  releaseImplementation 'com.plutolib.plugins:datastore-pref-no-op:2.1.6'
+  debugImplementation "com.plutolib.plugins:datastore-pref:$plutoVersion"
+  releaseImplementation "com.plutolib.plugins:datastore-pref-no-op:$plutoVersion"
 }
 ```
 <br>
