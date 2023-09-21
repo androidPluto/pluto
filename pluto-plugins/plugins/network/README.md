@@ -23,6 +23,8 @@ Pluto.Installer(this)
 ```
 <br>
 
+> Note: If you are already using Network plugin, you need to do some code changes to migrate to version`2.1.7+`. Please [read here](https://github.com/androidPluto/pluto/wiki/Migrating-Network-plugin-to-version-2.1.7) for migration.
+
 ###  Add interceptors
 
 #### 1. Okhttp Interceptor
