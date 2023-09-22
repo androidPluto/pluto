@@ -4,6 +4,7 @@ import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.intercept.NetworkData.Response
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.contentType
 
@@ -34,7 +35,7 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
     // TODO handle gzip
     private suspend fun HttpResponse.extractBody() = Body(
         body = bodyAsText(),
-        contentType = contentType().toString()
+        contentType = contentType()?.toString() ?: ContentType.Any.toString()
     )
 
 //    private fun HttpResponse.isTextType(): Boolean {
