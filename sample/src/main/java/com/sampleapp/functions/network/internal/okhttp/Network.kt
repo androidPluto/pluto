@@ -21,7 +21,9 @@ object Network {
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-        .addInterceptors()
+//        .addInterceptor(GzipRequestInterceptor())
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addPlutoOkhttpInterceptor()
         .build()
 
     fun <T> getService(cls: Class<T>): T {
@@ -33,11 +35,4 @@ object Network {
             getService(T::class.java)
         }
     }
-}
-
-private fun OkHttpClient.Builder.addInterceptors(): OkHttpClient.Builder {
-//    addInterceptor(GzipRequestInterceptor())
-    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-    addPlutoOkhttpInterceptor()
-    return this
 }
