@@ -21,7 +21,7 @@ object Network {
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-        .addInterceptor(GzipRequestInterceptor())
+//        .addInterceptor(GzipRequestInterceptor())
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .addPlutoOkhttpInterceptor()
         .build()
