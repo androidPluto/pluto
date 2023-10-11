@@ -26,31 +26,31 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
 
     val currentTable: LiveData<TableModel>
         get() = _currentTable
-    private val _currentTable = SingleLiveEvent<TableModel>()
+    private val _currentTable = com.pluto.utilities.SingleLiveEvent<TableModel>()
 
     val processedTableContent: LiveData<ProcessedTableContents>
         get() = _tableContent
-    private val _tableContent = SingleLiveEvent<ProcessedTableContents>()
+    private val _tableContent = com.pluto.utilities.SingleLiveEvent<ProcessedTableContents>()
 
     val rowActionEvent: LiveData<Pair<RowAction, RowDetailsData>>
         get() = _rowActionEvent
-    private val _rowActionEvent = SingleLiveEvent<Pair<RowAction, RowDetailsData>>()
+    private val _rowActionEvent = com.pluto.utilities.SingleLiveEvent<Pair<RowAction, RowDetailsData>>()
 
     val editEventState: LiveData<ExecuteResult.Success>
         get() = _editEventState
-    private val _editEventState = SingleLiveEvent<ExecuteResult.Success>()
+    private val _editEventState = com.pluto.utilities.SingleLiveEvent<ExecuteResult.Success>()
 
     val queryError: LiveData<Pair<String, Exception>>
         get() = _queryError
-    private val _queryError = SingleLiveEvent<Pair<String, Exception>>()
+    private val _queryError = com.pluto.utilities.SingleLiveEvent<Pair<String, Exception>>()
 
     val editError: LiveData<Pair<String, Exception>>
         get() = _editError
-    private val _editError = SingleLiveEvent<Pair<String, Exception>>()
+    private val _editError = com.pluto.utilities.SingleLiveEvent<Pair<String, Exception>>()
 
     val rowCounts: LiveData<Pair<Int, Int?>>
         get() = _rowCounts
-    private val _rowCounts = SingleLiveEvent<Pair<Int, Int?>>()
+    private val _rowCounts = com.pluto.utilities.SingleLiveEvent<Pair<Int, Int?>>()
 
     var filters: List<FilterModel> = emptyList()
         private set
@@ -101,7 +101,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                         _tables.postValue(processedTableList.plus(processedSystemTableList))
                     }
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_TABLES, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "fetchTables: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "fetchTables: invalid result")
                 }
             }
         }
@@ -144,13 +144,13 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                                 }
 
                                 is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, valueResult.exception))
-                                else -> DebugLog.e(LOG_TAG, "fetch values: invalid result")
+                                else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "fetch values: invalid result")
                             }
                         }
                     }
 
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_FETCH_CONTENT, columnResult.exception))
-                    else -> DebugLog.e(LOG_TAG, "fetch column: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "fetch column: invalid result")
                 }
             }
         }
@@ -162,7 +162,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                 when (it) {
                     is ExecuteResult.Success.Query -> _rowCounts.postValue(Pair(filteredCount, it.data.second[0][0].toInt()))
                     is ExecuteResult.Failure -> _rowCounts.postValue(Pair(filteredCount, null))
-                    else -> DebugLog.e(LOG_TAG, "fetchRowCount: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "fetchRowCount: invalid result")
                 }
             }
         }
@@ -193,7 +193,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
                 }
             }
         }
@@ -223,7 +223,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _queryError.postValue(Pair(ERROR_ADD_UPDATE_REQUEST, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "triggerAddRecordEvent: invalid result")
                 }
             }
         }
@@ -243,7 +243,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "addNewRow: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "addNewRow: invalid result")
                 }
             }
         }
@@ -259,7 +259,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "updateRow: invalid result")
                 }
             }
         }
@@ -275,7 +275,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "updateRow: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "updateRow: invalid result")
                 }
             }
         }
@@ -291,7 +291,7 @@ internal class ContentViewModel(application: Application) : AndroidViewModel(app
                     }
 
                     is ExecuteResult.Failure -> _editError.postValue(Pair(ERROR_ADD_UPDATE, it.exception))
-                    else -> DebugLog.e(LOG_TAG, "clearTable: invalid result")
+                    else -> com.pluto.utilities.DebugLog.e(LOG_TAG, "clearTable: invalid result")
                 }
             }
         }

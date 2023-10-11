@@ -123,7 +123,7 @@ private fun Context.getPrefFile(label: String): SharedPrefFile {
             }
         }
     } catch (e: Exception) {
-        DebugLog.e("preferences", "error while fetching pref file", e)
+        com.pluto.utilities.DebugLog.e("preferences", "error while fetching pref file", e)
     }
     return SharedPrefFile(Preferences.DEFAULT, isDefault = true)
 }

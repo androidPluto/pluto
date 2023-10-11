@@ -15,7 +15,7 @@ class MavenViewModel : ViewModel() {
     private val apiService: MavenApiService by Network.getService()
     val latestVersion: LiveData<String>
         get() = _latestVersion
-    private val _latestVersion = SingleLiveEvent<String>()
+    private val _latestVersion = com.pluto.utilities.SingleLiveEvent<String>()
 
     fun getLatestVersion() {
         viewModelScope.launch {

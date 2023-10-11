@@ -20,17 +20,17 @@ internal class MockSettingsViewModel(application: Application) : AndroidViewMode
         get() = _mockList
     private val _mockList = MutableLiveData<List<MockSettingsEntity>>()
 
-    val currentMock: SingleLiveEvent<MockSettingsEntity?>
+    val currentMock: com.pluto.utilities.SingleLiveEvent<MockSettingsEntity?>
         get() = _currentMock
-    private val _currentMock = SingleLiveEvent<MockSettingsEntity?>()
+    private val _currentMock = com.pluto.utilities.SingleLiveEvent<MockSettingsEntity?>()
 
-    val event: SingleLiveEvent<Pair<Boolean, String>>
+    val event: com.pluto.utilities.SingleLiveEvent<Pair<Boolean, String>>
         get() = _event
-    private val _event = SingleLiveEvent<Pair<Boolean, String>>()
+    private val _event = com.pluto.utilities.SingleLiveEvent<Pair<Boolean, String>>()
 
-    val mockletsUrlEvent: SingleLiveEvent<String>
+    val mockletsUrlEvent: com.pluto.utilities.SingleLiveEvent<String>
         get() = _mockletsUrlEvent
-    private val _mockletsUrlEvent = SingleLiveEvent<String>()
+    private val _mockletsUrlEvent = com.pluto.utilities.SingleLiveEvent<String>()
 
     fun fetchList(search: String = "") {
         viewModelScope.launch(Dispatchers.IO) {

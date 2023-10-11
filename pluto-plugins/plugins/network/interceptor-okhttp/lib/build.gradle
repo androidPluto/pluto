@@ -58,6 +58,7 @@ android {
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(':pluto-plugins:base:lib')
+    implementation project(path: ':utilities')
     implementation project(':pluto-plugins:plugins:network:core:lib')
 
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"

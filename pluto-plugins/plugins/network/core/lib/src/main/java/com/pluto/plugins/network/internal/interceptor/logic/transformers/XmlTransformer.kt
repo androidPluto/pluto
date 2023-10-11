@@ -24,7 +24,7 @@ internal class XmlTransformer : BaseTransformer {
             serializer.transform(xmlSource, res)
             String((res.outputStream as ByteArrayOutputStream).toByteArray())
         } catch (e: Exception) {
-            DebugLog.e(LOGTAG, "xml parsing failed : $plain", e)
+            com.pluto.utilities.DebugLog.e(LOGTAG, "xml parsing failed : $plain", e)
             plain
         }
     }

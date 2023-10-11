@@ -10,7 +10,7 @@ internal class PluginsGroupViewModel(application: Application) : AndroidViewMode
 
     val current: LiveData<PluginGroup>
         get() = _current
-    private val _current = SingleLiveEvent<PluginGroup>()
+    private val _current = com.pluto.utilities.SingleLiveEvent<PluginGroup>()
 
     fun set(group: PluginGroup) {
         _current.postValue(group)

@@ -16,7 +16,7 @@ internal class JsonTransformer : BaseTransformer {
             val jsonObject = moshiAnyAdapter.fromJson(plain.toString())
             moshiAnyAdapter.indent(INDENTATION_TEXT).toJson(jsonObject)
         } catch (e: Exception) {
-            DebugLog.e(LOGTAG, "json parsing failed", e)
+            com.pluto.utilities.DebugLog.e(LOGTAG, "json parsing failed", e)
             plain
         }
     }

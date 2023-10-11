@@ -19,11 +19,11 @@ internal class UIViewModel(application: Application) : AndroidViewModel(applicat
 
     val tableGridView: LiveData<HorizontalScrollView>
         get() = _tableGridView
-    private val _tableGridView = SingleLiveEvent<HorizontalScrollView>()
+    private val _tableGridView = com.pluto.utilities.SingleLiveEvent<HorizontalScrollView>()
 
     val rowEditView: LiveData<Pair<List<DataEditWidget>, LinearLayout>>
         get() = _rowEditView
-    private val _rowEditView = SingleLiveEvent<Pair<List<DataEditWidget>, LinearLayout>>()
+    private val _rowEditView = com.pluto.utilities.SingleLiveEvent<Pair<List<DataEditWidget>, LinearLayout>>()
 
     @SuppressWarnings("LongParameterList")
     fun generateTableGridView(

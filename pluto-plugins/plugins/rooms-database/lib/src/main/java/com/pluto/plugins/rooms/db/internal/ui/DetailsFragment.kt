@@ -216,7 +216,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                 findNavController().navigate(
                     R.id.openQueryErrorDialog, bundleOf(QueryErrorFragment.ERROR_MESSAGE to exception.message)
                 )
-                DebugLog.e(LOG_TAG, "error while fetching from table", exception)
+                com.pluto.utilities.DebugLog.e(LOG_TAG, "error while fetching from table", exception)
             }
         }
         setupFilterUi()

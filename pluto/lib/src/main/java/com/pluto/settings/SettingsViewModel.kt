@@ -15,7 +15,7 @@ internal class SettingsViewModel(application: Application) : AndroidViewModel(ap
         get() = _list
     private val _list = MutableLiveData<List<ListItem>>()
 
-    val resetAll = SingleLiveEvent<Boolean>()
+    val resetAll = com.pluto.utilities.SingleLiveEvent<Boolean>()
 
     init {
         generate(getApplication())

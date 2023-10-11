@@ -48,7 +48,7 @@ internal class AnrSupervisorRunnable : Runnable {
 
         while (!Thread.interrupted()) {
             try {
-                DebugLog.d(LOGTAG, "Check for ANR...")
+                com.pluto.utilities.DebugLog.d(LOGTAG, "Check for ANR...")
 
                 // Create new callback
                 val callback = AnrSupervisorCallback()
@@ -69,7 +69,7 @@ internal class AnrSupervisorRunnable : Runnable {
                         /** Wait until the thread responds again */
                         callback.wait()
                     } else {
-                        DebugLog.d(LOGTAG, "UI Thread responded within 1s")
+                        com.pluto.utilities.DebugLog.d(LOGTAG, "UI Thread responded within 1s")
                     }
                 }
                 // Check if stopped
@@ -83,7 +83,7 @@ internal class AnrSupervisorRunnable : Runnable {
 
         // Set stop completed flag
         isStopped = true
-        DebugLog.d(LOGTAG, "ANR supervision stopped")
+        com.pluto.utilities.DebugLog.d(LOGTAG, "ANR supervision stopped")
     }
 
     private fun persistException(thread: Thread, exception: ANRException) {
@@ -113,7 +113,7 @@ internal class AnrSupervisorRunnable : Runnable {
      */
     @Synchronized
     fun stop() {
-        DebugLog.d(LOGTAG, "Stopping...")
+        com.pluto.utilities.DebugLog.d(LOGTAG, "Stopping...")
         mStopped = true
     }
 
@@ -122,7 +122,7 @@ internal class AnrSupervisorRunnable : Runnable {
      */
     @Synchronized
     fun unstop() {
-        DebugLog.d(LOGTAG, "Revert stopping...")
+        com.pluto.utilities.DebugLog.d(LOGTAG, "Revert stopping...")
         mStopped = false
     }
 

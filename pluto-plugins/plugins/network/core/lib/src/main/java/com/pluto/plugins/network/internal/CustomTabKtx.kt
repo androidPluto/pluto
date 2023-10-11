@@ -40,7 +40,7 @@ internal fun Activity.customTab(uri: Uri) {
 //        Pluto.activity.customTabOpened()
         this.startActivityForResult(customTabIntent.intent, IN_APP_BROWSER_RESULT_CODE)
     } catch (e: ActivityNotFoundException) {
-        DebugLog.e("chrome-tab", "not able to handle request", e)
+        com.pluto.utilities.DebugLog.e("chrome-tab", "not able to handle request", e)
         checkAndOpenSupportedApp(uri)
     }
 }
@@ -48,7 +48,7 @@ internal fun Activity.customTab(uri: Uri) {
 internal fun Context.bindCustomTab(uri: Uri?) {
     val serviceConnection = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(name: ComponentName, mClient: CustomTabsClient) {
-            DebugLog.d("Service", "Connected")
+            com.pluto.utilities.DebugLog.d("Service", "Connected")
             mClient.warmup(0L)
             val callback = object : CustomTabsCallback() {}
             val session = mClient.newSession(callback)!!
@@ -58,7 +58,7 @@ internal fun Context.bindCustomTab(uri: Uri?) {
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
-            DebugLog.d("Service", "Disconnected")
+            com.pluto.utilities.DebugLog.d("Service", "Disconnected")
         }
     }
     CustomTabsClient.bindCustomTabsService(this, CHROME_PACKAGE_NAME, serviceConnection)

@@ -1,12 +1,7 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
 }
-
-apply from: "$rootDir/scripts/build/utils.gradle"
-
-def verCode, verName, verBuild, verNameShort, verPublish
-(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -16,12 +11,9 @@ android {
         viewBinding true
     }
 
-
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-
-        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
     buildTypes {
@@ -31,24 +23,33 @@ android {
             shrinkResources false
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = '1.8'
     }
 
-    resourcePrefix 'demo___'
-    namespace 'com.demo.plugin'
+    resourcePrefix 'pluto___'
+    namespace 'com.pluto.utilities'
     lint {
         abortOnError false
     }
 }
 
 dependencies {
-    implementation project(path: ':pluto-plugins:base:lib')
-    implementation project(path: ':utilities')
+    api "androidx.core:core-ktx:$androidXCoreVersion"
+    api 'androidx.appcompat:appcompat:1.4.0'
+
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.constraintlayout:constraintlayout:2.1.2'
+    api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
+
+    api 'com.google.android.material:material:1.6.1'
+
+    api 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }
