@@ -172,7 +172,7 @@ internal class EditFragment : BottomSheetDialogFragment() {
                     R.id.openQueryErrorDialog,
                     bundleOf(ERROR_MESSAGE to exception.message)
                 )
-                com.pluto.utilities.DebugLog.e(LOG_TAG, "error while editing the table", exception)
+                DebugLog.e(LOG_TAG, "error while editing the table", exception)
             }
         }
     }

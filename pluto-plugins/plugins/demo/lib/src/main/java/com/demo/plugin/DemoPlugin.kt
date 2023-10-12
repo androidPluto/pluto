@@ -29,7 +29,7 @@ class DemoPlugin() : Plugin(ID) {
     override fun getView(): Fragment = DemoFragment()
 
     override fun onPluginInstalled() {
-        com.pluto.utilities.DebugLog.d("demo_plugin", "$ID installed")
+        DebugLog.d("demo_plugin", "$ID installed")
     }
 
     override fun onPluginDataCleared() {
