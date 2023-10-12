@@ -12,7 +12,7 @@ import okio.IOException
 
 internal fun RequestBody.processBody(gzipped: Boolean): Body? {
     return contentType()?.let {
-        com.pluto.utilities.DebugLog.e(LOG_TAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
+        DebugLog.e(LOG_TAG, "request : ${it.type}, ${it.subtype}, ${it.charset()}")
         Body(
             body = if (it.isText()) extractBody(gzipped) else BINARY_BODY,
             contentType = it.toString()
@@ -22,7 +22,7 @@ internal fun RequestBody.processBody(gzipped: Boolean): Body? {
 
 internal fun ResponseBody?.processBody(buffer: Buffer): Body? {
     return this?.contentType()?.let {
-        com.pluto.utilities.DebugLog.e(LOG_TAG, "response  : ${it.type}, ${it.subtype}, ${it.charset()}")
+        DebugLog.e(LOG_TAG, "response  : ${it.type}, ${it.subtype}, ${it.charset()}")
         Body(
             body = if (it.isText()) buffer.readString(it.charset(UTF8) ?: UTF8) else BINARY_BODY,
             contentType = it.toString()
@@ -40,7 +40,7 @@ private fun RequestBody.extractBody(gzipped: Boolean): CharSequence {
             buffer.readUtf8()
         }
     } catch (e: IOException) {
-        com.pluto.utilities.DebugLog.e(LOG_TAG, "request body parsing failed", e)
+        DebugLog.e(LOG_TAG, "request body parsing failed", e)
         ""
     }
 }

@@ -22,7 +22,7 @@ internal class FormEncodedTransformer : BaseTransformer {
             }
             stringBuilder
         } catch (e: Exception) {
-            com.pluto.utilities.DebugLog.e(LOGTAG, "error while beautifying form url encoded body", e)
+            DebugLog.e(LOGTAG, "error while beautifying form url encoded body", e)
             plain
         }
     }
@@ -41,7 +41,7 @@ internal class FormEncodedTransformer : BaseTransformer {
             }
             stringBuilder.toString()
         } catch (e: Exception) {
-            com.pluto.utilities.DebugLog.e(LOGTAG, "error while beautifying form url encoded body", e)
+            DebugLog.e(LOGTAG, "error while beautifying form url encoded body", e)
             plain.toString()
         }
     }

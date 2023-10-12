@@ -10,7 +10,7 @@ internal class InspectViewModel(application: Application) : AndroidViewModel(app
 
     val view: LiveData<View>
         get() = _view
-    private val _view = com.pluto.utilities.SingleLiveEvent<View>()
+    private val _view = SingleLiveEvent<View>()
 
     fun select(view: View) {
         _view.postValue(view)

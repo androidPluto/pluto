@@ -13,7 +13,7 @@ internal fun ByteArray.unzipToString(): String {
     return try {
         String(this.unzip()!!, Charset.defaultCharset())
     } catch (e: Throwable) {
-        com.pluto.utilities.DebugLog.e(LOG_TAG, "ByteArray.unzipToString", e)
+        DebugLog.e(LOG_TAG, "ByteArray.unzipToString", e)
         ""
     }
 }
@@ -23,7 +23,7 @@ private fun InputStream?.unzip(): ByteArray? {
         return try {
             this?.readBytes().unzip()
         } catch (e: IOException) {
-            com.pluto.utilities.DebugLog.e(LOG_TAG, "doUnZip 1", e)
+            DebugLog.e(LOG_TAG, "doUnZip 1", e)
             null
         }
     }
@@ -36,13 +36,13 @@ private fun InputStream?.unzip(): ByteArray? {
         gzipStream.copyTo(bos)
         bytes = bos.toByteArray()
     } catch (e: IOException) {
-        com.pluto.utilities.DebugLog.e(LOG_TAG, "error while unzip", e)
+        DebugLog.e(LOG_TAG, "error while unzip", e)
     } finally {
         try {
             gzipStream?.close()
             bos?.close()
         } catch (e: IOException) {
-            com.pluto.utilities.DebugLog.e(LOG_TAG, "error while closing stream", e)
+            DebugLog.e(LOG_TAG, "error while closing stream", e)
         }
     }
     return bytes
@@ -57,7 +57,7 @@ private fun ByteArray?.unzip(): ByteArray? {
         try {
             stream?.close()
         } catch (e: IOException) {
-            com.pluto.utilities.DebugLog.e(LOG_TAG, "error while closing zippedMessage stream", e)
+            DebugLog.e(LOG_TAG, "error while closing zippedMessage stream", e)
         }
     }
 }

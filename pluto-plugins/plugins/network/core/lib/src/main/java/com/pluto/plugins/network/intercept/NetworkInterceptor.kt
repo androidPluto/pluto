@@ -41,7 +41,7 @@ class NetworkInterceptor private constructor(private val request: NetworkData.Re
     }
 
     fun onError(e: IOException) {
-        com.pluto.utilities.DebugLog.e("pluto.network", "error occurred", e)
+        DebugLog.e("pluto.network", "error occurred", e)
         apiCallData.exception = e.asExceptionData()
         NetworkCallsRepo.set(apiCallData)
     }
