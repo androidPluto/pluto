@@ -8,7 +8,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentGroupSelectorBinding
 import com.pluto.plugin.Plugin
@@ -28,6 +27,7 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
     private val binding by viewBinding(PlutoFragmentGroupSelectorBinding::bind)
     private val pluginsGroupViewModel by activityViewModels<PluginsGroupViewModel>()
     private val pluginAdapter: BaseAdapter by lazy { PluginGroupAdapter(onActionListener) }
+    private lateinit var selectorUtils: SelectorUtils
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto___fragment_group_selector, container, false)
@@ -36,6 +36,7 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        selectorUtils = SelectorUtils(this)
 
         binding.list.apply {
             adapter = pluginAdapter
@@ -56,34 +57,9 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
         }
     }
 
-    @SuppressWarnings("NestedBlockDepth")
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
-            if (data is ListWrapper<*>) {
-                when (data.get()) {
-                    is Plugin -> when (action) {
-                        "click" -> {
-                            val plugin = data.get() as Plugin
-                            Pluto.open(plugin.identifier)
-                            activity?.finish()
-                        }
-
-                        "long_click" -> {
-                            val plugin = data.get() as Plugin
-                            val devDetailsFragment = DevDetailsFragment()
-                            devDetailsFragment.arguments = Bundle().apply {
-                                putString("name", plugin.getConfig().name)
-                                putInt("icon", plugin.getConfig().icon)
-                                putString("version", plugin.getConfig().version)
-                                putString("website", plugin.getDeveloperDetails()?.website)
-                                putString("vcs", plugin.getDeveloperDetails()?.vcsLink)
-                                putString("twitter", plugin.getDeveloperDetails()?.twitter)
-                            }
-                            devDetailsFragment.show(childFragmentManager, "devDetails")
-                        }
-                    }
-                }
-            }
+            selectorUtils.onSelect(action, data)
         }
     }
 
