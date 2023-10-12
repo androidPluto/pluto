@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import com.pluto.R
 import com.pluto.databinding.PlutoItemPluginGroupBinding
 import com.pluto.plugin.PluginGroup
+import com.pluto.ui.ListWrapper
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
@@ -18,9 +19,10 @@ internal class PluginGroupItemHolder(parent: ViewGroup, actionListener: DiffAwar
     private val icon = binding.icon
 
     override fun onBind(item: ListItem) {
-        if (item is PluginGroup) {
-            icon.setImageResource(item.getConfig().icon)
-            name.text = item.getConfig().name
+        if (item is ListWrapper<*> && item.get() is PluginGroup) {
+            val group = item.get() as PluginGroup
+            icon.setImageResource(group.getConfig().icon)
+            name.text = group.getConfig().name
             binding.root.setOnDebounceClickListener {
                 onAction("click")
             }

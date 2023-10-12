@@ -14,6 +14,7 @@ import com.pluto.databinding.PlutoFragmentGroupSelectorBinding
 import com.pluto.plugin.Plugin
 import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.selector.PluginGroupAdapter
+import com.pluto.ui.ListWrapper
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
@@ -48,28 +49,38 @@ internal class GroupSelectorFragment : BottomSheetDialogFragment() {
 
     private val pluginGroupObserver = Observer<PluginGroup> {
         binding.title.text = it.getConfig().name
-        pluginAdapter.list = it.installedPlugins
+        pluginAdapter.list = arrayListOf<ListWrapper<Plugin>>().apply {
+            it.installedPlugins.forEach { plugin ->
+                add(ListWrapper(plugin))
+            }
+        }
     }
 
+    @SuppressWarnings("NestedBlockDepth")
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
-            when (data) {
-                is Plugin -> when (action) {
-                    "click" -> {
-                        Pluto.open(data.identifier)
-                        activity?.finish()
-                    }
-                    "long_click" -> {
-                        val devDetailsFragment = DevDetailsFragment()
-                        devDetailsFragment.arguments = Bundle().apply {
-                            putString("name", data.getConfig().name)
-                            putInt("icon", data.getConfig().icon)
-                            putString("version", data.getConfig().version)
-                            putString("website", data.getDeveloperDetails()?.website)
-                            putString("vcs", data.getDeveloperDetails()?.vcsLink)
-                            putString("twitter", data.getDeveloperDetails()?.twitter)
+            if (data is ListWrapper<*>) {
+                when (data.get()) {
+                    is Plugin -> when (action) {
+                        "click" -> {
+                            val plugin = data.get() as Plugin
+                            Pluto.open(plugin.identifier)
+                            activity?.finish()
                         }
-                        devDetailsFragment.show(childFragmentManager, "devDetails")
+
+                        "long_click" -> {
+                            val plugin = data.get() as Plugin
+                            val devDetailsFragment = DevDetailsFragment()
+                            devDetailsFragment.arguments = Bundle().apply {
+                                putString("name", plugin.getConfig().name)
+                                putInt("icon", plugin.getConfig().icon)
+                                putString("version", plugin.getConfig().version)
+                                putString("website", plugin.getDeveloperDetails()?.website)
+                                putString("vcs", plugin.getDeveloperDetails()?.vcsLink)
+                                putString("twitter", plugin.getDeveloperDetails()?.twitter)
+                            }
+                            devDetailsFragment.show(childFragmentManager, "devDetails")
+                        }
                     }
                 }
             }

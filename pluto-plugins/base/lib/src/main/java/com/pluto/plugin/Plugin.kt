@@ -3,10 +3,10 @@ package com.pluto.plugin
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
-import com.pluto.utilities.DebugLog
-import com.pluto.utilities.extensions.toast
 
 @Keep
 abstract class Plugin(val identifier: String) : PluginEntity(identifier) {
@@ -49,8 +49,8 @@ abstract class Plugin(val identifier: String) : PluginEntity(identifier) {
     abstract fun onPluginInstalled()
     abstract fun onPluginDataCleared()
 
+    @SuppressWarnings("UnusedPrivateMember")
     fun onPluginViewCreated(savedInstanceState: Bundle?) {
-        DebugLog.d("pluto_plugin", "view switched :: ${getConfig().name} : $savedInstanceState")
-        context.toast("View switched to ${getConfig().name}")
+        Toast.makeText(context, "View switched to ${getConfig().name}", LENGTH_SHORT).show()
     }
 }

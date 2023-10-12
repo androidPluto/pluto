@@ -2,14 +2,15 @@ package com.pluto.plugin.selector
 
 import android.view.ViewGroup
 import com.pluto.plugin.Plugin
+import com.pluto.ui.ListWrapper
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 
 internal class PluginGroupAdapter(private val listener: OnActionListener) : BaseAdapter() {
     override fun getItemViewType(item: ListItem): Int? {
-        return when (item) {
-            is Plugin -> ITEM_TYPE_PLUGIN
+        return when {
+            item is ListWrapper<*> && item.get() is Plugin -> ITEM_TYPE_PLUGIN
             else -> null
         }
     }

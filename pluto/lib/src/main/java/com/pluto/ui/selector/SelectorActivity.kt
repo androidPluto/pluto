@@ -30,6 +30,7 @@ import com.pluto.settings.SettingsViewModel
 import com.pluto.tool.PlutoTool
 import com.pluto.tool.ToolsViewModel
 import com.pluto.tool.selector.ToolAdapter
+import com.pluto.ui.ListWrapper
 import com.pluto.utilities.extensions.canDrawOverlays
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.openOverlaySettings
@@ -56,7 +57,6 @@ class SelectorActivity : FragmentActivity() {
         binding = PlutoActivityPluginSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         overridePendingTransition(R.anim.pluto___slide_in_bottom, R.anim.pluto___slide_out_bottom)
-
         binding.list.apply {
             adapter = pluginAdapter
             layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
@@ -112,7 +112,11 @@ class SelectorActivity : FragmentActivity() {
     }
 
     private val pluginListObserver = Observer<List<PluginEntity>> {
-        pluginAdapter.list = it
+        pluginAdapter.list = arrayListOf<ListWrapper<PluginEntity>>().apply {
+            it.forEach { entity ->
+                add(ListWrapper(entity))
+            }
+        }
         if (it.isNullOrEmpty()) {
             binding.noPluginView.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
         }
@@ -133,33 +137,37 @@ class SelectorActivity : FragmentActivity() {
         }
     }
 
+    @SuppressWarnings("NestedBlockDepth")
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
-                is Plugin -> when (action) {
-                    "click" -> {
-                        Pluto.open(data.identifier)
-                        finish()
-                    }
-
-                    "long_click" -> {
-                        val devDetailsFragment = DevDetailsFragment()
-                        devDetailsFragment.arguments = Bundle().apply {
-                            putString("name", data.getConfig().name)
-                            putInt("icon", data.getConfig().icon)
-                            putString("version", data.getConfig().version)
-                            putString("website", data.getDeveloperDetails()?.website)
-                            putString("vcs", data.getDeveloperDetails()?.vcsLink)
-                            putString("twitter", data.getDeveloperDetails()?.twitter)
+                is ListWrapper<*> -> when (data.get()) {
+                    is Plugin -> when (action) {
+                        "click" -> {
+                            Pluto.open((data.get() as Plugin).identifier)
+                            finish()
                         }
-                        devDetailsFragment.show(supportFragmentManager, "devDetails")
-                    }
-                }
 
-                is PluginGroup -> {
-                    pluginsGroupViewModel.set(data)
-                    val groupSelectorFragment = GroupSelectorFragment()
-                    groupSelectorFragment.show(supportFragmentManager, "groupSelector")
+                        "long_click" -> {
+                            val plugin = data.get() as Plugin
+                            val devDetailsFragment = DevDetailsFragment()
+                            devDetailsFragment.arguments = Bundle().apply {
+                                putString("name", plugin.getConfig().name)
+                                putInt("icon", plugin.getConfig().icon)
+                                putString("version", plugin.getConfig().version)
+                                putString("website", plugin.getDeveloperDetails()?.website)
+                                putString("vcs", plugin.getDeveloperDetails()?.vcsLink)
+                                putString("twitter", plugin.getDeveloperDetails()?.twitter)
+                            }
+                            devDetailsFragment.show(supportFragmentManager, "devDetails")
+                        }
+                    }
+
+                    is PluginGroup -> {
+                        pluginsGroupViewModel.set(data.get() as PluginGroup)
+                        val groupSelectorFragment = GroupSelectorFragment()
+                        groupSelectorFragment.show(supportFragmentManager, "groupSelector")
+                    }
                 }
 
                 is PlutoTool -> {

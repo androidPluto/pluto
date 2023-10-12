@@ -32,7 +32,7 @@ internal class CrashItemHolder(
                         context.apply {
                             append(
                                 fontColor(
-                                    getString(R.string.pluto_excep___anr_list_title), color(com.pluto.plugin.R.color.pluto___text_dark_80)
+                                    getString(R.string.pluto_excep___anr_list_title), color(R.color.pluto___text_dark_80)
                                 )
                             )
                         }
@@ -44,7 +44,7 @@ internal class CrashItemHolder(
                         append(
                             fontColor(
                                 "line:${item.data.exception.lineNumber}",
-                                context.color(com.pluto.plugin.R.color.pluto___text_dark_60)
+                                context.color(R.color.pluto___text_dark_60)
                             )
                         )
                     }
