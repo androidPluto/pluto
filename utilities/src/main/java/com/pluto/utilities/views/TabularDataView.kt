@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugin.databinding.PlutoViewTabularDataBinding
+import com.pluto.utilities.databinding.PlutoViewTabularDataBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairData
 import com.pluto.utilities.views.keyvalue.KeyValuePairView
 

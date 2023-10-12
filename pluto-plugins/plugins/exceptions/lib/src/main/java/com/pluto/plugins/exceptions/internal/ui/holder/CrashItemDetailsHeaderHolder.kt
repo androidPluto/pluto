@@ -36,7 +36,7 @@ internal class CrashItemDetailsHeaderHolder(
                     append("\n\t\t\t")
                     append(
                         fontColor(
-                            " at  ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                            " at  ", context.color(R.color.pluto___text_dark_40)
                         )
                     )
                     append(it)
@@ -45,7 +45,7 @@ internal class CrashItemDetailsHeaderHolder(
                 if (extraTrace > 0) {
                     append(
                         fontColor(
-                            "\n\t\t\t + $extraTrace more lines", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                            "\n\t\t\t + $extraTrace more lines", context.color(R.color.pluto___text_dark_40)
                         )
                     )
                 }

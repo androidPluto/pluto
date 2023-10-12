@@ -29,6 +29,6 @@ include ':pluto-plugins:plugins:network:interceptor-okhttp:lib'
 include ':pluto-plugins:plugins:network:interceptor-okhttp:lib-no-op'
 include ':pluto-plugins:plugins:network:interceptor-ktor:lib'
 include ':pluto-plugins:plugins:network:interceptor-ktor:lib-no-op'
-/* ui plugin modules */
-//include ':pluto-plugins:plugins-ui:bundle:lib'
-//include ':pluto-plugins:plugins-ui:bundle:lib-no-op'
+
+/* local utilities */
+include ':utilities'

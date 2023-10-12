@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.pluto.plugin.R
-import com.pluto.plugin.databinding.PlutoViewKeyValuePairBinding
+import com.pluto.utilities.R
+import com.pluto.utilities.databinding.PlutoViewKeyValuePairBinding
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan

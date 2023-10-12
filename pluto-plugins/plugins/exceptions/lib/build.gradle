@@ -62,6 +62,7 @@ android {
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(path: ':pluto-plugins:base:lib')
+    implementation project(path: ':utilities')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
 
     implementation "com.squareup.moshi:moshi:$moshiVersion"

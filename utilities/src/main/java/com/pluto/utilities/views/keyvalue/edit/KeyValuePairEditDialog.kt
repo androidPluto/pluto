@@ -13,8 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.pluto.plugin.R
-import com.pluto.plugin.databinding.PlutoFragmentKeyValuePairEditBinding
+import com.pluto.utilities.R
+import com.pluto.utilities.databinding.PlutoFragmentKeyValuePairEditBinding
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp

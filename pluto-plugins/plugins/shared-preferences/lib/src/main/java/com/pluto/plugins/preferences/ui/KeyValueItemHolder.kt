@@ -36,7 +36,7 @@ internal class KeyValueItemHolder(
                 }
             } else {
                 itemView.context.createSpan {
-                    append(fontColor(light(italic("null")), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
+                    append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
                 }
             }
             item.value?.let { value.text = it.toString() }

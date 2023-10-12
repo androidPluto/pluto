@@ -33,10 +33,10 @@ internal class CrashItemDetailsThreadHolder(
                     key = context.getString(R.string.pluto_excep___thread_name_label),
                     value = context.createSpan {
                         append(semiBold("${item.name.uppercase()}\t"))
-                        append(fontColor("(", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
-                        append(fontColor("id: ", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
-                        append(bold(fontColor("${item.id}", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
-                        append(fontColor(")", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
+                        append(fontColor("(", context.color(R.color.pluto___text_dark_60)))
+                        append(fontColor("id: ", context.color(R.color.pluto___text_dark_60)))
+                        append(bold(fontColor("${item.id}", context.color(R.color.pluto___text_dark_60))))
+                        append(fontColor(")", context.color(R.color.pluto___text_dark_60)))
                     }
                 )
             )

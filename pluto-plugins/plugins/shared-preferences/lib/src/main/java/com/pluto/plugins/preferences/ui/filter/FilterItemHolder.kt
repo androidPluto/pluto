@@ -26,7 +26,7 @@ internal class FilterItemHolder(
         if (item is SharedPrefFile) {
             title.setSpan {
                 if (item.isDefault) {
-                    append(italic(light(fontColor(item.label, context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))))
+                    append(italic(light(fontColor(item.label, context.color(R.color.pluto___text_dark_60)))))
                 } else {
                     append(item.label)
                 }
