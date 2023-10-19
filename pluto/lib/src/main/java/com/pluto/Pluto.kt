@@ -15,13 +15,13 @@ import com.pluto.plugin.PluginGroup
 import com.pluto.plugin.PluginManager
 import com.pluto.plugin.libinterface.NotificationInterface.Companion.BUNDLE_LABEL
 import com.pluto.plugin.libinterface.NotificationInterface.Companion.ID_LABEL
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.settings.ResetDataCallback
 import com.pluto.tool.ToolManager
 import com.pluto.ui.container.PlutoActivity
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.ui.selector.SelectorStateCallback
 import com.pluto.utilities.extensions.toast
-import com.pluto.utilities.settings.SettingsPreferences
 
 object Pluto {
 

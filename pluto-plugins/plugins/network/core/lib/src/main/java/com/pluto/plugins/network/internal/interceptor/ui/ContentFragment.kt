@@ -9,14 +9,14 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.share.Shareable
+import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentContentBinding
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.showKeyboard
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.share.Shareable
-import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import kotlinx.parcelize.Parcelize

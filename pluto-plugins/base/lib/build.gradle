@@ -19,6 +19,10 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
@@ -47,6 +51,13 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':utilities')
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation 'androidx.appcompat:appcompat:1.4.0'
+
+    api 'androidx.constraintlayout:constraintlayout:2.1.2'
+    api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
+
+    api 'com.google.android.material:material:1.6.1'
 }

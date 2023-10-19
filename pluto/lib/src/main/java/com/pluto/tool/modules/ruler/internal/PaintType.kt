@@ -5,10 +5,10 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import androidx.core.content.res.ResourcesCompat
 import com.pluto.R
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
-import com.pluto.utilities.settings.SettingsPreferences
 
 internal data class PaintType(val context: Context) {
 

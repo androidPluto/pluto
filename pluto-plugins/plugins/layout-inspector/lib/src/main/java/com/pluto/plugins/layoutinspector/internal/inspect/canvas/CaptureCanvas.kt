@@ -5,11 +5,11 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.internal.inspect.InspectedView
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
-import com.pluto.utilities.settings.SettingsPreferences
 
 internal class CaptureCanvas(private val container: View) {
 

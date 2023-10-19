@@ -10,6 +10,9 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.pluto.plugin.share.ContentShareViewModel
+import com.pluto.plugin.share.Shareable
+import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.plugins.layoutinspector.databinding.PlutoLiFragmentViewAttrBinding
 import com.pluto.plugins.layoutinspector.internal.ActivityLifecycle
@@ -27,9 +30,6 @@ import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.share.ContentShareViewModel
-import com.pluto.utilities.share.Shareable
-import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
