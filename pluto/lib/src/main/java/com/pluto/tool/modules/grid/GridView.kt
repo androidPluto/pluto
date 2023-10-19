@@ -5,9 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.view.View
 import com.pluto.R
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
-import com.pluto.utilities.settings.SettingsPreferences
 
 internal class GridView(context: Context) : View(context) {
     private val gridPaint = object : Paint(ANTI_ALIAS_FLAG) {

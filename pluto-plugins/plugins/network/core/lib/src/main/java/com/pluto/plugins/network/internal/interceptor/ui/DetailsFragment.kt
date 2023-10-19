@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.share.Shareable
+import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkFragmentDetailsBinding
 import com.pluto.plugins.network.intercept.NetworkData
@@ -23,8 +25,6 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.onBackPressed
 import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.share.Shareable
-import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.spannable.setSpan
 import com.pluto.utilities.viewBinding
 import io.ktor.http.Url

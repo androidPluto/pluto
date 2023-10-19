@@ -3,10 +3,10 @@ package com.pluto.plugins.layoutinspector.internal.inspect.canvas
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.view.View
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.plugins.layoutinspector.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp2px
-import com.pluto.utilities.settings.SettingsPreferences
 
 internal class GridCanvas(private val container: View) {
     private val gridPaint: Paint = object : Paint() {

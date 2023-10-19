@@ -8,6 +8,9 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.pluto.plugin.share.ContentShareViewModel
+import com.pluto.plugin.share.Shareable
+import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.rooms.db.R
 import com.pluto.plugins.rooms.db.databinding.PlutoRoomsFragmentTableSchemaBinding
 import com.pluto.plugins.rooms.db.internal.ColumnModel
@@ -17,9 +20,6 @@ import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.setList
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.share.ContentShareViewModel
-import com.pluto.utilities.share.Shareable
-import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 
 internal class TableSchemaFragment : BottomSheetDialogFragment() {

@@ -1,4 +1,4 @@
-package com.pluto.utilities.settings
+package com.pluto.plugin.settings
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,7 +14,7 @@ object SettingsPreferences {
     }
 
     fun init(context: Context) {
-        this._settingsPrefs = context.preferences("_pluto_pref_lib_settings")
+        _settingsPrefs = context.preferences("_pluto_pref_lib_settings")
     }
 
     var isDarkThemeEnabled: Boolean

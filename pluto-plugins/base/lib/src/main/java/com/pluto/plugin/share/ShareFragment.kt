@@ -1,4 +1,4 @@
-package com.pluto.utilities.share
+package com.pluto.plugin.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pluto.utilities.R
-import com.pluto.utilities.databinding.PlutoFragmentShareBinding
+import com.pluto.plugin.R
+import com.pluto.plugin.databinding.PlutoFragmentShareBinding
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.viewBinding
 

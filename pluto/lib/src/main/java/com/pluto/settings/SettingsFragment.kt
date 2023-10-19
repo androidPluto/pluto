@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.BuildConfig
 import com.pluto.R
 import com.pluto.databinding.PlutoFragmentSettingsBinding
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.DEC_SIZE
 import com.pluto.settings.holders.SettingsGridSizeHolder.Companion.INC_SIZE
 import com.pluto.utilities.autoClearInitializer
@@ -21,7 +22,6 @@ import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
-import com.pluto.utilities.settings.SettingsPreferences
 import com.pluto.utilities.viewBinding
 
 internal class SettingsFragment : BottomSheetDialogFragment() {

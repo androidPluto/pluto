@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pluto.plugin.share.Shareable
+import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.exceptions.PlutoExceptions
 import com.pluto.plugins.exceptions.R
 import com.pluto.plugins.exceptions.databinding.PlutoExcepFragmentDetailsBinding
@@ -26,8 +28,6 @@ import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.share.Shareable
-import com.pluto.utilities.share.lazyContentSharer
 import com.pluto.utilities.viewBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

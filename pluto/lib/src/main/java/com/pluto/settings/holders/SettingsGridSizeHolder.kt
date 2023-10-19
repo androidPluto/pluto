@@ -6,13 +6,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.pluto.R
 import com.pluto.databinding.PlutoItemSettingsGridSizeBinding
+import com.pluto.plugin.settings.SettingsPreferences
 import com.pluto.settings.SettingsGridSizeEntity
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
 import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.setOnDebounceClickListener
-import com.pluto.utilities.settings.SettingsPreferences
 
 internal class SettingsGridSizeHolder(parent: ViewGroup, listener: DiffAwareAdapter.OnActionListener) :
     DiffAwareHolder(parent.inflate(R.layout.pluto___item_settings_grid_size), listener) {

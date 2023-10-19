@@ -1,4 +1,4 @@
-package com.pluto.utilities.share
+package com.pluto.plugin.share
 
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels

@@ -1,4 +1,4 @@
-package com.pluto.utilities.share.csv
+package com.pluto.plugin.share.csv
 
 class CSVFormatter private constructor() {
 
