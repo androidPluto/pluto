@@ -45,6 +45,7 @@ internal class PluginItemHolder(parent: ViewGroup, actionListener: DiffAwareAdap
                 onAction("long_click")
                 return@setOnLongClickListener true
             }
+            binding.iconCard.setCardBackgroundColor(plugin.getConfig().assentColorInt)
         }
     }
 }

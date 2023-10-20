@@ -1,5 +1,6 @@
 package com.pluto.plugins.exceptions
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
@@ -16,7 +17,8 @@ class PlutoExceptionsPlugin() : Plugin(ID) {
     override fun getConfig() = PluginConfiguration(
         name = context.getString(R.string.pluto_excep___plugin_name),
         icon = R.drawable.pluto_excep___ic_plugin_logo,
-        version = BuildConfig.VERSION_NAME
+        version = BuildConfig.VERSION_NAME,
+        assentColorInt = Color.parseColor("#FF3D00")
     )
 
     override fun getView(): Fragment = BaseFragment()

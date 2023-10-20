@@ -1,5 +1,6 @@
 package com.pluto.plugins.network
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.pluto.plugin.DeveloperDetails
 import com.pluto.plugin.Plugin
@@ -18,7 +19,8 @@ class PlutoNetworkPlugin() : Plugin(ID) {
         return PluginConfiguration(
             name = context.getString(R.string.pluto_network___plugin_name),
             icon = R.drawable.pluto_network___ic_plugin_logo,
-            version = BuildConfig.VERSION_NAME
+            version = BuildConfig.VERSION_NAME,
+            assentColorInt = Color.parseColor("#5C61F5")
         )
     }
 

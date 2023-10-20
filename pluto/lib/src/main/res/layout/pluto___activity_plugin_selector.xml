@@ -7,23 +7,23 @@
     android:layout_height="match_parent"
     android:padding="@dimen/pluto___margin_small">
 
-    <com.pluto.ui.RoundedFrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/plugins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_small"
-        android:clickable="true"
-        android:elevation="@dimen/pluto___margin_medium"
-        android:focusable="true"
+        android:layout_marginBottom="@dimen/pluto___margin_micro"
+        app:cardBackgroundColor="@color/pluto___white"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:cardElevation="@dimen/pluto___margin_micro"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/tools"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/pluto___dark_60"
             android:paddingTop="@dimen/pluto___margin_xlarge">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -57,20 +57,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.pluto.ui.RoundedFrameLayout>
+    </androidx.cardview.widget.CardView>
 
-    <com.pluto.ui.RoundedFrameLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_small"
-        android:clickable="true"
-        android:elevation="@dimen/pluto___margin_medium"
-        android:focusable="true"
+        app:cardBackgroundColor="#ebebeb"
+        app:cardCornerRadius="@dimen/pluto___margin_medium"
+        app:cardElevation="@dimen/pluto___margin_micro"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/plugins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/plugins"
-        app:rfl_corner_radius="@dimen/pluto___margin_medium">
+        app:layout_constraintTop_toTopOf="@+id/plugins">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -91,25 +91,24 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.pluto.ui.RoundedFrameLayout>
+    </androidx.cardview.widget.CardView>
 
-    <com.pluto.ui.RoundedFrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/tools"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pluto___margin_xsmall"
-        android:clickable="true"
-        android:elevation="@dimen/pluto___margin_medium"
-        android:focusable="true"
+        app:cardBackgroundColor="@color/pluto___white"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:cardElevation="@dimen/pluto___margin_micro"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/pluto___dark_60">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toolsList"
@@ -140,24 +139,24 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.pluto.ui.RoundedFrameLayout>
+    </androidx.cardview.widget.CardView>
 
-    <com.pluto.ui.RoundedFrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/bottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:elevation="@dimen/pluto___margin_medium"
-        android:focusable="true"
+        app:cardBackgroundColor="@color/pluto___white"
+        app:cardCornerRadius="@dimen/pluto___margin_xsmall"
+        app:cardElevation="@dimen/pluto___margin_micro"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rfl_corner_radius="@dimen/pluto___margin_xsmall">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/pluto___dark_60">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/version"
@@ -169,7 +168,7 @@
                 android:fontFamily="@font/muli"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
-                android:textColor="@color/pluto___white_80"
+                android:textColor="@color/pluto___dark_80"
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintBottom_toTopOf="@+id/mavenVersion"
                 app:layout_constraintStart_toStartOf="parent"
@@ -188,7 +187,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                 android:text="@string/pluto___settings"
-                android:textColor="@color/pluto___white_80"
+                android:textColor="@color/pluto___dark_80"
                 android:textSize="@dimen/pluto___text_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/version" />
@@ -198,7 +197,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFC107"
-                android:visibility="gone"
                 android:drawableEnd="@drawable/pluto___ic_chevron_right"
                 android:drawableRight="@drawable/pluto___ic_chevron_right"
                 android:ellipsize="end"
@@ -211,10 +209,11 @@
                 android:text="@string/pluto___new_version_available_text"
                 android:textColor="@color/pluto___dark_80"
                 android:textSize="@dimen/pluto___text_small"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.pluto.ui.RoundedFrameLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

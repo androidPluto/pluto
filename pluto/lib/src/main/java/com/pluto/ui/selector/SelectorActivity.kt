@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.pluto.BuildConfig
 import com.pluto.Pluto
 import com.pluto.R
 import com.pluto.core.applifecycle.AppStateCallback
@@ -74,8 +75,8 @@ class SelectorActivity : FragmentActivity() {
         }
 
         binding.version.setSpan {
-            append(fontColor(light("v"), context.color(R.color.pluto___white_40)))
-            append(regular(com.pluto.BuildConfig.VERSION_NAME))
+            append(fontColor(regular("v"), context.color(R.color.pluto___dark_60)))
+            append(semiBold(BuildConfig.VERSION_NAME))
         }
 
         binding.settings.setOnDebounceClickListener {
@@ -119,8 +120,8 @@ class SelectorActivity : FragmentActivity() {
                 add(ListWrapper(entity))
             }
         }
-        if (it.isNullOrEmpty()) {
-            binding.noPluginView.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
+        if (it.isEmpty()) {
+            binding.noPluginView.visibility = if (it.isEmpty()) VISIBLE else GONE
         }
     }
 
@@ -129,7 +130,7 @@ class SelectorActivity : FragmentActivity() {
     }
 
     private val mavenVersionObserver = Observer<String> {
-        binding.mavenVersion.isVisible = !it.isNullOrEmpty()
+        binding.mavenVersion.isVisible = it.isNotEmpty()
         binding.mavenVersion.text = String.format(getString(R.string.pluto___new_version_available_text), it)
     }
 
