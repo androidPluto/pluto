@@ -1,4 +1,9 @@
 <resources>
+    <string name="pluto___key_value_editor_title">Edit Value</string>
+    <string name="pluto___key_value_editor_description">editing value of</string>
+    <string name="pluto___key_value_editor_hint">enter value here</string>
+    <string name="pluto___key_value_editor_candidate_option_description">or choose from these options</string>
+
     <string name="pluto___share_as">Share As</string>
     <string name="pluto___share_as_text">Share as Text</string>
     <string name="pluto___share_as_file">Share as File</string>

@@ -12,7 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.widget.TextView
-import com.pluto.utilities.R
+import com.pluto.plugin.R
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.font
 import java.text.Normalizer
