@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import com.pluto.utilities.R
+import com.pluto.plugin.R
 import com.pluto.utilities.extensions.drawable
 
 class CustomItemDecorator(context: Context, private val edge: Int = 0) : ItemDecoration() {

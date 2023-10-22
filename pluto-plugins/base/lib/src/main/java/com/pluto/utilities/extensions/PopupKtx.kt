@@ -11,7 +11,7 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.forEach
-import com.pluto.utilities.R
+import com.pluto.plugin.R
 import com.pluto.utilities.spannable.createSpan
 
 @SuppressLint("RestrictedApi")
