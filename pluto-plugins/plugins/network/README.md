@@ -56,9 +56,7 @@ dependencies {
 Add interceptor in your HttpClient
 ```kotlin
 val client = HttpClient {
-...
-}.apply {
-  addPlutoKtorInterceptor()
+    install(PlutoKtorInterceptor)
 }
 ```
 <br>

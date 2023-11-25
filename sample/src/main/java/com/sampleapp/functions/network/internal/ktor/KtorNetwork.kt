@@ -1,6 +1,6 @@
 package com.sampleapp.functions.network.internal.ktor
 
-import com.pluto.plugins.network.ktor.addPlutoKtorInterceptor
+import com.pluto.plugins.network.ktor.PlutoKtorInterceptor
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -17,6 +17,5 @@ val Client = HttpClient {
     install(ContentNegotiation) {
         json()
     }
-}.apply {
-    addPlutoKtorInterceptor()
+    install(PlutoKtorInterceptor)
 }
