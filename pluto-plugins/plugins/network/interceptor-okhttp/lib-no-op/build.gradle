@@ -48,5 +48,6 @@ android {
 }
 
 dependencies {
+    implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 }

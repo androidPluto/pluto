@@ -3,9 +3,10 @@ package com.pluto.plugins.network.okhttp
 import okhttp3.OkHttpClient
 import javax.net.SocketFactory
 
+@Deprecated("add PlutoHttpInterceptor directly to OkHttpClient instead")
 fun OkHttpClient.Builder.addPlutoOkhttpInterceptor(): OkHttpClient.Builder {
     // todo add okhttp settings block here
     socketFactory(SocketFactory.getDefault())
-    addInterceptor(PlutoInterceptor())
+    addInterceptor(PlutoOkhttpInterceptor)
     return this
 }

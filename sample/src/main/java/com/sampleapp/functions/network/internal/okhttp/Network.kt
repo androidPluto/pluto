@@ -1,6 +1,6 @@
 package com.sampleapp.functions.network.internal.okhttp
 
-import com.pluto.plugins.network.okhttp.addPlutoOkhttpInterceptor
+import com.pluto.plugins.network.okhttp.PlutoOkhttpInterceptor
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +23,7 @@ object Network {
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
 //        .addInterceptor(GzipRequestInterceptor())
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-        .addPlutoOkhttpInterceptor()
+        .addInterceptor(PlutoOkhttpInterceptor)
         .build()
 
     fun <T> getService(cls: Class<T>): T {

@@ -1,5 +1,6 @@
 package com.pluto.plugins.network.ktor
 
+import androidx.annotation.Keep
 import com.pluto.plugins.network.intercept.NetworkInterceptor
 import com.pluto.plugins.network.ktor.internal.KtorRequestConverter.convert
 import com.pluto.plugins.network.ktor.internal.KtorResponseConverter.convert
@@ -38,6 +39,7 @@ fun HttpClient.addPlutoKtorInterceptor() {
     }
 }
 
+@Keep
 class PlutoKtorInterceptor {
     companion object : HttpClientPlugin<Unit, PlutoKtorInterceptor> {
 

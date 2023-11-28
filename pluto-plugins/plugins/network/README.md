@@ -39,7 +39,7 @@ dependencies {
 Add interceptor in your OkHttp Client Builder
 ```kotlin
 val client = OkHttpClient.Builder()
-  addPlutoOkhttpInterceptor()
+  .addInterceptor(PlutoOkhttpInterceptor)
   .build()
 ```
 <br>
