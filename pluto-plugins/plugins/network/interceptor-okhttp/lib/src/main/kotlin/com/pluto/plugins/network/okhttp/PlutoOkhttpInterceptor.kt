@@ -18,23 +18,22 @@ import okio.buffer
 import java.io.IOException
 
 @Keep
-internal class PlutoInterceptor : Interceptor {
-
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
-        val response: Response = try {
-            val builder = request.newBuilder().url(networkInterceptor.actualOrMockRequestUrl)
-            chain.proceed(builder.build())
-        } catch (e: IOException) {
-            networkInterceptor.onError(e)
-            throw e
-        }
-        return response.processBody { networkInterceptor.onResponse(it) }
-    }
-
-    companion object {
+class PlutoOkhttpInterceptor {
+    companion object : Interceptor {
         private const val NAME = "Okhttp"
+
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request()
+            val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
+            val response: Response = try {
+                val builder = request.newBuilder().url(networkInterceptor.actualOrMockRequestUrl)
+                chain.proceed(builder.build())
+            } catch (e: IOException) {
+                networkInterceptor.onError(e)
+                throw e
+            }
+            return response.processBody { networkInterceptor.onResponse(it) }
+        }
     }
 }
 
