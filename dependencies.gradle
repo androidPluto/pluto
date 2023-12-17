@@ -14,6 +14,6 @@ ext {
     navigationVersion = '2.4.1'
     composeCompileVersion = '1.4.7'
     composeVersion = '1.4.0'
-    composeMaterial3Version = '1.0.1'
+    composeMaterial3Version = '1.1.2'
 
 }
