@@ -1,8 +1,9 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
-    id 'org.jetbrains.kotlin.plugin.serialization' version "1.8.21"
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -11,8 +12,8 @@ def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "33.0.0"
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         viewBinding true
@@ -20,8 +21,8 @@ android {
 
     defaultConfig {
         applicationId "com.sampleapp"
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
         versionCode verCode
         versionName verPublish
 
@@ -62,12 +63,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = libs.versions.java.get()
     }
     namespace 'com.sampleapp'
 }
@@ -95,47 +96,45 @@ dependencies {
     /**
      * Other dependencies
      */
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation "androidx.core:core-ktx:$androidXCoreVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.google.material)
+    implementation(libs.androidx.annotation)
 
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.5.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation(libs.androidx.lifecycle.common)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.runtime)
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation(libs.kotlinx.coroutines.core)
 
     /**
      * Network plugin test dependency
      */
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.okhttp.logging.interceptor)
 
-    def ktor_version = "2.3.2"
-    implementation "io.ktor:ktor-client-core-jvm:$ktor_version"
-    implementation "io.ktor:ktor-client-android:$ktor_version"
-    implementation "io.ktor:ktor-client-content-negotiation:$ktor_version"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+    implementation(libs.ktor.client.core.jvm)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.okhttp)
+    implementation(libs.okio)
 
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
-    implementation 'com.squareup.okio:okio:2.10.0'
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
 
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation(libs.datastore.preferences)
+    debugImplementation(libs.leakcanary.android)
 
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    implementation(libs.androidx.navigation.fragment)
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-
-    implementation "androidx.room:room-ktx:$roomsVersion"
-    ksp "androidx.room:room-compiler:$roomsVersion"
+    implementation(libs.room)
+    ksp(libs.room.compiler)
 }

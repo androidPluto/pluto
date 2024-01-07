@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -18,8 +18,8 @@ ext {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         viewBinding true
@@ -27,8 +27,8 @@ android {
 
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
@@ -42,12 +42,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = libs.versions.java.get()
     }
 
     resourcePrefix 'pluto_logger___'
@@ -60,13 +60,13 @@ android {
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(path: ':pluto-plugins:base:lib')
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
-    api 'com.jakewharton.timber:timber:5.0.1'
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation(libs.androidx.navigation.ui)
+    api(libs.timber)
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
 
-    implementation "androidx.room:room-ktx:$roomsVersion"
-    ksp "androidx.room:room-compiler:$roomsVersion"
+    implementation(libs.room)
+    ksp(libs.room.compiler)
 }
 
 task validateChanges {

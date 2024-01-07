@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -18,16 +18,16 @@ ext {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         viewBinding true
     }
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
     }
 
@@ -40,12 +40,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = libs.versions.java.get()
     }
 
     resourcePrefix 'pluto_network___'
@@ -58,17 +58,17 @@ android {
 dependencies {
 //    implementation 'com.plutolib:plugin:2.0.0'
     implementation project(path: ':pluto-plugins:base:lib')
-    implementation "androidx.core:core-ktx:$androidXCoreVersion"
+    implementation(libs.androidx.core)
 
-    implementation 'com.squareup.okio:okio:2.10.0'
-    implementation "io.ktor:ktor-client-core-jvm:2.3.2"
+    implementation(libs.okio)
+    implementation(libs.ktor.client.core.jvm)
 
-    implementation "androidx.room:room-ktx:$roomsVersion"
-    ksp "androidx.room:room-compiler:$roomsVersion"
+    implementation(libs.room)
+    ksp(libs.room.compiler)
 
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
 
-    implementation 'androidx.browser:browser:1.4.0'
-    testImplementation 'junit:junit:4.13.2'
+    implementation(libs.androidx.browser)
+    testImplementation(libs.junit)
 }

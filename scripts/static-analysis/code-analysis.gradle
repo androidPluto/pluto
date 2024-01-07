@@ -39,6 +39,4 @@ afterEvaluate {
 
 }
 
-tasks.detekt.jvmTarget = "1.8"
-
-
+tasks.detekt.jvmTarget = libs.versions.java.get()
