@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -16,8 +16,8 @@ ext {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         viewBinding true
@@ -25,8 +25,8 @@ android {
 
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
         buildConfigField("long", "VERSION_CODE", "${verCode}")
@@ -41,12 +41,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = libs.versions.java.get()
     }
     namespace 'com.pluto.plugins.datastore.pref'
     lint {
@@ -55,6 +55,6 @@ android {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:$androidXCoreVersion"
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation(libs.androidx.core)
+    implementation(libs.datastore.preferences)
 }

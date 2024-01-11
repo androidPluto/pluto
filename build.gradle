@@ -1,27 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'io.github.gradle-nexus.publish-plugin'
-
-buildscript {
-    apply from: 'dependencies.gradle'
-    repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
-
-        // maven central dependencies
-        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.5.0'
-
-        // ktlint & detekt dependencies
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.1.0"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
-    }
+plugins {
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.gradle.nexus.publish)
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.ktlint) apply false
 }
 
 allprojects {

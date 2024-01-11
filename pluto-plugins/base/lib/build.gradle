@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 apply from: "$rootDir/scripts/build/utils.gradle"
@@ -16,16 +16,16 @@ ext {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         viewBinding true
     }
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
     }
 
     buildTypes {
@@ -36,11 +36,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = libs.versions.java.get()
     }
 
     resourcePrefix 'pluto___'
@@ -51,18 +51,17 @@ android {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:$androidXCoreVersion"
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.appcompat)
 
-    api 'androidx.constraintlayout:constraintlayout:2.1.2'
-    api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    api 'androidx.recyclerview:recyclerview:1.2.1'
+    api(libs.androidx.constraintlayout)
+    api(libs.androidx.navigation.fragment)
+    api(libs.androidx.recyclerview)
 
-    api 'com.google.android.material:material:1.6.1'
+    api(libs.google.material)
 
-    api 'androidx.cardview:cardview:1.0.0'
+    api(libs.androidx.cardview)
 
-    api 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
-    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api(libs.androidx.lifecycle.common)
+    api(libs.androidx.lifecycle.runtime)
 }
