@@ -3,6 +3,7 @@ package com.pluto
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.pluto.core.Session
 import com.pluto.core.applifecycle.AppLifecycle
 import com.pluto.core.applifecycle.AppStateCallback
@@ -44,7 +45,7 @@ object Pluto {
         initialiseCallbacks()
         this.application = application
         appLifecycle = AppLifecycle(appStateCallback)
-        application.registerActivityLifecycleCallbacks(appLifecycle)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycle)
         pluginManager = PluginManager(application).apply {
             install(plugins)
         }
