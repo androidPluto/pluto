@@ -20,7 +20,7 @@ Pluto is distributed through [***mavenCentral***](https://central.sonatype.com/a
 
 > Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
-def plutoVersion = "2.1.9"
+def plutoVersion = "2.2.1"
 
 dependencies {
   ....
