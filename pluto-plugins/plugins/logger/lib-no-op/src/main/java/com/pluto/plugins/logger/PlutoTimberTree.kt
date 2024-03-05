@@ -8,4 +8,4 @@ class PlutoTimberTree : Timber.Tree() {
 }
 
 @SuppressWarnings("UnusedPrivateMember", "EmptyFunctionBlock")
-fun Timber.Tree.event(event: String, attr: HashMap<String, Any?>?) {}
+fun Timber.Tree.event(event: String, attr: HashMap<String, Any?>? = null) {}
