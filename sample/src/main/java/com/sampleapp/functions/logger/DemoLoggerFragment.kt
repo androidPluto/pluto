@@ -45,6 +45,7 @@ class DemoLoggerFragment : Fragment(R.layout.fragment_demo_logger) {
                     "timestamp" to System.currentTimeMillis()
                 )
             )
+            PlutoLog.event("demo", "event cta clicked without attrs")
         }
 
         /**
@@ -62,6 +63,7 @@ class DemoLoggerFragment : Fragment(R.layout.fragment_demo_logger) {
                     "timestamp" to System.currentTimeMillis()
                 )
             )
+            Timber.tag("event").event("timber_event cta clicked")
         }
     }
 }

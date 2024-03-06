@@ -27,6 +27,6 @@ class PlutoLog private constructor() {
         fun wtf(tag: String, message: String, tr: Throwable? = null) {}
 
         @JvmStatic
-        fun event(tag: String, event: String, attributes: HashMap<String, Any?>?) {}
+        fun event(tag: String, event: String, attributes: HashMap<String, Any?>? = null) {}
     }
 }

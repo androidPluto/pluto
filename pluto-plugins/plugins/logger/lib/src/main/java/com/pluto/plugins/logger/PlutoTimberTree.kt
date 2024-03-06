@@ -70,8 +70,8 @@ class PlutoTimberTree : Timber.Tree() {
     }
 }
 
-fun Timber.Tree.event(event: String, attr: HashMap<String, Any?>?) {
+fun Timber.Tree.event(event: String, attributes: HashMap<String, Any?>? = null) {
     val moshi = Moshi.Builder().build()
     val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
-    log(LOG_EVENT_PRIORITY, "$event\t${moshiAdapter.toJson(attr)}")
+    log(LOG_EVENT_PRIORITY, "$event\t${moshiAdapter.toJson(attributes)}")
 }
