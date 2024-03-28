@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pluto.plugin.R
 import com.pluto.plugin.databinding.PlutoSelectorDialogBinding
+import com.pluto.utilities.SingleLiveEvent
 import com.pluto.utilities.device.Device
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.list.CustomItemDecorator
@@ -53,7 +54,7 @@ class SelectorDialog : BottomSheetDialogFragment() {
         binding.doneCta.visibility = GONE
         binding.clear.visibility = GONE
         binding.list.apply {
-            adapter = SelectorAdapter(
+            adapter = SingleSelectorAdapter(
                 object : DiffAwareAdapter.OnActionListener {
                     override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
                         if (data is SelectorOption) {
@@ -62,7 +63,6 @@ class SelectorDialog : BottomSheetDialogFragment() {
                         }
                     }
                 },
-                viewLifecycleOwner,
                 data.preSelected
             ).apply { this.list = data.list }
             addItemDecoration(CustomItemDecorator(requireContext(), DECORATOR_DIVIDER_PADDING))
@@ -70,25 +70,28 @@ class SelectorDialog : BottomSheetDialogFragment() {
     }
 
     private fun setupMultiChoiceUI(data: SelectorData<List<SelectorOption>>) {
-        val tempSelectedOption = hashSetOf<SelectorOption>().apply { addAll(data.preSelected) }
+        val tempSelectedOptionLiveData = SingleLiveEvent<List<SelectorOption>>()
+        data.preSelected.let { tempSelectedOptionLiveData.postValue(it) }
+
         binding.list.apply {
-            adapter = SelectorAdapter(
+            adapter = MultiSelectorAdapter(
                 object : DiffAwareAdapter.OnActionListener {
                     override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
                         if (data is SelectorOption) {
-                            if (!tempSelectedOption.add(data)) {
-                                tempSelectedOption.remove(data)
+                            val tempSet = tempSelectedOptionLiveData.value?.toHashSet() ?: hashSetOf()
+                            if (!tempSet.add(data)) {
+                                tempSet.remove(data)
                             }
+                            tempSelectedOptionLiveData.postValue(tempSet.toList())
                         }
                     }
                 },
-                viewLifecycleOwner,
-                tempSelectedOption.toList()
+                tempSelectedOptionLiveData
             ).apply { this.list = data.list }
             addItemDecoration(CustomItemDecorator(requireContext(), DECORATOR_DIVIDER_PADDING))
         }
         binding.doneCta.setOnDebounceClickListener {
-            selector.multiChoiceResult.postValue(tempSelectedOption.toList())
+            selector.multiChoiceResult.postValue(tempSelectedOptionLiveData.value?.toList() ?: emptyList())
             dismiss()
         }
 
