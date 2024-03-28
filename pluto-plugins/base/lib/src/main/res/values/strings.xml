@@ -9,4 +9,6 @@
     <string name="pluto___share_as_file">Share as File</string>
     <string name="pluto___share_as_copy">Copy to Clipboard</string>
     <string name="pluto___share_as_file_hint">Prefer this option while sharing on Slack.</string>
+    <string name="pluto___selector_clear">Clear</string>
+    <string name="pluto___selector_done">Done</string>
 </resources>
