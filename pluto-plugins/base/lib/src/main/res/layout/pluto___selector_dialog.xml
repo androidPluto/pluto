@@ -82,7 +82,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/cta_section"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/pluto_pref___item_filter" />
+                    tools:listitem="@layout/pluto___single_choice_selector_item" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cta_section"

@@ -43,9 +43,11 @@ class SelectorDialog : BottomSheetDialogFragment() {
             }
         }
         selector.singleChoiceData.observe(viewLifecycleOwner) {
+            binding.title.text = it.title
             setupSingleChoiceUI(it)
         }
         selector.multiChoiceData.observe(viewLifecycleOwner) {
+            binding.title.text = it.title
             setupMultiChoiceUI(it)
         }
     }

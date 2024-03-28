@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import com.pluto.utilities.SingleLiveEvent
 import com.pluto.utilities.list.ListItem
 
-abstract class Selector : ViewModel() {
+class Selector : ViewModel() {
 
     internal val singleChoiceData: LiveData<SelectorData<SelectorOption>>
         get() = _singleChoiceData
@@ -30,13 +30,13 @@ abstract class Selector : ViewModel() {
         data.addSource(multiChoiceData) { data.postValue(it) }
     }
 
-    fun selectSingle(list: List<SelectorOption>, preSelected: SelectorOption): SingleLiveEvent<SelectorOption> {
-        _singleChoiceData.postValue(SelectorData(list, preSelected))
+    fun selectSingle(title: String, list: List<SelectorOption>, preSelected: SelectorOption? = null): SingleLiveEvent<SelectorOption> {
+        _singleChoiceData.postValue(SelectorData(title, list, preSelected))
         return singleChoiceResult
     }
 
-    fun selectMultiple(list: List<SelectorOption>, preSelected: List<SelectorOption>): SingleLiveEvent<List<SelectorOption>> {
-        _multiChoiceData.postValue(SelectorData(list, preSelected))
+    fun selectMultiple(title: String, list: List<SelectorOption>, preSelected: List<SelectorOption>? = null): SingleLiveEvent<List<SelectorOption>> {
+        _multiChoiceData.postValue(SelectorData(title, list, preSelected))
         return multiChoiceResult
     }
 }
@@ -44,10 +44,9 @@ abstract class Selector : ViewModel() {
 abstract class SelectorOption : ListItem() {
     abstract fun displayText(): CharSequence
     open fun icon(): Drawable? = null
-    abstract fun isSame()
 }
 
-data class SelectorData<T>(val list: List<SelectorOption>, val preSelected: T)
+data class SelectorData<T>(val title: String, val list: List<SelectorOption>, val preSelected: T?)
 
 fun Fragment.lazySelector(): Lazy<Selector> = activityViewModels()
 

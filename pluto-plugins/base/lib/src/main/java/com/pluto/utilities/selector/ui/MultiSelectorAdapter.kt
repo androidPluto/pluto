@@ -55,6 +55,6 @@ internal class MultiSelectorItemHolder(
     }
 
     private val selectedChoicesObserver = Observer<List<SelectorOption>> {
-        binding.checkbox.isSelected = it.contains(item)
+        binding.checkbox.isSelected = it?.contains(item) ?: run { false }
     }
 }

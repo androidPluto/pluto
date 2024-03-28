@@ -12,7 +12,7 @@ import com.pluto.utilities.selector.SelectorOption
 import com.pluto.utilities.setOnDebounceClickListener
 import com.pluto.utilities.spannable.setSpan
 
-internal class SingleSelectorAdapter(private val listener: OnActionListener, private val selected: SelectorOption) : BaseAdapter() {
+internal class SingleSelectorAdapter(private val listener: OnActionListener, private val selected: SelectorOption?) : BaseAdapter() {
 
     override fun getItemViewType(item: ListItem): Int = 1
 
@@ -22,7 +22,7 @@ internal class SingleSelectorAdapter(private val listener: OnActionListener, pri
 internal class SingleSelectorItemHolder(
     parent: ViewGroup,
     listener: DiffAwareAdapter.OnActionListener,
-    private val selected: SelectorOption
+    private val selected: SelectorOption?
 ) : DiffAwareHolder(parent.inflate(R.layout.pluto___single_choice_selector_item), listener) {
 
     private val binding = PlutoSingleChoiceSelectorItemBinding.bind(itemView)
@@ -32,7 +32,7 @@ internal class SingleSelectorItemHolder(
             binding.title.setSpan {
                 append(item.displayText())
             }
-            binding.checkbox.isSelected = selected == item
+            binding.checkbox.isSelected = selected?.let { it == item } ?: run { false }
             binding.root.setOnDebounceClickListener {
                 onAction("click")
             }
