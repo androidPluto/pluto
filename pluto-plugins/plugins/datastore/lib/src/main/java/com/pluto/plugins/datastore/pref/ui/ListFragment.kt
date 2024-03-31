@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.pluto.plugin.share.Shareable
 import com.pluto.plugin.share.lazyContentSharer
+import com.pluto.plugins.datastore.pref.PreferenceHolder
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.Session
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsFragmentListBinding
@@ -74,9 +75,9 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
             list = viewModel.getPrefFiles(),
             preSelected = viewModel.getSelectedPrefFiles()
         ).observe(viewLifecycleOwner) {
-            val listOfSharePrefFiles = arrayListOf<DatastorePrefFile>()
+            val listOfSharePrefFiles = arrayListOf<PreferenceHolder>()
             it.forEach { option ->
-                if (option is DatastorePrefFile) {
+                if (option is PreferenceHolder) {
                     listOfSharePrefFiles.add(option)
                 }
             }

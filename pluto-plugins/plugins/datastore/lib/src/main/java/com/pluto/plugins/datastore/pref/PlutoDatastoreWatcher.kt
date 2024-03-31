@@ -38,8 +38,4 @@ object PlutoDatastoreWatcher {
 @Keep
 internal data class PreferenceHolder(val name: String, val preferences: DataStore<Preferences>) : SelectorOption() {
     override fun displayText(): CharSequence = name
-
-    override fun equals(other: Any?): Boolean {
-        return other is PreferenceHolder && other.name == name
-    }
 }

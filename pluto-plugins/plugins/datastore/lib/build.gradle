@@ -3,7 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
 }
-apply from: "$rootDir/scripts/pluginBuilder.gradle"
+
+apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
+
+def verCode, verName, verBuild, verNameShort, verPublish
+(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
 
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
@@ -12,8 +17,38 @@ ext {
 }
 
 android {
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildTools.get()
+
     buildFeatures {
+        viewBinding true
         compose true
+    }
+
+
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
+
+        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
+        buildConfigField("long", "VERSION_CODE", "${verCode}")
+        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+    }
+
+    kotlinOptions {
+        jvmTarget = libs.versions.java.get()
     }
 
     composeOptions {
@@ -22,6 +57,9 @@ android {
 
     resourcePrefix 'pluto_dts___'
     namespace 'com.pluto.plugins.datastore.pref'
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {

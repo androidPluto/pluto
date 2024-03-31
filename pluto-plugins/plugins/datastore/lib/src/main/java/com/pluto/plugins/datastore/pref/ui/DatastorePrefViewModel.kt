@@ -1,10 +1,11 @@
 package com.pluto.plugins.datastore.pref.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.pluto.plugins.datastore.pref.PreferenceHolder
+import com.pluto.plugins.datastore.pref.utils.DatastorePrefUtils
 
 internal class DatastorePrefViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -12,31 +13,23 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
         get() = _preferences
     private val _preferences = MutableLiveData<List<DatastorePrefKeyValuePair>>()
 
-//    private val sharePrefUtils = SharedPrefUtils(application.applicationContext)
+    private val sharePrefUtils = DatastorePrefUtils(application.applicationContext)
 
     fun refresh() {
-//        _preferences.postValue(sharePrefUtils.get())
+        _preferences.postValue(sharePrefUtils.get())
     }
 
-    fun getPrefFiles(): List<DatastorePrefFile> {
-        // sharePrefUtils.allPreferenceFiles
-        return emptyList()
-    }
+    fun getPrefFiles(): List<PreferenceHolder> = sharePrefUtils.allPreferenceFiles
 
-    fun getSelectedPrefFiles(): List<DatastorePrefFile> {
-        // sharePrefUtils.selectedPreferenceFiles]
-        return emptyList()
-    }
+    fun getSelectedPrefFiles(): List<PreferenceHolder> = sharePrefUtils.selectedPreferenceFiles
 
-    fun setSelectedPrefFiles(files: List<DatastorePrefFile>) {
-        Log.d("", files.toString())
-        // sharePrefUtils.selectedPreferenceFiles = files
+    fun setSelectedPrefFiles(files: List<PreferenceHolder>) {
+        sharePrefUtils.selectedPreferenceFiles = files
         refresh()
     }
 
     fun setPrefData(pair: DatastorePrefKeyValuePair, data: Any) {
-        Log.d("", "$pair, $data")
-        // sharePrefUtils.set(pair, data)
+        sharePrefUtils.set(pair, data)
         refresh()
     }
 }
