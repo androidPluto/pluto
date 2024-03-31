@@ -9,19 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.pluto.plugin.share.Shareable
 import com.pluto.plugin.share.lazyContentSharer
-import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.Session
-import com.pluto.plugins.datastore.pref.compose.internal.BaseViewModel
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsFragmentListBinding
-import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
 import com.pluto.plugins.datastore.pref.utils.fromEditorData
 import com.pluto.plugins.datastore.pref.utils.toEditorData
-import com.pluto.utilities.DebugLog
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
-import com.pluto.utilities.extensions.toast
 import com.pluto.utilities.list.BaseAdapter
 import com.pluto.utilities.list.CustomItemDecorator
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -33,14 +28,10 @@ import com.pluto.utilities.viewBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
 import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditor
 import com.pluto.utilities.views.keyvalue.edit.lazyKeyValuePairEditor
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
 
 internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
     private val binding by viewBinding(PlutoDtsFragmentListBinding::bind)
     private val viewModel: DatastorePrefViewModel by activityViewModels()
-    private val baseVM: BaseViewModel by activityViewModels()
     private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
     private val prefAdapter: BaseAdapter by autoClearInitializer { DatastorePrefAdapter(onActionListener) }
     private val contentSharer by lazyContentSharer()
@@ -49,12 +40,6 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.refresh()
-//        baseVM.output.value.let { list ->
-//            list.forEach {
-//                DebugLog.e("prateek", "${it.name} : ${it.data}")
-//            }
-//        }
-
         binding.list.apply {
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
@@ -73,16 +58,10 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
         }
         binding.filter.setOnDebounceClickListener { openFilterView() }
         binding.search.setText(Session.searchText)
-        viewModel.preferenceList.removeObserver(datastorePrefObserver)
-        viewModel.preferenceList.observe(viewLifecycleOwner, datastorePrefObserver)
+        viewModel.preferenceList.removeObserver(sharedPrefObserver)
+        viewModel.preferenceList.observe(viewLifecycleOwner, sharedPrefObserver)
         keyValuePairEditor.result.removeObserver(keyValuePairEditObserver)
         keyValuePairEditor.result.observe(viewLifecycleOwner, keyValuePairEditObserver)
-
-        baseVM.output.onEach { list ->
-            list.forEach {
-                DebugLog.e("prateek", "${it.name} : ${it.data}")
-            }
-        }.launchIn(lifecycleScope)
 
         binding.close.setOnDebounceClickListener {
             activity?.finish()
@@ -90,20 +69,18 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
     }
 
     private fun openFilterView() {
-        toast("selected : ${baseVM.filteredPref.value.size}")
         dataSelector.selectMultiple(
             title = getString(R.string.pluto_dts___datastore_pref_filter),
-            list = PlutoDatastoreWatcher.sources.value.toList(),
-            preSelected = baseVM.filteredPref.value.toList()
+            list = viewModel.getPrefFiles(),
+            preSelected = viewModel.getSelectedPrefFiles()
         ).observe(viewLifecycleOwner) {
-            baseVM.filteredPref.update { it }
-//            val listOfSharePrefFiles = arrayListOf<PreferenceHolder>()
-//            it.forEach { option ->
-//                if (option is PreferenceHolder) {
-//                    listOfSharePrefFiles.add(option)
-//                }
-//            }
-//            viewModel.setSelectedPrefFiles(listOfSharePrefFiles)
+            val listOfSharePrefFiles = arrayListOf<DatastorePrefFile>()
+            it.forEach { option ->
+                if (option is DatastorePrefFile) {
+                    listOfSharePrefFiles.add(option)
+                }
+            }
+            viewModel.setSelectedPrefFiles(listOfSharePrefFiles)
         }
     }
 
@@ -127,7 +104,7 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
         }
     }
 
-    private val datastorePrefObserver = Observer<List<DatastorePrefKeyValuePair>> {
+    private val sharedPrefObserver = Observer<List<DatastorePrefKeyValuePair>> {
         prefAdapter.list = filteredPrefs(binding.search.text.toString())
     }
 

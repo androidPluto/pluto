@@ -1,5 +1,6 @@
 package com.pluto.plugins.datastore.pref.utils
 
+import com.pluto.plugins.datastore.pref.ui.DatastorePrefKeyValuePair
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditInputType
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditRequest
 
