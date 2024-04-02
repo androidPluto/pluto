@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.compose.internal.PrefElement
 import com.pluto.plugins.datastore.pref.compose.internal.PrefUiModel
-import com.pluto.plugins.datastore.pref.compose.internal.Type
 
 @OptIn(ExperimentalFoundationApi::class) // for stickyHeader
 @SuppressWarnings("LongMethod")
@@ -123,17 +122,16 @@ private fun DataStorePrefItemPreview() {
             PrefUiModel(
                 prefName,
                 listOf(
-                    PrefElement(prefName, "key", "value", Type.TypeString),
-                    PrefElement(prefName, "key1", "value1", Type.TypeString),
-                    PrefElement(prefName, "key2", "value2", Type.TypeString),
-                    PrefElement(prefName, "key3", "value3", Type.TypeString),
+                    PrefElement(prefName, "key", "value"),
+                    PrefElement(prefName, "key1", "value1"),
+                    PrefElement(prefName, "key2", "value2"),
+                    PrefElement(prefName, "key3", "value3"),
                     PrefElement(
                         prefName,
                         "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
-                        "VERY VERY VERY VERY VERY very very very very Loooong value",
-                        Type.TypeString
+                        "VERY VERY VERY VERY VERY very very very very Loooong value"
                     ),
-                    PrefElement(prefName, "key5", "value5", Type.TypeString),
+                    PrefElement(prefName, "key5", "value5"),
                 )
             ),
         )

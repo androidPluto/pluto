@@ -16,7 +16,7 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
     private val sharePrefUtils = DatastorePrefUtils(application.applicationContext)
 
     fun refresh() {
-        _preferences.postValue(sharePrefUtils.get())
+        _preferences.postValue(retrieveAllPreferenceData())
     }
 
     fun getPrefFiles(): List<PreferenceHolder> = sharePrefUtils.allPreferenceFiles
@@ -31,5 +31,55 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
     fun setPrefData(pair: DatastorePrefKeyValuePair, data: Any) {
         sharePrefUtils.set(pair, data)
         refresh()
+    }
+
+    private fun retrieveAllPreferenceData(): List<DatastorePrefKeyValuePair>? {
+//        viewModelScope.launch {
+//            DebugLog.e("prateek", PlutoDatastoreWatcher.sources.value.size.toString())
+//            PlutoDatastoreWatcher.sources.map { source ->
+//                source.map { prefHolder ->
+//                    prefHolder.preferences.data
+//                        .catch { exception ->
+//                            DebugLog.e("prateek", "${prefHolder.name} : ${exception.message}")
+//                            // DataStore calls can throw an IOException when an error is encountered when reading data
+//                            if (exception is IOException) {
+//                                emit(emptyPreferences())
+//                            } else {
+//                                throw exception
+//                            }
+//                        }
+//                        .map { preferences ->
+//                            // Map Preferences to a Map<String, Any?>
+//                            preferences.asMap().mapKeys { it.key.name }.toMap()
+//                        }.collect {
+//                            DebugLog.e("prateek", "${prefHolder.name} : $it")
+//                        }
+//                }
+//
+// //                source.preferences.data
+// //                    .catch { exception ->
+// //                        DebugLog.e("prateek", "${source.name} : ${exception.message}")
+// //                        // DataStore calls can throw an IOException when an error is encountered when reading data
+// //                        if (exception is IOException) {
+// //                            emit(emptyPreferences())
+// //                        } else {
+// //                            throw exception
+// //                        }
+// //                    }
+// //                    .map { preferences ->
+// //                        // Map Preferences to a Map<String, Any?>
+// //                        preferences.asMap().mapKeys { it.key.name }.toMap()
+// //                    }.collect {
+// //                        DebugLog.e("prateek", "${source.name} : $it")
+// //                    }
+//            }.map { listFlows ->
+//                combine(
+//                    flows = listFlows,
+//                    transform = { listPreferences ->
+//                    }
+//                )
+//            }
+//        }
+        return emptyList()
     }
 }

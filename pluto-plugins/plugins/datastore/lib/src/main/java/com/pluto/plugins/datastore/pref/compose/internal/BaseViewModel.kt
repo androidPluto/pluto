@@ -1,16 +1,16 @@
 package com.pluto.plugins.datastore.pref.compose.internal
 
-import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
-import com.pluto.plugins.datastore.pref.PreferenceHolder
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -19,21 +19,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
-internal class BaseViewModel(application: Application) : AndroidViewModel(application) {
+internal class BaseViewModel : ViewModel() {
 
     internal val output = MutableStateFlow<List<PrefUiModel>>(listOf())
-    internal val filteredPref = MutableStateFlow<Set<PreferenceHolder>>(emptySet())
-//    internal val showFilterView: MutableStateFlow<Boolean> = MutableStateFlow(false)
-//    private val expandedMap = mutableMapOf<String, MutableState<Boolean>>()
+    internal val filteredPref = MutableStateFlow<Map<String, Boolean>>(mapOf())
+    internal val showFilterView: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val expandedMap = mutableMapOf<String, MutableState<Boolean>>()
 
     init {
         viewModelScope.launch {
             PlutoDatastoreWatcher.sources.map { list ->
-//                filteredPref.value = list.toList()
-//                filteredPref.value = list.associate {
-//                    it.name to (filteredPref.value[it.name] ?: true)
-//                }
-                filteredPref.value = list
+                filteredPref.value = list.associate {
+                    it.name to (filteredPref.value[it.name] ?: true)
+                }
                 list.map { prefHolder ->
                     prefHolder.preferences.data.map { pref ->
                         pref to prefHolder.name
@@ -51,21 +49,20 @@ internal class BaseViewModel(application: Application) : AndroidViewModel(applic
                                     prefName = namePrefPair.second
                                 )
                             },
-//                            isExpanded = expandedMap.getOrPut(namePrefPair.second) {
-//                                mutableStateOf(true)
-//                            }
+                            isExpanded = expandedMap.getOrPut(namePrefPair.second) {
+                                mutableStateOf(true)
+                            }
                         )
                     }
                 }
-            }.flattenMerge().combine(filteredPref) { prefList, filterList ->
-                prefList.filter { uiModel ->
-                    filterList.find { it.name == uiModel.name }?.let {
-                        true
-                    } ?: run { false }
+            }.flattenMerge()
+                .combine(filteredPref) { prefList, filterMap ->
+                    prefList.filter {
+                        filterMap[it.name] ?: true
+                    }
+                }.collect { list ->
+                    output.value = list
                 }
-            }.collect { list ->
-                output.value = list
-            }
         }
     }
 

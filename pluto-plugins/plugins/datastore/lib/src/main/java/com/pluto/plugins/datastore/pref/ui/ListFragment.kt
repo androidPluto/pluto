@@ -12,9 +12,11 @@ import com.pluto.plugin.share.lazyContentSharer
 import com.pluto.plugins.datastore.pref.PreferenceHolder
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.Session
+import com.pluto.plugins.datastore.pref.compose.internal.BaseViewModel
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsFragmentListBinding
 import com.pluto.plugins.datastore.pref.utils.fromEditorData
 import com.pluto.plugins.datastore.pref.utils.toEditorData
+import com.pluto.utilities.DebugLog
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager
@@ -29,10 +31,13 @@ import com.pluto.utilities.viewBinding
 import com.pluto.utilities.views.keyvalue.KeyValuePairEditResult
 import com.pluto.utilities.views.keyvalue.edit.KeyValuePairEditor
 import com.pluto.utilities.views.keyvalue.edit.lazyKeyValuePairEditor
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
     private val binding by viewBinding(PlutoDtsFragmentListBinding::bind)
     private val viewModel: DatastorePrefViewModel by activityViewModels()
+    private val baseVM: BaseViewModel by activityViewModels()
     private val keyValuePairEditor: KeyValuePairEditor by lazyKeyValuePairEditor()
     private val prefAdapter: BaseAdapter by autoClearInitializer { DatastorePrefAdapter(onActionListener) }
     private val contentSharer by lazyContentSharer()
@@ -41,6 +46,12 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.refresh()
+//        baseVM.output.value.let { list ->
+//            list.forEach {
+//                DebugLog.e("prateek", "${it.name} : ${it.data}")
+//            }
+//        }
+
         binding.list.apply {
             adapter = prefAdapter
             addItemDecoration(CustomItemDecorator(requireContext()))
@@ -63,6 +74,12 @@ internal class ListFragment : Fragment(R.layout.pluto_dts___fragment_list) {
         viewModel.preferenceList.observe(viewLifecycleOwner, sharedPrefObserver)
         keyValuePairEditor.result.removeObserver(keyValuePairEditObserver)
         keyValuePairEditor.result.observe(viewLifecycleOwner, keyValuePairEditObserver)
+
+        baseVM.output.onEach { list ->
+            list.forEach {
+                DebugLog.e("prateek", "${it.name} : ${it.data}")
+            }
+        }.launchIn(lifecycleScope)
 
         binding.close.setOnDebounceClickListener {
             activity?.finish()
