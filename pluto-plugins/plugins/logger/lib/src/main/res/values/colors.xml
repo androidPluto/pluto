@@ -1,41 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pluto___app_bg">#f8f8f8</color>
-    <color name="pluto___white">#ffffff</color>
-    <color name="pluto___dark">#11141c</color>
-    <color name="pluto___dark_05">#0D11141c</color>
-    <color name="pluto___dark_20">#3311141c</color>
-    <color name="pluto___dark_40">#6611141c</color>
-    <color name="pluto___dark_60">#9911141c</color>
-    <color name="pluto___dark_80">#cc11141c</color>
-
-    <color name="pluto___text_dark">#231f40</color>
-    <color name="pluto___text_dark_40">#66231f40</color>
-    <color name="pluto___text_dark_60">#99231f40</color>
-    <color name="pluto___text_dark_80">#cc231f40</color>
-    <color name="pluto___popup_background">@color/pluto___dark</color>
-    <color name="pluto___white_05">#0Dffffff</color>
-    <color name="pluto___white_20">#33ffffff</color>
-    <color name="pluto___white_40">#66ffffff</color>
-    <color name="pluto___white_60">#99ffffff</color>
-    <color name="pluto___white_80">#ccffffff</color>
-    <color name="pluto___red_dark">#e50914</color>
-    <color name="pluto___red">#ff5733</color>
-    <color name="pluto___red_05">#0Dff5733</color>
-    <color name="pluto___red_60">#99ff5733</color>
-    <color name="pluto___red_80">#ccff5733</color>
-    <color name="pluto___orange">#ff9100</color>
-    <color name="pluto___orange_05">#0Dff9100</color>
-    <color name="pluto___emerald">#009463</color>
-    <color name="pluto___teal">#20c997</color>
-    <color name="pluto___transparent">#00000000</color>
-    <color name="pluto___section_color">#eeecec</color>
-    <color name="pluto___dull_green">#73a964</color>
-    <color name="pluto___dull_green_08">#1873a964</color>
-    <color name="pluto___dull_green_05">#0D73a964</color>
-
-    <color name="pluto___bottomsheet_bg_color">#f5f5f5</color>
-    <color name="pluto___blue">#366BD1</color>
-    <color name="pluto___blue_80">#cc366BD1</color>
-    <color name="pluto___blue_40">#66366BD1</color>
+    <color name="pluto_logger___bg_bottom_panel">#0511141c</color>
 </resources>

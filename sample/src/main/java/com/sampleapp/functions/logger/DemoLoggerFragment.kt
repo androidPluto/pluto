@@ -27,25 +27,26 @@ class DemoLoggerFragment : Fragment(R.layout.fragment_demo_logger) {
         _binding = null
     }
 
+    @SuppressWarnings("StringLiteralDuplication")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         /**
          * Pluto Logs demo
          */
-        binding.logDebug.setOnClickListener { PlutoLog.d("demo", "debug cta clicked") }
-        binding.logError.setOnClickListener { PlutoLog.e("demo", "error cta clicked", NullPointerException("demo")) }
-        binding.logVerbose.setOnClickListener { PlutoLog.v("demo", "verbose cta clicked", NullPointerException("demo")) }
-        binding.logInfo.setOnClickListener { PlutoLog.i("demo", "info cta clicked") }
+        binding.logDebug.setOnClickListener { PlutoLog.d("debug", "debug cta clicked") }
+        binding.logError.setOnClickListener { PlutoLog.e("error", "error cta clicked", NullPointerException("demo")) }
+        binding.logVerbose.setOnClickListener { PlutoLog.v("verbose", "verbose cta clicked", NullPointerException("demo")) }
+        binding.logInfo.setOnClickListener { PlutoLog.i("info", "info cta clicked") }
         binding.logEvent.setOnClickListener {
             PlutoLog.event(
-                "demo", "event cta clicked",
+                "event", "event cta clicked",
                 hashMapOf(
                     "attr_name" to "demo attr",
                     "timestamp" to System.currentTimeMillis()
                 )
             )
-            PlutoLog.event("demo", "event cta clicked without attrs")
+            PlutoLog.event("event", "event cta clicked without attrs")
         }
 
         /**

@@ -59,4 +59,9 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <style name="PlutoChipTextStyle" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
 </resources>

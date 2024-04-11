@@ -15,4 +15,8 @@
     <string name="pluto_logger___close">Close Logger</string>
     <string name="pluto_logger___share_all">Share all logs</string>
     <string name="pluto_logger___previous_log_header">Logs from previous sessions</string>
+    <string name="pluto_logger___select_log_type">Select log type</string>
+    <string name="pluto_logger___select_log_Time">Select log timeframe</string>
+    <string name="pluto_logger___clear">Clear</string>
+    <string name="pluto_logger___duration">Duration</string>
 </resources>

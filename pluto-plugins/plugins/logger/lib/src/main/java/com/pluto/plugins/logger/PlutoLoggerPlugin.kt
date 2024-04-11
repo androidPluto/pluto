@@ -13,6 +13,8 @@ class PlutoLoggerPlugin() : Plugin(ID) {
     @Deprecated("Use the default constructor PlutoLoggerPlugin() instead.")
     constructor(identifier: String) : this()
 
+    private val settingsPreferences by lazy { Preferences(application) }
+
     override fun getConfig(): PluginConfiguration = PluginConfiguration(
         name = context.getString(R.string.pluto_logger___plugin_name),
         icon = R.drawable.pluto_logger___ic_logger_icon,
@@ -35,6 +37,7 @@ class PlutoLoggerPlugin() : Plugin(ID) {
 
     override fun onPluginDataCleared() {
         LogDBHandler.flush()
+        settingsPreferences.clearFilters()
     }
 
     companion object {

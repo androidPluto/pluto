@@ -127,14 +127,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pluto_rooms___sort_asc"
-                    android:textAppearance="@style/PlutoRoomsDBChipTextStyle" />
+                    android:textAppearance="@style/PlutoChipTextStyle" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/sortDescLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pluto_rooms___sort_desc"
-                    android:textAppearance="@style/PlutoRoomsDBChipTextStyle" />
+                    android:textAppearance="@style/PlutoChipTextStyle" />
 
             </com.google.android.material.chip.ChipGroup>
 

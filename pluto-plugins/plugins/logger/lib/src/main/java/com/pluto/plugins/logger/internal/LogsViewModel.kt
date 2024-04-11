@@ -9,6 +9,7 @@ import com.pluto.plugins.logger.internal.persistence.LogDBHandler
 import com.pluto.plugins.logger.internal.persistence.LogEntity
 import com.pluto.utilities.extensions.asFormattedDate
 import com.pluto.utilities.list.ListItem
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,13 +28,36 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
         get() = _serializedLogs
     private val _serializedLogs = MutableLiveData<String>()
 
-    fun fetch(search: String = "") {
+    fun searchAndFilter(
+        search: String = "",
+        logType: List<LogType> = emptyList(),
+        logTimeStamp: LogTimeStamp = LogTimeStamp(0, false)
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (rawLogs == null) {
                 rawLogs = LogDBHandler.fetchAll()
             }
-            val currentSessionLogs = (rawLogs ?: arrayListOf()).filter { it.sessionId == Session.id && it.data.isValidSearch(search) }.map { it.data }
-            val previousSessionLogs = (rawLogs ?: arrayListOf()).filter { it.sessionId != Session.id && it.data.isValidSearch(search) }.map { it.data }
+            val currentSessionLogs =
+                (rawLogs ?: arrayListOf())
+                    .asSequence()
+                    .filter { it.sessionId == Session.id }
+                    .filter { pastTimeFilter(it.timestamp, logTimeStamp) }
+                    .filter { logType.map { type -> type.type }.contains(it.data.tag) }
+                    .filter { it.data.isValidSearch(search) }
+                    .map { it.data }
+                    .toList()
+
+            val previousSessionLogs = if (!logTimeStamp.isSessionFilter) {
+                (rawLogs ?: arrayListOf())
+                    .asSequence()
+                    .filter { it.sessionId != Session.id }
+                    .filter { it.data.isValidSearch(search) }
+                    .filter { pastTimeFilter(it.timestamp, logTimeStamp) }
+                    .map { it.data }
+                    .toList()
+            } else {
+                emptyList()
+            }
 
             val list = arrayListOf<ListItem>()
             list.addAll(currentSessionLogs)
@@ -43,6 +67,13 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
             }
             _logs.postValue(list)
         }
+    }
+
+    private fun pastTimeFilter(logTime: Long, log: LogTimeStamp): Boolean {
+        if (log.timeStamp == 0 || log.isSessionFilter) {
+            return true
+        }
+        return logTime >= System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(log.timeStamp.toLong())
     }
 
     fun deleteAll() {
@@ -93,5 +124,8 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
     }
 }
 
-private fun LogData.isValidSearch(search: String): Boolean =
-    search.isEmpty() || tag.contains(search, true) || message.contains(search, true) || stackTrace.fileName.contains(search, true)
+private fun LogData.isValidSearch(search: String): Boolean {
+    return search.isEmpty() ||
+        message.contains(search, true) ||
+        stackTrace.fileName.contains(search, true)
+}
