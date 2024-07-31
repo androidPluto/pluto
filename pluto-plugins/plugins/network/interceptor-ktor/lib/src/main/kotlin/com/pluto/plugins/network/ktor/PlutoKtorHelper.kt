@@ -34,7 +34,7 @@ fun HttpClient.addPlutoKtorInterceptor() {
             newCall.attributes.put(saveAttributeKey, Unit)
             newCall
         }
-        networkInterceptor.onResponse(callResult.response.convert())
+        networkInterceptor.onResponse(res.response.convert())
         res
     }
 }
