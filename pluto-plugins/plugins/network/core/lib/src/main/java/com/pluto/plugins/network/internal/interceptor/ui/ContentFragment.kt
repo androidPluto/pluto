@@ -2,6 +2,7 @@ package com.pluto.plugins.network.internal.interceptor.ui
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Layout
 import android.view.View
 import android.view.View.VISIBLE
 import androidx.core.view.isVisible
@@ -55,6 +56,8 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
                             append("\n")
                         }
                     }
+
+                    scrollToText(search.trim())
                 }
             }
         }
@@ -82,6 +85,32 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
             exitSearch()
         } else {
             findNavController().navigateUp()
+        }
+    }
+
+    /**
+     * helps to auto scroll to target search
+     */
+    private fun scrollToText(targetText: String) {
+        if (targetText.isEmpty()) {
+            return
+        }
+
+        val contentText = binding.content.getText().toString().lowercase()
+        val index = contentText.indexOf(targetText.lowercase())
+
+        if (index != -1) {
+            binding.content.post {
+                val layout: Layout? = binding.content.layout
+                if (layout != null) {
+                    val lineNumber = layout.getLineForOffset(index)
+                    val x = layout.getPrimaryHorizontal(index.plus(targetText.length)).toInt()
+                    val y = layout.getLineTop(lineNumber)
+
+                    binding.horizontalScroll.smoothScrollTo(x / 2, 0)
+                    binding.contentNestedScrollView.smoothScrollTo(0, y / 2)
+                }
+            }
         }
     }
 
