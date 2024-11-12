@@ -16,14 +16,10 @@ class ResponseReportingSinkCallback(
 ) : ReportingSink.Callback {
 
     override fun onSuccess(file: File?, sourceByteCount: Long) {
-        file?.let { f ->
-            readResponseBuffer(f, response.isGzipped)?.let {
-                val responseBody = response.body ?: return
-                val body = responseBody.processBody(it)
-                onComplete.invoke(response.convert(body))
-            }
-            f.delete()
-        }
+        val buffer = file?.let { readResponseBuffer(it, response.isGzipped) }
+        val body = buffer?.let { response.body.processBody(it) }
+        file?.delete()
+        onComplete.invoke(response.convert(body))
     }
 
     override fun onFailure(file: File?, exception: IOException) = exception.printStackTrace()

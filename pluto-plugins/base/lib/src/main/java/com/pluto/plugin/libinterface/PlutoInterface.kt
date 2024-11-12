@@ -27,8 +27,7 @@ class PlutoInterface private constructor(
         val libInfo: LibraryInfoInterface
             get() = LibraryInfoInterface(get.pluginActivityClass, get.selectorActivityClass)
 
-        val files: FilesInterface
-            get() = FilesInterface(get.application)
+        val files: FilesInterface by lazy { FilesInterface(get.application) } // singleton
 
         fun create(
             application: Application,
