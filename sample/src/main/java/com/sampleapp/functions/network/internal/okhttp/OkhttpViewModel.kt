@@ -25,6 +25,58 @@ class OkhttpViewModel : ViewModel() {
         }
     }
 
+    fun graphqlQuery() {
+        viewModelScope.launch {
+            enqueue {
+                apiService.graphql(
+                    mapOf(
+                        GQL_QUERY to "query Launches(\$limit: Int){launches(limit: \$limit){mission_name}}",
+                        GQL_VARIABLES to mapOf("limit" to GQL_LIMIT_VALID),
+                    )
+                )
+            }
+        }
+    }
+
+    fun graphqlQueryError() {
+        viewModelScope.launch {
+            enqueue {
+                apiService.graphql(
+                    mapOf(
+                        GQL_QUERY to "query Launches(\$limit: Int){launches(limit: \$limit){mission_name}}",
+                        GQL_VARIABLES to mapOf("limit" to GQL_LIMIT_INVALID),
+                    )
+                )
+            }
+        }
+    }
+
+    fun graphqlMutation() {
+        viewModelScope.launch {
+            enqueue {
+                apiService.graphql(
+                    mapOf(
+                        GQL_QUERY to "mutation Insert_users(\$objects: [users_insert_input!]!) {insert_users(objects: \$objects) {affected_rows}}",
+                        GQL_VARIABLES to mapOf("objects" to emptyList<Any>()),
+                    )
+                )
+            }
+        }
+    }
+
+    fun graphqlMutationError() {
+        viewModelScope.launch {
+            enqueue {
+                apiService.graphql(
+                    mapOf(
+                        GQL_QUERY to "mutation Insert_users(\$objects: [users_insert_input!]!) {insert_users112231321(objects: \$objects) {affected_rows}}",
+                        GQL_VARIABLES to mapOf("objects" to emptyList<Any>()),
+                    )
+                )
+            }
+        }
+    }
+
     fun post() {
         val label = "POST call"
         viewModelScope.launch {
@@ -78,5 +130,12 @@ class OkhttpViewModel : ViewModel() {
                 }
             )
         }
+    }
+
+    companion object {
+        private const val GQL_QUERY = "query"
+        private const val GQL_LIMIT_VALID = 3
+        private const val GQL_LIMIT_INVALID = -1111
+        private const val GQL_VARIABLES = "variables"
     }
 }

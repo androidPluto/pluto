@@ -4,6 +4,7 @@ import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.pluto.plugins.network.R
 import com.pluto.plugins.network.databinding.PlutoNetworkItemNetworkBinding
 import com.pluto.plugins.network.intercept.NetworkData.Response
@@ -30,6 +31,7 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
     private val error = binding.error
     private val timeElapsed = binding.timeElapsed
     private val proxyIndicator = binding.proxyIndicator
+    private val graphqlIcon = binding.graphqlIcon
 
     override fun onBind(item: ListItem) {
         if (item is ApiCallData) {
@@ -37,9 +39,13 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
             timeElapsed.text = item.request.sentTimestamp.asTimeElapsed()
             binding.root.setBackgroundColor(context.color(R.color.pluto___transparent))
 
+            val method = (item.request.graphqlData?.queryType ?: item.request.method).uppercase()
+            val urlOrQuery = item.request.graphqlData?.queryName ?: Url(item.request.url).encodedPath
+            graphqlIcon.isVisible = item.request.graphqlData != null
+
             url.setSpan {
-                append(fontColor(item.request.method.uppercase(), context.color(R.color.pluto___text_dark_60)))
-                append("  ${Url(item.request.url).encodedPath}")
+                append(fontColor(method, context.color(R.color.pluto___text_dark_60)))
+                append("  $urlOrQuery")
             }
             progress.visibility = VISIBLE
             status.visibility = INVISIBLE

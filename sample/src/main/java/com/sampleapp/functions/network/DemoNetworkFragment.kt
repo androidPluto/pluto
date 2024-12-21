@@ -34,6 +34,10 @@ class DemoNetworkFragment : Fragment(R.layout.fragment_demo_network) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.graphqlQuery.setOnClickListener { okhttpViewModel.graphqlQuery() }
+        binding.graphqlQueryError.setOnClickListener { okhttpViewModel.graphqlQueryError() }
+        binding.graphqlMutation.setOnClickListener { okhttpViewModel.graphqlMutation() }
+        binding.graphqlMutationError.setOnClickListener { okhttpViewModel.graphqlMutationError() }
         binding.postCall.setOnClickListener { okhttpViewModel.post() }
         binding.getCall.setOnClickListener { okhttpViewModel.get() }
         binding.getCallKtor.setOnClickListener { ktorViewModel.get() }

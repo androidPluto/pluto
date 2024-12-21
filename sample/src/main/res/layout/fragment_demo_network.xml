@@ -154,4 +154,74 @@
         app:layout_constraintTop_toBottomOf="@+id/divider1"
         app:layout_constraintVertical_bias="1" />
 
+    <TextView
+        android:id="@+id/labelGraphql"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/appBg"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="GraphQL"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customTrace" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/graphqlQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="query"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelGraphql" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/graphqlMutation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="mutation"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/center_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/labelGraphql" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/graphqlQueryError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="query error"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graphqlQuery" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/graphqlMutationError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="mutation error"
+        android:textAppearance="@style/ChipTextStyle"
+        app:chipEndPadding="16dp"
+        app:chipStartPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/center_guideline"
+        app:layout_constraintTop_toTopOf="@+id/graphqlQueryError" />
 </androidx.constraintlayout.widget.ConstraintLayout>

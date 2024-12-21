@@ -74,7 +74,8 @@ internal class ListFragment : Fragment(R.layout.pluto_network___fragment_list) {
         var list = emptyList<ApiCallData>()
         viewModel.apiCalls.value?.let {
             list = it.filter { api ->
-                api.request.url.toString().contains(search, true)
+                api.request.url.contains(search, true) ||
+                    api.request.graphqlData?.queryName?.contains(search, true) ?: false
             }
         }
         binding.noItemText.text = getString(

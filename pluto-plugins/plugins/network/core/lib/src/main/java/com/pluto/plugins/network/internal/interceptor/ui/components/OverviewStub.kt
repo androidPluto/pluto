@@ -66,6 +66,20 @@ internal class OverviewStub : ConstraintLayout {
                         value = context.createSpan { append(semiBold(api.interceptorOption.name)) }
                     )
                 )
+                if (api.request.graphqlData != null) {
+                    add(
+                        KeyValuePairData(
+                            key = context.getString(R.string.pluto_network___method_label),
+                            value = api.request.method
+                        )
+                    )
+                    add(
+                        KeyValuePairData(
+                            key = context.getString(R.string.pluto_network___url_label),
+                            value = api.request.url
+                        )
+                    )
+                }
             }
         )
     }

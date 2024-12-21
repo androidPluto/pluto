@@ -51,18 +51,17 @@
         android:id="@+id/url"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:layout_marginStart="@dimen/pluto___margin_mini"
+        app:layout_goneMarginStart="@dimen/pluto___margin_small"
         android:layout_marginTop="@dimen/pluto___margin_medium"
-        android:layout_marginLeft="@dimen/pluto___margin_small"
         android:fontFamily="@font/muli_semibold"
         android:textColor="@color/pluto___text_dark"
         android:textSize="@dimen/pluto___text_small"
         android:layout_marginEnd="@dimen/pluto___margin_mini"
-        app:layout_constraintStart_toEndOf="@+id/status"
+        app:layout_constraintStart_toEndOf="@+id/graphqlIcon"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="@dimen/pluto___margin_mini"
         app:layout_constraintEnd_toStartOf="@+id/proxyIndicator"
-        tools:text="api endpoint" />
+        tools:text="POST /api/v2" />
 
     <ImageView
         android:id="@+id/proxyIndicator"
@@ -74,6 +73,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/url" />
 
+    <ImageView
+        android:id="@+id/graphqlIcon"
+        android:layout_width="@dimen/pluto___text_small"
+        android:layout_height="@dimen/pluto___text_small"
+        android:layout_marginStart="@dimen/pluto___margin_small"
+        android:src="@drawable/pluto_network___ic_graphql"
+        app:layout_constraintBottom_toBottomOf="@id/url"
+        app:layout_constraintStart_toEndOf="@id/status"
+        app:layout_constraintTop_toTopOf="@id/url" />
+
     <TextView
         android:id="@+id/host"
         android:layout_width="0dp"
@@ -81,13 +90,14 @@
         android:layout_marginTop="@dimen/pluto___margin_micro"
         android:layout_marginEnd="@dimen/pluto___margin_small"
         android:layout_marginBottom="@dimen/pluto___margin_medium"
+        android:layout_marginStart="@dimen/pluto___margin_small"
         android:ellipsize="end"
         android:fontFamily="@font/muli"
         android:textColor="@color/pluto___text_dark_60"
         android:textSize="@dimen/pluto___text_xsmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/timeElapsed"
-        app:layout_constraintStart_toStartOf="@+id/url"
+        app:layout_constraintStart_toEndOf="@+id/status"
         app:layout_constraintTop_toBottomOf="@+id/url"
         android:layout_marginRight="@dimen/pluto___margin_small"
         tools:text="https host" />

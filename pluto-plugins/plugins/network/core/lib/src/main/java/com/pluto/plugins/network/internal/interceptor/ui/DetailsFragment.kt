@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -125,8 +126,16 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
 
     private val detailsObserver = Observer<DetailContentData> {
         setupStatusView(it.api)
-        binding.method.text = it.api.request.method.uppercase()
-        binding.url.text = Url(it.api.request.url).toString()
+        val graphqlData = it.api.request.graphqlData
+        binding.graphqlIcon.isVisible = graphqlData != null
+        if (graphqlData != null) {
+            binding.method.text = "${graphqlData.queryType.uppercase()} ${graphqlData.queryName}"
+            binding.url.text = graphqlData.variables.toString()
+        } else {
+            binding.method.text = it.api.request.method.uppercase()
+            binding.url.text = Url(it.api.request.url).toString()
+        }
+
         binding.overview.apply {
             visibility = VISIBLE
             set(it.api)

@@ -30,4 +30,8 @@ interface ApiService {
     )
     @POST("xml")
     suspend fun xml(@Body hashMapOf: RequestBody): Any
+
+    // https://studio.apollographql.com/public/SpaceX-pxxbxen/variant/current/home
+    @POST("https://spacex-production.up.railway.app/")
+    suspend fun graphql(@Body body: Any): Any
 }
