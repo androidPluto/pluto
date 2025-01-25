@@ -21,7 +21,10 @@ fun HttpClient.addPlutoKtorInterceptor() {
         val request = requestUnBuilt.build()
         val networkInterceptor = NetworkInterceptor.intercept(request.convert(), NetworkInterceptor.Option(NAME))
         val callResult = try {
-            requestUnBuilt.url(networkInterceptor.actualOrMockRequestUrl)
+            val actualOrMockRequestUrl = networkInterceptor.actualOrMockRequestUrl
+            if (requestUnBuilt.url.buildString() != actualOrMockRequestUrl) {
+                requestUnBuilt.url(actualOrMockRequestUrl)
+            }
             execute(requestUnBuilt)
         } catch (e: IOException) {
             networkInterceptor.onError(e)
