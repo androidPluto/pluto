@@ -1,12 +1,12 @@
-plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-}
-
 apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/publish/module.gradle"
 
 def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+ext {
+    PUBLISH_VERSION = verPublish
+}
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInteger()
@@ -16,12 +16,13 @@ android {
         viewBinding true
     }
 
-
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInteger()
         targetSdk = libs.versions.targetSdk.get().toInteger()
 
         buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
+        buildConfigField ("long", "VERSION_CODE", "${verCode}")
+        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
     }
 
     buildTypes {
@@ -41,12 +42,7 @@ android {
         jvmTarget = libs.versions.java.get()
     }
 
-    resourcePrefix 'demo___'
-    namespace 'com.demo.plugin'
     lint {
         abortOnError false
     }
-}
-
-dependencies {
 }
