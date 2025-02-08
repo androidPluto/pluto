@@ -2,49 +2,15 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 }
-
-apply from: "$rootDir/scripts/build/utils.gradle"
-apply from: "$rootDir/scripts/publish/module.gradle"
-
-def verCode, verName, verBuild, verNameShort, verPublish
-(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+apply from: "$rootDir/scripts/pluginBuilder.gradle"
 
 ext {
     PUBLISH_GROUP_ID = "com.plutolib.plugins"
-    PUBLISH_VERSION = verPublish
     PUBLISH_ARTIFACT_ID = 'network-interceptor-ktor-no-op'
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInteger()
-    buildToolsVersion = libs.versions.buildTools.get()
-
-
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInteger()
-        targetSdk = libs.versions.targetSdk.get().toInteger()
-    }
-
-    buildTypes {
-        release {
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    }
-
-    kotlinOptions {
-        jvmTarget = libs.versions.java.get()
-    }
     namespace 'com.pluto.plugins.network.ktor'
-    lint {
-        abortOnError false
-    }
 }
 
 dependencies {

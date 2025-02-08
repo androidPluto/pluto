@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.dokka)
-    alias(libs.plugins.gradle.nexus.publish)
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
@@ -48,6 +47,5 @@ task prCheck {
     dependsOn ':pluto:validateChanges'
 }
 
-apply from: "$rootDir/scripts/publish/root.gradle"
 apply from: "$rootDir/scripts/project-dependancy-graph.gradle"
 apply from: "$rootDir/maven-versions.gradle"
