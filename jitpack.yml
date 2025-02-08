@@ -1,0 +1,6 @@
+jdk:
+  - openjdk17
+
+install:
+  # Ensure all modules are built
+  - ./gradlew clean assembleRelease
