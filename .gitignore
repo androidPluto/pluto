@@ -7,4 +7,4 @@
 .externalNativeBuild
 .cxx
 /.idea/*
-/scripts/publish/credentials.properties
+/scripts/publish/_credentials.properties

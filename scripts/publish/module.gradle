@@ -1,8 +1,8 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-apply from: "$rootDir/scripts/publish/dokkaUtils.gradle"
-apply from: "$rootDir/scripts/publish/pomConfig.gradle"
+apply from: "$rootDir/scripts/publish/_dokkaUtils.gradle"
+apply from: "$rootDir/scripts/publish/_pomConfig.gradle"
 
 afterEvaluate {
     publishing {
