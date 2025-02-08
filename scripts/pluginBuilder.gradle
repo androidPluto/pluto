@@ -1,8 +1,11 @@
-apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/version.gradle"
 apply from: "$rootDir/scripts/publish/publish.gradle"
 
-def verCode, verName, verBuild, verNameShort, verPublish
-(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+
+def version = loadVersioningData()
+def verCode = version["code"]
+def verPublish = version["publish"]
+def verGitSHA = version["gitSha"]
 
 ext {
     PUBLISH_VERSION = verPublish
@@ -20,9 +23,9 @@ android {
         minSdk = libs.versions.minSdk.get().toInteger()
         targetSdk = libs.versions.targetSdk.get().toInteger()
 
-        buildConfigField "String", "VERSION_NAME", "\"${verPublish}\""
+        buildConfigField ("String", "VERSION_NAME", "\"${verPublish}\"")
         buildConfigField ("long", "VERSION_CODE", "${verCode}")
-        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+        buildConfigField ("String", "GIT_SHA", "\"${verGitSHA}\"")
     }
 
     buildTypes {
