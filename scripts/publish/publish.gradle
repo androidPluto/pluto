@@ -1,0 +1,35 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+apply from: "$rootDir/scripts/publish/_loadCredentials.gradle"
+apply from: "$rootDir/scripts/publish/_dokkaUtils.gradle"
+apply from: "$rootDir/scripts/publish/_pomConfig.gradle"
+
+def credentials = loadSigningCredentials()
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+                from components.release
+
+                artifact androidSourcesJar
+                artifact javadocJar
+
+                configurePom(pom, PUBLISH_ARTIFACT_ID)
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(
+                credentials["signing.keyId"],
+                credentials["signing.key"],
+                credentials["signing.password"]
+        )
+        sign publishing.publications
+    }
+}

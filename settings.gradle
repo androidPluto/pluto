@@ -24,8 +24,6 @@ include ':pluto-plugins:base:lib'
 /* core plugin modules */
 include ':pluto-plugins:bundle:lib'
 include ':pluto-plugins:bundle:lib-no-op'
-include ':pluto-plugins:plugins:demo:lib'
-include ':pluto-plugins:plugins:demo:lib-no-op'
 include ':pluto-plugins:plugins:exceptions:lib'
 include ':pluto-plugins:plugins:exceptions:lib-no-op'
 include ':pluto-plugins:plugins:network:core:lib'

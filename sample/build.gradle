@@ -6,10 +6,11 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-apply from: "$rootDir/scripts/build/utils.gradle"
+apply from: "$rootDir/scripts/version.gradle"
 
-def verCode, verName, verBuild, verNameShort, verPublish
-(verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
+def version = loadVersioningData()
+def verCode = version["code"]
+def verPublish = version["publish"]
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInteger()
