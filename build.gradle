@@ -46,6 +46,6 @@ task prCheck {
     dependsOn ':sample:assembleDebug'
     dependsOn ':pluto:validateChanges'
 }
-
+apply from: "$rootDir/scripts/jitpack.gradle"
 apply from: "$rootDir/scripts/project-dependancy-graph.gradle"
 apply from: "$rootDir/maven-versions.gradle"
