@@ -1,8 +1,11 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
+apply from: "$rootDir/scripts/publish/_loadCredentials.gradle"
 apply from: "$rootDir/scripts/publish/_dokkaUtils.gradle"
 apply from: "$rootDir/scripts/publish/_pomConfig.gradle"
+
+def credentials = loadSigningCredentials()
 
 afterEvaluate {
     publishing {
@@ -20,13 +23,13 @@ afterEvaluate {
             }
         }
     }
-}
 
-signing {
-    useInMemoryPgpKeys(
-            rootProject.ext["signing.keyId"],
-            rootProject.ext["signing.key"],
-            rootProject.ext["signing.password"]
-    )
-    sign publishing.publications
+    signing {
+        useInMemoryPgpKeys(
+                credentials["signing.keyId"],
+                credentials["signing.key"],
+                credentials["signing.password"]
+        )
+        sign publishing.publications
+    }
 }

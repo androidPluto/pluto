@@ -47,6 +47,5 @@ task prCheck {
     dependsOn ':pluto:validateChanges'
 }
 
-apply from: "$rootDir/scripts/publish/root.gradle"
 apply from: "$rootDir/scripts/project-dependancy-graph.gradle"
 apply from: "$rootDir/maven-versions.gradle"

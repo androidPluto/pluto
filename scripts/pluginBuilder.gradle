@@ -1,5 +1,5 @@
 apply from: "$rootDir/scripts/build/utils.gradle"
-apply from: "$rootDir/scripts/publish/module.gradle"
+apply from: "$rootDir/scripts/publish/publish.gradle"
 
 def verCode, verName, verBuild, verNameShort, verPublish
 (verCode, verName, verBuild, verNameShort, verPublish) = genVersion()
