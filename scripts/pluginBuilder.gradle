@@ -1,5 +1,5 @@
 apply from: "$rootDir/scripts/version.gradle"
-//apply from: "$rootDir/scripts/publish/publish.gradle"
+apply from: "$rootDir/scripts/publish/publish.gradle"
 
 
 def version = loadVersioningData()
@@ -7,15 +7,8 @@ def verCode = version["code"]
 def verPublish = version["publish"]
 def verGitSHA = version["gitSha"]
 
-//ext {
-//    PUBLISH_GROUP_ID = "com.github.androidPluto"
-//    PUBLISH_ARTIFACT_ID = ""
-//    PUBLISH_VERSION = verPublish
-//}
-
-tasks.register('sourcesJar', Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
+ext {
+    PUBLISH_VERSION = verPublish
 }
 
 android {
