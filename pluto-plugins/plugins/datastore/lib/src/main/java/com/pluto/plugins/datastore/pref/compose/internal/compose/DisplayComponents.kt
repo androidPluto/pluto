@@ -85,9 +85,9 @@ internal fun PrefListItem(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .weight(1f),
-                color = colorResource(id = R.color.pluto___text_dark_40),
+                color = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_40),
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.muli)),
+                    fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli)),
                     fontSize = 12.sp
                 )
             )
@@ -96,13 +96,13 @@ internal fun PrefListItem(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .background(
-                        color = colorResource(id = R.color.pluto___dull_green_08),
+                        color = colorResource(id = com.pluto.plugin.R.color.pluto___dull_green_08),
                         shape = RoundedCornerShape(10.dp)
                     )
                     .padding(bottom = 2.dp, start = 8.dp, end = 8.dp),
-                color = colorResource(id = R.color.pluto___dull_green),
+                color = colorResource(id = com.pluto.plugin.R.color.pluto___dull_green),
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                    fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli_semibold)),
                     fontSize = 10.sp
                 )
             )
@@ -115,7 +115,7 @@ internal fun PrefListItem(
             editableItem = editableItem,
             onFocus = onFocus
         )
-        Divider(Modifier.padding(top = 8.dp), color = colorResource(id = R.color.pluto___dark_05))
+        Divider(Modifier.padding(top = 8.dp), color = colorResource(id = com.pluto.plugin.R.color.pluto___dark_05))
     }
 }
 
@@ -145,7 +145,7 @@ private fun Element(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 24.dp),
             style = TextStyle(
-                fontFamily = FontFamily(Font(R.font.muli))
+                fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli))
             )
         )
     }
@@ -190,11 +190,11 @@ private fun EditableField(
                 newValue.value = input
             },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = colorResource(id = R.color.pluto___text_dark_60),
-                unfocusedBorderColor = colorResource(id = R.color.pluto___text_dark_20)
+                focusedBorderColor = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_60),
+                unfocusedBorderColor = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_20)
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
-                autoCorrect = false,
+//                autoCorrect = false,
                 keyboardType = when (element.type) {
                     Type.TypeString, Type.TypeBoolean -> KeyboardType.Text
                     Type.TypeLong, Type.TypeFloat -> KeyboardType.Number
@@ -252,7 +252,7 @@ private fun ElementCta(
                 .padding(top = 4.dp, bottom = 10.dp),
             painter = painterResource(id = R.drawable.pluto_dts___ic_check),
             contentDescription = "save",
-            colorFilter = ColorFilter.tint(color = colorResource(id = R.color.pluto___dull_green))
+            colorFilter = ColorFilter.tint(color = colorResource(id = com.pluto.plugin.R.color.pluto___dull_green))
         )
     }
 }
@@ -268,7 +268,7 @@ private fun PreviewListItem() {
                     "key param",
                     "value of the key"
                 ),
-                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
+                modifier = Modifier.background(colorResource(id = com.pluto.plugin.R.color.pluto___white))
             )
         }
     }
@@ -285,7 +285,7 @@ private fun PreviewLongContentListItem() {
                     "VERY VERY VERY VERY VERY very very very very very very Loooong Key",
                     "VERY VERY VERY VERY VERY very very very very Loooong value"
                 ),
-                modifier = Modifier.background(colorResource(id = R.color.pluto___white))
+                modifier = Modifier.background(colorResource(id = com.pluto.plugin.R.color.pluto___white))
             )
         }
     }

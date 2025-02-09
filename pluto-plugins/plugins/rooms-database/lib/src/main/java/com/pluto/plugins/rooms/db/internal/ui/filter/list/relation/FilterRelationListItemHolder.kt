@@ -22,7 +22,7 @@ internal class FilterRelationListItemHolder(
     override fun onBind(item: ListItem) {
         if (item is FilterRelation) {
             binding.name.setSpan {
-                append(bold(fontColor(item.symbol, context.color(R.color.pluto___text_dark_80))))
+                append(bold(fontColor(item.symbol, context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
                 append(italic("\t\t(${item.javaClass.simpleName})"))
             }
             binding.root.setOnDebounceClickListener {

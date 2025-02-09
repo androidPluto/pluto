@@ -78,11 +78,11 @@ private fun Activity.getDecorView(decorView: View): View? {
 internal fun View.getIdString(): CharSequence? = try {
     getIdInfo()?.let {
         context?.createSpan {
-            append(semiBold(fontColor(it.packageName, context.color(R.color.pluto___text_dark_60))))
-            append(semiBold(fontColor(":", context.color(R.color.pluto___text_dark_60))))
-            append(semiBold(fontColor(it.typeName, context.color(R.color.pluto___text_dark_60))))
-            append(semiBold(fontColor("/", context.color(R.color.pluto___text_dark_60))))
-            append(semiBold(fontColor(it.entryName, context.color(R.color.pluto___text_dark_80))))
+            append(semiBold(fontColor(it.packageName, context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
+            append(semiBold(fontColor(":", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
+            append(semiBold(fontColor(it.typeName, context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
+            append(semiBold(fontColor("/", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))))
+            append(semiBold(fontColor(it.entryName, context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
         } ?: run { null }
     } ?: run { null }
 } catch (e: Resources.NotFoundException) {

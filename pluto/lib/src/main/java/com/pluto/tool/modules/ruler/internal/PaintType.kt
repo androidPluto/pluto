@@ -16,9 +16,9 @@ internal data class PaintType(val context: Context) {
         init {
             color = context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___red_dark
+                    com.pluto.plugin.R.color.pluto___red_dark
                 } else {
-                    R.color.pluto___orange
+                    com.pluto.plugin.R.color.pluto___orange
                 }
             )
             style = Style.FILL
@@ -30,9 +30,9 @@ internal data class PaintType(val context: Context) {
         init {
             color = context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___red_80
+                    com.pluto.plugin.R.color.pluto___red_80
                 } else {
-                    R.color.pluto___orange_80
+                    com.pluto.plugin.R.color.pluto___orange_80
                 }
             )
             style = Style.FILL
@@ -44,9 +44,9 @@ internal data class PaintType(val context: Context) {
         init {
             color = context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___red_60
+                    com.pluto.plugin.R.color.pluto___red_60
                 } else {
-                    R.color.pluto___orange_60
+                    com.pluto.plugin.R.color.pluto___orange_60
                 }
             )
             style = Style.STROKE
@@ -59,22 +59,22 @@ internal data class PaintType(val context: Context) {
         init {
             color = context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___blue
+                    com.pluto.plugin.R.color.pluto___blue
                 } else {
-                    R.color.pluto___teal
+                    com.pluto.plugin.R.color.pluto___teal
                 }
             )
             style = Style.FILL
             strokeWidth = 4f.dp2px
             textSize = 14f.dp2px
-            typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
+            typeface = ResourcesCompat.getFont(context, com.pluto.plugin.R.font.muli_semibold)
             flags = FAKE_BOLD_TEXT_FLAG
         }
     }
 
     val boundary: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
-            color = context.color(R.color.pluto___emerald)
+            color = context.color(com.pluto.plugin.R.color.pluto___emerald)
             strokeWidth = 4f.dp2px
             style = Style.STROKE
         }

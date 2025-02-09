@@ -13,9 +13,9 @@ internal class GridCanvas(private val container: View) {
         init {
             color = container.context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___red_40
+                    com.pluto.plugin.R.color.pluto___red_40
                 } else {
-                    R.color.pluto___orange_40
+                    com.pluto.plugin.R.color.pluto___orange_40
                 }
             )
             style = Style.FILL

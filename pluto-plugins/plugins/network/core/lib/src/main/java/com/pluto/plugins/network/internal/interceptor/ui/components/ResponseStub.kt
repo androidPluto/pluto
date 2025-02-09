@@ -58,7 +58,7 @@ private fun Response.setup(context: Context, binding: PlutoNetworkStubDetailsRes
 private fun ExceptionData.setup(context: Context, binding: PlutoNetworkStubDetailsResponseBinding) {
     binding.exceptionGroup.visibility = VISIBLE
     binding.exceptionDetails.setSpan {
-        append(semiBold(fontColor("${name}\n", context.color(R.color.pluto___text_dark_80))))
+        append(semiBold(fontColor("${name}\n", context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
         message?.let { append(it) }
     }
 }

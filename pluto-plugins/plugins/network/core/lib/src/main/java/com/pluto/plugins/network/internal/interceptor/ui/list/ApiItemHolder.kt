@@ -37,14 +37,14 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
         if (item is ApiCallData) {
             host.text = Url(item.request.url).host
             timeElapsed.text = item.request.sentTimestamp.asTimeElapsed()
-            binding.root.setBackgroundColor(context.color(R.color.pluto___transparent))
+            binding.root.setBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___transparent))
 
             val method = (item.request.graphqlData?.queryType ?: item.request.method).uppercase()
             val urlOrQuery = item.request.graphqlData?.queryName ?: Url(item.request.url).encodedPath
             graphqlIcon.isVisible = item.request.graphqlData != null
 
             url.setSpan {
-                append(fontColor(method, context.color(R.color.pluto___text_dark_60)))
+                append(fontColor(method, context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
                 append("  $urlOrQuery")
             }
             progress.visibility = VISIBLE
@@ -77,12 +77,12 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
         status.setTextColor(
             context.color(
                 if (it.isSuccessful) {
-                    R.color.pluto___dull_green
+                    com.pluto.plugin.R.color.pluto___dull_green
                 } else {
                     if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
-                        R.color.pluto___orange
+                        com.pluto.plugin.R.color.pluto___orange
                     } else {
-                        R.color.pluto___red
+                        com.pluto.plugin.R.color.pluto___red
                     }
                 }
             )
@@ -90,12 +90,12 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
         binding.root.setBackgroundColor(
             context.color(
                 if (it.isSuccessful) {
-                    R.color.pluto___dull_green_05
+                    com.pluto.plugin.R.color.pluto___dull_green_05
                 } else {
                     if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
-                        R.color.pluto___orange_05
+                        com.pluto.plugin.R.color.pluto___orange_05
                     } else {
-                        R.color.pluto___red_05
+                        com.pluto.plugin.R.color.pluto___red_05
                     }
                 }
             )
@@ -106,7 +106,7 @@ internal class ApiItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
         error.visibility = VISIBLE
         progress.visibility = INVISIBLE
         status.visibility = INVISIBLE
-        binding.root.setBackgroundColor(context.color(R.color.pluto___red_05))
+        binding.root.setBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___red_05))
     }
 
     private companion object {

@@ -26,7 +26,7 @@ internal class ParamsPreviewPanel : ConstraintLayout {
             view.getIdString()?.let {
                 append(it)
             } ?: run {
-                append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40)))))
+                append(regular(italic(fontColor("NO_ID", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
             }
         }
         binding.viewType.text = if (view is ViewGroup) "viewGroup" else "view"

@@ -39,7 +39,7 @@ internal class AddFilterConditionDialog(
         setContentView(sheetView)
         setOnShowListener { dialog ->
             if (dialog is BottomSheetDialog) {
-                val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
+                val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
                 val behavior = BottomSheetBehavior.from(bottomSheet!!)
                 behavior.apply {
                     state = BottomSheetBehavior.STATE_EXPANDED
@@ -53,11 +53,11 @@ internal class AddFilterConditionDialog(
                 isFirstRefresh = true
                 binding.column.setSpan {
                     append(semiBold(filter.column.name))
-                    append(italic(regular(fontColor("\t(${filter.column.type}, ", context.color(R.color.pluto___text_dark_40)))))
+                    append(italic(regular(fontColor("\t(${filter.column.type}, ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                     if (filter.column.isNotNull) {
-                        append(italic(regular(fontColor("NOT_NULL)", context.color(R.color.pluto___text_dark_40)))))
+                        append(italic(regular(fontColor("NOT_NULL)", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                     } else {
-                        append(italic(regular(fontColor("NULL)", context.color(R.color.pluto___text_dark_40)))))
+                        append(italic(regular(fontColor("NULL)", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                     }
                 }
                 updateUi(filter.relation, filter.column, data?.value)
@@ -88,7 +88,7 @@ internal class AddFilterConditionDialog(
         if (isFirstRefresh || this.relation != relation) {
             this.relation = relation
             binding.relation.setSpan {
-                append(bold(fontColor(relation.symbol, context.color(R.color.pluto___text_dark_80))))
+                append(bold(fontColor(relation.symbol, context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
                 append(italic(light("\t(${relation.javaClass.simpleName})")))
             }
             refreshValueView(relation, column, value)

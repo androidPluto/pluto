@@ -74,7 +74,7 @@ class SelectorActivity : FragmentActivity() {
         }
 
         binding.version.setSpan {
-            append(fontColor(light("v"), context.color(R.color.pluto___white_40)))
+            append(fontColor(light("v"), context.color(com.pluto.plugin.R.color.pluto___white_40)))
             append(regular(com.pluto.BuildConfig.VERSION_NAME))
         }
 

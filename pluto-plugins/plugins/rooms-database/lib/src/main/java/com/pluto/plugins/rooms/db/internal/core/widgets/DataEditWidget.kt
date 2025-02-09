@@ -33,13 +33,13 @@ internal class DataEditWidget(context: Context) : ConstraintLayout(context) {
         binding.column.text = context.createSpan {
             if (column.isPrimaryKey) {
                 append(semiBold(underline(column.name)))
-                append(fontColor(italic(" (Primary Key)"), context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(italic(" (Primary Key)"), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             } else {
                 append(column.name)
             }
 
             if (!column.isNotNull) {
-                append(fontColor(italic(" (nullable)"), context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(italic(" (nullable)"), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             }
         }
         binding.nullCta.visibility = if (column.isNotNull) GONE else VISIBLE

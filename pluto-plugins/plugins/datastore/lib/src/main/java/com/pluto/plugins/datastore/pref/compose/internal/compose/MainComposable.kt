@@ -43,7 +43,7 @@ internal fun MainComposable(
     val scope = rememberCoroutineScope()
     Column(
         Modifier
-            .background(colorResource(id = R.color.pluto___white))
+            .background(colorResource(id = com.pluto.plugin.R.color.pluto___white))
             .padding(
                 top = with(LocalDensity.current) {
                     insets.value.top.toDp()
@@ -51,7 +51,7 @@ internal fun MainComposable(
             )
     ) {
         ToolBar(onExit = onExit, onFilterClick = onFilterClick)
-        Divider(color = colorResource(id = R.color.pluto___dark_05))
+        Divider(color = colorResource(id = com.pluto.plugin.R.color.pluto___dark_05))
         val density = LocalDensity.current
         LazyColumn(
             modifier = Modifier

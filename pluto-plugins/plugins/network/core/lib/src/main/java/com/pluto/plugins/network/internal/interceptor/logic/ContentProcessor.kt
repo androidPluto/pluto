@@ -16,14 +16,14 @@ import java.nio.charset.Charset
 internal fun Context.beautifyHeaders(data: Map<String, String?>): CharSequence {
     return createSpan {
         data.forEach {
-            append(fontColor("${it.key} : ", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor("${it.key} : ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             if (it.value != null) {
-                append(fontColor("${it.value}", context.color(R.color.pluto___text_dark_80)))
+                append(fontColor("${it.value}", context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
             } else {
                 append(
                     fontColor(
                         light(italic("null")),
-                        context.color(R.color.pluto___text_dark_40)
+                        context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                     )
                 )
             }
@@ -36,8 +36,8 @@ internal fun Context.beautifyQueryParams(url: String): CharSequence {
     val url = Url(url)
     return createSpan {
         url.parameters.flattenForEach { key, value ->
-            append(fontColor("$key :", context.color(R.color.pluto___text_dark_40)))
-            append(fontColor(value, context.color(R.color.pluto___text_dark_80)))
+            append(fontColor("$key :", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
+            append(fontColor(value, context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
             append("\n")
         }
     }.trim()

@@ -22,11 +22,11 @@ internal class DimensionCanvas(private val container: View) {
 
     private val textPaint: Paint = object : Paint() {
         init {
-            color = container.context.color(R.color.pluto___red_dark)
+            color = container.context.color(com.pluto.plugin.R.color.pluto___red_dark)
             style = Style.FILL
             strokeWidth = 1f.dp2px
             textSize = 12f.dp2px
-            typeface = ResourcesCompat.getFont(container.context, R.font.muli_semibold)
+            typeface = ResourcesCompat.getFont(container.context, com.pluto.plugin.R.font.muli_semibold)
             flags = FAKE_BOLD_TEXT_FLAG
         }
     }
@@ -34,7 +34,7 @@ internal class DimensionCanvas(private val container: View) {
         init {
             isAntiAlias = true
             strokeWidth = 1f.dp2px
-            color = container.context.color(R.color.pluto___white)
+            color = container.context.color(com.pluto.plugin.R.color.pluto___white)
             style = Style.FILL
         }
     }

@@ -24,7 +24,7 @@ internal class HintFragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto_li___hint_fragment, container, false)
 
-    override fun getTheme(): Int = R.style.PlutoBottomSheetDialogTheme
+    override fun getTheme(): Int = com.pluto.plugin.R.style.PlutoBottomSheetDialogTheme
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

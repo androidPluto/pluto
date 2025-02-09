@@ -31,7 +31,7 @@ fun ToolBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(colorResource(id = R.color.pluto___dark)),
+            .background(colorResource(id = com.pluto.plugin.R.color.pluto___dark)),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ConstraintLayout(
@@ -52,7 +52,7 @@ fun ToolBar(
             )
             Text(
                 stringResource(id = R.string.pluto_dts___plugin_name),
-                color = colorResource(id = R.color.pluto___white),
+                color = colorResource(id = com.pluto.plugin.R.color.pluto___white),
                 modifier = Modifier
                     .constrainAs(title) {
                         top.linkTo(parent.top)
@@ -61,7 +61,7 @@ fun ToolBar(
                     }
                     .padding(vertical = 16.dp),
                 style = TextStyle(
-                    fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                    fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli_semibold)),
                     fontSize = 16.sp
                 )
             )
@@ -84,5 +84,5 @@ fun ToolBar(
 @Composable
 @Preview
 private fun PreviewToolbar() {
-    ToolBar(Modifier.background(colorResource(id = R.color.pluto___dark)), {}, {})
+    ToolBar(Modifier.background(colorResource(id = com.pluto.plugin.R.color.pluto___dark)), {}, {})
 }

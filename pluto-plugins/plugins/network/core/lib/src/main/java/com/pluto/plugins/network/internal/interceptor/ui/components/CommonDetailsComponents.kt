@@ -15,7 +15,7 @@ internal fun waitingText(context: Context) = context.createSpan {
             light(
                 fontColor(
                     context.getString(R.string.pluto_network___waiting_for_response),
-                    context.color(R.color.pluto___text_dark_40)
+                    context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                 )
             )
         )
@@ -29,7 +29,7 @@ internal fun tapIndicatorText(context: Context) = context.createSpan {
             light(
                 fontColor(
                     context.getString(R.string.pluto_network___tap_for_details),
-                    context.color(R.color.pluto___text_dark_40)
+                    context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                 )
             )
         )
@@ -42,7 +42,7 @@ internal fun binaryBodyText(context: Context) = context.createSpan {
             light(
                 fontColor(
                     context.getString(R.string.pluto_network___binary_body),
-                    context.color(R.color.pluto___text_dark_40)
+                    context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                 )
             )
         )
@@ -56,7 +56,7 @@ internal fun getHeadersData(context: Context, headers: Map<String, String?>, onC
             append(semiBold(context.resources.getQuantityString(R.plurals.pluto_network___headers_value_text, headers.size, headers.size)))
             append(tapIndicatorText(context))
         } else {
-            append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor("--", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
         }
     },
     showClickIndicator = headers.isNotEmpty(),
@@ -80,13 +80,13 @@ internal fun getBodyData(context: Context, body: Body?, onClick: () -> Unit) = K
                     append(
                         fontColor(
                             "0 bytes",
-                            context.color(R.color.pluto___text_dark_40)
+                            context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                 }
             }
         } ?: run {
-            append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor("--", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
         }
     },
     showClickIndicator = body?.isBinary != true && (body?.sizeInBytes ?: 0L) > 0,
@@ -124,7 +124,7 @@ internal fun getQueryParamsData(
                 )
                 append(tapIndicatorText(context))
             } else {
-                append(fontColor("--", context.color(R.color.pluto___text_dark_40)))
+                append(fontColor("--", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             }
         },
         showClickIndicator = url.areQueryParamsAvailable,

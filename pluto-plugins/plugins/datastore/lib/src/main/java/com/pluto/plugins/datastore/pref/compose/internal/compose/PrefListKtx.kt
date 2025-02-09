@@ -50,7 +50,7 @@ internal fun LazyListScope.dataStorePrefItems(
                     data.isExpanded.value = !data.isExpanded.value
                 }
                 .animateItemPlacement()
-                .background(colorResource(id = R.color.pluto___section_color))
+                .background(colorResource(id = com.pluto.plugin.R.color.pluto___section_color))
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -65,10 +65,10 @@ internal fun LazyListScope.dataStorePrefItems(
                     modifier = Modifier.padding(
                         vertical = 8.dp
                     ),
-                    color = colorResource(id = R.color.pluto___text_dark_80),
+                    color = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_80),
                     letterSpacing = 1.2.sp,
                     style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                        fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli_semibold)),
                         fontSize = 16.sp
                     )
                 )
@@ -88,7 +88,7 @@ internal fun LazyListScope.dataStorePrefItems(
                         }
                 )
             }
-            Divider(Modifier.padding(top = 4.dp), color = colorResource(id = R.color.pluto___dark_05))
+            Divider(Modifier.padding(top = 4.dp), color = colorResource(id = com.pluto.plugin.R.color.pluto___dark_05))
         }
     }
     if (data.isExpanded.value) {
@@ -116,7 +116,7 @@ private fun DataStorePrefItemPreview() {
     LazyColumn(
         modifier = Modifier
             .wrapContentHeight(Alignment.Top)
-            .background(colorResource(id = R.color.pluto___white))
+            .background(colorResource(id = com.pluto.plugin.R.color.pluto___white))
     ) {
         dataStorePrefItems(
             PrefUiModel(
