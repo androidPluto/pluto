@@ -27,20 +27,20 @@ internal class ShareResponseOptionHolder(parent: ViewGroup, actionListener: Diff
                     onAction("click")
                 }
                 binding.label.setSpan {
-                    append(fontColor(item.title, context.color(R.color.pluto___text_dark_80)))
+                    append(fontColor(item.title, context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
                 }
                 binding.description.visibility = GONE
                 binding.waiting.visibility = GONE
-                binding.root.setBackgroundColor(context.color(R.color.pluto___transparent))
+                binding.root.setBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___transparent))
             } else {
                 binding.label.setSpan {
-                    append(fontColor(item.title, context.color(R.color.pluto___text_dark_40)))
+                    append(fontColor(item.title, context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                 }
                 binding.description.text = item.subtitle
                 binding.description.visibility = VISIBLE
                 binding.waiting.visibility = VISIBLE
-                binding.waiting.indeterminateTintList = ColorStateList.valueOf(context.color(R.color.pluto___dark_20))
-                binding.root.setBackgroundColor(context.color(R.color.pluto___app_bg))
+                binding.waiting.indeterminateTintList = ColorStateList.valueOf(context.color(com.pluto.plugin.R.color.pluto___dark_20))
+                binding.root.setBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___app_bg))
             }
         }
     }

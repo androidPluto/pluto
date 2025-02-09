@@ -20,7 +20,7 @@ internal class CurrentScreenView(context: Context) : ConstraintLayout(context) {
         if ((activity ?: "").startsWith(PLUTO_PKG_PREFIX, true)) {
             updateActivity(
                 context.createSpan {
-                    append(light(italic(fontColor("~ Pluto Screen ~", context.color(R.color.pluto___white_60)))))
+                    append(light(italic(fontColor("~ Pluto Screen ~", context.color(com.pluto.plugin.R.color.pluto___white_60)))))
                 }
             )
             updateFragment(null)

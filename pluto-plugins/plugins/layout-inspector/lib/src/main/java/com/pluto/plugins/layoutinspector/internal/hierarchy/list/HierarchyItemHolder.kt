@@ -35,14 +35,14 @@ internal class HierarchyItemHolder(parent: ViewGroup, actionListener: DiffAwareA
             binding.viewTitle.setSpan {
                 append(item.view.javaClass.simpleName)
                 if (item.view is ViewGroup) {
-                    append(regular(fontColor(" (${item.view.childCount})", context.color(R.color.pluto___text_dark_40))))
+                    append(regular(fontColor(" (${item.view.childCount})", context.color(com.pluto.plugin.R.color.pluto___text_dark_40))))
                 }
             }
             binding.viewSubtitle.setSpan {
                 item.view.getIdString()?.let {
                     append(it)
                 } ?: run {
-                    append(regular(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40)))))
+                    append(regular(italic(fontColor("NO_ID", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                 }
                 append(" {(${item.view.left},${item.view.top}),(${item.view.right},${item.view.bottom})}")
             }

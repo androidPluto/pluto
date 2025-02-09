@@ -153,9 +153,9 @@ internal fun getStateStringSpan(context: Context, state: String): CharSequence {
                     state.uppercase(),
                     context.color(
                         when (state) {
-                            Thread.State.BLOCKED.name -> R.color.pluto___red_dark
-                            Thread.State.WAITING.name -> R.color.pluto___orange
-                            else -> R.color.pluto___text_dark_80
+                            Thread.State.BLOCKED.name -> com.pluto.plugin.R.color.pluto___red_dark
+                            Thread.State.WAITING.name -> com.pluto.plugin.R.color.pluto___orange
+                            else -> com.pluto.plugin.R.color.pluto___text_dark_80
                         }
                     )
                 )

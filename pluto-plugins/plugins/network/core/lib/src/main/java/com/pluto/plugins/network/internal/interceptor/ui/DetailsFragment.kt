@@ -59,7 +59,14 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
 
     private fun handleUserAction(action: String, api: ApiCallData) {
         when (action) {
-            ACTION_SHARE_CURL -> contentSharer.share(Shareable(title = "Share Request cURL", content = api.curl, fileName = "cURL Request from Pluto"))
+            ACTION_SHARE_CURL -> contentSharer.share(
+                Shareable(
+                    title = "Share Request cURL",
+                    content = api.curl,
+                    fileName = "cURL Request from Pluto"
+                )
+            )
+
             ACTION_OPEN_MOCK_SETTINGS -> findNavController().navigate(
                 R.id.openMockSettingsEdit,
                 bundleOf("url" to api.request.url.toString(), "method" to api.request.method)
@@ -109,7 +116,13 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         }
     }
 
-    private fun openContentView(title: String, content: CharSequence, typeText: String? = null, sizeText: String, isTreeViewAllowed: Boolean = false) {
+    private fun openContentView(
+        title: String,
+        content: CharSequence,
+        typeText: String? = null,
+        sizeText: String,
+        isTreeViewAllowed: Boolean = false
+    ) {
         findNavController().navigate(
             R.id.openContentFormatter,
             bundleOf(
@@ -176,14 +189,33 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
         binding.progress.visibility = VISIBLE
         binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         binding.status.setSpan {
-            append(italic(fontColor(context.getString(R.string.pluto_network___network_state_in_progress), context.color(R.color.pluto___white_60))))
+            append(
+                italic(
+                    fontColor(
+                        context.getString(R.string.pluto_network___network_state_in_progress),
+                        context.color(com.pluto.plugin.R.color.pluto___white_60)
+                    )
+                )
+            )
         }
 
         data.exception?.let {
             binding.progress.visibility = GONE
-            binding.status.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_network___ic_error, 0, 0, 0)
+            binding.status.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.pluto_network___ic_error,
+                0,
+                0,
+                0
+            )
             binding.status.setSpan {
-                append(bold(fontColor(context.getString(R.string.pluto_network___network_state_failed), context.color(R.color.pluto___red))))
+                append(
+                    bold(
+                        fontColor(
+                            context.getString(R.string.pluto_network___network_state_failed),
+                            context.color(com.pluto.plugin.R.color.pluto___red)
+                        )
+                    )
+                )
             }
         }
 
@@ -193,20 +225,32 @@ internal class DetailsFragment : Fragment(R.layout.pluto_network___fragment_deta
                 getErrorIcon(it), 0, 0, 0
             )
             binding.status.setSpan {
-                append(fontColor(bold(it.status.code.toString()), context.color(getStatusTextColorId(it))))
-                append(italic(fontColor(" ${it.status.message} ", context.color(getStatusTextColorId(it)))))
+                append(
+                    fontColor(
+                        bold(it.status.code.toString()),
+                        context.color(getStatusTextColorId(it))
+                    )
+                )
+                append(
+                    italic(
+                        fontColor(
+                            " ${it.status.message} ",
+                            context.color(getStatusTextColorId(it))
+                        )
+                    )
+                )
             }
         }
     }
 
     private fun getStatusTextColorId(it: NetworkData.Response): Int {
         return if (it.isSuccessful) {
-            R.color.pluto___dull_green
+            com.pluto.plugin.R.color.pluto___dull_green
         } else {
             if (it.status.code in RESPONSE_ERROR_STATUS_RANGE) {
-                R.color.pluto___orange
+                com.pluto.plugin.R.color.pluto___orange
             } else {
-                R.color.pluto___red
+                com.pluto.plugin.R.color.pluto___red
             }
         }
     }

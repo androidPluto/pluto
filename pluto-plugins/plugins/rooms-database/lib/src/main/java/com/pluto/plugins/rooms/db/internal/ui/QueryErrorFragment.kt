@@ -33,14 +33,14 @@ internal class QueryErrorFragment : BottomSheetDialogFragment() {
             errorMessage?.let {
                 val errorSplit = it.split(": ")
                 if (errorSplit.size == 1) {
-                    append(fontColor(errorSplit[0], context.color(R.color.pluto___text_dark_60)))
+                    append(fontColor(errorSplit[0], context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
                 }
                 if (errorSplit.size > 1) {
-                    append(fontColor(semiBold("${errorSplit[0]} : "), context.color(R.color.pluto___text_dark_80)))
-                    append(fontColor(errorSplit[1], context.color(R.color.pluto___text_dark_60)))
+                    append(fontColor(semiBold("${errorSplit[0]} : "), context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
+                    append(fontColor(errorSplit[1], context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
                 }
             } ?: run {
-                append(fontColor(GENERIC_ERROR, context.color(R.color.pluto___text_dark_60)))
+                append(fontColor(GENERIC_ERROR, context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
             }
         }
     }

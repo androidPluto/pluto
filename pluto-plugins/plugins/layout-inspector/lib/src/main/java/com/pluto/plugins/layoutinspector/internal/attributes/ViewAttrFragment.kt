@@ -74,7 +74,7 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog?.setOnShowListener {
             val dialog = it as BottomSheetDialog
-            val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)
+            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.let {
                 dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -99,7 +99,19 @@ internal class ViewAttrFragment : BottomSheetDialogFragment() {
                 target.getIdString()?.let {
                     append(regular(fontSize(it, SUBTITLE_TEXT_SIZE_IN_SP)))
                 } ?: run {
-                    append(regular(fontSize(italic(fontColor("NO_ID", context.color(R.color.pluto___text_dark_40))), SUBTITLE_TEXT_SIZE_IN_SP)))
+                    append(
+                        regular(
+                            fontSize(
+                                italic(
+                                    fontColor(
+                                        "NO_ID",
+                                        context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                                    )
+                                ),
+                                SUBTITLE_TEXT_SIZE_IN_SP
+                            )
+                        )
+                    )
                 }
             }
             binding.attrList.apply {

@@ -22,7 +22,7 @@ internal class CaptureCanvas(private val container: View) {
     private val captureBoxPaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = container.context.color(R.color.pluto___blue)
+            color = container.context.color(com.pluto.plugin.R.color.pluto___blue)
             style = Style.STROKE
             strokeWidth = 1f.dp2px
         }
@@ -30,7 +30,7 @@ internal class CaptureCanvas(private val container: View) {
     private val dashLinePaint: Paint = object : Paint() {
         init {
             isAntiAlias = true
-            color = container.context.color(R.color.pluto___emerald)
+            color = container.context.color(com.pluto.plugin.R.color.pluto___emerald)
             style = Style.STROKE
             strokeWidth = 1f
             pathEffect = DashPathEffect(floatArrayOf(3f.dp2px, 3f.dp2px), 0f)
@@ -61,7 +61,7 @@ internal class CaptureCanvas(private val container: View) {
         canvas.drawLine(rect.left.toFloat(), 0f, rect.left.toFloat(), measuredHeight, dashLinePaint)
         canvas.drawLine(rect.right.toFloat(), 0f, rect.right.toFloat(), measuredHeight, dashLinePaint)
         canvas.drawRect(rect, captureBoxPaint)
-        cornerCirclePaint.color = container.context.color(R.color.pluto___transparent)
+        cornerCirclePaint.color = container.context.color(com.pluto.plugin.R.color.pluto___transparent)
         cornerCirclePaint.style = Paint.Style.FILL
         canvas.drawCircle(rect.left.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
         canvas.drawCircle(rect.right.toFloat(), rect.top.toFloat(), cornerRadius, cornerCirclePaint)
@@ -69,9 +69,9 @@ internal class CaptureCanvas(private val container: View) {
         canvas.drawCircle(rect.right.toFloat(), rect.bottom.toFloat(), cornerRadius, cornerCirclePaint)
         cornerCirclePaint.color = container.context.color(
             if (SettingsPreferences.isDarkThemeEnabled) {
-                R.color.pluto___red
+                com.pluto.plugin.R.color.pluto___red
             } else {
-                R.color.pluto___orange
+                com.pluto.plugin.R.color.pluto___orange
             }
         )
         cornerCirclePaint.style = Paint.Style.STROKE

@@ -56,30 +56,30 @@ internal class DetailsFragment : BottomSheetDialogFragment() {
 
         binding.tag.text = data.tag
         binding.filename.setSpan {
-            append(fontColor("called from\n", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor("called from\n", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             append(data.stackTrace.methodName)
-            append(fontColor(" (", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor(" (", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             append(data.stackTrace.fileName)
-            append(fontColor(", line:", context.color(R.color.pluto___text_dark_60)))
-            append(fontColor("${data.stackTrace.lineNumber}", context.color(R.color.pluto___text_dark_80)))
-            append(fontColor(")", context.color(R.color.pluto___text_dark_40)))
+            append(fontColor(", line:", context.color(com.pluto.plugin.R.color.pluto___text_dark_60)))
+            append(fontColor("${data.stackTrace.lineNumber}", context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
+            append(fontColor(")", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
         }
         binding.message.text = data.message
         binding.stackTraceContainer.visibility = View.GONE
         data.tr?.let {
             binding.stackTraceContainer.visibility = View.VISIBLE
             binding.stackTrace.setSpan {
-                append(fontColor("${it.name}: ${it.message}", context.color(R.color.pluto___text_dark_80)))
+                append(fontColor("${it.name}: ${it.message}", context.color(com.pluto.plugin.R.color.pluto___text_dark_80)))
                 it.stackTrace.take(MAX_STACK_TRACE_LINES).forEach {
                     append("\n\t\t\t")
-                    append(fontColor(" at  ", context.color(R.color.pluto___text_dark_40)))
+                    append(fontColor(" at  ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                     append(it)
                 }
                 val extraTrace = it.stackTrace.size - MAX_STACK_TRACE_LINES
                 if (extraTrace > 0) {
                     append(
                         fontColor(
-                            "\n\t\t\t + $extraTrace more lines", context.color(R.color.pluto___text_dark_40)
+                            "\n\t\t\t + $extraTrace more lines", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                 }
@@ -89,7 +89,7 @@ internal class DetailsFragment : BottomSheetDialogFragment() {
             binding.stackTraceContainer.visibility = View.VISIBLE
             binding.stackTraceTitle.setSpan {
                 append(context.getString(R.string.pluto_logger___event_attributes))
-                append(fontColor(" (${data.eventAttributes.size})", context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(" (${data.eventAttributes.size})", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             }
             binding.stackTrace.text = context.beautifyAttributes(data.eventAttributes)
         }

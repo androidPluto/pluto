@@ -28,9 +28,9 @@ internal class TableListItemHolder(
                         item.name,
                         context.color(
                             if (item.isSystemTable) {
-                                R.color.pluto___text_dark_40
+                                com.pluto.plugin.R.color.pluto___text_dark_40
                             } else {
-                                R.color.pluto___text_dark_80
+                                com.pluto.plugin.R.color.pluto___text_dark_80
                             }
                         )
                     )

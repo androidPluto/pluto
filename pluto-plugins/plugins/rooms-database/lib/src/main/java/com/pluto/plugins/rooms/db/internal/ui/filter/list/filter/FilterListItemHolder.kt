@@ -48,7 +48,7 @@ internal class FilterListItemHolder(
                 if (!split.isNullOrEmpty()) {
                     context.createSpan {
                         append(regular(split[0].trim()))
-                        append(light(fontColor(" & ", context.color(R.color.pluto___text_dark_40))))
+                        append(light(fontColor(" & ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40))))
                         append(regular(split[1].trim()))
                     }
                 } else {
@@ -62,12 +62,12 @@ internal class FilterListItemHolder(
                     context.createSpan {
                         split.forEachIndexed { index, value ->
                             if (value == "") {
-                                append(light(italic(fontColor("blank", context.color(R.color.pluto___text_dark_40)))))
+                                append(light(italic(fontColor("blank", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                             } else {
                                 append(regular(value.trim()))
                             }
                             if (index < split.lastIndex) {
-                                append(light(fontColor(" , ", context.color(R.color.pluto___text_dark_40))))
+                                append(light(fontColor(" , ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40))))
                             }
                         }
                     }
@@ -78,8 +78,8 @@ internal class FilterListItemHolder(
 
             else -> context.createSpan {
                 when (item.value) {
-                    "" -> append(light(italic(fontColor("blank", context.color(R.color.pluto___text_dark_40)))))
-                    null -> append(light(italic(fontColor("null", context.color(R.color.pluto___text_dark_40)))))
+                    "" -> append(light(italic(fontColor("blank", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
+                    null -> append(light(italic(fontColor("null", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                     else -> append(item.value)
                 }
             }

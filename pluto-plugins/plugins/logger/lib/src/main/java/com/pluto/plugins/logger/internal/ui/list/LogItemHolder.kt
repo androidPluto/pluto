@@ -25,10 +25,10 @@ internal class LogItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
     override fun onBind(item: ListItem) {
         if (item is LogData) {
             logTag.setSpan {
-                append(fontColor(semiBold(item.tag.trim()), context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(semiBold(item.tag.trim()), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                 append(
                     fontColor(
-                        " | ${item.stackTrace.fileName}:${item.stackTrace.lineNumber}", context.color(R.color.pluto___text_dark_40)
+                        " | ${item.stackTrace.fileName}:${item.stackTrace.lineNumber}", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                     )
                 )
             }
@@ -39,7 +39,7 @@ internal class LogItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapter
                 item.eventAttributes?.let {
                     append(
                         regular(
-                            fontColor(" (${it.size} attributes)", context.color(R.color.pluto___text_dark_60))
+                            fontColor(" (${it.size} attributes)", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
                         )
                     )
                 }

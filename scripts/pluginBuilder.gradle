@@ -1,5 +1,5 @@
 apply from: "$rootDir/scripts/version.gradle"
-apply from: "$rootDir/scripts/publish/publish.gradle"
+//apply from: "$rootDir/scripts/publish/publish.gradle"
 
 
 def version = loadVersioningData()
@@ -16,6 +16,7 @@ android {
     buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
+        buildConfig true
         viewBinding true
     }
 
@@ -43,6 +44,7 @@ android {
 
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
+//        freeCompilerArgs += listOf("-module-name", project.name)
     }
 
     lint {
