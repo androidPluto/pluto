@@ -89,7 +89,7 @@ internal class MockSettingsFragment : Fragment(R.layout.pluto_network___fragment
         binding.endPoint.isEnabled = false
         binding.delete.visibility = View.VISIBLE
         binding.note.visibility = View.VISIBLE
-        context?.let { binding.endPoint.setTextColor(it.color(R.color.pluto___text_dark_40)) }
+        context?.let { binding.endPoint.setTextColor(it.color(com.pluto.plugin.R.color.pluto___text_dark_40)) }
         binding.endPoint.setText(entity.requestUrl)
         binding.proxyUrl.setText(entity.mockData.url)
     }

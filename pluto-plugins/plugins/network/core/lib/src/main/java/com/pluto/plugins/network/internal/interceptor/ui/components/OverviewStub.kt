@@ -86,14 +86,33 @@ internal class OverviewStub : ConstraintLayout {
 
     private fun generateProtocol(api: ApiCallData): CharSequence? {
         return api.exception?.let {
-            context.createSpan { append(fontColor(context.getString(R.string.pluto_network___na), context.color(R.color.pluto___text_dark_40))) }
+            context.createSpan {
+                append(
+                    fontColor(
+                        context.getString(R.string.pluto_network___na),
+                        context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                    )
+                )
+            }
         } ?: run {
             api.response?.protocol?.let {
                 context.createSpan {
                     if (it.isBlank()) {
-                        append(fontColor(context.getString(R.string.pluto_network___na), context.color(R.color.pluto___text_dark_40)))
+                        append(
+                            fontColor(
+                                context.getString(R.string.pluto_network___na),
+                                context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                            )
+                        )
                     } else {
-                        append(semiBold(fontColor(it, context.color(R.color.pluto___text_dark_80))))
+                        append(
+                            semiBold(
+                                fontColor(
+                                    it,
+                                    context.color(com.pluto.plugin.R.color.pluto___text_dark_80)
+                                )
+                            )
+                        )
                     }
                 }
             }

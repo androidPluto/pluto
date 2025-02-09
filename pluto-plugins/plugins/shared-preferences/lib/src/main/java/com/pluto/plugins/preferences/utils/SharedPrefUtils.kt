@@ -80,7 +80,7 @@ private fun Context.getSharePreferencesFiles(): ArrayList<SharedPrefFile> {
                 list.add(
                     if (it == "${packageName}_preferences.xml") {
 //                        SharedPrefFile(DEFAULT, true)
-                        SharedPrefFile(createSpan { append(italic(light(fontColor(DEFAULT, color(R.color.pluto___text_dark_60))))) }, true)
+                        SharedPrefFile(createSpan { append(italic(light(fontColor(DEFAULT, color(com.pluto.plugin.R.color.pluto___text_dark_60))))) }, true)
                     } else {
                         val label = it.replace(".xml", "", true)
                         SharedPrefFile(label, false)

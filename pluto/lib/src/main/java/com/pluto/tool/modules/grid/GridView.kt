@@ -14,9 +14,9 @@ internal class GridView(context: Context) : View(context) {
         init {
             color = context.color(
                 if (SettingsPreferences.isDarkThemeEnabled) {
-                    R.color.pluto___red_40
+                    com.pluto.plugin.R.color.pluto___red_40
                 } else {
-                    R.color.pluto___orange_40
+                    com.pluto.plugin.R.color.pluto___orange_40
                 }
             )
             style = Style.FILL

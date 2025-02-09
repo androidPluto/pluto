@@ -26,13 +26,13 @@ internal class ColumnForFilterListItemHolder(
         if (item is ColumnModel) {
             if (alreadyUsedColumns.contains(item)) {
                 binding.value.setSpan {
-                    append(semiBold(fontColor(item.name, context.color(R.color.pluto___text_dark_40))))
-                    append(italic(light(fontColor("\t(already applied)", context.color(R.color.pluto___text_dark_40)))))
+                    append(semiBold(fontColor(item.name, context.color(com.pluto.plugin.R.color.pluto___text_dark_40))))
+                    append(italic(light(fontColor("\t(already applied)", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))))
                 }
                 binding.root.setOnDebounceClickListener {}
             } else {
                 binding.value.setSpan {
-                    append(semiBold(fontColor(item.name, context.color(R.color.pluto___text_dark_80))))
+                    append(semiBold(fontColor(item.name, context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
                 }
                 binding.root.setOnDebounceClickListener {
                     onAction("click")

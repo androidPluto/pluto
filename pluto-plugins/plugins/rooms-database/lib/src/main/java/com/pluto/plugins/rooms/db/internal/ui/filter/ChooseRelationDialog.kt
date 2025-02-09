@@ -33,7 +33,7 @@ internal class ChooseRelationDialog(
         setContentView(sheetView)
         setOnShowListener { dialog ->
             if (dialog is BottomSheetDialog) {
-                val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
+                val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
                 val behavior = BottomSheetBehavior.from(bottomSheet!!)
                 behavior.apply {
                     state = BottomSheetBehavior.STATE_EXPANDED

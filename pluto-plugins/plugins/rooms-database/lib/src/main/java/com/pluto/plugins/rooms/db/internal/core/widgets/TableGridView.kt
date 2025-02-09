@@ -34,21 +34,21 @@ internal class TableGridView(context: Context) : TableLayout(context) {
     private val tableHeaderBackground by lazy {
         ContextCompat.getColor(
             context,
-            R.color.pluto___dark_80
+            com.pluto.plugin.R.color.pluto___dark_80
         )
     }
 
     private val tableHeaderSortedBackground by lazy {
         ContextCompat.getColor(
             context,
-            R.color.pluto___dark
+            com.pluto.plugin.R.color.pluto___dark
         )
     }
 
     private val tableRowBackground by lazy {
         ContextCompat.getColor(
             context,
-            R.color.pluto___app_bg
+            com.pluto.plugin.R.color.pluto___app_bg
         )
     }
 
@@ -70,13 +70,13 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             setPadding(PADDING_HORIZONTAL, 0, PADDING_HORIZONTAL, 0)
             text = column.name.truncateExcess(TEXT_OFFSET)
             textSize = TEXT_SIZE_RECORD
-            setTextColor(ContextCompat.getColor(context, R.color.pluto___app_bg))
+            setTextColor(ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___app_bg))
             typeface = ResourcesCompat.getFont(
                 context,
                 if (column.isPrimaryKey) {
-                    R.font.muli_bold
+                    com.pluto.plugin.R.font.muli_bold
                 } else {
-                    R.font.muli_semibold
+                    com.pluto.plugin.R.font.muli_semibold
                 }
             )
             if (column.isPrimaryKey) {
@@ -84,7 +84,7 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             }
             sortBy?.let {
                 setCompoundDrawablesWithIntrinsicBounds(0, 0, it.indicator, 0)
-                typeface = ResourcesCompat.getFont(context, R.font.muli_bold)
+                typeface = ResourcesCompat.getFont(context, com.pluto.plugin.R.font.muli_bold)
                 setBackgroundColor(tableHeaderSortedBackground)
             }
             setOnDebounceClickListener(haptic = true) {
@@ -111,17 +111,17 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             setSpan {
                 text?.let {
                     if (it == "") {
-                        append(light(italic(fontColor("blank", context.color(R.color.pluto___text_dark_20)))))
+                        append(light(italic(fontColor("blank", context.color(com.pluto.plugin.R.color.pluto___text_dark_20)))))
                     } else {
                         append(it.truncateExcess(TEXT_OFFSET))
                     }
                 } ?: run {
-                    append(light(italic(fontColor("null", context.color(R.color.pluto___text_dark_20)))))
+                    append(light(italic(fontColor("null", context.color(com.pluto.plugin.R.color.pluto___text_dark_20)))))
                 }
             }
             textSize = TEXT_SIZE_RECORD
-            setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark))
-            typeface = ResourcesCompat.getFont(context, R.font.muli)
+            setTextColor(ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___text_dark))
+            typeface = ResourcesCompat.getFont(context, com.pluto.plugin.R.font.muli)
         }
 
     private fun rowTableEnd() = TextView(context)
@@ -133,8 +133,8 @@ internal class TableGridView(context: Context) : TableLayout(context) {
             this.text = context.getString(R.string.pluto_rooms___end_of_table)
             textSize = TEXT_SIZE_EOT
             setBackgroundColor(tableRowBackground)
-            setTextColor(ContextCompat.getColor(context, R.color.pluto___text_dark_80))
-            typeface = ResourcesCompat.getFont(context, R.font.muli_semibold)
+            setTextColor(ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___text_dark_80))
+            typeface = ResourcesCompat.getFont(context, com.pluto.plugin.R.font.muli_semibold)
         }
 
     /**

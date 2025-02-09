@@ -91,8 +91,8 @@ private fun FilterItem(
         Column(
             Modifier
                 .borderBackground(
-                    bgColor = colorResource(id = R.color.pluto___white),
-                    borderColor = colorResource(id = R.color.pluto___white),
+                    bgColor = colorResource(id = com.pluto.plugin.R.color.pluto___white),
+                    borderColor = colorResource(id = com.pluto.plugin.R.color.pluto___white),
                     shape = RoundedCornerShape(4.dp)
                 )
                 .padding(bottom = 4.dp)
@@ -101,17 +101,17 @@ private fun FilterItem(
                 Modifier
                     .fillMaxWidth(ColumnWidthPercentage)
                     .borderBackground(
-                        bgColor = colorResource(id = R.color.pluto___section_color),
-                        borderColor = colorResource(id = R.color.pluto___section_color),
+                        bgColor = colorResource(id = com.pluto.plugin.R.color.pluto___section_color),
+                        borderColor = colorResource(id = com.pluto.plugin.R.color.pluto___section_color),
                         shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp)
                     )
                     .padding(vertical = 12.dp, horizontal = 16.dp)
             ) {
                 Text(
                     text = "Preferences",
-                    color = colorResource(id = R.color.pluto___text_dark_80),
+                    color = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_80),
                     style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.muli)),
+                        fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli)),
                         fontSize = 15.sp
                     )
                 )
@@ -130,7 +130,7 @@ private fun FilterItem(
                         .fillMaxWidth(ColumnWidthPercentage)
                 ) {
                     if (index != 0) {
-                        Divider(color = colorResource(id = R.color.pluto___dark_05))
+                        Divider(color = colorResource(id = com.pluto.plugin.R.color.pluto___dark_05))
                     }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -147,15 +147,15 @@ private fun FilterItem(
                                 }
                             },
                             colors = CheckboxDefaults.colors(
-                                checkedColor = colorResource(id = R.color.pluto___blue),
-                                uncheckedColor = colorResource(id = R.color.pluto___dark_40)
+                                checkedColor = colorResource(id = com.pluto.plugin.R.color.pluto___blue),
+                                uncheckedColor = colorResource(id = com.pluto.plugin.R.color.pluto___dark_40)
                             )
                         )
                         Text(
                             text = entry.key,
-                            color = colorResource(id = R.color.pluto___text_dark_80),
+                            color = colorResource(id = com.pluto.plugin.R.color.pluto___text_dark_80),
                             style = TextStyle(
-                                fontFamily = FontFamily(Font(R.font.muli_semibold)),
+                                fontFamily = FontFamily(Font(com.pluto.plugin.R.font.muli_semibold)),
                                 fontSize = 15.sp
                             )
                         )
@@ -195,7 +195,7 @@ private fun FilterBackground(
             Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(colorResource(id = R.color.pluto___dark_80))
+                .background(colorResource(id = com.pluto.plugin.R.color.pluto___dark_80))
                 .clickable {
                     showFilterState.update {
                         false

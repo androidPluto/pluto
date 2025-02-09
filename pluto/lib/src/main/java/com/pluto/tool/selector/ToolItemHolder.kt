@@ -28,8 +28,8 @@ internal class ToolItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapte
             icon.setImageResource(item.getConfig().icon)
             name.text = item.getConfig().name
             if (item.isEnabled()) {
-                iconCard.setCardBackgroundColor(context.color(R.color.pluto___white))
-                name.setTextColor(context.color(R.color.pluto___white))
+                iconCard.setCardBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___white))
+                name.setTextColor(context.color(com.pluto.plugin.R.color.pluto___white))
                 binding.root.setOnDebounceClickListener(haptic = true) {
                     val scale = context.loadAnimation(R.anim.pluto___click_bounce)
                     scale.duration = ANIMATION_DURATION
@@ -44,8 +44,8 @@ internal class ToolItemHolder(parent: ViewGroup, actionListener: DiffAwareAdapte
                     it.startAnimation(scale)
                 }
             } else {
-                iconCard.setCardBackgroundColor(context.color(R.color.pluto___white_40))
-                name.setTextColor(context.color(R.color.pluto___white_60))
+                iconCard.setCardBackgroundColor(context.color(com.pluto.plugin.R.color.pluto___white_40))
+                name.setTextColor(context.color(com.pluto.plugin.R.color.pluto___white_60))
                 binding.root.setOnDebounceClickListener(action = null)
             }
         }

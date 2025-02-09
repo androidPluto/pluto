@@ -40,7 +40,7 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog?.setOnShowListener {
             val dialog = it as BottomSheetDialog
-            val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet)
+            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.let {
                 dialog.behavior.peekHeight = Device(requireContext()).screen.heightPx
                 dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -67,14 +67,14 @@ internal class ColumnDetailsFragment : BottomSheetDialogFragment() {
         }
         binding.type.setSpan {
             append("Data type: ")
-            append(semiBold(fontColor("${data.second.type}, ", context.color(R.color.pluto___text_dark_80))))
-            append(semiBold(fontColor(if (data.second.isNotNull) "NOT_NULL" else "NULL", context.color(R.color.pluto___text_dark_80))))
+            append(semiBold(fontColor("${data.second.type}, ", context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
+            append(semiBold(fontColor(if (data.second.isNotNull) "NOT_NULL" else "NULL", context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
         }
         data.second.defaultValue?.let {
             binding.defaultValue.visibility = VISIBLE
             binding.defaultValue.setSpan {
                 append("Default value: ")
-                append(semiBold(fontColor(it, context.color(R.color.pluto___text_dark_80))))
+                append(semiBold(fontColor(it, context.color(com.pluto.plugin.R.color.pluto___text_dark_80))))
             }
         } ?: run {
             binding.defaultValue.visibility = GONE

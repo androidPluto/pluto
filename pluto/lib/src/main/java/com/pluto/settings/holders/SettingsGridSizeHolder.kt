@@ -25,19 +25,39 @@ internal class SettingsGridSizeHolder(parent: ViewGroup, listener: DiffAwareAdap
                 binding.decSizeCta.setOnDebounceClickListener {
                     onAction(DEC_SIZE)
                 }
-                ImageViewCompat.setImageTintList(binding.decSizeCta, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pluto___dark_40)))
+                ImageViewCompat.setImageTintList(
+                    binding.decSizeCta,
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___dark_40)
+                    )
+                )
             } else {
                 binding.decSizeCta.setOnDebounceClickListener(action = null)
-                ImageViewCompat.setImageTintList(binding.decSizeCta, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pluto___dark_10)))
+                ImageViewCompat.setImageTintList(
+                    binding.decSizeCta,
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___dark_10)
+                    )
+                )
             }
             if (SettingsPreferences.gridSize < LARGEST_GRID_DIMEN_ALLOWED) {
                 binding.incSizeCta.setOnDebounceClickListener {
                     onAction(INC_SIZE)
                 }
-                ImageViewCompat.setImageTintList(binding.incSizeCta, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pluto___dark_40)))
+                ImageViewCompat.setImageTintList(
+                    binding.incSizeCta,
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___dark_40)
+                    )
+                )
             } else {
                 binding.incSizeCta.setOnDebounceClickListener(action = null)
-                ImageViewCompat.setImageTintList(binding.incSizeCta, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.pluto___dark_10)))
+                ImageViewCompat.setImageTintList(
+                    binding.incSizeCta,
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(context, com.pluto.plugin.R.color.pluto___dark_10)
+                    )
+                )
             }
 
             binding.sizeValue.text = "${SettingsPreferences.gridSize} dp"

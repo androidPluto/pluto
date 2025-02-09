@@ -190,7 +190,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
         if (viewModel.filters.isEmpty()) {
             binding.applyFilter.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pluto_rooms___ic_no_filter, 0, 0, 0)
             binding.applyFilter.setSpan {
-                append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(getString(R.string.pluto_rooms___no_data_filter_applied), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                 append(" ${bold(getString(R.string.pluto_rooms___apply_filter))}")
             }
         } else {
@@ -203,7 +203,7 @@ internal class DetailsFragment : Fragment(R.layout.pluto_rooms___fragment_db_det
                                 R.plurals.pluto_rooms___applied_filters, viewModel.filters.size, viewModel.filters.size
                             )
                         ),
-                        context.color(R.color.pluto___blue)
+                        context.color(com.pluto.plugin.R.color.pluto___blue)
                     )
                 )
             }

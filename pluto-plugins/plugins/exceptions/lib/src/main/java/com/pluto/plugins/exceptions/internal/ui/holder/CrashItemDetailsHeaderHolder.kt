@@ -36,7 +36,7 @@ internal class CrashItemDetailsHeaderHolder(
                     append("\n\t\t\t")
                     append(
                         fontColor(
-                            " at  ", context.color(R.color.pluto___text_dark_40)
+                            " at  ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                     append(it)
@@ -45,7 +45,7 @@ internal class CrashItemDetailsHeaderHolder(
                 if (extraTrace > 0) {
                     append(
                         fontColor(
-                            "\n\t\t\t + $extraTrace more lines", context.color(R.color.pluto___text_dark_40)
+                            "\n\t\t\t + $extraTrace more lines", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                 }
@@ -72,7 +72,7 @@ internal class CrashItemDetailsHeaderHolder(
                     append(
                         fontColor(
                             getString(R.string.pluto_excep___anr_list_title),
-                            color(R.color.pluto___text_dark_80)
+                            color(com.pluto.plugin.R.color.pluto___text_dark_80)
                         )
                     )
                 }
@@ -81,13 +81,13 @@ internal class CrashItemDetailsHeaderHolder(
             title.setSpan {
                 append("${item.file}\t\t")
                 append(
-                    fontColor("line: ${item.lineNumber}", context.color(R.color.pluto___text_dark_80))
+                    fontColor("line: ${item.lineNumber}", context.color(com.pluto.plugin.R.color.pluto___text_dark_80))
                 )
             }
             message.setSpan {
                 append("${item.name}\n")
                 append(
-                    fontColor("${item.message}", context.color(R.color.pluto___text_dark_60))
+                    fontColor("${item.message}", context.color(com.pluto.plugin.R.color.pluto___text_dark_60))
                 )
             }
         }

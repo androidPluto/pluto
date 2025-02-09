@@ -48,6 +48,7 @@ internal class NotchViewManager(
                         lastAction = event.action
                         return true
                     }
+
                     MotionEvent.ACTION_UP -> {
                         if (lastAction == MotionEvent.ACTION_DOWN) {
                             view.hapticFeedback(true)
@@ -57,6 +58,7 @@ internal class NotchViewManager(
                         lastAction = event.action
                         return true
                     }
+
                     MotionEvent.ACTION_MOVE -> {
                         val movementX = event.rawX - initialTouchX
                         val movementY = event.rawY - initialTouchY
@@ -84,16 +86,40 @@ internal class NotchViewManager(
             override fun onViewAttachedToWindow(v: View) {
                 PlutoLayoutNotchBinding.bind(v).apply {
                     card.setCardBackgroundColor(
-                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_bg_dark else R.color.pluto___notch_bg_light)
+                        context.color(
+                            if (SettingsPreferences.isDarkThemeEnabled) {
+                                com.pluto.plugin.R.color.pluto___notch_bg_dark
+                            } else {
+                                com.pluto.plugin.R.color.pluto___notch_bg_light
+                            }
+                        )
                     )
                     left.setTextColor(
-                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                        context.color(
+                            if (SettingsPreferences.isDarkThemeEnabled) {
+                                com.pluto.plugin.R.color.pluto___white_80
+                            } else {
+                                com.pluto.plugin.R.color.pluto___text_dark_80
+                            }
+                        )
                     )
                     right.setTextColor(
-                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___white_80 else R.color.pluto___text_dark_80)
+                        context.color(
+                            if (SettingsPreferences.isDarkThemeEnabled) {
+                                com.pluto.plugin.R.color.pluto___white_80
+                            } else {
+                                com.pluto.plugin.R.color.pluto___text_dark_80
+                            }
+                        )
                     )
                     bottom.setBackgroundColor(
-                        context.color(if (SettingsPreferences.isDarkThemeEnabled) R.color.pluto___notch_accent_dark else R.color.pluto___notch_accent_light)
+                        context.color(
+                            if (SettingsPreferences.isDarkThemeEnabled) {
+                                com.pluto.plugin.R.color.pluto___notch_accent_dark
+                            } else {
+                                com.pluto.plugin.R.color.pluto___notch_accent_light
+                            }
+                        )
                     )
                 }
                 val gravityHorizontal =
@@ -133,9 +159,11 @@ internal class NotchViewManager(
             )
         }
 
-        val gravityHorizontal = if (SettingsPreferences.isRightHandedAccessPopup) Gravity.END else Gravity.START
+        val gravityHorizontal =
+            if (SettingsPreferences.isRightHandedAccessPopup) Gravity.END else Gravity.START
         params.gravity = gravityHorizontal or Gravity.TOP
-        params.x = (context.resources.getDimension(R.dimen.pluto___popup_bubble_width) * INIT_THRESHOLD_X).toInt()
+        params.x =
+            (context.resources.getDimension(com.pluto.plugin.R.dimen.pluto___popup_bubble_width) * INIT_THRESHOLD_X).toInt()
         params.y = (device.screen.heightPx * INIT_THRESHOLD_Y).toInt()
 
         return params

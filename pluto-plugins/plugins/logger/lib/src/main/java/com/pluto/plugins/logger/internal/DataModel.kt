@@ -11,8 +11,8 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 internal open class Level(
     val label: String,
-    val color: Int = R.color.pluto___transparent,
-    val textColor: Int = R.color.pluto___text_dark_60,
+    val color: Int = com.pluto.plugin.R.color.pluto___transparent,
+    val textColor: Int = com.pluto.plugin.R.color.pluto___text_dark_60,
     @DrawableRes val iconRes: Int = 0
 ) {
     object Verbose : Level("verbose")
@@ -20,11 +20,11 @@ internal open class Level(
     object Info : Level("info")
     object Warning : Level("warning")
     object WTF : Level("wtf")
-    object Error : Level("error", R.color.pluto___red_05, R.color.pluto___red_80)
+    object Error : Level("error", com.pluto.plugin.R.color.pluto___red_05, com.pluto.plugin.R.color.pluto___red_80)
     object Event : Level(
         label = "event",
         iconRes = R.drawable.pluto_logger___ic_analytics,
-        textColor = R.color.pluto___blue
+        textColor = com.pluto.plugin.R.color.pluto___blue
     )
 }
 

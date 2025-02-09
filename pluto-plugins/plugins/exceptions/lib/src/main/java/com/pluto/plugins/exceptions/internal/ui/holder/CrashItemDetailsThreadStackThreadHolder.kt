@@ -23,7 +23,7 @@ internal class CrashItemDetailsThreadStackThreadHolder(
         if (item is ThreadStates) {
             binding.label.setSpan {
                 append(context.getString(R.string.pluto_excep___thread_stack_traces_label))
-                append(fontColor(" (${item.states.size})", context.color(R.color.pluto___text_dark_40)))
+                append(fontColor(" (${item.states.size})", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
             }
             binding.root.setOnDebounceClickListener {
                 onAction("thread_stack_trace")

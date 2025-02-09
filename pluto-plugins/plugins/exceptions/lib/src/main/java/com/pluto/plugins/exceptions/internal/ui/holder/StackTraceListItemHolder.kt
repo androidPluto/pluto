@@ -31,14 +31,14 @@ internal class StackTraceListItemHolder(
             binding.threadState.text = getStateStringSpan(context, item.state)
             binding.stackTrace.setSpan {
                 item.stackTrace.take(MAX_STACK_TRACE_LINES).forEach {
-                    append(fontColor(" at  ", context.color(R.color.pluto___text_dark_40)))
+                    append(fontColor(" at  ", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                     append("$it\n")
                 }
                 val extraTrace = item.stackTrace.size - MAX_STACK_TRACE_LINES
                 if (extraTrace > 0) {
                     append(
                         fontColor(
-                            "\t + $extraTrace more lines\n", context.color(R.color.pluto___text_dark_40)
+                            "\t + $extraTrace more lines\n", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                 }
