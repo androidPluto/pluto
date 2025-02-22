@@ -14,7 +14,6 @@ extra["PUBLISH_VERSION"] = verPublish
 
 android {
     namespace = "com.pluto"
-//    configureAndroid()
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
 

@@ -19,16 +19,11 @@ android {
     buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
-        buildConfig = true
         viewBinding = true
     }
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-
-        buildConfigField("String", "VERSION_NAME", "\"$verPublish\"")
-        buildConfigField("long", "VERSION_CODE", "$verCode")
-        buildConfigField("String", "GIT_SHA", "\"$verGitSHA\"")
     }
 
     buildTypes {

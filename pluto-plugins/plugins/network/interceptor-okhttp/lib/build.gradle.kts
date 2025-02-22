@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-//    alias(libs.plugins.kotlin.parcelize)
-//    alias(libs.plugins.ksp)
 }
 
 val version = Versioning.loadVersioningData()
@@ -13,11 +11,6 @@ val verGitSHA = version["gitSha"] as String
 extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "network-interceptor-okhttp"
 extra["PUBLISH_VERSION"] = verPublish
-
-// ext {
-//    PUBLISH_GROUP_ID = "com.plutolib.plugins"
-//    PUBLISH_ARTIFACT_ID = "network-interceptor-okhttp"
-// }
 
 android {
     resourcePrefix = "pluto_network___"

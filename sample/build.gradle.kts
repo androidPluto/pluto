@@ -1,5 +1,3 @@
-import Versioning.loadVersioningData
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-val version = loadVersioningData()
+val version = Versioning.loadVersioningData()
 val verCode = version["code"] as Int
 val verPublish = version["publish"] as String
 
