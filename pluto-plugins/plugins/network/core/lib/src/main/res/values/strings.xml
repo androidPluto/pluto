@@ -94,4 +94,6 @@
         <item quantity="one">1 items</item>
         <item quantity="other">%d items</item>
     </plurals>
+    <string name="pluto_network___search_next_highlight">Next highlight</string>
+    <string name="pluto_network___search_previous_highlight">Previous highlight</string>
 </resources>
