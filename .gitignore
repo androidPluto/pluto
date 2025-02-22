@@ -8,3 +8,6 @@
 .cxx
 /.idea/*
 /scripts/publish/_credentials.properties
+/scripts/publish/_newCreds.properties
+*.gpg
+/buildSrc/build
