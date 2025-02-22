@@ -11,12 +11,12 @@ val verPublish = version["publish"] as String
 val verGitSHA = version["gitSha"] as String
 
 extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
-extra["PUBLISH_ARTIFACT_ID"] = "exceptions"
+extra["PUBLISH_ARTIFACT_ID"] = "rooms-db"
 extra["PUBLISH_VERSION"] = verPublish
 
 android {
-    namespace = "com.pluto.plugins.exceptions"
-    resourcePrefix = "pluto_excep___"
+    resourcePrefix = "pluto_rooms___"
+    namespace = "com.pluto.plugins.rooms.db"
 
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
@@ -61,9 +61,7 @@ dependencies {
     implementation(project(":pluto-plugins:base:lib"))
 
     implementation(libs.androidx.core)
-
-    implementation(libs.moshi)
-    ksp(libs.moshi.codegen)
+    implementation(libs.androidx.swiperefreshlayout)
 
     implementation(libs.room)
     ksp(libs.room.compiler)

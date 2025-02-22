@@ -52,4 +52,4 @@ val prCheck by tasks.registering {
 }
 
 apply (from = "$rootDir/scripts/project-dependancy-graph.gradle")
-apply (from = "$rootDir/maven-versions.gradle")
+apply (from = "$rootDir/maven-versions.gradle.kts")

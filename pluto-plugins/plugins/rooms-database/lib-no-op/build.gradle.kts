@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.ksp)
 }
 
 val version = Versioning.loadVersioningData()
@@ -11,12 +9,11 @@ val verPublish = version["publish"] as String
 val verGitSHA = version["gitSha"] as String
 
 extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
-extra["PUBLISH_ARTIFACT_ID"] = "exceptions"
+extra["PUBLISH_ARTIFACT_ID"] = "rooms-db-no-op"
 extra["PUBLISH_VERSION"] = verPublish
 
 android {
-    namespace = "com.pluto.plugins.exceptions"
-    resourcePrefix = "pluto_excep___"
+    namespace = "com.pluto.plugins.rooms.db"
 
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
@@ -58,13 +55,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":pluto-plugins:base:lib"))
-
     implementation(libs.androidx.core)
-
-    implementation(libs.moshi)
-    ksp(libs.moshi.codegen)
-
-    implementation(libs.room)
-    ksp(libs.room.compiler)
 }
