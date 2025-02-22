@@ -53,21 +53,7 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
         binding.editSearch.doOnTextChanged { text, _, _, _ ->
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let { search ->
-                    currentHighlightIndex = 0
-                    argumentData?.let {
-                        binding.content.setSpan {
-                            occurrences = occurrences(it.content, search.trim())
-                            append(highlight(it.content, search.trim(), occurrences))
-                            append("\n")
-                            binding.searchCount.visibility = if (search.isEmpty()) View.GONE else VISIBLE
-                            binding.searchCount.text = occurrences.size.toString()
-                            val highlightsVisibility = if (occurrences.size < 2) View.GONE else VISIBLE
-                            binding.previousHighlight.visibility = highlightsVisibility
-                            binding.nextHighlight.visibility = highlightsVisibility
-                        }
-                    }
-
-                    scrollToText(currentHighlightIndex, search.trim())
+                    processSearch(search)
                 }
             }
         }
@@ -116,6 +102,24 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
         } else {
             findNavController().navigateUp()
         }
+    }
+
+    private fun processSearch(search: String) {
+        currentHighlightIndex = 0
+        argumentData?.let {
+            binding.content.setSpan {
+                occurrences = occurrences(it.content, search.trim())
+                append(highlight(it.content, search.trim(), occurrences))
+                append("\n")
+                binding.searchCount.visibility = if (search.isEmpty()) View.GONE else VISIBLE
+                binding.searchCount.text = occurrences.size.toString()
+                val highlightsVisibility = if (occurrences.size < 2) View.GONE else VISIBLE
+                binding.previousHighlight.visibility = highlightsVisibility
+                binding.nextHighlight.visibility = highlightsVisibility
+            }
+        }
+
+        scrollToText(currentHighlightIndex, search.trim())
     }
 
     /**
