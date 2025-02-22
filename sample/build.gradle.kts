@@ -6,62 +6,64 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-apply from: "$rootDir/scripts/version.gradle"
-
-def version = loadVersioningData()
-def verCode = version["code"]
-def verPublish = version["publish"]
+val version = Versioning.loadVersioningData()
+val verCode = version["code"] as Int
+val verPublish = version["publish"] as String
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInteger()
+    compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
-        viewBinding true
-        buildConfig true
+        viewBinding = true
+        buildConfig = true
     }
 
     defaultConfig {
-        applicationId "com.sampleapp"
-        minSdk = libs.versions.minSdk.get().toInteger()
-        targetSdk = libs.versions.targetSdk.get().toInteger()
-        versionCode verCode
-        versionName verPublish
+        applicationId = "com.sampleapp"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = verCode
+        versionName = verPublish
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         /**
          * build type with lib modules
          */
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("debug") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
         }
-        debugMaven {
-            initWith debug
-            signingConfig signingConfigs.debug
-            matchingFallbacks = ['debug']
+        create("debugMaven") {
+            initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("debug")
         }
 
         /**
          * build type with lib-no-op modules
          */
-        debugNoOp {
-            initWith debug
-            signingConfig signingConfigs.debug
-            matchingFallbacks = ['debug']
+        create("debugNoOp") {
+            initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("debug")
         }
-        debugNoOpMaven {
-            initWith debug
-            signingConfig signingConfigs.debug
-            matchingFallbacks = ['debug']
+        create("debugNoOpMaven") {
+            initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("debug")
         }
 
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -72,28 +74,28 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
-    namespace 'com.sampleapp'
+    namespace = "com.sampleapp"
 }
 
 dependencies {
     /* Local Op dependencies */
-    debugImplementation project(path: ':pluto:lib')
-    debugImplementation project(path: ':pluto-plugins:bundle:lib')
+    "debugImplementation"(project(":pluto:lib"))
+    "debugImplementation"(project(":pluto-plugins:bundle:lib"))
 
     /* Maven Op dependencies */
-    debugMavenImplementation "com.plutolib:pluto:$verPublish"
-    debugMavenImplementation "com.plutolib.plugins:bundle-core:$verPublish"
+    "debugMavenImplementation"("com.plutolib:pluto:$verPublish")
+    "debugMavenImplementation"("com.plutolib.plugins:bundle-core:$verPublish")
 
     /* Local NoOp dependencies */
-    debugNoOpImplementation project(path: ':pluto:lib-no-op')
-    debugNoOpImplementation project(path: ':pluto-plugins:bundle:lib-no-op')
+    "debugNoOpImplementation"(project(":pluto:lib-no-op"))
+    "debugNoOpImplementation"(project(":pluto-plugins:bundle:lib-no-op"))
 
     /* Maven NoOp dependencies */
-    debugNoOpMavenImplementation "com.plutolib:pluto-no-op:$verPublish"
-    debugNoOpMavenImplementation "com.plutolib.plugins:bundle-core-no-op:$verPublish"
+    "debugNoOpMavenImplementation"("com.plutolib:pluto-no-op:$verPublish")
+    "debugNoOpMavenImplementation"("com.plutolib.plugins:bundle-core-no-op:$verPublish")
 
-    releaseImplementation "com.plutolib:pluto:$verPublish"
-    releaseImplementation "com.plutolib.plugins:bundle-core:$verPublish"
+    "releaseImplementation"("com.plutolib:pluto:$verPublish")
+    "releaseImplementation"("com.plutolib.plugins:bundle-core:$verPublish")
 
     /**
      * Other dependencies
