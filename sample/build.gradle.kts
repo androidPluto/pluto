@@ -81,16 +81,16 @@ android {
 
 dependencies {
     /* Local Op dependencies */
-    "debugImplementation"(project(mapOf("path" to ":pluto:lib")))
-    "debugImplementation"(project(mapOf("path" to ":pluto-plugins:bundle:lib")))
+    "debugImplementation"(project(":pluto:lib"))
+    "debugImplementation"(project(":pluto-plugins:bundle:lib"))
 
     /* Maven Op dependencies */
     "debugMavenImplementation"("com.plutolib:pluto:$verPublish")
     "debugMavenImplementation"("com.plutolib.plugins:bundle-core:$verPublish")
 
     /* Local NoOp dependencies */
-    "debugNoOpImplementation"(project(mapOf("path" to ":pluto:lib-no-op")))
-    "debugNoOpImplementation"(project(mapOf("path" to ":pluto-plugins:bundle:lib-no-op")))
+    "debugNoOpImplementation"(project(":pluto:lib-no-op"))
+    "debugNoOpImplementation"(project(":pluto-plugins:bundle:lib-no-op"))
 
     /* Maven NoOp dependencies */
     "debugNoOpMavenImplementation"("com.plutolib:pluto-no-op:$verPublish")
