@@ -154,9 +154,56 @@
                     android:textColorHint="@color/pluto___text_dark_40"
                     android:textSize="@dimen/pluto___text_small"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/clearSearch"
+                    app:layout_constraintEnd_toStartOf="@+id/nextHighlight"
                     app:layout_constraintStart_toEndOf="@+id/closeSearch"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/nextHighlight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___search_next_highlight"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingHorizontal="@dimen/pluto___margin_mini"
+                    android:src="@drawable/pluto_network___ic_arrow_down"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/previousHighlight"
+                    app:layout_constraintStart_toEndOf="@id/editSearch"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/previousHighlight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pluto_network___search_previous_highlight"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingHorizontal="@dimen/pluto___margin_mini"
+                    android:src="@drawable/pluto_network___ic_arrow_up"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/searchCount"
+                    app:layout_constraintStart_toEndOf="@id/nextHighlight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/searchCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/muli_semibold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/pluto___margin_xsmall"
+                    android:textColor="@color/pluto___text_dark_40"
+                    android:textSize="@dimen/pluto___text_small"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/clearSearch"
+                    app:layout_constraintStart_toEndOf="@id/previousHighlight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/clearSearch"
@@ -167,6 +214,7 @@
                     android:paddingHorizontal="@dimen/pluto___margin_xsmall"
                     android:src="@drawable/pluto_network___ic_close_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/searchCount"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

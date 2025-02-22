@@ -29,6 +29,9 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
     private val argumentData: ContentFormatterData?
         get() = arguments?.getParcelable(DATA)
 
+    private var currentHighlightIndex = 0
+    private var occurrences = emptyList<Int>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onBackPressed { handleBackPress() }
@@ -50,20 +53,33 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
         binding.editSearch.doOnTextChanged { text, _, _, _ ->
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 text?.toString()?.let { search ->
-                    argumentData?.let {
-                        binding.content.setSpan {
-                            append(highlight(it.content, search.trim()))
-                            append("\n")
-                        }
-                    }
-
-                    scrollToText(search.trim())
+                    processSearch(search)
                 }
             }
         }
+
+        binding.previousHighlight.setOnDebounceClickListener {
+            if (occurrences.isNotEmpty()) {
+                currentHighlightIndex = (currentHighlightIndex - 1 + occurrences.size) % occurrences.size
+                scrollToText(occurrences[currentHighlightIndex], binding.editSearch.text.toString())
+            }
+        }
+
+        binding.nextHighlight.setOnDebounceClickListener {
+            if (occurrences.isNotEmpty()) {
+                currentHighlightIndex = (currentHighlightIndex + 1) % occurrences.size
+                scrollToText(occurrences[currentHighlightIndex], binding.editSearch.text.toString())
+            }
+        }
+
         binding.share.setOnDebounceClickListener {
             argumentData?.let {
-                contentSharer.share(Shareable(title = "Share content", content = it.content.toString()))
+                contentSharer.share(
+                    Shareable(
+                        title = "Share content",
+                        content = it.content.toString()
+                    )
+                )
             }
         }
         argumentData?.let {
@@ -88,16 +104,34 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
         }
     }
 
+    private fun processSearch(search: String) {
+        currentHighlightIndex = 0
+        argumentData?.let {
+            binding.content.setSpan {
+                occurrences = occurrences(it.content, search.trim())
+                append(highlight(it.content, search.trim(), occurrences))
+                append("\n")
+                binding.searchCount.visibility = if (search.isEmpty()) View.GONE else VISIBLE
+                binding.searchCount.text = occurrences.size.toString()
+                val highlightsVisibility = if (occurrences.size < 2) View.GONE else VISIBLE
+                binding.previousHighlight.visibility = highlightsVisibility
+                binding.nextHighlight.visibility = highlightsVisibility
+            }
+        }
+
+        scrollToText(currentHighlightIndex, search.trim())
+    }
+
     /**
      * helps to auto scroll to target search
      */
-    private fun scrollToText(targetText: String) {
+    private fun scrollToText(startIndex: Int, targetText: String) {
         if (targetText.isEmpty()) {
             return
         }
 
         val contentText = binding.content.getText().toString().lowercase()
-        val index = contentText.indexOf(targetText.lowercase())
+        val index = contentText.indexOf(targetText.lowercase(), startIndex)
 
         if (index != -1) {
             binding.content.post {
@@ -108,7 +142,7 @@ internal class ContentFragment : Fragment(R.layout.pluto_network___fragment_cont
                     val y = layout.getLineTop(lineNumber)
 
                     binding.horizontalScroll.smoothScrollTo(x / 2, 0)
-                    binding.contentNestedScrollView.smoothScrollTo(0, y / 2)
+                    binding.contentNestedScrollView.smoothScrollTo(0, y)
                 }
             }
         }
