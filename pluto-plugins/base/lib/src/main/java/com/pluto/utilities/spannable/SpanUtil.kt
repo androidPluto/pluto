@@ -55,12 +55,15 @@ class Builder(val context: Context) {
         is String -> SpannableString(s).apply {
             setSpan(o, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
+
         is SpannableStringBuilder -> s.apply {
             setSpan(o, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
+
         is SpannableString -> s.apply {
             setSpan(o, 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
+
         else -> throw IllegalArgumentException("unhandled type $o")
     }
 
@@ -92,14 +95,20 @@ class Builder(val context: Context) {
 
     fun highlight(span: CharSequence, search: String?): CharSequence {
         if (search.isNullOrEmpty()) return span
-        val normalizedText = Normalizer.normalize(span, Normalizer.Form.NFD)
-            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
-            .lowercase()
+        val normalizedText = span.normalise().lowercase()
 
         val startIndexes = normalizedText.allOccurrences(search)
         if (startIndexes.isNotEmpty()) {
+            return highlight(span, search, startIndexes)
+        }
+        return span
+    }
+
+    fun highlight(span: CharSequence, search: String?, indexes: List<Int>): CharSequence {
+        if (search.isNullOrEmpty()) return span
+        if (indexes.isNotEmpty()) {
             val highlighted: Spannable = SpannableString(span)
-            startIndexes.forEach {
+            indexes.forEach {
                 highlighted.setSpan(
                     BackgroundColorSpan(context.color(R.color.pluto___text_highlight)),
                     it,
@@ -112,6 +121,12 @@ class Builder(val context: Context) {
         return span
     }
 
+    fun occurrences(span: CharSequence, search: String?): List<Int> {
+        if (search.isNullOrEmpty()) return emptyList()
+        val normalizedText = span.normalise().lowercase()
+        return normalizedText.allOccurrences(search)
+    }
+
     fun clickable(span: CharSequence, listener: ClickableSpan): CharSequence {
         return span(span, listener)
     }
@@ -122,6 +137,11 @@ class Builder(val context: Context) {
 
     fun italic(span: CharSequence): CharSequence {
         return span(span, StyleSpan(Typeface.ITALIC))
+    }
+
+    private fun CharSequence.normalise(): String {
+        return Normalizer.normalize(this, Normalizer.Form.NFD)
+            .replace("[^\\p{ASCII}]".toRegex(), "")
     }
 
     fun build(): CharSequence {
