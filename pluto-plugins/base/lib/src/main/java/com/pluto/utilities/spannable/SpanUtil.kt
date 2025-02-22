@@ -141,7 +141,7 @@ class Builder(val context: Context) {
 
     private fun CharSequence.normalise(): String {
         return Normalizer.normalize(this, Normalizer.Form.NFD)
-            .replace("[^\\p{ASCII}]".toRegex(), "")
+            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
     }
 
     fun build(): CharSequence {
