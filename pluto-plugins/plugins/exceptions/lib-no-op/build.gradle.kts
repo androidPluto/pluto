@@ -100,5 +100,4 @@ mavenPublishing {
 }
 
 dependencies {
-    implementation(libs.androidx.core)
 }

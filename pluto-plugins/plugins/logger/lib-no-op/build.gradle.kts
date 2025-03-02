@@ -101,6 +101,5 @@ mavenPublishing {
 }
 
 dependencies {
-    implementation(libs.androidx.core)
     api(libs.timber)
 }

@@ -100,6 +100,5 @@ mavenPublishing {
 }
 
 dependencies {
-    implementation(libs.androidx.core)
     implementation(libs.datastore.preferences)
 }
