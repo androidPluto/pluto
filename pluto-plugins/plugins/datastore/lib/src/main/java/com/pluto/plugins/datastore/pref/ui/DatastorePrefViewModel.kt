@@ -4,9 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.datastore.pref.PreferenceHolder
 import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
 import com.pluto.plugins.datastore.pref.utils.DatastorePrefUtils
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 internal class DatastorePrefViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -15,12 +18,6 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
     private val _preferences = MutableLiveData<List<DatastorePrefKeyValuePair>>()
 
     private val sharePrefUtils = DatastorePrefUtils(application.applicationContext)
-
-    fun refresh() {
-        _preferences.postValue(retrieveAllPreferenceData() ?: emptyList())
-    }
-
-    fun getPrefFiles(): List<PreferenceHolder> = sharePrefUtils.allPreferenceFiles
 
     fun getSelectedPrefFiles(): List<PreferenceHolder> = sharePrefUtils.selectedPreferenceFiles
 
@@ -34,53 +31,19 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
         refresh()
     }
 
-    private fun retrieveAllPreferenceData(): List<DatastorePrefKeyValuePair>? {
-//        viewModelScope.launch {
-//            DebugLog.e("prateek", PlutoDatastoreWatcher.sources.value.size.toString())
-//            PlutoDatastoreWatcher.sources.map { source ->
-//                source.map { prefHolder ->
-//                    prefHolder.preferences.data
-//                        .catch { exception ->
-//                            DebugLog.e("prateek", "${prefHolder.name} : ${exception.message}")
-//                            // DataStore calls can throw an IOException when an error is encountered when reading data
-//                            if (exception is IOException) {
-//                                emit(emptyPreferences())
-//                            } else {
-//                                throw exception
-//                            }
-//                        }
-//                        .map { preferences ->
-//                            // Map Preferences to a Map<String, Any?>
-//                            preferences.asMap().mapKeys { it.key.name }.toMap()
-//                        }.collect {
-//                            DebugLog.e("prateek", "${prefHolder.name} : $it")
-//                        }
-//                }
-//
-// //                source.preferences.data
-// //                    .catch { exception ->
-// //                        DebugLog.e("prateek", "${source.name} : ${exception.message}")
-// //                        // DataStore calls can throw an IOException when an error is encountered when reading data
-// //                        if (exception is IOException) {
-// //                            emit(emptyPreferences())
-// //                        } else {
-// //                            throw exception
-// //                        }
-// //                    }
-// //                    .map { preferences ->
-// //                        // Map Preferences to a Map<String, Any?>
-// //                        preferences.asMap().mapKeys { it.key.name }.toMap()
-// //                    }.collect {
-// //                        DebugLog.e("prateek", "${source.name} : $it")
-// //                    }
-//            }.map { listFlows ->
-//                combine(
-//                    flows = listFlows,
-//                    transform = { listPreferences ->
-//                    }
-//                )
-//            }
-//        }
-        return emptyList()
+    fun refresh() {
+        viewModelScope.launch {
+            val list = arrayListOf<DatastorePrefKeyValuePair>()
+            getSelectedPrefFiles().forEach {
+                it.preferences.data.first().asMap().map { (key, value) ->
+                    list.add(
+                        DatastorePrefKeyValuePair(key.name, value, it.name).also {
+                            _preferences.postValue(listOf(it))
+                        }
+                    )
+                }
+            }
+            _preferences.postValue(list)
+        }
     }
 }

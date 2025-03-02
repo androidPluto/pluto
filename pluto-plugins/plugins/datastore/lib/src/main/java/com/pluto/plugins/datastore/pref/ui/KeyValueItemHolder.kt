@@ -1,7 +1,5 @@
 package com.pluto.plugins.datastore.pref.ui
 
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsItemSharedPrefKeyValueBinding
@@ -27,7 +25,6 @@ internal class KeyValueItemHolder(
     override fun onBind(item: ListItem) {
         if (item is DatastorePrefKeyValuePair) {
             key.text = item.key
-            file.visibility = if (item.isDefault) GONE else VISIBLE
             val fileName = item.prefLabel
             file.text = if (fileName != null) {
                 if (fileName.length > MAX_FILENAME_LENGTH) {

@@ -21,8 +21,8 @@ internal class DatastorePrefUtils(context: Context) {
             return preferences.selectedPreferenceFiles?.let {
                 moshiAdapter.fromJson(it)?.map { label -> PlutoDatastoreWatcher.getSource(label) }
             } ?: run {
-                selectedPreferenceFiles = allPreferenceFiles
-                allPreferenceFiles
+                selectedPreferenceFiles = PlutoDatastoreWatcher.sources.value.toList()
+                selectedPreferenceFiles
             }
         }
         set(value) {
@@ -37,13 +37,10 @@ internal class DatastorePrefUtils(context: Context) {
     fun set(pair: DatastorePrefKeyValuePair, data: Any) {
         Log.d("", "$pair, $data")
     }
-
-    val allPreferenceFiles: List<PreferenceHolder> = PlutoDatastoreWatcher.sources.value.toList()
 }
 
 internal data class DatastorePrefKeyValuePair(
     val key: String,
     val value: Any?,
-    val prefLabel: String?,
-    val isDefault: Boolean = false
+    val prefLabel: String?
 ) : ListItem(), KeyValuePairEditMetaData
