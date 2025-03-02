@@ -1,6 +1,15 @@
 import java.util.Properties
 
-tasks.register("publishAndReleaseWithMavenCredentials") {
+/**
+ * Usage
+ * ./gradlew publishOnMavenCentral -PshouldRelease=false
+ *
+ * shouldRelease=true will publish & release the build. no manual intervention needed
+ * shouldRelease=false will only publish the build, need to manually release from https://central.sonatype.com/publishing/deployments
+ */
+tasks.register("publishOnMavenCentral") {
+    val shouldRelease = project.findProperty("shouldRelease")?.toString()?.toBoolean() ?: false
+
     doLast {
         val gradleFile = file("$rootDir/gradle.properties")
         val credentialsFile = file("$rootDir/mavenCredentials.properties")
@@ -28,12 +37,16 @@ tasks.register("publishAndReleaseWithMavenCredentials") {
         }
 
         try {
+            val releaseCommand =
+                if (shouldRelease) "publishAndReleaseToMavenCentral" else "publishToMavenCentral"
+            val releaseCommandMessage = if (shouldRelease) "Publish & Release" else "Publish"
             // Run the Gradle publish command
-            println("🔹 Running Gradle publish task with temporary credentials...")
-            exec {
-                commandLine("./gradlew", "publishToMavenCentral", "--no-configuration-cache")
-//                commandLine("./gradlew", "publishAndReleaseToMavenCentral", "--no-configuration-cache")
+            println("🔹 Running Gradle publish task : $releaseCommandMessage")
+            project.exec {
+                commandLine("./gradlew", releaseCommand, "--no-configuration-cache")
             }
+            println("✅ $releaseCommandMessage successful!")
+            println("Validate the deployment at https://central.sonatype.com/publishing/deployments")
         } finally {
             // Revert gradle.properties to original state
             println("🔄 Reverting gradle.properties...")

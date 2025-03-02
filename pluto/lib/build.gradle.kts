@@ -12,10 +12,6 @@ val verCode = version["code"] as Int
 val verPublish = version["publish"] as String
 val verGitSHA = version["gitSha"] as String
 
-// extra["PUBLISH_GROUP_ID"] = "com.plutolib"
-// extra["PUBLISH_ARTIFACT_ID"] = "pluto"
-// extra["PUBLISH_VERSION"] = verPublish
-
 android {
     namespace = "com.pluto"
     resourcePrefix = "pluto___"
@@ -58,40 +54,47 @@ android {
     }
 }
 
+extra["PUBLISH_GROUP_ID"] = "com.plutolib"
+extra["PUBLISH_ARTIFACT_ID"] = "pluto"
+extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto"
+extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Open Sourced, on-device debugger for Android apps"
+
 mavenPublishing {
     // Define coordinates for the published artifact
     coordinates(
-        groupId = "com.plutolib",
-        artifactId = "pluto",
-        version = "1.0.2"
+        groupId = extra["PUBLISH_GROUP_ID"] as String,
+        artifactId = extra["PUBLISH_ARTIFACT_ID"] as String,
+        version = verPublish
     )
 
     // Configure POM metadata for the published artifact
     pom {
-        name.set("Math KMP Library")
-        description.set("Sample Kotlin MultiPlatform Library Test")
-        inceptionYear.set("2024")
-        url.set("https://github.com/<GITHUB_USER_NAME>/MathLibGuide")
+        name.set(extra["PUBLISH_ARTIFACT_NAME"] as String)
+        description.set(extra["PUBLISH_ARTIFACT_DESCRIPTION"] as String)
+        inceptionYear.set(project.findProperty("pom.inceptionYear") as? String)
+        url.set(project.findProperty("pom.url") as? String)
 
         licenses {
             license {
-                name.set("MIT")
-                url.set("https://opensource.org/licenses/MIT")
+                name.set(project.findProperty("pom.license.name") as? String)
+                url.set(project.findProperty("pom.license.url") as? String)
             }
         }
 
         // Specify developers information
         developers {
             developer {
-                id.set("<GITHUB_USER_NAME>")
-                name.set("<GITHUB_ACTUAL_NAME>")
-                email.set("<GITHUB_EMAIL_ADDRESS>")
+                id.set(project.findProperty("pom.developer.id") as? String)
+                name.set(project.findProperty("pom.developer.name") as? String)
+                email.set(project.findProperty("pom.developer.email") as? String)
             }
         }
 
         // Specify SCM information
         scm {
-            url.set("https://github.com/<GITHUB_USER_NAME>/MathLibGuide")
+            connection.set(project.findProperty("pom.scm.connection") as? String)
+            developerConnection.set(project.findProperty("pom.scm.developerConnection") as? String)
+            url.set(project.findProperty("pom.scm.url") as? String)
         }
     }
 
@@ -116,6 +119,4 @@ dependencies {
 
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
-
-    implementation("com.vanniktech:gradle-maven-publish-plugin:0.28.0")
 }
