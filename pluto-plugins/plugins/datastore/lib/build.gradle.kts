@@ -16,17 +16,12 @@ android {
     namespace = "com.pluto.plugins.datastore.pref"
     resourcePrefix = "pluto_dts___"
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
-
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
         buildConfig = true
         viewBinding = true
-        compose = true
     }
 
     defaultConfig {
@@ -103,14 +98,6 @@ dependencies {
     implementation(project(":pluto-plugins:base:lib"))
 
     implementation(libs.androidx.core)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.runtime)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.constraintlayout.compose)
-
     implementation(libs.datastore.preferences)
 
     implementation(libs.moshi)
