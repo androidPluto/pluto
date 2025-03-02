@@ -1,7 +1,6 @@
 package com.pluto.plugins.datastore.pref.utils
 
 import android.content.Context
-import android.util.Log
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.datastore.pref.PreferenceHolder
 import com.pluto.utilities.list.ListItem
@@ -10,6 +9,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
+@SuppressWarnings("UseDataClass")
 internal class DatastorePrefUtils(context: Context) {
 
     private val preferences: Preferences = Preferences(context)
@@ -29,14 +29,6 @@ internal class DatastorePrefUtils(context: Context) {
             preferences.selectedPreferenceFiles = moshiAdapter.toJson(value.map { it.name })
             field = value
         }
-
-    fun get(): List<DatastorePrefKeyValuePair> {
-        return emptyList()
-    }
-
-    fun set(pair: DatastorePrefKeyValuePair, data: Any) {
-        Log.d("", "$pair, $data")
-    }
 }
 
 internal data class DatastorePrefKeyValuePair(

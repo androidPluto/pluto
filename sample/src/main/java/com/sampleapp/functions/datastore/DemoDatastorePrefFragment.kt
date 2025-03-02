@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -37,7 +39,6 @@ class DemoDatastorePrefFragment : Fragment(R.layout.fragment_demo_datastore_pref
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener { initDataForDataStoreSample(requireContext()) }
-        initDataForDataStoreSample(requireContext())
     }
 
     private fun initDataForDataStoreSample(context: Context) {
@@ -52,6 +53,8 @@ class DemoDatastorePrefFragment : Fragment(R.layout.fragment_demo_datastore_pref
                 it[stringPreferencesKey("session_uuid")] = "9522b353-e3a9-428c-9af6-338fd5e9f9d6"
                 it[longPreferencesKey("session_duration")] = RANDOM_LONG
                 it[floatPreferencesKey("pi_value")] = PI_VALUE
+                it[doublePreferencesKey("double_value")] = RANDOM_DOUBLE
+                it[intPreferencesKey("int_value")] = RANDOM_INT
             }
         }
     }
@@ -59,6 +62,8 @@ class DemoDatastorePrefFragment : Fragment(R.layout.fragment_demo_datastore_pref
     companion object {
         const val RANDOM_LONG = 13_101_993L
         const val PI_VALUE = 3.141592653589793238462643383279502884197f
+        const val RANDOM_INT = 3
+        const val RANDOM_DOUBLE = 3.14
         const val APP_STATE_PREF_NAME = "app states"
         const val USER_STATE_PREF_NAME = "user states"
     }

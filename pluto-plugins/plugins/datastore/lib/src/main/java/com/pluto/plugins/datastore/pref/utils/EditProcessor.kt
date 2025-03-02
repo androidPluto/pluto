@@ -10,12 +10,12 @@ internal fun DatastorePrefKeyValuePair.toEditorData(): KeyValuePairEditRequest {
         hint = when (value) {
             is Int, is Long -> "12345"
             is Boolean -> "true / false"
-            is Float -> "1234.89"
+            is Float, is Double -> "1234.89"
             else -> "abcde 123"
         },
         inputType = when (value) {
             is Int, is Long -> KeyValuePairEditInputType.Integer
-            is Float -> KeyValuePairEditInputType.Float
+            is Float, is Double -> KeyValuePairEditInputType.Float
             is Boolean -> KeyValuePairEditInputType.Boolean
             else -> KeyValuePairEditInputType.String
         },
@@ -26,6 +26,7 @@ internal fun DatastorePrefKeyValuePair.toEditorData(): KeyValuePairEditRequest {
 internal fun DatastorePrefKeyValuePair.fromEditorData(text: String): Any {
     return when (value) {
         is Int -> text.toInt()
+        is Double -> text.toDouble()
         is Long -> text.toLong()
         is Float -> text.toFloat()
         is Boolean -> text.toBoolean()
