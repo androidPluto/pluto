@@ -1,6 +1,6 @@
 # Android Pluto
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.androidpluto/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.androidpluto/pluto)
+![Maven Central Version](https://img.shields.io/maven-central/v/com.androidpluto/pluto)
 [![CLA assistant](https://cla-assistant.io/readme/badge/androidPluto/pluto)](https://cla-assistant.io/androidPluto/pluto)
 [![Daily Builds](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml)
 
