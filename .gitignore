@@ -11,3 +11,4 @@
 /scripts/publish/_newCreds.properties
 *.gpg
 /buildSrc/build
+mavenCredentials.properties
