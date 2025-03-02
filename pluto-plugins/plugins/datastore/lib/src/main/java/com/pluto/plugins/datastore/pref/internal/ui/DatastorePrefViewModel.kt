@@ -1,4 +1,4 @@
-package com.pluto.plugins.datastore.pref.ui
+package com.pluto.plugins.datastore.pref.internal.ui
 
 import android.app.Application
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -14,8 +14,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.datastore.pref.PreferenceHolder
-import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
-import com.pluto.plugins.datastore.pref.utils.DatastorePrefUtils
+import com.pluto.plugins.datastore.pref.internal.DatastorePrefKeyValuePair
+import com.pluto.plugins.datastore.pref.internal.DatastorePrefUtils
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

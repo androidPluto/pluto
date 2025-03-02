@@ -1,4 +1,4 @@
-package com.pluto.plugins.datastore.pref.ui
+package com.pluto.plugins.datastore.pref.internal.ui
 
 import android.os.Bundle
 import android.view.View
@@ -14,9 +14,9 @@ import com.pluto.plugins.datastore.pref.PreferenceHolder
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.Session
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsFragmentListBinding
-import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
-import com.pluto.plugins.datastore.pref.utils.fromEditorData
-import com.pluto.plugins.datastore.pref.utils.toEditorData
+import com.pluto.plugins.datastore.pref.internal.DatastorePrefKeyValuePair
+import com.pluto.plugins.datastore.pref.internal.fromEditorData
+import com.pluto.plugins.datastore.pref.internal.toEditorData
 import com.pluto.utilities.autoClearInitializer
 import com.pluto.utilities.extensions.hideKeyboard
 import com.pluto.utilities.extensions.linearLayoutManager

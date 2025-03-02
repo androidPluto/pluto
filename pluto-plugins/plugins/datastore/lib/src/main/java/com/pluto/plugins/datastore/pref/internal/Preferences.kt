@@ -1,4 +1,4 @@
-package com.pluto.plugins.datastore.pref.utils
+package com.pluto.plugins.datastore.pref.internal
 
 import android.content.Context
 

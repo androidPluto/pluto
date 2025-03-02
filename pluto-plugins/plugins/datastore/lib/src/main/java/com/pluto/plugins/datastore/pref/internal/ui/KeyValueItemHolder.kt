@@ -1,9 +1,9 @@
-package com.pluto.plugins.datastore.pref.ui
+package com.pluto.plugins.datastore.pref.internal.ui
 
 import android.view.ViewGroup
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsItemSharedPrefKeyValueBinding
-import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
+import com.pluto.plugins.datastore.pref.internal.DatastorePrefKeyValuePair
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
