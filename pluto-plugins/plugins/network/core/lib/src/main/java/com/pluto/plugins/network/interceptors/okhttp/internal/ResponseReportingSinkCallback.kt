@@ -1,14 +1,14 @@
-package com.pluto.plugins.network.okhttp.internal
+package com.pluto.plugins.network.interceptors.okhttp.internal
 
 import com.pluto.plugins.network.intercept.NetworkData
-import com.pluto.plugins.network.okhttp.internal.utilities.ReportingSink
+import com.pluto.plugins.network.interceptors.okhttp.internal.utilities.ReportingSink
+import java.io.File
+import java.io.IOException
 import okhttp3.Response
 import okio.Buffer
 import okio.GzipSource
 import okio.buffer
 import okio.source
-import java.io.File
-import java.io.IOException
 
 class ResponseReportingSinkCallback(
     private val response: Response,

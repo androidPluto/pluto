@@ -1,24 +1,24 @@
-package com.pluto.plugins.network.okhttp
+package com.pluto.plugins.network.interceptors.okhttp
 
 import androidx.annotation.Keep
 import com.pluto.plugin.libinterface.PlutoInterface
 import com.pluto.plugins.network.intercept.NetworkData
 import com.pluto.plugins.network.intercept.NetworkInterceptor
-import com.pluto.plugins.network.okhttp.internal.ResponseReportingSinkCallback
-import com.pluto.plugins.network.okhttp.internal.convert
-import com.pluto.plugins.network.okhttp.internal.hasBody
-import com.pluto.plugins.network.okhttp.internal.utilities.DepletingSource
-import com.pluto.plugins.network.okhttp.internal.utilities.ReportingSink
-import com.pluto.plugins.network.okhttp.internal.utilities.TeeSource
+import com.pluto.plugins.network.interceptors.okhttp.internal.ResponseReportingSinkCallback
+import com.pluto.plugins.network.interceptors.okhttp.internal.convert
+import com.pluto.plugins.network.interceptors.okhttp.internal.hasBody
+import com.pluto.plugins.network.interceptors.okhttp.internal.utilities.DepletingSource
+import com.pluto.plugins.network.interceptors.okhttp.internal.utilities.ReportingSink
+import com.pluto.plugins.network.interceptors.okhttp.internal.utilities.TeeSource
+import java.io.IOException
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
 import okio.BufferedSource
 import okio.buffer
-import java.io.IOException
 
 @Keep
-class PlutoOkhttpInterceptor {
+class PlutoOkhttpInterceptor private constructor() {
     companion object : Interceptor {
         private const val NAME = "Okhttp"
 
@@ -61,4 +61,3 @@ private fun BufferedSource.asResponseBody(referenceBody: ResponseBody) = object 
 
     override fun source() = this@asResponseBody
 }
-

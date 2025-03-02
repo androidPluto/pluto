@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.okhttp.internal
+package com.pluto.plugins.network.interceptors.okhttp.internal
 
 import com.pluto.plugins.network.intercept.NetworkData
 import okhttp3.Request

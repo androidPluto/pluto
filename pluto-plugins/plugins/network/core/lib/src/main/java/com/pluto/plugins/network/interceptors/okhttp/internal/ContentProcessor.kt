@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.okhttp.internal
+package com.pluto.plugins.network.interceptors.okhttp.internal
 
 import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.internal.interceptor.logic.UTF8
@@ -46,7 +46,7 @@ private fun RequestBody.extractBody(gzipped: Boolean): CharSequence {
 }
 
 internal fun MediaType.isText(): Boolean = (type == "application" || type == "text") &&
-        (subtype.endsWith("json") || subtype == "plain" || subtype == "xml" || subtype == "html" || subtype == "x-www-form-urlencoded")
+    (subtype.endsWith("json") || subtype == "plain" || subtype == "xml" || subtype == "html" || subtype == "x-www-form-urlencoded")
 
 internal fun HttpUrl.hostUrl(): String = StringBuilder().apply {
     append("$scheme://$host")

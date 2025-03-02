@@ -88,4 +88,5 @@ mavenPublishing {
 }
 
 dependencies {
+    implementation(libs.okhttp)
 }

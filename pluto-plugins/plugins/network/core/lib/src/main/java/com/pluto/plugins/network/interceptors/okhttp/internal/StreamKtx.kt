@@ -1,12 +1,12 @@
-package com.pluto.plugins.network.okhttp.internal
+package com.pluto.plugins.network.interceptors.okhttp.internal
 
 import com.pluto.utilities.DebugLog
-import okio.IOException
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.util.zip.GZIPInputStream
+import okio.IOException
 
 @Suppress("TooGenericExceptionCaught")
 internal fun ByteArray.unzipToString(): String {

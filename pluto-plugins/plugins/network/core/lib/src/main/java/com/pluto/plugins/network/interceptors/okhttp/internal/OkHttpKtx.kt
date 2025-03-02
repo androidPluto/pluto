@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.okhttp.internal
+package com.pluto.plugins.network.interceptors.okhttp.internal
 
 import java.net.HttpURLConnection
 import okhttp3.Request
@@ -49,4 +49,3 @@ internal val Request.isGzipped: Boolean
     get() {
         return this.header("Content-Encoding").equals("gzip", ignoreCase = true)
     }
-

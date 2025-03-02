@@ -110,4 +110,6 @@ dependencies {
 
     implementation(libs.androidx.browser)
     testImplementation(libs.junit)
+
+    implementation(libs.okhttp)
 }

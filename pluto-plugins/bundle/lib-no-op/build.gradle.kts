@@ -91,7 +91,7 @@ dependencies {
     api(project(":pluto-plugins:plugins:exceptions:lib-no-op"))
     api(project(":pluto-plugins:plugins:network:core:lib-no-op"))
     api(project(":pluto-plugins:plugins:network:interceptor-ktor:lib-no-op"))
-    api(project(":pluto-plugins:plugins:network:interceptor-okhttp:lib-no-op"))
+//    api(project(":pluto-plugins:plugins:network:interceptor-okhttp:lib-no-op"))
     api(project(":pluto-plugins:plugins:shared-preferences:lib-no-op"))
     api(project(":pluto-plugins:plugins:logger:lib-no-op"))
     api(project(":pluto-plugins:plugins:datastore:lib-no-op"))

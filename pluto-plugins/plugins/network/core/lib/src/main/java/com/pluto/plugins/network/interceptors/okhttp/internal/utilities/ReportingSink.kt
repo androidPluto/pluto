@@ -2,8 +2,9 @@
  * Source: chucker - https://github.com/ChuckerTeam/chucker.git
  * License: https://github.com/ChuckerTeam/chucker/blob/develop/LICENSE.txt
  */
-package com.pluto.plugins.network.okhttp.internal.utilities
+package com.pluto.plugins.network.interceptors.okhttp.internal.utilities
 
+import com.pluto.plugins.network.interceptors.okhttp.internal.ResponseReportingSinkCallback
 import java.io.File
 import java.io.IOException
 import okio.Buffer
@@ -21,7 +22,7 @@ import okio.sink
  */
 internal class ReportingSink(
     private val downstreamFile: File?,
-    private val callback: Callback,
+    private val callback: ResponseReportingSinkCallback,
     private val writeByteLimit: Long = 300_000L
 ) : Sink {
     private var totalByteCount = 0L

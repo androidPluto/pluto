@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.okhttp
+package com.pluto.plugins.network.interceptors.okhttp
 
 import okhttp3.OkHttpClient
 
