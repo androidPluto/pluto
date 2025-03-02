@@ -48,7 +48,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "network-interceptor-ktor-no-op"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Network Ktor Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to monitor ktor network calls in Android Pluto"

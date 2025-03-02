@@ -48,7 +48,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "layout-inspector-no-op"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Layout inspector Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to modify screen layout in Android Pluto"

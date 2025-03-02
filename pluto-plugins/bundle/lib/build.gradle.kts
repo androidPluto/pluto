@@ -48,7 +48,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "bundle-core"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Plugin Bundle"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Bundle module for Android Pluto plugins"

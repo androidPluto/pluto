@@ -56,7 +56,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "logger"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Logger Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to monitor logs in Android Pluto"

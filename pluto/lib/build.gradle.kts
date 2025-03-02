@@ -54,7 +54,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto"
 extra["PUBLISH_ARTIFACT_ID"] = "pluto"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Open Sourced, on-device debugger for Android apps"

@@ -56,7 +56,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "network"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Network Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to monitor network calls in Android Pluto"

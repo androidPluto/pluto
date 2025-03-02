@@ -48,7 +48,7 @@ android {
     }
 }
 
-extra["PUBLISH_GROUP_ID"] = "com.plutolib.plugins"
+extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
 extra["PUBLISH_ARTIFACT_ID"] = "datastore-pref-no-op"
 extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Datastore Preferences Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to manage Datastore preferences in Android Pluto"
