@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.maven.publish)
+    alias(libs.plugins.ksp)
 }
 
 val version = Versioning.loadVersioningData()
@@ -111,4 +112,7 @@ dependencies {
     implementation(libs.constraintlayout.compose)
 
     implementation(libs.datastore.preferences)
+
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
 }

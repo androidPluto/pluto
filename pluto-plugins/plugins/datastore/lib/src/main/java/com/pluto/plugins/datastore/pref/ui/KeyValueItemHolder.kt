@@ -5,6 +5,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pluto.plugins.datastore.pref.R
 import com.pluto.plugins.datastore.pref.databinding.PlutoDtsItemSharedPrefKeyValueBinding
+import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
 import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.inflate
 import com.pluto.utilities.list.DiffAwareAdapter
@@ -36,7 +37,7 @@ internal class KeyValueItemHolder(
                 }
             } else {
                 itemView.context.createSpan {
-                    append(fontColor(light(italic("null")), context.color(R.color.pluto___text_dark_40)))
+                    append(fontColor(light(italic("null")), context.color(com.pluto.plugin.R.color.pluto___text_dark_40)))
                 }
             }
             item.value?.let { value.text = it.toString() }

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pluto.plugins.datastore.pref.PreferenceHolder
+import com.pluto.plugins.datastore.pref.utils.DatastorePrefKeyValuePair
 import com.pluto.plugins.datastore.pref.utils.DatastorePrefUtils
 
 internal class DatastorePrefViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,7 +17,7 @@ internal class DatastorePrefViewModel(application: Application) : AndroidViewMod
     private val sharePrefUtils = DatastorePrefUtils(application.applicationContext)
 
     fun refresh() {
-        _preferences.postValue(retrieveAllPreferenceData())
+        _preferences.postValue(retrieveAllPreferenceData() ?: emptyList())
     }
 
     fun getPrefFiles(): List<PreferenceHolder> = sharePrefUtils.allPreferenceFiles
