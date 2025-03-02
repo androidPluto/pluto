@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    alias(libs.plugins.maven.publish)
 }
 
 val version = Versioning.loadVersioningData()
