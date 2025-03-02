@@ -2,13 +2,13 @@
 
 
 ### Add Gradle Dependencies
-Pluto Layout Inspector is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.plutolib.plugins/layout-inspector). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
+Pluto Layout Inspector is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/layout-inspector). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
 
 > Note: add the `no-op` variant to isolate the plugin from release builds.
 ```groovy
 dependencies {
-  debugImplementation "com.plutolib.plugins:layout-inspector:$plutoVersion"
-  releaseImplementation "com.plutolib.plugins:layout-inspector-no-op:$plutoVersion"
+  debugImplementation "com.androidpluto.plugins:layout-inspector:$plutoVersion"
+  releaseImplementation "com.androidpluto.plugins:layout-inspector-no-op:$plutoVersion"
 }
 ```
 <br>
