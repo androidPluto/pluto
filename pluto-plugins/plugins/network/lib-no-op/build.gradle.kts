@@ -12,12 +12,12 @@ val verPublish = version["publish"] as String
 val verGitSHA = version["gitSha"] as String
 
 android {
-    namespace = "com.pluto.plugins.bundle.core"
+    namespace = "com.pluto.plugins.network"
+
     compileSdk = libs.versions.compileSdk.get().toInt()
     buildToolsVersion = libs.versions.buildTools.get()
 
     buildFeatures {
-        buildConfig = true
         viewBinding = true
     }
 
@@ -49,9 +49,9 @@ android {
 }
 
 extra["PUBLISH_GROUP_ID"] = "com.androidpluto.plugins"
-extra["PUBLISH_ARTIFACT_ID"] = "bundle-core-no-op"
-extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Plugin Bundle"
-extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Bundle module for Android Pluto plugins"
+extra["PUBLISH_ARTIFACT_ID"] = "network-no-op"
+extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Network Plugin"
+extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to monitor network calls in Android Pluto"
 
 mavenPublishing {
     coordinates(
@@ -88,11 +88,6 @@ mavenPublishing {
 }
 
 dependencies {
-    api(project(":pluto-plugins:plugins:exceptions:lib-no-op"))
-    api(project(":pluto-plugins:plugins:network:lib-no-op"))
-    api(project(":pluto-plugins:plugins:shared-preferences:lib-no-op"))
-    api(project(":pluto-plugins:plugins:logger:lib-no-op"))
-    api(project(":pluto-plugins:plugins:datastore:lib-no-op"))
-    api(project(":pluto-plugins:plugins:rooms-database:lib-no-op"))
-    api(project(":pluto-plugins:plugins:layout-inspector:lib-no-op"))
+    implementation(libs.okhttp)
+    implementation(libs.ktor.client.core.jvm)
 }

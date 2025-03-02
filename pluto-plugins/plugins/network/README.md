@@ -22,20 +22,11 @@ Pluto.Installer(this)
   .install()
 ```
 <br>
-
-> Note: If you are already using Network plugin, you need to do some code changes to migrate to version`2.1.7+`. Please [read here](https://github.com/androidPluto/pluto/wiki/Migrating-Network-plugin-to-version-2.1.7) for migration.
+<br>
 
 ###  Add interceptors
 
 #### 1. Okhttp Interceptor
-Add okhttp-interceptor dependency
-```groovy
-dependencies {
-  debugImplementation "com.plutolib.plugins:network-interceptor-okhttp:$plutoVersion"
-  releaseImplementation "com.plutolib.plugins:network-interceptor-okhttp-no-op:$plutoVersion"
-}
-```
-
 Add interceptor in your OkHttp Client Builder
 ```kotlin
 val client = OkHttpClient.Builder()
@@ -45,14 +36,6 @@ val client = OkHttpClient.Builder()
 <br>
 
 #### 2. Ktor Interceptor
-Add ktor-interceptor dependency
-```groovy
-dependencies {
-  debugImplementation "com.plutolib.plugins:network-interceptor-ktor:$plutoVersion"
-  releaseImplementation "com.plutolib.plugins:network-interceptor-ktor-no-op:$plutoVersion"
-}
-```
-
 Add interceptor in your HttpClient
 ```kotlin
 val client = HttpClient {

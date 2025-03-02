@@ -89,9 +89,9 @@ mavenPublishing {
 
 dependencies {
     api(project(":pluto-plugins:plugins:exceptions:lib"))
-    api(project(":pluto-plugins:plugins:network:core:lib"))
-    api(project(":pluto-plugins:plugins:network:interceptor-ktor:lib"))
-    api(project(":pluto-plugins:plugins:network:interceptor-okhttp:lib"))
+    api(project(":pluto-plugins:plugins:network:lib"))
+//    api(project(":pluto-plugins:plugins:network:interceptor-ktor:lib"))
+//    api(project(":pluto-plugins:plugins:network:interceptor-okhttp:lib"))
     api(project(":pluto-plugins:plugins:shared-preferences:lib"))
     api(project(":pluto-plugins:plugins:logger:lib"))
     api(project(":pluto-plugins:plugins:datastore:lib"))
