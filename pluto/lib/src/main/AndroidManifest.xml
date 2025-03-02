@@ -15,7 +15,7 @@
             android:name=".ui.container.PlutoActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:taskAffinity="com.plutolib"
+            android:taskAffinity="com.androidpluto"
             android:theme="@style/PlutoContainerTheme"
             android:windowSoftInputMode="stateUnspecified|adjustResize" />
         <activity
