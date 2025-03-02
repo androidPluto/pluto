@@ -62,28 +62,22 @@ extra["PUBLISH_ARTIFACT_NAME"] = "Android Pluto Exceptions Plugin"
 extra["PUBLISH_ARTIFACT_DESCRIPTION"] = "Plugin to capture expections & ANRs in Android Pluto"
 
 mavenPublishing {
-    // Define coordinates for the published artifact
     coordinates(
         groupId = extra["PUBLISH_GROUP_ID"] as String,
         artifactId = extra["PUBLISH_ARTIFACT_ID"] as String,
         version = verPublish
     )
-
-    // Configure POM metadata for the published artifact
     pom {
         name.set(extra["PUBLISH_ARTIFACT_NAME"] as String)
         description.set(extra["PUBLISH_ARTIFACT_DESCRIPTION"] as String)
         inceptionYear.set(project.findProperty("pom.inceptionYear") as? String)
         url.set(project.findProperty("pom.url") as? String)
-
         licenses {
             license {
                 name.set(project.findProperty("pom.license.name") as? String)
                 url.set(project.findProperty("pom.license.url") as? String)
             }
         }
-
-        // Specify developers information
         developers {
             developer {
                 id.set(project.findProperty("pom.developer.id") as? String)
@@ -91,19 +85,13 @@ mavenPublishing {
                 email.set(project.findProperty("pom.developer.email") as? String)
             }
         }
-
-        // Specify SCM information
         scm {
             connection.set(project.findProperty("pom.scm.connection") as? String)
             developerConnection.set(project.findProperty("pom.scm.developerConnection") as? String)
             url.set(project.findProperty("pom.scm.url") as? String)
         }
     }
-
-    // Configure publishing to Maven Central
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    // Enable GPG signing for all publications
     signAllPublications()
 }
 
