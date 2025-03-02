@@ -83,19 +83,19 @@ dependencies {
     "debugImplementation"(project(":pluto-plugins:bundle:lib"))
 
     /* Maven Op dependencies */
-    "debugMavenImplementation"("com.plutolib:pluto:$verPublish")
-    "debugMavenImplementation"("com.plutolib.plugins:bundle-core:$verPublish")
+    "debugMavenImplementation"("com.androidpluto:pluto:$verPublish")
+    "debugMavenImplementation"("com.androidpluto.plugins:bundle-core:$verPublish")
 
     /* Local NoOp dependencies */
     "debugNoOpImplementation"(project(":pluto:lib-no-op"))
     "debugNoOpImplementation"(project(":pluto-plugins:bundle:lib-no-op"))
 
     /* Maven NoOp dependencies */
-    "debugNoOpMavenImplementation"("com.plutolib:pluto-no-op:$verPublish")
-    "debugNoOpMavenImplementation"("com.plutolib.plugins:bundle-core-no-op:$verPublish")
+    "debugNoOpMavenImplementation"("com.androidpluto:pluto-no-op:$verPublish")
+    "debugNoOpMavenImplementation"("com.androidpluto.plugins:bundle-core-no-op:$verPublish")
 
-    "releaseImplementation"("com.plutolib:pluto:$verPublish")
-    "releaseImplementation"("com.plutolib.plugins:bundle-core:$verPublish")
+    "releaseImplementation"("com.androidpluto:pluto:$verPublish")
+    "releaseImplementation"("com.androidpluto.plugins:bundle-core:$verPublish")
 
     /**
      * Other dependencies
