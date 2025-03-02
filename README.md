@@ -1,6 +1,6 @@
 # Android Pluto
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.plutolib/pluto)
+![Maven Central Version](https://img.shields.io/maven-central/v/com.androidpluto/pluto)
 [![CLA assistant](https://cla-assistant.io/readme/badge/androidPluto/pluto)](https://cla-assistant.io/androidPluto/pluto)
 [![Daily Builds](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml/badge.svg)](https://github.com/androidPluto/pluto/actions/workflows/daily_builds.yml)
 
@@ -16,16 +16,16 @@ It comes with a UI to monitor and share the information, as well as APIs to acce
 
 ### Add Gradle Dependencies
 
-Pluto is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.plutolib/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your app module.
+Pluto is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto/pluto). To use it, you need to add the following Gradle dependency to your build.gradle file of your app module.
 
 > Note: add both the `pluto` and the `pluto-no-op` variant to isolate Pluto from release builds.
 ```groovy
-def plutoVersion = "2.2.1"
+def plutoVersion = "3.0.0"
 
 dependencies {
   ....
-  debugImplementation "com.plutolib:pluto:$plutoVersion"
-  releaseImplementation "com.plutolib:pluto-no-op:$plutoVersion"
+  debugImplementation "com.androidpluto:pluto:$plutoVersion"
+  releaseImplementation "com.androidpluto:pluto-no-op:$plutoVersion"
   ....
 }
 ```
@@ -49,8 +49,8 @@ Plugin bundle comes with all the basic plugins bundled together as single depend
 ```groovy
 dependencies {
   ....
-  debugImplementation "com.plutolib.plugins:bundle-core:$plutoVersion"
-  releaseImplementation "com.plutolib.plugins:bundle-core-no-op:$plutoVersion"
+  debugImplementation "com.androidpluto.plugins:bundle-core:$plutoVersion"
+  releaseImplementation "com.androidpluto.plugins:bundle-core-no-op:$plutoVersion"
   ....
 }
 ```
@@ -65,7 +65,7 @@ But, if you want to use individual plugins, here is the list of some plugins pro
 - **[Datastore Preferences Plugin](pluto-plugins/plugins/datastore)**
 - **[Layout Inspector Plugin](pluto-plugins/plugins/layout-inspector)**
 
-We will be adding more to the [list](https://central.sonatype.com/search?q=com.plutolib.plugins). So please stay tuned.<br>
+We will be adding more to the [list](https://central.sonatype.com/search?q=com.androidpluto.plugins). So please stay tuned.<br>
 Please refer to their respective README for integration steps.
 <br><br>
 > You can also help us expand the Pluto ecosystem now. <br>Pluto now allows to develop custom debuggers as plugin. Read [Develop Custom Plugins](https://github.com/androidPluto/pluto/wiki/Develop-Custom-Pluto-Plugins-(Beta)).
@@ -125,7 +125,7 @@ Have an idea to improve Pluto? Let's connect on
 ## 📃 &nbsp;License
 
 ```
-Copyright 2021 Plutolib.
+Copyright 2021 Android Pluto.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

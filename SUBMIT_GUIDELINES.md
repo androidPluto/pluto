@@ -22,8 +22,8 @@ Once you have enough information, lets jump into development.
 - Setup your Maven configuration, like given below
 ``` groovy
 ext {
-    PUBLISH_GROUP_ID = "com.plutolib.plugins" // do not change this
-    PUBLISH_VERSION = verPublish              // do not change this
+    PUBLISH_GROUP_ID = "com.androidpluto.plugins"   // do not change this
+    PUBLISH_VERSION = verPublish                    // do not change this
     PUBLISH_ARTIFACT_ID = 'PLUGIN_NAME'
 }
 ```
