@@ -89,4 +89,5 @@ mavenPublishing {
 
 dependencies {
     implementation(libs.okhttp)
+    implementation(libs.ktor.client.core.jvm)
 }

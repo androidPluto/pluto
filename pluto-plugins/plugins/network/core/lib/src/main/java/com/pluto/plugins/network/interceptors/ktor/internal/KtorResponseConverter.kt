@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.ktor.internal
+package com.pluto.plugins.network.interceptors.ktor.internal
 
 import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.intercept.NetworkData.Response
@@ -20,7 +20,6 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
             receiveTimestamp = responseTime.timestamp
         )
     }
-
 
 //    private fun HttpResponse.statusCodeMessage(): String {
 //        return status.description
@@ -53,6 +52,4 @@ internal object KtorResponseConverter : ResponseConverter<HttpResponse> {
 //
 //    private val HttpResponse.isGzipped: Boolean
 //        get() = headers.contains("Content-Encoding", "gzip")
-
-
 }

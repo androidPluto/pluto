@@ -1,9 +1,9 @@
-package com.pluto.plugins.network.ktor
+package com.pluto.plugins.network.interceptors.ktor
 
 import androidx.annotation.Keep
 import com.pluto.plugins.network.intercept.NetworkInterceptor
-import com.pluto.plugins.network.ktor.internal.KtorRequestConverter.convert
-import com.pluto.plugins.network.ktor.internal.KtorResponseConverter.convert
+import com.pluto.plugins.network.interceptors.ktor.internal.KtorRequestConverter.convert
+import com.pluto.plugins.network.interceptors.ktor.internal.KtorResponseConverter.convert
 import io.ktor.client.HttpClient
 import io.ktor.client.call.save
 import io.ktor.client.plugins.HttpClientPlugin
@@ -43,7 +43,7 @@ fun HttpClient.addPlutoKtorInterceptor() {
 }
 
 @Keep
-class PlutoKtorInterceptor {
+class PlutoKtorInterceptor private constructor() {
     companion object : HttpClientPlugin<Unit, PlutoKtorInterceptor> {
 
         override val key: AttributeKey<PlutoKtorInterceptor>
@@ -56,10 +56,7 @@ class PlutoKtorInterceptor {
         override fun install(plugin: PlutoKtorInterceptor, scope: HttpClient) {
             scope.addPlutoKtorInterceptor()
         }
-
     }
 }
 
-
 private const val NAME = "Ktor"
-

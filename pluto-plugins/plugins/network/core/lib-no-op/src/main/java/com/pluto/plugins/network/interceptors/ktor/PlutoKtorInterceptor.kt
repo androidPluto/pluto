@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.ktor
+package com.pluto.plugins.network.interceptors.ktor
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpClientPlugin

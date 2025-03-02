@@ -1,4 +1,4 @@
-package com.pluto.plugins.network.ktor.internal
+package com.pluto.plugins.network.interceptors.ktor.internal
 
 import com.pluto.plugins.network.intercept.NetworkData.Body
 import com.pluto.plugins.network.intercept.NetworkData.Request
@@ -38,24 +38,16 @@ internal object KtorRequestConverter : RequestConverter<HttpRequestData> {
     }
 
     // TODO handle gzip
+    @SuppressWarnings("UnusedPrivateMember")
     private fun extractBody(body: OutgoingContent, isGzipped: Boolean): CharSequence {
         return body.run {
             when (this) {
-                is OutgoingContent.ByteArrayContent -> {
-                    (this).bytes().decodeToString()
-                }
-
+                is OutgoingContent.ByteArrayContent -> this.bytes().decodeToString()
                 is OutgoingContent.NoContent -> ""
                 is OutgoingContent.ProtocolUpgrade -> ""
-                is OutgoingContent.ReadChannelContent -> {
-                    "Binary_Body"
-                }
-
-                is OutgoingContent.WriteChannelContent -> {
-                    ""
-                }
+                is OutgoingContent.ReadChannelContent -> "Binary_Body"
+                is OutgoingContent.WriteChannelContent -> ""
             }
         }
     }
-
 }

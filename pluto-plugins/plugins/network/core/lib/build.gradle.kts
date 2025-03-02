@@ -112,4 +112,5 @@ dependencies {
     testImplementation(libs.junit)
 
     implementation(libs.okhttp)
+    implementation(libs.ktor.client.core.jvm)
 }
