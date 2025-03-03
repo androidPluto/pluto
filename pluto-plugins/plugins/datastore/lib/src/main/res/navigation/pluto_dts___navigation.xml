@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pluto_dts___navigation"
+    app:startDestination="@id/listView">
+
+    <fragment
+        android:id="@+id/listView"
+        android:name="com.pluto.plugins.datastore.pref.internal.ui.ListFragment"
+        android:label="list"
+        tools:layout="@layout/pluto_dts___fragment_list">
+    </fragment>
+</navigation>
