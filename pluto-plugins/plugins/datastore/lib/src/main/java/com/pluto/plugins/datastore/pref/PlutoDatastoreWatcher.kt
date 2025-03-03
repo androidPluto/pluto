@@ -1,7 +1,9 @@
 package com.pluto.plugins.datastore.pref
 
+import androidx.annotation.Keep
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.pluto.utilities.selector.SelectorOption
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
@@ -27,6 +29,13 @@ object PlutoDatastoreWatcher {
             }
         }
     }
+
+    internal fun getSource(name: String): PreferenceHolder {
+        return sources.value.toList().first { it.name == name }
+    }
 }
 
-internal data class PreferenceHolder(val name: String, val preferences: DataStore<Preferences>)
+@Keep
+internal data class PreferenceHolder(val name: String, val preferences: DataStore<Preferences>) : SelectorOption() {
+    override fun displayText(): CharSequence = name
+}
