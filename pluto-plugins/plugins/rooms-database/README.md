@@ -1,5 +1,6 @@
 ## Integrate Rooms Database Plugin in your application
 
+[Rooms DB Demo.webm](https://github.com/user-attachments/assets/6a496856-7db3-43c5-89ec-6e036dd2ee41)
 
 ### Add Gradle Dependencies
 Pluto Rooms Database is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/rooms-db). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
