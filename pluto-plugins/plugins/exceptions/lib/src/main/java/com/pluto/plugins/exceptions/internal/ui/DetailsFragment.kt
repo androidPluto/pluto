@@ -121,17 +121,16 @@ internal class DetailsFragment : Fragment(R.layout.pluto_excep___fragment_detail
     }
 }
 
-private const val STACK_TRACE_LENGTH = 25
 private const val SHARE_SECTION_DIVIDER = "\n\n==================\n\n"
 private fun ExceptionEntity.toShareText(): String {
     val text = StringBuilder()
     text.append("EXCEPTION : \n")
     text.append("${this.data.exception.name}: ${this.data.exception.message}\n")
-    this.data.exception.stackTrace.take(STACK_TRACE_LENGTH).forEach {
+    this.data.exception.stackTrace.forEach {
         text.append("\t at $it\n")
     }
-    if (this.data.exception.stackTrace.size - STACK_TRACE_LENGTH > 0) {
-        text.append("\t + ${this.data.exception.stackTrace.size - STACK_TRACE_LENGTH} more lines\n\n")
+    if (this.data.exception.stackTraceAdditionalLineCount > 0) {
+        text.append("\t + ${this.data.exception.stackTraceAdditionalLineCount} more lines\n\n")
     }
 
     text.append(SHARE_SECTION_DIVIDER)

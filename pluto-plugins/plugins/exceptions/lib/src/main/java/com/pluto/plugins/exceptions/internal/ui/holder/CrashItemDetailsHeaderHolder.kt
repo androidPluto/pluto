@@ -32,7 +32,7 @@ internal class CrashItemDetailsHeaderHolder(
 
             stacktrace.setSpan {
                 append("${item.name}: ${item.message}")
-                item.stackTrace.take(MAX_STACK_TRACE_LINES).forEach {
+                item.stackTrace.forEach {
                     append("\n\t\t\t")
                     append(
                         fontColor(
@@ -41,11 +41,10 @@ internal class CrashItemDetailsHeaderHolder(
                     )
                     append(it)
                 }
-                val extraTrace = item.stackTrace.size - MAX_STACK_TRACE_LINES
-                if (extraTrace > 0) {
+                if (item.stackTraceAdditionalLineCount > 0) {
                     append(
                         fontColor(
-                            "\n\t\t\t + $extraTrace more lines", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
+                            "\n\t\t\t + ${item.stackTraceAdditionalLineCount} more lines", context.color(com.pluto.plugin.R.color.pluto___text_dark_40)
                         )
                     )
                 }
@@ -101,8 +100,4 @@ internal class CrashItemDetailsHeaderHolder(
 //        }
 //        return false
 //    }
-
-    companion object {
-        const val MAX_STACK_TRACE_LINES = 20
-    }
 }

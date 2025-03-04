@@ -8,7 +8,7 @@ import com.pluto.plugins.exceptions.internal.persistence.ExceptionEntity
     entities = [
         ExceptionEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 internal abstract class PlutoDatabase : RoomDatabase() {
