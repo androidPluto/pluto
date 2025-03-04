@@ -48,6 +48,7 @@ internal data class ExceptionData(
     val file: String?,
     val lineNumber: Int,
     val stackTrace: List<String>,
+    val stackTraceAdditionalLineCount: Int,
     val timeStamp: Long = System.currentTimeMillis(),
     val isANRException: Boolean = false
 ) : ListItem()
@@ -84,19 +85,21 @@ internal data class DeviceInfo(
 ) : ListItem()
 
 internal fun Throwable.asExceptionData(isANR: Boolean = false): ExceptionData {
+    val truncatedStackTrace = stackTrace.asStringArray()
     return ExceptionData(
         name = this.toString().replace(": $message", "", true),
         message = message,
-        stackTrace = stackTrace.asStringArray(),
+        stackTrace = truncatedStackTrace,
+        stackTraceAdditionalLineCount = stackTrace.size - truncatedStackTrace.size,
         file = stackTrace.getOrNull(0)?.fileName,
         lineNumber = stackTrace.getOrNull(0)?.lineNumber ?: Int.MIN_VALUE,
         isANRException = isANR
     )
 }
 
-internal fun Array<StackTraceElement>.asStringArray(): ArrayList<String> {
+internal fun Array<StackTraceElement>.asStringArray(stackTraceSize: Int = STACK_TRACE_LENGTH): ArrayList<String> {
     val array = arrayListOf<String>()
-    forEach {
+    take(stackTraceSize).forEach {
         if (it.isNativeMethod) {
             array.add("${it.className}.${it.methodName}(Native Method)")
         } else {
@@ -175,3 +178,5 @@ data class ReportData(
     val version: String = BuildConfig.VERSION_NAME,
     val buildType: String = BuildConfig.BUILD_TYPE
 )
+
+internal const val STACK_TRACE_LENGTH = 25
