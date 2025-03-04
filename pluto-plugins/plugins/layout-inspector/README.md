@@ -1,5 +1,6 @@
 ## Integrate Layout Inspector Plugin in your application
 
+[Layout Inspector.webm](https://github.com/user-attachments/assets/ac566253-6787-4515-9cca-0d8d0a820976)
 
 ### Add Gradle Dependencies
 Pluto Layout Inspector is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/layout-inspector). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
