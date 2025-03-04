@@ -1,5 +1,6 @@
 ## Integrate Network Plugin in your application
 
+[Network & API calls Demo.webm](https://github.com/user-attachments/assets/c95f8aec-ad96-4e31-b1c6-ddcd763260de)
 
 ### Add Gradle Dependencies
 Pluto Network is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/network). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
