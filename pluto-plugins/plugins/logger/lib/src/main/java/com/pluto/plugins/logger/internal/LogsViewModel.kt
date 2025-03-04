@@ -39,22 +39,13 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
             }
             val currentSessionLogs =
                 (rawLogs ?: arrayListOf())
-                    .asSequence()
                     .filter { it.sessionId == Session.id }
-                    .filter { pastTimeFilter(it.timestamp, logTimeStamp) }
-                    .filter { logType.map { type -> type.type }.contains(it.data.tag) }
-                    .filter { it.data.isValidSearch(search) }
-                    .map { it.data }
-                    .toList()
+                    .applyUserFilter(search, logType, logTimeStamp)
 
             val previousSessionLogs = if (!logTimeStamp.isSessionFilter) {
                 (rawLogs ?: arrayListOf())
-                    .asSequence()
                     .filter { it.sessionId != Session.id }
-                    .filter { it.data.isValidSearch(search) }
-                    .filter { pastTimeFilter(it.timestamp, logTimeStamp) }
-                    .map { it.data }
-                    .toList()
+                    .applyUserFilter(search, logType, logTimeStamp)
             } else {
                 emptyList()
             }
@@ -67,13 +58,6 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
             }
             _logs.postValue(list)
         }
-    }
-
-    private fun pastTimeFilter(logTime: Long, log: LogTimeStamp): Boolean {
-        if (log.timeStamp == 0 || log.isSessionFilter) {
-            return true
-        }
-        return logTime >= System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(log.timeStamp.toLong())
     }
 
     fun deleteAll() {
@@ -122,6 +106,26 @@ internal class LogsViewModel(application: Application) : AndroidViewModel(applic
         const val MAX_STACK_TRACE_LINES = 15
         const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS"
     }
+}
+
+private fun List<LogEntity>.applyUserFilter(
+    search: String,
+    logType: List<LogType>,
+    logTimeStamp: LogTimeStamp
+): List<LogData> {
+    return this.asSequence()
+        .filter { pastTimeFilter(it.timestamp, logTimeStamp) }
+        .filter { logType.isEmpty() || logType.any { type -> type.type == it.data.tag } }
+        .filter { it.data.isValidSearch(search) }
+        .map { it.data }
+        .toList()
+}
+
+private fun pastTimeFilter(logTime: Long, log: LogTimeStamp): Boolean {
+    if (log.timeStamp == 0 || log.isSessionFilter) {
+        return true
+    }
+    return logTime >= System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(log.timeStamp.toLong())
 }
 
 private fun LogData.isValidSearch(search: String): Boolean {
