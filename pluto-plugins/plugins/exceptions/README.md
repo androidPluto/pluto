@@ -1,5 +1,6 @@
 ## Integrate Exceptions Plugin in your application
 
+[Crashes and ANRs Demo.webm](https://github.com/user-attachments/assets/ed690b3b-5d7e-415e-9373-6f6d183a4def)
 
 ### Add Gradle Dependencies
 Pluto Exceptions is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/exceptions). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
