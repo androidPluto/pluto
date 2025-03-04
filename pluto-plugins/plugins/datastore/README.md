@@ -1,5 +1,7 @@
 ## Integrate Datastore Preferences Plugin in your application
 
+[DataStore Preferences Demo.webm](https://github.com/user-attachments/assets/0b4dfda2-f597-4bcd-8600-2802d0595d0c)
+
 
 ### Add Gradle Dependencies
 Pluto Datastore Preferences is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/datastore-pref). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.

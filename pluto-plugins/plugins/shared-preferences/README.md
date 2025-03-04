@@ -1,5 +1,6 @@
 ## Integrate Shared Preferences Plugin in your application
 
+[Shared Preferences Demo.webm](https://github.com/user-attachments/assets/2bef6564-9942-4e91-b14b-bbe4069b3837)
 
 ### Add Gradle Dependencies
 Pluto Shared Preferences is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/preferences). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.

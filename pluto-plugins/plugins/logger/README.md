@@ -1,5 +1,6 @@
 ## Integrate Logger Plugin in your application
 
+[Logger Demo.webm](https://github.com/user-attachments/assets/81b74c84-393c-4cda-a95f-2070d2cb4853)
 
 ### Add Gradle Dependencies
 Pluto Logger is distributed through [***mavenCentral***](https://central.sonatype.com/artifact/com.androidpluto.plugins/logger). To use it, you need to add the following Gradle dependency to your build.gradle file of you android app module.
