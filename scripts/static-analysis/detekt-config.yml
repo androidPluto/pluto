@@ -620,7 +620,7 @@ style:
     active: true
     max: 2
   TrailingWhitespace:
-    active: true
+    active: false
   UnderscoresInNumericLiterals:
     active: true
     acceptableDecimalLength: 5

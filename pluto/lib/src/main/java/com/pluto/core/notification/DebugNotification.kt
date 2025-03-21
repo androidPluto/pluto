@@ -12,8 +12,18 @@ import com.pluto.R
 import com.pluto.ui.selector.SelectorActivity
 import com.pluto.utilities.device.Device
 
+/**
+ * Manages the debug notification shown in the notification drawer.
+ *
+ * This class handles creating, showing, and removing the notification that
+ * provides quick access to Pluto's debugging interface. It handles compatibility
+ * across different Android versions, including notification channels for Android O+.
+ *
+ * @property context The context used to create and manage notifications
+ */
 internal class DebugNotification(private val context: Context) {
 
+    /** The system notification manager used to show and hide notifications */
     private val manager: NotificationManager? =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             context.getSystemService(NotificationManager::class.java)
@@ -21,8 +31,15 @@ internal class DebugNotification(private val context: Context) {
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
         }
 
+    /** Device information used to get app name for the notification */
     private val device = Device(context)
 
+    /**
+     * Creates and shows the debug notification.
+     *
+     * The notification includes the app name and a message indicating that
+     * Pluto is active. Clicking the notification opens the Pluto selector activity.
+     */
     fun add() {
         val notificationIntent = Intent(context, SelectorActivity::class.java)
         val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -46,10 +63,19 @@ internal class DebugNotification(private val context: Context) {
         manager?.notify(NOTIFICATION_ID, notification)
     }
 
+    /**
+     * Removes the debug notification from the notification drawer.
+     */
     fun remove() {
         manager?.cancel(NOTIFICATION_ID)
     }
 
+    /**
+     * Creates the notification channel for Android O and above.
+     *
+     * This is required for notifications to appear on Android O+.
+     * For earlier versions, this method has no effect.
+     */
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -62,6 +88,11 @@ internal class DebugNotification(private val context: Context) {
         }
     }
 
+    /**
+     * Creates a notification channel with the system notification manager.
+     *
+     * @param channel The notification channel to create
+     */
     private fun createNotificationChannel(channel: NotificationChannel) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             manager?.createNotificationChannel(channel)
@@ -69,9 +100,16 @@ internal class DebugNotification(private val context: Context) {
     }
 
     companion object {
+        /** Unique ID for the debug notification */
         const val NOTIFICATION_ID = 1011
+
+        /** ID for the notification channel */
         const val CHANNEL_ID = "pluto_notifications"
+
+        /** ID for the notification group */
         const val GROUP_ID = "pluto_notifications_group"
+
+        /** Human-readable name for the notification channel */
         const val CHANNEL_NAME = "Pluto Notifications"
     }
 }
