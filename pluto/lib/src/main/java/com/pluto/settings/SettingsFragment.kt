@@ -24,17 +24,37 @@ import com.pluto.utilities.list.DiffAwareHolder
 import com.pluto.utilities.list.ListItem
 import com.pluto.utilities.viewBinding
 
+/**
+ * Fragment that displays the settings UI as a bottom sheet dialog.
+ *
+ * This fragment presents various Pluto settings options to the user, including:
+ * - Easy access overlay permission
+ * - Easy access popup appearance
+ * - Theme selection (light/dark)
+ * - Grid size configuration
+ * - Reset all settings option
+ */
 internal class SettingsFragment : BottomSheetDialogFragment() {
 
     private val binding by viewBinding(PlutoFragmentSettingsBinding::bind)
     private val settingsAdapter: BaseAdapter by autoClearInitializer { SettingsAdapter(onActionListener) }
     private val viewModel: SettingsViewModel by activityViewModels()
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.pluto___fragment_settings, container, false)
 
+    /**
+     * Returns the theme to be used for this fragment.
+     */
     override fun getTheme(): Int = R.style.PlutoBottomSheetDialogTheme
 
+    /**
+     * Called immediately after onCreateView() has returned, but before any saved state has been restored.
+     * This is where most initialization should go.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.list.apply {
@@ -45,10 +65,17 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
         viewModel.list.observe(viewLifecycleOwner, settingsObserver)
     }
 
+    /**
+     * Observer that updates the settings adapter when the list of settings items changes.
+     */
     private val settingsObserver = Observer<List<ListItem>> {
         settingsAdapter.list = it
     }
 
+    /**
+     * Listener that handles actions performed on settings items.
+     * This includes toggling settings, adjusting values, and triggering the reset operation.
+     */
     private val onActionListener = object : DiffAwareAdapter.OnActionListener {
         override fun onAction(action: String, data: ListItem, holder: DiffAwareHolder) {
             when (data) {
@@ -96,6 +123,9 @@ internal class SettingsFragment : BottomSheetDialogFragment() {
     }
 
     private companion object {
+        /**
+         * Padding value for the divider between settings items in the list.
+         */
         val DECORATOR_DIVIDER_PADDING = 16f.dp.toInt()
     }
 }

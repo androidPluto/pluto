@@ -10,8 +10,22 @@ import com.pluto.utilities.extensions.color
 import com.pluto.utilities.extensions.dp
 import com.pluto.utilities.extensions.dp2px
 
+/**
+ * Class that provides various Paint objects for drawing the ruler components.
+ *
+ * This class encapsulates the different Paint configurations needed for the ruler tool,
+ * including paints for the scale lines, markers, previous scale position, measurements,
+ * and boundary. Each paint is configured with appropriate colors, styles, and effects
+ * based on the current theme setting.
+ *
+ * @param context The context used to access resources and settings
+ */
 internal data class PaintType(val context: Context) {
 
+    /**
+     * Paint for the main scale lines of the ruler.
+     * The color adapts based on the current theme setting.
+     */
     val scale: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(
@@ -26,6 +40,10 @@ internal data class PaintType(val context: Context) {
         }
     }
 
+    /**
+     * Paint for the scale markers (ticks) on the ruler.
+     * These are the small lines that indicate measurement units.
+     */
     val scaleMarker: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(
@@ -40,6 +58,10 @@ internal data class PaintType(val context: Context) {
         }
     }
 
+    /**
+     * Paint for the previous scale position, shown as a dashed line.
+     * This helps users see where the scale was before moving it.
+     */
     val prevScale: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(
@@ -55,6 +77,10 @@ internal data class PaintType(val context: Context) {
         }
     }
 
+    /**
+     * Paint for drawing measurement text and lines.
+     * This is used to display the actual measurement values and the measurement line.
+     */
     val measurement: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(
@@ -72,6 +98,10 @@ internal data class PaintType(val context: Context) {
         }
     }
 
+    /**
+     * Paint for drawing the boundary of the ruler view.
+     * This helps visually define the edges of the ruler area.
+     */
     val boundary: Paint = object : Paint(ANTI_ALIAS_FLAG) {
         init {
             color = context.color(com.pluto.plugin.R.color.pluto___emerald)

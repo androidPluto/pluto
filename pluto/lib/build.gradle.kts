@@ -107,4 +107,12 @@ dependencies {
 
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
+
+    // Test dependencies
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.runner)
 }

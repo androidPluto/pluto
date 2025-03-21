@@ -1,8 +1,13 @@
 [versions]
 
+testCore = "1.6.1"
+coreTesting = "2.2.0"
 java = "1.8"
 
 minSdk = "21"
+mockitoCore = "5.10.0"
+robolectric = "4.11.1"
+runner = "1.6.2"
 targetSdk = "32"
 compileSdk = "34"
 buildTools = "34.0.0"
@@ -43,6 +48,8 @@ androidx-browser = { module = "androidx.browser:browser", version = "1.4.0" }
 androidx-cardview = { module = "androidx.cardview:cardview", version = "1.0.0" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.2" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidXCore" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "testCore" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidXLifecycle" }
 androidx-lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidXLifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycle" }
@@ -51,6 +58,7 @@ androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragme
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
 androidx-preference = { module = "androidx.preference:preference-ktx", version = "1.2.0" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.1" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.1.0" }
 
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
@@ -69,6 +77,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version = "2.7" }
 
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 
@@ -78,6 +87,7 @@ okio = { module = "com.squareup.okio:okio", version = "2.10.0" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 room = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
