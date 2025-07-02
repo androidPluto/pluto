@@ -5,10 +5,10 @@ import io.gitlab.arturbosch.detekt.Detekt
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.dokka)
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.kotlin.parcelize) apply false
+//    id("com.android.library")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.ktlint) apply false
@@ -37,10 +37,10 @@ val installGitHook by tasks.registering(Copy::class) {
     fileMode = "0777".toInt(8)
 }
 
-val clean by tasks.registering(Delete::class) {
-    dependsOn(installGitHook)
-    delete(rootProject.buildDir)
-}
+//val clean by tasks.registering(Delete::class) {
+//    dependsOn(installGitHook)
+//    delete(rootProject.buildDir)
+//}
 
 tasks.withType<Detekt>().configureEach {
     exclude(".*/resources/.*,.*/build/.*")
