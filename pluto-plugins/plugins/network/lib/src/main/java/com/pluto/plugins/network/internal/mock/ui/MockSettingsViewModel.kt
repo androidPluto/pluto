@@ -40,8 +40,8 @@ internal class MockSettingsViewModel(application: Application) : AndroidViewMode
     }
 
     fun update(requestUrl: String, requestMethod: String, mockData: MockData) {
-        if (!URLUtil.isHttpsUrl(mockData.url)) {
-            _event.postValue(Pair(false, "Need https:// URL"))
+        if (!URLUtil.isHttpUrl(mockData.url) && !URLUtil.isHttpsUrl(mockData.url)) {
+            _event.postValue(Pair(false, "URL must start with http:// or https://"))
             return
         }
         if (mockData.url.length < URL_MIN_LENGTH) { // length of https://
