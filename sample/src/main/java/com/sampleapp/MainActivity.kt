@@ -2,7 +2,11 @@ package com.sampleapp
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.google.android.material.chip.Chip
 import com.pluto.Pluto
 import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
@@ -15,8 +19,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val actionsViewInitialPaddingBottom = binding.actionsView.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.appBar.updatePadding(top = insets.top)
+            binding.actionsView.updatePadding(bottom = actionsViewInitialPaddingBottom + insets.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
 
         binding.version.text =
             String.format(getString(R.string.version_label), BuildConfig.VERSION_NAME)

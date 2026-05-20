@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.core.view.doOnLayout
 import com.pluto.plugins.layoutinspector.internal.inspect.canvas.CaptureCanvas
 import com.pluto.plugins.layoutinspector.internal.inspect.canvas.DimensionCanvas
 import com.pluto.plugins.layoutinspector.internal.inspect.canvas.GridCanvas
@@ -62,7 +63,15 @@ internal class InspectOverlay : View {
     }
 
     fun tryGetFrontView(targetActivity: Activity) {
-        traverse(targetActivity.getFrontView())
+        // Defer the view traversal until after this overlay has completed its own layout
+        // pass so that getLocationOnScreen() (called inside InspectedView.reset()) returns
+        // the correct screen position, not [0, 0].  doOnLayout fires synchronously when the
+        // view is already laid out, or on the next layout pass otherwise – covering both the
+        // "first launch" and "navigate-back" cases.
+        doOnLayout {
+            traverse(targetActivity.getFrontView())
+            invalidate()
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -241,7 +250,9 @@ internal class InspectOverlay : View {
 
     private fun traverse(view: View) {
         if (view.alpha == 0f || view.visibility != VISIBLE) return
-        inspectedViews.add(InspectedView(view))
+        // Pass 'this' so InspectedView can dynamically compute the overlay's screen offset
+        // inside each reset() call, keeping all rects in overlay-local coordinates.
+        inspectedViews.add(InspectedView(view, this))
         if (view is ViewGroup) {
             view.children.forEach {
                 traverse(it)

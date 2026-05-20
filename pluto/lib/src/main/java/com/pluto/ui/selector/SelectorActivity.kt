@@ -8,9 +8,13 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.AnimRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -54,9 +58,20 @@ class SelectorActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = PlutoActivityPluginSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         overridePendingTransition(R.anim.pluto___slide_in_bottom, R.anim.pluto___slide_out_bottom)
+        val rootInitialPaddingTop = binding.root.paddingTop
+        val rootInitialPaddingBottom = binding.root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updatePadding(
+                top = rootInitialPaddingTop + insets.top,
+                bottom = rootInitialPaddingBottom + insets.bottom
+            )
+            WindowInsetsCompat.CONSUMED
+        }
         selectorUtils = SelectorUtils(this)
 
         binding.list.apply {
@@ -90,6 +105,10 @@ class SelectorActivity : FragmentActivity() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(MavenSession.releaseUrl)))
         }
 
+        setupObservers()
+    }
+
+    private fun setupObservers() {
         Pluto.appStateCallback.state.removeObserver(appStateListener)
         Pluto.appStateCallback.state.observe(this, appStateListener)
 

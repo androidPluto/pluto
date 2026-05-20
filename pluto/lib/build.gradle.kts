@@ -96,6 +96,7 @@ mavenPublishing {
 dependencies {
     api(project(":pluto-plugins:base:lib"))
 
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
 

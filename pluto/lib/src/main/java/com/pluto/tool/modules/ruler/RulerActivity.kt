@@ -3,7 +3,11 @@ package com.pluto.tool.modules.ruler
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.pluto.R
 import com.pluto.databinding.PlutoToolRulerActivityBinding
 import com.pluto.tool.modules.ruler.internal.ControlsWidget
@@ -28,8 +32,21 @@ class RulerActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = PlutoToolRulerActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val controlsInitialTopMargin =
+            (binding.leftControls.layoutParams as? ConstraintLayout.LayoutParams)?.topMargin ?: 0
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            listOf(binding.leftControls, binding.rightControls).forEach { controls ->
+                (controls.layoutParams as? ConstraintLayout.LayoutParams)?.let { params ->
+                    params.topMargin = controlsInitialTopMargin + insets.top
+                    controls.layoutParams = params
+                }
+            }
+            WindowInsetsCompat.CONSUMED
+        }
 
         // Add the ruler fragment to the container
         supportFragmentManager.beginTransaction().apply {
