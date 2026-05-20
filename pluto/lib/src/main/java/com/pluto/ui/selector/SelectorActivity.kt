@@ -8,9 +8,9 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.AnimRes
-import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -105,6 +105,10 @@ class SelectorActivity : FragmentActivity() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(MavenSession.releaseUrl)))
         }
 
+        setupObservers()
+    }
+
+    private fun setupObservers() {
         Pluto.appStateCallback.state.removeObserver(appStateListener)
         Pluto.appStateCallback.state.observe(this, appStateListener)
 
