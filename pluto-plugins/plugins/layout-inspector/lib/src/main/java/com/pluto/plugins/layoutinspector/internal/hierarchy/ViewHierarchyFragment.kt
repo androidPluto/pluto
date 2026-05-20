@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -49,8 +53,21 @@ internal class ViewHierarchyFragment : DialogFragment() {
 
     override fun getTheme(): Int = R.style.PlutoLIFullScreenDialogStyle
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.let { WindowCompat.setDecorFitsSystemWindows(it, false) }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val appBarContentInitialPaddingTop = binding.appBarContent.paddingTop
+        val listInitialPaddingBottom = binding.list.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.appBarContent.updatePadding(top = appBarContentInitialPaddingTop + insets.top)
+            binding.list.updatePadding(bottom = listInitialPaddingBottom + insets.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
         onBackPressed { findNavController().navigateUp() }
         binding.close.setOnDebounceClickListener {
             findNavController().navigateUp()
