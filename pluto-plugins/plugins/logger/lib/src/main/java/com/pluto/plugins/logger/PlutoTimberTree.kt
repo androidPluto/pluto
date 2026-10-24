@@ -9,14 +9,29 @@ import com.squareup.moshi.Types
 import java.math.BigDecimal
 import timber.log.Timber
 
-class PlutoTimberTree : Timber.Tree() {
+class PlutoTimberTree @JvmOverloads constructor(
+    private val printToConsole: Boolean = true
+) : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority == LOG_EVENT_PRIORITY) {
             val eventData = eventExtractor(message)
-            LogsProcessor.processEvent(tag ?: "pluto_timber", eventData.first, eventData.second, Thread.currentThread().getStackTraceElement())
+            LogsProcessor.processEvent(
+                tag ?: "pluto_timber",
+                eventData.first,
+                eventData.second,
+                Thread.currentThread().getStackTraceElement(),
+                printToConsole = printToConsole
+            )
         } else {
-            LogsProcessor.process(priority, tag ?: "pluto_timber", messageExtractor(message), t, Thread.currentThread().getStackTraceElement())
+            LogsProcessor.process(
+                priority,
+                tag ?: "pluto_timber",
+                messageExtractor(message),
+                t,
+                Thread.currentThread().getStackTraceElement(),
+                printToConsole = printToConsole
+            )
         }
     }
 

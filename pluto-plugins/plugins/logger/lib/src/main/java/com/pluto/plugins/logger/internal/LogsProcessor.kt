@@ -12,18 +12,35 @@ internal class LogsProcessor private constructor() {
 
     companion object {
 
-        fun process(priority: Int, tag: String, message: String, tr: Throwable?, stackTraceElement: StackTraceElement) {
+        fun process(
+            priority: Int,
+            tag: String,
+            message: String,
+            tr: Throwable?,
+            stackTraceElement: StackTraceElement,
+            printToConsole: Boolean = true
+        ) {
             val stackTrace = stackTraceElement.stackTrace()
             LogDBHandler.persistLog(priority2Level(priority), tag, message, tr, stackTrace)
-            consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
+            printToConsoleIfEnabled(printToConsole) {
+                consolePrint(priority2Level(priority), tag, message, tr, stackTrace)
+            }
         }
 
-        fun processEvent(tag: String, event: String, attr: HashMap<String, Any?>?, stackTraceElement: StackTraceElement) {
+        fun processEvent(
+            tag: String,
+            event: String,
+            attr: HashMap<String, Any?>?,
+            stackTraceElement: StackTraceElement,
+            printToConsole: Boolean = true
+        ) {
             val moshi = Moshi.Builder().build()
             val moshiAdapter: JsonAdapter<Map<String, Any?>?> = moshi.adapter(Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java))
             val stackTrace = stackTraceElement.stackTrace()
             LogDBHandler.persistEvent(Level.Event, tag, event, attr, stackTrace)
-            consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
+            printToConsoleIfEnabled(printToConsole) {
+                consolePrint(Level.Event, tag, "$event => ${moshiAdapter.toJson(attr)}", null, stackTrace)
+            }
         }
 
         @SuppressWarnings("ComplexCondition")
@@ -55,6 +72,10 @@ internal class LogsProcessor private constructor() {
                 LOG_EVENT_PRIORITY -> Level.Event
                 else -> Level.Debug
             }
+        }
+
+        internal inline fun printToConsoleIfEnabled(enabled: Boolean, print: () -> Unit) {
+            if (enabled) print()
         }
 
         private fun consolePrint(level: Level, tag: String, message: String, tr: Throwable?, trace: StackTrace) {

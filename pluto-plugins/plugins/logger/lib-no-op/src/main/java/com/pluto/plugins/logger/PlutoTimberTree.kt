@@ -2,7 +2,9 @@ package com.pluto.plugins.logger
 
 import timber.log.Timber
 
-class PlutoTimberTree : Timber.Tree() {
+class PlutoTimberTree @JvmOverloads constructor(
+    @Suppress("UNUSED_PARAMETER") printToConsole: Boolean = true
+) : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {}
 }
