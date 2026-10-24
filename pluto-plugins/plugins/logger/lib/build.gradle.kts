@@ -104,4 +104,6 @@ dependencies {
 
     implementation(libs.room)
     ksp(libs.room.compiler)
+
+    testImplementation(libs.junit)
 }

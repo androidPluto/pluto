@@ -50,6 +50,11 @@ Install Pluto as a Tree for Timber:
 Timber.plant(PlutoTimberTree());
 ```
 
+Console output is enabled by default. To keep these logs in Pluto without duplicating them in Logcat, disable console output when planting the tree:
+```kotlin
+Timber.plant(PlutoTimberTree(printToConsole = false))
+```
+
 But if you are connected to Logcat, PlutoLogs behave similar to Log class, with an improvement to tag the method and file name also. In Logcat, PlutoLogs will look like the following.
 ```
 D/onClick(MainActivity.kt:40) | debug_log: button clicked
